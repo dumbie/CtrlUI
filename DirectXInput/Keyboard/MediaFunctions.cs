@@ -11,9 +11,9 @@ using Windows.Storage.Streams;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
 
@@ -108,7 +108,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                int volumeStep = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
+                int volumeStep = SettingLoad(vConfigurationDirectXInput, "MediaVolumeStep", typeof(int));
                 int newVolume = AudioVolumeDown(volumeStep, false);
                 App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreased volume to " + newVolume);
             }
@@ -120,7 +120,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                int volumeStep = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
+                int volumeStep = SettingLoad(vConfigurationDirectXInput, "MediaVolumeStep", typeof(int));
                 int newVolume = AudioVolumeUp(volumeStep, false);
                 App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
             }
@@ -151,7 +151,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 //Check the current keyboard mode
-                KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
+                KeyboardMode keyboardMode = (KeyboardMode)SettingLoad(vConfigurationDirectXInput, "KeyboardMode", typeof(int));
                 if (keyboardMode != KeyboardMode.Media)
                 {
                     //Debug.WriteLine("Keyboard is not in media mode, no update needed.");

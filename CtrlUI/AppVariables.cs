@@ -14,9 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVSearch;
+using static ArnoldVinkCode.AVSettings;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -26,8 +26,8 @@ namespace CtrlUI
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static CultureInfo vAppCultureInfo = CultureInfo.InvariantCulture;
         public static Assembly vAppAssembly = Assembly.GetExecutingAssembly();
-        public static Configuration vConfigurationCtrlUI = Settings_Load_CtrlUI();
-        public static Configuration vConfigurationDirectXInput = Settings_Load_DirectXInput();
+        public static Configuration vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
+        public static Configuration vConfigurationDirectXInput = SettingLoadConfig("DirectXInput.exe.csettings");
 
         //Api Variables
         public static string vApiIGDBClientID = "pf1397qtj00w9z55vmwbp7lzf557ja"; //Yes, I know I didn't remove the api key.

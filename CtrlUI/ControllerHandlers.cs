@@ -8,10 +8,10 @@ using System.Windows.Input;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -88,7 +88,7 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonY.PressedRaw)
                     {
                         Debug.WriteLine("Button: YPressed");
-                        ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                        ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
 
                         if (vTextInputOpen)
                         {
@@ -132,7 +132,7 @@ namespace CtrlUI
                             }
                             else if (!Popup_Open_Any())
                             {
-                                ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                                ListCategory listCategorySetting = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
                                 ListCategory listCategorySwitch = (ListCategory)PreviousCategoryWithItems(listCategorySetting, true);
                                 await ChangeCategoryListBox(listCategorySwitch, false);
                             }
@@ -153,7 +153,7 @@ namespace CtrlUI
                             }
                             else if (!Popup_Open_Any())
                             {
-                                ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                                ListCategory listCategorySetting = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
                                 ListCategory listCategorySwitch = (ListCategory)NextCategoryWithItems(listCategorySetting, true);
                                 await ChangeCategoryListBox(listCategorySwitch, false);
                             }

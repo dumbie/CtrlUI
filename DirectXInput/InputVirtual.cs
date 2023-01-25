@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -40,7 +40,7 @@ namespace DirectXInput
                     if (Controller.BatteryCurrent.BatteryStatus != BatteryStatus.Charging && CheckControllerIdle(Controller))
                     {
                         long idleTimeMs = currentTimeMs - Controller.LastActiveTicks;
-                        int targetTimeMs = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin")) * 60000;
+                        int targetTimeMs = SettingLoad(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", typeof(int)) * 60000;
                         if (targetTimeMs > 0 && idleTimeMs > targetTimeMs)
                         {
                             Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTimeMs + "/" + targetTimeMs + "ms");
@@ -84,7 +84,7 @@ namespace DirectXInput
                 }
 
                 //Check if guide button needs to be blocked
-                if (Controller.InputCurrent.ButtonGuide.PressedRaw && Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide")))
+                if (Controller.InputCurrent.ButtonGuide.PressedRaw && SettingLoad(vConfigurationDirectXInput, "ExclusiveGuide", typeof(bool)))
                 {
                     Controller.InputCurrent.ButtonGuide.PressedRaw = false;
                 }

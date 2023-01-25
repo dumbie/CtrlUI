@@ -1,8 +1,7 @@
-﻿using System;
-using static ArnoldVinkCode.AVDisplayMonitor;
+﻿using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInputOutputInterop;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -14,7 +13,7 @@ namespace CtrlUI
             try
             {
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
                 DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                 //Calculate target mouse position

@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
@@ -9,10 +8,10 @@ using System.Windows;
 using System.Windows.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -65,25 +64,25 @@ namespace DirectXInput
                         Debug.WriteLine("Received socket string: " + receivedString);
                         if (receivedString == "SettingChangedColorAccentLight")
                         {
-                            vConfigurationCtrlUI = Settings_Load_CtrlUI();
+                            vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
 
                             //Change application accent color
-                            string colorLightHex = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ColorAccentLight"));
+                            string colorLightHex = SettingLoad(vConfigurationCtrlUI, "ColorAccentLight", typeof(string));
                             ChangeApplicationAccentColor(colorLightHex);
                             vApplicationAccentLightBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
                         }
                         else if (receivedString == "SettingChangedInterfaceSoundPackName")
                         {
-                            vConfigurationCtrlUI = Settings_Load_CtrlUI();
+                            vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
                         }
                         else if (receivedString == "SettingChangedInterfaceClockStyleName")
                         {
-                            vConfigurationCtrlUI = Settings_Load_CtrlUI();
+                            vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
                             App.vWindowKeyboard.UpdateClockStyle();
                         }
                         else if (receivedString == "SettingChangedDisplayMonitor")
                         {
-                            vConfigurationCtrlUI = Settings_Load_CtrlUI();
+                            vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
                             App.vWindowOverlay.UpdateWindowPosition();
                             App.vWindowKeyboard.UpdateWindowPosition();
                             App.vWindowKeypad.UpdateWindowPosition();

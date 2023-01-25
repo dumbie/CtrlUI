@@ -6,12 +6,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.AVColors;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.FocusFunctions;
-using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
 
@@ -264,7 +264,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
+                KeyboardMode keyboardMode = (KeyboardMode)SettingLoad(vConfigurationDirectXInput, "KeyboardMode", typeof(int));
                 if (keyboardMode == KeyboardMode.Media)
                 {
                     await SetModeMedia();
@@ -282,7 +282,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
+                KeyboardMode keyboardMode = (KeyboardMode)SettingLoad(vConfigurationDirectXInput, "KeyboardMode", typeof(int));
                 if (keyboardMode == KeyboardMode.Media)
                 {
                     await SetModeKeyboard();
@@ -343,7 +343,7 @@ namespace DirectXInput.KeyboardCode
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Update settings
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Keyboard).ToString());
+                    SettingSave(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Keyboard).ToString());
                 });
             }
             catch { }
@@ -394,7 +394,7 @@ namespace DirectXInput.KeyboardCode
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Update settings
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Media).ToString());
+                    SettingSave(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Media).ToString());
                 });
             }
             catch { }

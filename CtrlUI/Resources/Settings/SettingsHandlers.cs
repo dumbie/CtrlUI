@@ -12,10 +12,10 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.FocusFunctions;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -235,7 +235,7 @@ namespace CtrlUI
                     await Notification_Send_Status("Font", "Font style changed");
 
                     //Update the setting
-                    Setting_Save(vConfigurationCtrlUI, "InterfaceFontStyleName", messageResult.Name);
+                    SettingSave(vConfigurationCtrlUI, "InterfaceFontStyleName", messageResult.Name);
 
                     //Adjust the application font family
                     UpdateAppFontStyle();
@@ -275,7 +275,7 @@ namespace CtrlUI
                     await Notification_Send_Status("Clock", "Clock style changed");
 
                     //Update the setting
-                    Setting_Save(vConfigurationCtrlUI, "InterfaceClockStyleName", messageResult.Name);
+                    SettingSave(vConfigurationCtrlUI, "InterfaceClockStyleName", messageResult.Name);
 
                     //Update the clock style
                     UpdateClockStyle();
@@ -322,7 +322,7 @@ namespace CtrlUI
                     await Notification_Send_Status("VolumeUp", "Sound pack changed");
 
                     //Update the setting
-                    Setting_Save(vConfigurationCtrlUI, "InterfaceSoundPackName", messageResult.Name);
+                    SettingSave(vConfigurationCtrlUI, "InterfaceSoundPackName", messageResult.Name);
 
                     //Notify applications setting changed
                     await NotifyDirectXInputSettingChanged("InterfaceSoundPackName");

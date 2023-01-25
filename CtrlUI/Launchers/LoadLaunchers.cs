@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -40,55 +40,55 @@ namespace CtrlUI
                 vLauncherAppAvailableCheck.Clear();
 
                 //Scan and add library from Steam
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibrarySteam")))
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibrarySteam", typeof(bool)))
                 {
                     await SteamScanAddLibrary();
                 }
 
                 //Scan and add library from EA Desktop
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEADesktop")))
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryEADesktop", typeof(bool)))
                 {
                     await EADesktopScanAddLibrary();
                 }
 
                 //Scan and add library from Epic
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEpic")))
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryEpic", typeof(bool)))
                 {
                     await EpicScanAddLibrary();
                 }
 
                 //Scan and add library from Ubisoft
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUbisoft")))
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryUbisoft", typeof(bool)))
                 {
                     await UbisoftScanAddLibrary();
                 }
 
                 //Scan and add library from GoG
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryGoG")))
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryGoG", typeof(bool)))
                 {
                     await GoGScanAddLibrary();
                 }
 
                 //Scan and add library from Battle.net
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryBattleNet")))
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryBattleNet", typeof(bool)))
                 {
                     await BattleNetScanAddLibrary();
                 }
 
                 //Scan and add library from Rockstar
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryRockstar")))
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryRockstar", typeof(bool)))
                 {
                     await RockstarScanAddLibrary();
                 }
 
                 //Scan and add library from Amazon
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryAmazon")))
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryAmazon", typeof(bool)))
                 {
                     await AmazonScanAddLibrary();
                 }
 
                 //Scan and add library from UWP games
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUwp")))
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryUwp", typeof(bool)))
                 {
                     await UwpScanAddLibrary();
                 }

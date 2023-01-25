@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput
@@ -46,7 +46,7 @@ namespace DirectXInput
                     //Show or launch CtrlUI application
                     else if (Controller.InputCurrent.ButtonGuide.PressedShort)
                     {
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI")))
+                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", typeof(bool)))
                         {
                             Debug.WriteLine("Shortcut show or hide CtrlUI has been pressed.");
                             await ProcessFunctions.LaunchShowCtrlUI();
@@ -80,7 +80,7 @@ namespace DirectXInput
                     //Mute or unmute the input/microphone
                     else if (Controller.InputCurrent.ButtonMedia.PressedRaw)
                     {
-                        int muteFunction = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction"));
+                        int muteFunction = SettingLoad(vConfigurationDirectXInput, "ShortcutMuteFunction", typeof(int));
                         if (muteFunction == 0)
                         {
                             if (AudioMuteSwitch(true))
@@ -110,7 +110,7 @@ namespace DirectXInput
                     //Press Alt+Enter
                     else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderRight.PressedRaw)
                     {
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter")))
+                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutAltEnter", typeof(bool)))
                         {
                             Debug.WriteLine("Button Global - Alt+Enter");
 
@@ -128,7 +128,7 @@ namespace DirectXInput
                     //Press Alt+Tab
                     else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderLeft.PressedRaw)
                     {
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab")))
+                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutAltTab", typeof(bool)))
                         {
                             Debug.WriteLine("Button Global - Alt+Tab");
 
@@ -146,7 +146,7 @@ namespace DirectXInput
                     //Make screenshot
                     else if (Controller.InputCurrent.ButtonTouchpad.PressedRaw)
                     {
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotController")))
+                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutScreenshotController", typeof(bool)))
                         {
                             Debug.WriteLine("Button Global - Screenshot");
                             await CaptureScreen.CaptureScreenToFile();
@@ -158,7 +158,7 @@ namespace DirectXInput
                     //Disconnect controller from Bluetooth
                     else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonGuide.PressedRaw && Controller.Details.Wireless)
                     {
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth")))
+                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth", typeof(bool)))
                         {
                             Debug.WriteLine("Shortcut disconnect Bluetooth has been pressed.");
                             await StopController(Controller, "manually", string.Empty);
@@ -170,7 +170,7 @@ namespace DirectXInput
                     //Press ctrl + alt + delete
                     else if (Controller.InputCurrent.ButtonBack.PressedRaw && Controller.InputCurrent.ButtonGuide.PressedRaw)
                     {
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutCtrlAltDelete")))
+                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", typeof(bool)))
                         {
                             Debug.WriteLine("Shortcut ctrl + alt + delete pressed.");
 
@@ -232,7 +232,7 @@ namespace DirectXInput
                 {
                     if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
                     {
-                        if (forceShow || Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup")))
+                        if (forceShow || SettingLoad(vConfigurationDirectXInput, "ShortcutKeyboardPopup", typeof(bool)))
                         {
                             await App.vWindowKeypad.Show();
                         }
@@ -257,7 +257,7 @@ namespace DirectXInput
                 {
                     if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
                     {
-                        if (forceShow || Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup")))
+                        if (forceShow || SettingLoad(vConfigurationDirectXInput, "ShortcutKeyboardPopup", typeof(bool)))
                         {
                             await App.vWindowKeyboard.Show(forceKeyboardMode, forceKeyboardMode);
                         }

@@ -12,10 +12,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Windows.Media.Control;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -23,8 +23,8 @@ namespace DirectXInput
     {
         //Application Variables
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        public static Configuration vConfigurationCtrlUI = Settings_Load_CtrlUI();
-        public static Configuration vConfigurationDirectXInput = Settings_Load_DirectXInput();
+        public static Configuration vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
+        public static Configuration vConfigurationDirectXInput = SettingLoadConfig("DirectXInput.exe.csettings");
 
         //Image Variables
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";

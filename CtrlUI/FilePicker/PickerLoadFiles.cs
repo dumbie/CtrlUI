@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -135,7 +135,7 @@ namespace CtrlUI
                                 //Add folder to the list
                                 bool systemFileFolder = listFolder.Attributes.HasFlag(FileAttributes.System);
                                 bool hiddenFileFolder = listFolder.Attributes.HasFlag(FileAttributes.Hidden);
-                                if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders"))))
+                                if (!systemFileFolder && (!hiddenFileFolder || SettingLoad(vConfigurationCtrlUI, "ShowHiddenFilesFolders", typeof(bool))))
                                 {
                                     DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, ClipboardType = clipboardType, Name = listFolder.Name, NameDetail = folderDetailed, DateModified = listFolder.LastWriteTime, PathFile = listFolder.FullName, PathRoot = targetPath };
                                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
@@ -197,7 +197,7 @@ namespace CtrlUI
                                 //Add file to the list
                                 bool systemFileFolder = listFile.Attributes.HasFlag(FileAttributes.System);
                                 bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
-                                if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders"))))
+                                if (!systemFileFolder && (!hiddenFileFolder || SettingLoad(vConfigurationCtrlUI, "ShowHiddenFilesFolders", typeof(bool))))
                                 {
                                     FileType fileType = FileType.File;
                                     string fileExtension = listFile.Extension;

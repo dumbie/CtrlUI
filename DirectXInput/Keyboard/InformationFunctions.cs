@@ -4,9 +4,9 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVSettings;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace DirectXInput.KeyboardCode
 {
@@ -19,7 +19,7 @@ namespace DirectXInput.KeyboardCode
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    string clockStyle = Setting_Load(AppVariables.vConfigurationCtrlUI, "InterfaceClockStyleName").ToString();
+                    string clockStyle = SettingLoad(AppVariables.vConfigurationCtrlUI, "InterfaceClockStyleName", typeof(string));
                     string clockPath = "Assets/Default/Clocks/" + clockStyle;
                     if (Directory.Exists("Assets/User/Clocks/" + clockStyle))
                     {

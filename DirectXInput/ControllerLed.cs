@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -22,8 +22,8 @@ namespace DirectXInput
                 }
 
                 //Load battery settings
-                bool batteryBlinkLedSetting = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowBlinkLed"));
-                int batteryLowLevelSetting = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "BatteryLowLevel"));
+                bool batteryBlinkLedSetting = SettingLoad(vConfigurationDirectXInput, "BatteryLowBlinkLed", typeof(bool));
+                int batteryLowLevelSetting = SettingLoad(vConfigurationDirectXInput, "BatteryLowLevel", typeof(int));
 
                 //Check led battery blink and if battery is low
                 if (batteryBlinkLedSetting)

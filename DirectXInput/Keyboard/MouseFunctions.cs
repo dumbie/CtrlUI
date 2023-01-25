@@ -1,10 +1,9 @@
-﻿using System;
-using static ArnoldVinkCode.AVDisplayMonitor;
+﻿using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInputOutputInterop;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
-using static LibraryShared.Settings;
 
 namespace DirectXInput.KeyboardCode
 {
@@ -26,7 +25,7 @@ namespace DirectXInput.KeyboardCode
                 int moveBottom = positionRect.Bottom + mouseVertical;
 
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
                 DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                 //Get the current window size
@@ -56,7 +55,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
                 DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                 //Calculate target mouse position

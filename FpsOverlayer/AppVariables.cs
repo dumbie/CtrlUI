@@ -8,18 +8,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVTaskbarInformation;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
     public class AppVariables
     {
         //Application Variables
-        public static Configuration vConfigurationCtrlUI = Settings_Load_CtrlUI();
-        public static Configuration vConfigurationFpsOverlayer = Settings_Load_FpsOverlayer();
+        public static Configuration vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
+        public static Configuration vConfigurationFpsOverlayer = SettingLoadConfig("FpsOverlayer.exe.csettings");
         public static ProcessMulti vTargetProcess = new ProcessMulti();
         public static bool vManualHidden = false;
 

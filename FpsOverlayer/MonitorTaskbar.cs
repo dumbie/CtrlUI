@@ -1,13 +1,12 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVTaskbarInformation;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
-using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -32,7 +31,7 @@ namespace FpsOverlayer
                     try
                     {
                         //Check taskbar setting
-                        if (!Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CheckTaskbarVisible")))
+                        if (!SettingLoad(vConfigurationFpsOverlayer, "CheckTaskbarVisible", typeof(bool)))
                         {
                             vTaskBarAdjustMargin = 0;
                             continue;
@@ -46,7 +45,7 @@ namespace FpsOverlayer
                         if (taskbarInfo.IsAutoHide && taskbarInfo.IsVisible)
                         {
                             //Get the current active screen
-                            int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                            int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
                             DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                             //Get the current taskbar size

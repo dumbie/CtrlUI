@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -54,7 +54,7 @@ namespace CtrlUI
                     //Save the new accent color
                     SolidColorBrush selectedSolidColorBrush = (SolidColorBrush)lb_ColorPicker.SelectedItem;
                     string colorLightHex = selectedSolidColorBrush.ToString();
-                    Setting_Save(vConfigurationCtrlUI, "ColorAccentLight", colorLightHex);
+                    SettingSave(vConfigurationCtrlUI, "ColorAccentLight", colorLightHex);
 
                     //Change application accent color
                     ChangeApplicationAccentColor(colorLightHex);

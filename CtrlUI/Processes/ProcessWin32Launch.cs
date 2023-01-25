@@ -5,11 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -47,12 +47,12 @@ namespace CtrlUI
                 if (vCtrlChromiumBrowsers.Any(x => x.String1 == processName))
                 {
                     //Get the current active screen
-                    int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                    int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
                     DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                     //Get the current screen dpi
                     double screenDPI = displayMonitorSettings.DpiScaleHorizontal;
-                    double chromiumDPI = Convert.ToDouble(Setting_Load(vConfigurationCtrlUI, "AdjustChromiumDpi"));
+                    double chromiumDPI = SettingLoad(vConfigurationCtrlUI, "AdjustChromiumDpi", typeof(double));
 
                     //Update the launch argument
                     string stringDPI = (screenDPI + chromiumDPI).ToString(vAppCultureInfo);

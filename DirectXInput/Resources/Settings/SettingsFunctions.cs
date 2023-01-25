@@ -2,8 +2,8 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
-using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -30,7 +30,7 @@ namespace DirectXInput
                     if (!string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
                     {
                         Debug.WriteLine("Screenshot location selected: " + folderBrowserDialog.SelectedPath);
-                        Setting_Save(vConfigurationDirectXInput, "ScreenshotLocation", folderBrowserDialog.SelectedPath);
+                        SettingSave(vConfigurationDirectXInput, "ScreenshotLocation", folderBrowserDialog.SelectedPath);
                         textblock_Settings_ScreenshotLocation.Text = textblock_Settings_ScreenshotLocation.Tag + folderBrowserDialog.SelectedPath;
                     }
                 }
@@ -44,7 +44,7 @@ namespace DirectXInput
             try
             {
                 //Check screenshot location
-                string screenshotSaveFolder = Setting_Load(vConfigurationDirectXInput, "ScreenshotLocation").ToString();
+                string screenshotSaveFolder = SettingLoad(vConfigurationDirectXInput, "ScreenshotLocation", typeof(string));
                 if (!Directory.Exists(screenshotSaveFolder))
                 {
                     //Check screenshots folder in app directory

@@ -3,8 +3,8 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
-using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput
@@ -19,7 +19,7 @@ namespace DirectXInput
             {
                 //Screen capture settings
                 CaptureSettings vCaptureSettings = new CaptureSettings();
-                vCaptureSettings.HDRtoSDR = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ScreenshotHDRtoSDR"));
+                vCaptureSettings.HDRtoSDR = SettingLoad(vConfigurationDirectXInput, "ScreenshotHDRtoSDR", typeof(bool));
 
                 //Initialize screen capture
                 if (!CaptureImport.CaptureInitialize(vCaptureSettings, out CaptureDetails vCaptureDetails))
@@ -75,7 +75,7 @@ namespace DirectXInput
                 imageSaveName = "\\Screenshot " + CaptureFunctions.FileNameReplaceInvalidChars(imageSaveName);
 
                 //Check screenshot location
-                string screenshotSaveFolder = Setting_Load(vConfigurationDirectXInput, "ScreenshotLocation").ToString();
+                string screenshotSaveFolder = SettingLoad(vConfigurationDirectXInput, "ScreenshotLocation", typeof(string));
                 if (!Directory.Exists(screenshotSaveFolder))
                 {
                     //Check screenshots folder in app directory

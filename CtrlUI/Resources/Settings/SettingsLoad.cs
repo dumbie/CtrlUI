@@ -5,8 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -17,55 +17,56 @@ namespace CtrlUI
         {
             try
             {
-                cb_SettingsLaunchMinimized.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized"));
+                cb_SettingsLaunchMinimized.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchMinimized", typeof(bool));
 
-                cb_SettingsShowLibrarySteam.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibrarySteam"));
-                cb_SettingsShowLibraryEADesktop.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEADesktop"));
-                cb_SettingsShowLibraryEpic.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEpic"));
-                cb_SettingsShowLibraryUbisoft.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUbisoft"));
-                cb_SettingsShowLibraryGoG.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryGoG"));
-                cb_SettingsShowLibraryBattleNet.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryBattleNet"));
-                cb_SettingsShowLibraryRockstar.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryRockstar"));
-                cb_SettingsShowLibraryAmazon.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryAmazon"));
-                cb_SettingsShowLibraryUwp.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUwp"));
+                cb_SettingsShowLibrarySteam.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibrarySteam", typeof(bool));
+                cb_SettingsShowLibraryEADesktop.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryEADesktop", typeof(bool));
+                cb_SettingsShowLibraryEpic.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryEpic", typeof(bool));
+                cb_SettingsShowLibraryUbisoft.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryUbisoft", typeof(bool));
+                cb_SettingsShowLibraryGoG.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryGoG", typeof(bool));
+                cb_SettingsShowLibraryBattleNet.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryBattleNet", typeof(bool));
+                cb_SettingsShowLibraryRockstar.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryRockstar", typeof(bool));
+                cb_SettingsShowLibraryAmazon.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryAmazon", typeof(bool));
+                cb_SettingsShowLibraryUwp.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryUwp", typeof(bool));
 
-                cb_SettingsHideBatteryLevel.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideBatteryLevel"));
-                cb_SettingsHideControllerHelp.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideControllerHelp"));
+                cb_SettingsHideBatteryLevel.IsChecked = SettingLoad(vConfigurationCtrlUI, "HideBatteryLevel", typeof(bool));
+                cb_SettingsHideControllerHelp.IsChecked = SettingLoad(vConfigurationCtrlUI, "HideControllerHelp", typeof(bool));
 
-                cb_SettingsShowHiddenFilesFolders.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders"));
-                cb_SettingsHideNetworkDrives.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideNetworkDrives"));
-                cb_SettingsNotReadyNetworkDrives.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "NotReadyNetworkDrives"));
+                cb_SettingsShowHiddenFilesFolders.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowHiddenFilesFolders", typeof(bool));
+                cb_SettingsHideNetworkDrives.IsChecked = SettingLoad(vConfigurationCtrlUI, "HideNetworkDrives", typeof(bool));
+                cb_SettingsNotReadyNetworkDrives.IsChecked = SettingLoad(vConfigurationCtrlUI, "NotReadyNetworkDrives", typeof(bool));
 
-                cb_SettingsInterfaceSound.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "InterfaceSound"));
-                cb_SettingsLaunchFpsOverlayer.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFpsOverlayer"));
-                cb_SettingsLaunchDirectXInput.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchDirectXInput"));
+                cb_SettingsInterfaceSound.IsChecked = SettingLoad(vConfigurationCtrlUI, "InterfaceSound", typeof(bool));
+                cb_SettingsLaunchFpsOverlayer.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchFpsOverlayer", typeof(bool));
+                cb_SettingsLaunchDirectXInput.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchDirectXInput", typeof(bool));
 
                 //Load the socket used ports
-                txt_SettingsSocketClientPortStart.Text = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ServerPort"));
-                txt_SettingsSocketClientPortRange.Text = Convert.ToString(Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort")) + 2);
+                int serverPortRange = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(int)) + 2;
+                txt_SettingsSocketClientPortStart.Text = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(string));
+                txt_SettingsSocketClientPortRange.Text = Convert.ToString(serverPortRange);
 
                 //Load the application font size
-                textblock_SettingsFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "AppFontSize"));
-                slider_SettingsFontSize.Value = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "AppFontSize"));
+                textblock_SettingsFontSize.Text = "Adjust the application font size: " + SettingLoad(vConfigurationCtrlUI, "AppFontSize", typeof(string));
+                slider_SettingsFontSize.Value = SettingLoad(vConfigurationCtrlUI, "AppFontSize", typeof(double));
 
-                textblock_SettingsAppWindowSize.Text = textblock_SettingsAppWindowSize.Tag + ": " + Setting_Load(vConfigurationCtrlUI, "AppWindowSize").ToString() + "%";
-                slider_SettingsAppWindowSize.Value = Convert.ToDouble(Setting_Load(vConfigurationCtrlUI, "AppWindowSize"));
+                textblock_SettingsAppWindowSize.Text = textblock_SettingsAppWindowSize.Tag + ": " + SettingLoad(vConfigurationCtrlUI, "AppWindowSize", typeof(string)) + "%";
+                slider_SettingsAppWindowSize.Value = SettingLoad(vConfigurationCtrlUI, "AppWindowSize", typeof(double));
 
                 //Load the display monitor
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
                 textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + monitorNumber;
                 slider_SettingsDisplayMonitor.Value = monitorNumber;
                 slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count();
 
                 //Load display settings
-                cb_SettingsMonitorPreventSleep.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MonitorPreventSleep"));
+                cb_SettingsMonitorPreventSleep.IsChecked = SettingLoad(vConfigurationCtrlUI, "MonitorPreventSleep", typeof(bool));
 
-                textblock_SettingsAdjustChromiumDpi.Text = textblock_SettingsAdjustChromiumDpi.Tag + ": +" + Setting_Load(vConfigurationCtrlUI, "AdjustChromiumDpi").ToString() + "%";
-                slider_SettingsAdjustChromiumDpi.Value = Convert.ToDouble(Setting_Load(vConfigurationCtrlUI, "AdjustChromiumDpi"));
+                textblock_SettingsAdjustChromiumDpi.Text = textblock_SettingsAdjustChromiumDpi.Tag + ": +" + SettingLoad(vConfigurationCtrlUI, "AdjustChromiumDpi", typeof(string)) + "%";
+                slider_SettingsAdjustChromiumDpi.Value = SettingLoad(vConfigurationCtrlUI, "AdjustChromiumDpi", typeof(double));
 
                 //Load the sound volume
-                textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "InterfaceSoundVolume")) + "%";
-                slider_SettingsSoundVolume.Value = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "InterfaceSoundVolume"));
+                textblock_SettingsSoundVolume.Text = "User interface sound volume: " + SettingLoad(vConfigurationCtrlUI, "InterfaceSoundVolume", typeof(int)) + "%";
+                slider_SettingsSoundVolume.Value = SettingLoad(vConfigurationCtrlUI, "InterfaceSoundVolume", typeof(double));
 
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppVariables;
-using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -12,112 +12,112 @@ namespace FpsOverlayer
         {
             try
             {
-                if (Setting_Load(vConfigurationFpsOverlayer, "DisplayBackground") == null) { Setting_Save(vConfigurationFpsOverlayer, "DisplayBackground", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "DisplayOpacity") == null) { Setting_Save(vConfigurationFpsOverlayer, "DisplayOpacity", "0,90"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal") == null) { Setting_Save(vConfigurationFpsOverlayer, "MarginHorizontal", "5"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MarginVertical") == null) { Setting_Save(vConfigurationFpsOverlayer, "MarginVertical", "5"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CheckTaskbarVisible") == null) { Setting_Save(vConfigurationFpsOverlayer, "CheckTaskbarVisible", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "InterfaceFontStyleName") == null) { Setting_Save(vConfigurationFpsOverlayer, "InterfaceFontStyleName", "Segoe UI"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "TextPosition") == null) { Setting_Save(vConfigurationFpsOverlayer, "TextPosition", "0"); } //Shared
-                if (Setting_Load(vConfigurationFpsOverlayer, "TextDirection") == null) { Setting_Save(vConfigurationFpsOverlayer, "TextDirection", "1"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "TextSize") == null) { Setting_Save(vConfigurationFpsOverlayer, "TextSize", "18"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "HardwareUpdateRateMs") == null) { Setting_Save(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", "1000"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "DisplayBackground")) { SettingSave(vConfigurationFpsOverlayer, "DisplayBackground", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "DisplayOpacity")) { SettingSave(vConfigurationFpsOverlayer, "DisplayOpacity", "0,90"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MarginHorizontal")) { SettingSave(vConfigurationFpsOverlayer, "MarginHorizontal", "5"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MarginVertical")) { SettingSave(vConfigurationFpsOverlayer, "MarginVertical", "5"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CheckTaskbarVisible")) { SettingSave(vConfigurationFpsOverlayer, "CheckTaskbarVisible", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "InterfaceFontStyleName")) { SettingSave(vConfigurationFpsOverlayer, "InterfaceFontStyleName", "Segoe UI"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "TextPosition")) { SettingSave(vConfigurationFpsOverlayer, "TextPosition", "0"); } //Shared
+                if (!SettingCheck(vConfigurationFpsOverlayer, "TextDirection")) { SettingSave(vConfigurationFpsOverlayer, "TextDirection", "1"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "TextSize")) { SettingSave(vConfigurationFpsOverlayer, "TextSize", "18"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "HardwareUpdateRateMs")) { SettingSave(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", "1000"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "BrowserShowStartup") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserShowStartup", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "BrowserUnload") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserUnload", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "BrowserOpacity") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserOpacity", "0,70"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "BrowserShowStartup")) { SettingSave(vConfigurationFpsOverlayer, "BrowserShowStartup", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "BrowserUnload")) { SettingSave(vConfigurationFpsOverlayer, "BrowserUnload", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "BrowserOpacity")) { SettingSave(vConfigurationFpsOverlayer, "BrowserOpacity", "0,70"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "TextColorSingle") == null) { Setting_Save(vConfigurationFpsOverlayer, "TextColorSingle", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorBackground") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorBackground", "#1D1D1D"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorSingle") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorSingle", "#F1F1F1"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorGpu") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorGpu", "#A3FF39"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorCpu") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorCpu", "#00EAFF"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorMem") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorMem", "#FFA200"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorFps") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorFps", "#FF0505"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorNet") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorNet", "#FF00A8"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorApp") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorApp", "#C000FF"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorBat") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorBat", "#FFE115"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorTime") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorTime", "#21AFFF"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorCustomText") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorCustomText", "#F1F1F1"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorMon") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorMon", "#21A000"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "TextColorSingle")) { SettingSave(vConfigurationFpsOverlayer, "TextColorSingle", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorBackground")) { SettingSave(vConfigurationFpsOverlayer, "ColorBackground", "#1D1D1D"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorSingle")) { SettingSave(vConfigurationFpsOverlayer, "ColorSingle", "#F1F1F1"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorGpu")) { SettingSave(vConfigurationFpsOverlayer, "ColorGpu", "#A3FF39"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorCpu")) { SettingSave(vConfigurationFpsOverlayer, "ColorCpu", "#00EAFF"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorMem")) { SettingSave(vConfigurationFpsOverlayer, "ColorMem", "#FFA200"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorFps")) { SettingSave(vConfigurationFpsOverlayer, "ColorFps", "#FF0505"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorNet")) { SettingSave(vConfigurationFpsOverlayer, "ColorNet", "#FF00A8"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorApp")) { SettingSave(vConfigurationFpsOverlayer, "ColorApp", "#C000FF"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorBat")) { SettingSave(vConfigurationFpsOverlayer, "ColorBat", "#FFE115"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorTime")) { SettingSave(vConfigurationFpsOverlayer, "ColorTime", "#21AFFF"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorCustomText")) { SettingSave(vConfigurationFpsOverlayer, "ColorCustomText", "#F1F1F1"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorMon")) { SettingSave(vConfigurationFpsOverlayer, "ColorMon", "#21A000"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuId") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuId", "4"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuCategoryTitle", "GPU"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowCategoryTitle", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowName") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowName", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowPercentage") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowPercentage", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowMemoryUsed") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowMemoryUsed", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowTemperature") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowTemperature", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowCoreFrequency") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowCoreFrequency", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowFanSpeed") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowFanSpeed", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerWatt") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowPowerWatt", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerVolt") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowPowerVolt", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuId")) { SettingSave(vConfigurationFpsOverlayer, "GpuId", "4"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "GpuCategoryTitle", "GPU"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowCategoryTitle", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowName")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowName", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowPercentage")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowPercentage", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowMemoryUsed")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowMemoryUsed", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowTemperature")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowTemperature", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowCoreFrequency")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowCoreFrequency", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowFanSpeed")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowFanSpeed", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowPowerWatt")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowPowerWatt", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowPowerVolt")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowPowerVolt", "False"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuId") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuId", "3"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuCategoryTitle", "CPU"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowCategoryTitle", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowName") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowName", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "BoardShowName") == null) { Setting_Save(vConfigurationFpsOverlayer, "BoardShowName", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowPercentage") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPercentage", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowTemperature", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerWatt") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPowerWatt", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerVolt") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPowerVolt", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowFanSpeed", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CpuId")) { SettingSave(vConfigurationFpsOverlayer, "CpuId", "3"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CpuCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "CpuCategoryTitle", "CPU"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowCategoryTitle", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowName")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowName", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "BoardShowName")) { SettingSave(vConfigurationFpsOverlayer, "BoardShowName", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowPercentage")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowPercentage", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowTemperature")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowTemperature", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowCoreFrequency")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowPowerWatt")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowPowerWatt", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowPowerVolt")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowPowerVolt", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowFanSpeed")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowFanSpeed", "True"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "MemId") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemId", "5"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MemCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemCategoryTitle", "MEM"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowCategoryTitle", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowName") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowName", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowSpeed") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowSpeed", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowPowerVolt") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowPowerVolt", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowPercentage") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowPercentage", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowUsed") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowUsed", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowFree") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowFree", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowTotal") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowTotal", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MemId")) { SettingSave(vConfigurationFpsOverlayer, "MemId", "5"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MemCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "MemCategoryTitle", "MEM"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "MemShowCategoryTitle", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowName")) { SettingSave(vConfigurationFpsOverlayer, "MemShowName", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowSpeed")) { SettingSave(vConfigurationFpsOverlayer, "MemShowSpeed", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowPowerVolt")) { SettingSave(vConfigurationFpsOverlayer, "MemShowPowerVolt", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowPercentage")) { SettingSave(vConfigurationFpsOverlayer, "MemShowPercentage", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowUsed")) { SettingSave(vConfigurationFpsOverlayer, "MemShowUsed", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowFree")) { SettingSave(vConfigurationFpsOverlayer, "MemShowFree", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowTotal")) { SettingSave(vConfigurationFpsOverlayer, "MemShowTotal", "True"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "NetId") == null) { Setting_Save(vConfigurationFpsOverlayer, "NetId", "2"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "NetCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "NetCategoryTitle", "NET"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "NetShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "NetShowCategoryTitle", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "NetShowCurrentUsage") == null) { Setting_Save(vConfigurationFpsOverlayer, "NetShowCurrentUsage", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "NetId")) { SettingSave(vConfigurationFpsOverlayer, "NetId", "2"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "NetCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "NetCategoryTitle", "NET"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "NetShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "NetShowCategoryTitle", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "NetShowCurrentUsage")) { SettingSave(vConfigurationFpsOverlayer, "NetShowCurrentUsage", "False"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "AppId") == null) { Setting_Save(vConfigurationFpsOverlayer, "AppId", "0"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "AppShowName") == null) { Setting_Save(vConfigurationFpsOverlayer, "AppShowName", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "AppId")) { SettingSave(vConfigurationFpsOverlayer, "AppId", "0"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "AppShowName")) { SettingSave(vConfigurationFpsOverlayer, "AppShowName", "False"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "MonId") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonId", "6"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MonCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonCategoryTitle", "MON"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MonShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonShowCategoryTitle", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MonShowResolution") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonShowResolution", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MonShowDpiResolution") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonShowDpiResolution", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MonShowColorBitDepth") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonShowColorBitDepth", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MonShowRefreshRate") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonShowRefreshRate", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonId")) { SettingSave(vConfigurationFpsOverlayer, "MonId", "6"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "MonCategoryTitle", "MON"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "MonShowCategoryTitle", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowResolution")) { SettingSave(vConfigurationFpsOverlayer, "MonShowResolution", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowDpiResolution")) { SettingSave(vConfigurationFpsOverlayer, "MonShowDpiResolution", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowColorBitDepth")) { SettingSave(vConfigurationFpsOverlayer, "MonShowColorBitDepth", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowRefreshRate")) { SettingSave(vConfigurationFpsOverlayer, "MonShowRefreshRate", "False"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "BatId") == null) { Setting_Save(vConfigurationFpsOverlayer, "BatId", "7"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "BatCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "BatCategoryTitle", "BAT"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "BatShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "BatShowCategoryTitle", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "BatShowPercentage") == null) { Setting_Save(vConfigurationFpsOverlayer, "BatShowPercentage", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "BatId")) { SettingSave(vConfigurationFpsOverlayer, "BatId", "7"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "BatCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "BatCategoryTitle", "BAT"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "BatShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "BatShowCategoryTitle", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "BatShowPercentage")) { SettingSave(vConfigurationFpsOverlayer, "BatShowPercentage", "True"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "TimeId") == null) { Setting_Save(vConfigurationFpsOverlayer, "TimeId", "8"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "TimeShowCurrentTime") == null) { Setting_Save(vConfigurationFpsOverlayer, "TimeShowCurrentTime", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "TimeId")) { SettingSave(vConfigurationFpsOverlayer, "TimeId", "8"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "TimeShowCurrentTime")) { SettingSave(vConfigurationFpsOverlayer, "TimeShowCurrentTime", "True"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "CustomTextId") == null) { Setting_Save(vConfigurationFpsOverlayer, "CustomTextId", "9"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CustomTextString") == null) { Setting_Save(vConfigurationFpsOverlayer, "CustomTextString", ""); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CustomTextId")) { SettingSave(vConfigurationFpsOverlayer, "CustomTextId", "9"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CustomTextString")) { SettingSave(vConfigurationFpsOverlayer, "CustomTextString", ""); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "FpsId") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsId", "1"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "FpsCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsCategoryTitle", "FPS"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "FpsShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsShowCategoryTitle", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "FpsShowCurrentFps") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsShowCurrentFps", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "FpsShowCurrentLatency") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsShowCurrentLatency", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "FpsShowAverageFps") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsShowAverageFps", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FpsId")) { SettingSave(vConfigurationFpsOverlayer, "FpsId", "1"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FpsCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "FpsCategoryTitle", "FPS"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowCategoryTitle", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowCurrentFps")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowCurrentFps", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowCurrentLatency")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowCurrentLatency", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowAverageFps")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowAverageFps", "True"); }
 
                 //Crosshair
-                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairLaunch") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairLaunch", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairColor") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairColor", "#FFFFFF"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairOpacity") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairOpacity", "0,80"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairVerticalPosition") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", "0"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairSize") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairSize", "10"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairStyle") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairStyle", "0"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairThickness") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairThickness", "1"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairLaunch")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairLaunch", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairColor")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairColor", "#FFFFFF"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairOpacity")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairOpacity", "0,80"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairVerticalPosition")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", "0"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairSize")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairSize", "10"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairStyle")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairStyle", "0"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairThickness")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairThickness", "1"); }
 
                 Debug.WriteLine("Checked the application settings.");
             }

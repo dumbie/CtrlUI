@@ -4,8 +4,8 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppVariables;
-using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -16,157 +16,157 @@ namespace FpsOverlayer
         {
             try
             {
-                checkbox_DisplayBackground.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "DisplayBackground"));
+                checkbox_DisplayBackground.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "DisplayBackground", typeof(bool));
 
-                textblock_DisplayOpacity.Text = textblock_DisplayOpacity.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "DisplayOpacity").ToString() + "%";
-                slider_DisplayOpacity.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "DisplayOpacity"));
+                textblock_DisplayOpacity.Text = textblock_DisplayOpacity.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "DisplayOpacity", typeof(string)) + "%";
+                slider_DisplayOpacity.Value = SettingLoad(vConfigurationFpsOverlayer, "DisplayOpacity", typeof(double));
 
-                textblock_HardwareUpdateRateMs.Text = textblock_HardwareUpdateRateMs.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "HardwareUpdateRateMs").ToString() + "ms";
-                slider_HardwareUpdateRateMs.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "HardwareUpdateRateMs"));
+                textblock_HardwareUpdateRateMs.Text = textblock_HardwareUpdateRateMs.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", typeof(string)) + "ms";
+                slider_HardwareUpdateRateMs.Value = SettingLoad(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", typeof(double));
 
-                textblock_MarginHorizontal.Text = textblock_MarginHorizontal.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal").ToString() + "px";
-                slider_MarginHorizontal.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
+                textblock_MarginHorizontal.Text = textblock_MarginHorizontal.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(string)) + "px";
+                slider_MarginHorizontal.Value = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
 
-                textblock_MarginVertical.Text = textblock_MarginVertical.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "MarginVertical").ToString() + "px";
-                slider_MarginVertical.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
-                checkbox_CheckTaskbarVisible.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CheckTaskbarVisible"));
+                textblock_MarginVertical.Text = textblock_MarginVertical.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(string)) + "px";
+                slider_MarginVertical.Value = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
+                checkbox_CheckTaskbarVisible.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CheckTaskbarVisible", typeof(bool));
 
                 //Select the current font name
                 try
                 {
-                    combobox_InterfaceFontStyleName.SelectedItem = Setting_Load(vConfigurationFpsOverlayer, "InterfaceFontStyleName").ToString();
+                    combobox_InterfaceFontStyleName.SelectedItem = SettingLoad(vConfigurationFpsOverlayer, "InterfaceFontStyleName", typeof(string));
                 }
                 catch { }
 
-                combobox_TextPosition.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition"));
-                combobox_TextDirection.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextDirection"));
+                combobox_TextPosition.SelectedIndex = SettingLoad(vConfigurationFpsOverlayer, "TextPosition", typeof(int));
+                combobox_TextDirection.SelectedIndex = SettingLoad(vConfigurationFpsOverlayer, "TextDirection", typeof(int));
 
-                textblock_TextSize.Text = textblock_TextSize.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "TextSize").ToString() + "px";
-                slider_TextSize.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "TextSize"));
+                textblock_TextSize.Text = textblock_TextSize.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "TextSize", typeof(string)) + "px";
+                slider_TextSize.Value = SettingLoad(vConfigurationFpsOverlayer, "TextSize", typeof(double));
 
-                textbox_CustomText.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "CustomTextString"));
+                textbox_CustomText.Text = SettingLoad(vConfigurationFpsOverlayer, "CustomTextString", typeof(string));
 
-                checkbox_TextColorSingle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "TextColorSingle"));
+                checkbox_TextColorSingle.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "TextColorSingle", typeof(bool));
 
-                textbox_GpuCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "GpuCategoryTitle"));
-                checkbox_GpuShowCategoryTitle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowCategoryTitle"));
-                checkbox_GpuShowName.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowName"));
-                checkbox_GpuShowPercentage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowPercentage"));
-                checkbox_GpuShowMemoryUsed.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowMemoryUsed"));
-                checkbox_GpuShowTemperature.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowTemperature"));
-                checkbox_GpuShowCoreFrequency.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowCoreFrequency"));
-                checkbox_GpuShowFanSpeed.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowFanSpeed"));
-                checkbox_GpuShowPowerWatt.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerWatt"));
-                checkbox_GpuShowPowerVolt.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerVolt"));
+                textbox_GpuCategoryTitle.Text = SettingLoad(vConfigurationFpsOverlayer, "GpuCategoryTitle", typeof(string));
+                checkbox_GpuShowCategoryTitle.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowCategoryTitle", typeof(bool));
+                checkbox_GpuShowName.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowName", typeof(bool));
+                checkbox_GpuShowPercentage.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowPercentage", typeof(bool));
+                checkbox_GpuShowMemoryUsed.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowMemoryUsed", typeof(bool));
+                checkbox_GpuShowTemperature.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowTemperature", typeof(bool));
+                checkbox_GpuShowCoreFrequency.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowCoreFrequency", typeof(bool));
+                checkbox_GpuShowFanSpeed.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowFanSpeed", typeof(bool));
+                checkbox_GpuShowPowerWatt.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowPowerWatt", typeof(bool));
+                checkbox_GpuShowPowerVolt.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowPowerVolt", typeof(bool));
 
-                textbox_CpuCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "CpuCategoryTitle"));
-                checkbox_CpuShowCategoryTitle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCategoryTitle"));
-                checkbox_CpuShowName.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowName"));
-                checkbox_BoardShowName.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BoardShowName"));
-                checkbox_CpuShowPercentage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPercentage"));
-                checkbox_CpuShowTemperature.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature"));
-                checkbox_CpuShowCoreFrequency.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency"));
-                checkbox_CpuShowPowerWatt.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerWatt"));
-                checkbox_CpuShowPowerVolt.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerVolt"));
-                checkbox_CpuShowFanSpeed.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed"));
+                textbox_CpuCategoryTitle.Text = SettingLoad(vConfigurationFpsOverlayer, "CpuCategoryTitle", typeof(string));
+                checkbox_CpuShowCategoryTitle.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CpuShowCategoryTitle", typeof(bool));
+                checkbox_CpuShowName.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CpuShowName", typeof(bool));
+                checkbox_BoardShowName.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "BoardShowName", typeof(bool));
+                checkbox_CpuShowPercentage.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPercentage", typeof(bool));
+                checkbox_CpuShowTemperature.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CpuShowTemperature", typeof(bool));
+                checkbox_CpuShowCoreFrequency.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", typeof(bool));
+                checkbox_CpuShowPowerWatt.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPowerWatt", typeof(bool));
+                checkbox_CpuShowPowerVolt.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPowerVolt", typeof(bool));
+                checkbox_CpuShowFanSpeed.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CpuShowFanSpeed", typeof(bool));
 
-                textbox_MemCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "MemCategoryTitle"));
-                checkbox_MemShowCategoryTitle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowCategoryTitle"));
-                checkbox_MemShowName.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowName"));
-                checkbox_MemShowSpeed.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowSpeed"));
-                checkbox_MemShowPowerVolt.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowPowerVolt"));
-                checkbox_MemShowPercentage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowPercentage"));
-                checkbox_MemShowUsed.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowUsed"));
-                checkbox_MemShowFree.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowFree"));
-                checkbox_MemShowTotal.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowTotal"));
+                textbox_MemCategoryTitle.Text = SettingLoad(vConfigurationFpsOverlayer, "MemCategoryTitle", typeof(string));
+                checkbox_MemShowCategoryTitle.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MemShowCategoryTitle", typeof(bool));
+                checkbox_MemShowName.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MemShowName", typeof(bool));
+                checkbox_MemShowSpeed.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MemShowSpeed", typeof(bool));
+                checkbox_MemShowPowerVolt.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MemShowPowerVolt", typeof(bool));
+                checkbox_MemShowPercentage.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MemShowPercentage", typeof(bool));
+                checkbox_MemShowUsed.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MemShowUsed", typeof(bool));
+                checkbox_MemShowFree.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MemShowFree", typeof(bool));
+                checkbox_MemShowTotal.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MemShowTotal", typeof(bool));
 
-                textbox_NetCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "NetCategoryTitle"));
-                checkbox_NetShowCategoryTitle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "NetShowCategoryTitle"));
-                checkbox_NetShowCurrentUsage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "NetShowCurrentUsage"));
+                textbox_NetCategoryTitle.Text = SettingLoad(vConfigurationFpsOverlayer, "NetCategoryTitle", typeof(string));
+                checkbox_NetShowCategoryTitle.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "NetShowCategoryTitle", typeof(bool));
+                checkbox_NetShowCurrentUsage.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "NetShowCurrentUsage", typeof(bool));
 
-                checkbox_AppShowName.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "AppShowName"));
+                checkbox_AppShowName.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "AppShowName", typeof(bool));
 
-                textbox_BatCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "BatCategoryTitle"));
-                checkbox_BatShowCategoryTitle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BatShowCategoryTitle"));
-                checkbox_BatShowPercentage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BatShowPercentage"));
+                textbox_BatCategoryTitle.Text = SettingLoad(vConfigurationFpsOverlayer, "BatCategoryTitle", typeof(string));
+                checkbox_BatShowCategoryTitle.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "BatShowCategoryTitle", typeof(bool));
+                checkbox_BatShowPercentage.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "BatShowPercentage", typeof(bool));
 
-                checkbox_TimeShowCurrentTime.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "TimeShowCurrentTime"));
+                checkbox_TimeShowCurrentTime.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "TimeShowCurrentTime", typeof(bool));
 
-                textbox_MonCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "MonCategoryTitle"));
-                checkbox_MonShowCategoryTitle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowCategoryTitle"));
-                checkbox_MonShowResolution.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowResolution"));
-                checkbox_MonShowDpiResolution.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowDpiResolution"));
-                checkbox_MonShowColorBitDepth.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowColorBitDepth"));
-                checkbox_MonShowRefreshRate.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowRefreshRate"));
+                textbox_MonCategoryTitle.Text = SettingLoad(vConfigurationFpsOverlayer, "MonCategoryTitle", typeof(string));
+                checkbox_MonShowCategoryTitle.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowCategoryTitle", typeof(bool));
+                checkbox_MonShowResolution.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowResolution", typeof(bool));
+                checkbox_MonShowDpiResolution.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowDpiResolution", typeof(bool));
+                checkbox_MonShowColorBitDepth.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowColorBitDepth", typeof(bool));
+                checkbox_MonShowRefreshRate.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowRefreshRate", typeof(bool));
 
-                textbox_FpsCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "FpsCategoryTitle"));
-                checkbox_FpsShowCategoryTitle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "FpsShowCategoryTitle"));
-                checkbox_FpsShowCurrentFps.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "FpsShowCurrentFps"));
-                checkbox_FpsShowCurrentLatency.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "FpsShowCurrentLatency"));
-                checkbox_FpsShowAverageFps.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "FpsShowAverageFps"));
+                textbox_FpsCategoryTitle.Text = SettingLoad(vConfigurationFpsOverlayer, "FpsCategoryTitle", typeof(string));
+                checkbox_FpsShowCategoryTitle.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FpsShowCategoryTitle", typeof(bool));
+                checkbox_FpsShowCurrentFps.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FpsShowCurrentFps", typeof(bool));
+                checkbox_FpsShowCurrentLatency.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FpsShowCurrentLatency", typeof(bool));
+                checkbox_FpsShowAverageFps.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FpsShowAverageFps", typeof(bool));
 
-                string ColorBackground = Setting_Load(vConfigurationFpsOverlayer, "ColorBackground").ToString();
+                string ColorBackground = SettingLoad(vConfigurationFpsOverlayer, "ColorBackground", typeof(string));
                 colorpicker_ColorBackground.Background = new BrushConverter().ConvertFrom(ColorBackground) as SolidColorBrush;
 
-                string ColorSingle = Setting_Load(vConfigurationFpsOverlayer, "ColorSingle").ToString();
+                string ColorSingle = SettingLoad(vConfigurationFpsOverlayer, "ColorSingle", typeof(string));
                 colorpicker_ColorSingle.Background = new BrushConverter().ConvertFrom(ColorSingle) as SolidColorBrush;
 
-                string ColorGpu = Setting_Load(vConfigurationFpsOverlayer, "ColorGpu").ToString();
+                string ColorGpu = SettingLoad(vConfigurationFpsOverlayer, "ColorGpu", typeof(string));
                 colorpicker_ColorGpu.Background = new BrushConverter().ConvertFrom(ColorGpu) as SolidColorBrush;
 
-                string ColorCpu = Setting_Load(vConfigurationFpsOverlayer, "ColorCpu").ToString();
+                string ColorCpu = SettingLoad(vConfigurationFpsOverlayer, "ColorCpu", typeof(string));
                 colorpicker_ColorCpu.Background = new BrushConverter().ConvertFrom(ColorCpu) as SolidColorBrush;
 
-                string ColorMem = Setting_Load(vConfigurationFpsOverlayer, "ColorMem").ToString();
+                string ColorMem = SettingLoad(vConfigurationFpsOverlayer, "ColorMem", typeof(string));
                 colorpicker_ColorMem.Background = new BrushConverter().ConvertFrom(ColorMem) as SolidColorBrush;
 
-                string ColorNet = Setting_Load(vConfigurationFpsOverlayer, "ColorNet").ToString();
+                string ColorNet = SettingLoad(vConfigurationFpsOverlayer, "ColorNet", typeof(string));
                 colorpicker_ColorNet.Background = new BrushConverter().ConvertFrom(ColorNet) as SolidColorBrush;
 
-                string ColorApp = Setting_Load(vConfigurationFpsOverlayer, "ColorApp").ToString();
+                string ColorApp = SettingLoad(vConfigurationFpsOverlayer, "ColorApp", typeof(string));
                 colorpicker_ColorApp.Background = new BrushConverter().ConvertFrom(ColorApp) as SolidColorBrush;
 
-                string ColorBat = Setting_Load(vConfigurationFpsOverlayer, "ColorBat").ToString();
+                string ColorBat = SettingLoad(vConfigurationFpsOverlayer, "ColorBat", typeof(string));
                 colorpicker_ColorBat.Background = new BrushConverter().ConvertFrom(ColorBat) as SolidColorBrush;
 
-                string ColorTime = Setting_Load(vConfigurationFpsOverlayer, "ColorTime").ToString();
+                string ColorTime = SettingLoad(vConfigurationFpsOverlayer, "ColorTime", typeof(string));
                 colorpicker_ColorTime.Background = new BrushConverter().ConvertFrom(ColorTime) as SolidColorBrush;
 
-                string ColorCustomText = Setting_Load(vConfigurationFpsOverlayer, "ColorCustomText").ToString();
+                string ColorCustomText = SettingLoad(vConfigurationFpsOverlayer, "ColorCustomText", typeof(string));
                 colorpicker_ColorCustomText.Background = new BrushConverter().ConvertFrom(ColorCustomText) as SolidColorBrush;
 
-                string ColorMon = Setting_Load(vConfigurationFpsOverlayer, "ColorMon").ToString();
+                string ColorMon = SettingLoad(vConfigurationFpsOverlayer, "ColorMon", typeof(string));
                 colorpicker_ColorMon.Background = new BrushConverter().ConvertFrom(ColorMon) as SolidColorBrush;
 
-                string ColorFps = Setting_Load(vConfigurationFpsOverlayer, "ColorFps").ToString();
+                string ColorFps = SettingLoad(vConfigurationFpsOverlayer, "ColorFps", typeof(string));
                 colorpicker_ColorFps.Background = new BrushConverter().ConvertFrom(ColorFps) as SolidColorBrush;
 
                 //Crosshair
-                checkbox_CrosshairLaunch.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CrosshairLaunch"));
+                checkbox_CrosshairLaunch.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CrosshairLaunch", typeof(bool));
 
-                string CrosshairColor = Setting_Load(vConfigurationFpsOverlayer, "CrosshairColor").ToString();
+                string CrosshairColor = SettingLoad(vConfigurationFpsOverlayer, "CrosshairColor", typeof(string));
                 colorpicker_CrosshairColor.Background = new BrushConverter().ConvertFrom(CrosshairColor) as SolidColorBrush;
 
-                textblock_CrosshairOpacity.Text = textblock_CrosshairOpacity.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "CrosshairOpacity").ToString() + "%";
-                slider_CrosshairOpacity.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "CrosshairOpacity"));
+                textblock_CrosshairOpacity.Text = textblock_CrosshairOpacity.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "CrosshairOpacity", typeof(string)) + "%";
+                slider_CrosshairOpacity.Value = SettingLoad(vConfigurationFpsOverlayer, "CrosshairOpacity", typeof(double));
 
-                textblock_CrosshairVerticalPosition.Text = textblock_CrosshairVerticalPosition.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "CrosshairVerticalPosition").ToString() + "px";
-                slider_CrosshairVerticalPosition.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "CrosshairVerticalPosition"));
+                textblock_CrosshairVerticalPosition.Text = textblock_CrosshairVerticalPosition.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", typeof(string)) + "px";
+                slider_CrosshairVerticalPosition.Value = SettingLoad(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", typeof(double));
 
-                textblock_CrosshairSize.Text = textblock_CrosshairSize.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "CrosshairSize").ToString() + "px";
-                slider_CrosshairSize.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "CrosshairSize"));
+                textblock_CrosshairSize.Text = textblock_CrosshairSize.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "CrosshairSize", typeof(string)) + "px";
+                slider_CrosshairSize.Value = SettingLoad(vConfigurationFpsOverlayer, "CrosshairSize", typeof(double));
 
-                textblock_CrosshairThickness.Text = textblock_CrosshairThickness.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "CrosshairThickness").ToString() + "px";
-                slider_CrosshairThickness.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "CrosshairThickness"));
+                textblock_CrosshairThickness.Text = textblock_CrosshairThickness.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "CrosshairThickness", typeof(string)) + "px";
+                slider_CrosshairThickness.Value = SettingLoad(vConfigurationFpsOverlayer, "CrosshairThickness", typeof(double));
 
-                combobox_CrosshairStyle.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "CrosshairStyle"));
+                combobox_CrosshairStyle.SelectedIndex = SettingLoad(vConfigurationFpsOverlayer, "CrosshairStyle", typeof(int));
 
                 //Browser
-                checkbox_BrowserShowStartup.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BrowserShowStartup"));
-                checkbox_BrowserUnload.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BrowserUnload"));
+                checkbox_BrowserShowStartup.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "BrowserShowStartup", typeof(bool));
+                checkbox_BrowserUnload.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "BrowserUnload", typeof(bool));
 
-                textblock_BrowserOpacity.Text = textblock_BrowserOpacity.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "BrowserOpacity").ToString() + "%";
-                slider_BrowserOpacity.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "BrowserOpacity"));
+                textblock_BrowserOpacity.Text = textblock_BrowserOpacity.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "BrowserOpacity", typeof(string)) + "%";
+                slider_BrowserOpacity.Value = SettingLoad(vConfigurationFpsOverlayer, "BrowserOpacity", typeof(double));
 
                 //Update stats position text
                 UpdateStatsPositionText();

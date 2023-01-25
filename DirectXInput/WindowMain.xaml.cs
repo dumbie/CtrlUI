@@ -11,11 +11,11 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVJsonFunctions;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.Styles.MainColors;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -49,7 +49,7 @@ namespace DirectXInput
                 Settings_Save();
 
                 //Change application accent color
-                string colorLightHex = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ColorAccentLight"));
+                string colorLightHex = SettingLoad(vConfigurationCtrlUI, "ColorAccentLight", typeof(string));
                 ChangeApplicationAccentColor(colorLightHex);
                 vApplicationAccentLightBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
 
@@ -63,7 +63,7 @@ namespace DirectXInput
                 }
 
                 //Check settings if window needs to be shown
-                if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "AppFirstLaunch")))
+                if (SettingLoad(vConfigurationDirectXInput, "AppFirstLaunch", typeof(bool)))
                 {
                     Debug.WriteLine("First launch showing the window.");
                     Application_ShowHideWindow();
@@ -171,7 +171,7 @@ namespace DirectXInput
                 vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Win, KeysVirtual.CapsLock);
 
                 //Set application first launch to false
-                Setting_Save(vConfigurationDirectXInput, "AppFirstLaunch", "False");
+                SettingSave(vConfigurationDirectXInput, "AppFirstLaunch", "False");
 
                 //Enable the socket server
                 await EnableSocketServer();
@@ -207,7 +207,7 @@ namespace DirectXInput
         {
             try
             {
-                int SocketServerPort = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort")) + 1;
+                int SocketServerPort = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(int)) + 1;
 
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, false, true);
                 vArnoldVinkSockets.vSocketTimeout = 250;

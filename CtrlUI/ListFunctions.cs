@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppBusyWait;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -192,7 +192,7 @@ namespace CtrlUI
         {
             try
             {
-                ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
                 if (CategoryListCount(listAppCategory) == 0 && listAppCategory != ListCategory.Search)
                 {
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
@@ -246,7 +246,7 @@ namespace CtrlUI
             try
             {
                 //Check list category setting
-                ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
                 string listCountString = CategoryListCount(listAppCategory).ToString();
 
                 //Check the list count

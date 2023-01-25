@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
-using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -138,7 +138,7 @@ namespace FpsOverlayer
         {
             try
             {
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "TimeShowCurrentTime")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "TimeShowCurrentTime", typeof(bool)))
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -162,7 +162,7 @@ namespace FpsOverlayer
         {
             try
             {
-                string customText = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "CustomTextString"));
+                string customText = SettingLoad(vConfigurationFpsOverlayer, "CustomTextString", typeof(string));
                 //Debug.WriteLine("Setting custom text: " + customText);
 
                 if (!string.IsNullOrWhiteSpace(customText))
@@ -191,7 +191,7 @@ namespace FpsOverlayer
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "AppShowName")))
+                    if (SettingLoad(vConfigurationFpsOverlayer, "AppShowName", typeof(bool)))
                     {
                         if (!string.IsNullOrWhiteSpace(processTitle) && processTitle != "Unknown")
                         {

@@ -3,11 +3,11 @@ using System;
 using System.Diagnostics;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVJsonFunctions;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static DirectXInput.SettingsNotify;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -20,12 +20,12 @@ namespace DirectXInput
             {
                 cb_SettingsShortcutDisconnectBluetooth.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth", cb_SettingsShortcutDisconnectBluetooth.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth", cb_SettingsShortcutDisconnectBluetooth.IsChecked.ToString());
                 };
 
                 cb_SettingsExclusiveGuide.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ExclusiveGuide", cb_SettingsExclusiveGuide.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ExclusiveGuide", cb_SettingsExclusiveGuide.IsChecked.ToString());
                 };
 
                 cb_SettingsWindowsStartup.Click += (sender, e) =>
@@ -37,7 +37,7 @@ namespace DirectXInput
                 slider_BatteryLowLevel.ValueChanged += (sender, e) =>
                 {
                     string batteryLevelLowString = slider_BatteryLowLevel.Value.ToString();
-                    Setting_Save(vConfigurationDirectXInput, "BatteryLowLevel", batteryLevelLowString);
+                    SettingSave(vConfigurationDirectXInput, "BatteryLowLevel", batteryLevelLowString);
                     textblock_BatteryLowLevel.Text = textblock_BatteryLowLevel.Tag + ": " + batteryLevelLowString + "%";
 
                     //Check all controllers for low battery level
@@ -46,7 +46,7 @@ namespace DirectXInput
 
                 cb_SettingsBatteryLowBlinkLed.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "BatteryLowBlinkLed", cb_SettingsBatteryLowBlinkLed.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "BatteryLowBlinkLed", cb_SettingsBatteryLowBlinkLed.IsChecked.ToString());
 
                     //Check all controllers for low battery level
                     CheckAllControllersLowBattery(true);
@@ -54,7 +54,7 @@ namespace DirectXInput
 
                 cb_SettingsBatteryLowShowNotification.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "BatteryLowShowNotification", cb_SettingsBatteryLowShowNotification.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "BatteryLowShowNotification", cb_SettingsBatteryLowShowNotification.IsChecked.ToString());
 
                     //Check all controllers for low battery level
                     CheckAllControllersLowBattery(true);
@@ -62,7 +62,7 @@ namespace DirectXInput
 
                 cb_SettingsBatteryLowPlaySound.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "BatteryLowPlaySound", cb_SettingsBatteryLowPlaySound.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "BatteryLowPlaySound", cb_SettingsBatteryLowPlaySound.IsChecked.ToString());
 
                     //Check all controllers for low battery level
                     CheckAllControllersLowBattery(true);
@@ -72,7 +72,7 @@ namespace DirectXInput
                 slider_ControllerIdleDisconnectMin.ValueChanged += (sender, e) =>
                 {
                     string controllerIdleDisconnectMinString = slider_ControllerIdleDisconnectMin.Value.ToString();
-                    Setting_Save(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", controllerIdleDisconnectMinString);
+                    SettingSave(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", controllerIdleDisconnectMinString);
                     textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinString + " minutes";
                 };
 
@@ -82,7 +82,7 @@ namespace DirectXInput
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
-                        Setting_Save(vConfigurationDirectXInput, "ControllerColor0", newBrush.ToString());
+                        SettingSave(vConfigurationDirectXInput, "ControllerColor0", newBrush.ToString());
                         colorpicker_Controller0.Background = newBrush;
                         vController0.Color = newBrush.Color;
                         if (vController0 == vActiveController())
@@ -102,7 +102,7 @@ namespace DirectXInput
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
-                        Setting_Save(vConfigurationDirectXInput, "ControllerColor1", newBrush.ToString());
+                        SettingSave(vConfigurationDirectXInput, "ControllerColor1", newBrush.ToString());
                         colorpicker_Controller1.Background = newBrush;
                         vController1.Color = newBrush.Color;
                         if (vController1 == vActiveController())
@@ -122,7 +122,7 @@ namespace DirectXInput
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
-                        Setting_Save(vConfigurationDirectXInput, "ControllerColor2", newBrush.ToString());
+                        SettingSave(vConfigurationDirectXInput, "ControllerColor2", newBrush.ToString());
                         colorpicker_Controller2.Background = newBrush;
                         vController2.Color = newBrush.Color;
                         if (vController2 == vActiveController())
@@ -142,7 +142,7 @@ namespace DirectXInput
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
-                        Setting_Save(vConfigurationDirectXInput, "ControllerColor3", newBrush.ToString());
+                        SettingSave(vConfigurationDirectXInput, "ControllerColor3", newBrush.ToString());
                         colorpicker_Controller3.Background = newBrush;
                         vController3.Color = newBrush.Color;
                         if (vController3 == vActiveController())
@@ -159,75 +159,75 @@ namespace DirectXInput
                 //Shortcut settings
                 cb_SettingsShortcutLaunchCtrlUI.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", cb_SettingsShortcutLaunchCtrlUI.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", cb_SettingsShortcutLaunchCtrlUI.IsChecked.ToString());
                 };
 
                 cb_SettingsShortcutLaunchCtrlUIKeyboard.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard", cb_SettingsShortcutLaunchCtrlUIKeyboard.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard", cb_SettingsShortcutLaunchCtrlUIKeyboard.IsChecked.ToString());
                 };
 
                 cb_SettingsShortcutKeyboardPopup.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutKeyboardPopup", cb_SettingsShortcutKeyboardPopup.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ShortcutKeyboardPopup", cb_SettingsShortcutKeyboardPopup.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
                 cb_SettingsShortcutAltEnter.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutAltEnter", cb_SettingsShortcutAltEnter.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ShortcutAltEnter", cb_SettingsShortcutAltEnter.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
                 cb_SettingsShortcutCtrlAltDelete.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", cb_SettingsShortcutCtrlAltDelete.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", cb_SettingsShortcutCtrlAltDelete.IsChecked.ToString());
                 };
 
                 cb_SettingsShortcutAltTab.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", cb_SettingsShortcutAltTab.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ShortcutAltTab", cb_SettingsShortcutAltTab.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
                 cb_SettingsShortcutScreenshotController.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshotController", cb_SettingsShortcutScreenshotController.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ShortcutScreenshotController", cb_SettingsShortcutScreenshotController.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
                 cb_SettingsShortcutScreenshotKeyboard.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", cb_SettingsShortcutScreenshotKeyboard.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", cb_SettingsShortcutScreenshotKeyboard.IsChecked.ToString());
                 };
 
                 //Keyboard settings
                 cb_SettingsKeyboardCloseNoController.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardCloseNoController", cb_SettingsKeyboardCloseNoController.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "KeyboardCloseNoController", cb_SettingsKeyboardCloseNoController.IsChecked.ToString());
                 };
 
                 cb_SettingsKeyboardResetPosition.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardResetPosition", cb_SettingsKeyboardResetPosition.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "KeyboardResetPosition", cb_SettingsKeyboardResetPosition.IsChecked.ToString());
                 };
 
                 combobox_KeyboardLayout.SelectionChanged += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardLayout", combobox_KeyboardLayout.SelectedIndex.ToString());
+                    SettingSave(vConfigurationDirectXInput, "KeyboardLayout", combobox_KeyboardLayout.SelectedIndex.ToString());
                     App.vWindowKeyboard.UpdateKeyboardLayout();
                 };
 
                 slider_SettingsKeyboardMouseMoveSensitivity.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsKeyboardMouseMoveSensitivity.Text = textblock_SettingsKeyboardMouseMoveSensitivity.Tag.ToString() + slider_SettingsKeyboardMouseMoveSensitivity.Value.ToString("0.00");
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", slider_SettingsKeyboardMouseMoveSensitivity.Value.ToString("0.00"));
+                    SettingSave(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", slider_SettingsKeyboardMouseMoveSensitivity.Value.ToString("0.00"));
                 };
 
                 slider_SettingsKeyboardMouseScrollSensitivity2.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsKeyboardMouseScrollSensitivity2.Text = textblock_SettingsKeyboardMouseScrollSensitivity2.Tag.ToString() + slider_SettingsKeyboardMouseScrollSensitivity2.Value.ToString();
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", slider_SettingsKeyboardMouseScrollSensitivity2.Value.ToString());
+                    SettingSave(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", slider_SettingsKeyboardMouseScrollSensitivity2.Value.ToString());
                 };
 
                 //Keypad settings
@@ -297,19 +297,19 @@ namespace DirectXInput
                 //Media settings
                 combobox_ShortcutMuteFunction.SelectionChanged += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutMuteFunction", combobox_ShortcutMuteFunction.SelectedIndex.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ShortcutMuteFunction", combobox_ShortcutMuteFunction.SelectedIndex.ToString());
                 };
 
                 slider_SettingsMediaVolumeStep.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsMediaVolumeStep.Text = textblock_SettingsMediaVolumeStep.Tag.ToString() + slider_SettingsMediaVolumeStep.Value.ToString();
-                    Setting_Save(vConfigurationDirectXInput, "MediaVolumeStep", slider_SettingsMediaVolumeStep.Value.ToString());
+                    SettingSave(vConfigurationDirectXInput, "MediaVolumeStep", slider_SettingsMediaVolumeStep.Value.ToString());
                 };
 
                 //Screenshot settings
                 cb_Settings_ScreenshotHDRtoSDR.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ScreenshotHDRtoSDR", cb_Settings_ScreenshotHDRtoSDR.IsChecked.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ScreenshotHDRtoSDR", cb_Settings_ScreenshotHDRtoSDR.IsChecked.ToString());
                 };
             }
             catch (Exception ex)

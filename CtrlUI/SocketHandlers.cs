@@ -5,9 +5,9 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -71,12 +71,12 @@ namespace CtrlUI
                         Debug.WriteLine("Received socket string: " + receivedString);
                         if (receivedString == "SettingChangedShortcut")
                         {
-                            vConfigurationDirectXInput = Settings_Load_DirectXInput();
+                            vConfigurationDirectXInput = SettingLoadConfig("DirectXInput.exe.csettings");
                             UpdateControllerHelp();
                         }
                         else if (receivedString == "SettingChangedControllerColor")
                         {
-                            vConfigurationDirectXInput = Settings_Load_DirectXInput();
+                            vConfigurationDirectXInput = SettingLoadConfig("DirectXInput.exe.csettings");
                             UpdateControllerColor();
                         }
                         else if (receivedString == "AppWindowHideShow")

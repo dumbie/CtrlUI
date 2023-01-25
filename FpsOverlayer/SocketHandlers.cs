@@ -1,14 +1,13 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -59,13 +58,13 @@ namespace FpsOverlayer
                         }
                         else if (receivedString == "SettingChangedColorAccentLight")
                         {
-                            vConfigurationCtrlUI = Settings_Load_CtrlUI();
-                            string colorLightHex = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ColorAccentLight"));
+                            vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
+                            string colorLightHex = SettingLoad(vConfigurationCtrlUI, "ColorAccentLight", typeof(string));
                             ChangeApplicationAccentColor(colorLightHex);
                         }
                         else if (receivedString == "SettingChangedDisplayMonitor")
                         {
-                            vConfigurationCtrlUI = Settings_Load_CtrlUI();
+                            vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
                             UpdateWindowPosition();
                         }
                     }

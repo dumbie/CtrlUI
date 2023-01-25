@@ -4,8 +4,8 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
-using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -16,72 +16,72 @@ namespace DirectXInput
         {
             try
             {
-                cb_SettingsShortcutDisconnectBluetooth.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth"));
-                cb_SettingsExclusiveGuide.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide"));
+                cb_SettingsShortcutDisconnectBluetooth.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth", typeof(bool));
+                cb_SettingsExclusiveGuide.IsChecked = SettingLoad(vConfigurationDirectXInput, "ExclusiveGuide", typeof(bool));
 
                 //Load battery settings
-                int batteryLevelLowInt = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "BatteryLowLevel"));
+                int batteryLevelLowInt = SettingLoad(vConfigurationDirectXInput, "BatteryLowLevel", typeof(int));
                 textblock_BatteryLowLevel.Text = textblock_BatteryLowLevel.Tag + ": " + batteryLevelLowInt + "%";
                 slider_BatteryLowLevel.Value = batteryLevelLowInt;
 
-                cb_SettingsBatteryLowBlinkLed.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowBlinkLed"));
-                cb_SettingsBatteryLowShowNotification.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowShowNotification"));
-                cb_SettingsBatteryLowPlaySound.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowPlaySound"));
+                cb_SettingsBatteryLowBlinkLed.IsChecked = SettingLoad(vConfigurationDirectXInput, "BatteryLowBlinkLed", typeof(bool));
+                cb_SettingsBatteryLowShowNotification.IsChecked = SettingLoad(vConfigurationDirectXInput, "BatteryLowShowNotification", typeof(bool));
+                cb_SettingsBatteryLowPlaySound.IsChecked = SettingLoad(vConfigurationDirectXInput, "BatteryLowPlaySound", typeof(bool));
 
                 //Load controller settings
-                int controllerIdleDisconnectMinInt = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin"));
+                int controllerIdleDisconnectMinInt = SettingLoad(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", typeof(int));
                 textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + batteryLevelLowInt + " minutes";
                 slider_ControllerIdleDisconnectMin.Value = batteryLevelLowInt;
 
-                string ControllerColor0 = Setting_Load(vConfigurationDirectXInput, "ControllerColor0").ToString();
+                string ControllerColor0 = SettingLoad(vConfigurationDirectXInput, "ControllerColor0", typeof(string));
                 SolidColorBrush ControllerColor0Brush = new BrushConverter().ConvertFrom(ControllerColor0) as SolidColorBrush;
                 colorpicker_Controller0.Background = ControllerColor0Brush;
                 vController0.Color = ControllerColor0Brush.Color;
 
-                string ControllerColor1 = Setting_Load(vConfigurationDirectXInput, "ControllerColor1").ToString();
+                string ControllerColor1 = SettingLoad(vConfigurationDirectXInput, "ControllerColor1", typeof(string));
                 SolidColorBrush ControllerColor1Brush = new BrushConverter().ConvertFrom(ControllerColor1) as SolidColorBrush;
                 colorpicker_Controller1.Background = ControllerColor1Brush;
                 vController1.Color = ControllerColor1Brush.Color;
 
-                string ControllerColor2 = Setting_Load(vConfigurationDirectXInput, "ControllerColor2").ToString();
+                string ControllerColor2 = SettingLoad(vConfigurationDirectXInput, "ControllerColor2", typeof(string));
                 SolidColorBrush ControllerColor2Brush = new BrushConverter().ConvertFrom(ControllerColor2) as SolidColorBrush;
                 colorpicker_Controller2.Background = ControllerColor2Brush;
                 vController2.Color = ControllerColor2Brush.Color;
 
-                string ControllerColor3 = Setting_Load(vConfigurationDirectXInput, "ControllerColor3").ToString();
+                string ControllerColor3 = SettingLoad(vConfigurationDirectXInput, "ControllerColor3", typeof(string));
                 SolidColorBrush ControllerColor3Brush = new BrushConverter().ConvertFrom(ControllerColor3) as SolidColorBrush;
                 colorpicker_Controller3.Background = ControllerColor3Brush;
                 vController3.Color = ControllerColor3Brush.Color;
 
                 //Load shortcut settings
-                cb_SettingsShortcutLaunchCtrlUI.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI"));
-                cb_SettingsShortcutLaunchCtrlUIKeyboard.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard"));
-                cb_SettingsShortcutKeyboardPopup.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup"));
-                cb_SettingsShortcutAltEnter.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter"));
-                cb_SettingsShortcutAltTab.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab"));
-                cb_SettingsShortcutCtrlAltDelete.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutCtrlAltDelete"));
-                cb_SettingsShortcutScreenshotController.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotController"));
-                cb_SettingsShortcutScreenshotKeyboard.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard"));
+                cb_SettingsShortcutLaunchCtrlUI.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", typeof(bool));
+                cb_SettingsShortcutLaunchCtrlUIKeyboard.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard", typeof(bool));
+                cb_SettingsShortcutKeyboardPopup.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutKeyboardPopup", typeof(bool));
+                cb_SettingsShortcutAltEnter.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutAltEnter", typeof(bool));
+                cb_SettingsShortcutAltTab.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutAltTab", typeof(bool));
+                cb_SettingsShortcutCtrlAltDelete.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", typeof(bool));
+                cb_SettingsShortcutScreenshotController.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutScreenshotController", typeof(bool));
+                cb_SettingsShortcutScreenshotKeyboard.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", typeof(bool));
 
                 //Load keyboard settings
-                cb_SettingsKeyboardCloseNoController.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardCloseNoController"));
-                cb_SettingsKeyboardResetPosition.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition"));
-                combobox_KeyboardLayout.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout"));
+                cb_SettingsKeyboardCloseNoController.IsChecked = SettingLoad(vConfigurationDirectXInput, "KeyboardCloseNoController", typeof(bool));
+                cb_SettingsKeyboardResetPosition.IsChecked = SettingLoad(vConfigurationDirectXInput, "KeyboardResetPosition", typeof(bool));
+                combobox_KeyboardLayout.SelectedIndex = SettingLoad(vConfigurationDirectXInput, "KeyboardLayout", typeof(int));
 
                 //Load mouse sensitivity
-                textblock_SettingsKeyboardMouseMoveSensitivity.Text = textblock_SettingsKeyboardMouseMoveSensitivity.Tag.ToString() + Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity").ToString();
-                slider_SettingsKeyboardMouseMoveSensitivity.Value = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity"));
-                textblock_SettingsKeyboardMouseScrollSensitivity2.Text = textblock_SettingsKeyboardMouseScrollSensitivity2.Tag.ToString() + Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2").ToString();
-                slider_SettingsKeyboardMouseScrollSensitivity2.Value = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2"));
+                textblock_SettingsKeyboardMouseMoveSensitivity.Text = textblock_SettingsKeyboardMouseMoveSensitivity.Tag.ToString() + SettingLoad(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", typeof(string));
+                slider_SettingsKeyboardMouseMoveSensitivity.Value = SettingLoad(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", typeof(double));
+                textblock_SettingsKeyboardMouseScrollSensitivity2.Text = textblock_SettingsKeyboardMouseScrollSensitivity2.Tag.ToString() + SettingLoad(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", typeof(string));
+                slider_SettingsKeyboardMouseScrollSensitivity2.Value = SettingLoad(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", typeof(double));
 
                 //Load media settings
-                combobox_ShortcutMuteFunction.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction"));
-                textblock_SettingsMediaVolumeStep.Text = textblock_SettingsMediaVolumeStep.Tag.ToString() + Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep").ToString();
-                slider_SettingsMediaVolumeStep.Value = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
+                combobox_ShortcutMuteFunction.SelectedIndex = SettingLoad(vConfigurationDirectXInput, "ShortcutMuteFunction", typeof(int));
+                textblock_SettingsMediaVolumeStep.Text = textblock_SettingsMediaVolumeStep.Tag.ToString() + SettingLoad(vConfigurationDirectXInput, "MediaVolumeStep", typeof(string));
+                slider_SettingsMediaVolumeStep.Value = SettingLoad(vConfigurationDirectXInput, "MediaVolumeStep", typeof(double));
 
                 //Load screenshot settings
-                textblock_Settings_ScreenshotLocation.Text = textblock_Settings_ScreenshotLocation.Tag + Setting_Load(vConfigurationDirectXInput, "ScreenshotLocation").ToString();
-                cb_Settings_ScreenshotHDRtoSDR.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ScreenshotHDRtoSDR"));
+                textblock_Settings_ScreenshotLocation.Text = textblock_Settings_ScreenshotLocation.Tag + SettingLoad(vConfigurationDirectXInput, "ScreenshotLocation", typeof(string));
+                cb_Settings_ScreenshotHDRtoSDR.IsChecked = SettingLoad(vConfigurationDirectXInput, "ScreenshotHDRtoSDR", typeof(bool));
 
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;

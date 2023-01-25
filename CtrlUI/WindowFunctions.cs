@@ -6,10 +6,10 @@ using System.Windows;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -36,11 +36,11 @@ namespace CtrlUI
             try
             {
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
                 DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                 //Resize the window size
-                double appWindowSize = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "AppWindowSize"));
+                double appWindowSize = SettingLoad(vConfigurationCtrlUI, "AppWindowSize", typeof(double));
                 appWindowSize /= 100;
                 int windowWidth = Convert.ToInt32(displayMonitorSettings.WidthNative * appWindowSize);
                 int windowHeight = Convert.ToInt32(displayMonitorSettings.HeightNative * appWindowSize);

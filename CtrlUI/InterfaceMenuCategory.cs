@@ -3,10 +3,10 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Enums;
 using static LibraryShared.FocusFunctions;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -133,7 +133,7 @@ namespace CtrlUI
         {
             try
             {
-                ListCategory listCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                ListCategory listCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
                 await ChangeCategoryListBox(listCategory, forceSwitch);
             }
             catch { }
@@ -211,7 +211,7 @@ namespace CtrlUI
                 targetTextblock.Style = (Style)Application.Current.Resources["TextBlockWhiteLight"];
 
                 //Update list category setting
-                Setting_Save(vConfigurationCtrlUI, "ListAppCategory", Convert.ToInt32(listCategory).ToString());
+                SettingSave(vConfigurationCtrlUI, "ListAppCategory", Convert.ToInt32(listCategory).ToString());
 
                 //Update category list count
                 ListsUpdateCount();

@@ -9,13 +9,13 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.FocusFunctions;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -452,7 +452,7 @@ namespace CtrlUI
                         }
 
                         //Focus on the edited item listbox
-                        ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                        ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
                         if (listAppCategory == ListCategory.Search)
                         {
                             await ListboxFocusIndex(lb_Search, false, false, -1, vProcessCurrent.MainWindowHandle);
@@ -476,7 +476,7 @@ namespace CtrlUI
                     else
                     {
                         //Focus on the item listbox
-                        ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                        ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
                         if (listAppCategory == ListCategory.Search)
                         {
                             await ListboxFocusIndex(lb_Search, false, false, -1, vProcessCurrent.MainWindowHandle);

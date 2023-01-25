@@ -1,12 +1,11 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVTaskbarInformation;
 using static DirectXInput.AppVariables;
-using static LibraryShared.Settings;
 
 namespace DirectXInput.KeypadCode
 {
@@ -27,7 +26,7 @@ namespace DirectXInput.KeypadCode
                         if (taskbarInfo.IsAutoHide && taskbarInfo.IsVisible)
                         {
                             //Get the current active screen
-                            int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                            int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
                             DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                             //Get the current taskbar size

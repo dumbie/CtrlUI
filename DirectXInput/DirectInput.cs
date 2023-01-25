@@ -6,10 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 using static LibraryUsb.Events;
 
 namespace DirectXInput
@@ -401,7 +401,7 @@ namespace DirectXInput
                 Controller.ResetControllerStatus();
 
                 //Check if any controller is connected
-                if (!vControllerAnyConnected() && Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardCloseNoController")))
+                if (!vControllerAnyConnected() && SettingLoad(vConfigurationDirectXInput, "KeyboardCloseNoController", typeof(bool)))
                 {
                     Debug.WriteLine("No controller connected closing open popups.");
                     await HideOpenPopups();

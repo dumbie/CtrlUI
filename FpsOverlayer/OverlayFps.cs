@@ -1,15 +1,14 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVTaskbarInformation;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -70,14 +69,14 @@ namespace FpsOverlayer
         {
             try
             {
-                int nextPosition = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition")) + 1;
+                int nextPosition = SettingLoad(vConfigurationFpsOverlayer, "TextPosition", typeof(int)) + 1;
                 if (nextPosition > 7)
                 {
                     nextPosition = 0;
                 }
 
                 Debug.WriteLine("Changing text postion to: " + nextPosition);
-                Setting_Save(vConfigurationFpsOverlayer, "TextPosition", nextPosition.ToString());
+                SettingSave(vConfigurationFpsOverlayer, "TextPosition", nextPosition.ToString());
                 UpdateFpsOverlayStyle();
             }
             catch { }
@@ -89,7 +88,7 @@ namespace FpsOverlayer
             try
             {
                 //Load the text position
-                OverlayPosition targetTextPosition = (OverlayPosition)Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition"));
+                OverlayPosition targetTextPosition = (OverlayPosition)SettingLoad(vConfigurationFpsOverlayer, "TextPosition", typeof(int));
                 if (!string.IsNullOrWhiteSpace(processName))
                 {
                     ProfileShared FpsPositionProcessName = vFpsPositionProcessName.Where(x => x.String1.ToLower() == processName.ToLower()).FirstOrDefault();
@@ -116,8 +115,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
-                        double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        double marginHorizontal = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
+                        double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_LEFT) { marginHorizontal += vTaskBarAdjustMargin; }
                         else if (vTaskBarPosition == AppBarPosition.ABE_TOP) { marginVertical += vTaskBarAdjustMargin; }
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
@@ -139,8 +138,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
-                        double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        double marginHorizontal = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
+                        double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_TOP) { marginVertical += vTaskBarAdjustMargin; }
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
@@ -161,8 +160,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
-                        double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        double marginHorizontal = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
+                        double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_RIGHT) { marginHorizontal += vTaskBarAdjustMargin; }
                         else if (vTaskBarPosition == AppBarPosition.ABE_TOP) { marginVertical += vTaskBarAdjustMargin; }
                         grid_FpsOverlayer.Margin = new Thickness(0, marginVertical, marginHorizontal, 0);
@@ -184,8 +183,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
-                        double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        double marginHorizontal = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
+                        double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_RIGHT) { marginHorizontal += vTaskBarAdjustMargin; }
                         grid_FpsOverlayer.Margin = new Thickness(0, marginVertical, marginHorizontal, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Center;
@@ -206,8 +205,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
-                        double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        double marginHorizontal = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
+                        double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_RIGHT) { marginHorizontal += vTaskBarAdjustMargin; }
                         else if (vTaskBarPosition == AppBarPosition.ABE_BOTTOM) { marginVertical += vTaskBarAdjustMargin; }
                         marginVertical += vKeypadAdjustMargin;
@@ -230,8 +229,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
-                        double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        double marginHorizontal = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
+                        double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_BOTTOM) { marginVertical += vTaskBarAdjustMargin; }
                         marginVertical += vKeypadAdjustMargin;
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
@@ -253,8 +252,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
-                        double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        double marginHorizontal = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
+                        double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_LEFT) { marginHorizontal += vTaskBarAdjustMargin; }
                         else if (vTaskBarPosition == AppBarPosition.ABE_BOTTOM) { marginVertical += vTaskBarAdjustMargin; }
                         marginVertical += vKeypadAdjustMargin;
@@ -277,8 +276,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
-                        double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        double marginHorizontal = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
+                        double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_LEFT) { marginHorizontal += vTaskBarAdjustMargin; }
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Center;
@@ -305,57 +304,57 @@ namespace FpsOverlayer
             try
             {
                 //Update the stats titles
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowCategoryTitle")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "GpuShowCategoryTitle", typeof(bool)))
                 {
-                    vTitleGPU = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "GpuCategoryTitle"));
+                    vTitleGPU = SettingLoad(vConfigurationFpsOverlayer, "GpuCategoryTitle", typeof(string));
                 }
                 else
                 {
                     vTitleGPU = string.Empty;
                 }
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCategoryTitle")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "CpuShowCategoryTitle", typeof(bool)))
                 {
-                    vTitleCPU = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "CpuCategoryTitle"));
+                    vTitleCPU = SettingLoad(vConfigurationFpsOverlayer, "CpuCategoryTitle", typeof(string));
                 }
                 else
                 {
                     vTitleCPU = string.Empty;
                 }
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowCategoryTitle")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "MemShowCategoryTitle", typeof(bool)))
                 {
-                    vTitleMEM = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "MemCategoryTitle"));
+                    vTitleMEM = SettingLoad(vConfigurationFpsOverlayer, "MemCategoryTitle", typeof(string));
                 }
                 else
                 {
                     vTitleMEM = string.Empty;
                 }
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "NetShowCategoryTitle")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "NetShowCategoryTitle", typeof(bool)))
                 {
-                    vTitleNET = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "NetCategoryTitle"));
+                    vTitleNET = SettingLoad(vConfigurationFpsOverlayer, "NetCategoryTitle", typeof(string));
                 }
                 else
                 {
                     vTitleNET = string.Empty;
                 }
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowCategoryTitle")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "MonShowCategoryTitle", typeof(bool)))
                 {
-                    vTitleMON = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "MonCategoryTitle"));
+                    vTitleMON = SettingLoad(vConfigurationFpsOverlayer, "MonCategoryTitle", typeof(string));
                 }
                 else
                 {
                     vTitleMON = string.Empty;
                 }
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "FpsShowCategoryTitle")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "FpsShowCategoryTitle", typeof(bool)))
                 {
-                    vTitleFPS = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "FpsCategoryTitle"));
+                    vTitleFPS = SettingLoad(vConfigurationFpsOverlayer, "FpsCategoryTitle", typeof(string));
                 }
                 else
                 {
                     vTitleFPS = string.Empty;
                 }
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BatShowCategoryTitle")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "BatShowCategoryTitle", typeof(bool)))
                 {
-                    vTitleBAT = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "BatCategoryTitle"));
+                    vTitleBAT = SettingLoad(vConfigurationFpsOverlayer, "BatCategoryTitle", typeof(string));
                 }
                 else
                 {
@@ -363,19 +362,19 @@ namespace FpsOverlayer
                 }
 
                 //Load stats order identifier
-                int TimeId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TimeId"));
-                int CustomTextId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "CustomTextId"));
-                int MonId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "MonId"));
-                int AppId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "AppId"));
-                int FpsId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "FpsId"));
-                int NetId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "NetId"));
-                int CpuId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "CpuId"));
-                int GpuId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "GpuId"));
-                int MemId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "MemId"));
-                int BatId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "BatId"));
+                int TimeId = SettingLoad(vConfigurationFpsOverlayer, "TimeId", typeof(int));
+                int CustomTextId = SettingLoad(vConfigurationFpsOverlayer, "CustomTextId", typeof(int));
+                int MonId = SettingLoad(vConfigurationFpsOverlayer, "MonId", typeof(int));
+                int AppId = SettingLoad(vConfigurationFpsOverlayer, "AppId", typeof(int));
+                int FpsId = SettingLoad(vConfigurationFpsOverlayer, "FpsId", typeof(int));
+                int NetId = SettingLoad(vConfigurationFpsOverlayer, "NetId", typeof(int));
+                int CpuId = SettingLoad(vConfigurationFpsOverlayer, "CpuId", typeof(int));
+                int GpuId = SettingLoad(vConfigurationFpsOverlayer, "GpuId", typeof(int));
+                int MemId = SettingLoad(vConfigurationFpsOverlayer, "MemId", typeof(int));
+                int BatId = SettingLoad(vConfigurationFpsOverlayer, "BatId", typeof(int));
 
                 //Update the stats text orientation and order
-                if (Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextDirection")) == 1)
+                if (SettingLoad(vConfigurationFpsOverlayer, "TextDirection", typeof(int)) == 1)
                 {
                     stackpanel_CurrentTime.SetValue(Grid.RowProperty, TimeId);
                     stackpanel_CustomText.SetValue(Grid.RowProperty, CustomTextId);
@@ -426,9 +425,9 @@ namespace FpsOverlayer
 
                 //Update the stats background
                 SolidColorBrush brushBackground = null;
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "DisplayBackground")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "DisplayBackground", typeof(bool)))
                 {
-                    string colorBackground = Setting_Load(vConfigurationFpsOverlayer, "ColorBackground").ToString();
+                    string colorBackground = SettingLoad(vConfigurationFpsOverlayer, "ColorBackground", typeof(string));
                     brushBackground = new BrushConverter().ConvertFrom(colorBackground) as SolidColorBrush;
                 }
                 else
@@ -447,13 +446,13 @@ namespace FpsOverlayer
                 stackpanel_CurrentBat.Background = brushBackground;
 
                 //Update the stats opacity
-                grid_FpsOverlayer.Opacity = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "DisplayOpacity"));
+                grid_FpsOverlayer.Opacity = SettingLoad(vConfigurationFpsOverlayer, "DisplayOpacity", typeof(double));
 
                 //Adjust the application font family
                 UpdateAppFontStyle();
 
                 //Update the stats text size
-                double targetTextSize = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "TextSize"));
+                double targetTextSize = SettingLoad(vConfigurationFpsOverlayer, "TextSize", typeof(double));
                 textblock_CurrentMem.FontSize = targetTextSize;
                 textblock_CurrentMem.LineHeight = targetTextSize;
                 textblock_CurrentMem.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
@@ -486,9 +485,9 @@ namespace FpsOverlayer
                 textblock_CurrentBat.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
 
                 //Update the stats colors
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "TextColorSingle")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "TextColorSingle", typeof(bool)))
                 {
-                    string ColorSingle = Setting_Load(vConfigurationFpsOverlayer, "ColorSingle").ToString();
+                    string ColorSingle = SettingLoad(vConfigurationFpsOverlayer, "ColorSingle", typeof(string));
                     SolidColorBrush brushForeground = new BrushConverter().ConvertFrom(ColorSingle) as SolidColorBrush;
                     textblock_CurrentMem.Foreground = brushForeground;
                     textblock_CurrentGpu.Foreground = brushForeground;
@@ -503,16 +502,16 @@ namespace FpsOverlayer
                 }
                 else
                 {
-                    string ColorMem = Setting_Load(vConfigurationFpsOverlayer, "ColorMem").ToString();
-                    string ColorGpu = Setting_Load(vConfigurationFpsOverlayer, "ColorGpu").ToString();
-                    string ColorCpu = Setting_Load(vConfigurationFpsOverlayer, "ColorCpu").ToString();
-                    string ColorNet = Setting_Load(vConfigurationFpsOverlayer, "ColorNet").ToString();
-                    string ColorFps = Setting_Load(vConfigurationFpsOverlayer, "ColorFps").ToString();
-                    string ColorApp = Setting_Load(vConfigurationFpsOverlayer, "ColorApp").ToString();
-                    string ColorTime = Setting_Load(vConfigurationFpsOverlayer, "ColorTime").ToString();
-                    string ColorCustomText = Setting_Load(vConfigurationFpsOverlayer, "ColorCustomText").ToString();
-                    string ColorMon = Setting_Load(vConfigurationFpsOverlayer, "ColorMon").ToString();
-                    string ColorBat = Setting_Load(vConfigurationFpsOverlayer, "ColorBat").ToString();
+                    string ColorMem = SettingLoad(vConfigurationFpsOverlayer, "ColorMem", typeof(string));
+                    string ColorGpu = SettingLoad(vConfigurationFpsOverlayer, "ColorGpu", typeof(string));
+                    string ColorCpu = SettingLoad(vConfigurationFpsOverlayer, "ColorCpu", typeof(string));
+                    string ColorNet = SettingLoad(vConfigurationFpsOverlayer, "ColorNet", typeof(string));
+                    string ColorFps = SettingLoad(vConfigurationFpsOverlayer, "ColorFps", typeof(string));
+                    string ColorApp = SettingLoad(vConfigurationFpsOverlayer, "ColorApp", typeof(string));
+                    string ColorTime = SettingLoad(vConfigurationFpsOverlayer, "ColorTime", typeof(string));
+                    string ColorCustomText = SettingLoad(vConfigurationFpsOverlayer, "ColorCustomText", typeof(string));
+                    string ColorMon = SettingLoad(vConfigurationFpsOverlayer, "ColorMon", typeof(string));
+                    string ColorBat = SettingLoad(vConfigurationFpsOverlayer, "ColorBat", typeof(string));
                     textblock_CurrentMem.Foreground = new BrushConverter().ConvertFrom(ColorMem) as SolidColorBrush;
                     textblock_CurrentGpu.Foreground = new BrushConverter().ConvertFrom(ColorGpu) as SolidColorBrush;
                     textblock_CurrentCpu.Foreground = new BrushConverter().ConvertFrom(ColorCpu) as SolidColorBrush;

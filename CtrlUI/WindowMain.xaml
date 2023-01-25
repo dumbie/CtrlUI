@@ -670,7 +670,7 @@
                                 </StackPanel>
 
                                 <StackPanel Name="settingsStackpanelSound" Visibility="Collapsed">
-                                    <CheckBox Name="cb_SettingsInterfaceSound" Content="Enable the user interface sounds" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                    <CheckBox Name="cb_SettingsInterfaceSound" Content="Enable user interface sounds" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will play user interface sounds on certain actions." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                                     <TextBlock Name="textblock_SettingsSoundVolume" Text="User interface sound volume" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>

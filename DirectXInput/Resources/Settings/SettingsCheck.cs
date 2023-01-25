@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
-using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -12,47 +12,47 @@ namespace DirectXInput
         {
             try
             {
-                if (Setting_Load(vConfigurationDirectXInput, "AppFirstLaunch") == null) { Setting_Save(vConfigurationDirectXInput, "AppFirstLaunch", "True"); }
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth", "True"); }
-                if (Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide") == null) { Setting_Save(vConfigurationDirectXInput, "ExclusiveGuide", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "AppFirstLaunch")) { SettingSave(vConfigurationDirectXInput, "AppFirstLaunch", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth")) { SettingSave(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ExclusiveGuide")) { SettingSave(vConfigurationDirectXInput, "ExclusiveGuide", "True"); }
 
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", "True"); }
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard", "True"); }
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutKeyboardPopup", "True"); } //Shared
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltEnter", "True"); } //Shared
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", "True"); } //Shared
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutCtrlAltDelete") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", "True"); }
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotController") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshotController", "True"); } //Shared
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI")) { SettingSave(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard")) { SettingSave(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutKeyboardPopup")) { SettingSave(vConfigurationDirectXInput, "ShortcutKeyboardPopup", "True"); } //Shared
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutAltEnter")) { SettingSave(vConfigurationDirectXInput, "ShortcutAltEnter", "True"); } //Shared
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutAltTab")) { SettingSave(vConfigurationDirectXInput, "ShortcutAltTab", "True"); } //Shared
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutCtrlAltDelete")) { SettingSave(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutScreenshotController")) { SettingSave(vConfigurationDirectXInput, "ShortcutScreenshotController", "True"); } //Shared
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard")) { SettingSave(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", "True"); }
 
                 //Battery settings
-                if (Setting_Load(vConfigurationDirectXInput, "BatteryLowLevel") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryLowLevel", "20"); }
-                if (Setting_Load(vConfigurationDirectXInput, "BatteryLowBlinkLed") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryLowBlinkLed", "True"); }
-                if (Setting_Load(vConfigurationDirectXInput, "BatteryLowShowNotification") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryLowShowNotification", "True"); }
-                if (Setting_Load(vConfigurationDirectXInput, "BatteryLowPlaySound") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryLowPlaySound", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "BatteryLowLevel")) { SettingSave(vConfigurationDirectXInput, "BatteryLowLevel", "20"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "BatteryLowBlinkLed")) { SettingSave(vConfigurationDirectXInput, "BatteryLowBlinkLed", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "BatteryLowShowNotification")) { SettingSave(vConfigurationDirectXInput, "BatteryLowShowNotification", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "BatteryLowPlaySound")) { SettingSave(vConfigurationDirectXInput, "BatteryLowPlaySound", "True"); }
 
                 //Controller settings
-                if (Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", "10"); }
-                if (Setting_Load(vConfigurationDirectXInput, "ControllerColor0") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerColor0", "#00C7FF"); } //Shared
-                if (Setting_Load(vConfigurationDirectXInput, "ControllerColor1") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerColor1", "#F0140A"); } //Shared
-                if (Setting_Load(vConfigurationDirectXInput, "ControllerColor2") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerColor2", "#14F00A"); } //Shared
-                if (Setting_Load(vConfigurationDirectXInput, "ControllerColor3") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerColor3", "#F0DC0A"); } //Shared
+                if (!SettingCheck(vConfigurationDirectXInput, "ControllerIdleDisconnectMin")) { SettingSave(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", "10"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ControllerColor0")) { SettingSave(vConfigurationDirectXInput, "ControllerColor0", "#00C7FF"); } //Shared
+                if (!SettingCheck(vConfigurationDirectXInput, "ControllerColor1")) { SettingSave(vConfigurationDirectXInput, "ControllerColor1", "#F0140A"); } //Shared
+                if (!SettingCheck(vConfigurationDirectXInput, "ControllerColor2")) { SettingSave(vConfigurationDirectXInput, "ControllerColor2", "#14F00A"); } //Shared
+                if (!SettingCheck(vConfigurationDirectXInput, "ControllerColor3")) { SettingSave(vConfigurationDirectXInput, "ControllerColor3", "#F0DC0A"); } //Shared
 
                 //Keyboard settings
-                if (Setting_Load(vConfigurationDirectXInput, "KeyboardLayout") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardLayout", "0"); }
-                if (Setting_Load(vConfigurationDirectXInput, "KeyboardMode") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardMode", "1"); }
-                if (Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardResetPosition", "False"); }
-                if (Setting_Load(vConfigurationDirectXInput, "KeyboardCloseNoController") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardCloseNoController", "True"); }
-                if (Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", "7,50"); }
-                if (Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", "2"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "KeyboardLayout")) { SettingSave(vConfigurationDirectXInput, "KeyboardLayout", "0"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "KeyboardMode")) { SettingSave(vConfigurationDirectXInput, "KeyboardMode", "1"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "KeyboardResetPosition")) { SettingSave(vConfigurationDirectXInput, "KeyboardResetPosition", "False"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "KeyboardCloseNoController")) { SettingSave(vConfigurationDirectXInput, "KeyboardCloseNoController", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity")) { SettingSave(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", "7,50"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2")) { SettingSave(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", "2"); }
 
                 //Media settings
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutMuteFunction", "0"); }
-                if (Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep") == null) { Setting_Save(vConfigurationDirectXInput, "MediaVolumeStep", "2"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutMuteFunction")) { SettingSave(vConfigurationDirectXInput, "ShortcutMuteFunction", "0"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "MediaVolumeStep")) { SettingSave(vConfigurationDirectXInput, "MediaVolumeStep", "2"); }
 
                 //Screenshot settings
-                if (Setting_Load(vConfigurationDirectXInput, "ScreenshotLocation") == null) { Setting_Save(vConfigurationDirectXInput, "ScreenshotLocation", "Screenshots"); }
-                if (Setting_Load(vConfigurationDirectXInput, "ScreenshotHDRtoSDR") == null) { Setting_Save(vConfigurationDirectXInput, "ScreenshotHDRtoSDR", "False"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ScreenshotLocation")) { SettingSave(vConfigurationDirectXInput, "ScreenshotLocation", "Screenshots"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ScreenshotHDRtoSDR")) { SettingSave(vConfigurationDirectXInput, "ScreenshotHDRtoSDR", "False"); }
             }
             catch (Exception ex)
             {

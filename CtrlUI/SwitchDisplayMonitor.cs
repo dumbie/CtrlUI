@@ -7,8 +7,8 @@ using System.Windows;
 using System.Windows.Forms;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -45,7 +45,7 @@ namespace CtrlUI
                     await Notification_Send_Status("MonitorNext", "Only one monitor");
 
                     //Save the new monitor number
-                    Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", "1");
+                    SettingSave(vConfigurationCtrlUI, "DisplayMonitor", "1");
 
                     //Update the window position
                     await UpdateWindowPosition(true, true);
@@ -53,7 +53,7 @@ namespace CtrlUI
                 }
 
                 //Check the next target monitor
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
                 if (monitorNumber >= totalScreenCount)
                 {
                     monitorNumber = 1;
@@ -64,7 +64,7 @@ namespace CtrlUI
                 }
 
                 //Save the new monitor number
-                Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", monitorNumber.ToString());
+                SettingSave(vConfigurationCtrlUI, "DisplayMonitor", monitorNumber.ToString());
 
                 //Update the window position
                 await UpdateWindowPosition(true, false);
@@ -170,7 +170,7 @@ namespace CtrlUI
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MonitorPreventSleep")))
+                    if (SettingLoad(vConfigurationCtrlUI, "MonitorPreventSleep", typeof(bool)))
                     {
                         Debug.WriteLine("Preventing monitor to sleep.");
                         SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_DISPLAY_REQUIRED);

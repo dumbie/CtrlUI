@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -105,8 +105,8 @@ namespace CtrlUI
                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileVideos, false, false);
 
                 //Load file browser settings
-                bool hideNetworkDrives = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideNetworkDrives"));
-                bool notReadyNetworkDrives = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "NotReadyNetworkDrives"));
+                bool hideNetworkDrives = SettingLoad(vConfigurationCtrlUI, "HideNetworkDrives", typeof(bool));
+                bool notReadyNetworkDrives = SettingLoad(vConfigurationCtrlUI, "NotReadyNetworkDrives", typeof(bool));
 
                 //Add all disk drives that are connected
                 DriveInfo[] diskDrives = DriveInfo.GetDrives();

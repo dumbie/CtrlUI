@@ -13,11 +13,11 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVJsonFunctions;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static ArnoldVinkCode.Styles.MainColors;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
-using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -50,7 +50,7 @@ namespace FpsOverlayer
                 vWindowSettings.Settings_Check();
 
                 //Change application accent color
-                string colorLightHex = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ColorAccentLight"));
+                string colorLightHex = SettingLoad(vConfigurationCtrlUI, "ColorAccentLight", typeof(string));
                 ChangeApplicationAccentColor(colorLightHex);
 
                 //Update the window position
@@ -82,13 +82,13 @@ namespace FpsOverlayer
                 StartMonitorHardware();
 
                 //Show crosshair when enabled
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CrosshairLaunch")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "CrosshairLaunch", typeof(bool)))
                 {
                     ShowCrosshairVisibility();
                 }
 
                 //Show browser when enabled
-                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BrowserShowStartup")))
+                if (SettingLoad(vConfigurationFpsOverlayer, "BrowserShowStartup", typeof(bool)))
                 {
                     vWindowBrowser.Show();
                 }
@@ -136,7 +136,7 @@ namespace FpsOverlayer
         {
             try
             {
-                int SocketServerPort = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort")) + 2;
+                int SocketServerPort = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(int)) + 2;
 
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, false, true);
                 vArnoldVinkSockets.vSocketTimeout = 250;
@@ -202,7 +202,7 @@ namespace FpsOverlayer
             try
             {
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
 
                 //Move the window position
                 WindowUpdatePosition(monitorNumber, vInteropWindowHandle, AVWindowPosition.FullScreen);
@@ -215,7 +215,7 @@ namespace FpsOverlayer
         {
             try
             {
-                string interfaceFontStyleName = Setting_Load(vConfigurationFpsOverlayer, "InterfaceFontStyleName").ToString();
+                string interfaceFontStyleName = SettingLoad(vConfigurationFpsOverlayer, "InterfaceFontStyleName", typeof(string));
                 if (interfaceFontStyleName == "Segoe UI" || interfaceFontStyleName == "Verdana" || interfaceFontStyleName == "Consolas" || interfaceFontStyleName == "Arial")
                 {
                     this.FontFamily = new FontFamily(interfaceFontStyleName);

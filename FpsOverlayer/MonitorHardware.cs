@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
-using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -108,7 +108,7 @@ namespace FpsOverlayer
                     finally
                     {
                         //Delay the loop task
-                        int hardwareUpdateRate = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "HardwareUpdateRateMs"));
+                        int hardwareUpdateRate = SettingLoad(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", typeof(int));
                         await TaskDelayLoop(hardwareUpdateRate, vTask_MonitorHardware);
                     }
                 }
@@ -122,7 +122,7 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showCurrentUsage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "NetShowCurrentUsage"));
+                bool showCurrentUsage = SettingLoad(vConfigurationFpsOverlayer, "NetShowCurrentUsage", typeof(bool));
                 if (!showCurrentUsage)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
@@ -188,7 +188,7 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BatShowPercentage"));
+                bool showPercentage = SettingLoad(vConfigurationFpsOverlayer, "BatShowPercentage", typeof(bool));
                 if (!showPercentage)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
@@ -260,13 +260,13 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowName"));
-                bool showSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowSpeed"));
-                bool showPowerVolt = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowPowerVolt"));
-                bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowPercentage"));
-                bool showUsed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowUsed"));
-                bool showFree = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowFree"));
-                bool showTotal = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowTotal"));
+                bool showName = SettingLoad(vConfigurationFpsOverlayer, "MemShowName", typeof(bool));
+                bool showSpeed = SettingLoad(vConfigurationFpsOverlayer, "MemShowSpeed", typeof(bool));
+                bool showPowerVolt = SettingLoad(vConfigurationFpsOverlayer, "MemShowPowerVolt", typeof(bool));
+                bool showPercentage = SettingLoad(vConfigurationFpsOverlayer, "MemShowPercentage", typeof(bool));
+                bool showUsed = SettingLoad(vConfigurationFpsOverlayer, "MemShowUsed", typeof(bool));
+                bool showFree = SettingLoad(vConfigurationFpsOverlayer, "MemShowFree", typeof(bool));
+                bool showTotal = SettingLoad(vConfigurationFpsOverlayer, "MemShowTotal", typeof(bool));
                 if (!showName && !showSpeed && !showPercentage && !showUsed && !showFree && !showTotal)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
@@ -395,14 +395,14 @@ namespace FpsOverlayer
                 if (gpuDone) { return; }
 
                 //Check if the information is visible
-                bool showName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowName"));
-                bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowPercentage"));
-                bool showTemperature = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowTemperature"));
-                bool showMemoryUsed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowMemoryUsed"));
-                bool showCoreFrequency = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowCoreFrequency"));
-                bool showFanSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowFanSpeed"));
-                bool showPowerWatt = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerWatt"));
-                bool showPowerVolt = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerVolt"));
+                bool showName = SettingLoad(vConfigurationFpsOverlayer, "GpuShowName", typeof(bool));
+                bool showPercentage = SettingLoad(vConfigurationFpsOverlayer, "GpuShowPercentage", typeof(bool));
+                bool showTemperature = SettingLoad(vConfigurationFpsOverlayer, "GpuShowTemperature", typeof(bool));
+                bool showMemoryUsed = SettingLoad(vConfigurationFpsOverlayer, "GpuShowMemoryUsed", typeof(bool));
+                bool showCoreFrequency = SettingLoad(vConfigurationFpsOverlayer, "GpuShowCoreFrequency", typeof(bool));
+                bool showFanSpeed = SettingLoad(vConfigurationFpsOverlayer, "GpuShowFanSpeed", typeof(bool));
+                bool showPowerWatt = SettingLoad(vConfigurationFpsOverlayer, "GpuShowPowerWatt", typeof(bool));
+                bool showPowerVolt = SettingLoad(vConfigurationFpsOverlayer, "GpuShowPowerVolt", typeof(bool));
                 if (!showName && !showPercentage && !showTemperature && !showMemoryUsed && !showCoreFrequency && !showFanSpeed && !showPowerWatt && !showPowerVolt)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
@@ -550,7 +550,7 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showCpuShowFanSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed"));
+                bool showCpuShowFanSpeed = SettingLoad(vConfigurationFpsOverlayer, "CpuShowFanSpeed", typeof(bool));
                 if (!showCpuShowFanSpeed)
                 {
                     return;
@@ -594,14 +594,14 @@ namespace FpsOverlayer
                 if (cpuDone) { return; }
 
                 //Check if the information is visible
-                bool showCpuName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowName"));
-                bool showBoardName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BoardShowName"));
-                bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPercentage"));
-                bool showTemperature = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature"));
-                bool showCoreFrequency = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency"));
-                bool showPowerWatt = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerWatt"));
-                bool showPowerVolt = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerVolt"));
-                bool showFanSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed"));
+                bool showCpuName = SettingLoad(vConfigurationFpsOverlayer, "CpuShowName", typeof(bool));
+                bool showBoardName = SettingLoad(vConfigurationFpsOverlayer, "BoardShowName", typeof(bool));
+                bool showPercentage = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPercentage", typeof(bool));
+                bool showTemperature = SettingLoad(vConfigurationFpsOverlayer, "CpuShowTemperature", typeof(bool));
+                bool showCoreFrequency = SettingLoad(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", typeof(bool));
+                bool showPowerWatt = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPowerWatt", typeof(bool));
+                bool showPowerVolt = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPowerVolt", typeof(bool));
+                bool showFanSpeed = SettingLoad(vConfigurationFpsOverlayer, "CpuShowFanSpeed", typeof(bool));
                 if (!showCpuName && !showBoardName && !showPercentage && !showTemperature && !showCoreFrequency && !showPowerWatt && !showPowerVolt && !showFanSpeed)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
@@ -772,10 +772,10 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showResolution = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowResolution"));
-                bool showDpiResolution = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowDpiResolution"));
-                bool showColorBitDepth = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowColorBitDepth"));
-                bool showRefreshRate = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowRefreshRate"));
+                bool showResolution = SettingLoad(vConfigurationFpsOverlayer, "MonShowResolution", typeof(bool));
+                bool showDpiResolution = SettingLoad(vConfigurationFpsOverlayer, "MonShowDpiResolution", typeof(bool));
+                bool showColorBitDepth = SettingLoad(vConfigurationFpsOverlayer, "MonShowColorBitDepth", typeof(bool));
+                bool showRefreshRate = SettingLoad(vConfigurationFpsOverlayer, "MonShowRefreshRate", typeof(bool));
                 if (!showResolution && !showColorBitDepth && !showRefreshRate)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
@@ -786,7 +786,7 @@ namespace FpsOverlayer
                 }
 
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
 
                 //Get the screen resolution
                 DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);

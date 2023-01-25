@@ -12,11 +12,11 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputInterop;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVJsonFunctions;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static ArnoldVinkCode.Styles.MainColors;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -52,7 +52,7 @@ namespace CtrlUI
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
                 //Change application accent color
-                string colorLightHex = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ColorAccentLight"));
+                string colorLightHex = SettingLoad(vConfigurationCtrlUI, "ColorAccentLight", typeof(string));
                 ChangeApplicationAccentColor(colorLightHex);
 
                 //Set the application clock style
@@ -74,7 +74,7 @@ namespace CtrlUI
                 }
 
                 //Check settings if need to start minimized
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized")))
+                if (SettingLoad(vConfigurationCtrlUI, "LaunchMinimized", typeof(bool)))
                 {
                     await AppWindowMinimize(false, true);
                 }
@@ -139,19 +139,19 @@ namespace CtrlUI
                 TasksBackgroundStart();
 
                 //Check settings if DirectXInput launches on start
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchDirectXInput")))
+                if (SettingLoad(vConfigurationCtrlUI, "LaunchDirectXInput", typeof(bool)))
                 {
                     await LaunchDirectXInput(true);
                 }
 
                 //Check settings if Fps Overlayer launches on start
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFpsOverlayer")))
+                if (SettingLoad(vConfigurationCtrlUI, "LaunchFpsOverlayer", typeof(bool)))
                 {
                     await LaunchFpsOverlayer(false);
                 }
 
                 //Force window focus on CtrlUI
-                if (!Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized")))
+                if (!SettingLoad(vConfigurationCtrlUI, "LaunchMinimized", typeof(bool)))
                 {
                     //Show the CtrlUI window
                     await AppWindowShow(true);
@@ -161,7 +161,7 @@ namespace CtrlUI
                 }
 
                 //Check settings if this is the first application launch
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "AppFirstLaunch")))
+                if (SettingLoad(vConfigurationCtrlUI, "AppFirstLaunch", typeof(bool)))
                 {
                     await AddFirstLaunchApps();
                 }
@@ -192,7 +192,7 @@ namespace CtrlUI
         {
             try
             {
-                int SocketServerPort = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort"));
+                int SocketServerPort = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(int));
 
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, false, true);
                 vArnoldVinkSockets.vSocketTimeout = 250;

@@ -8,9 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
-using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -75,11 +75,11 @@ namespace FpsOverlayer
 
                         //Convert fps to string
                         string StringCurrentFramesPerSecond = string.Empty;
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "FpsShowCurrentFps"))) { StringCurrentFramesPerSecond = " " + CurrentFramesPerSecond.ToString() + "FPS"; }
+                        if (SettingLoad(vConfigurationFpsOverlayer, "FpsShowCurrentFps", typeof(bool))) { StringCurrentFramesPerSecond = " " + CurrentFramesPerSecond.ToString() + "FPS"; }
                         string StringCurrentFrameTimes = string.Empty;
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "FpsShowCurrentLatency"))) { StringCurrentFrameTimes = " " + CurrentFrameTimes.ToString("0.00") + "MS"; }
+                        if (SettingLoad(vConfigurationFpsOverlayer, "FpsShowCurrentLatency", typeof(bool))) { StringCurrentFrameTimes = " " + CurrentFrameTimes.ToString("0.00") + "MS"; }
                         string StringAverageFramesPerSecond = string.Empty;
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "FpsShowAverageFps"))) { StringAverageFramesPerSecond = " " + AverageFramesPerSecond.ToString() + "AVG"; }
+                        if (SettingLoad(vConfigurationFpsOverlayer, "FpsShowAverageFps", typeof(bool))) { StringAverageFramesPerSecond = " " + AverageFramesPerSecond.ToString() + "AVG"; }
 
                         //Update the fps counter
                         Debug.WriteLine("(" + vTargetProcess.Identifier + ") MS" + CurrentFrameTimes.ToString("0.00") + " / FPS " + CurrentFramesPerSecond + " / AVG " + AverageFramesPerSecond);

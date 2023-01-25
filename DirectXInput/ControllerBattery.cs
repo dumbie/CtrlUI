@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using static ArnoldVinkCode.AVClassConverters;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput
@@ -103,7 +103,7 @@ namespace DirectXInput
 
                 //Check the current battery level
                 bool batteryLevelChanged = Controller.BatteryCurrent.BatteryPercentage != Controller.BatteryPrevious.BatteryPercentage || Controller.BatteryCurrent.BatteryStatus != Controller.BatteryPrevious.BatteryStatus;
-                bool batteryLevelLow = Controller.BatteryCurrent.BatteryPercentage <= Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "BatteryLowLevel")) && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal;
+                bool batteryLevelLow = Controller.BatteryCurrent.BatteryPercentage <= SettingLoad(vConfigurationDirectXInput, "BatteryLowLevel", typeof(int)) && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal;
 
                 //Check if battery level changed
                 if (forceUpdate || batteryLevelChanged)
@@ -116,7 +116,7 @@ namespace DirectXInput
                         Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level.");
 
                         //Battery level notification
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowShowNotification")))
+                        if (SettingLoad(vConfigurationDirectXInput, "BatteryLowShowNotification", typeof(bool)))
                         {
                             NotificationDetails notificationDetails = new NotificationDetails();
                             notificationDetails.Icon = "Battery/BatteryVerDis20";
@@ -126,7 +126,7 @@ namespace DirectXInput
                         }
 
                         //Battery level sound
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowPlaySound")))
+                        if (SettingLoad(vConfigurationDirectXInput, "BatteryLowPlaySound", typeof(bool)))
                         {
                             PlayInterfaceSound(vConfigurationCtrlUI, "BatteryLow", true, false);
                         }

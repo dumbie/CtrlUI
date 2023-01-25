@@ -10,9 +10,9 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVJsonFunctions;
+using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -183,16 +183,16 @@ namespace FpsOverlayer
             try
             {
                 int totalId = 10;
-                int AppId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "AppId")) + 1;
-                int FpsId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "FpsId")) + 1;
-                int NetId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "NetId")) + 1;
-                int CpuId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "CpuId")) + 1;
-                int GpuId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "GpuId")) + 1;
-                int MemId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "MemId")) + 1;
-                int TimeId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TimeId")) + 1;
-                int CustomTextId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "CustomTextId")) + 1;
-                int MonId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "MonId")) + 1;
-                int BatId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "BatId")) + 1;
+                int AppId = SettingLoad(vConfigurationFpsOverlayer, "AppId", typeof(int)) + 1;
+                int FpsId = SettingLoad(vConfigurationFpsOverlayer, "FpsId", typeof(int)) + 1;
+                int NetId = SettingLoad(vConfigurationFpsOverlayer, "NetId", typeof(int)) + 1;
+                int CpuId = SettingLoad(vConfigurationFpsOverlayer, "CpuId", typeof(int)) + 1;
+                int GpuId = SettingLoad(vConfigurationFpsOverlayer, "GpuId", typeof(int)) + 1;
+                int MemId = SettingLoad(vConfigurationFpsOverlayer, "MemId", typeof(int)) + 1;
+                int TimeId = SettingLoad(vConfigurationFpsOverlayer, "TimeId", typeof(int)) + 1;
+                int CustomTextId = SettingLoad(vConfigurationFpsOverlayer, "CustomTextId", typeof(int)) + 1;
+                int MonId = SettingLoad(vConfigurationFpsOverlayer, "MonId", typeof(int)) + 1;
+                int BatId = SettingLoad(vConfigurationFpsOverlayer, "BatId", typeof(int)) + 1;
 
                 textblock_GpuPosition.Text = GpuId + "/" + totalId;
                 textblock_CpuPosition.Text = CpuId + "/" + totalId;
@@ -212,16 +212,16 @@ namespace FpsOverlayer
         {
             try
             {
-                int AppId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "AppId"));
-                int FpsId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "FpsId"));
-                int NetId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "NetId"));
-                int CpuId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "CpuId"));
-                int GpuId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "GpuId"));
-                int MemId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "MemId"));
-                int TimeId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TimeId"));
-                int CustomTextId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "CustomTextId"));
-                int MonId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "MonId"));
-                int BatId = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "BatId"));
+                int AppId = SettingLoad(vConfigurationFpsOverlayer, "AppId", typeof(int));
+                int FpsId = SettingLoad(vConfigurationFpsOverlayer, "FpsId", typeof(int));
+                int NetId = SettingLoad(vConfigurationFpsOverlayer, "NetId", typeof(int));
+                int CpuId = SettingLoad(vConfigurationFpsOverlayer, "CpuId", typeof(int));
+                int GpuId = SettingLoad(vConfigurationFpsOverlayer, "GpuId", typeof(int));
+                int MemId = SettingLoad(vConfigurationFpsOverlayer, "MemId", typeof(int));
+                int TimeId = SettingLoad(vConfigurationFpsOverlayer, "TimeId", typeof(int));
+                int CustomTextId = SettingLoad(vConfigurationFpsOverlayer, "CustomTextId", typeof(int));
+                int MonId = SettingLoad(vConfigurationFpsOverlayer, "MonId", typeof(int));
+                int BatId = SettingLoad(vConfigurationFpsOverlayer, "BatId", typeof(int));
 
                 int newId = 0;
                 int currentId = 0;
@@ -258,47 +258,47 @@ namespace FpsOverlayer
                 {
                     if (AppId == newId)
                     {
-                        Setting_Save(vConfigurationFpsOverlayer, "AppId", currentId.ToString());
+                        SettingSave(vConfigurationFpsOverlayer, "AppId", currentId.ToString());
                     }
                     else if (FpsId == newId)
                     {
-                        Setting_Save(vConfigurationFpsOverlayer, "FpsId", currentId.ToString());
+                        SettingSave(vConfigurationFpsOverlayer, "FpsId", currentId.ToString());
                     }
                     else if (NetId == newId)
                     {
-                        Setting_Save(vConfigurationFpsOverlayer, "NetId", currentId.ToString());
+                        SettingSave(vConfigurationFpsOverlayer, "NetId", currentId.ToString());
                     }
                     else if (CpuId == newId)
                     {
-                        Setting_Save(vConfigurationFpsOverlayer, "CpuId", currentId.ToString());
+                        SettingSave(vConfigurationFpsOverlayer, "CpuId", currentId.ToString());
                     }
                     else if (GpuId == newId)
                     {
-                        Setting_Save(vConfigurationFpsOverlayer, "GpuId", currentId.ToString());
+                        SettingSave(vConfigurationFpsOverlayer, "GpuId", currentId.ToString());
                     }
                     else if (MemId == newId)
                     {
-                        Setting_Save(vConfigurationFpsOverlayer, "MemId", currentId.ToString());
+                        SettingSave(vConfigurationFpsOverlayer, "MemId", currentId.ToString());
                     }
                     else if (TimeId == newId)
                     {
-                        Setting_Save(vConfigurationFpsOverlayer, "TimeId", currentId.ToString());
+                        SettingSave(vConfigurationFpsOverlayer, "TimeId", currentId.ToString());
                     }
                     else if (CustomTextId == newId)
                     {
-                        Setting_Save(vConfigurationFpsOverlayer, "CustomTextId", currentId.ToString());
+                        SettingSave(vConfigurationFpsOverlayer, "CustomTextId", currentId.ToString());
                     }
                     else if (MonId == newId)
                     {
-                        Setting_Save(vConfigurationFpsOverlayer, "MonId", currentId.ToString());
+                        SettingSave(vConfigurationFpsOverlayer, "MonId", currentId.ToString());
                     }
                     else if (BatId == newId)
                     {
-                        Setting_Save(vConfigurationFpsOverlayer, "BatId", currentId.ToString());
+                        SettingSave(vConfigurationFpsOverlayer, "BatId", currentId.ToString());
                     }
 
                     //Save new id
-                    Setting_Save(vConfigurationFpsOverlayer, targetName, newId.ToString());
+                    SettingSave(vConfigurationFpsOverlayer, targetName, newId.ToString());
                     vWindowMain.UpdateFpsOverlayStyle();
 
                     //Update stats position text

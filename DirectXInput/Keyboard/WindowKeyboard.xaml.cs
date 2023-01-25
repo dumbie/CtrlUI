@@ -10,11 +10,11 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
 using static LibraryShared.FocusFunctions;
-using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
 
@@ -145,7 +145,7 @@ namespace DirectXInput.KeyboardCode
                 }
 
                 //Update the window position
-                if (resetPosition || Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition")))
+                if (resetPosition || SettingLoad(vConfigurationDirectXInput, "KeyboardResetPosition", typeof(bool)))
                 {
                     UpdateWindowPosition();
                 }
@@ -225,7 +225,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
 
                 //Move the window position
                 WindowUpdatePosition(monitorNumber, vInteropWindowHandle, AVWindowPosition.BottomCenter);
@@ -475,7 +475,7 @@ namespace DirectXInput.KeyboardCode
                 }
 
                 //Change the keyboard layout
-                if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout")) == 0)
+                if (SettingLoad(vConfigurationDirectXInput, "KeyboardLayout", typeof(int)) == 0)
                 {
                     Debug.WriteLine("Switching keyboard layout: QWERTY");
                     key_a.Content = "a";
@@ -489,7 +489,7 @@ namespace DirectXInput.KeyboardCode
                     key_z.Content = "z";
                     key_z.Tag = KeyboardKeys.Z;
                 }
-                else if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout")) == 1) //QWERTZ
+                else if (SettingLoad(vConfigurationDirectXInput, "KeyboardLayout", typeof(int)) == 1) //QWERTZ
                 {
                     Debug.WriteLine("Switching keyboard layout: QWERTZ");
                     key_a.Content = "a";
@@ -503,7 +503,7 @@ namespace DirectXInput.KeyboardCode
                     key_z.Content = "y";
                     key_z.Tag = KeyboardKeys.Y;
                 }
-                else if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout")) == 2) //AZERTY
+                else if (SettingLoad(vConfigurationDirectXInput, "KeyboardLayout", typeof(int)) == 2) //AZERTY
                 {
                     Debug.WriteLine("Switching keyboard layout: AZERTY");
                     key_a.Content = "q";

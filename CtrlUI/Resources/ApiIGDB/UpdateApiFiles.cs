@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -16,7 +16,7 @@ namespace CtrlUI
                 Debug.WriteLine("Checking IGDB api files.");
 
                 //Load last api update time
-                string lastUpdateString = Setting_Load(vConfigurationCtrlUI, "ApiIGDBUpdate").ToString();
+                string lastUpdateString = SettingLoad(vConfigurationCtrlUI, "ApiIGDBUpdate", typeof(string));
                 DateTime lastUpdateDateTime = DateTime.Parse(lastUpdateString, vAppCultureInfo);
 
                 //Check if days have passed
@@ -27,7 +27,7 @@ namespace CtrlUI
                     bool platformsUpdated = await ApiIGDB_DownloadPlatforms();
                     if (genresUpdated && platformsUpdated)
                     {
-                        Setting_Save(vConfigurationCtrlUI, "ApiIGDBUpdate", DateTime.Now.ToString(vAppCultureInfo));
+                        SettingSave(vConfigurationCtrlUI, "ApiIGDBUpdate", DateTime.Now.ToString(vAppCultureInfo));
                         Debug.WriteLine("Updated IGDB api files.");
                     }
                 }
