@@ -9,10 +9,10 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.JsonFunctions;
 
 namespace CtrlUI
 {
@@ -246,7 +246,7 @@ namespace CtrlUI
                         ProfileShared newProfile = new ProfileShared();
                         newProfile.String1 = executableNameRaw;
                         vCtrlHDRProcessName.Add(newProfile);
-                        JsonSaveObject(vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
+                        JsonSaveObject(vCtrlHDRProcessName, @"Profiles\User\CtrlHDRProcessName.json");
                     }
                     Debug.WriteLine("Enabled HDR profile for: " + executableNameRaw);
                 }
@@ -258,7 +258,7 @@ namespace CtrlUI
                         {
                             vCtrlHDRProcessName.Remove(removeProfile);
                         }
-                        JsonSaveObject(vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
+                        JsonSaveObject(vCtrlHDRProcessName, @"Profiles\User\CtrlHDRProcessName.json");
                     }
                     Debug.WriteLine("Disabled HDR profile for: " + executableNameRaw);
                 }

@@ -260,19 +260,19 @@
 
                             <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneTriggerLeft" Style="{StaticResource TextBlockBlack}" Text="Deadzone range left trigger" Tag="Deadzone range left trigger: "/>
                             <TextBlock Text="Changes the range when left trigger starts to register press." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerDeadzoneTriggerLeft" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_ControllerDeadzoneTriggerLeft" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneTriggerRight" Style="{StaticResource TextBlockBlack}" Text="Deadzone range right trigger" Tag="Deadzone range right trigger: "/>
                             <TextBlock Text="Changes the range when right trigger starts to register press." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerDeadzoneTriggerRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_ControllerDeadzoneTriggerRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityTriggerLeft" Style="{StaticResource TextBlockBlack}" Text="Left trigger sensitivity" Tag="Left trigger sensitivity: "/>
                             <TextBlock Text="Changes the press sensitivity on the left trigger." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerSensitivityTriggerLeft" Minimum="0.10" Maximum="5.00" TickFrequency="0.02" SmallChange="0.02" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_ControllerSensitivityTriggerLeft" Minimum="0.10" Maximum="5.00" TickFrequency="0.02" SmallChange="0.02" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityTriggerRight" Style="{StaticResource TextBlockBlack}" Text="Right trigger sensitivity" Tag="Right trigger sensitivity: "/>
                             <TextBlock Text="Changes the press sensitivity on the right trigger." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerSensitivityTriggerRight" Minimum="0.10" Maximum="5.00" TickFrequency="0.02" SmallChange="0.02" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_ControllerSensitivityTriggerRight" Minimum="0.10" Maximum="5.00" TickFrequency="0.02" SmallChange="0.02" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="DPad Settings"/>
                             <CheckBox Name="cb_ControllerDPadFourWayMovement" Content="Change your DPad into four way only presses" Style="{StaticResource CheckBoxBlack}"/>
@@ -296,15 +296,15 @@
 
                             <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneThumbLeft" Style="{StaticResource TextBlockBlack}" Text="Deadzone range left stick" Tag="Deadzone range left stick: "/>
                             <TextBlock Text="Changes the range when left thumb stick starts to move from the inside." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerDeadzoneThumbLeft" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_ControllerDeadzoneThumbLeft" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneThumbRight" Style="{StaticResource TextBlockBlack}" Text="Deadzone range right stick" Tag="Deadzone range right stick: "/>
                             <TextBlock Text="Changes the range when right thumb stick starts to move from the inside." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerDeadzoneThumbRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_ControllerDeadzoneThumbRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityThumb" Style="{StaticResource TextBlockBlack}" Text="Thumb sticks sensitivity" Tag="Thumb sticks sensitivity: "/>
                             <TextBlock Text="Changes the movement sensitivity on both thumb sticks." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerSensitivityThumb" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_ControllerSensitivityThumb" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Rumble Settings"/>
                             <StackPanel Orientation="Horizontal">
@@ -314,11 +314,11 @@
 
                             <TextBlock Name="textblock_ControllerRumbleLimit" Margin="0,5,0,0" Style="{StaticResource TextBlockBlack}" Text="Controller limit rumble" Tag="Controller limit rumble: "/>
                             <TextBlock Text="Changes the maximum controller rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerRumbleLimit" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_ControllerRumbleLimit" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <TextBlock Name="textblock_ControllerRumbleStrength" Margin="0,5,0,0" Style="{StaticResource TextBlockBlack}" Text="Controller rumble strength" Tag="Controller rumble strength: "/>
                             <TextBlock Text="Changes the overall controller rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_ControllerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <StackPanel Name="stackpanel_TriggerRumbleSettings">
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
@@ -328,17 +328,17 @@
 
                                 <TextBlock Name="textblock_TriggerRumbleLimit" Margin="0,5,0,0" Style="{StaticResource TextBlockBlack}" Text="Trigger limit rumble" Tag="Trigger limit rumble: "/>
                                 <TextBlock Text="Changes the maximum trigger rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_TriggerRumbleLimit" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_TriggerRumbleLimit" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                                 <TextBlock Margin="0,5,0,0" Style="{StaticResource TextBlockBlack}" Text="Trigger rumble strength"/>
                                 <TextBlock Text="Changes the overall trigger rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                                     <TextBlock Name="textblock_TriggerRumbleStrengthLeft" Text="Left" Tag="Left: " Width="90" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                                    <Slider Name="slider_TriggerRumbleStrengthLeft" Minimum="0" Maximum="100" Width="310" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                    <Slider Name="slider_TriggerRumbleStrengthLeft" Minimum="0" Maximum="100" Width="310" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                     <TextBlock Name="textblock_TriggerRumbleStrengthRight" Text="Right" Tag="Right: " Width="90" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                                    <Slider Name="slider_TriggerRumbleStrengthRight" Minimum="0" Maximum="100" Width="310" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                    <Slider Name="slider_TriggerRumbleStrengthRight" Minimum="0" Maximum="100" Width="310" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
                                 </StackPanel>
                             </StackPanel>
 
@@ -351,7 +351,7 @@
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Led Settings"/>
                             <TextBlock Name="textblock_ControllerLedBrightness" Style="{StaticResource TextBlockBlack}" Text="Led brightness" Tag="Led brightness: "/>
                             <TextBlock Text="Changes the controller led brightness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerLedBrightness" Minimum="1" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_ControllerLedBrightness" Minimum="1" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                 <TextBlock Text="First controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
@@ -418,11 +418,11 @@
 
                             <TextBlock Name="textblock_BatteryLowLevel" Text="Battery low level" Tag="Battery low level" TextWrapping="Wrap" Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
                             <TextBlock Text="Change the battery level that is considered to be low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_BatteryLowLevel" Height="18" Width="460" Minimum="5" Maximum="80" TickFrequency="5" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_BatteryLowLevel" Width="460" Minimum="5" Maximum="80" TickFrequency="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <TextBlock Name="textblock_ControllerIdleDisconnectMin" Text="Disconnect idle wireless controller after" Tag="Disconnect idle wireless controller after" TextWrapping="Wrap" Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
                             <TextBlock Text="Change the minutes a wireless controller will automatically disconnect itself after it hasn't been used for a while to save the controllers battery life." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerIdleDisconnectMin" Height="18" Width="460" Minimum="3" Maximum="180" TickFrequency="1" SmallChange="1" LargeChange="1" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <Slider Name="slider_ControllerIdleDisconnectMin" Width="460" Minimum="3" Maximum="180" TickFrequency="1" SmallChange="1" LargeChange="1" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
@@ -549,11 +549,11 @@
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Mouse Settings"/>
                                 <TextBlock Name="textblock_SettingsKeyboardMouseMoveSensitivity" Text="Mouse movement sensitivity" Tag="Mouse movement sensitivity: " Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the used mouse movement sensitivity." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_SettingsKeyboardMouseMoveSensitivity" Height="18" Width="400" Minimum="1.00" Maximum="50.00" TickFrequency="0.25" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_SettingsKeyboardMouseMoveSensitivity" Width="400" Minimum="1.00" Maximum="50.00" TickFrequency="0.25" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                                 <TextBlock Name="textblock_SettingsKeyboardMouseScrollSensitivity2" Text="Mouse scrollwheel sensitivity" Tag="Mouse scrollwheel sensitivity: " Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the used mouse scrollwheel sensitivity." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_SettingsKeyboardMouseScrollSensitivity2" Height="18" Width="400" Minimum="1" Maximum="5" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_SettingsKeyboardMouseScrollSensitivity2" Width="400" Minimum="1" Maximum="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                                 <TextBlock Margin="0,15,0,0" Text="* You can access the on screen keyboard by holding the guide button." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>
@@ -650,11 +650,11 @@
 
                                 <TextBlock Margin="0,10,0,0" Name="textblock_KeypadOpacity" Text="Keypad display transparency" Tag="Keypad display transparency" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the transparency of the on screen keypad." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_KeypadOpacity" Height="18" Width="460" Minimum="0" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_KeypadOpacity" Width="460" Minimum="0" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                                 <TextBlock Margin="0,10,0,0" Name="textblock_KeypadDisplaySize" Text="Keypad display size" Tag="Keypad display size" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the keypad display size." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_KeypadDisplaySize" Height="18" Width="460" Minimum="30" Maximum="200" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_KeypadDisplaySize" Width="460" Minimum="30" Maximum="200" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Mouse Settings"/>
                                 <CheckBox Name="cb_SettingsKeypadMouseMoveEnabled" Content="Move mouse with right thumb" Style="{StaticResource CheckBoxBlack}"/>
@@ -662,7 +662,7 @@
 
                                 <TextBlock Margin="0,10,0,0" Name="textblock_SettingsKeypadMouseMoveSensitivity" Text="Mouse movement sensitivity" Tag="Mouse movement sensitivity" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the used mouse movement sensitivity." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_SettingsKeypadMouseMoveSensitivity" Height="18" Width="460" Minimum="1.00" Maximum="50.00" TickFrequency="0.25" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_SettingsKeypadMouseMoveSensitivity" Width="460" Minimum="1.00" Maximum="50.00" TickFrequency="0.25" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                                 <TextBlock Margin="0,15,0,0" Text="* You can access the keypad by holding the guide button when the on screen keyboard is already open." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>
@@ -700,7 +700,7 @@
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Volume Settings"/>
                                 <TextBlock Name="textblock_SettingsMediaVolumeStep" Text="Volume change step" Tag="Volume change step: " Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the used step when changing your system volume." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_SettingsMediaVolumeStep" Height="18" Width="400" Minimum="1" Maximum="20" TickFrequency="1" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_SettingsMediaVolumeStep" Width="400" Minimum="1" Maximum="20" TickFrequency="1" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>

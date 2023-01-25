@@ -4,8 +4,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 
 namespace FpsOverlayer
 {
@@ -80,7 +80,7 @@ namespace FpsOverlayer
                 FpsPositionProcessName.Int1 = 0;
 
                 AppVariables.vFpsPositionProcessName.Add(FpsPositionProcessName);
-                JsonSaveObject(AppVariables.vFpsPositionProcessName, @"User\FpsPositionProcessName");
+                JsonSaveObject(AppVariables.vFpsPositionProcessName, @"Profiles\User\FpsPositionProcessName.json");
 
                 textbox_AddApp.BorderBrush = BrushValid;
             }

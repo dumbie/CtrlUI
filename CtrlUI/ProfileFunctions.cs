@@ -10,10 +10,10 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.FocusFunctions;
-using static LibraryShared.JsonFunctions;
 
 namespace CtrlUI
 {
@@ -142,7 +142,7 @@ namespace CtrlUI
                 await ListBoxRemoveItem(lb_ProfileManager, vProfileManagerListShared, selectedProfile, true);
 
                 //Save the updated json values
-                JsonSaveObject(vProfileManagerListShared, @"User\" + vProfileManagerName);
+                JsonSaveObject(vProfileManagerListShared, @"Profiles\User\" + vProfileManagerName + ".json");
 
                 await Notification_Send_Status("Profile", "Removed profile value");
             }
@@ -217,7 +217,7 @@ namespace CtrlUI
                 await ListBoxAddItem(lb_ProfileManager, vProfileManagerListShared, profileShared, false, false);
 
                 //Save the updated json values
-                JsonSaveObject(vProfileManagerListShared, @"User\" + vProfileManagerName);
+                JsonSaveObject(vProfileManagerListShared, @"Profiles\User\" + vProfileManagerName + ".json");
 
                 //Show profile added notification
                 await Notification_Send_Status("Profile", "New value added");

@@ -143,7 +143,7 @@
 
                         <TextBlock Name="textblock_TextSize" Tag="Text display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the font size of the displayed stats text." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <Slider Minimum="8" Maximum="120" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_TextSize" Style="{StaticResource SliderWhite}"/>
+                        <Slider Minimum="8" Maximum="120" HorizontalAlignment="Left" Width="440" Name="slider_TextSize" Style="{StaticResource SliderBlockWhite}"/>
 
                         <TextBlock Margin="0,10,0,0" Text="Text display font" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the font in which the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
@@ -212,21 +212,21 @@
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Display Settings"/>
                         <TextBlock Name="textblock_HardwareUpdateRateMs" Text="Hardware update rate" Tag="Hardware update rate" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the hardware information update rate in milliseconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <Slider Minimum="500" Maximum="3000" TickFrequency="100" SmallChange="100" LargeChange="100" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_HardwareUpdateRateMs" Style="{StaticResource SliderWhite}"/>
+                        <Slider Minimum="500" Maximum="3000" TickFrequency="100" SmallChange="100" LargeChange="100" HorizontalAlignment="Left" Width="440" Name="slider_HardwareUpdateRateMs" Style="{StaticResource SliderBlockWhite}"/>
 
                         <TextBlock Name="textblock_DisplayOpacity" Text="Stats display transparency" Tag="Stats display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the transparency of the shown fps overlay stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_DisplayOpacity" Style="{StaticResource SliderWhite}"/>
+                        <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Width="440" Name="slider_DisplayOpacity" Style="{StaticResource SliderBlockWhite}"/>
 
                         <TextBlock Text="Stats display screen margins" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the stats overlay margin from the screen border." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Width="130" Name="textblock_MarginHorizontal" Text="Horizontal" Tag="Horizontal" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Minimum="-10" Maximum="600" Height="18" Width="310" Name="slider_MarginHorizontal" Style="{StaticResource SliderWhite}"/>
+                            <Slider Minimum="-10" Maximum="600" Width="310" Name="slider_MarginHorizontal" Style="{StaticResource SliderBlockWhite}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Width="130" Name="textblock_MarginVertical" Text="Vertical" Tag="Vertical" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Minimum="-10" Maximum="600" Height="18" Width="310" Name="slider_MarginVertical" Style="{StaticResource SliderWhite}"/>
+                            <Slider Minimum="-10" Maximum="600" Width="310" Name="slider_MarginVertical" Style="{StaticResource SliderBlockWhite}"/>
                         </StackPanel>
 
                         <CheckBox Margin="0,10,0,0" Name="checkbox_CheckTaskbarVisible" Content="Adjust margin to taskbar visibility" Style="{StaticResource CheckBoxBlack}"/>
@@ -255,19 +255,19 @@
 
                         <TextBlock Name="textblock_CrosshairSize" Text="Crosshair display size" Tag="Crosshair display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the crosshair displayed size in pixels." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <Slider Minimum="1" Maximum="40" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairSize" Style="{StaticResource SliderWhite}"/>
+                        <Slider Minimum="1" Maximum="40" HorizontalAlignment="Left" Width="440" Name="slider_CrosshairSize" Style="{StaticResource SliderBlockWhite}"/>
 
                         <TextBlock Name="textblock_CrosshairThickness" Text="Crosshair line thickness" Tag="Crosshair line thickness" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the crosshair displayed line thickness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <Slider Minimum="1" Maximum="20" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairThickness" Style="{StaticResource SliderWhite}"/>
+                        <Slider Minimum="1" Maximum="20" HorizontalAlignment="Left" Width="440" Name="slider_CrosshairThickness" Style="{StaticResource SliderBlockWhite}"/>
 
                         <TextBlock Name="textblock_CrosshairOpacity" Text="Crosshair display transparency" Tag="Crosshair display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the crosshair displayed transparency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <Slider Minimum="0.05" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairOpacity" Style="{StaticResource SliderWhite}"/>
+                        <Slider Minimum="0.05" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Width="440" Name="slider_CrosshairOpacity" Style="{StaticResource SliderBlockWhite}"/>
 
                         <TextBlock Name="textblock_CrosshairVerticalPosition" Text="Crosshair vertical position" Tag="Crosshair vertical position" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the crosshair vertical offset position." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <Slider Minimum="-50" Maximum="50" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairVerticalPosition" Style="{StaticResource SliderWhite}"/>
+                        <Slider Minimum="-50" Maximum="50" HorizontalAlignment="Left" Width="440" Name="slider_CrosshairVerticalPosition" Style="{StaticResource SliderBlockWhite}"/>
 
                         <Button Name="button_CrosshairShowHide" Margin="0,15,15,0" Content="Hide or show crosshair" Style="{StaticResource ButtonAccentBlack}"/>
                     </StackPanel>
@@ -294,7 +294,7 @@
 
                         <TextBlock Name="textblock_BrowserOpacity" Text="Browser display transparency" Tag="Browser display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the browser displayed transparency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <Slider Minimum="0.10" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_BrowserOpacity" Style="{StaticResource SliderWhite}"/>
+                        <Slider Minimum="0.10" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Width="440" Name="slider_BrowserOpacity" Style="{StaticResource SliderBlockWhite}"/>
 
                         <Button Name="button_BrowserShowHide" Margin="0,15,10,0" Content="Hide or show browser" Style="{StaticResource ButtonAccentBlack}"/>
                     </StackPanel>

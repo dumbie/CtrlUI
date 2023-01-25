@@ -132,7 +132,6 @@
     <Compile Include="Enums\OverlayPosition.cs" />
     <Compile Include="Focus\ListboxFocus.cs" />
     <Compile Include="Focus\ElementFocus.cs" />
-    <Compile Include="JsonFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\SettingsSave.cs" />
     <Compile Include="Settings\SettingsLoad.cs" />

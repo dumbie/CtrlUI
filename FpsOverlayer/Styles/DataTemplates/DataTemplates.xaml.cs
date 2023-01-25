@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 
 namespace ArnoldVinkCode.Styles
 {
@@ -19,7 +19,7 @@ namespace ArnoldVinkCode.Styles
 
                 Debug.WriteLine("Removing application: " + FpsPositionProcessName.String1);
                 vFpsPositionProcessName.Remove(FpsPositionProcessName);
-                JsonSaveObject(vFpsPositionProcessName, @"User\FpsPositionProcessName");
+                JsonSaveObject(vFpsPositionProcessName, @"Profiles\User\FpsPositionProcessName.json");
             }
             catch { }
         }
@@ -33,7 +33,7 @@ namespace ArnoldVinkCode.Styles
 
                 Debug.WriteLine("Position changed to: " + senderComboBox.SelectedIndex + " for " + FpsPositionProcessName.String1);
                 FpsPositionProcessName.Int1 = senderComboBox.SelectedIndex;
-                JsonSaveObject(vFpsPositionProcessName, @"User\FpsPositionProcessName");
+                JsonSaveObject(vFpsPositionProcessName, @"Profiles\User\FpsPositionProcessName.json");
             }
             catch { }
         }

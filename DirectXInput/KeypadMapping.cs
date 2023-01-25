@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput

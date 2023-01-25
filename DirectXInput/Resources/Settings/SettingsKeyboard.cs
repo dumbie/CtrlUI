@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
 {
@@ -58,7 +58,7 @@ namespace DirectXInput
                 profileShared.String1 = textString;
 
                 vDirectKeyboardTextList.Add(profileShared);
-                JsonSaveObject(vDirectKeyboardTextList, @"User\DirectKeyboardTextList");
+                JsonSaveObject(vDirectKeyboardTextList, @"Profiles\User\DirectKeyboardTextList.json");
 
                 //Hide keyboard no text set
                 App.vWindowKeyboard.textblock_TextListNoTextSet.Visibility = Visibility.Collapsed;
@@ -78,7 +78,7 @@ namespace DirectXInput
                 vDirectKeyboardTextList.Remove(selectedProfile);
 
                 //Save changes to Json file
-                JsonSaveObject(vDirectKeyboardTextList, @"User\DirectKeyboardTextList");
+                JsonSaveObject(vDirectKeyboardTextList, @"Profiles\User\DirectKeyboardTextList.json");
 
                 //Select the default profile
                 combobox_KeyboardTextString.SelectedIndex = 0;

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
 {
@@ -97,7 +97,7 @@ namespace DirectXInput
                         }
 
                         //Save json profile
-                        JsonSaveObject(vDirectControllersIgnored, @"User\DirectControllersIgnored");
+                        JsonSaveObject(vDirectControllersIgnored, @"Profiles\User\DirectControllersIgnored.json");
 
                         //Load ignored controllers to list
                         ListboxLoadIgnoredController();
@@ -142,7 +142,7 @@ namespace DirectXInput
                 Debug.WriteLine("Allowed controller in ignore list: " + selectedItem.String2 + "/" + selectedItem.String3);
 
                 //Save json profile
-                JsonSaveObject(vDirectControllersIgnored, @"User\DirectControllersIgnored");
+                JsonSaveObject(vDirectControllersIgnored, @"Profiles\User\DirectControllersIgnored.json");
 
                 //Load ignored controllers to list
                 ListboxLoadIgnoredController();

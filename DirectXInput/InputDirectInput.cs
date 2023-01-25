@@ -3,10 +3,10 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
 {

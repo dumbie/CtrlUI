@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.FocusFunctions;
-using static LibraryShared.JsonFunctions;
 
 namespace CtrlUI
 {
@@ -82,7 +82,7 @@ namespace CtrlUI
 
                 //Add shortcut file to the ignore list
                 vCtrlIgnoreLauncherName.Add(profileShared);
-                JsonSaveObject(vCtrlIgnoreLauncherName, @"User\CtrlIgnoreLauncherName");
+                JsonSaveObject(vCtrlIgnoreLauncherName, @"Profiles\User\CtrlIgnoreLauncherName.json");
 
                 //Remove application from the list
                 await RemoveAppFromList(dataBindApp, false, false, true);

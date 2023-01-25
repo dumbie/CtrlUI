@@ -7,10 +7,10 @@ using System.Windows.Controls;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.FocusFunctions;
-using static LibraryShared.JsonFunctions;
 
 namespace CtrlUI
 {
@@ -114,7 +114,7 @@ namespace CtrlUI
 
                 //Add shortcut file to the ignore list
                 vCtrlIgnoreShortcutName.Add(profileShared);
-                JsonSaveObject(vCtrlIgnoreShortcutName, @"User\CtrlIgnoreShortcutName");
+                JsonSaveObject(vCtrlIgnoreShortcutName, @"Profiles\User\CtrlIgnoreShortcutName.json");
 
                 //Remove application from the list
                 await RemoveAppFromList(dataBindApp, false, false, true);

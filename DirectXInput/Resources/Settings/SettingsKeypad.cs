@@ -1,12 +1,13 @@
-﻿using ArnoldVinkCode.Styles;
+﻿using ArnoldVinkCode;
+using ArnoldVinkCode.Styles;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput
@@ -73,7 +74,7 @@ namespace DirectXInput
                     vDirectKeypadMapping.Remove(selectedProfile);
 
                     //Remove Json file
-                    JsonRemoveFile(GenerateJsonNameKeypadMapping(selectedProfile));
+                    AVFiles.File_Delete(GenerateJsonNameKeypadMapping(selectedProfile));
 
                     //Select the default profile
                     combobox_KeypadProcessProfile.SelectedIndex = 0;

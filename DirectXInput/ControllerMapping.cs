@@ -4,11 +4,11 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
 {

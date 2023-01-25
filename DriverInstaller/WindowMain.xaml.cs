@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static DriverInstaller.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 
 namespace DriverInstaller
 {
@@ -34,8 +34,8 @@ namespace DriverInstaller
                 vDirectXInputRunning = Process.GetProcessesByName("DirectXInput").Any();
 
                 //Load Json profiles
-                JsonLoadSingle(ref vCtrlCloseLaunchers, @"Default\CtrlCloseLaunchers");
-                JsonLoadSingle(ref vDirectCloseTools, @"Default\DirectCloseTools");
+                JsonLoadFile(ref vCtrlCloseLaunchers, @"Profiles\Default\CtrlCloseLaunchers.json");
+                JsonLoadFile(ref vDirectCloseTools, @"Profiles\Default\DirectCloseTools.json");
             }
             catch { }
         }

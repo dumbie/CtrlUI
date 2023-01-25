@@ -2,11 +2,11 @@
 using System;
 using System.Diagnostics;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static DirectXInput.SettingsNotify;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 
 namespace DirectXInput

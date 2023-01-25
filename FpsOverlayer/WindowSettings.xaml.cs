@@ -9,9 +9,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVFunctions;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 
 namespace FpsOverlayer
@@ -22,7 +22,7 @@ namespace FpsOverlayer
         public WindowSettings() { InitializeComponent(); }
 
         //Window Initialized
-        protected override void OnSourceInitialized(EventArgs e)
+        protected override async void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace FpsOverlayer
                 LoadAvailableFonts();
 
                 //Check application settings
-                Settings_Load();
+                await Settings_Load();
                 Settings_Save();
 
                 //Bind the lists to the listbox elements
@@ -364,7 +364,7 @@ namespace FpsOverlayer
                 profileShared.String1 = textString;
 
                 vFpsBrowserLinks.Add(profileShared);
-                JsonSaveObject(vFpsBrowserLinks, @"User\FpsBrowserLinks");
+                JsonSaveObject(vFpsBrowserLinks, @"Profiles\User\FpsBrowserLinks.json");
             }
             catch { }
         }
@@ -381,7 +381,7 @@ namespace FpsOverlayer
                 vFpsBrowserLinks.Remove(selectedProfile);
 
                 //Save changes to Json file
-                JsonSaveObject(vFpsBrowserLinks, @"User\FpsBrowserLinks");
+                JsonSaveObject(vFpsBrowserLinks, @"Profiles\User\FpsBrowserLinks.json");
 
                 //Select the default profile
                 combobox_LinkString.SelectedIndex = 0;

@@ -12,11 +12,11 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static ArnoldVinkCode.Styles.MainColors;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
-using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 
 namespace FpsOverlayer
@@ -66,8 +66,8 @@ namespace FpsOverlayer
                 Application_CreateTrayMenu();
 
                 //Load Json profiles
-                JsonLoadSingle(ref vFpsPositionProcessName, @"User\FpsPositionProcessName");
-                JsonLoadSingle(ref vFpsBrowserLinks, @"User\FpsBrowserLinks");
+                JsonLoadFile(ref vFpsPositionProcessName, @"Profiles\User\FpsPositionProcessName.json");
+                JsonLoadFile(ref vFpsBrowserLinks, @"Profiles\User\FpsBrowserLinks.json");
 
                 //Start process monitoring
                 StartMonitorProcess();

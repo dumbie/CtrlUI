@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Media;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
@@ -11,7 +12,7 @@ namespace DirectXInput
     partial class WindowMain
     {
         //Load - Application Settings
-        bool Settings_Load()
+        async Task Settings_Load()
         {
             try
             {
@@ -92,12 +93,12 @@ namespace DirectXInput
                     cb_SettingsWindowsStartup.IsChecked = true;
                 }
 
-                return true;
+                //Wait for settings to have loaded
+                await Task.Delay(1500);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to load the application settings: " + ex.Message);
-                return false;
+                Debug.WriteLine("Failed to load application settings: " + ex.Message);
             }
         }
     }

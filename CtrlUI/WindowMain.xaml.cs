@@ -11,11 +11,11 @@ using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputInterop;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static ArnoldVinkCode.Styles.MainColors;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 
 namespace CtrlUI
@@ -42,7 +42,7 @@ namespace CtrlUI
 
                 //Check application settings
                 Settings_Check();
-                Settings_Load();
+                await Settings_Load();
                 Settings_Save();
 
                 //Update the window position
@@ -116,21 +116,21 @@ namespace CtrlUI
                 await JsonLoadList_Applications();
 
                 //Load Json profiles
-                JsonLoadSingle(ref vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
-                JsonLoadSingle(ref vCtrlChromiumBrowsers, @"Default\CtrlChromiumBrowsers");
-                JsonLoadSingle(ref vCtrlCloseLaunchers, @"Default\CtrlCloseLaunchers");
-                JsonLoadSingle(ref vCtrlLocationsFile, @"User\CtrlLocationsFile");
-                JsonLoadSingle(ref vCtrlLocationsShortcut, @"User\CtrlLocationsShortcut");
-                JsonLoadSingle(ref vCtrlIgnoreLauncherName, @"User\CtrlIgnoreLauncherName");
-                JsonLoadSingle(ref vCtrlIgnoreShortcutName, @"User\CtrlIgnoreShortcutName");
-                JsonLoadSingle(ref vCtrlIgnoreShortcutUri, @"User\CtrlIgnoreShortcutUri");
-                JsonLoadSingle(ref vCtrlIgnoreProcessName, @"User\CtrlIgnoreProcessName");
-                JsonLoadSingle(ref vCtrlKeyboardExtensionName, @"User\CtrlKeyboardExtensionName");
-                JsonLoadSingle(ref vCtrlKeyboardProcessName, @"User\CtrlKeyboardProcessName");
+                JsonLoadFile(ref vCtrlHDRProcessName, @"Profiles\User\CtrlHDRProcessName.json");
+                JsonLoadFile(ref vCtrlChromiumBrowsers, @"Profiles\Default\CtrlChromiumBrowsers.json");
+                JsonLoadFile(ref vCtrlCloseLaunchers, @"Profiles\Default\CtrlCloseLaunchers.json");
+                JsonLoadFile(ref vCtrlLocationsFile, @"Profiles\User\CtrlLocationsFile.json");
+                JsonLoadFile(ref vCtrlLocationsShortcut, @"Profiles\User\CtrlLocationsShortcut.json");
+                JsonLoadFile(ref vCtrlIgnoreLauncherName, @"Profiles\User\CtrlIgnoreLauncherName.json");
+                JsonLoadFile(ref vCtrlIgnoreShortcutName, @"Profiles\User\CtrlIgnoreShortcutName.json");
+                JsonLoadFile(ref vCtrlIgnoreShortcutUri, @"Profiles\User\CtrlIgnoreShortcutUri.json");
+                JsonLoadFile(ref vCtrlIgnoreProcessName, @"Profiles\User\CtrlIgnoreProcessName.json");
+                JsonLoadFile(ref vCtrlKeyboardExtensionName, @"Profiles\User\CtrlKeyboardExtensionName.json");
+                JsonLoadFile(ref vCtrlKeyboardProcessName, @"Profiles\User\CtrlKeyboardProcessName.json");
 
                 //Load Json lists
-                JsonLoadPath(ref vApiIGDBGenres, @"Resources\ApiIGDB\Genres.json");
-                JsonLoadPath(ref vApiIGDBPlatforms, @"Resources\ApiIGDB\Platforms.json");
+                JsonLoadFile(ref vApiIGDBGenres, @"Resources\ApiIGDB\Genres.json");
+                JsonLoadFile(ref vApiIGDBPlatforms, @"Resources\ApiIGDB\Platforms.json");
 
                 //Update uwp application images
                 UpdateUwpApplicationImages();

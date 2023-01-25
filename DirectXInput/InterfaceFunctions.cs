@@ -5,12 +5,12 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
 {

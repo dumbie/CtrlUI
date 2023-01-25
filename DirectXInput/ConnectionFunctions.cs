@@ -5,7 +5,6 @@ using System.Windows;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
 {
@@ -76,7 +75,7 @@ namespace DirectXInput
                         vDirectControllersProfile.Remove(activeController.Details.Profile);
 
                         //Remove Json file
-                        JsonRemoveFile(GenerateJsonNameControllerProfile(activeController.Details.Profile));
+                        AVFiles.File_Delete(GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 }
                 else

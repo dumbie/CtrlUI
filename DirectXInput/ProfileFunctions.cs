@@ -9,7 +9,7 @@ namespace DirectXInput
         {
             try
             {
-                return @"User\DirectControllersProfile\" + controllerProfile.VendorID.ToLower() + "-" + controllerProfile.ProductID.ToLower();
+                return @"Profiles\User\DirectControllersProfile\" + controllerProfile.VendorID.ToLower() + "-" + controllerProfile.ProductID.ToLower() + ".json";
             }
             catch { }
             return string.Empty;
@@ -19,7 +19,7 @@ namespace DirectXInput
         {
             try
             {
-                return @"User\DirectKeypadMapping\" + FileNameReplaceInvalidChars(keypadMapping.Name.ToLower(), string.Empty);
+                return @"Profiles\User\DirectKeypadMapping\" + FileNameReplaceInvalidChars(keypadMapping.Name.ToLower(), string.Empty) + ".json";
             }
             catch { }
             return string.Empty;
