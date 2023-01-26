@@ -124,21 +124,21 @@ namespace CtrlUI
                 slider_SettingsFontSize.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(slider_SettingsFontSize.Value);
-                    SettingSave(vConfigurationCtrlUI, "AppFontSize", Convert.ToInt32(slider_SettingsFontSize.Value).ToString());
+                    SettingSave(vConfigurationCtrlUI, "AppFontSize", slider_SettingsFontSize.Value);
                     AdjustApplicationFontSize();
                 };
 
                 slider_SettingsAppWindowSize.ValueChanged += async (sender, e) =>
                 {
                     textblock_SettingsAppWindowSize.Text = textblock_SettingsAppWindowSize.Tag + ": " + slider_SettingsAppWindowSize.Value.ToString() + "%";
-                    SettingSave(vConfigurationCtrlUI, "AppWindowSize", slider_SettingsAppWindowSize.Value.ToString());
+                    SettingSave(vConfigurationCtrlUI, "AppWindowSize", slider_SettingsAppWindowSize.Value);
                     await UpdateWindowPosition(false, true);
                 };
 
                 slider_SettingsDisplayMonitor.ValueChanged += async (sender, e) =>
                 {
                     textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
-                    SettingSave(vConfigurationCtrlUI, "DisplayMonitor", Convert.ToInt32(slider_SettingsDisplayMonitor.Value).ToString());
+                    SettingSave(vConfigurationCtrlUI, "DisplayMonitor", slider_SettingsDisplayMonitor.Value);
                     await UpdateWindowPosition(true, false);
                 };
 
@@ -152,13 +152,13 @@ namespace CtrlUI
                 slider_SettingsAdjustChromiumDpi.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsAdjustChromiumDpi.Text = textblock_SettingsAdjustChromiumDpi.Tag + ": +" + slider_SettingsAdjustChromiumDpi.Value.ToString("0.00") + "%";
-                    SettingSave(vConfigurationCtrlUI, "AdjustChromiumDpi", slider_SettingsAdjustChromiumDpi.Value.ToString("0.00"));
+                    SettingSave(vConfigurationCtrlUI, "AdjustChromiumDpi", slider_SettingsAdjustChromiumDpi.Value);
                 };
 
                 slider_SettingsSoundVolume.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(slider_SettingsSoundVolume.Value) + "%";
-                    SettingSave(vConfigurationCtrlUI, "InterfaceSoundVolume", Convert.ToInt32(slider_SettingsSoundVolume.Value).ToString());
+                    SettingSave(vConfigurationCtrlUI, "InterfaceSoundVolume", slider_SettingsSoundVolume.Value);
                 };
 
                 //Save - Socket Client Port

@@ -36,9 +36,8 @@ namespace DirectXInput
                 //Battery settings
                 slider_BatteryLowLevel.ValueChanged += (sender, e) =>
                 {
-                    string batteryLevelLowString = slider_BatteryLowLevel.Value.ToString();
-                    SettingSave(vConfigurationDirectXInput, "BatteryLowLevel", batteryLevelLowString);
-                    textblock_BatteryLowLevel.Text = textblock_BatteryLowLevel.Tag + ": " + batteryLevelLowString + "%";
+                    textblock_BatteryLowLevel.Text = textblock_BatteryLowLevel.Tag + ": " + slider_BatteryLowLevel.Value.ToString() + "%";
+                    SettingSave(vConfigurationDirectXInput, "BatteryLowLevel", slider_BatteryLowLevel.Value);
 
                     //Check all controllers for low battery level
                     CheckAllControllersLowBattery(true);
@@ -71,9 +70,8 @@ namespace DirectXInput
                 //Controller settings
                 slider_ControllerIdleDisconnectMin.ValueChanged += (sender, e) =>
                 {
-                    string controllerIdleDisconnectMinString = slider_ControllerIdleDisconnectMin.Value.ToString();
-                    SettingSave(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", controllerIdleDisconnectMinString);
-                    textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinString + " minutes";
+                    textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + slider_ControllerIdleDisconnectMin.Value.ToString() + " minutes";
+                    SettingSave(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", slider_ControllerIdleDisconnectMin.Value);
                 };
 
                 colorpicker_Controller0.Click += async (sender, e) =>
@@ -221,13 +219,13 @@ namespace DirectXInput
                 slider_SettingsKeyboardMouseMoveSensitivity.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsKeyboardMouseMoveSensitivity.Text = textblock_SettingsKeyboardMouseMoveSensitivity.Tag.ToString() + slider_SettingsKeyboardMouseMoveSensitivity.Value.ToString("0.00");
-                    SettingSave(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", slider_SettingsKeyboardMouseMoveSensitivity.Value.ToString("0.00"));
+                    SettingSave(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", slider_SettingsKeyboardMouseMoveSensitivity.Value);
                 };
 
                 slider_SettingsKeyboardMouseScrollSensitivity2.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsKeyboardMouseScrollSensitivity2.Text = textblock_SettingsKeyboardMouseScrollSensitivity2.Tag.ToString() + slider_SettingsKeyboardMouseScrollSensitivity2.Value.ToString();
-                    SettingSave(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", slider_SettingsKeyboardMouseScrollSensitivity2.Value.ToString());
+                    SettingSave(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", slider_SettingsKeyboardMouseScrollSensitivity2.Value);
                 };
 
                 //Keypad settings
@@ -303,7 +301,7 @@ namespace DirectXInput
                 slider_SettingsMediaVolumeStep.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsMediaVolumeStep.Text = textblock_SettingsMediaVolumeStep.Tag.ToString() + slider_SettingsMediaVolumeStep.Value.ToString();
-                    SettingSave(vConfigurationDirectXInput, "MediaVolumeStep", slider_SettingsMediaVolumeStep.Value.ToString());
+                    SettingSave(vConfigurationDirectXInput, "MediaVolumeStep", slider_SettingsMediaVolumeStep.Value);
                 };
 
                 //Screenshot settings

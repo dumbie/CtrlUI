@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CtrlUI"
-        xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=ArnoldVinkCode"
+        xmlns:AVStyles="clr-namespace:ArnoldVinkCode.Styles;assembly=ArnoldVinkCode"
         RenderOptions.BitmapScalingMode="HighQuality"
         SnapsToDevicePixels="True"
         mc:Ignorable="d"
@@ -32,7 +32,7 @@
                 <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>
             <Grid>
-                <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,20,0" Style="{StaticResource ScrollViewerHidden}">
+                <AVStyles:ScrollViewerLoopHorizontal ScrollLoopSpeed="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,20,0" Style="{StaticResource ScrollViewerHidden}">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Name="sp_ControllerHelpLeft" Orientation="Horizontal" Margin="5,5,10,5" Visibility="Collapsed">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="25" Opacity="0.80"/>
@@ -91,7 +91,7 @@
                             <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Alt+Enter"/>
                         </StackPanel>
                     </StackPanel>
-                </styles:ScrollViewerLoopHorizontal>
+                </AVStyles:ScrollViewerLoopHorizontal>
 
                 <!-- Status - Disable -->
                 <Border Name="grid_DisableHelp" CornerRadius="10" Visibility="Collapsed">
@@ -132,7 +132,7 @@
                     </StackPanel>
 
                     <!-- Header - Icons -->
-                    <styles:ScrollViewerLoopHorizontal Grid.Column="1" ScrollLoopSpeed="40" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,10,0" Style="{StaticResource ScrollViewerHidden}">
+                    <AVStyles:ScrollViewerLoopHorizontal Grid.Column="1" ScrollLoopSpeed="40" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,10,0" Style="{StaticResource ScrollViewerHidden}">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel Name="stackpanel_Menu_Controller0" Opacity="0.40">
                                 <Image Name="img_Menu_Controller0" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Accent.png"/>
@@ -163,7 +163,7 @@
                             <Image Name="img_Menu_FpsOverlayerStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
                             <Image Name="img_Menu_DirectXInputStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         </StackPanel>
-                    </styles:ScrollViewerLoopHorizontal>
+                    </AVStyles:ScrollViewerLoopHorizontal>
 
                     <!-- Header - Clock -->
                     <StackPanel Grid.Column="2" Name="grid_ClockBattery" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">
@@ -211,7 +211,7 @@
                                 <Image Name="image_Category_LB" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="25" Opacity="0.80" Margin="0,0,10,0"/>
                             </StackPanel>
 
-                            <styles:ScrollViewerLoopHorizontal Grid.Column="1" ScrollLoopSpeed="40" VerticalAlignment="Center" IsHitTestVisible="True" Style="{StaticResource ScrollViewerHidden}">
+                            <AVStyles:ScrollViewerLoopHorizontal Grid.Column="1" ScrollLoopSpeed="40" VerticalAlignment="Center" IsHitTestVisible="True" Style="{StaticResource ScrollViewerHidden}">
                                 <StackPanel Orientation="Horizontal">
                                     <Button Name="button_Category_Menu_Games" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
                                         <TextBlock Name="textblock_Category_Menu_Games" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Games"/>
@@ -235,10 +235,10 @@
                                         <TextBlock Name="textblock_Category_Menu_Search" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Search"/>
                                     </Button>
                                 </StackPanel>
-                            </styles:ScrollViewerLoopHorizontal>
+                            </AVStyles:ScrollViewerLoopHorizontal>
 
                             <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
-                                <styles:AVGifPlayer Name="gif_List_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="25" SpeedRatio="5" HorizontalAlignment="Right" Margin="10,0,0,0"/>
+                                <AVStyles:AVGifPlayer Name="gif_List_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="25" SpeedRatio="5" HorizontalAlignment="Right" Margin="10,0,0,0"/>
                                 <TextBlock Name="textblock_Category_Count" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Margin="10,0,0,0"/>
                                 <Image Name="image_Category_RB" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Height="25" Opacity="0.80" Margin="10,0,0,0"/>
                             </StackPanel>
@@ -252,7 +252,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" Name="grid_Search_textbox" Margin="0,0,5,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}" Text="Search application..." styles:TextboxPlaceholder.Placeholder="Search application..."/>
+                                <TextBox Grid.Column="0" Name="grid_Search_textbox" Margin="0,0,5,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}" Text="Search application..." AVStyles:TextboxPlaceholder.Placeholder="Search application..."/>
                                 <Button Grid.Column="1" Name="grid_Search_button_Reset" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the search term">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Name="image_Search_Reset" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="30" Width="30" Margin="0,0,10,0"/>
@@ -633,11 +633,11 @@
 
                                     <TextBlock Name="textblock_SettingsAppWindowSize" Text="Adjust window size" Tag="Adjust window size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Select the window size that you want to use for this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                    <Slider Name="slider_SettingsAppWindowSize" Width="400" Minimum="50" Maximum="95" TickFrequency="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
+                                    <AVStyles:SliderDelay Name="slider_SettingsAppWindowSize" Width="400" Minimum="50" Maximum="95" TickFrequency="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
 
                                     <TextBlock Name="textblock_SettingsFontSize" Text="Adjust the application font size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Select the font size that you want to use in this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                    <Slider Name="slider_SettingsFontSize" Width="400" Maximum="8" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
+                                    <Slider Name="slider_SettingsFontSize" Width="400" Maximum="6" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
 
                                     <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
 
@@ -953,12 +953,12 @@
                                 </StackPanel>
                             </Grid>
 
-                            <styles:ScrollViewerLoopVertical ScrollLoopStep="2" Grid.Column="1" Style="{StaticResource ScrollViewerVertical}" Width="380" x:Name="grid_Popup_FilePicker_stackpanel_Description" Visibility="Collapsed">
+                            <AVStyles:ScrollViewerLoopVertical ScrollLoopStep="2" Grid.Column="1" Style="{StaticResource ScrollViewerVertical}" Width="380" x:Name="grid_Popup_FilePicker_stackpanel_Description" Visibility="Collapsed">
                                 <StackPanel Margin="10,0,5,0">
                                     <Image Name="grid_Popup_FilePicker_image_Description" Height="210" HorizontalAlignment="Center"/>
                                     <TextBlock Margin="0,5,0,0" Name="grid_Popup_FilePicker_textblock_Description" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}"/>
                                 </StackPanel>
-                            </styles:ScrollViewerLoopVertical>
+                            </AVStyles:ScrollViewerLoopVertical>
                         </Grid>
                     </Grid>
 
@@ -996,7 +996,7 @@
                         </Button>
 
                         <!-- Load status -->
-                        <styles:AVGifPlayer Name="gif_FilePicker_Loading" Margin="0,10,0,0" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Width="75" SpeedRatio="5"/>
+                        <AVStyles:AVGifPlayer Name="gif_FilePicker_Loading" Margin="0,10,0,0" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Width="75" SpeedRatio="5"/>
                     </StackPanel>
                 </Grid>
 
@@ -1092,7 +1092,7 @@
 
                         <StackPanel Grid.Row="1" Name="stackpanel_HowLongToBeat_Status">
                             <TextBlock Name="textblock_HowLongToBeat_Unknown" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Gameplay time"/>
-                            <styles:AVGifPlayer Name="gif_HowLongToBeat_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="40" SpeedRatio="5" HorizontalAlignment="Center" Margin="15,0,0,0"/>
+                            <AVStyles:AVGifPlayer Name="gif_HowLongToBeat_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="40" SpeedRatio="5" HorizontalAlignment="Center" Margin="15,0,0,0"/>
                         </StackPanel>
                     </Grid>
 
@@ -1147,7 +1147,7 @@
 
                         <StackPanel Grid.Row="0">
                             <TextBlock Name="grid_Popup_TextInput_textblock_Title" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="Text Input" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}"/>
-                            <TextBox Name="grid_Popup_TextInput_textbox" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}" Text="Enter text..." styles:TextboxPlaceholder.Placeholder="Enter text..."/>
+                            <TextBox Name="grid_Popup_TextInput_textbox" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}" Text="Enter text..." AVStyles:TextboxPlaceholder.Placeholder="Enter text..."/>
                             <Button Name="grid_Popup_TextInput_button_ConfirmText" Style="{StaticResource ButtonAccentWhite}" HorizontalAlignment="Center" Margin="0,10,0,10" Content="Return and use the entered text"/>
                         </StackPanel>
                     </Grid>

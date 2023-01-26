@@ -20,8 +20,15 @@ namespace LibraryShared
             {
                 if (forceSound || SettingLoad(sourceConfig, "InterfaceSound", typeof(bool)))
                 {
-                    double soundVolume = (double)(SettingLoad(sourceConfig, "InterfaceSoundVolume", typeof(int)) / 100);
-                    if (forceMaxVolume) { soundVolume = 1.00; } else if (forceSound && soundVolume <= 0.20) { soundVolume = 0.75; }
+                    double soundVolume = SettingLoad(sourceConfig, "InterfaceSoundVolume", typeof(double)) / 100;
+                    if (forceMaxVolume)
+                    {
+                        soundVolume = 1.00;
+                    }
+                    else if (forceSound && soundVolume <= 0.20)
+                    {
+                        soundVolume = 0.75;
+                    }
 
                     string soundPackName = SettingLoad(sourceConfig, "InterfaceSoundPackName", typeof(string));
                     string soundFileName = "Assets/Default/Sounds/" + soundPackName + "/" + soundName + ".mp3";

@@ -224,7 +224,7 @@
                             <TextBlock Width="130" Name="textblock_MarginHorizontal" Text="Horizontal" Tag="Horizontal" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                             <Slider Minimum="-10" Maximum="600" Width="310" Name="slider_MarginHorizontal" Style="{StaticResource SliderBlockWhite}"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Width="130" Name="textblock_MarginVertical" Text="Vertical" Tag="Vertical" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                             <Slider Minimum="-10" Maximum="600" Width="310" Name="slider_MarginVertical" Style="{StaticResource SliderBlockWhite}"/>
                         </StackPanel>

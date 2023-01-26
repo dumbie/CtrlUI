@@ -29,27 +29,27 @@ namespace FpsOverlayer
                 slider_DisplayOpacity.ValueChanged += (sender, e) =>
                 {
                     textblock_DisplayOpacity.Text = textblock_DisplayOpacity.Tag + ": " + slider_DisplayOpacity.Value.ToString("0.00") + "%";
-                    SettingSave(vConfigurationFpsOverlayer, "DisplayOpacity", slider_DisplayOpacity.Value.ToString("0.00"));
+                    SettingSave(vConfigurationFpsOverlayer, "DisplayOpacity", slider_DisplayOpacity.Value);
                     vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 slider_HardwareUpdateRateMs.ValueChanged += (sender, e) =>
                 {
                     textblock_HardwareUpdateRateMs.Text = textblock_HardwareUpdateRateMs.Tag + ": " + slider_HardwareUpdateRateMs.Value.ToString() + "ms";
-                    SettingSave(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", slider_HardwareUpdateRateMs.Value.ToString());
+                    SettingSave(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", slider_HardwareUpdateRateMs.Value);
                 };
 
                 slider_MarginHorizontal.ValueChanged += (sender, e) =>
                 {
                     textblock_MarginHorizontal.Text = textblock_MarginHorizontal.Tag + ": " + slider_MarginHorizontal.Value.ToString("0") + "px";
-                    SettingSave(vConfigurationFpsOverlayer, "MarginHorizontal", slider_MarginHorizontal.Value.ToString("0"));
+                    SettingSave(vConfigurationFpsOverlayer, "MarginHorizontal", slider_MarginHorizontal.Value);
                     vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 slider_MarginVertical.ValueChanged += (sender, e) =>
                 {
                     textblock_MarginVertical.Text = textblock_MarginVertical.Tag + ": " + slider_MarginVertical.Value.ToString("0") + "px";
-                    SettingSave(vConfigurationFpsOverlayer, "MarginVertical", slider_MarginVertical.Value.ToString("0"));
+                    SettingSave(vConfigurationFpsOverlayer, "MarginVertical", slider_MarginVertical.Value);
                     vWindowMain.UpdateFpsOverlayStyle();
                 };
 
@@ -80,7 +80,7 @@ namespace FpsOverlayer
                 slider_TextSize.ValueChanged += (sender, e) =>
                 {
                     textblock_TextSize.Text = textblock_TextSize.Tag + ": " + slider_TextSize.Value.ToString("0") + "px";
-                    SettingSave(vConfigurationFpsOverlayer, "TextSize", slider_TextSize.Value.ToString("0"));
+                    SettingSave(vConfigurationFpsOverlayer, "TextSize", slider_TextSize.Value);
                     vWindowMain.UpdateFpsOverlayStyle();
                 };
 
@@ -389,28 +389,28 @@ namespace FpsOverlayer
                 slider_CrosshairOpacity.ValueChanged += (sender, e) =>
                 {
                     textblock_CrosshairOpacity.Text = textblock_CrosshairOpacity.Tag + ": " + slider_CrosshairOpacity.Value.ToString("0.00") + "%";
-                    SettingSave(vConfigurationFpsOverlayer, "CrosshairOpacity", slider_CrosshairOpacity.Value.ToString("0.00"));
+                    SettingSave(vConfigurationFpsOverlayer, "CrosshairOpacity", slider_CrosshairOpacity.Value);
                     vWindowMain.UpdateCrosshairOverlayStyle();
                 };
 
                 slider_CrosshairVerticalPosition.ValueChanged += (sender, e) =>
                 {
                     textblock_CrosshairVerticalPosition.Text = textblock_CrosshairVerticalPosition.Tag + ": " + slider_CrosshairVerticalPosition.Value.ToString("0") + "px";
-                    SettingSave(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", slider_CrosshairVerticalPosition.Value.ToString("0"));
+                    SettingSave(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", slider_CrosshairVerticalPosition.Value);
                     vWindowMain.UpdateCrosshairOverlayStyle();
                 };
 
                 slider_CrosshairSize.ValueChanged += (sender, e) =>
                 {
                     textblock_CrosshairSize.Text = textblock_CrosshairSize.Tag + ": " + slider_CrosshairSize.Value.ToString("0") + "px";
-                    SettingSave(vConfigurationFpsOverlayer, "CrosshairSize", slider_CrosshairSize.Value.ToString("0"));
+                    SettingSave(vConfigurationFpsOverlayer, "CrosshairSize", slider_CrosshairSize.Value);
                     vWindowMain.UpdateCrosshairOverlayStyle();
                 };
 
                 slider_CrosshairThickness.ValueChanged += (sender, e) =>
                 {
                     textblock_CrosshairThickness.Text = textblock_CrosshairThickness.Tag + ": " + slider_CrosshairThickness.Value.ToString("0") + "px";
-                    SettingSave(vConfigurationFpsOverlayer, "CrosshairThickness", slider_CrosshairThickness.Value.ToString("0"));
+                    SettingSave(vConfigurationFpsOverlayer, "CrosshairThickness", slider_CrosshairThickness.Value);
                     vWindowMain.UpdateCrosshairOverlayStyle();
                 };
 
@@ -436,7 +436,7 @@ namespace FpsOverlayer
                 slider_BrowserOpacity.ValueChanged += async (sender, e) =>
                 {
                     textblock_BrowserOpacity.Text = textblock_BrowserOpacity.Tag + ": " + slider_BrowserOpacity.Value.ToString("0.00") + "%";
-                    SettingSave(vConfigurationFpsOverlayer, "BrowserOpacity", slider_BrowserOpacity.Value.ToString("0.00"));
+                    SettingSave(vConfigurationFpsOverlayer, "BrowserOpacity", slider_BrowserOpacity.Value);
                     await vWindowBrowser.Browser_Update_Opacity();
                 };
             }

@@ -40,8 +40,7 @@ namespace CtrlUI
                 DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                 //Resize the window size
-                double appWindowSize = SettingLoad(vConfigurationCtrlUI, "AppWindowSize", typeof(double));
-                appWindowSize /= 100;
+                double appWindowSize = SettingLoad(vConfigurationCtrlUI, "AppWindowSize", typeof(double)) / 100;
                 int windowWidth = Convert.ToInt32(displayMonitorSettings.WidthNative * appWindowSize);
                 int windowHeight = Convert.ToInt32(displayMonitorSettings.HeightNative * appWindowSize);
                 WindowResize(vInteropWindowHandle, windowWidth, windowHeight);
