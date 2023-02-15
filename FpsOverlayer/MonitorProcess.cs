@@ -128,6 +128,7 @@ namespace FpsOverlayer
                 {
                     stackpanel_CurrentApp.Visibility = Visibility.Collapsed;
                     stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
+                    stackpanel_CurrentFrametime.Visibility = Visibility.Collapsed;
                 });
             }
             catch { }
@@ -216,14 +217,21 @@ namespace FpsOverlayer
         {
             try
             {
-                //Debug.WriteLine("Resetting the frames per second counter.");
-
                 //Reset the target process
                 vTargetProcess = new ProcessMulti();
 
-                //Reset the frames variables
+                //Reset fps variables
                 vLastFrameTimeStamp = 0;
-                vListFrameTime.Clear();
+                vListFrameTimes.Clear();
+
+                //Reset frametime variables
+                vFrametimeCurrent = 0;
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    vPointFrameTimes.Clear();
+                });
+
+                Debug.WriteLine("Reset the frames per second counter.");
             }
             catch { }
         }

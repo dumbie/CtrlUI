@@ -127,6 +127,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentNet.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Left;
+                        stackpanel_CurrentFrametime.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Left;
@@ -149,6 +150,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentNet.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Center;
+                        stackpanel_CurrentFrametime.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Center;
@@ -172,6 +174,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentNet.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Right;
+                        stackpanel_CurrentFrametime.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Right;
@@ -194,6 +197,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentNet.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Right;
+                        stackpanel_CurrentFrametime.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Right;
@@ -218,6 +222,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentNet.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Right;
+                        stackpanel_CurrentFrametime.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Right;
@@ -241,6 +246,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentNet.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Center;
+                        stackpanel_CurrentFrametime.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Center;
@@ -265,6 +271,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentNet.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Left;
+                        stackpanel_CurrentFrametime.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Left;
@@ -287,6 +294,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentNet.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Left;
+                        stackpanel_CurrentFrametime.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Left;
@@ -367,6 +375,7 @@ namespace FpsOverlayer
                 int MonId = SettingLoad(vConfigurationFpsOverlayer, "MonId", typeof(int));
                 int AppId = SettingLoad(vConfigurationFpsOverlayer, "AppId", typeof(int));
                 int FpsId = SettingLoad(vConfigurationFpsOverlayer, "FpsId", typeof(int));
+                int FrametimeId = SettingLoad(vConfigurationFpsOverlayer, "FrametimeId", typeof(int));
                 int NetId = SettingLoad(vConfigurationFpsOverlayer, "NetId", typeof(int));
                 int CpuId = SettingLoad(vConfigurationFpsOverlayer, "CpuId", typeof(int));
                 int GpuId = SettingLoad(vConfigurationFpsOverlayer, "GpuId", typeof(int));
@@ -381,6 +390,7 @@ namespace FpsOverlayer
                     stackpanel_CurrentMon.SetValue(Grid.RowProperty, MonId);
                     stackpanel_CurrentApp.SetValue(Grid.RowProperty, AppId);
                     stackpanel_CurrentFps.SetValue(Grid.RowProperty, FpsId);
+                    stackpanel_CurrentFrametime.SetValue(Grid.RowProperty, FrametimeId);
                     stackpanel_CurrentNet.SetValue(Grid.RowProperty, NetId);
                     stackpanel_CurrentCpu.SetValue(Grid.RowProperty, CpuId);
                     stackpanel_CurrentGpu.SetValue(Grid.RowProperty, GpuId);
@@ -392,6 +402,7 @@ namespace FpsOverlayer
                     stackpanel_CurrentCpu.SetValue(Grid.ColumnProperty, 0);
                     stackpanel_CurrentNet.SetValue(Grid.ColumnProperty, 0);
                     stackpanel_CurrentFps.SetValue(Grid.ColumnProperty, 0);
+                    stackpanel_CurrentFrametime.SetValue(Grid.ColumnProperty, 0);
                     stackpanel_CurrentApp.SetValue(Grid.ColumnProperty, 0);
                     stackpanel_CurrentTime.SetValue(Grid.ColumnProperty, 0);
                     stackpanel_CustomText.SetValue(Grid.ColumnProperty, 0);
@@ -405,6 +416,7 @@ namespace FpsOverlayer
                     stackpanel_CurrentMon.SetValue(Grid.ColumnProperty, MonId);
                     stackpanel_CurrentApp.SetValue(Grid.ColumnProperty, AppId);
                     stackpanel_CurrentFps.SetValue(Grid.ColumnProperty, FpsId);
+                    stackpanel_CurrentFrametime.SetValue(Grid.ColumnProperty, FrametimeId);
                     stackpanel_CurrentNet.SetValue(Grid.ColumnProperty, NetId);
                     stackpanel_CurrentCpu.SetValue(Grid.ColumnProperty, CpuId);
                     stackpanel_CurrentGpu.SetValue(Grid.ColumnProperty, GpuId);
@@ -416,6 +428,7 @@ namespace FpsOverlayer
                     stackpanel_CurrentCpu.SetValue(Grid.RowProperty, 0);
                     stackpanel_CurrentNet.SetValue(Grid.RowProperty, 0);
                     stackpanel_CurrentFps.SetValue(Grid.RowProperty, 0);
+                    stackpanel_CurrentFrametime.SetValue(Grid.RowProperty, 0);
                     stackpanel_CurrentApp.SetValue(Grid.RowProperty, 0);
                     stackpanel_CurrentTime.SetValue(Grid.RowProperty, 0);
                     stackpanel_CustomText.SetValue(Grid.RowProperty, 0);
@@ -439,6 +452,7 @@ namespace FpsOverlayer
                 stackpanel_CurrentCpu.Background = brushBackground;
                 stackpanel_CurrentNet.Background = brushBackground;
                 stackpanel_CurrentFps.Background = brushBackground;
+                stackpanel_CurrentFrametime.Background = brushBackground;
                 stackpanel_CurrentApp.Background = brushBackground;
                 stackpanel_CurrentTime.Background = brushBackground;
                 stackpanel_CustomText.Background = brushBackground;
@@ -494,6 +508,7 @@ namespace FpsOverlayer
                     textblock_CurrentCpu.Foreground = brushForeground;
                     textblock_CurrentNet.Foreground = brushForeground;
                     textblock_CurrentFps.Foreground = brushForeground;
+                    polyline_Chart.Stroke = brushForeground;
                     textblock_CurrentApp.Foreground = brushForeground;
                     textblock_CurrentTime.Foreground = brushForeground;
                     textblock_CustomText.Foreground = brushForeground;
@@ -507,6 +522,7 @@ namespace FpsOverlayer
                     string ColorCpu = SettingLoad(vConfigurationFpsOverlayer, "ColorCpu", typeof(string));
                     string ColorNet = SettingLoad(vConfigurationFpsOverlayer, "ColorNet", typeof(string));
                     string ColorFps = SettingLoad(vConfigurationFpsOverlayer, "ColorFps", typeof(string));
+                    string ColorFrametime = SettingLoad(vConfigurationFpsOverlayer, "ColorFrametime", typeof(string));
                     string ColorApp = SettingLoad(vConfigurationFpsOverlayer, "ColorApp", typeof(string));
                     string ColorTime = SettingLoad(vConfigurationFpsOverlayer, "ColorTime", typeof(string));
                     string ColorCustomText = SettingLoad(vConfigurationFpsOverlayer, "ColorCustomText", typeof(string));
@@ -517,6 +533,7 @@ namespace FpsOverlayer
                     textblock_CurrentCpu.Foreground = new BrushConverter().ConvertFrom(ColorCpu) as SolidColorBrush;
                     textblock_CurrentNet.Foreground = new BrushConverter().ConvertFrom(ColorNet) as SolidColorBrush;
                     textblock_CurrentFps.Foreground = new BrushConverter().ConvertFrom(ColorFps) as SolidColorBrush;
+                    polyline_Chart.Stroke = new BrushConverter().ConvertFrom(ColorFrametime) as SolidColorBrush;
                     textblock_CurrentApp.Foreground = new BrushConverter().ConvertFrom(ColorApp) as SolidColorBrush;
                     textblock_CurrentTime.Foreground = new BrushConverter().ConvertFrom(ColorTime) as SolidColorBrush;
                     textblock_CustomText.Foreground = new BrushConverter().ConvertFrom(ColorCustomText) as SolidColorBrush;

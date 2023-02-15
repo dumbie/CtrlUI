@@ -141,6 +141,9 @@ namespace FpsOverlayer
                 string ColorFps = SettingLoad(vConfigurationFpsOverlayer, "ColorFps", typeof(string));
                 colorpicker_ColorFps.Background = new BrushConverter().ConvertFrom(ColorFps) as SolidColorBrush;
 
+                string ColorFrametime = SettingLoad(vConfigurationFpsOverlayer, "ColorFrametime", typeof(string));
+                colorpicker_ColorFrametime.Background = new BrushConverter().ConvertFrom(ColorFrametime) as SolidColorBrush;
+
                 //Crosshair
                 checkbox_CrosshairLaunch.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CrosshairLaunch", typeof(bool));
 

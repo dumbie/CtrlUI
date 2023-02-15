@@ -34,6 +34,7 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ColorCpu")) { SettingSave(vConfigurationFpsOverlayer, "ColorCpu", "#00EAFF"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ColorMem")) { SettingSave(vConfigurationFpsOverlayer, "ColorMem", "#FFA200"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ColorFps")) { SettingSave(vConfigurationFpsOverlayer, "ColorFps", "#FF0505"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ColorFrametime")) { SettingSave(vConfigurationFpsOverlayer, "ColorFrametime", "#E1BCBC"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ColorNet")) { SettingSave(vConfigurationFpsOverlayer, "ColorNet", "#FF00A8"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ColorApp")) { SettingSave(vConfigurationFpsOverlayer, "ColorApp", "#C000FF"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ColorBat")) { SettingSave(vConfigurationFpsOverlayer, "ColorBat", "#FFE115"); }
@@ -109,6 +110,8 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowCurrentFps")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowCurrentFps", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowCurrentLatency")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowCurrentLatency", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowAverageFps")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowAverageFps", "True"); }
+
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeId")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeId", "10"); }
 
                 //Crosshair
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairLaunch")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairLaunch", "False"); }

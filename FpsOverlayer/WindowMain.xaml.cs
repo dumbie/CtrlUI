@@ -69,6 +69,9 @@ namespace FpsOverlayer
                 JsonLoadFile(ref vFpsPositionProcessName, @"Profiles\User\FpsPositionProcessName.json");
                 JsonLoadFile(ref vFpsBrowserLinks, @"Profiles\User\FpsBrowserLinks.json");
 
+                //Bind all the lists to ListBox
+                ListBoxBindLists();
+
                 //Start process monitoring
                 StartMonitorProcess();
 
@@ -105,6 +108,16 @@ namespace FpsOverlayer
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+            }
+            catch { }
+        }
+
+        //Bind the lists to the listbox elements
+        void ListBoxBindLists()
+        {
+            try
+            {
+                polyline_Chart.Points = vPointFrameTimes;
             }
             catch { }
         }

@@ -98,6 +98,9 @@ namespace FpsOverlayer
                 button_FpsUp.Click += Button_MoveUp_Click;
                 button_FpsDown.Click += Button_MoveDown_Click;
 
+                button_FrametimeUp.Click += Button_MoveUp_Click;
+                button_FrametimeDown.Click += Button_MoveDown_Click;
+
                 button_AppUp.Click += Button_MoveUp_Click;
                 button_AppDown.Click += Button_MoveDown_Click;
 
@@ -150,6 +153,7 @@ namespace FpsOverlayer
                 else if (buttonsend.Name == "button_MemUp") { MoveStatsPosition(true, "MemId"); }
                 else if (buttonsend.Name == "button_NetUp") { MoveStatsPosition(true, "NetId"); }
                 else if (buttonsend.Name == "button_FpsUp") { MoveStatsPosition(true, "FpsId"); }
+                else if (buttonsend.Name == "button_FrametimeUp") { MoveStatsPosition(true, "FrametimeId"); }
                 else if (buttonsend.Name == "button_AppUp") { MoveStatsPosition(true, "AppId"); }
                 else if (buttonsend.Name == "button_BatUp") { MoveStatsPosition(true, "BatId"); }
                 else if (buttonsend.Name == "button_TimeUp") { MoveStatsPosition(true, "TimeId"); }
@@ -169,6 +173,7 @@ namespace FpsOverlayer
                 else if (buttonsend.Name == "button_MemDown") { MoveStatsPosition(false, "MemId"); }
                 else if (buttonsend.Name == "button_NetDown") { MoveStatsPosition(false, "NetId"); }
                 else if (buttonsend.Name == "button_FpsDown") { MoveStatsPosition(false, "FpsId"); }
+                else if (buttonsend.Name == "button_FrametimeDown") { MoveStatsPosition(false, "FrametimeId"); }
                 else if (buttonsend.Name == "button_AppDown") { MoveStatsPosition(false, "AppId"); }
                 else if (buttonsend.Name == "button_BatDown") { MoveStatsPosition(false, "BatId"); }
                 else if (buttonsend.Name == "button_TimeDown") { MoveStatsPosition(false, "TimeId"); }
@@ -182,9 +187,10 @@ namespace FpsOverlayer
         {
             try
             {
-                int totalId = 10;
+                int totalId = 11;
                 int AppId = SettingLoad(vConfigurationFpsOverlayer, "AppId", typeof(int)) + 1;
                 int FpsId = SettingLoad(vConfigurationFpsOverlayer, "FpsId", typeof(int)) + 1;
+                int FrametimeId = SettingLoad(vConfigurationFpsOverlayer, "FrametimeId", typeof(int)) + 1;
                 int NetId = SettingLoad(vConfigurationFpsOverlayer, "NetId", typeof(int)) + 1;
                 int CpuId = SettingLoad(vConfigurationFpsOverlayer, "CpuId", typeof(int)) + 1;
                 int GpuId = SettingLoad(vConfigurationFpsOverlayer, "GpuId", typeof(int)) + 1;
@@ -199,6 +205,7 @@ namespace FpsOverlayer
                 textblock_MemPosition.Text = MemId + "/" + totalId;
                 textblock_NetPosition.Text = NetId + "/" + totalId;
                 textblock_FpsPosition.Text = FpsId + "/" + totalId;
+                textblock_FrametimePosition.Text = FrametimeId + "/" + totalId;
                 textblock_AppPosition.Text = AppId + "/" + totalId;
                 textblock_TimePosition.Text = TimeId + "/" + totalId;
                 textblock_CustomTextPosition.Text = CustomTextId + "/" + totalId;
@@ -214,6 +221,7 @@ namespace FpsOverlayer
             {
                 int AppId = SettingLoad(vConfigurationFpsOverlayer, "AppId", typeof(int));
                 int FpsId = SettingLoad(vConfigurationFpsOverlayer, "FpsId", typeof(int));
+                int FrametimeId = SettingLoad(vConfigurationFpsOverlayer, "FrametimeId", typeof(int));
                 int NetId = SettingLoad(vConfigurationFpsOverlayer, "NetId", typeof(int));
                 int CpuId = SettingLoad(vConfigurationFpsOverlayer, "CpuId", typeof(int));
                 int GpuId = SettingLoad(vConfigurationFpsOverlayer, "GpuId", typeof(int));
@@ -225,11 +233,12 @@ namespace FpsOverlayer
 
                 int newId = 0;
                 int currentId = 0;
-                int totalId = 9;
+                int totalId = 10;
                 if (!moveUp)
                 {
                     if (targetName == "AppId") { currentId = AppId; newId = currentId + 1; }
                     else if (targetName == "FpsId") { currentId = FpsId; newId = currentId + 1; }
+                    else if (targetName == "FrametimeId") { currentId = FrametimeId; newId = currentId + 1; }
                     else if (targetName == "NetId") { currentId = NetId; newId = currentId + 1; }
                     else if (targetName == "CpuId") { currentId = CpuId; newId = currentId + 1; }
                     else if (targetName == "GpuId") { currentId = GpuId; newId = currentId + 1; }
@@ -243,6 +252,7 @@ namespace FpsOverlayer
                 {
                     if (targetName == "AppId") { currentId = AppId; newId = currentId - 1; }
                     else if (targetName == "FpsId") { currentId = FpsId; newId = currentId - 1; }
+                    else if (targetName == "FrametimeId") { currentId = FrametimeId; newId = currentId - 1; }
                     else if (targetName == "NetId") { currentId = NetId; newId = currentId - 1; }
                     else if (targetName == "CpuId") { currentId = CpuId; newId = currentId - 1; }
                     else if (targetName == "GpuId") { currentId = GpuId; newId = currentId - 1; }
@@ -263,6 +273,10 @@ namespace FpsOverlayer
                     else if (FpsId == newId)
                     {
                         SettingSave(vConfigurationFpsOverlayer, "FpsId", currentId.ToString());
+                    }
+                    else if (FrametimeId == newId)
+                    {
+                        SettingSave(vConfigurationFpsOverlayer, "FrametimeId", currentId.ToString());
                     }
                     else if (NetId == newId)
                     {

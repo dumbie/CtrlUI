@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
+using System.Windows.Media;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVTaskbarInformation;
 using static ArnoldVinkCode.ProcessClasses;
@@ -40,9 +41,14 @@ namespace FpsOverlayer
         public static AppBarPosition vTaskBarPosition = AppBarPosition.ABE_BOTTOM;
 
         //Frames per second
-        public static long vLastFrameTimeAdded = 0;
+        public static long vLastFrameTimeUpdate = 0;
         public static double vLastFrameTimeStamp = 0;
-        public static List<double> vListFrameTime = new List<double>();
+        public static List<double> vListFrameTimes = new List<double>();
+
+        //Frametimes graph
+        public static uint vFrametimeAccuracy = 6;
+        public static uint vFrametimeCurrent = 0;
+        public static PointCollection vPointFrameTimes = new PointCollection();
 
         //Strings
         public static string vTitleGPU = "GPU";

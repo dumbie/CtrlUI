@@ -367,6 +367,18 @@ namespace FpsOverlayer
                     }
                 };
 
+                colorpicker_ColorFrametime.Click += async (sender, e) =>
+                {
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorFrametime.Background = newBrush;
+                        SettingSave(vConfigurationFpsOverlayer, "ColorFrametime", newColor.ToString());
+                        vWindowMain.UpdateFpsOverlayStyle();
+                    }
+                };
+
                 //Crosshair
                 checkbox_CrosshairLaunch.Click += (sender, e) =>
                 {

@@ -25,7 +25,7 @@ namespace FpsOverlayer
                 vTraceEventSession.Source.AllEvents += ProcessEvents;
 
                 AVActions.TaskStart(TaskTraceEventSource);
-                AVActions.TaskStartLoop(LoopTraceEventOutput, vTask_TraceEventOutput);
+                AVActions.TaskStartLoop(UpdateStatsFps, vTask_UpdateStatsFps);
 
                 Debug.WriteLine("Started monitoring fps.");
             }
@@ -41,36 +41,52 @@ namespace FpsOverlayer
             catch { }
         }
 
-        async Task LoopTraceEventOutput()
+        void UpdateFpsVisibility()
+        {
+            //Check the total available frames and last added frame time
+            if (!vListFrameTimes.Any() || (GetSystemTicksMs() - vLastFrameTimeUpdate) >= 1000)
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    stackpanel_CurrentFrametime.Visibility = Visibility.Collapsed;
+                    stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
+                });
+            }
+            else
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    stackpanel_CurrentFrametime.Visibility = Visibility.Visible;
+                    bool stringEmpty = string.IsNullOrWhiteSpace(textblock_CurrentFps.Text) || textblock_CurrentFps.Text == vTitleFPS;
+                    if (!stringEmpty)
+                    {
+                        stackpanel_CurrentFps.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
+                    }
+                });
+            }
+        }
+
+        async Task UpdateStatsFps()
         {
             try
             {
-                while (TaskCheckLoop(vTask_TraceEventOutput))
+                while (TaskCheckLoop(vTask_UpdateStatsFps))
                 {
                     try
                     {
-                        //Check the total available frames and last added frame time
-                        int TotalFrameTimes = vListFrameTime.Count;
-                        bool SkipCurrentFrames = (GetSystemTicksMs() - vLastFrameTimeAdded) >= 1000;
-                        if (SkipCurrentFrames || TotalFrameTimes <= 0)
-                        {
-                            AVActions.ActionDispatcherInvoke(delegate
-                            {
-                                stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
-                            });
+                        //Update fps visibility
+                        UpdateFpsVisibility();
 
-                            continue;
-                        }
-
-                        //Reverse the frames list
-                        IEnumerable<double> ReversedFrameList = vListFrameTime.AsEnumerable().Reverse();
-
-                        //Calculate the current fps
-                        double CurrentFrameTimes = ReversedFrameList.Take(100).Average(); //1sec
+                        //Calculate the current fps (1sec)
+                        double CurrentFrameTimes = vListFrameTimes.Take(100).Average();
                         int CurrentFramesPerSecond = Convert.ToInt32(1000 / CurrentFrameTimes);
 
-                        //Calculate the average fps
-                        double AverageFrameTimes = ReversedFrameList.Average();
+                        //Calculate the average fps (10sec)
+                        double AverageFrameTimes = vListFrameTimes.Take(1000).Average();
                         int AverageFramesPerSecond = Convert.ToInt32(1000 / AverageFrameTimes);
 
                         //Convert fps to string
@@ -83,33 +99,67 @@ namespace FpsOverlayer
 
                         //Update the fps counter
                         Debug.WriteLine("(" + vTargetProcess.Identifier + ") MS" + CurrentFrameTimes.ToString("0.00") + " / FPS " + CurrentFramesPerSecond + " / AVG " + AverageFramesPerSecond);
-                        string StringDisplay = AVFunctions.StringRemoveStart(vTitleFPS + StringCurrentFramesPerSecond + StringCurrentFrameTimes + StringAverageFramesPerSecond, " ");
+                        string StringDisplay = vTitleFPS + StringCurrentFramesPerSecond + StringCurrentFrameTimes + StringAverageFramesPerSecond;
+                        StringDisplay = AVFunctions.StringRemoveStart(StringDisplay, " ");
+                        StringDisplay = AVFunctions.StringRemoveEnd(StringDisplay, " ");
 
-                        if (!string.IsNullOrWhiteSpace(StringDisplay))
+                        AVActions.ActionDispatcherInvoke(delegate
                         {
-                            AVActions.ActionDispatcherInvoke(delegate
-                            {
-                                textblock_CurrentFps.Text = StringDisplay;
-                                stackpanel_CurrentFps.Visibility = Visibility.Visible;
-                            });
-                        }
-                        else
-                        {
-                            AVActions.ActionDispatcherInvoke(delegate
-                            {
-                                stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
-                            });
-                        }
+                            textblock_CurrentFps.Text = StringDisplay;
+                        });
                     }
                     catch { }
                     finally
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(1000, vTask_TraceEventOutput);
+                        await TaskDelayLoop(1000, vTask_UpdateStatsFps);
                     }
                 }
             }
             catch { }
+        }
+
+        void UpdateStatsFrameTimeGraph(double frameTime)
+        {
+            try
+            {
+                double yPoint = frameTime;
+                double xPoint = vFrametimeCurrent;
+                if (xPoint != 0)
+                {
+                    xPoint += vFrametimeAccuracy;
+                }
+                vFrametimeCurrent++;
+
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Check point height
+                    if (yPoint < 2)
+                    {
+                        yPoint = 2;
+                    }
+                    else if (yPoint > 48)
+                    {
+                        yPoint = 48;
+                    }
+
+                    //Add frametime point
+                    vPointFrameTimes.Add(new Point(xPoint, yPoint));
+                    stackpanel_CurrentFrametime.ScrollToRightEnd();
+
+                    //Cleanup frametime points (10sec)
+                    if (vPointFrameTimes.Count > 1000)
+                    {
+                        vPointFrameTimes.RemoveAt(0);
+                    }
+                });
+
+                //Debug.WriteLine("Added frametime to graph: " + frameTime);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed adding frametime to graph: " + ex.Message);
+            }
         }
 
         void ProcessEvents(TraceEvent traceEvent)
@@ -131,20 +181,33 @@ namespace FpsOverlayer
                 }
 
                 //Calculate new frame time
-                double TimeElapsed = traceEvent.TimeStampRelativeMSec;
-                double TimeBetween = TimeElapsed - vLastFrameTimeStamp;
-                vLastFrameTimeAdded = GetSystemTicksMs();
-                vLastFrameTimeStamp = TimeElapsed;
+                double timeElapsed = traceEvent.TimeStampRelativeMSec;
+                double timeBetween = timeElapsed - vLastFrameTimeStamp;
+                vLastFrameTimeUpdate = GetSystemTicksMs();
+                vLastFrameTimeStamp = timeElapsed;
 
-                //Add frame time to the list
-                if (TimeBetween < 1000)
+                //Check frametime
+                if (timeBetween < 1000)
                 {
-                    if (vListFrameTime.Count > 1000) { vListFrameTime.RemoveAt(0); } //10sec
-                    vListFrameTime.Add(TimeBetween);
-                    //Debug.WriteLine("Added new frame time to the list: " + TimeBetween);
+                    //Add frametime to list
+                    vListFrameTimes.Insert(0, timeBetween);
+
+                    //Cleanup frametimes (10sec)
+                    if (vListFrameTimes.Count > 1000)
+                    {
+                        vListFrameTimes.RemoveAt(1001);
+                    }
+
+                    //Add frametime to graph
+                    UpdateStatsFrameTimeGraph(timeBetween);
+
+                    //Debug.WriteLine("Added frametime to list: " + timeBetween);
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed adding frametime to list: " + ex.Message);
+            }
         }
     }
 }

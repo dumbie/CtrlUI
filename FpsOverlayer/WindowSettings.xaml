@@ -118,10 +118,7 @@
                         <TextBlock Margin="0,10,0,0" Text="Custom text line" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBox Name="textbox_CustomText" Width="440" HorizontalAlignment="Left" Style="{StaticResource TextBoxBlack}"/>
 
-                        <CheckBox Margin="0,10,0,0" Name="checkbox_DisplayBackground" Content="Display background behind text" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this will display a background behind the stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                        <TextBlock Margin="0,10,0,0" Text="Text display position" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Margin="0,10,0,0" Text="Stats display position" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the position of where the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <ComboBox Name="combobox_TextPosition" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
                             <ComboBoxItem>Top left</ComboBoxItem>
@@ -134,7 +131,7 @@
                             <ComboBoxItem>Middle left</ComboBoxItem>
                         </ComboBox>
 
-                        <TextBlock Text="Text display direction" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Stats display direction" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the direction the stats are displayed in." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <ComboBox Name="combobox_TextDirection" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
                             <ComboBoxItem>Horizontal</ComboBoxItem>
@@ -152,8 +149,11 @@
 
                     <StackPanel Name="stackpanel_Colors" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Color Settings"/>
-                        <CheckBox Name="checkbox_TextColorSingle" Content="Show text in single color" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this will show the text only in one single color." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <CheckBox Name="checkbox_TextColorSingle" Content="Show stats in single color" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the stats only in one single color." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_DisplayBackground" Content="Show background behind stats" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show a background behind the stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="General Colors"/>
                         <StackPanel Orientation="Horizontal">
@@ -183,8 +183,12 @@
                             <Button Name="colorpicker_ColorNet" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the network text color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                            <TextBlock Text="Display color for frames text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <TextBlock Text="Display color for frames per second text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             <Button Name="colorpicker_ColorFps" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the frames per second text color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for frametimes graph:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorFrametime" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the frametimes graph color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for monitor text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
@@ -309,8 +313,7 @@
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Fps" Visibility="Collapsed">
-                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Frames Settings"/>
-
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Frames per second settings"/>
                         <StackPanel Orientation="Horizontal">
                             <Button Name="button_FpsUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
                                 <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
@@ -335,6 +338,17 @@
 
                         <CheckBox Name="checkbox_FpsShowAverageFps" Content="Show the average fps" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the average fps from the last 10 seconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Frametime settings"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="button_FrametimeUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_FrametimeDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_FrametimePosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Time" Visibility="Collapsed">
