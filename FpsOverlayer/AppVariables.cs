@@ -46,7 +46,6 @@ namespace FpsOverlayer
         public static List<double> vListFrameTimes = new List<double>();
 
         //Frametimes graph
-        public static uint vFrametimeAccuracy = 6;
         public static uint vFrametimeCurrent = 0;
         public static PointCollection vPointFrameTimes = new PointCollection();
 

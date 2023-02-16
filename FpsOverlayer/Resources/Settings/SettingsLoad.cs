@@ -144,6 +144,18 @@ namespace FpsOverlayer
                 string ColorFrametime = SettingLoad(vConfigurationFpsOverlayer, "ColorFrametime", typeof(string));
                 colorpicker_ColorFrametime.Background = new BrushConverter().ConvertFrom(ColorFrametime) as SolidColorBrush;
 
+                //Frametime
+                checkbox_FrametimeGraphShow.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FrametimeGraphShow", typeof(bool));
+
+                textblock_FrametimeAccuracy.Text = textblock_FrametimeAccuracy.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "FrametimeAccuracy", typeof(string)) + "px";
+                slider_FrametimeAccuracy.Value = SettingLoad(vConfigurationFpsOverlayer, "FrametimeAccuracy", typeof(double));
+
+                textblock_FrametimeWidth.Text = textblock_FrametimeWidth.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "FrametimeWidth", typeof(string)) + "px";
+                slider_FrametimeWidth.Value = SettingLoad(vConfigurationFpsOverlayer, "FrametimeWidth", typeof(double));
+
+                textblock_FrametimeHeight.Text = textblock_FrametimeHeight.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "FrametimeHeight", typeof(string)) + "px";
+                slider_FrametimeHeight.Value = SettingLoad(vConfigurationFpsOverlayer, "FrametimeHeight", typeof(double));
+
                 //Crosshair
                 checkbox_CrosshairLaunch.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CrosshairLaunch", typeof(bool));
 

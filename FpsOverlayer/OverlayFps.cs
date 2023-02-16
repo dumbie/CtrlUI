@@ -541,6 +541,10 @@ namespace FpsOverlayer
                     textblock_CurrentBat.Foreground = new BrushConverter().ConvertFrom(ColorBat) as SolidColorBrush;
                 }
 
+                //Update frametime graph size
+                stackpanel_CurrentFrametime.Height = SettingLoad(vConfigurationFpsOverlayer, "FrametimeHeight", typeof(double));
+                stackpanel_CurrentFrametime.Width = SettingLoad(vConfigurationFpsOverlayer, "FrametimeWidth", typeof(double));
+
                 //Update the fps overlay position
                 UpdateFpsOverlayPosition(vTargetProcess.Name);
             }

@@ -379,6 +379,32 @@ namespace FpsOverlayer
                     }
                 };
 
+                //Frametime
+                checkbox_FrametimeGraphShow.Click += (sender, e) =>
+                {
+                    SettingSave(vConfigurationFpsOverlayer, "FrametimeGraphShow", checkbox_FrametimeGraphShow.IsChecked.ToString());
+                };
+
+                slider_FrametimeAccuracy.ValueChanged += (sender, e) =>
+                {
+                    textblock_FrametimeAccuracy.Text = textblock_FrametimeAccuracy.Tag + ": " + slider_FrametimeAccuracy.Value.ToString("0") + "px";
+                    SettingSave(vConfigurationFpsOverlayer, "FrametimeAccuracy", slider_FrametimeAccuracy.Value);
+                };
+
+                slider_FrametimeWidth.ValueChanged += (sender, e) =>
+                {
+                    textblock_FrametimeWidth.Text = textblock_FrametimeWidth.Tag + ": " + slider_FrametimeWidth.Value.ToString("0") + "px";
+                    SettingSave(vConfigurationFpsOverlayer, "FrametimeWidth", slider_FrametimeWidth.Value);
+                    vWindowMain.UpdateFpsOverlayStyle();
+                };
+
+                slider_FrametimeHeight.ValueChanged += (sender, e) =>
+                {
+                    textblock_FrametimeHeight.Text = textblock_FrametimeHeight.Tag + ": " + slider_FrametimeHeight.Value.ToString("0") + "px";
+                    SettingSave(vConfigurationFpsOverlayer, "FrametimeHeight", slider_FrametimeHeight.Value);
+                    vWindowMain.UpdateFpsOverlayStyle();
+                };
+
                 //Crosshair
                 checkbox_CrosshairLaunch.Click += (sender, e) =>
                 {

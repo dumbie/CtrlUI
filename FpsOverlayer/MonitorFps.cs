@@ -56,7 +56,16 @@ namespace FpsOverlayer
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    stackpanel_CurrentFrametime.Visibility = Visibility.Visible;
+                    bool showFrametime = SettingLoad(vConfigurationFpsOverlayer, "FrametimeGraphShow", typeof(bool));
+                    if (showFrametime)
+                    {
+                        stackpanel_CurrentFrametime.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        stackpanel_CurrentFrametime.Visibility = Visibility.Collapsed;
+                    }
+
                     bool stringEmpty = string.IsNullOrWhiteSpace(textblock_CurrentFps.Text) || textblock_CurrentFps.Text == vTitleFPS;
                     if (!stringEmpty)
                     {
@@ -125,22 +134,19 @@ namespace FpsOverlayer
             {
                 double yPoint = frameTime;
                 double xPoint = vFrametimeCurrent;
-                if (xPoint != 0)
-                {
-                    xPoint += vFrametimeAccuracy;
-                }
-                vFrametimeCurrent++;
+                vFrametimeCurrent += SettingLoad(vConfigurationFpsOverlayer, "FrametimeAccuracy", typeof(double));
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     //Check point height
+                    double graphHeight = SettingLoad(vConfigurationFpsOverlayer, "FrametimeHeight", typeof(double)) - 2;
                     if (yPoint < 2)
                     {
                         yPoint = 2;
                     }
-                    else if (yPoint > 48)
+                    else if (yPoint > graphHeight)
                     {
-                        yPoint = 48;
+                        yPoint = graphHeight;
                     }
 
                     //Add frametime point

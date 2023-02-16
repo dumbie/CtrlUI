@@ -118,26 +118,6 @@
                         <TextBlock Margin="0,10,0,0" Text="Custom text line" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBox Name="textbox_CustomText" Width="440" HorizontalAlignment="Left" Style="{StaticResource TextBoxBlack}"/>
 
-                        <TextBlock Margin="0,10,0,0" Text="Stats display position" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <TextBlock Text="Change the position of where the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <ComboBox Name="combobox_TextPosition" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
-                            <ComboBoxItem>Top left</ComboBoxItem>
-                            <ComboBoxItem>Top center</ComboBoxItem>
-                            <ComboBoxItem>Top right</ComboBoxItem>
-                            <ComboBoxItem>Middle right</ComboBoxItem>
-                            <ComboBoxItem>Bottom right</ComboBoxItem>
-                            <ComboBoxItem>Bottom center</ComboBoxItem>
-                            <ComboBoxItem>Bottom left</ComboBoxItem>
-                            <ComboBoxItem>Middle left</ComboBoxItem>
-                        </ComboBox>
-
-                        <TextBlock Text="Stats display direction" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <TextBlock Text="Change the direction the stats are displayed in." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <ComboBox Name="combobox_TextDirection" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
-                            <ComboBoxItem>Horizontal</ComboBoxItem>
-                            <ComboBoxItem>Vertical</ComboBoxItem>
-                        </ComboBox>
-
                         <TextBlock Name="textblock_TextSize" Tag="Text display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the font size of the displayed stats text." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="8" Maximum="120" HorizontalAlignment="Left" Width="440" Name="slider_TextSize" Style="{StaticResource SliderBlockWhite}"/>
@@ -218,6 +198,26 @@
                         <TextBlock Text="Change the hardware information update rate in milliseconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="500" Maximum="3000" TickFrequency="100" SmallChange="100" LargeChange="100" HorizontalAlignment="Left" Width="440" Name="slider_HardwareUpdateRateMs" Style="{StaticResource SliderBlockWhite}"/>
 
+                        <TextBlock Text="Stats display position" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the position of where the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <ComboBox Name="combobox_TextPosition" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
+                            <ComboBoxItem>Top left</ComboBoxItem>
+                            <ComboBoxItem>Top center</ComboBoxItem>
+                            <ComboBoxItem>Top right</ComboBoxItem>
+                            <ComboBoxItem>Middle right</ComboBoxItem>
+                            <ComboBoxItem>Bottom right</ComboBoxItem>
+                            <ComboBoxItem>Bottom center</ComboBoxItem>
+                            <ComboBoxItem>Bottom left</ComboBoxItem>
+                            <ComboBoxItem>Middle left</ComboBoxItem>
+                        </ComboBox>
+
+                        <TextBlock Text="Stats display direction" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the direction the stats are displayed in." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <ComboBox Name="combobox_TextDirection" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
+                            <ComboBoxItem>Horizontal</ComboBoxItem>
+                            <ComboBoxItem>Vertical</ComboBoxItem>
+                        </ComboBox>
+                        
                         <TextBlock Name="textblock_DisplayOpacity" Text="Stats display transparency" Tag="Stats display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the transparency of the shown fps overlay stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Width="440" Name="slider_DisplayOpacity" Style="{StaticResource SliderBlockWhite}"/>
@@ -349,6 +349,21 @@
                             </Button>
                             <TextBlock Name="textblock_FrametimePosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                         </StackPanel>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_FrametimeGraphShow" Content="Show frametime graph in stats" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show frametime graph in the stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <TextBlock Name="textblock_FrametimeAccuracy" Tag="Frametime frame width" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the frametime graph frame width." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <Slider Minimum="1" Maximum="8" HorizontalAlignment="Left" Width="440" Name="slider_FrametimeAccuracy" Style="{StaticResource SliderBlockWhite}"/>
+                        
+                        <TextBlock Name="textblock_FrametimeWidth" Tag="Frametime graph width" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the frametime graph display width." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <Slider Minimum="200" Maximum="800" HorizontalAlignment="Left" Width="440" Name="slider_FrametimeWidth" Style="{StaticResource SliderBlockWhite}"/>
+
+                        <TextBlock Name="textblock_FrametimeHeight" Tag="Frametime graph height" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the frametime graph display height." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <Slider Minimum="20" Maximum="60" HorizontalAlignment="Left" Width="440" Name="slider_FrametimeHeight" Style="{StaticResource SliderBlockWhite}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Time" Visibility="Collapsed">

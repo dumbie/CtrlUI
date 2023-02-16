@@ -112,6 +112,10 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowAverageFps")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowAverageFps", "True"); }
 
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeId")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeId", "10"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeGraphShow")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeGraphShow", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeAccuracy")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeAccuracy", "2"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeWidth")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeWidth", "400"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeHeight")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeHeight", "40"); }
 
                 //Crosshair
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairLaunch")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairLaunch", "False"); }
