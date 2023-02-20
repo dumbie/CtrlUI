@@ -12,8 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Windows.Media.Control;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
-using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 

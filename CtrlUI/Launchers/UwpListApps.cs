@@ -7,8 +7,8 @@ using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using Windows.Gaming.Preview.GamesEnumeration;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVUwpAppx;
-using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -59,7 +59,8 @@ namespace CtrlUI
                             continue;
                         }
 
-                        await UwpAddApplication(appPackage, appxDetails);
+                        //Add application to list
+                        await UwpAddApplication(appxDetails);
                     }
                     catch { }
                 }
@@ -70,7 +71,7 @@ namespace CtrlUI
             }
         }
 
-        async Task UwpAddApplication(Package appPackage, AppxDetails appxDetails)
+        async Task UwpAddApplication(AppxDetails appxDetails)
         {
             try
             {
@@ -87,7 +88,7 @@ namespace CtrlUI
                 }
 
                 //Get basic application information
-                string runCommand = appPackage.Id.FamilyName;
+                string runCommand = appxDetails.AppUserModelId;
                 vLauncherAppAvailableCheck.Add(runCommand);
 
                 //Check if application is already added

@@ -118,11 +118,11 @@ namespace DirectXInput
             catch { }
         }
 
-        async void NotifyIcon_FpsOverlayer(object sender, EventArgs args)
+        void NotifyIcon_FpsOverlayer(object sender, EventArgs args)
         {
             try
             {
-                await ProcessFunctions.LaunchFpsOverlayer(true);
+                ProcessFunctions.LaunchFpsOverlayer(true);
             }
             catch { }
         }

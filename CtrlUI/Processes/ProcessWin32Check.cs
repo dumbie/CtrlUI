@@ -5,8 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -33,7 +32,7 @@ namespace CtrlUI
                     List<IntPtr> multiVariables = new List<IntPtr>();
                     foreach (ProcessThread threadProcess in processThreads)
                     {
-                        foreach (IntPtr threadWindowHandle in EnumThreadWindows(threadProcess.Id))
+                        foreach (IntPtr threadWindowHandle in Thread_GetWindowHandles(threadProcess.Id))
                         {
                             try
                             {

@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
+﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVFiles;
-using static ArnoldVinkCode.ProcessFunctions;
 
 namespace LibraryShared
 {
@@ -14,7 +14,7 @@ namespace LibraryShared
                 Debug.WriteLine("Checking application update.");
 
                 //Close running application updater
-                if (CloseProcessesByNameOrTitle("Updater.exe", false, true))
+                if (AVProcessTool.Close_ProcessName("Updater.exe"))
                 {
                     await Task.Delay(1000);
                 }

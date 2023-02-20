@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -6,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVSettings;
-using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -16,7 +16,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Launch a Win32 application from databindapp
-        async Task<bool> PrepareProcessLauncherWin32Async(DataBindApp dataBindApp, string launchArgument, bool silent, bool runAsAdmin, bool createNoWindow, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherWin32Async(DataBindApp dataBindApp, string launchArgument, bool silent, bool runAsAdmin, bool launchKeyboard)
         {
             bool appLaunched = false;
             try
@@ -62,7 +62,7 @@ namespace CtrlUI
                 }
 
                 //Launch the application
-                appLaunched = await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, runAsAdmin, createNoWindow, launchKeyboard, false);
+                appLaunched = await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, runAsAdmin, launchKeyboard);
 
                 //Update last launch date
                 if (appLaunched)
@@ -77,7 +77,7 @@ namespace CtrlUI
         }
 
         //Launch a Win32 application manually
-        async Task<bool> PrepareProcessLauncherWin32Async(string appTitle, string pathExe, string pathLaunch, string launchArgument, bool silent, bool runAsAdmin, bool createNoWindow, bool launchKeyboard, bool ignoreFailed)
+        async Task<bool> PrepareProcessLauncherWin32Async(string appTitle, string pathExe, string pathWork, string launchArgument, bool silent, bool runAsAdmin, bool launchKeyboard)
         {
             try
             {
@@ -97,8 +97,8 @@ namespace CtrlUI
                 }
 
                 //Launch the Win32 application
-                Process launchProcess = await ProcessLauncherWin32Async(pathExe, pathLaunch, launchArgument, runAsAdmin, createNoWindow);
-                if (!ignoreFailed && launchProcess == null)
+                int processId = AVProcessTool.Launch_Exe(pathExe, pathWork, launchArgument, false, runAsAdmin, false);
+                if (processId <= 0)
                 {
                     //Show failed launch messagebox
                     await LaunchProcessFailed();

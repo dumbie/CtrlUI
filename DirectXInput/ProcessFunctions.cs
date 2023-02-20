@@ -1,10 +1,10 @@
-﻿using System.Diagnostics;
+﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
-using static ArnoldVinkCode.ProcessFunctions;
-using static ArnoldVinkCode.ProcessWin32Functions;
+using static ArnoldVinkCode.AVProcess;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -19,7 +19,7 @@ namespace DirectXInput
             {
                 if (!CheckRunningProcessByNameOrTitle("CtrlUI", false, true))
                 {
-                    await LaunchCtrlUI(true);
+                    LaunchCtrlUI(true);
                 }
                 else
                 {
@@ -29,7 +29,7 @@ namespace DirectXInput
             catch { }
         }
 
-        private static async Task LaunchCtrlUI(bool forceLaunch)
+        private static void LaunchCtrlUI(bool forceLaunch)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace DirectXInput
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Launch CtrlUI
-                    await ProcessLauncherWin32Async("CtrlUI-Launcher.exe", "", "", true, false);
+                    AVProcessTool.Launch_Exe("CtrlUI-Launcher.exe", "", "", false, true, false);
                 }
             }
             catch { }
@@ -94,7 +94,7 @@ namespace DirectXInput
                 }
                 else
                 {
-                    await LaunchFpsOverlayer(true);
+                    LaunchFpsOverlayer(true);
                 }
             }
             catch { }
@@ -135,7 +135,7 @@ namespace DirectXInput
         }
 
         //Launch the Fps Overlayer
-        public static async Task LaunchFpsOverlayer(bool forceLaunch)
+        public static void LaunchFpsOverlayer(bool forceLaunch)
         {
             try
             {
@@ -150,7 +150,7 @@ namespace DirectXInput
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Launch Fps Overlayer
-                    await ProcessLauncherWin32Async("FpsOverlayer-Launcher.exe", "", "", true, false);
+                    AVProcessTool.Launch_Exe("FpsOverlayer-Launcher.exe", "", "", false, true, false);
                 }
             }
             catch { }

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVUwpAppx;
-using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -51,17 +51,17 @@ namespace CtrlUI
                     //Debug.WriteLine("Launching UWP or Win32Store: " + appTitle + "/" + pathExe);
                 }
 
-                //Minimize the CtrlUI window
-                await AppWindowMinimize(true, true);
-
                 //Launch the UWP or Win32Store application
-                Process launchProcess = await ProcessLauncherUwpAndWin32StoreAsync(pathExe, argument);
-                if (launchProcess == null)
+                int processId = AVProcessTool.Launch_Uwp(pathExe, argument);
+                if (processId <= 0)
                 {
                     //Show failed launch messagebox
                     await LaunchProcessFailed();
                     return false;
                 }
+
+                //Minimize the CtrlUI window
+                await AppWindowMinimize(true, true);
 
                 //Launch the keyboard controller
                 if (launchKeyboard)

@@ -1,10 +1,9 @@
-﻿using System.Diagnostics;
+﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessFunctions;
-using static ArnoldVinkCode.ProcessUwpFunctions;
+using static ArnoldVinkCode.AVProcess;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -20,7 +19,9 @@ namespace CtrlUI
                 Debug.WriteLine("Closing UWP process: " + dataBindApp.Name);
 
                 //Close the process
-                bool closedProcess = await CloseProcessUwpByWindowHandleOrProcessId(dataBindApp.Name, processMulti.Identifier, processMulti.WindowHandle);
+                bool closedProcess = AVProcessTool.Close_ProcessMessageHwnd(processMulti.WindowHandle);
+
+                //Check if process closed
                 if (closedProcess)
                 {
                     await Notification_Send_Status("AppClose", "Closed " + dataBindApp.Name);
@@ -46,7 +47,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("AppClose", "Failed to close the app");
+                    await Notification_Send_Status("AppClose", "Failed to close application");
                     Debug.WriteLine("Failed to close the application.");
                     return false;
                 }
@@ -67,7 +68,9 @@ namespace CtrlUI
                 Debug.WriteLine("Closing all UWP processes: " + dataBindApp.Name + " / " + processMulti.Identifier);
 
                 //Close the process
-                bool closedProcess = KillProcessTreeById(processMulti.Identifier, true);
+                bool closedProcess = AVProcessTool.Close_ProcessTreeId(processMulti.Identifier);
+
+                //Check if process closed
                 if (closedProcess)
                 {
                     await Notification_Send_Status("AppClose", "Closed " + dataBindApp.Name);
@@ -93,7 +96,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("AppClose", "Failed to close the app");
+                    await Notification_Send_Status("AppClose", "Failed to close application");
                     Debug.WriteLine("Failed to close the application.");
                     return false;
                 }

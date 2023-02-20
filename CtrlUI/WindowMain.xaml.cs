@@ -13,7 +13,6 @@ using static ArnoldVinkCode.AVInputOutputInterop;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
-using static ArnoldVinkCode.ProcessWin32Functions;
 using static ArnoldVinkCode.Styles.MainColors;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -218,7 +217,7 @@ namespace CtrlUI
         {
             try
             {
-                await ProcessLauncherWin32Async("CtrlUI.exe", "", "-restart", false, false);
+                AVProcessTool.Launch_Exe("CtrlUI.exe", "", "-restart", false, true, false);
                 await Application_Exit();
             }
             catch { }
@@ -232,7 +231,7 @@ namespace CtrlUI
                 //Force focus on CtrlUI
                 if (!vAppActivated)
                 {
-                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, false, true, false);
+                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
                 }
 
                 //Show the closing messagebox
@@ -278,7 +277,7 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Restart the PC
-                        await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /t 0", false, true);
+                        AVProcessTool.Launch_Exe(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /t 0", false, false, false);
 
                         //Close CtrlUI
                         await Application_Exit();
@@ -291,7 +290,7 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Shutdown the PC
-                        await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /t 0", false, true);
+                        AVProcessTool.Launch_Exe(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /t 0", false, false, false);
 
                         //Close CtrlUI
                         await Application_Exit();

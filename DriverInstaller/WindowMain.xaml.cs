@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVJsonFunctions;
-using static ArnoldVinkCode.ProcessFunctions;
-using static ArnoldVinkCode.ProcessWin32Functions;
 using static DriverInstaller.AppVariables;
 using static LibraryShared.Classes;
 
@@ -117,10 +115,12 @@ namespace DriverInstaller
                 TextBoxAppend("Closing running controller tools.");
                 Debug.WriteLine("Closing running controller tools.");
 
-                //Close DirectXInput
+                //Close CtrlUI applications
                 try
                 {
-                    CloseProcessesByNameOrTitle("DirectXInput", false, true);
+                    AVProcessTool.Close_ProcessName("CtrlUI");
+                    AVProcessTool.Close_ProcessName("DirectXInput");
+                    AVProcessTool.Close_ProcessName("FpsOverlayer");
                 }
                 catch { }
 
@@ -129,7 +129,7 @@ namespace DriverInstaller
                 {
                     try
                     {
-                        CloseProcessesByNameOrTitle(closeLauncher.String1, false, true);
+                        AVProcessTool.Close_ProcessName(closeLauncher.String1);
                     }
                     catch { }
                 }
@@ -139,7 +139,7 @@ namespace DriverInstaller
                 {
                     try
                     {
-                        CloseProcessesByNameOrTitle(closeTool.String1, false, true);
+                        AVProcessTool.Close_ProcessName(closeTool.String1);
                     }
                     catch { }
                 }
@@ -191,7 +191,7 @@ namespace DriverInstaller
                 if (runDirectXInput)
                 {
                     TextBoxAppend("Running the DirectXInput application.");
-                    await ProcessLauncherWin32Async("DirectXInput-Launcher.exe", "", "", true, false);
+                    AVProcessTool.Launch_Exe("DirectXInput-Launcher.exe", "", "", false, true, false);
                 }
 
                 //Set the exit reason text message

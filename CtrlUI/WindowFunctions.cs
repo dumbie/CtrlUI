@@ -6,9 +6,8 @@ using System.Windows;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
-using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
 
@@ -77,7 +76,7 @@ namespace CtrlUI
             try
             {
                 vProcessDirectXInput = GetProcessByNameOrTitle("DirectXInput", false, true);
-                int focusedAppId = GetProcessMultiFromWindowHandle(GetForegroundWindow()).Identifier;
+                int focusedAppId = ProcessMulti_GetFromWindowHandle(GetForegroundWindow()).Identifier;
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
@@ -195,7 +194,7 @@ namespace CtrlUI
                 Debug.WriteLine("Show or hide the CtrlUI window.");
 
                 //Get the current focused application
-                ProcessMulti foregroundProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
+                ProcessMulti foregroundProcess = ProcessMulti_GetFromWindowHandle(GetForegroundWindow());
 
                 if (vAppMinimized || !vAppActivated)
                 {
@@ -226,7 +225,7 @@ namespace CtrlUI
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                 //Force focus on CtrlUI
-                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, false, silentShow, false);
+                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, silentShow, false);
 
                 //Update the window position
                 await UpdateWindowPosition(false, true);

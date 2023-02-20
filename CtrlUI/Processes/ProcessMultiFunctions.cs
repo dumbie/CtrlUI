@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVUwpAppx;
-using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -122,19 +122,19 @@ namespace CtrlUI
                     string launchArgument = await GetLaunchArgumentFilePicker(dataBindApp);
                     if (launchArgument == "Cancel") { return; }
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, false, false, keyboardLaunch);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, false, keyboardLaunch);
                 }
                 else if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
                 {
                     string launchArgument = await GetLaunchArgumentEmulator(dataBindApp);
                     if (launchArgument == "Cancel") { return; }
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, false, false, keyboardLaunch);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, false, keyboardLaunch);
                 }
                 else
                 {
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherWin32Async(dataBindApp, string.Empty, false, false, false, keyboardLaunch);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, string.Empty, false, false, keyboardLaunch);
                 }
             }
             catch { }
@@ -187,22 +187,8 @@ namespace CtrlUI
                 bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
                 bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
-                //Minimize the CtrlUI window
-                await AppWindowMinimize(true, true);
-
                 //Restart the process
-                if (processMulti.Type == ProcessType.UWP)
-                {
-                    await PrepareRestartProcessUwp(dataBindApp, processMulti, useLaunchArgument, keyboardLaunch);
-                }
-                else if (processMulti.Type == ProcessType.Win32Store)
-                {
-                    await PrepareRestartProcessWin32Store(dataBindApp, processMulti, useLaunchArgument, keyboardLaunch);
-                }
-                else
-                {
-                    await PrepareRestartProcessWin32(dataBindApp, processMulti, useLaunchArgument, keyboardLaunch);
-                }
+                await PrepareRestartProcess(dataBindApp, processMulti, useLaunchArgument, keyboardLaunch);
             }
             catch { }
         }

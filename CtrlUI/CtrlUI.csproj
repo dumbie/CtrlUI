@@ -146,6 +146,7 @@
     <Compile Include="FilePicker\PickerLoadUwp.cs" />
     <Compile Include="HowLongToBeatFunctions.cs" />
     <Compile Include="MouseFunctions.cs" />
+    <Compile Include="Processes\ProcessUrlLaunch.cs" />
     <Compile Include="Resources\ApiHowLongToBeat\HltbSearch.cs" />
     <Compile Include="ImageFunctions.cs" />
     <Compile Include="WindowFunctions.cs" />
@@ -188,12 +189,10 @@
     <Compile Include="FilePicker\FileFunctions.cs" />
     <Compile Include="Processes\ProcessMultiCheck.cs" />
     <Compile Include="Processes\ProcessMultiSelect.cs" />
-    <Compile Include="Processes\ProcessUwpRestart.cs" />
     <Compile Include="Processes\ProcessUwpOther.cs" />
     <Compile Include="Processes\ProcessUwpList.cs" />
     <Compile Include="Processes\ProcessUwpClose.cs" />
-    <Compile Include="Processes\ProcessWin32StoreRestart.cs" />
-    <Compile Include="Processes\ProcessWin32Restart.cs" />
+    <Compile Include="Processes\ProcessRestart.cs" />
     <Compile Include="Processes\ProcessWin32Close.cs" />
     <Compile Include="Processes\ProcessWin32Check.cs" />
     <Compile Include="Processes\ProcessWin32List.cs" />

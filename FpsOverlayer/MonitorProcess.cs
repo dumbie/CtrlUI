@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
-using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessFunctions;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
 
@@ -41,7 +40,7 @@ namespace FpsOverlayer
                         UpdateCustomText();
 
                         //Get and check the focused process
-                        ProcessMulti foregroundProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
+                        ProcessMulti foregroundProcess = ProcessMulti_GetFromWindowHandle(GetForegroundWindow());
                         if (foregroundProcess == null)
                         {
                             Debug.WriteLine("No active or valid process found.");

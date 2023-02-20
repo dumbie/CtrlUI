@@ -2,9 +2,9 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVUwpAppx;
-using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;

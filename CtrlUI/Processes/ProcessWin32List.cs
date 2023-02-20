@@ -8,8 +8,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -51,7 +50,7 @@ namespace CtrlUI
                         }
 
                         //Convert Process To ProcessMulti
-                        ProcessMulti processMultiApp = ConvertProcessToProcessMulti(processApp, null, null);
+                        ProcessMulti processMultiApp = ProcessMulti_GetFromProcess(processApp, null, null);
 
                         //Check if application title is blacklisted
                         if (vCtrlIgnoreProcessName.Any(x => x.String1.ToLower() == processMultiApp.WindowTitle.ToLower()))

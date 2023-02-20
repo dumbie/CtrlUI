@@ -1,11 +1,11 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ApiGitHub;
 using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -106,7 +106,7 @@ namespace CtrlUI
         {
             try
             {
-                await ProcessLauncherWin32Async("Updater.exe", "", "", false, false);
+                AVProcessTool.Launch_Exe("Updater.exe", "", "", false, true, false);
                 await Application_Exit();
             }
             catch { }

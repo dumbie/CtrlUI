@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -12,9 +13,7 @@ using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessFunctions;
-using static ArnoldVinkCode.ProcessWin32Functions;
+using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -24,7 +23,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Focus on a process window
-        async Task PrepareFocusProcessWindow(string processName, int processIdTarget, IntPtr windowHandleTarget, WindowShowCommand windowShowCommand, bool setWindowState, bool setTempTopMost, bool silentFocus, bool launchKeyboard)
+        async Task PrepareFocusProcessWindow(string processName, int processIdTarget, IntPtr windowHandleTarget, bool minimizeCtrlUI, bool silentFocus, bool launchKeyboard)
         {
             try
             {
@@ -56,15 +55,21 @@ namespace CtrlUI
                             await Notification_Send_Status("AppMiniMaxi", "Showing " + processName);
                         }
                     }
-                    Debug.WriteLine("Showing application window: " + processName);
+                    Debug.WriteLine("Showing application window: " + processName + "/" + processIdTarget + "/" + windowHandleTarget);
 
                     //Focus on application window handle
-                    bool windowFocused = await FocusProcessWindow(processName, processIdTarget, windowHandleTarget, windowShowCommand, setWindowState, setTempTopMost);
+                    bool windowFocused = AVProcessTool.Show_ProcessIdHwnd(processIdTarget, windowHandleTarget);
                     if (!windowFocused)
                     {
-                        await Notification_Send_Status("Close", "Failed showing the app");
+                        await Notification_Send_Status("Close", "Failed showing application");
                         Debug.WriteLine("Failed showing the application, no longer running?");
                         return;
+                    }
+
+                    //Minimize the CtrlUI window
+                    if (minimizeCtrlUI)
+                    {
+                        await AppWindowMinimize(true, true);
                     }
 
                     //Launch the keyboard controller
@@ -76,7 +81,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("Close", "Failed showing the app");
+                await Notification_Send_Status("Close", "Failed showing application");
                 Debug.WriteLine("Failed showing the application, no longer running? " + ex.Message);
             }
             finally
@@ -117,9 +122,9 @@ namespace CtrlUI
                 else
                 {
                     //Run process url protocol
-                    if (dataBindApp.PathExe.Contains(":\\\\") || dataBindApp.PathExe.Contains("://"))
+                    if (Check_PathUrlProtocol(dataBindApp.PathExe))
                     {
-                        await LaunchProcessUrlProtocol(dataBindApp);
+                        await PrepareProcessLauncherUrlProtocolAsync(dataBindApp, false, false, false);
                         return;
                     }
 
@@ -156,27 +161,6 @@ namespace CtrlUI
             }
         }
 
-        async Task<bool> LaunchProcessUrlProtocol(DataBindApp dataBindApp)
-        {
-            try
-            {
-                await Notification_Send_Status("AppLaunch", "Launching " + dataBindApp.Name);
-                Debug.WriteLine("Launching url protocol: " + dataBindApp.PathExe + " / " + dataBindApp.PathLaunch);
-
-                //Minimize the CtrlUI window
-                await AppWindowMinimize(true, true);
-
-                //Launch url protocol process
-                Process LaunchProcess = new Process();
-                LaunchProcess.StartInfo.FileName = dataBindApp.PathExe;
-                LaunchProcess.StartInfo.WorkingDirectory = dataBindApp.PathLaunch;
-                LaunchProcess.Start();
-                return true;
-            }
-            catch { }
-            return false;
-        }
-
         async Task ShowProcessWindow(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
@@ -209,54 +193,55 @@ namespace CtrlUI
                 }
                 else if (processWindowHandle != IntPtr.Zero)
                 {
-                    //Minimize the CtrlUI window
-                    await AppWindowMinimize(true, true);
-
                     //Check keyboard controller launch
                     string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
                     bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
                     bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
                     //Force focus on the app
-                    await PrepareFocusProcessWindow(dataBindApp.Name, processMulti.Identifier, processWindowHandle, 0, false, false, false, keyboardLaunch);
+                    await PrepareFocusProcessWindow(dataBindApp.Name, processMulti.Identifier, processWindowHandle, true, false, keyboardLaunch);
                 }
                 else
                 {
                     Debug.WriteLine("Show application has no window.");
 
-                    //Focus or Close when process is already running
+                    //Set messagebox answers
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString AnswerLaunch = new DataBindString();
                     AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerLaunch.Name = "Launch new instance";
                     Answers.Add(AnswerLaunch);
 
+                    //Check if processmulti is available
                     DataBindString AnswerRestartCurrent = new DataBindString();
-                    if (!string.IsNullOrWhiteSpace(processMulti.Argument))
-                    {
-                        AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        AnswerRestartCurrent.Name = "Restart application";
-                        AnswerRestartCurrent.NameSub = "(Current argument)";
-                        Answers.Add(AnswerRestartCurrent);
-                    }
-
                     DataBindString AnswerRestartWithout = new DataBindString();
-                    AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    AnswerRestartWithout.Name = "Restart application";
-                    if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
-                    {
-                        AnswerRestartWithout.NameSub = "(Default argument)";
-                    }
-                    else
-                    {
-                        AnswerRestartWithout.NameSub = "(Without argument)";
-                    }
-                    Answers.Add(AnswerRestartWithout);
-
                     DataBindString AnswerClose = new DataBindString();
-                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    AnswerClose.Name = "Close application";
-                    Answers.Add(AnswerClose);
+                    if (processMulti != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(processMulti.Argument))
+                        {
+                            AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            AnswerRestartCurrent.Name = "Restart application";
+                            AnswerRestartCurrent.NameSub = "(Current argument)";
+                            Answers.Add(AnswerRestartCurrent);
+                        }
+
+                        AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        AnswerRestartWithout.Name = "Restart application";
+                        if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
+                        {
+                            AnswerRestartWithout.NameSub = "(Default argument)";
+                        }
+                        else
+                        {
+                            AnswerRestartWithout.NameSub = "(Without argument)";
+                        }
+                        Answers.Add(AnswerRestartWithout);
+
+                        AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        AnswerClose.Name = "Close application";
+                        Answers.Add(AnswerClose);
+                    }
 
                     //Show the messagebox
                     DataBindString messageResult = await Popup_Show_MessageBox("Application has no window", "", "", Answers);
@@ -281,7 +266,10 @@ namespace CtrlUI
                     }
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to show application: " + ex.Message);
+            }
         }
 
         //Show failed launch messagebox
@@ -320,7 +308,7 @@ namespace CtrlUI
                 bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
 
                 //Launch the Win32 application
-                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, false, false, keyboardLaunch, false);
+                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, false, keyboardLaunch);
             }
             catch { }
         }
@@ -374,7 +362,7 @@ namespace CtrlUI
                     {
                         try
                         {
-                            CloseProcessesByNameOrTitle(closeLauncher.String1, false, true);
+                            AVProcessTool.Close_ProcessName(closeLauncher.String1);
                         }
                         catch { }
                     }
@@ -401,10 +389,10 @@ namespace CtrlUI
                     await Notification_Send_Status("Stream", "Disconnecting remote streams");
 
                     //Disconnect Steam Streaming
-                    CloseProcessesByNameOrTitle("steam", false, true);
+                    AVProcessTool.Close_ProcessName("steam.exe");
 
                     //Disconnect GeForce Experience
-                    CloseProcessesByNameOrTitle("nvstreamer", false, true);
+                    AVProcessTool.Close_ProcessName("nvstreamer.exe");
 
                     //Disconnect Parsec Streaming
                     KeyPressReleaseCombo(KeysVirtual.Control, KeysVirtual.F3);
@@ -429,7 +417,7 @@ namespace CtrlUI
                         await Notification_Send_Status("DirectXInput", "Launching DirectXInput");
                     }
 
-                    await ProcessLauncherWin32Async("DirectXInput-Launcher.exe", "", "", true, false);
+                    AVProcessTool.Launch_Exe("DirectXInput-Launcher.exe", "", "", false, true, false);
                 }
                 else
                 {
@@ -505,7 +493,7 @@ namespace CtrlUI
                     await Notification_Send_Status("Fps", "Showing Fps Overlayer");
 
                     //Launch Fps Overlayer
-                    await ProcessLauncherWin32Async("FpsOverlayer-Launcher.exe", "", "", true, false);
+                    AVProcessTool.Launch_Exe("FpsOverlayer-Launcher.exe", "", "", false, true, false);
                 }
             }
             catch { }

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVUwpAppx;
-using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 

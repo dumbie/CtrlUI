@@ -9,9 +9,9 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVTaskbarInformation;
-using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
 
 namespace FpsOverlayer

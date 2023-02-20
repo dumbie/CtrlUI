@@ -12,8 +12,8 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVUwpAppx;
-using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -287,42 +287,42 @@ namespace CtrlUI
                         shortcutUrlProtocol = Visibility.Visible;
                     }
                 }
-                else if (targetPathLower.Contains("://"))
+                else if (Check_PathUrlProtocol(targetPathLower))
                 {
                     //Check if shortcut is url protocol
                     shortcutUrlProtocol = Visibility.Visible;
 
                     //Check if url protocol is a launcher and set icon
-                    if (targetPathLower.Contains("steam://"))
+                    if (targetPathLower.Contains("steam:"))
                     {
                         launcherImage = vImagePreloadSteam;
                     }
-                    else if (targetPathLower.Contains("com.epicgames.launcher://"))
+                    else if (targetPathLower.Contains("com.epicgames.launcher:"))
                     {
                         launcherImage = vImagePreloadEpic;
                     }
-                    else if (targetPathLower.Contains("uplay://"))
+                    else if (targetPathLower.Contains("uplay:"))
                     {
                         launcherImage = vImagePreloadUbisoft;
                     }
-                    else if (targetPathLower.Contains("battlenet://"))
+                    else if (targetPathLower.Contains("battlenet:"))
                     {
                         launcherImage = vImagePreloadBattleNet;
                     }
-                    else if (targetPathLower.Contains("origin://"))
+                    else if (targetPathLower.Contains("origin:"))
                     {
                         launcherImage = vImagePreloadEADesktop;
                     }
-                    else if (targetPathLower.Contains("link2ea://"))
+                    else if (targetPathLower.Contains("link2ea:"))
                     {
                         launcherImage = vImagePreloadEADesktop;
                     }
-                    else if (targetPathLower.Contains("amazon-games://"))
+                    else if (targetPathLower.Contains("amazon-games:"))
                     {
                         launcherImage = vImagePreloadAmazon;
                     }
                 }
-                else if (!targetPathLower.Contains("/") && targetPathLower.Contains("!") && targetPathLower.Contains("_"))
+                else if (Check_PathUwpApplication(targetPathLower))
                 {
                     //Check if shortcut is windows store app
                     shortcutProcessType = ProcessType.UWP;

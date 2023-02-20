@@ -12,7 +12,6 @@ using System.Windows.Media;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
-using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.Styles.MainColors;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -267,7 +266,7 @@ namespace DirectXInput
                 {
                     try
                     {
-                        CloseProcessesByNameOrTitle(closeTool.String1, false, true);
+                        AVProcessTool.Close_ProcessName(closeTool.String1);
                     }
                     catch { }
                 }

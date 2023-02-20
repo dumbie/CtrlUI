@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
-using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI

@@ -1,14 +1,14 @@
-﻿using System.Diagnostics;
+﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Threading.Tasks;
-using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessWin32StoreFunctions;
+using static ArnoldVinkCode.AVProcess;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task<bool> PrepareRestartProcessWin32Store(DataBindApp dataBindApp, ProcessMulti processMulti, bool useLaunchArgument, bool launchKeyboard)
+        async Task<bool> PrepareRestartProcess(DataBindApp dataBindApp, ProcessMulti processMulti, bool useLaunchArgument, bool launchKeyboard)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace CtrlUI
                 }
 
                 await Notification_Send_Status("AppRestart", "Restarting " + dataBindApp.Name);
-                Debug.WriteLine("Restarting Win32Store application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandle);
+                Debug.WriteLine("Restarting Win32 application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandle);
 
                 //Set the launch argument
                 string launchArgument = string.Empty;
@@ -31,13 +31,16 @@ namespace CtrlUI
                 }
 
                 //Restart the process
-                Process restartProcess = await RestartProcessWin32Store(dataBindApp.NameExe, dataBindApp.PathExe, processMulti.Identifier, launchArgument);
-                if (restartProcess == null)
+                int processId = AVProcessTool.Restart_ProcessId(processMulti.Identifier, launchArgument);
+                if (processId <= 0)
                 {
                     await Notification_Send_Status("Close", "Failed restarting " + dataBindApp.Name);
                     Debug.WriteLine("Failed to restart process: " + dataBindApp.Name);
                     return false;
                 }
+
+                //Minimize the CtrlUI window
+                await AppWindowMinimize(true, true);
 
                 //Launch the keyboard controller
                 if (launchKeyboard)

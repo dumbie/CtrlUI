@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
+﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.AVProcess;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -21,15 +21,15 @@ namespace CtrlUI
                 bool closedProcess = false;
                 if (processMulti.Identifier > 0)
                 {
-                    closedProcess = KillProcessTreeById(processMulti.Identifier, true);
+                    closedProcess = AVProcessTool.Close_ProcessTreeId(processMulti.Identifier);
                 }
                 else if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
                 {
-                    closedProcess = CloseProcessesByNameOrTitle(dataBindApp.NameExe, false, true);
+                    closedProcess = AVProcessTool.Close_ProcessName(dataBindApp.NameExe);
                 }
                 else
                 {
-                    closedProcess = CloseProcessesByNameOrTitle(dataBindApp.PathExe, false, true);
+                    closedProcess = AVProcessTool.Close_ProcessName(dataBindApp.PathExe);
                 }
 
                 //Check if process closed
@@ -58,7 +58,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("AppClose", "Failed to close the app");
+                    await Notification_Send_Status("AppClose", "Failed to close application");
                     Debug.WriteLine("Failed to close the application.");
                     return false;
                 }
@@ -81,15 +81,15 @@ namespace CtrlUI
                 {
                     if (processMulti.Identifier > 0)
                     {
-                        closedProcess = KillProcessTreeById(processMulti.Identifier, true);
+                        closedProcess = AVProcessTool.Close_ProcessTreeId(processMulti.Identifier);
                     }
                     else if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
                     {
-                        closedProcess = CloseProcessesByNameOrTitle(dataBindApp.NameExe, false, true);
+                        closedProcess = AVProcessTool.Close_ProcessName(dataBindApp.NameExe);
                     }
                     else
                     {
-                        closedProcess = CloseProcessesByNameOrTitle(dataBindApp.PathExe, false, true);
+                        closedProcess = AVProcessTool.Close_ProcessName(dataBindApp.PathExe);
                     }
                 }
 
@@ -119,8 +119,8 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("AppClose", "Failed to close the app");
-                    Debug.WriteLine("Failed to close the application");
+                    await Notification_Send_Status("AppClose", "Failed to close application");
+                    Debug.WriteLine("Failed to close the application.");
                     return false;
                 }
             }

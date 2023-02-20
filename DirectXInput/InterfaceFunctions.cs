@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVJsonFunctions;
-using static ArnoldVinkCode.ProcessFunctions;
-using static ArnoldVinkCode.ProcessWin32Functions;
+using static ArnoldVinkCode.AVProcess;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
@@ -477,7 +476,7 @@ namespace DirectXInput
             {
                 vProcessCtrlUI = GetProcessByNameOrTitle("CtrlUI", false, true);
                 vProcessFpsOverlayer = GetProcessByNameOrTitle("FpsOverlayer", false, true);
-                vProcessForeground = GetProcessMultiFromWindowHandle(GetForegroundWindow());
+                vProcessForeground = ProcessMulti_GetFromWindowHandle(GetForegroundWindow());
 
                 //Check if CtrlUI is currently activated
                 if (vProcessCtrlUI != null && vProcessCtrlUI.Id == vProcessForeground.Identifier) { vProcessCtrlUIActivated = true; } else { vProcessCtrlUIActivated = false; }
@@ -582,7 +581,7 @@ namespace DirectXInput
                 {
                     if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false, true))
                     {
-                        await ProcessLauncherWin32Async("DriverInstaller.exe", "", "", false, false);
+                        AVProcessTool.Launch_Exe("DriverInstaller.exe", "", "", false, true, false);
                         await Application_Exit();
                     }
                 }
@@ -608,7 +607,7 @@ namespace DirectXInput
                 {
                     if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false, true))
                     {
-                        await ProcessLauncherWin32Async("DriverInstaller.exe", "", "", false, false);
+                        AVProcessTool.Launch_Exe("DriverInstaller.exe", "", "", false, true, false);
                         await Application_Exit();
                     }
                 }
