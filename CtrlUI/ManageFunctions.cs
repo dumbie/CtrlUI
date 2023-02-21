@@ -213,7 +213,7 @@ namespace CtrlUI
                 }
 
                 //Check if there is an application exe set
-                if (string.IsNullOrWhiteSpace(tb_AddAppExePath.Text))
+                if (string.IsNullOrWhiteSpace(tb_AddAppPathExe.Text))
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -226,7 +226,7 @@ namespace CtrlUI
                 }
 
                 //Prevent CtrlUI from been added to the list
-                if (tb_AddAppExePath.Text.Contains("CtrlUI.exe") || tb_AddAppExePath.Text.Contains("CtrlUI-Launcher.exe"))
+                if (tb_AddAppPathExe.Text.Contains("CtrlUI.exe") || tb_AddAppPathExe.Text.Contains("CtrlUI-Launcher.exe"))
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -242,7 +242,7 @@ namespace CtrlUI
                 if (vEditAppDataBind != null && vEditAppDataBind.Type == ProcessType.Win32)
                 {
                     //Validate the launch target
-                    if (!File.Exists(tb_AddAppExePath.Text))
+                    if (!File.Exists(tb_AddAppPathExe.Text))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
@@ -299,7 +299,7 @@ namespace CtrlUI
                 if (vEditAppDataBind == null)
                 {
                     //Check if new application already exists
-                    if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower() || x.PathExe.ToLower() == tb_AddAppExePath.Text.ToLower()))
+                    if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower() || x.PathExe.ToLower() == tb_AddAppPathExe.Text.ToLower()))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
@@ -313,7 +313,7 @@ namespace CtrlUI
 
                     await Notification_Send_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding Win32 app: " + tb_AddAppName.Text + " to the list.");
-                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = selectedAppCategory, EmulatorCategory = selectedEmulatorCategory, Name = tb_AddAppName.Text, EmulatorName = tb_AddAppEmulatorName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, NameExe = tb_AddAppNameExe.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchSkipRom = (bool)checkbox_AddLaunchSkipRom.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked };
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = selectedAppCategory, EmulatorCategory = selectedEmulatorCategory, Name = tb_AddAppName.Text, EmulatorName = tb_AddAppEmulatorName.Text, PathExe = tb_AddAppPathExe.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, NameExe = tb_AddAppNameExe.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchSkipRom = (bool)checkbox_AddLaunchSkipRom.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked };
                     await AddAppToList(dataBindApp, true, true);
 
                     //Close the open popup
@@ -353,11 +353,11 @@ namespace CtrlUI
                     }
 
                     //Check if application executable already exists
-                    if (vEditAppDataBind.PathExe == tb_AddAppExePath.Text)
+                    if (vEditAppDataBind.PathExe == tb_AddAppPathExe.Text)
                     {
                         Debug.WriteLine("Application executable has not changed.");
                     }
-                    else if (CombineAppLists(false, false, false).Any(x => x.PathExe.ToLower() == tb_AddAppExePath.Text.ToLower()))
+                    else if (CombineAppLists(false, false, false).Any(x => x.PathExe.ToLower() == tb_AddAppPathExe.Text.ToLower()))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
@@ -383,7 +383,7 @@ namespace CtrlUI
                     vEditAppDataBind.EmulatorCategory = selectedEmulatorCategory;
                     vEditAppDataBind.Name = tb_AddAppName.Text;
                     vEditAppDataBind.EmulatorName = tb_AddAppEmulatorName.Text;
-                    vEditAppDataBind.PathExe = tb_AddAppExePath.Text;
+                    vEditAppDataBind.PathExe = tb_AddAppPathExe.Text;
                     vEditAppDataBind.PathLaunch = tb_AddAppPathLaunch.Text;
                     vEditAppDataBind.PathRoms = tb_AddAppPathRoms.Text;
                     vEditAppDataBind.Argument = tb_AddAppArgument.Text;
@@ -612,7 +612,7 @@ namespace CtrlUI
                     btn_Manage_ResetAppLogo.IsEnabled = true;
                     tb_AddAppName.IsEnabled = true;
                     tb_AddAppEmulatorName.IsEnabled = true;
-                    tb_AddAppExePath.IsEnabled = true;
+                    tb_AddAppPathExe.IsEnabled = true;
                     tb_AddAppPathLaunch.IsEnabled = true;
                     btn_AddAppPathLaunch.IsEnabled = true;
                     tb_AddAppPathRoms.IsEnabled = true;
@@ -628,7 +628,7 @@ namespace CtrlUI
                         btn_Manage_ResetAppLogo.IsEnabled = false;
                         tb_AddAppName.IsEnabled = false;
                         tb_AddAppEmulatorName.IsEnabled = false;
-                        tb_AddAppExePath.IsEnabled = false;
+                        tb_AddAppPathExe.IsEnabled = false;
                         tb_AddAppPathLaunch.IsEnabled = false;
                         btn_AddAppPathLaunch.IsEnabled = false;
                         tb_AddAppPathRoms.IsEnabled = false;
@@ -700,7 +700,7 @@ namespace CtrlUI
                 //Fill the text boxes with application details
                 tb_AddAppName.Text = dataBindApp.Name;
                 tb_AddAppEmulatorName.Text = dataBindApp.EmulatorName;
-                tb_AddAppExePath.Text = dataBindApp.PathExe;
+                tb_AddAppPathExe.Text = dataBindApp.PathExe;
                 tb_AddAppPathLaunch.Text = dataBindApp.PathLaunch;
                 tb_AddAppPathRoms.Text = dataBindApp.PathRoms;
                 tb_AddAppArgument.Text = dataBindApp.Argument;
@@ -756,7 +756,7 @@ namespace CtrlUI
                 //Fill the text boxes with application details
                 tb_AddAppName.Text = "Select application executable file first";
                 tb_AddAppEmulatorName.Text = "Select application executable file first";
-                tb_AddAppExePath.Text = string.Empty;
+                tb_AddAppPathExe.Text = string.Empty;
                 tb_AddAppPathLaunch.Text = string.Empty;
                 tb_AddAppPathRoms.Text = string.Empty;
                 tb_AddAppArgument.Text = string.Empty;
@@ -766,7 +766,7 @@ namespace CtrlUI
                 checkbox_AddLaunchSkipRom.IsChecked = false;
 
                 //Show the manage popup
-                await Popup_Show(grid_Popup_Manage, btn_AddAppExePath);
+                await Popup_Show(grid_Popup_Manage, btn_AddAppPathExe);
             }
             catch { }
         }

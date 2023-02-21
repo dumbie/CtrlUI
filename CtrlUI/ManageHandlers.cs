@@ -74,7 +74,7 @@ namespace CtrlUI
             catch { }
         }
 
-        async void Button_AddAppExePath_Click(object sender, RoutedEventArgs e)
+        async void Button_AddAppPathExe_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -88,11 +88,10 @@ namespace CtrlUI
                 if (vFilePickerCancelled) { return; }
 
                 //Set fullpath to exe path textbox
-                tb_AddAppExePath.Text = vFilePickerResult.PathFile;
-                tb_AddAppExePath.IsEnabled = true;
+                tb_AddAppPathExe.Text = vFilePickerResult.PathFile;
+                tb_AddAppPathExe.IsEnabled = true;
 
                 //Set application launch path to textbox
-                tb_AddAppPathLaunch.Text = Path.GetDirectoryName(vFilePickerResult.PathFile);
                 tb_AddAppPathLaunch.IsEnabled = true;
                 btn_AddAppPathLaunch.IsEnabled = true;
 
@@ -229,8 +228,8 @@ namespace CtrlUI
                 string executableNameRaw = string.Empty;
                 if (string.IsNullOrWhiteSpace(tb_AddAppNameExe.Text))
                 {
-                    executableName = Path.GetFileNameWithoutExtension(tb_AddAppExePath.Text).ToLower();
-                    executableNameRaw = tb_AddAppExePath.Text.ToLower();
+                    executableName = Path.GetFileNameWithoutExtension(tb_AddAppPathExe.Text).ToLower();
+                    executableNameRaw = tb_AddAppPathExe.Text.ToLower();
                 }
                 else
                 {

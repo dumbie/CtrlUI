@@ -57,8 +57,8 @@ namespace CtrlUI
                 else
                 {
                     imageFileName = tb_AddAppName.Text;
-                    imageFileExeName = Path.GetFileNameWithoutExtension(tb_AddAppExePath.Text);
-                    imageFileExePath = tb_AddAppExePath.Text;
+                    imageFileExeName = Path.GetFileNameWithoutExtension(tb_AddAppPathExe.Text);
+                    imageFileExePath = tb_AddAppPathExe.Text;
                 }
 
                 //Search application image files
