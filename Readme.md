@@ -71,9 +71,12 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v1.90.0.0 (21-February-2023)
+- FpsOverlayer: Added frametime graph.
+* Miscellaneous application improvements and fixes.
+
 v1.84.0.0 (13-January-2023)
 - FpsOverlayer: Added web browser overlay.
-* Miscellaneous application improvements and fixes.
 
 v1.80.0.0 (30-September-2022)
 - CtrlUI: Interface redesigned to overlay window.
