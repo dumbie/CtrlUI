@@ -56,7 +56,7 @@ namespace CtrlUI
                                 //Launch the keyboard controller
                                 if (vAppActivated && vControllerAnyConnected())
                                 {
-                                    await KeyboardControllerHideShow(true);
+                                    await ShowHideKeyboardController(true);
                                 }
                             }
                             else

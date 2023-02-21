@@ -143,17 +143,19 @@ namespace CtrlUI
                         multiAnswers.Add(AnswerRestartCurrent);
                     }
 
+                    DataBindString AnswerRestartDefault = new DataBindString();
+                    if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
+                    {
+                        AnswerRestartDefault.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        AnswerRestartDefault.Name = "Restart application";
+                        AnswerRestartDefault.NameSub = "(Default argument)";
+                        multiAnswers.Add(AnswerRestartDefault);
+                    }
+
                     DataBindString AnswerRestartWithout = new DataBindString();
                     AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerRestartWithout.Name = "Restart application";
-                    if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
-                    {
-                        AnswerRestartWithout.NameSub = "(Default argument)";
-                    }
-                    else
-                    {
-                        AnswerRestartWithout.NameSub = "(Without argument)";
-                    }
+                    AnswerRestartWithout.NameSub = "(Without argument)";
                     multiAnswers.Add(AnswerRestartWithout);
 
                     //Ask which window needs to be shown
@@ -168,9 +170,13 @@ namespace CtrlUI
                         {
                             return new IntPtr(-75);
                         }
-                        else if (messageResult == AnswerRestartWithout)
+                        else if (messageResult == AnswerRestartDefault)
                         {
                             return new IntPtr(-80);
+                        }
+                        else if (messageResult == AnswerRestartWithout)
+                        {
+                            return new IntPtr(-85);
                         }
                         else if (messageResult == AnswerClose)
                         {

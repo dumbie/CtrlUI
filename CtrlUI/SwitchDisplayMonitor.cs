@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,6 +10,7 @@ using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
+using static LibraryShared.Classes;
 
 namespace CtrlUI
 {
@@ -70,7 +72,7 @@ namespace CtrlUI
                 await UpdateWindowPosition(true, false);
 
                 //Focus on CtrlUI window
-                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
             }
             catch { }
         }
@@ -83,7 +85,7 @@ namespace CtrlUI
                 EnableMonitorExtendMode();
 
                 //Focus on CtrlUI window
-                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
             }
             catch { }
         }
@@ -96,7 +98,7 @@ namespace CtrlUI
                 EnableMonitorCloneMode();
 
                 //Focus on CtrlUI window
-                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
             }
             catch { }
         }
@@ -109,7 +111,7 @@ namespace CtrlUI
                 EnableMonitorSecond();
 
                 //Focus on CtrlUI window
-                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
             }
             catch { }
         }
@@ -122,7 +124,36 @@ namespace CtrlUI
                 EnableMonitorFirst();
 
                 //Focus on CtrlUI window
-                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+            }
+            catch { }
+        }
+
+        //Enable monitor HDR
+        async Task EnableHDRDatabindAuto(DataBindApp dataBindApp)
+        {
+            try
+            {
+                //Check executable name
+                string executableName = string.Empty;
+                string executableNameRaw = string.Empty;
+                if (string.IsNullOrWhiteSpace(dataBindApp.NameExe))
+                {
+                    executableName = Path.GetFileNameWithoutExtension(dataBindApp.PathExe).ToLower();
+                    executableNameRaw = dataBindApp.PathExe.ToLower();
+                }
+                else
+                {
+                    executableName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe).ToLower();
+                    executableNameRaw = dataBindApp.NameExe.ToLower();
+                }
+
+                //Enable monitor HDR
+                bool enabledHDR = vCtrlHDRProcessName.Any(x => x.String1.ToLower() == executableName || x.String1.ToLower() == executableNameRaw);
+                if (enabledHDR)
+                {
+                    await AllMonitorSwitchHDR(true, true);
+                }
             }
             catch { }
         }

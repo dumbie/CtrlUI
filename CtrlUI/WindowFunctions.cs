@@ -225,7 +225,7 @@ namespace CtrlUI
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                 //Force focus on CtrlUI
-                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, silentShow, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, silentShow, false);
 
                 //Update the window position
                 await UpdateWindowPosition(false, true);

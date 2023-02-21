@@ -231,7 +231,7 @@ namespace CtrlUI
                 //Force focus on CtrlUI
                 if (!vAppActivated)
                 {
-                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+                    await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
                 }
 
                 //Show the closing messagebox

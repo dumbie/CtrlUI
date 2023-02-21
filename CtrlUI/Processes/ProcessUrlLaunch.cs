@@ -23,7 +23,7 @@ namespace CtrlUI
                 if (processId <= 0)
                 {
                     //Show failed launch messagebox
-                    await LaunchProcessFailed();
+                    await ShowProcessLaunchFailedMessage();
                     return false;
                 }
 
@@ -33,7 +33,7 @@ namespace CtrlUI
                 //Launch the keyboard controller
                 if (launchKeyboard)
                 {
-                    await KeyboardControllerHideShow(true);
+                    await ShowHideKeyboardController(true);
                 }
 
                 return true;
@@ -41,7 +41,7 @@ namespace CtrlUI
             catch
             {
                 //Show failed launch messagebox
-                await LaunchProcessFailed();
+                await ShowProcessLaunchFailedMessage();
                 return false;
             }
         }

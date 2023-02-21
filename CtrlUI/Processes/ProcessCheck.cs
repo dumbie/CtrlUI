@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
+using static ArnoldVinkCode.AVUwpAppx;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -12,7 +15,80 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Check process status before launching (True = Continue)
+        //Check process windows
+        async Task<IntPtr> CheckProcessWindowsAuto(DataBindApp dataBindApp, ProcessMulti processMulti)
+        {
+            try
+            {
+                if (processMulti.Type == ProcessType.UWP)
+                {
+                    return processMulti.WindowHandle;
+                }
+                else if (processMulti.Type == ProcessType.Win32 || processMulti.Type == ProcessType.Win32Store)
+                {
+                    return await CheckProcessWindowsWin32AndWin32Store(dataBindApp, processMulti);
+                }
+            }
+            catch { }
+            return IntPtr.Zero;
+        }
+
+        //Check if databind paths are available
+        async Task<bool> CheckDatabindPathAuto(DataBindApp dataBindApp)
+        {
+            try
+            {
+                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                {
+                    //Check if the application exists
+                    if (GetUwpAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
+                    {
+                        await Notification_Send_Status("Close", "Application not found");
+                        Debug.WriteLine("Launch application not found.");
+                        dataBindApp.StatusAvailable = Visibility.Visible;
+                        return false;
+                    }
+                }
+                else if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
+                {
+                    //Check if the rom folder exists
+                    if (!Directory.Exists(dataBindApp.PathRoms))
+                    {
+                        await Notification_Send_Status("Close", "Rom folder not found");
+                        Debug.WriteLine("Rom folder not found.");
+                        dataBindApp.StatusAvailable = Visibility.Visible;
+                        return false;
+                    }
+
+                    //Check if the application exists
+                    if (!File.Exists(dataBindApp.PathExe))
+                    {
+                        await Notification_Send_Status("Close", "Executable not found");
+                        Debug.WriteLine("Launch executable not found.");
+                        dataBindApp.StatusAvailable = Visibility.Visible;
+                        return false;
+                    }
+                }
+                else
+                {
+                    //Check if the application exists
+                    if (!File.Exists(dataBindApp.PathExe))
+                    {
+                        await Notification_Send_Status("Close", "Executable not found");
+                        Debug.WriteLine("Launch executable not found.");
+                        dataBindApp.StatusAvailable = Visibility.Visible;
+                        return false;
+                    }
+                }
+
+                //Paths are available update status
+                dataBindApp.StatusAvailable = Visibility.Collapsed;
+            }
+            catch { }
+            return true;
+        }
+
+        //Check process status before launching
         async Task CheckLaunchProcessStatus(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
@@ -45,17 +121,19 @@ namespace CtrlUI
                     Answers.Add(AnswerRestartCurrent);
                 }
 
+                DataBindString AnswerRestartDefault = new DataBindString();
+                if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
+                {
+                    AnswerRestartDefault.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerRestartDefault.Name = "Restart application";
+                    AnswerRestartDefault.NameSub = "(Default argument)";
+                    Answers.Add(AnswerRestartDefault);
+                }
+
                 DataBindString AnswerRestartWithout = new DataBindString();
                 AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerRestartWithout.Name = "Restart application";
-                if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
-                {
-                    AnswerRestartWithout.NameSub = "(Default argument)";
-                }
-                else
-                {
-                    AnswerRestartWithout.NameSub = "(Without argument)";
-                }
+                AnswerRestartWithout.NameSub = "(Without argument)";
                 Answers.Add(AnswerRestartWithout);
 
                 //Get process details
@@ -100,7 +178,7 @@ namespace CtrlUI
                 {
                     if (messageResult == AnswerShow)
                     {
-                        await ShowProcessWindow(dataBindApp, processMulti);
+                        await ShowProcessWindowAuto(dataBindApp, processMulti);
                     }
                     else if (messageResult == AnswerClose)
                     {
@@ -108,11 +186,15 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerRestartCurrent)
                     {
-                        await RestartProcessAuto(processMulti, dataBindApp, true);
+                        await RestartProcessAuto(processMulti, dataBindApp, true, false, false);
+                    }
+                    else if (messageResult == AnswerRestartDefault)
+                    {
+                        await RestartProcessAuto(processMulti, dataBindApp, false, true, false);
                     }
                     else if (messageResult == AnswerRestartWithout)
                     {
-                        await RestartProcessAuto(processMulti, dataBindApp, false);
+                        await RestartProcessAuto(processMulti, dataBindApp, false, false, true);
                     }
                     else if (messageResult == AnswerLaunch)
                     {

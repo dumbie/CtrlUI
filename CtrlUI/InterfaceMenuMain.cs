@@ -53,8 +53,8 @@ namespace CtrlUI
                     if (selectedItemString == "menuButtonUpdateRestart") { await AppUpdateRestart(); }
                     else if (selectedItemString == "menuButtonMonitor") { await Popup_Show(grid_Popup_Monitor, btn_Monitor_Switch_Primary); }
                     else if (selectedItemString == "menuButtonAudioDevice") { await SwitchAudioDevice(); }
-                    else if (selectedItemString == "menuButtonRunExe") { await RunExecutableFile(); }
-                    else if (selectedItemString == "menuButtonRunStore") { await RunStoreApplication(); }
+                    else if (selectedItemString == "menuButtonRunExe") { await LaunchExecutableFile(); }
+                    else if (selectedItemString == "menuButtonRunStore") { await LaunchStoreApplication(); }
                     else if (selectedItemString == "menuButtonAddExe") { await Popup_Show_AddExe(); }
                     else if (selectedItemString == "menuButtonAddStore") { await Popup_Show_AddStore(); }
                     else if (selectedItemString == "menuButtonFps") { await LaunchCloseFpsOverlayer(); }
