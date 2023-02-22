@@ -13,7 +13,6 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-
         async Task RightClickProcess(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
         {
             try
@@ -21,28 +20,24 @@ namespace CtrlUI
                 //Get the process multi
                 ProcessMulti processMulti = dataBindApp.ProcessMulti.FirstOrDefault();
 
-                //Get process details
-                string processDetails = dataBindApp.PathExe;
-                if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
+                //Get launch information
+                string launchInformation = dataBindApp.PathExe;
+
+                //Add launch argument
+                if (!string.IsNullOrWhiteSpace(processMulti.Argument))
                 {
-                    processDetails += " (" + dataBindApp.NameExe + ")";
+                    launchInformation += " *(" + processMulti.Argument + ")";
                 }
 
                 //Get process running time
                 string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "process");
                 if (string.IsNullOrWhiteSpace(processRunningTimeString))
                 {
-                    processRunningTimeString = processDetails;
+                    processRunningTimeString = launchInformation;
                 }
                 else
                 {
-                    processRunningTimeString += "\n" + processDetails;
-                }
-
-                //Add process argument
-                if (!string.IsNullOrWhiteSpace(processMulti.Argument))
-                {
-                    processRunningTimeString += "\n" + processMulti.Argument;
+                    processRunningTimeString += "\n" + launchInformation;
                 }
 
                 List<DataBindString> Answers = new List<DataBindString>();
@@ -66,7 +61,7 @@ namespace CtrlUI
                 {
                     AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerRestartCurrent.Name = "Restart application";
-                    AnswerRestartCurrent.NameSub = "(Current argument)";
+                    AnswerRestartCurrent.NameSub = "(Current argument *)";
                     Answers.Add(AnswerRestartCurrent);
                 }
 

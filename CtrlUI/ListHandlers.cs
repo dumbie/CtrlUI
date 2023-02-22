@@ -139,11 +139,13 @@ namespace CtrlUI
                     Answers.Add(AnswerAddStore);
                 }
 
-                //Get process details
-                string processDetails = dataBindApp.PathExe;
-                if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
+                //Get launch information
+                string launchInformation = dataBindApp.PathExe;
+
+                //Add launch argument
+                if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
                 {
-                    processDetails += " (" + dataBindApp.NameExe + ")";
+                    launchInformation += " (" + dataBindApp.Argument + ")";
                 }
 
                 //Get process running time and last launch time
@@ -155,7 +157,7 @@ namespace CtrlUI
                 bool launchTimeEmpty = string.IsNullOrWhiteSpace(lastLaunchTimeString);
                 if (runningTimeEmpty && launchTimeEmpty)
                 {
-                    processRunningTimeString = processDetails;
+                    processRunningTimeString = launchInformation;
                 }
                 else
                 {
@@ -163,7 +165,7 @@ namespace CtrlUI
                     {
                         processRunningTimeString += "\n" + lastLaunchTimeString;
                     }
-                    processRunningTimeString += "\n" + processDetails;
+                    processRunningTimeString += "\n" + launchInformation;
                 }
 
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);

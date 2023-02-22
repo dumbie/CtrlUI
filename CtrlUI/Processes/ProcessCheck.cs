@@ -117,7 +117,7 @@ namespace CtrlUI
                 {
                     AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerRestartCurrent.Name = "Restart application";
-                    AnswerRestartCurrent.NameSub = "(Current argument)";
+                    AnswerRestartCurrent.NameSub = "(Current argument *)";
                     Answers.Add(AnswerRestartCurrent);
                 }
 
@@ -136,11 +136,13 @@ namespace CtrlUI
                 AnswerRestartWithout.NameSub = "(Without argument)";
                 Answers.Add(AnswerRestartWithout);
 
-                //Get process details
-                string processDetails = dataBindApp.PathExe;
-                if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
+                //Get launch information
+                string launchInformation = dataBindApp.PathExe;
+
+                //Add launch argument
+                if (!string.IsNullOrWhiteSpace(processMulti.Argument))
                 {
-                    processDetails += " (" + dataBindApp.NameExe + ")";
+                    launchInformation += " *(" + processMulti.Argument + ")";
                 }
 
                 //Get process running time and last launch time
@@ -152,7 +154,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "application");
+                    processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "application process");
                     lastLaunchTimeString = ApplicationLastLaunchTimeString(dataBindApp.LastLaunch, "Application");
                 }
 
@@ -161,7 +163,7 @@ namespace CtrlUI
                 bool launchTimeEmpty = string.IsNullOrWhiteSpace(lastLaunchTimeString);
                 if (runningTimeEmpty && launchTimeEmpty)
                 {
-                    processRunningTimeString = processDetails;
+                    processRunningTimeString = launchInformation;
                 }
                 else
                 {
@@ -169,7 +171,7 @@ namespace CtrlUI
                     {
                         processRunningTimeString += "\n" + lastLaunchTimeString;
                     }
-                    processRunningTimeString += "\n" + processDetails;
+                    processRunningTimeString += "\n" + launchInformation;
                 }
 
                 //Show the messagebox

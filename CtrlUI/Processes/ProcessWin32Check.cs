@@ -139,7 +139,7 @@ namespace CtrlUI
                     {
                         AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                         AnswerRestartCurrent.Name = "Restart application";
-                        AnswerRestartCurrent.NameSub = "(Current argument)";
+                        AnswerRestartCurrent.NameSub = "(Current argument *)";
                         multiAnswers.Add(AnswerRestartCurrent);
                     }
 
@@ -158,8 +158,17 @@ namespace CtrlUI
                     AnswerRestartWithout.NameSub = "(Without argument)";
                     multiAnswers.Add(AnswerRestartWithout);
 
+                    //Get launch information
+                    string launchInformation = dataBindApp.PathExe;
+
+                    //Add launch argument
+                    if (!string.IsNullOrWhiteSpace(processMulti.Argument))
+                    {
+                        launchInformation += " *(" + processMulti.Argument + ")";
+                    }
+
                     //Ask which window needs to be shown
-                    DataBindString messageResult = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", "", "Please select the window that you wish to be shown:", multiAnswers);
+                    DataBindString messageResult = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", launchInformation, "Please select the window that you wish to be shown:", multiAnswers);
                     if (messageResult != null)
                     {
                         if (messageResult == AnswerLaunch)

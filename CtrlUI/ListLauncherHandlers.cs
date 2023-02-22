@@ -34,14 +34,16 @@ namespace CtrlUI
                 AnswerHide.Name = "Hide the launcher application";
                 Answers.Add(AnswerHide);
 
-                //Get launcher application information
-                string launcherInfoString = dataBindApp.PathExe;
+                //Get launch information
+                string launchInformation = dataBindApp.PathExe;
+
+                //Add launch argument
                 if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
                 {
-                    launcherInfoString += " (" + dataBindApp.Argument + ")";
+                    launchInformation += " (" + dataBindApp.Argument + ")";
                 }
 
-                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", launcherInfoString, "", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", launchInformation, "", Answers);
                 if (messageResult != null)
                 {
                     if (messageResult == AnswerHowLongToBeat)

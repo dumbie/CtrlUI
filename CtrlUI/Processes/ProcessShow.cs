@@ -75,6 +75,7 @@ namespace CtrlUI
                     Answers.Add(AnswerLaunch);
 
                     //Check if processmulti is available
+                    string launchInformation = string.Empty;
                     DataBindString AnswerRestartCurrent = new DataBindString();
                     DataBindString AnswerRestartDefault = new DataBindString();
                     DataBindString AnswerRestartWithout = new DataBindString();
@@ -85,7 +86,7 @@ namespace CtrlUI
                         {
                             AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                             AnswerRestartCurrent.Name = "Restart application";
-                            AnswerRestartCurrent.NameSub = "(Current argument)";
+                            AnswerRestartCurrent.NameSub = "(Current argument *)";
                             Answers.Add(AnswerRestartCurrent);
                         }
 
@@ -105,10 +106,19 @@ namespace CtrlUI
                         AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                         AnswerClose.Name = "Close application";
                         Answers.Add(AnswerClose);
+
+                        //Get launch information
+                        launchInformation = dataBindApp.PathExe;
+
+                        //Add launch argument
+                        if (!string.IsNullOrWhiteSpace(processMulti.Argument))
+                        {
+                            launchInformation += " *(" + processMulti.Argument + ")";
+                        }
                     }
 
                     //Show the messagebox
-                    DataBindString messageResult = await Popup_Show_MessageBox("Application has no window", "", "", Answers);
+                    DataBindString messageResult = await Popup_Show_MessageBox("Application has no window", launchInformation, "", Answers);
                     if (messageResult != null)
                     {
                         if (messageResult == AnswerClose)
