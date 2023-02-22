@@ -1,6 +1,6 @@
 {
   "CodeName": "SonyPS5DualSense",
-  "ProductIDs": [ "0x0ce6" ],
+  "ProductIDs": [ "0x0ce6", "0x0df2" ],
   "VendorID": "0x054c",
   "HasTouchpad": true,
   "HasGyroscope": true,
