@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
-using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
@@ -165,9 +164,8 @@ namespace DirectXInput
                 TasksBackgroundStart();
 
                 //Register keyboard hotkeys
-                vAVInputOutputHotKey.EventHotKeyPressed += EventHotKeyPressed;
-                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F12);
-                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Win, KeysVirtual.CapsLock);
+                AVInputOutputHotKey.Start();
+                AVInputOutputHotKey.EventHotKeyPressed += EventHotKeyPressed;
 
                 //Set application first launch to false
                 SettingSave(vConfigurationDirectXInput, "AppFirstLaunch", "False");

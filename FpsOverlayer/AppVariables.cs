@@ -58,9 +58,6 @@ namespace FpsOverlayer
         public static string vTitleFPS = "FPS";
         public static string vTitleBAT = "BAT";
 
-        //Keyboard Variables
-        public static AVInputOutputHotKey vAVInputOutputHotKey = new AVInputOutputHotKey();
-
         //Browser Variables
         public static WebView2 vBrowserWebView = null;
         public static bool vBrowserWindowClickThrough = false;

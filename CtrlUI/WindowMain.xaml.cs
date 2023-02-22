@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputInterop;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
@@ -35,9 +33,8 @@ namespace CtrlUI
                 //Get interop window handle
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
-                //Register Hotkeys and Filtermessage
+                //Register filter message
                 ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
-                RegisterHotKey(vInteropWindowHandle, HotKeyRegisterId, (byte)KeysModifier.Win, KeysVirtual.CapsLock);
 
                 //Check application settings
                 Settings_Check();

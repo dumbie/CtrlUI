@@ -86,7 +86,6 @@ namespace DirectXInput
 
         //Keyboard Variables
         public static GlobalSystemMediaTransportControlsSessionManager vSmtcSessionManager = null;
-        public static AVInputOutputHotKey vAVInputOutputHotKey = new AVInputOutputHotKey();
         public static string vKeyboardKeypadLastActive = "Keyboard";
         public static bool vCapsEnabled = false;
         public static bool vKeysEnabled = true;

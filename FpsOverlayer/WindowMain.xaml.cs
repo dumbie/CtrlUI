@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
@@ -97,11 +96,8 @@ namespace FpsOverlayer
                 }
 
                 //Register keyboard hotkeys
-                vAVInputOutputHotKey.EventHotKeyPressed += EventHotKeyPressed;
-                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F8);
-                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F9);
-                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F10);
-                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F11);
+                AVInputOutputHotKey.Start();
+                AVInputOutputHotKey.EventHotKeyPressed += EventHotKeyPressed;
 
                 //Enable the socket server
                 await EnableSocketServer();
