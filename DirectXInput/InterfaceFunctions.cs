@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVInteropDll;
@@ -474,12 +475,12 @@ namespace DirectXInput
         {
             try
             {
-                vProcessCtrlUI = GetProcessByNameOrTitle("CtrlUI", false, true);
-                vProcessFpsOverlayer = GetProcessByNameOrTitle("FpsOverlayer", false, true);
-                vProcessForeground = ProcessMulti_GetFromWindowHandle(GetForegroundWindow());
+                vProcessCtrlUI = Get_ProcessesByName("CtrlUI", true).FirstOrDefault();
+                vProcessFpsOverlayer = Get_ProcessesByName("FpsOverlayer", true).FirstOrDefault();
+                vProcessForeground = Get_ProcessMultiByWindowHandle(GetForegroundWindow());
 
                 //Check if CtrlUI is currently activated
-                if (vProcessCtrlUI != null && vProcessCtrlUI.Id == vProcessForeground.Identifier) { vProcessCtrlUIActivated = true; } else { vProcessCtrlUIActivated = false; }
+                vProcessCtrlUIActivated = vProcessCtrlUI != null && vProcessCtrlUI.Id == vProcessForeground.Identifier;
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
@@ -579,7 +580,7 @@ namespace DirectXInput
                 string messageResult = await new AVMessageBox().Popup(this, "Install drivers", "Welcome to DirectXInput, it seems like you have not yet installed the required drivers to use this application, please make sure that you have installed the required drivers.\n\nDirectXInput will be closed during the installation of the required drivers.\n\nIf you just installed the drivers and this message shows up restart your PC.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", messageAnswers);
                 if (messageResult == "Install the drivers")
                 {
-                    if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false, true))
+                    if (!Check_RunningProcessByName("DriverInstaller", true))
                     {
                         AVProcessTool.Launch_Exe("DriverInstaller.exe", "", "", false, true, false);
                         await Application_Exit();
@@ -605,7 +606,7 @@ namespace DirectXInput
                 string messageResult = await new AVMessageBox().Popup(this, "Update drivers", "There seem to be newer drivers available to install, DirectXInput will be closed during the installation of the required drivers.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", messageAnswers);
                 if (messageResult == "Update the drivers")
                 {
-                    if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false, true))
+                    if (!Check_RunningProcessByName("DriverInstaller", true))
                     {
                         AVProcessTool.Launch_Exe("DriverInstaller.exe", "", "", false, true, false);
                         await Application_Exit();

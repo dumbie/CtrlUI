@@ -57,6 +57,9 @@ namespace CtrlUI
                 await Notification_Send_Status("AppRestart", "Restarting " + dataBindApp.Name);
                 Debug.WriteLine("Restarting Win32 application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandle);
 
+                //Minimize the CtrlUI window
+                await AppWindowMinimize(true, true);
+
                 //Restart the process
                 int processId = AVProcessTool.Restart_ProcessId(processMulti.Identifier, newArguments, withoutArguments);
                 if (processId <= 0)
@@ -65,9 +68,6 @@ namespace CtrlUI
                     Debug.WriteLine("Failed to restart process: " + dataBindApp.Name);
                     return false;
                 }
-
-                //Minimize the CtrlUI window
-                await AppWindowMinimize(true, true);
 
                 //Launch the keyboard controller
                 if (launchKeyboard)

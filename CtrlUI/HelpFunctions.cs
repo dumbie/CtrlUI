@@ -19,7 +19,7 @@ namespace CtrlUI
                 //Load the current DirectXInput settings
                 vConfigurationDirectXInput = SettingLoadConfig("DirectXInput.exe.csettings");
 
-                bool processDirectXInputRunning = CheckRunningProcessByNameOrTitle("DirectXInput", false, true);
+                bool processDirectXInputRunning = Check_RunningProcessByName("DirectXInput", true);
                 bool ShortcutKeyboardPopup = SettingLoad(vConfigurationDirectXInput, "ShortcutKeyboardPopup", typeof(bool));
                 if (ShortcutKeyboardPopup && processDirectXInputRunning)
                 {
@@ -36,7 +36,7 @@ namespace CtrlUI
             try
             {
                 //Check if DirectXInput is running
-                bool processDirectXInputRunning = CheckRunningProcessByNameOrTitle("DirectXInput", false, true);
+                bool processDirectXInputRunning = Check_RunningProcessByName("DirectXInput", true);
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {

@@ -45,14 +45,14 @@ namespace CtrlUI
                                 }
 
                                 //Validate the window handle
-                                if (threadWindowHandle == processMulti.WindowHandle || ValidateWindowHandle(threadWindowHandle))
+                                if (threadWindowHandle == processMulti.WindowHandle || Check_ValidWindowHandle(threadWindowHandle))
                                 {
                                     //Get the window state
                                     WindowPlacement processWindowState = new WindowPlacement();
                                     GetWindowPlacement(threadWindowHandle, ref processWindowState);
 
                                     //Get the window title
-                                    string windowTitleString = GetWindowTitleFromWindowHandle(threadWindowHandle);
+                                    string windowTitleString = Detail_WindowTitleByWindowHandle(threadWindowHandle);
                                     string windowSubString = windowHandleString;
 
                                     //Check window main

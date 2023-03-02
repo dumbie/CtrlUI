@@ -18,6 +18,9 @@ namespace CtrlUI
                     //Debug.WriteLine("Launching url protocol: " + dataBindApp.PathExe + " / " + dataBindApp.PathLaunch);
                 }
 
+                //Minimize the CtrlUI window
+                await AppWindowMinimize(true, true);
+
                 //Launch the url protocol
                 int processId = AVProcessTool.Launch_Exe(dataBindApp.PathExe, dataBindApp.PathLaunch, string.Empty, false, runAsAdmin, false);
                 if (processId <= 0)
@@ -26,9 +29,6 @@ namespace CtrlUI
                     await ShowProcessLaunchFailedMessage();
                     return false;
                 }
-
-                //Minimize the CtrlUI window
-                await AppWindowMinimize(true, true);
 
                 //Launch the keyboard controller
                 if (launchKeyboard)

@@ -198,7 +198,7 @@ namespace CtrlUI
         {
             try
             {
-                if (!CheckRunningProcessByNameOrTitle("DirectXInput", false, true))
+                if (!Check_RunningProcessByName("DirectXInput", true))
                 {
                     Debug.WriteLine("Launching DirectXInput");
                     if (!silentLaunch)
@@ -224,7 +224,7 @@ namespace CtrlUI
         {
             try
             {
-                if (forceLaunch || !CheckRunningProcessByNameOrTitle("FpsOverlayer", false, true))
+                if (forceLaunch || !Check_RunningProcessByName("FpsOverlayer", true))
                 {
                     Debug.WriteLine("Showing Fps Overlayer");
 
@@ -243,7 +243,7 @@ namespace CtrlUI
         {
             try
             {
-                if (CheckRunningProcessByNameOrTitle("FpsOverlayer", false, true))
+                if (Check_RunningProcessByName("FpsOverlayer", true))
                 {
                     //Close the Fps Overlayer
                     await CloseFpsOverlayer();

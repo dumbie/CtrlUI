@@ -27,7 +27,7 @@ namespace CtrlUI
                 //Debug.WriteLine("Checking store processes.");
 
                 //Get active UWP processes
-                List<ProcessMulti> processesList = GetUwpAppProcesses();
+                List<ProcessMulti> processesList = Get_ProcessesUwp();
 
                 //Add new running process if needed
                 foreach (ProcessMulti processMultiApp in processesList)
@@ -40,8 +40,8 @@ namespace CtrlUI
                             continue;
                         }
 
-                        //Get application executable path
-                        string processPathExe = processMultiApp.Path;
+                        //Get application user model id
+                        string processPathExe = processMultiApp.AppUserModelId;
                         string processPathExeLower = processPathExe.ToLower();
 
                         //Get application executable name
@@ -70,7 +70,7 @@ namespace CtrlUI
                         Visibility processStatusRunning = Visibility.Visible;
                         Visibility processStatusSuspended = Visibility.Collapsed;
                         ProcessThreadCollection processThreads = processMultiApp.ProcessThreads();
-                        if (CheckProcessSuspended(processThreads))
+                        if (Check_ProcessSuspendedByThreads(processThreads))
                         {
                             processStatusRunning = Visibility.Collapsed;
                             processStatusSuspended = Visibility.Visible;

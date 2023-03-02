@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVDisplayMonitor;
@@ -75,15 +76,15 @@ namespace CtrlUI
         {
             try
             {
-                vProcessDirectXInput = GetProcessByNameOrTitle("DirectXInput", false, true);
-                int focusedAppId = ProcessMulti_GetFromWindowHandle(GetForegroundWindow()).Identifier;
+                vProcessDirectXInput = Get_ProcessesByName("DirectXInput", true).FirstOrDefault();
+                int focusedProcessId = Detail_ProcessIdByWindowHandle(GetForegroundWindow());
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     try
                     {
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
-                        if (vProcessCurrent.Id == focusedAppId)
+                        if (vProcessCurrent.Id == focusedProcessId)
                         {
                             AppWindowActivated();
                         }
@@ -192,10 +193,6 @@ namespace CtrlUI
             try
             {
                 Debug.WriteLine("Show or hide the CtrlUI window.");
-
-                //Get the current focused application
-                ProcessMulti foregroundProcess = ProcessMulti_GetFromWindowHandle(GetForegroundWindow());
-
                 if (vAppMinimized || !vAppActivated)
                 {
                     //Show the CtrlUI window

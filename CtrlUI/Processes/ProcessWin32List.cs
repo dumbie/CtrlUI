@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -37,20 +39,26 @@ namespace CtrlUI
                 {
                     try
                     {
-                        //Validate the window handle
-                        if (!ValidateWindowHandle(processApp.MainWindowHandle))
+                        //Check if application has valid window
+                        if (!Check_ValidWindowHandle(processApp.MainWindowHandle))
                         {
                             continue;
                         }
 
-                        //Validate the process state
-                        if (!ValidateProcessState(processApp, true, true))
+                        //Check if application is suspended
+                        if (Check_ProcessSuspendedByThreads(processApp.Threads))
+                        {
+                            continue;
+                        }
+
+                        //Check if application is Win32
+                        if (Check_WindowHandleIsUwpApp(processApp.MainWindowHandle))
                         {
                             continue;
                         }
 
                         //Convert Process To ProcessMulti
-                        ProcessMulti processMultiApp = ProcessMulti_GetFromProcess(processApp, null, null);
+                        ProcessMulti processMultiApp = Get_ProcessMultiByProcess(processApp);
 
                         //Check if application title is blacklisted
                         if (vCtrlIgnoreProcessName.Any(x => x.String1.ToLower() == processMultiApp.WindowTitle.ToLower()))
@@ -59,7 +67,7 @@ namespace CtrlUI
                         }
 
                         //Get application executable path
-                        string processPathExe = processMultiApp.Path;
+                        string processPathExe = processMultiApp.ExecutablePath;
                         string processPathExeLower = processPathExe.ToLower();
                         string processPathExeImage = processPathExe;
 
@@ -98,8 +106,7 @@ namespace CtrlUI
                         //Check if the process is suspended
                         Visibility processStatusRunning = Visibility.Visible;
                         Visibility processStatusSuspended = Visibility.Collapsed;
-                        ProcessThreadCollection processThreads = processApp.Threads;
-                        if (CheckProcessSuspended(processThreads))
+                        if (Check_ProcessSuspendedByThreads(processApp.Threads))
                         {
                             processStatusRunning = Visibility.Collapsed;
                             processStatusSuspended = Visibility.Visible;
@@ -174,8 +181,12 @@ namespace CtrlUI
                         string storeImageWide = string.Empty;
                         if (processMultiApp.Type == ProcessType.UWP || processMultiApp.Type == ProcessType.Win32Store)
                         {
-                            storeImageSquare = processMultiApp.AppxDetails.SquareLargestLogoPath;
-                            storeImageWide = processMultiApp.AppxDetails.WideLargestLogoPath;
+                            try
+                            {
+                                storeImageSquare = processMultiApp.AppxDetails.SquareLargestLogoPath;
+                                storeImageWide = processMultiApp.AppxDetails.WideLargestLogoPath;
+                            }
+                            catch { }
                         }
 
                         //Load the application image

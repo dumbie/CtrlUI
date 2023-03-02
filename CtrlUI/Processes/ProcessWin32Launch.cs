@@ -96,6 +96,9 @@ namespace CtrlUI
                     //Debug.WriteLine("Launching Win32: " + appTitle + "/" + pathExe);
                 }
 
+                //Minimize the CtrlUI window
+                await AppWindowMinimize(true, true);
+
                 //Launch the Win32 application
                 int processId = AVProcessTool.Launch_Exe(pathExe, pathWork, launchArgument, false, runAsAdmin, false);
                 if (processId <= 0)
@@ -104,9 +107,6 @@ namespace CtrlUI
                     await ShowProcessLaunchFailedMessage();
                     return false;
                 }
-
-                //Minimize the CtrlUI window
-                await AppWindowMinimize(true, true);
 
                 //Launch the keyboard controller
                 if (launchKeyboard)

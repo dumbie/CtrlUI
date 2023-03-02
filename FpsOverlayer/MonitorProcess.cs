@@ -40,7 +40,7 @@ namespace FpsOverlayer
                         UpdateCustomText();
 
                         //Get and check the focused process
-                        ProcessMulti foregroundProcess = ProcessMulti_GetFromWindowHandle(GetForegroundWindow());
+                        ProcessMulti foregroundProcess = Get_ProcessMultiByWindowHandle(GetForegroundWindow());
                         if (foregroundProcess == null)
                         {
                             Debug.WriteLine("No active or valid process found.");

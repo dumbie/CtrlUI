@@ -185,6 +185,12 @@ namespace CtrlUI
                     }
                     Debug.WriteLine("Showing application window: " + processName + "/" + processIdTarget + "/" + windowHandleTarget);
 
+                    //Minimize the CtrlUI window
+                    if (minimizeCtrlUI)
+                    {
+                        await AppWindowMinimize(true, true);
+                    }
+
                     //Focus on application window handle
                     bool windowFocused = AVProcessTool.Show_ProcessIdHwnd(processIdTarget, windowHandleTarget);
                     if (!windowFocused)
@@ -192,12 +198,6 @@ namespace CtrlUI
                         await Notification_Send_Status("Close", "Failed showing application");
                         Debug.WriteLine("Failed showing the application, no longer running?");
                         return;
-                    }
-
-                    //Minimize the CtrlUI window
-                    if (minimizeCtrlUI)
-                    {
-                        await AppWindowMinimize(true, true);
                     }
 
                     //Launch the keyboard controller

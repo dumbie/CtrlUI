@@ -79,7 +79,7 @@ namespace CtrlUI
                         }
 
                         //Get detailed application information
-                        AppxDetails appxDetails = GetUwpAppxDetailsFromAppPackage(appPackage);
+                        AppxDetails appxDetails = GetUwpAppxDetailsByAppPackage(appPackage);
 
                         //Check if executable name is valid
                         if (string.IsNullOrWhiteSpace(appxDetails.ExecutableAliasName))

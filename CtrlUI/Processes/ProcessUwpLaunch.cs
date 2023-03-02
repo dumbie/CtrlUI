@@ -51,6 +51,9 @@ namespace CtrlUI
                     //Debug.WriteLine("Launching UWP or Win32Store: " + appTitle + "/" + pathExe);
                 }
 
+                //Minimize the CtrlUI window
+                await AppWindowMinimize(true, true);
+
                 //Launch the UWP or Win32Store application
                 int processId = AVProcessTool.Launch_Uwp(pathExe, argument);
                 if (processId <= 0)
@@ -59,9 +62,6 @@ namespace CtrlUI
                     await ShowProcessLaunchFailedMessage();
                     return false;
                 }
-
-                //Minimize the CtrlUI window
-                await AppWindowMinimize(true, true);
 
                 //Launch the keyboard controller
                 if (launchKeyboard)
