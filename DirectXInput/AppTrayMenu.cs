@@ -25,6 +25,8 @@ namespace DirectXInput
                 TrayContextMenu.MenuItems.Add("Open Keyboard", NotifyIcon_Keyboard);
                 TrayContextMenu.MenuItems.Add("Open Fps Overlayer", NotifyIcon_FpsOverlayer);
                 TrayContextMenu.MenuItems.Add("-");
+                TrayContextMenu.MenuItems.Add("Re/disconnect all controllers", NotifyIcon_DisconnectAll);
+                TrayContextMenu.MenuItems.Add("-");
                 TrayContextMenu.MenuItems.Add("Settings", NotifyIcon_Settings);
                 TrayContextMenu.MenuItems.Add("Website", NotifyIcon_Website);
                 TrayContextMenu.MenuItems.Add("Exit", NotifyIcon_Exit);
@@ -132,6 +134,15 @@ namespace DirectXInput
             try
             {
                 Process.Start("https://projects.arnoldvink.com");
+            }
+            catch { }
+        }
+
+        async void NotifyIcon_DisconnectAll(object sender, EventArgs args)
+        {
+            try
+            {
+                await StopAllControllers(false);
             }
             catch { }
         }
