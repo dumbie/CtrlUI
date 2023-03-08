@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows;
 using static ArnoldVinkCode.AVFirewall;
+using static ArnoldVinkCode.AVInteropDll;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.AppCheck;
 using static LibraryShared.AppUpdate;
@@ -16,7 +16,7 @@ namespace FpsOverlayer
             try
             {
                 //Application startup checks
-                await StartupCheck("Fps Overlayer", ProcessPriorityClass.High);
+                await StartupCheck("Fps Overlayer", ProcessPriority.High);
 
                 //Application update checks
                 await UpdateCheck();

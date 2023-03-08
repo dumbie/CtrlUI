@@ -353,7 +353,7 @@ namespace FpsOverlayer
                 }
 
                 //Check if string is valid link
-                textString = StringLinkFixup(textString);
+                textString = StringLinkCleanup(textString);
                 if (!StringLinkValidate(textString))
                 {
                     textbox_LinkString.BorderBrush = BrushInvalid;

@@ -76,7 +76,7 @@ namespace CtrlUI
         {
             try
             {
-                vProcessDirectXInput = Get_ProcessesByName("DirectXInput", true).FirstOrDefault();
+                vProcessDirectXInput = Get_ProcessesMultiByName("DirectXInput", true).FirstOrDefault();
                 int focusedProcessId = Detail_ProcessIdByWindowHandle(GetForegroundWindow());
 
                 AVActions.ActionDispatcherInvoke(delegate
@@ -84,7 +84,7 @@ namespace CtrlUI
                     try
                     {
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
-                        if (vProcessCurrent.Id == focusedProcessId)
+                        if (vProcessCurrent.Identifier == focusedProcessId)
                         {
                             AppWindowActivated();
                         }
@@ -222,7 +222,7 @@ namespace CtrlUI
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                 //Force focus on CtrlUI
-                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, silentShow, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Identifier, vProcessCurrent.WindowHandleMain, false, silentShow, false);
 
                 //Update the window position
                 await UpdateWindowPosition(false, true);

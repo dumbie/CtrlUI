@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -13,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSearch;
 using static ArnoldVinkCode.AVSettings;
 using static LibraryShared.Classes;
@@ -107,8 +107,8 @@ namespace CtrlUI
         public static bool vBusyRefreshingLaunchers = false;
 
         //Process Variables
-        public static Process vProcessCurrent = Process.GetCurrentProcess();
-        public static Process vProcessDirectXInput = null;
+        public static ProcessMulti vProcessCurrent = Get_ProcessMultiCurrent();
+        public static ProcessMulti vProcessDirectXInput = null;
 
         //App Status Variables
         public static bool vAppMinimized = false;

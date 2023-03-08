@@ -51,13 +51,13 @@ namespace FpsOverlayer
                     {
                         vManualHidden = true;
                         //Update the fps overlay position
-                        UpdateFpsOverlayPosition(vTargetProcess.Name);
+                        UpdateFpsOverlayPosition(vTargetProcess.ExeNameNoExt);
                     }
                     else
                     {
                         vManualHidden = false;
                         //Update the fps overlay position
-                        UpdateFpsOverlayPosition(vTargetProcess.Name);
+                        UpdateFpsOverlayPosition(vTargetProcess.ExeNameNoExt);
                     }
                 });
             }
@@ -546,7 +546,7 @@ namespace FpsOverlayer
                 stackpanel_CurrentFrametime.Width = SettingLoad(vConfigurationFpsOverlayer, "FrametimeWidth", typeof(double));
 
                 //Update the fps overlay position
-                UpdateFpsOverlayPosition(vTargetProcess.Name);
+                UpdateFpsOverlayPosition(vTargetProcess.ExeNameNoExt);
             }
             catch { }
         }

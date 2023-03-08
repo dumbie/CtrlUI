@@ -5,24 +5,25 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVProcess;
 
 namespace LibraryShared
 {
     public partial class AppCheck
     {
-        public static async Task StartupCheck(string appName, ProcessPriorityClass priorityLevel)
+        public static async Task StartupCheck(string appName, ProcessPriority priorityLevel)
         {
             try
             {
                 Debug.WriteLine("Checking application status.");
 
                 //Get current process information
-                Process currentProcess = Process.GetCurrentProcess();
-                string processName = currentProcess.ProcessName;
-                Process[] activeProcesses = Process.GetProcessesByName(processName);
+                ProcessMulti currentProcess = Get_ProcessMultiCurrent();
+                List<ProcessMulti> activeProcesses = Get_ProcessesMultiByName(currentProcess.ExeNameNoExt, true);
 
                 //Check if application is already running
-                if (activeProcesses.Length > 1)
+                if (activeProcesses.Count > 1)
                 {
                     Debug.WriteLine("Application " + appName + " is already running, closing the process");
                     Environment.Exit(0);
@@ -39,7 +40,7 @@ namespace LibraryShared
                 //Set the application priority level
                 try
                 {
-                    currentProcess.PriorityClass = priorityLevel;
+                    currentProcess.Priority = priorityLevel;
                 }
                 catch { }
 

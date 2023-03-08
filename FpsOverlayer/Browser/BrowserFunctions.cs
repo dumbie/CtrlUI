@@ -162,7 +162,7 @@ namespace FpsOverlayer.OverlayCode
                 }
                 else
                 {
-                    linkString = StringLinkFixup(linkString);
+                    linkString = StringLinkCleanup(linkString);
                     vBrowserWebView.CoreWebView2.Navigate(linkString);
                 }
 

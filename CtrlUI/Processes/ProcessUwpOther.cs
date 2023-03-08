@@ -65,7 +65,7 @@ namespace CtrlUI
 
                             //Get detailed application information
                             Package appPackage = GetUwpAppPackageByAppUserModelId(dataBindApp.PathExe);
-                            AppxDetails appxDetails = GetUwpAppxDetailsByAppPackage(appPackage);
+                            AppxDetails appxDetails = GetUwpAppxDetailsByUwpAppPackage(appPackage);
 
                             //Update the application icons
                             dataBindApp.PathImage = appxDetails.SquareLargestLogoPath;

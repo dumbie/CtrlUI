@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppBusyWait;
 using static CtrlUI.AppVariables;
@@ -51,8 +52,8 @@ namespace CtrlUI
                 //Update the refreshing status
                 vBusyRefreshingProcesses = true;
 
-                //Load all the active processes
-                Process[] processesList = Process.GetProcesses();
+                //Get all running processes
+                List<ProcessMulti> processesList = AVProcess.Get_AllProcessesMulti();
 
                 //Refresh the processes list
                 await RefreshListProcesses(processesList);
@@ -92,14 +93,14 @@ namespace CtrlUI
         }
 
         //Refresh the processes list
-        async Task RefreshListProcesses(Process[] processesList)
+        async Task RefreshListProcesses(List<ProcessMulti> processesList)
         {
             try
             {
-                //Check if processes list is provided
+                //Get all running processes
                 if (processesList == null)
                 {
-                    processesList = Process.GetProcesses();
+                    processesList = AVProcess.Get_AllProcessesMulti();
                 }
 
                 //List all the currently running processes
@@ -110,8 +111,7 @@ namespace CtrlUI
                 IEnumerable<DataBindApp> currentListApps = CombineAppLists(true, false, false).Where(x => x.StatusUrlProtocol == Visibility.Collapsed);
 
                 //Update all the processes
-                await ListLoadCheckProcessesUwp(activeProcessesId, activeProcessesWindow, currentListApps, false);
-                await ListLoadCheckProcessesWin32(processesList, activeProcessesId, activeProcessesWindow, currentListApps, false);
+                await ListLoadCheckProcesses(processesList, activeProcessesId, activeProcessesWindow, currentListApps, false);
 
                 //Update the application running count and status
                 foreach (DataBindApp dataBindApp in currentListApps)
@@ -120,14 +120,14 @@ namespace CtrlUI
                     {
                         //Remove closed processes
                         dataBindApp.ProcessMulti.RemoveAll(x => !activeProcessesId.Contains(x.Identifier));
-                        dataBindApp.ProcessMulti.RemoveAll(x => !activeProcessesWindow.Contains(x.WindowHandle));
+                        dataBindApp.ProcessMulti.RemoveAll(x => !activeProcessesWindow.Contains(x.WindowHandleMain));
 
                         //Check the running count
                         int processCount = dataBindApp.ProcessMulti.Count();
                         if (processCount > 1)
                         {
                             //Remove invalid processes
-                            dataBindApp.ProcessMulti.RemoveAll(x => x.WindowHandle == IntPtr.Zero);
+                            dataBindApp.ProcessMulti.RemoveAll(x => x.WindowHandleMain == IntPtr.Zero);
                             processCount = dataBindApp.ProcessMulti.Count();
                         }
 
@@ -155,7 +155,7 @@ namespace CtrlUI
                 }
 
                 //Remove no longer running and invalid processes
-                Func<DataBindApp, bool> filterProcessApp = x => x.Category == AppCategory.Process && (!x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !activeProcessesWindow.Contains(z.WindowHandle)) || x.ProcessMulti.Any(z => z.WindowHandle == IntPtr.Zero));
+                Func<DataBindApp, bool> filterProcessApp = x => x.Category == AppCategory.Process && (!x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !activeProcessesWindow.Contains(z.WindowHandleMain)) || x.ProcessMulti.Any(z => z.WindowHandleMain == IntPtr.Zero));
                 await ListBoxRemoveAll(lb_Processes, List_Processes, filterProcessApp);
                 await ListBoxRemoveAll(lb_Search, List_Search, filterProcessApp);
             }

@@ -36,7 +36,7 @@ namespace CtrlUI
                     ProcessMulti processMulti = null;
                     foreach (ProcessMulti processMultiFor in dataBindApp.ProcessMulti)
                     {
-                        if (processMultiFor.WindowHandle != IntPtr.Zero)
+                        if (processMultiFor.WindowHandleMain != IntPtr.Zero)
                         {
                             processMulti = processMultiFor;
                         }

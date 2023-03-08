@@ -62,7 +62,7 @@ namespace CtrlUI
                             else
                             {
                                 //Press on the space bar
-                                KeySendSingle(KeysVirtual.Space, vProcessCurrent.MainWindowHandle);
+                                KeySendSingle(KeysVirtual.Space, vProcessCurrent.WindowHandleMain);
                             }
                         });
 
@@ -75,7 +75,7 @@ namespace CtrlUI
 
                         if (Popup_Open_Any())
                         {
-                            KeySendSingle(KeysVirtual.Escape, vProcessCurrent.MainWindowHandle);
+                            KeySendSingle(KeysVirtual.Escape, vProcessCurrent.WindowHandleMain);
                         }
                         else
                         {
@@ -97,7 +97,7 @@ namespace CtrlUI
                         }
                         else if (vFilePickerOpen)
                         {
-                            KeySendSingle(KeysVirtual.BackSpace, vProcessCurrent.MainWindowHandle);
+                            KeySendSingle(KeysVirtual.BackSpace, vProcessCurrent.WindowHandleMain);
                         }
                         else if (listAppCategory == ListCategory.Search)
                         {
@@ -115,7 +115,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: XPressed");
 
-                        KeySendSingle(KeysVirtual.Delete, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Delete, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay250 = true;
@@ -128,7 +128,7 @@ namespace CtrlUI
                             if (grid_Popup_Settings.Visibility == Visibility.Visible)
                             {
                                 await SettingsChangeTab(true);
-                                KeySendSingle(KeysVirtual.F13, vProcessCurrent.MainWindowHandle);
+                                KeySendSingle(KeysVirtual.F13, vProcessCurrent.WindowHandleMain);
                             }
                             else if (!Popup_Open_Any())
                             {
@@ -149,7 +149,7 @@ namespace CtrlUI
                             if (grid_Popup_Settings.Visibility == Visibility.Visible)
                             {
                                 await SettingsChangeTab(false);
-                                KeySendSingle(KeysVirtual.F13, vProcessCurrent.MainWindowHandle);
+                                KeySendSingle(KeysVirtual.F13, vProcessCurrent.WindowHandleMain);
                             }
                             else if (!Popup_Open_Any())
                             {
@@ -228,7 +228,7 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
                         Debug.WriteLine("Button: ThumbLeftPressed");
-                        KeySendSingle(KeysVirtual.Home, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Home, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
@@ -236,7 +236,7 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
                         Debug.WriteLine("Button: ThumbRightPressed");
-                        KeySendSingle(KeysVirtual.End, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.End, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
@@ -274,7 +274,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: DPadLeftPressed");
 
-                        KeySendSingle(KeysVirtual.Left, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Left, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
@@ -283,7 +283,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: DPadUpPressed");
 
-                        KeySendSingle(KeysVirtual.Up, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Up, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
@@ -292,7 +292,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: DPadRightPressed");
 
-                        KeySendSingle(KeysVirtual.Right, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Right, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
@@ -301,7 +301,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: DPadDownPressed");
 
-                        KeySendSingle(KeysVirtual.Down, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Down, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
@@ -373,28 +373,28 @@ namespace CtrlUI
                     //Left stick movement
                     if (ControllerInput.ThumbLeftX < -10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
                     {
-                        KeySendSingle(KeysVirtual.Left, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Left, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
                     }
                     else if (ControllerInput.ThumbLeftY > 10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
                     {
-                        KeySendSingle(KeysVirtual.Up, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Up, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
                     }
                     else if (ControllerInput.ThumbLeftX > 10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
                     {
-                        KeySendSingle(KeysVirtual.Right, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Right, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
                     }
                     else if (ControllerInput.ThumbLeftY < -10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
                     {
-                        KeySendSingle(KeysVirtual.Down, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Down, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
@@ -403,28 +403,28 @@ namespace CtrlUI
                     //Right stick movement
                     if (ControllerInput.ThumbRightX < -10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
                     {
-                        KeySendSingle(KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Prior, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
                     }
                     else if (ControllerInput.ThumbRightY > 10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
                     {
-                        KeySendSingle(KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Prior, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
                     }
                     else if (ControllerInput.ThumbRightX > 10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
                     {
-                        KeySendSingle(KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Next, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
                     }
                     else if (ControllerInput.ThumbRightY < -10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
                     {
-                        KeySendSingle(KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Next, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;

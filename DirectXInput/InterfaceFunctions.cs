@@ -475,12 +475,12 @@ namespace DirectXInput
         {
             try
             {
-                vProcessCtrlUI = Get_ProcessesByName("CtrlUI", true).FirstOrDefault();
-                vProcessFpsOverlayer = Get_ProcessesByName("FpsOverlayer", true).FirstOrDefault();
+                vProcessCtrlUI = Get_ProcessesMultiByName("CtrlUI", true).FirstOrDefault();
+                vProcessFpsOverlayer = Get_ProcessesMultiByName("FpsOverlayer", true).FirstOrDefault();
                 vProcessForeground = Get_ProcessMultiByWindowHandle(GetForegroundWindow());
 
                 //Check if CtrlUI is currently activated
-                vProcessCtrlUIActivated = vProcessCtrlUI != null && vProcessCtrlUI.Id == vProcessForeground.Identifier;
+                vProcessCtrlUIActivated = vProcessCtrlUI != null && vProcessCtrlUI.Identifier == vProcessForeground.Identifier;
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
@@ -488,7 +488,7 @@ namespace DirectXInput
                     {
                         if (WindowState == WindowState.Maximized) { vAppMaximized = true; } else { vAppMaximized = false; }
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
-                        if (vProcessCurrent.Id == vProcessForeground.Identifier)
+                        if (vProcessCurrent.Identifier == vProcessForeground.Identifier)
                         {
                             AppWindowActivated();
                         }

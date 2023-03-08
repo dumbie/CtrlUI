@@ -56,14 +56,7 @@ namespace CtrlUI
                         {
                             if (messageResult == Answer2)
                             {
-                                //Get the first multi process type
-                                ProcessType processType = dataBindApp.ProcessMulti.FirstOrDefault().Type;
-
-                                //Return close all with process type
-                                ProcessMulti processMultiNew = new ProcessMulti();
-                                processMultiNew.Action = "CloseAll";
-                                processMultiNew.Type = processType;
-                                return processMultiNew;
+                                return new ProcessMulti("CloseAll");
                             }
                             else
                             {
@@ -72,9 +65,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            ProcessMulti processMultiNew = new ProcessMulti();
-                            processMultiNew.Action = "Cancel";
-                            return processMultiNew;
+                            return new ProcessMulti("Cancel");
                         }
                     }
                     else

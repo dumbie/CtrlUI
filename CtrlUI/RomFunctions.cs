@@ -98,8 +98,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    nameFile = AVFunctions.StringRemoveStart(nameFile, " ");
-                    nameFile = AVFunctions.StringRemoveEnd(nameFile, " ");
+                    nameFile = nameFile.Trim();
                 }
             }
             catch (Exception ex)

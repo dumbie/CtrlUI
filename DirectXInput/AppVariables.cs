@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
-using System.Diagnostics;
 using System.Security.Principal;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -51,11 +50,11 @@ namespace DirectXInput
         public static int vMessageBoxPopupResult = 0;
 
         //Process Variables
-        public static Process vProcessCurrent = Process.GetCurrentProcess();
-        public static Process vProcessCtrlUI = null;
-        public static bool vProcessCtrlUIActivated = false;
-        public static Process vProcessFpsOverlayer = null;
+        public static ProcessMulti vProcessCurrent = Get_ProcessMultiCurrent();
+        public static ProcessMulti vProcessCtrlUI = null;
+        public static ProcessMulti vProcessFpsOverlayer = null;
         public static ProcessMulti vProcessForeground = null;
+        public static bool vProcessCtrlUIActivated = false;
 
         //App Status Variables
         public static bool vAppMaximized = false;

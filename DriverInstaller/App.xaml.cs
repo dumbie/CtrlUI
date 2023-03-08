@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
+using static ArnoldVinkCode.AVInteropDll;
 using static LibraryShared.AppCheck;
 using static LibraryShared.AppUpdate;
 
@@ -16,7 +16,7 @@ namespace DriverInstaller
             try
             {
                 //Application startup checks
-                await StartupCheck("Driver Installer", ProcessPriorityClass.Normal);
+                await StartupCheck("Driver Installer", ProcessPriority.Normal);
 
                 //Application update checks
                 await UpdateCheck();

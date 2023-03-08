@@ -79,42 +79,42 @@ namespace CtrlUI
                     if (SelStackPanel.Name == "settingsButtonLaunch")
                     {
                         settingsStackpanelLaunch.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsWindowsStartup, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsWindowsStartup, false, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonDisplay")
                     {
                         settingsStackpanelDisplay.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsLaunchMinimized, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsLaunchMinimized, false, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonApps")
                     {
                         settingsStackpanelApps.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsShowLibrarySteam, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsShowLibrarySteam, false, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonInterface")
                     {
                         settingsStackpanelInterface.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsHideBatteryLevel, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsHideBatteryLevel, false, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonSound")
                     {
                         settingsStackpanelSound.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsInterfaceSound, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsInterfaceSound, false, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonBrowser")
                     {
                         settingsStackpanelBrowser.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsShowHiddenFilesFolders, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsShowHiddenFilesFolders, false, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonNetwork")
                     {
                         settingsStackpanelNetwork.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(txt_SettingsSocketClientPortStart, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(txt_SettingsSocketClientPortStart, false, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonOther")
                     {
                         settingsStackpanelOther.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(btn_Settings_AddGeforceExperience, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(btn_Settings_AddGeforceExperience, false, vProcessCurrent.WindowHandleMain);
                     }
                 }
             }
@@ -132,7 +132,7 @@ namespace CtrlUI
                 Answer1.Name = "Manage controllers";
                 Answers.Add(Answer1);
 
-                DataBindString messageResult = await Popup_Show_MessageBox("This will open a window you can't controller", "", "You can always return back to CtrlUI using the 'Guide' button on your controller or you can use the on screen keyboard mouse function.", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("This will open a window that can't be used with controller", "", "You can always return back to CtrlUI using the 'Guide' button on your controller or you can use the on screen keyboard mouse function.", Answers);
                 if (messageResult != null && messageResult == Answer1)
                 {
                     Process.Start("joy.cpl");

@@ -84,6 +84,20 @@ namespace LibraryShared
                 }
             }
 
+            private string PrivAppUserModelId = string.Empty;
+            public string AppUserModelId
+            {
+                get { return this.PrivAppUserModelId; }
+                set
+                {
+                    if (this.PrivAppUserModelId != value)
+                    {
+                        this.PrivAppUserModelId = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private string PrivNameExe = string.Empty;
             public string NameExe
             {

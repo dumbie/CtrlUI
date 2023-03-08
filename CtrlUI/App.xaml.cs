@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVFirewall;
+using static ArnoldVinkCode.AVInteropDll;
 using static LibraryShared.AppCheck;
 using static LibraryShared.AppUpdate;
 
@@ -23,7 +24,7 @@ namespace CtrlUI
                 await Application_RestartDelay(e);
 
                 //Application startup checks
-                await StartupCheck("CtrlUI", ProcessPriorityClass.High);
+                await StartupCheck("CtrlUI", ProcessPriority.High);
 
                 //Application update checks
                 await UpdateCheck();

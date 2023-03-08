@@ -1,10 +1,10 @@
 ﻿using DirectXInput.KeyboardCode;
 using DirectXInput.KeypadCode;
 using DirectXInput.OverlayCode;
-using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using static ArnoldVinkCode.AVFirewall;
+using static ArnoldVinkCode.AVInteropDll;
 using static LibraryShared.AppCheck;
 using static LibraryShared.AppUpdate;
 
@@ -24,7 +24,7 @@ namespace DirectXInput
             try
             {
                 //Application startup checks
-                await StartupCheck("DirectXInput", ProcessPriorityClass.High);
+                await StartupCheck("DirectXInput", ProcessPriority.High);
 
                 //Application update checks
                 await UpdateCheck();

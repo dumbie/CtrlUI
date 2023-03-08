@@ -124,7 +124,7 @@ namespace DirectXInput.KeyboardCode
                             WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                             //Check the foreground window
-                            if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                            if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                                 KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
@@ -146,7 +146,7 @@ namespace DirectXInput.KeyboardCode
                             WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                             //Check the foreground window
-                            if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                            if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                                 KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
@@ -168,7 +168,7 @@ namespace DirectXInput.KeyboardCode
                             WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                             //Check the foreground window
-                            if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                            if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                                 KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
@@ -190,7 +190,7 @@ namespace DirectXInput.KeyboardCode
                             WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                             //Check the foreground window
-                            if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                            if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                                 KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
@@ -206,7 +206,7 @@ namespace DirectXInput.KeyboardCode
                         WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                         //Check the foreground window
-                        if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                        if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                         {
                             KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
                         }

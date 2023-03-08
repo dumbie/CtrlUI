@@ -192,12 +192,11 @@
     <Compile Include="Processes\ProcessCheck.cs" />
     <Compile Include="Processes\ProcessSelect.cs" />
     <Compile Include="Processes\ProcessUwpOther.cs" />
-    <Compile Include="Processes\ProcessUwpList.cs" />
     <Compile Include="Processes\ProcessUwpClose.cs" />
     <Compile Include="Processes\ProcessRestart.cs" />
     <Compile Include="Processes\ProcessWin32Close.cs" />
     <Compile Include="Processes\ProcessWin32Check.cs" />
-    <Compile Include="Processes\ProcessWin32List.cs" />
+    <Compile Include="Processes\ProcessList.cs" />
     <Compile Include="RegistryFunctions.cs" />
     <Compile Include="QuickActionFunctions.cs" />
     <Compile Include="AppMessageFilter.cs" />

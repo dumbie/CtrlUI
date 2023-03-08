@@ -130,7 +130,7 @@ namespace CtrlUI
                     //Tab target
                     if (vTabTargetListsSingle.Contains(parentListbox.Name))
                     {
-                        KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
                         Handled = true;
                         return;
                     }
@@ -139,7 +139,7 @@ namespace CtrlUI
                         int itemsCount = parentListbox.Items.Count;
                         if ((parentListbox.SelectedIndex + 1) == itemsCount)
                         {
-                            KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                            KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
                             Handled = true;
                             return;
                         }
@@ -148,7 +148,7 @@ namespace CtrlUI
                     {
                         if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, false))
                         {
-                            KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                            KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
                             Handled = true;
                             return;
                         }
@@ -160,7 +160,7 @@ namespace CtrlUI
                         int itemsCount = parentListbox.Items.Count;
                         if ((parentListbox.SelectedIndex + 1) == itemsCount)
                         {
-                            ListboxFocusIndex(parentListbox, false, false, 0, vProcessCurrent.MainWindowHandle).Start();
+                            ListboxFocusIndex(parentListbox, false, false, 0, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }
@@ -169,7 +169,7 @@ namespace CtrlUI
                     {
                         if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, false))
                         {
-                            ListboxFocusIndex(parentListbox, false, false, 0, vProcessCurrent.MainWindowHandle).Start();
+                            ListboxFocusIndex(parentListbox, false, false, 0, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }
@@ -179,7 +179,7 @@ namespace CtrlUI
                 {
                     if (vTabTargetButtonsDown.Any(x => x == frameworkElement.Name))
                     {
-                        KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
                         Handled = true;
                         return;
                     }
@@ -192,7 +192,7 @@ namespace CtrlUI
                 }
                 else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider)))
                 {
-                    KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                    KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
                     Handled = true;
                     return;
                 }
@@ -242,7 +242,7 @@ namespace CtrlUI
                         if (parentListbox.SelectedIndex == 0)
                         {
                             int itemsCount = parentListbox.Items.Count;
-                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vProcessCurrent.MainWindowHandle).Start();
+                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }
@@ -252,7 +252,7 @@ namespace CtrlUI
                         if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, true))
                         {
                             int itemsCount = parentListbox.Items.Count;
-                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vProcessCurrent.MainWindowHandle).Start();
+                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }

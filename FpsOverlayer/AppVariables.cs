@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
-using System.Diagnostics;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
@@ -21,7 +20,6 @@ namespace FpsOverlayer
         //Application Variables
         public static Configuration vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
         public static Configuration vConfigurationFpsOverlayer = SettingLoadConfig("FpsOverlayer.exe.csettings");
-        public static ProcessMulti vTargetProcess = new ProcessMulti();
         public static bool vManualHidden = false;
 
         //Application Windows
@@ -33,7 +31,8 @@ namespace FpsOverlayer
         public static bool vSingleTappedEvent = true;
 
         //Process Variables
-        public static Process vProcessCurrent = Process.GetCurrentProcess();
+        public static ProcessMulti vProcessCurrent = Get_ProcessMultiCurrent();
+        public static ProcessMulti vTargetProcess = new ProcessMulti(0, 0);
 
         //Margin Variables
         public static int vKeypadAdjustMargin = 0;

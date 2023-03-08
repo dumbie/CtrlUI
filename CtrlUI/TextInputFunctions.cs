@@ -64,12 +64,12 @@ namespace CtrlUI
                 if (focusButton && !string.IsNullOrWhiteSpace(textDefault))
                 {
                     //Focus on the confirm button
-                    await FrameworkElementFocus(grid_Popup_TextInput_button_ConfirmText, false, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocus(grid_Popup_TextInput_button_ConfirmText, false, vProcessCurrent.WindowHandleMain);
                 }
                 else
                 {
                     //Focus on the text input box
-                    await FrameworkElementFocus(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocus(grid_Popup_TextInput_textbox, false, vProcessCurrent.WindowHandleMain);
 
                     //Launch the keyboard controller
                     if (vAppActivated && vControllerAnyConnected())
@@ -102,7 +102,7 @@ namespace CtrlUI
                     grid_Popup_TextInput_textbox.SelectionStart = grid_Popup_TextInput_textbox.Text.Length;
 
                     //Force focus on element
-                    await FrameworkElementFocus(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocus(grid_Popup_TextInput_textbox, false, vProcessCurrent.WindowHandleMain);
                 }
                 else if (focusTextbox)
                 {
@@ -110,7 +110,7 @@ namespace CtrlUI
                     grid_Popup_TextInput_textbox.Text = string.Empty;
 
                     //Force focus on element
-                    await FrameworkElementFocus(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocus(grid_Popup_TextInput_textbox, false, vProcessCurrent.WindowHandleMain);
                 }
                 else
                 {
@@ -139,7 +139,7 @@ namespace CtrlUI
                     Popup_Hide_Element(grid_Popup_TextInput);
 
                     //Focus on the previous focus element
-                    await FrameworkElementFocusFocus(vTextInputElementFocus, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocusFocus(vTextInputElementFocus, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }

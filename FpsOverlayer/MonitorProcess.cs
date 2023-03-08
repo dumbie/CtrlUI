@@ -54,7 +54,7 @@ namespace FpsOverlayer
                             continue;
                         }
 
-                        Debug.WriteLine("Checking process: (" + foregroundProcess.Identifier + ") " + foregroundProcess.Name);
+                        Debug.WriteLine("Checking process: (" + foregroundProcess.Identifier + ") " + foregroundProcess.ExeNameNoExt);
 
                         //Check if the foreground window has changed
                         if (vTargetProcess.Identifier == foregroundProcess.Identifier)
@@ -70,16 +70,16 @@ namespace FpsOverlayer
                             continue;
                         }
 
-                        Debug.WriteLine("New foreground window detected (" + foregroundProcess.Identifier + ") " + foregroundProcess.Name);
+                        Debug.WriteLine("New foreground window detected (" + foregroundProcess.Identifier + ") " + foregroundProcess.ExeNameNoExt);
 
                         //Reset the fps counter
                         ResetFpsCounter();
 
                         //Update the fps overlayer position
-                        UpdateFpsOverlayPosition(foregroundProcess.Name);
+                        UpdateFpsOverlayPosition(foregroundProcess.ExeNameNoExt);
 
                         //Check if the foreground window is fps overlayer
-                        if (vProcessCurrent.Id == foregroundProcess.Identifier)
+                        if (vProcessCurrent.Identifier == foregroundProcess.Identifier)
                         {
                             Debug.WriteLine("Current process is fps overlayer.");
 
@@ -217,7 +217,7 @@ namespace FpsOverlayer
             try
             {
                 //Reset the target process
-                vTargetProcess = new ProcessMulti();
+                vTargetProcess = new ProcessMulti(0, 0);
 
                 //Reset fps variables
                 vLastFrameTimeStamp = 0;

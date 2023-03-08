@@ -19,7 +19,7 @@ namespace CtrlUI
                 Debug.WriteLine("Closing UWP process: " + dataBindApp.Name);
 
                 //Close the process
-                bool closedProcess = AVProcessTool.Close_ProcessMessageHwnd(processMulti.WindowHandle);
+                bool closedProcess = AVProcessTool.Close_ProcessMessageHwnd(processMulti.WindowHandleMain);
 
                 //Check if process closed
                 if (closedProcess)

@@ -20,7 +20,7 @@ namespace CtrlUI
             try
             {
                 //Get threads from process
-                ProcessThreadCollection processThreads = processMulti.ProcessThreads();
+                List<ProcessThreadInfo> processThreads = processMulti.Threads;
 
                 //Check threads from process
                 int processThreadCount = processThreads.Count;
@@ -30,9 +30,9 @@ namespace CtrlUI
 
                     List<DataBindString> multiAnswers = new List<DataBindString>();
                     List<IntPtr> multiVariables = new List<IntPtr>();
-                    foreach (ProcessThread threadProcess in processThreads)
+                    foreach (ProcessThreadInfo threadInfo in processThreads)
                     {
-                        foreach (IntPtr threadWindowHandle in Thread_GetWindowHandles(threadProcess.Id))
+                        foreach (IntPtr threadWindowHandle in Get_WindowHandlesByThreadId(threadInfo.Identifier))
                         {
                             try
                             {
@@ -45,7 +45,7 @@ namespace CtrlUI
                                 }
 
                                 //Validate the window handle
-                                if (threadWindowHandle == processMulti.WindowHandle || Check_ValidWindowHandle(threadWindowHandle))
+                                if (threadWindowHandle == processMulti.WindowHandleMain || Check_ValidWindowHandle(threadWindowHandle))
                                 {
                                     //Get the window state
                                     WindowPlacement processWindowState = new WindowPlacement();
@@ -56,7 +56,7 @@ namespace CtrlUI
                                     string windowSubString = windowHandleString;
 
                                     //Check window main
-                                    if (threadWindowHandle == processMulti.WindowHandle)
+                                    if (threadWindowHandle == processMulti.WindowHandleMain)
                                     {
                                         windowSubString += " (Main)";
                                     }
@@ -94,7 +94,7 @@ namespace CtrlUI
                                     Answer1.Data1 = windowHandleString;
 
                                     //Add window to selection
-                                    if (threadWindowHandle == processMulti.WindowHandle)
+                                    if (threadWindowHandle == processMulti.WindowHandleMain)
                                     {
                                         multiAnswers.Insert(0, Answer1);
                                         multiVariables.Insert(0, threadWindowHandle);
@@ -204,8 +204,8 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Debug.WriteLine("Single window thread process: " + processMulti.WindowHandle);
-                    return processMulti.WindowHandle;
+                    Debug.WriteLine("Single window thread process: " + processMulti.WindowHandleMain);
+                    return processMulti.WindowHandleMain;
                 }
             }
             catch

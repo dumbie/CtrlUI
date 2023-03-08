@@ -72,7 +72,7 @@ namespace CtrlUI
                 await UpdateWindowPosition(true, false);
 
                 //Focus on CtrlUI window
-                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Identifier, vProcessCurrent.WindowHandleMain, false, true, false);
             }
             catch { }
         }
@@ -85,7 +85,7 @@ namespace CtrlUI
                 EnableMonitorExtendMode();
 
                 //Focus on CtrlUI window
-                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Identifier, vProcessCurrent.WindowHandleMain, false, true, false);
             }
             catch { }
         }
@@ -98,7 +98,7 @@ namespace CtrlUI
                 EnableMonitorCloneMode();
 
                 //Focus on CtrlUI window
-                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Identifier, vProcessCurrent.WindowHandleMain, false, true, false);
             }
             catch { }
         }
@@ -111,7 +111,7 @@ namespace CtrlUI
                 EnableMonitorSecond();
 
                 //Focus on CtrlUI window
-                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Identifier, vProcessCurrent.WindowHandleMain, false, true, false);
             }
             catch { }
         }
@@ -124,7 +124,7 @@ namespace CtrlUI
                 EnableMonitorFirst();
 
                 //Focus on CtrlUI window
-                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, false, true, false);
+                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.Identifier, vProcessCurrent.WindowHandleMain, false, true, false);
             }
             catch { }
         }

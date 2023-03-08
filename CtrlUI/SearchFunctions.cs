@@ -28,7 +28,7 @@ namespace CtrlUI
                     grid_Search_textbox.Text = string.Empty;
 
                     //Force focus on element
-                    await FrameworkElementFocus(grid_Search_textbox, false, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocus(grid_Search_textbox, false, vProcessCurrent.WindowHandleMain);
                 }
                 else
                 {

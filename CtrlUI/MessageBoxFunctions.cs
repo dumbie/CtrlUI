@@ -77,7 +77,7 @@ namespace CtrlUI
                 Popup_Show_Element(grid_Popup_MessageBox);
 
                 //Focus on first listbox answer
-                await ListboxFocusIndex(lb_MessageBox, true, false, -1, vProcessCurrent.MainWindowHandle);
+                await ListboxFocusIndex(lb_MessageBox, true, false, -1, vProcessCurrent.WindowHandleMain);
 
                 //Wait for user messagebox input
                 while (vMessageBoxResult == null && !vMessageBoxCancelled) { await Task.Delay(500); }
@@ -110,7 +110,7 @@ namespace CtrlUI
                 Popup_Hide_Element(grid_Popup_MessageBox);
 
                 //Focus on the previous focus element
-                await FrameworkElementFocusFocus(vMessageBoxElementFocus, vProcessCurrent.MainWindowHandle);
+                await FrameworkElementFocusFocus(vMessageBoxElementFocus, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {

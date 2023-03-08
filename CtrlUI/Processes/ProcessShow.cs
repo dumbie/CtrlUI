@@ -162,7 +162,7 @@ namespace CtrlUI
                     //Check if process is available
                     if (windowHandleTarget == null)
                     {
-                        if (!silentFocus) { await Notification_Send_Status("Close", "App no longer running"); }
+                        if (!silentFocus) { await Notification_Send_Status("Close", "Application no longer running"); }
                         Debug.WriteLine("Show application no longer seems to be running.");
                         return;
                     }
@@ -170,8 +170,8 @@ namespace CtrlUI
                     //Check if process is available
                     if (windowHandleTarget == IntPtr.Zero)
                     {
-                        if (!silentFocus) { await Notification_Send_Status("Close", "App can't be shown"); }
-                        Debug.WriteLine("Application can't be shown, window handle is empty.");
+                        if (!silentFocus) { await Notification_Send_Status("Close", "Application cannot be shown"); }
+                        Debug.WriteLine("Application cannot be shown, window handle is empty.");
                         return;
                     }
 

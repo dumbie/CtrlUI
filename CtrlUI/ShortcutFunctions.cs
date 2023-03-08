@@ -339,7 +339,7 @@ namespace CtrlUI
                     else
                     {
                         //Get detailed application information
-                        AppxDetails appxDetails = GetUwpAppxDetailsByAppPackage(appPackage);
+                        AppxDetails appxDetails = GetUwpAppxDetailsByUwpAppPackage(appPackage);
 
                         //Set the application icon path
                         shortcutDetails.IconPath = appxDetails.SquareLargestLogoPath;

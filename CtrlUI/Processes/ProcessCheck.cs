@@ -22,7 +22,7 @@ namespace CtrlUI
             {
                 if (processMulti.Type == ProcessType.UWP)
                 {
-                    return processMulti.WindowHandle;
+                    return processMulti.WindowHandleMain;
                 }
                 else if (processMulti.Type == ProcessType.Win32 || processMulti.Type == ProcessType.Win32Store)
                 {

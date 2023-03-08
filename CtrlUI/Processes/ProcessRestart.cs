@@ -55,7 +55,7 @@ namespace CtrlUI
                 }
 
                 await Notification_Send_Status("AppRestart", "Restarting " + dataBindApp.Name);
-                Debug.WriteLine("Restarting Win32 application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandle);
+                Debug.WriteLine("Restarting Win32 application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandleMain);
 
                 //Minimize the CtrlUI window
                 await AppWindowMinimize(true, true);

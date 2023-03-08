@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -51,8 +50,7 @@ namespace CtrlUI
 
                 //Get all the installed uwp apps
                 PackageManager deployPackageManager = new PackageManager();
-                string currentUserIdentity = WindowsIdentity.GetCurrent().User.Value;
-                IEnumerable<Package> appPackages = deployPackageManager.FindPackagesForUser(currentUserIdentity);
+                IEnumerable<Package> appPackages = deployPackageManager.FindPackagesForUser(string.Empty);
                 foreach (Package appPackage in appPackages)
                 {
                     try
@@ -79,7 +77,7 @@ namespace CtrlUI
                         }
 
                         //Get detailed application information
-                        AppxDetails appxDetails = GetUwpAppxDetailsByAppPackage(appPackage);
+                        AppxDetails appxDetails = GetUwpAppxDetailsByUwpAppPackage(appPackage);
 
                         //Check if executable name is valid
                         if (string.IsNullOrWhiteSpace(appxDetails.ExecutableAliasName))
