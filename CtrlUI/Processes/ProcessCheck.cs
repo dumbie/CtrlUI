@@ -41,7 +41,7 @@ namespace CtrlUI
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
                     //Check if the application exists
-                    if (GetUwpAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
+                    if (GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId) == null)
                     {
                         await Notification_Send_Status("Close", "Application not found");
                         Debug.WriteLine("Launch application not found.");
@@ -60,7 +60,7 @@ namespace CtrlUI
                         return false;
                     }
 
-                    //Check if the application exists
+                    //Check if application executable exists
                     if (!File.Exists(dataBindApp.PathExe))
                     {
                         await Notification_Send_Status("Close", "Executable not found");
@@ -71,7 +71,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    //Check if the application exists
+                    //Check if application executable exists
                     if (!File.Exists(dataBindApp.PathExe))
                     {
                         await Notification_Send_Status("Close", "Executable not found");
@@ -137,7 +137,15 @@ namespace CtrlUI
                 Answers.Add(AnswerRestartWithout);
 
                 //Get launch information
-                string launchInformation = dataBindApp.PathExe;
+                string launchInformation = string.Empty;
+                if (processMulti.Type == ProcessType.UWP || processMulti.Type == ProcessType.Win32Store)
+                {
+                    launchInformation = processMulti.AppUserModelId;
+                }
+                else
+                {
+                    launchInformation = processMulti.ExePath;
+                }
 
                 //Add launch argument
                 if (!string.IsNullOrWhiteSpace(processMulti.Argument))

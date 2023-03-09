@@ -77,9 +77,9 @@ namespace CtrlUI
             {
                 //Get application name
                 string appName = appxDetails.DisplayName;
+                string appNameLower = appName.ToLower();
 
                 //Check if application name is ignored
-                string appNameLower = appName.ToLower();
                 if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
                 {
                     //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
@@ -88,11 +88,11 @@ namespace CtrlUI
                 }
 
                 //Get basic application information
-                string runCommand = appxDetails.AppUserModelId;
-                vLauncherAppAvailableCheck.Add(runCommand);
+                string appUserModelId = appxDetails.AppUserModelId;
+                vLauncherAppAvailableCheck.Add(appUserModelId);
 
                 //Check if application is already added
-                DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == runCommand.ToLower()).FirstOrDefault();
+                DataBindApp launcherExistCheck = List_Launchers.Where(x => x.AppUserModelId.ToLower() == appUserModelId.ToLower()).FirstOrDefault();
                 if (launcherExistCheck != null)
                 {
                     //Debug.WriteLine("UWP app already in list: " + appIds);
@@ -110,12 +110,12 @@ namespace CtrlUI
                     Category = AppCategory.Launcher,
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
-                    PathExe = runCommand,
+                    AppUserModelId = appUserModelId,
                     StatusLauncherImage = vImagePreloadMicrosoft
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
-                //Debug.WriteLine("Added UWP app: " + appName);
+                Debug.WriteLine("Added UWP app: " + appName + "/" + appUserModelId);
             }
             catch
             {

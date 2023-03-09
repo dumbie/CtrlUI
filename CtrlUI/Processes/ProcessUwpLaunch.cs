@@ -5,19 +5,41 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.AVUwpAppx;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
         //Launch an UWP or Win32Store application from databindapp
-        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(DataBindApp dataBindApp, bool silent, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(DataBindApp dataBindApp, string launchArgument, bool silent, bool launchKeyboard)
         {
             bool appLaunched = false;
             try
             {
+                //Set the app title
+                string appTitle = dataBindApp.Name;
+
+                //Check the launch argument
+                if (string.IsNullOrWhiteSpace(launchArgument))
+                {
+                    launchArgument = dataBindApp.Argument;
+                }
+                else
+                {
+                    //Update the app title
+                    if (dataBindApp.Category == AppCategory.Emulator)
+                    {
+                        appTitle += " with rom";
+                    }
+                    else if (dataBindApp.LaunchFilePicker)
+                    {
+                        appTitle += " with file";
+                    }
+                }
+
                 //Launch the application
-                appLaunched = await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, silent, launchKeyboard);
+                appLaunched = await PrepareProcessLauncherUwpAndWin32StoreAsync(appTitle, dataBindApp.AppUserModelId, launchArgument, silent, launchKeyboard);
 
                 //Update last launch date
                 if (appLaunched)
@@ -32,12 +54,12 @@ namespace CtrlUI
         }
 
         //Launch an UWP or Win32Store application manually
-        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(string appTitle, string pathExe, string argument, bool silent, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(string appTitle, string appUserModelId, string argument, bool silent, bool launchKeyboard)
         {
             try
             {
                 //Check if the application exists
-                if (GetUwpAppPackageByAppUserModelId(pathExe) == null)
+                if (GetUwpAppPackageByAppUserModelId(appUserModelId) == null)
                 {
                     await Notification_Send_Status("Close", "Application not found");
                     Debug.WriteLine("Launch application not found.");
@@ -55,7 +77,7 @@ namespace CtrlUI
                 await AppWindowMinimize(true, true);
 
                 //Launch the UWP or Win32Store application
-                int processId = AVProcessTool.Launch_Uwp(pathExe, argument);
+                int processId = AVProcessTool.Launch_Uwp(appUserModelId, argument);
                 if (processId <= 0)
                 {
                     //Show failed launch messagebox

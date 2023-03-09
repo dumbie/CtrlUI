@@ -94,7 +94,7 @@ namespace CtrlUI
                 }
 
                 //Remove deleted launcher applications
-                Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && !vLauncherAppAvailableCheck.Any(y => y == x.PathExe);
+                Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && !vLauncherAppAvailableCheck.Any(y => y == x.PathExe || y == x.AppUserModelId);
                 await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 await ListBoxRemoveAll(lb_Search, List_Search, filterLauncherApp);
 

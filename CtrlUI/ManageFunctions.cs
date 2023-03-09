@@ -35,7 +35,7 @@ namespace CtrlUI
                 //Check if application is a Win32 app
                 if (dataBindApp.Type == ProcessType.Win32)
                 {
-                    //Check if application still exists
+                    //Check if application executable exists
                     if (!File.Exists(dataBindApp.PathExe))
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
@@ -56,7 +56,7 @@ namespace CtrlUI
                     dataBindApp.StatusStore = Visibility.Visible;
 
                     //Check if application still exists
-                    if (GetUwpAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
+                    if (GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId) == null)
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
                     }
@@ -795,7 +795,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Check if new application already exists
-                    if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower() || x.PathExe.ToLower() == vFilePickerResult.PathFile.ToLower()))
+                    if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower() || x.AppUserModelId.ToLower() == vFilePickerResult.PathFile.ToLower()))
                     {
                         List<DataBindString> answersConfirm = new List<DataBindString>();
                         DataBindString answerAlright = new DataBindString();
@@ -809,7 +809,7 @@ namespace CtrlUI
 
                     await Notification_Send_Status("Plus", "Added " + vFilePickerResult.Name);
                     Debug.WriteLine("Adding UWP app: " + tb_AddAppName.Text + " to the list.");
-                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, PathExe = vFilePickerResult.PathFile, PathImage = vFilePickerResult.PathImage, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableHDR = (bool)checkbox_AddLaunchEnableHDR.IsChecked };
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, AppUserModelId = vFilePickerResult.PathFile, PathImage = vFilePickerResult.PathImage, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableHDR = (bool)checkbox_AddLaunchEnableHDR.IsChecked };
                     await AddAppToList(dataBindApp, true, true);
                 }
             }

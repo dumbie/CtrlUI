@@ -26,7 +26,7 @@ namespace CtrlUI
 
                 //Check keyboard controller launch
                 string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
-                bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
+                bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower() || x.String1.ToLower() == dataBindApp.AppUserModelId.ToLower());
                 bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
                 //Set restart arguments
@@ -47,15 +47,8 @@ namespace CtrlUI
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(dataBindApp.PathExe))
-                {
-                    await Notification_Send_Status("Close", "Failed restarting " + dataBindApp.Name);
-                    Debug.WriteLine("Failed to restart process: " + dataBindApp.Name);
-                    return false;
-                }
-
                 await Notification_Send_Status("AppRestart", "Restarting " + dataBindApp.Name);
-                Debug.WriteLine("Restarting Win32 application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandleMain);
+                Debug.WriteLine("Restarting application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandleMain);
 
                 //Minimize the CtrlUI window
                 await AppWindowMinimize(true, true);
@@ -65,7 +58,7 @@ namespace CtrlUI
                 if (processId <= 0)
                 {
                     await Notification_Send_Status("Close", "Failed restarting " + dataBindApp.Name);
-                    Debug.WriteLine("Failed to restart process: " + dataBindApp.Name);
+                    Debug.WriteLine("Failed to restart process: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandleMain);
                     return false;
                 }
 

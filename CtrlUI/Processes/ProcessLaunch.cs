@@ -45,15 +45,14 @@ namespace CtrlUI
                     //Show the process window
                     await ShowProcessWindowAuto(dataBindApp, processMulti);
                 }
-                else
+                else if (Check_PathUrlProtocol(dataBindApp.PathExe))
                 {
                     //Run process url protocol
-                    if (Check_PathUrlProtocol(dataBindApp.PathExe))
-                    {
-                        await PrepareProcessLauncherUrlProtocolAsync(dataBindApp, false, false, false);
-                        return;
-                    }
-
+                    await PrepareProcessLauncherUrlProtocolAsync(dataBindApp, false, false, false);
+                    return;
+                }
+                else
+                {
                     //Refresh the processes list
                     await Notification_Send_Status("AppLaunch", "Preparing launch");
                     await RefreshListProcessesWithWait(true);
@@ -94,17 +93,20 @@ namespace CtrlUI
             {
                 //Check keyboard controller launch
                 string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
-                bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
+                bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower() || x.String1.ToLower() == dataBindApp.AppUserModelId.ToLower());
                 bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
                 //Check if databind paths are available
-                if (!await CheckDatabindPathAuto(dataBindApp)) { return; }
+                if (!await CheckDatabindPathAuto(dataBindApp))
+                {
+                    return;
+                }
 
                 //Launch the databind process
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp, false, keyboardLaunch);
+                    await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp, string.Empty, false, keyboardLaunch);
                 }
                 else if (dataBindApp.LaunchFilePicker)
                 {
@@ -149,7 +151,7 @@ namespace CtrlUI
                 bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
 
                 //Launch the Win32 application
-                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, false, keyboardLaunch);
+                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, keyboardLaunch);
             }
             catch { }
         }

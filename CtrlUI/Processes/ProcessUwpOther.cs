@@ -64,7 +64,7 @@ namespace CtrlUI
                             Debug.WriteLine("Uwp application image not found: " + dataBindApp.PathImage);
 
                             //Get detailed application information
-                            Package appPackage = GetUwpAppPackageByAppUserModelId(dataBindApp.PathExe);
+                            Package appPackage = GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId);
                             AppxDetails appxDetails = GetUwpAppxDetailsByUwpAppPackage(appPackage);
 
                             //Update the application icons

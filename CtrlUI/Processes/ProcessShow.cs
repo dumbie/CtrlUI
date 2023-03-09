@@ -57,7 +57,7 @@ namespace CtrlUI
                 {
                     //Check keyboard controller launch
                     string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
-                    bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
+                    bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower() || x.String1.ToLower() == dataBindApp.AppUserModelId.ToLower());
                     bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
                     //Force focus on the app
@@ -107,8 +107,14 @@ namespace CtrlUI
                         AnswerClose.Name = "Close application";
                         Answers.Add(AnswerClose);
 
-                        //Get launch information
-                        launchInformation = dataBindApp.PathExe;
+                        if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                        {
+                            launchInformation = dataBindApp.AppUserModelId;
+                        }
+                        else
+                        {
+                            launchInformation = dataBindApp.PathExe;
+                        }
 
                         //Add launch argument
                         if (!string.IsNullOrWhiteSpace(processMulti.Argument))

@@ -99,15 +99,27 @@ namespace CtrlUI
                         iconPath = Environment.ExpandEnvironmentVariables(iconPath);
                         shortcutPath = Environment.ExpandEnvironmentVariables(shortcutPath);
 
+                        //Check shortcut type
+                        if (Check_PathUrlProtocol(targetPath))
+                        {
+                            shortcutDetails.Type = ShortcutType.UrlProtocol;
+                        }
+                        else if (Check_PathUwpApplication(targetPath))
+                        {
+                            shortcutDetails.Type = ShortcutType.UWP;
+                        }
+                        else
+                        {
+                            shortcutDetails.NameExe = Path.GetFileName(targetPath);
+                        }
+
                         //Set shortcut details
                         shortcutDetails.Title = StripShortcutFilename(Path.GetFileNameWithoutExtension(shortcutPath));
                         shortcutDetails.TargetPath = targetPath;
                         shortcutDetails.WorkingPath = workingPath;
-                        shortcutDetails.NameExe = Path.GetFileName(shortcutDetails.TargetPath);
                         shortcutDetails.IconIndex = iconIndex;
                         shortcutDetails.IconPath = iconPath;
                         shortcutDetails.ShortcutPath = shortcutPath;
-                        shortcutDetails.Type = folderItem.Type;
                         shortcutDetails.Argument = argumentString;
                         shortcutDetails.Comment = shellLinkObject.Description;
                         shortcutDetails.TimeModify = folderItem.ModifyDate;
@@ -189,9 +201,9 @@ namespace CtrlUI
                         string targetArgumentLower = shortcutDetails.Argument.ToLower();
 
                         //Check if already in combined list and remove it
-                        if (CombineAppLists(false, false, true).Any(x => x.Name.ToLower() == targetTitleLower || x.PathExe.ToLower() == targetPathLower))
+                        if (CombineAppLists(false, false, true).Any(x => x.Name.ToLower() == targetTitleLower || x.PathExe.ToLower() == targetPathLower || x.AppUserModelId.ToLower() == targetPathLower))
                         {
-                            //Debug.WriteLine("Shortcut is in the combined list skipping: " + fileNameStripped.ToLower());
+                            //Debug.WriteLine("Shortcut is in the combined list skipping: " + targetPathLower);
                             await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
                             continue;
                         }
@@ -279,7 +291,7 @@ namespace CtrlUI
                         shortcutUrlProtocol = Visibility.Visible;
                     }
                 }
-                else if (Check_PathUrlProtocol(targetPathLower))
+                else if (shortcutDetails.Type == ShortcutType.UrlProtocol)
                 {
                     //Check if shortcut is url protocol
                     shortcutUrlProtocol = Visibility.Visible;
@@ -314,7 +326,7 @@ namespace CtrlUI
                         launcherImage = vImagePreloadAmazon;
                     }
                 }
-                else if (Check_PathUwpApplication(targetPathLower))
+                else if (shortcutDetails.Type == ShortcutType.UWP)
                 {
                     //Check if shortcut is windows store app
                     shortcutProcessType = ProcessType.UWP;
@@ -358,7 +370,16 @@ namespace CtrlUI
                 }
 
                 //Add the shortcut to the list
-                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusUrlProtocol = shortcutUrlProtocol, StatusLauncherImage = launcherImage, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
+                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusUrlProtocol = shortcutUrlProtocol, StatusLauncherImage = launcherImage, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
+                if (shortcutDetails.Type == ShortcutType.UWP)
+                {
+                    dataBindApp.AppUserModelId = shortcutDetails.TargetPath;
+                }
+                else
+                {
+                    dataBindApp.PathExe = shortcutDetails.TargetPath;
+                }
+
                 await ListBoxAddItem(lb_Shortcuts, List_Shortcuts, dataBindApp, false, false);
             }
             catch

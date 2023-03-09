@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVJsonFunctions;
+using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.FocusFunctions;
@@ -35,7 +36,15 @@ namespace CtrlUI
                 Answers.Add(AnswerHide);
 
                 //Get launch information
-                string launchInformation = dataBindApp.PathExe;
+                string launchInformation = string.Empty;
+                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                {
+                    launchInformation = dataBindApp.AppUserModelId;
+                }
+                else
+                {
+                    launchInformation = dataBindApp.PathExe;
+                }
 
                 //Add launch argument
                 if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
