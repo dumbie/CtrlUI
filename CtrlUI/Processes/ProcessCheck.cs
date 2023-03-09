@@ -15,24 +15,6 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Check process windows
-        async Task<IntPtr> CheckProcessWindowsAuto(DataBindApp dataBindApp, ProcessMulti processMulti)
-        {
-            try
-            {
-                if (processMulti.Type == ProcessType.UWP)
-                {
-                    return processMulti.WindowHandleMain;
-                }
-                else if (processMulti.Type == ProcessType.Win32 || processMulti.Type == ProcessType.Win32Store)
-                {
-                    return await CheckProcessWindowsWin32AndWin32Store(dataBindApp, processMulti);
-                }
-            }
-            catch { }
-            return IntPtr.Zero;
-        }
-
         //Check if databind paths are available
         async Task<bool> CheckDatabindPathAuto(DataBindApp dataBindApp)
         {

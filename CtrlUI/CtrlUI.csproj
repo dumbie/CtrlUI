@@ -195,7 +195,7 @@
     <Compile Include="Processes\ProcessUwpClose.cs" />
     <Compile Include="Processes\ProcessRestart.cs" />
     <Compile Include="Processes\ProcessWin32Close.cs" />
-    <Compile Include="Processes\ProcessWin32Check.cs" />
+    <Compile Include="Processes\ProcessWindows.cs" />
     <Compile Include="Processes\ProcessList.cs" />
     <Compile Include="RegistryFunctions.cs" />
     <Compile Include="QuickActionFunctions.cs" />

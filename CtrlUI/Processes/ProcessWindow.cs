@@ -15,108 +15,101 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Check if process has multiple windows
-        async Task<IntPtr> CheckProcessWindowsWin32AndWin32Store(DataBindApp dataBindApp, ProcessMulti processMulti)
+        async Task<IntPtr> CheckProcessWindowsAuto(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
             {
-                //Get threads from process
-                List<ProcessThreadInfo> processThreads = processMulti.Threads;
-
-                //Check threads from process
-                int processThreadCount = processThreads.Count;
-                if (processThreadCount > 1)
+                //Get process windows
+                List<IntPtr> processWindows = processMulti.WindowHandles;
+                int processWindowCount = processWindows.Count;
+                if (processWindowCount > 1)
                 {
-                    Debug.WriteLine("Found window threads: " + processThreadCount);
-
+                    Debug.WriteLine("Found process windows: " + processWindowCount);
                     List<DataBindString> multiAnswers = new List<DataBindString>();
                     List<IntPtr> multiVariables = new List<IntPtr>();
-                    foreach (ProcessThreadInfo threadInfo in processThreads)
+                    foreach (IntPtr windowHandle in processWindows)
                     {
-                        foreach (IntPtr threadWindowHandle in Get_WindowHandlesByThreadId(threadInfo.Identifier))
+                        try
                         {
-                            try
+                            //Check if window handle is already added
+                            string windowHandleString = windowHandle.ToString();
+                            if (multiAnswers.Any(x => x.Data1.ToString() == windowHandleString))
                             {
-                                //Check if window handle is already added
-                                string windowHandleString = threadWindowHandle.ToString();
-                                if (multiAnswers.Any(x => x.Data1.ToString() == windowHandleString))
+                                //Debug.WriteLine("Duplicate window handle detected, skipping.");
+                                continue;
+                            }
+
+                            //Validate the window handle
+                            if (windowHandle == processMulti.WindowHandleMain || Check_ValidWindowHandle(windowHandle))
+                            {
+                                //Get the window state
+                                WindowPlacement processWindowState = new WindowPlacement();
+                                GetWindowPlacement(windowHandle, ref processWindowState);
+
+                                //Get the window title
+                                string windowTitleString = Detail_WindowTitleByWindowHandle(windowHandle);
+                                string windowSubString = windowHandleString;
+
+                                //Check window main
+                                if (windowHandle == processMulti.WindowHandleMain)
                                 {
-                                    //Debug.WriteLine("Duplicate window handle detected, skipping.");
-                                    continue;
+                                    windowSubString += " (Main)";
                                 }
 
-                                //Validate the window handle
-                                if (threadWindowHandle == processMulti.WindowHandleMain || Check_ValidWindowHandle(threadWindowHandle))
+                                //Check window style
+                                WindowStylesEx windowStyle = (WindowStylesEx)GetWindowLongAuto(windowHandle, (int)WindowLongFlags.GWL_EXSTYLE).ToInt64();
+                                if (windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW) || windowStyle.HasFlag(WindowStylesEx.WS_EX_LAYERED))
                                 {
-                                    //Get the window state
-                                    WindowPlacement processWindowState = new WindowPlacement();
-                                    GetWindowPlacement(threadWindowHandle, ref processWindowState);
+                                    windowSubString += " (Tool)";
+                                }
+                                else
+                                {
+                                    windowSubString += " (Window)";
+                                }
 
-                                    //Get the window title
-                                    string windowTitleString = Detail_WindowTitleByWindowHandle(threadWindowHandle);
-                                    string windowSubString = windowHandleString;
+                                //Check window state
+                                if (processWindowState.windowShowCommand == WindowShowCommand.Minimized)
+                                {
+                                    windowSubString += " (Minimized)";
+                                }
 
-                                    //Check window main
-                                    if (threadWindowHandle == processMulti.WindowHandleMain)
+                                //Check explorer window
+                                if (dataBindApp.NameExe.ToLower() == "explorer.exe")
+                                {
+                                    if (windowTitleString == "Unknown" || windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW) || windowStyle.HasFlag(WindowStylesEx.WS_EX_LAYERED))
                                     {
-                                        windowSubString += " (Main)";
-                                    }
-
-                                    //Check window style
-                                    WindowStylesEx windowStyle = (WindowStylesEx)GetWindowLongAuto(threadWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE).ToInt64();
-                                    if (windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW) || windowStyle.HasFlag(WindowStylesEx.WS_EX_LAYERED))
-                                    {
-                                        windowSubString += " (Tool)";
-                                    }
-                                    else
-                                    {
-                                        windowSubString += " (Window)";
-                                    }
-
-                                    //Check window state
-                                    if (processWindowState.windowShowCommand == WindowShowCommand.Minimized)
-                                    {
-                                        windowSubString += " (Minimized)";
-                                    }
-
-                                    //Check explorer window
-                                    if (dataBindApp.NameExe.ToLower() == "explorer.exe")
-                                    {
-                                        if (windowTitleString == "Unknown" || windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW) || windowStyle.HasFlag(WindowStylesEx.WS_EX_LAYERED))
-                                        {
-                                            continue;
-                                        }
-                                    }
-
-                                    DataBindString Answer1 = new DataBindString();
-                                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                                    Answer1.Name = windowTitleString;
-                                    Answer1.NameSub = windowSubString;
-                                    Answer1.Data1 = windowHandleString;
-
-                                    //Add window to selection
-                                    if (threadWindowHandle == processMulti.WindowHandleMain)
-                                    {
-                                        multiAnswers.Insert(0, Answer1);
-                                        multiVariables.Insert(0, threadWindowHandle);
-                                    }
-                                    else
-                                    {
-                                        multiAnswers.Add(Answer1);
-                                        multiVariables.Add(threadWindowHandle);
+                                        continue;
                                     }
                                 }
+
+                                //Add window to selection
+                                DataBindString Answer1 = new DataBindString();
+                                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                                Answer1.Name = windowTitleString;
+                                Answer1.NameSub = windowSubString;
+                                Answer1.Data1 = windowHandleString;
+                                if (windowHandle == processMulti.WindowHandleMain)
+                                {
+                                    multiAnswers.Insert(0, Answer1);
+                                    multiVariables.Insert(0, windowHandle);
+                                }
+                                else
+                                {
+                                    multiAnswers.Add(Answer1);
+                                    multiVariables.Add(windowHandle);
+                                }
                             }
-                            catch
-                            {
-                                Debug.WriteLine("Failed checking window handle: " + threadWindowHandle);
-                            }
+                        }
+                        catch
+                        {
+                            Debug.WriteLine("Failed checking window handle: " + windowHandle);
                         }
                     }
 
                     //Check if there are multiple answers
                     if (multiVariables.Count == 1)
                     {
-                        Debug.WriteLine("There is only one visible window, returning the default window.");
+                        Debug.WriteLine("There is only one visible window, returning the window.");
                         return multiVariables.FirstOrDefault();
                     }
                     else if (multiVariables.Count == 0)
@@ -212,12 +205,13 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Debug.WriteLine("Single window thread process: " + processMulti.WindowHandleMain);
+                    Debug.WriteLine("Single window process, returning main window.");
                     return processMulti.WindowHandleMain;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine("Failed to check process windows: " + ex.Message);
                 return IntPtr.Zero;
             }
         }
