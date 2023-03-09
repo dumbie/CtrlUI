@@ -1155,19 +1155,13 @@
     <Content Include="Profiles\User\CtrlApplications.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\User\CtrlHDRProcessName.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Profiles\User\CtrlIgnoreLauncherName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\User\CtrlIgnoreProcessName.json">
+    <Content Include="Profiles\Default\CtrlIgnoreProcessName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\User\CtrlIgnoreShortcutName.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Profiles\User\CtrlIgnoreShortcutUri.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\User\CtrlKeyboardExtensionName.json">

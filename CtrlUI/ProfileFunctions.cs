@@ -41,25 +41,7 @@ namespace CtrlUI
                 Debug.WriteLine("Changing edit profile to: " + vProfileManagerName);
 
                 //Load the requested profile values
-                if (vProfileManagerName == @"User\CtrlHDRProcessName")
-                {
-                    grid_Popup_ProfileManager_txt_Description.Text = "HDR enable process names";
-                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Process name";
-                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
-
-                    vProfileManagerListShared = vCtrlHDRProcessName;
-                    lb_ProfileManager.ItemsSource = vCtrlHDRProcessName;
-                }
-                else if (vProfileManagerName == "CtrlIgnoreProcessName")
-                {
-                    grid_Popup_ProfileManager_txt_Description.Text = "Ignored process names";
-                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Process name";
-                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
-
-                    vProfileManagerListShared = vCtrlIgnoreProcessName;
-                    lb_ProfileManager.ItemsSource = vCtrlIgnoreProcessName;
-                }
-                else if (vProfileManagerName == "CtrlLocationsShortcut")
+                if (vProfileManagerName == "CtrlLocationsShortcut")
                 {
                     grid_Popup_ProfileManager_txt_Description.Text = "Shortcut locations";
                     grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Path";
@@ -95,15 +77,6 @@ namespace CtrlUI
 
                     vProfileManagerListShared = vCtrlIgnoreShortcutName;
                     lb_ProfileManager.ItemsSource = vCtrlIgnoreShortcutName;
-                }
-                else if (vProfileManagerName == "CtrlIgnoreShortcutUri")
-                {
-                    grid_Popup_ProfileManager_txt_Description.Text = "Ignored shortcut uri's";
-                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Shortcut uri";
-                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
-
-                    vProfileManagerListShared = vCtrlIgnoreShortcutUri;
-                    lb_ProfileManager.ItemsSource = vCtrlIgnoreShortcutUri;
                 }
                 else if (vProfileManagerName == "CtrlKeyboardExtensionName")
                 {
@@ -243,26 +216,17 @@ namespace CtrlUI
                 DataBindString stringCtrlLocationsFile = new DataBindString() { Name = "File browser locations", Data1 = "CtrlLocationsFile", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlLocationsFile);
 
-                DataBindString stringCtrlIgnoreProcessName = new DataBindString() { Name = "Ignored process names", Data1 = "CtrlIgnoreProcessName", ImageBitmap = imageProfile };
-                Answers.Add(stringCtrlIgnoreProcessName);
-
                 DataBindString stringCtrlIgnoreLauncherName = new DataBindString() { Name = "Ignored launcher names", Data1 = "CtrlIgnoreLauncherName", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlIgnoreLauncherName);
 
                 DataBindString stringCtrlIgnoreShortcutName = new DataBindString() { Name = "Ignored shortcuts names", Data1 = "CtrlIgnoreShortcutName", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlIgnoreShortcutName);
 
-                DataBindString stringCtrlIgnoreShortcutUri = new DataBindString() { Name = "Ignored shortcut uri's", Data1 = "CtrlIgnoreShortcutUri", ImageBitmap = imageProfile };
-                Answers.Add(stringCtrlIgnoreShortcutUri);
-
                 DataBindString stringCtrlKeyboardExtensionName = new DataBindString() { Name = "Keyboard open extension names", Data1 = "CtrlKeyboardExtensionName", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlKeyboardExtensionName);
 
                 DataBindString stringCtrlKeyboardProcessName = new DataBindString() { Name = "Keyboard open process names", Data1 = "CtrlKeyboardProcessName", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlKeyboardProcessName);
-
-                DataBindString stringCtrlHDRProcessName = new DataBindString() { Name = "Enable HDR process names", Data1 = @"User\CtrlHDRProcessName", ImageBitmap = imageProfile };
-                Answers.Add(stringCtrlHDRProcessName);
 
                 //Show the messagebox
                 DataBindString messageResult = await Popup_Show_MessageBox("Profile Category", "", "Please select the profile to manage:", Answers);

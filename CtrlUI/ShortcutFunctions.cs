@@ -204,14 +204,6 @@ namespace CtrlUI
                             continue;
                         }
 
-                        //Check if shortcut uri is in shortcut uri blacklist
-                        if (vCtrlIgnoreShortcutUri.Any(x => targetPathLower.Contains(x.String1.ToLower())))
-                        {
-                            //Debug.WriteLine("Shortcut uri is on the uri blacklist skipping: " + targetPathLower);
-                            await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
-                            continue;
-                        }
-
                         //Check if shortcut is already in the shortcut list
                         DataBindApp shortcutExistCheck = List_Shortcuts.Where(x => x.PathExe.ToLower() == targetPathLower && x.Argument.ToLower() == targetArgumentLower).FirstOrDefault();
                         if (shortcutExistCheck != null)

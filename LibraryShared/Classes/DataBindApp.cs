@@ -224,6 +224,20 @@ namespace LibraryShared
                 }
             }
 
+            private bool PrivLaunchEnableHDR = false;
+            public bool LaunchEnableHDR
+            {
+                get { return this.PrivLaunchEnableHDR; }
+                set
+                {
+                    if (this.PrivLaunchEnableHDR != value)
+                    {
+                        this.PrivLaunchEnableHDR = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private bool PrivQuickLaunch = false;
             public bool QuickLaunch
             {

@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.AVJsonFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -217,55 +214,6 @@ namespace CtrlUI
                 }
             }
             catch { }
-        }
-
-        private void Checkbox_AddLaunchEnableHDR_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //Enable monitor HDR
-                string executableName = string.Empty;
-                string executableNameRaw = string.Empty;
-                if (string.IsNullOrWhiteSpace(tb_AddAppNameExe.Text))
-                {
-                    executableName = Path.GetFileNameWithoutExtension(tb_AddAppPathExe.Text).ToLower();
-                    executableNameRaw = tb_AddAppPathExe.Text.ToLower();
-                }
-                else
-                {
-                    executableName = Path.GetFileNameWithoutExtension(tb_AddAppNameExe.Text).ToLower();
-                    executableNameRaw = tb_AddAppNameExe.Text.ToLower();
-                }
-                List<ProfileShared> enabledHDR = vCtrlHDRProcessName.Where(x => x.String1.ToLower() == executableName || x.String1.ToLower() == executableNameRaw).ToList();
-
-                if ((bool)checkbox_AddLaunchEnableHDR.IsChecked)
-                {
-                    if (!enabledHDR.Any())
-                    {
-                        ProfileShared newProfile = new ProfileShared();
-                        newProfile.String1 = executableNameRaw;
-                        vCtrlHDRProcessName.Add(newProfile);
-                        JsonSaveObject(vCtrlHDRProcessName, @"Profiles\User\CtrlHDRProcessName.json");
-                    }
-                    Debug.WriteLine("Enabled HDR profile for: " + executableNameRaw);
-                }
-                else
-                {
-                    if (enabledHDR.Any())
-                    {
-                        foreach (ProfileShared removeProfile in enabledHDR)
-                        {
-                            vCtrlHDRProcessName.Remove(removeProfile);
-                        }
-                        JsonSaveObject(vCtrlHDRProcessName, @"Profiles\User\CtrlHDRProcessName.json");
-                    }
-                    Debug.WriteLine("Disabled HDR profile for: " + executableNameRaw);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to change enable HDR profile: " + ex.Message);
-            }
         }
     }
 }

@@ -24,6 +24,15 @@
     "String1": "rundll32"
   },
   {
+    "String1": "consent"
+  },
+  {
+    "String1": "fondue"
+  },
+  {
     "String1": "launcher"
+  },
+  {
+    "String1": "taskmgr"
   }
 ]

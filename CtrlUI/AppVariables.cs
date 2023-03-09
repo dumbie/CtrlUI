@@ -163,7 +163,7 @@ namespace CtrlUI
         public static string vFilePickerPreviousPath = string.Empty;
 
         //Profile Manager Variables
-        public static string vProfileManagerName = "CtrlIgnoreProcessName";
+        public static string vProfileManagerName = "CtrlLocationsShortcut";
         public static ObservableCollection<ProfileShared> vProfileManagerListShared = null;
 
         //Clipboard Variables
@@ -216,11 +216,9 @@ namespace CtrlUI
         }
 
         //Application Lists
-        public static ObservableCollection<ProfileShared> vCtrlHDRProcessName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlIgnoreProcessName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlIgnoreLauncherName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutName = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutUri = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlKeyboardExtensionName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlKeyboardProcessName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlChromiumBrowsers = new ObservableCollection<ProfileShared>();

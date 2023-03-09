@@ -31,7 +31,7 @@ namespace CtrlUI
 
                 DataBindString AnswerHide = new DataBindString();
                 AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Hide.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerHide.Name = "Hide the launcher application";
+                AnswerHide.Name = "Hide application from list";
                 Answers.Add(AnswerHide);
 
                 //Get launch information
@@ -70,7 +70,7 @@ namespace CtrlUI
             catch { }
         }
 
-        //Hide the launcher app
+        //Hide launcher app
         async Task HideLauncherApp(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
         {
             try

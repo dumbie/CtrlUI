@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -134,23 +133,7 @@ namespace CtrlUI
         {
             try
             {
-                //Check executable name
-                string executableName = string.Empty;
-                string executableNameRaw = string.Empty;
-                if (string.IsNullOrWhiteSpace(dataBindApp.NameExe))
-                {
-                    executableName = Path.GetFileNameWithoutExtension(dataBindApp.PathExe).ToLower();
-                    executableNameRaw = dataBindApp.PathExe.ToLower();
-                }
-                else
-                {
-                    executableName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe).ToLower();
-                    executableNameRaw = dataBindApp.NameExe.ToLower();
-                }
-
-                //Enable monitor HDR
-                bool enabledHDR = vCtrlHDRProcessName.Any(x => x.String1.ToLower() == executableName || x.String1.ToLower() == executableNameRaw);
-                if (enabledHDR)
+                if (dataBindApp.LaunchEnableHDR)
                 {
                     await AllMonitorSwitchHDR(true, true);
                 }

@@ -111,18 +111,18 @@ namespace CtrlUI
                 //Load Json stored apps
                 await JsonLoadList_Applications();
 
-                //Load Json profiles
-                JsonLoadFile(ref vCtrlHDRProcessName, @"Profiles\User\CtrlHDRProcessName.json");
+                //Load Json default profiles
                 JsonLoadFile(ref vCtrlChromiumBrowsers, @"Profiles\Default\CtrlChromiumBrowsers.json");
                 JsonLoadFile(ref vCtrlCloseLaunchers, @"Profiles\Default\CtrlCloseLaunchers.json");
-                JsonLoadFile(ref vCtrlLocationsFile, @"Profiles\User\CtrlLocationsFile.json");
-                JsonLoadFile(ref vCtrlLocationsShortcut, @"Profiles\User\CtrlLocationsShortcut.json");
+                JsonLoadFile(ref vCtrlIgnoreProcessName, @"Profiles\Default\CtrlIgnoreProcessName.json");
+
+                //Load Json user profiles
                 JsonLoadFile(ref vCtrlIgnoreLauncherName, @"Profiles\User\CtrlIgnoreLauncherName.json");
                 JsonLoadFile(ref vCtrlIgnoreShortcutName, @"Profiles\User\CtrlIgnoreShortcutName.json");
-                JsonLoadFile(ref vCtrlIgnoreShortcutUri, @"Profiles\User\CtrlIgnoreShortcutUri.json");
-                JsonLoadFile(ref vCtrlIgnoreProcessName, @"Profiles\User\CtrlIgnoreProcessName.json");
                 JsonLoadFile(ref vCtrlKeyboardExtensionName, @"Profiles\User\CtrlKeyboardExtensionName.json");
                 JsonLoadFile(ref vCtrlKeyboardProcessName, @"Profiles\User\CtrlKeyboardProcessName.json");
+                JsonLoadFile(ref vCtrlLocationsFile, @"Profiles\User\CtrlLocationsFile.json");
+                JsonLoadFile(ref vCtrlLocationsShortcut, @"Profiles\User\CtrlLocationsShortcut.json");
 
                 //Load Json lists
                 JsonLoadFile(ref vApiIGDBGenres, @"Resources\ApiIGDB\Genres.json");
