@@ -386,12 +386,14 @@ namespace CtrlUI
                     }
 
                     //Rename application logo based on name and reload it
-                    string imageFileNameOld = "Assets/User/Apps/" + vEditAppDataBind.Name + ".png";
-                    if (vEditAppDataBind.Name != tb_AddAppName.Text && File.Exists(imageFileNameOld))
+                    string imageFileNameOldSafe = FilterNameFile(vEditAppDataBind.Name);
+                    string imageFileNameNewSafe = FilterNameFile(tb_AddAppName.Text);
+                    string imageFilePathOld = "Assets/User/Apps/" + imageFileNameOldSafe + ".png";
+                    string imageFilePathNew = "Assets/User/Apps/" + imageFileNameNewSafe + ".png";
+                    if (vEditAppDataBind.Name != tb_AddAppName.Text && File.Exists(imageFilePathOld))
                     {
                         Debug.WriteLine("App name changed and application logo file exists.");
-                        string imageFileNameNew = "Assets/User/Apps/" + tb_AddAppName.Text + ".png";
-                        File_Move(imageFileNameOld, imageFileNameNew, true);
+                        File_Move(imageFilePathOld, imageFilePathNew, true);
                     }
 
                     //Edit application in the list

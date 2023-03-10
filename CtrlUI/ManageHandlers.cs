@@ -67,12 +67,14 @@ namespace CtrlUI
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
 
-                //Fix check invalid file name
                 //Update the new application image
                 if (vEditAppDataBind != null)
                 {
+                    //Check invalid file name
+                    string saveFileName = FilterNameFile(vEditAppDataBind.Name);
+
                     //Copy the new application image
-                    File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + vEditAppDataBind.Name + ".png", true);
+                    File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + saveFileName + ".png", true);
 
                     //Load the new application image
                     BitmapImage applicationImage = Image_Application_Load(vEditAppDataBind, vImageLoadSize);
@@ -83,8 +85,11 @@ namespace CtrlUI
                 }
                 else
                 {
+                    //Check invalid file name
+                    string saveFileName = FilterNameFile(tb_AddAppName.Text);
+
                     //Copy the new application image
-                    File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + tb_AddAppName.Text + ".png", true);
+                    File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + saveFileName + ".png", true);
 
                     //Load the new application image
                     BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);

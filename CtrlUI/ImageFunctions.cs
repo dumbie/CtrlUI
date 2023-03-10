@@ -27,7 +27,7 @@ namespace CtrlUI
                     //Get application image information
                     Package appPackage = GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId);
                     AppxDetails appxDetails = GetUwpAppxDetailsByUwpAppPackage(appPackage);
-                    string imageFileName = dataBindApp.Name;
+                    string imageFileName = FilterNameFile(dataBindApp.Name);
                     string imageFileExeName = Path.GetFileNameWithoutExtension(appxDetails.ExecutableAliasName);
 
                     //Set application bitmap image
@@ -36,7 +36,7 @@ namespace CtrlUI
                 else
                 {
                     //Get application image information
-                    string imageFileName = dataBindApp.Name;
+                    string imageFileName = FilterNameFile(dataBindApp.Name);
                     string imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
                     string imageFileExePath = dataBindApp.PathExe;
 
@@ -60,7 +60,7 @@ namespace CtrlUI
             try
             {
                 //Set application and executable name
-                string imageFileName = dataBindApp.Name;
+                string imageFileName = FilterNameFile(dataBindApp.Name);
                 string imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.PathExe);
 
                 //Search application image files
@@ -91,13 +91,13 @@ namespace CtrlUI
                 string imageFileExePath = string.Empty;
                 if (dataBindApp != null)
                 {
-                    imageFileName = dataBindApp.Name;
+                    imageFileName = FilterNameFile(dataBindApp.Name);
                     imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
                     imageFileExePath = dataBindApp.PathExe;
                 }
                 else
                 {
-                    imageFileName = tb_AddAppName.Text;
+                    imageFileName = FilterNameFile(tb_AddAppName.Text);
                     imageFileExeName = Path.GetFileNameWithoutExtension(tb_AddAppPathExe.Text);
                     imageFileExePath = tb_AddAppPathExe.Text;
                 }

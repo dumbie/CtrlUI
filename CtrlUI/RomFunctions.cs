@@ -18,7 +18,7 @@ namespace CtrlUI
             try
             {
                 //Remove invalid characters
-                nameFile = string.Join(string.Empty, nameFile.Split(Path.GetInvalidFileNameChars()));
+                nameFile = string.Join(string.Empty, nameFile.Split(Path.GetInvalidFileNameChars())).Trim();
             }
             catch (Exception ex)
             {
@@ -33,7 +33,7 @@ namespace CtrlUI
             try
             {
                 //Remove invalid characters
-                nameFile = string.Join(string.Empty, nameFile.Split(Path.GetInvalidFileNameChars()));
+                nameFile = string.Join(string.Empty, nameFile.Split(Path.GetInvalidFileNameChars())).Trim();
 
                 //Remove unicode characters
                 nameFile = StringRemoveUnicode(nameFile);
