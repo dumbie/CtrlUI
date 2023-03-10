@@ -17,19 +17,19 @@ namespace CtrlUI
                 await Notification_Send_Status("AppClose", "Closing " + dataBindApp.Name);
                 Debug.WriteLine("Closing Win32 and Win32Store process: " + dataBindApp.Name);
 
-                //Close the process by id or name
+                //Close the process
                 bool closedProcess = false;
                 if (processMulti.Identifier > 0)
                 {
-                    closedProcess = AVProcessTool.Close_ProcessTreeId(processMulti.Identifier);
+                    closedProcess = AVProcess.Close_ProcessTreeByProcessId(processMulti.Identifier);
                 }
                 else if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
                 {
-                    closedProcess = AVProcessTool.Close_ProcessName(dataBindApp.NameExe);
+                    closedProcess = AVProcess.Close_ProcessesByName(dataBindApp.NameExe, true);
                 }
                 else
                 {
-                    closedProcess = AVProcessTool.Close_ProcessName(dataBindApp.PathExe);
+                    closedProcess = AVProcess.Close_ProcessesByExecutablePath(dataBindApp.PathExe);
                 }
 
                 //Check if process closed
@@ -81,15 +81,15 @@ namespace CtrlUI
                 {
                     if (processMulti.Identifier > 0)
                     {
-                        closedProcess = AVProcessTool.Close_ProcessTreeId(processMulti.Identifier);
+                        closedProcess = AVProcess.Close_ProcessTreeByProcessId(processMulti.Identifier);
                     }
                     else if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
                     {
-                        closedProcess = AVProcessTool.Close_ProcessName(dataBindApp.NameExe);
+                        closedProcess = AVProcess.Close_ProcessesByName(dataBindApp.NameExe, true);
                     }
                     else
                     {
-                        closedProcess = AVProcessTool.Close_ProcessName(dataBindApp.PathExe);
+                        closedProcess = AVProcess.Close_ProcessesByExecutablePath(dataBindApp.PathExe);
                     }
                 }
 

@@ -118,9 +118,9 @@ namespace DriverInstaller
                 //Close CtrlUI applications
                 try
                 {
-                    AVProcessTool.Close_ProcessName("CtrlUI");
-                    AVProcessTool.Close_ProcessName("DirectXInput");
-                    AVProcessTool.Close_ProcessName("FpsOverlayer");
+                    AVProcess.Close_ProcessesByName("CtrlUI", true);
+                    AVProcess.Close_ProcessesByName("DirectXInput", true);
+                    AVProcess.Close_ProcessesByName("FpsOverlayer", true);
                 }
                 catch { }
 
@@ -129,7 +129,7 @@ namespace DriverInstaller
                 {
                     try
                     {
-                        AVProcessTool.Close_ProcessName(closeLauncher.String1);
+                        AVProcess.Close_ProcessesByName(closeLauncher.String1, true);
                     }
                     catch { }
                 }
@@ -139,7 +139,7 @@ namespace DriverInstaller
                 {
                     try
                     {
-                        AVProcessTool.Close_ProcessName(closeTool.String1);
+                        AVProcess.Close_ProcessesByName(closeTool.String1, true);
                     }
                     catch { }
                 }
@@ -191,7 +191,7 @@ namespace DriverInstaller
                 if (runDirectXInput)
                 {
                     TextBoxAppend("Running the DirectXInput application.");
-                    AVProcessTool.Launch_Exe("DirectXInput-Launcher.exe", "", "", false, true, false);
+                    AVProcess.Launch_ExecuteInherit("DirectXInput-Launcher.exe", "", "", true);
                 }
 
                 //Set the exit reason text message

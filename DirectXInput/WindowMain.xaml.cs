@@ -264,7 +264,7 @@ namespace DirectXInput
                 {
                     try
                     {
-                        AVProcessTool.Close_ProcessName(closeTool.String1);
+                        AVProcess.Close_ProcessesByName(closeTool.String1, true);
                     }
                     catch { }
                 }

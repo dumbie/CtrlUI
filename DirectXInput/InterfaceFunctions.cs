@@ -582,7 +582,7 @@ namespace DirectXInput
                 {
                     if (!Check_RunningProcessByName("DriverInstaller", true))
                     {
-                        AVProcessTool.Launch_Exe("DriverInstaller.exe", "", "", false, true, false);
+                        AVProcess.Launch_ExecuteInherit("DriverInstaller.exe", "", "", true);
                         await Application_Exit();
                     }
                 }
@@ -608,7 +608,7 @@ namespace DirectXInput
                 {
                     if (!Check_RunningProcessByName("DriverInstaller", true))
                     {
-                        AVProcessTool.Launch_Exe("DriverInstaller.exe", "", "", false, true, false);
+                        AVProcess.Launch_ExecuteInherit("DriverInstaller.exe", "", "", true);
                         await Application_Exit();
                     }
                 }

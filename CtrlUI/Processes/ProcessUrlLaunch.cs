@@ -22,7 +22,7 @@ namespace CtrlUI
                 await AppWindowMinimize(true, true);
 
                 //Launch the url protocol
-                int processId = AVProcessTool.Launch_Exe(dataBindApp.PathExe, dataBindApp.PathLaunch, string.Empty, false, runAsAdmin, false);
+                int processId = AVProcess.Launch_ExecuteInherit(dataBindApp.PathExe, dataBindApp.PathLaunch, dataBindApp.Argument, runAsAdmin);
                 if (processId <= 0)
                 {
                     //Show failed launch messagebox

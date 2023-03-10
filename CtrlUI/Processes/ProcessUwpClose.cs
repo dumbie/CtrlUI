@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,15 @@ namespace CtrlUI
                 Debug.WriteLine("Closing UWP process: " + dataBindApp.Name);
 
                 //Close the process
-                bool closedProcess = AVProcessTool.Close_ProcessMessageHwnd(processMulti.WindowHandleMain);
+                bool closedProcess = false;
+                if (processMulti.WindowHandleMain != IntPtr.Zero)
+                {
+                    closedProcess = AVProcess.Close_ProcessByWindowMessage(processMulti.WindowHandleMain);
+                }
+                else if (processMulti.Identifier > 0)
+                {
+                    closedProcess = AVProcess.Close_ProcessTreeByProcessId(processMulti.Identifier);
+                }
 
                 //Check if process closed
                 if (closedProcess)
@@ -68,7 +77,7 @@ namespace CtrlUI
                 Debug.WriteLine("Closing all UWP processes: " + dataBindApp.Name + " / " + processMulti.Identifier);
 
                 //Close the process
-                bool closedProcess = AVProcessTool.Close_ProcessTreeId(processMulti.Identifier);
+                bool closedProcess = AVProcess.Close_ProcessTreeByProcessId(processMulti.Identifier);
 
                 //Check if process closed
                 if (closedProcess)

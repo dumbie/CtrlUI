@@ -3,9 +3,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Windows.ApplicationModel;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSearch;
+using static ArnoldVinkCode.AVUwpAppx;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -13,6 +16,44 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        //Load application image
+        public BitmapImage Image_Application_Load(DataBindApp dataBindApp, int imageSize)
+        {
+            BitmapImage applicationImage = null;
+            try
+            {
+                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                {
+                    //Get application image information
+                    Package appPackage = GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId);
+                    AppxDetails appxDetails = GetUwpAppxDetailsByUwpAppPackage(appPackage);
+                    string imageFileName = dataBindApp.Name;
+                    string imageFileExeName = Path.GetFileNameWithoutExtension(appxDetails.ExecutableAliasName);
+
+                    //Set application bitmap image
+                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, imageSize, 0);
+                }
+                else
+                {
+                    //Get application image information
+                    string imageFileName = dataBindApp.Name;
+                    string imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
+                    string imageFileExePath = dataBindApp.PathExe;
+
+                    //Set application bitmap image
+                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                }
+
+                Debug.WriteLine("Loaded application image: " + applicationImage);
+                return applicationImage;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to load application image: " + ex.Message);
+                return applicationImage;
+            }
+        }
+
         //Remove application image
         public void Image_Application_Remove(DataBindApp dataBindApp)
         {
@@ -51,7 +92,7 @@ namespace CtrlUI
                 if (dataBindApp != null)
                 {
                     imageFileName = dataBindApp.Name;
-                    imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.PathExe);
+                    imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
                     imageFileExePath = dataBindApp.PathExe;
                 }
                 else
@@ -71,12 +112,17 @@ namespace CtrlUI
                 }
 
                 //Reload the application image
-                BitmapImage applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-                img_AddAppLogo.Source = applicationImage;
+                BitmapImage applicationImage = null;
                 if (dataBindApp != null)
                 {
-                    dataBindApp.ImageBitmap = applicationImage;
+                    applicationImage = dataBindApp.ImageBitmap = Image_Application_Load(dataBindApp, vImageLoadSize);
                 }
+                else
+                {
+                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                }
+                dataBindApp.ImageBitmap = applicationImage;
+                img_AddAppLogo.Source = applicationImage;
 
                 await Notification_Send_Status("Restart", "App image reset");
                 Debug.WriteLine("Application image reset: " + imageFileName);

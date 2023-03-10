@@ -129,6 +129,12 @@ namespace CtrlUI
                     launchInformation = processMulti.ExePath;
                 }
 
+                //Add process identifier
+                if (processMulti.Identifier != 0)
+                {
+                    launchInformation += " (" + processMulti.Identifier + ")";
+                }
+
                 //Add launch argument
                 if (!string.IsNullOrWhiteSpace(processMulti.Argument))
                 {

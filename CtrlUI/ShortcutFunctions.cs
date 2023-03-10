@@ -200,8 +200,13 @@ namespace CtrlUI
                         string targetPathLower = shortcutDetails.TargetPath.ToLower();
                         string targetArgumentLower = shortcutDetails.Argument.ToLower();
 
+                        //Set shortcut filters
+                        Func<DataBindApp, bool> combineCheckShortcut = x => x.Name.ToLower() == targetTitleLower || x.PathExe.ToLower() == targetPathLower || x.AppUserModelId.ToLower() == targetPathLower;
+                        Func<ProfileShared, bool> blacklistCheckShortcut = x => x.String1.ToLower() == targetTitleLower;
+                        Func<DataBindApp, bool> duplicateCheckShortcut = x => (x.PathExe.ToLower() == targetPathLower && x.Argument.ToLower() == targetArgumentLower) || x.AppUserModelId.ToLower() == targetPathLower;
+
                         //Check if already in combined list and remove it
-                        if (CombineAppLists(false, false, true).Any(x => x.Name.ToLower() == targetTitleLower || x.PathExe.ToLower() == targetPathLower || x.AppUserModelId.ToLower() == targetPathLower))
+                        if (CombineAppLists(false, false, true).Any(combineCheckShortcut))
                         {
                             //Debug.WriteLine("Shortcut is in the combined list skipping: " + targetPathLower);
                             await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
@@ -209,15 +214,15 @@ namespace CtrlUI
                         }
 
                         //Check if shortcut name is in shortcut blacklist
-                        if (vCtrlIgnoreShortcutName.Any(x => x.String1.ToLower() == targetTitleLower))
+                        if (vCtrlIgnoreShortcutName.Any(blacklistCheckShortcut))
                         {
-                            //Debug.WriteLine("Shortcut is on the blacklist skipping: " + fileNameStripped.ToLower());
+                            //Debug.WriteLine("Shortcut is on the blacklist skipping: " + targetTitleLower);
                             await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
                             continue;
                         }
 
                         //Check if shortcut is already in the shortcut list
-                        DataBindApp shortcutExistCheck = List_Shortcuts.Where(x => x.PathExe.ToLower() == targetPathLower && x.Argument.ToLower() == targetArgumentLower).FirstOrDefault();
+                        DataBindApp shortcutExistCheck = List_Shortcuts.Where(duplicateCheckShortcut).FirstOrDefault();
                         if (shortcutExistCheck != null)
                         {
                             //Debug.WriteLine("Shortcut is already in list, updating: " + targetPathLower);

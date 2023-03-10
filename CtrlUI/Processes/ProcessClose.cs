@@ -77,7 +77,7 @@ namespace CtrlUI
                     {
                         try
                         {
-                            AVProcessTool.Close_ProcessName(closeLauncher.String1);
+                            AVProcess.Close_ProcessesByName(closeLauncher.String1, true);
                         }
                         catch { }
                     }
@@ -104,10 +104,10 @@ namespace CtrlUI
                     await Notification_Send_Status("Stream", "Disconnecting remote streams");
 
                     //Disconnect Steam Streaming
-                    AVProcessTool.Close_ProcessName("steam.exe");
+                    AVProcess.Close_ProcessesByName("steam.exe", true);
 
                     //Disconnect GeForce Experience
-                    AVProcessTool.Close_ProcessName("nvstreamer.exe");
+                    AVProcess.Close_ProcessesByName("nvstreamer.exe", true);
 
                     //Disconnect Parsec Streaming
                     KeyPressReleaseCombo(KeysVirtual.Control, KeysVirtual.F3);

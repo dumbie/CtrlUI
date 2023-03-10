@@ -44,7 +44,7 @@ namespace DirectXInput
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Launch CtrlUI
-                    AVProcessTool.Launch_Exe("CtrlUI-Launcher.exe", "", "", false, true, false);
+                    AVProcess.Launch_ExecuteInherit("CtrlUI-Launcher.exe", "", "", true);
                 }
             }
             catch { }
@@ -150,7 +150,7 @@ namespace DirectXInput
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Launch Fps Overlayer
-                    AVProcessTool.Launch_Exe("FpsOverlayer-Launcher.exe", "", "", false, true, false);
+                    AVProcess.Launch_ExecuteInherit("FpsOverlayer-Launcher.exe", "", "", true);
                 }
             }
             catch { }

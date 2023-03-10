@@ -112,20 +112,6 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivPathImage = string.Empty;
-            public string PathImage
-            {
-                get { return this.PrivPathImage; }
-                set
-                {
-                    if (this.PrivPathImage != value)
-                    {
-                        this.PrivPathImage = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
             private string PrivPathExe = string.Empty;
             public string PathExe
             {

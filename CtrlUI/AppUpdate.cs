@@ -106,7 +106,7 @@ namespace CtrlUI
         {
             try
             {
-                AVProcessTool.Launch_Exe("Updater.exe", "", "", false, true, false);
+                AVProcess.Launch_ExecuteInherit("Updater.exe", "", "", true);
                 await Application_Exit();
             }
             catch { }

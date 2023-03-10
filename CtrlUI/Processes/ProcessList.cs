@@ -52,7 +52,6 @@ namespace CtrlUI
                         //Get application executable path
                         string processPathExe = processMulti.ExePath;
                         string processPathExeLower = processPathExe.ToLower();
-                        string processPathExeImage = processPathExe;
 
                         //Get application executable name
                         string processNameExe = processMulti.ExeName;
@@ -162,7 +161,7 @@ namespace CtrlUI
                         }
 
                         //Load the application image
-                        BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processMulti.WindowTitle, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExeImage, processPathExe }, vImageSourceFolders, vImageBackupSource, processMulti.WindowHandleMain, vImageLoadSize, 0);
+                        BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processMulti.WindowTitle, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExe }, vImageSourceFolders, vImageBackupSource, processMulti.WindowHandleMain, vImageLoadSize, 0);
 
                         //Create new ProcessMulti list
                         List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();

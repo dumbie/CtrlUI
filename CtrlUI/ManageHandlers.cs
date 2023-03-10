@@ -55,18 +55,31 @@ namespace CtrlUI
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
 
-                //Load the new application image
-                BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-
+                //Fix check invalid file name
                 //Update the new application image
-                img_AddAppLogo.Source = applicationImage;
                 if (vEditAppDataBind != null)
                 {
+                    //Copy the new application image
+                    File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + vEditAppDataBind.Name + ".png", true);
+
+                    //Load the new application image
+                    BitmapImage applicationImage = Image_Application_Load(vEditAppDataBind, vImageLoadSize);
+
+                    //Set the new application image
+                    img_AddAppLogo.Source = applicationImage;
                     vEditAppDataBind.ImageBitmap = applicationImage;
                 }
+                else
+                {
+                    //Copy the new application image
+                    File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + tb_AddAppName.Text + ".png", true);
 
-                //Copy the new application image
-                File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + tb_AddAppName.Text + ".png", true);
+                    //Load the new application image
+                    BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+
+                    //Set the new application image
+                    img_AddAppLogo.Source = applicationImage;
+                }
             }
             catch { }
         }

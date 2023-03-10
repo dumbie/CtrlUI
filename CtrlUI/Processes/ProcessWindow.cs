@@ -153,13 +153,19 @@ namespace CtrlUI
 
                     //Get launch information
                     string launchInformation = string.Empty;
-                    if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                    if (processMulti.Type == ProcessType.UWP || processMulti.Type == ProcessType.Win32Store)
                     {
-                        launchInformation = dataBindApp.AppUserModelId;
+                        launchInformation = processMulti.AppUserModelId;
                     }
                     else
                     {
-                        launchInformation = dataBindApp.PathExe;
+                        launchInformation = processMulti.ExePath;
+                    }
+
+                    //Add process identifier
+                    if (processMulti.Identifier != 0)
+                    {
+                        launchInformation += " (" + processMulti.Identifier + ")";
                     }
 
                     //Add launch argument

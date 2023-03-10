@@ -151,7 +151,7 @@ namespace CtrlUI
                 bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
 
                 //Launch the Win32 application
-                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, keyboardLaunch);
+                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, false, keyboardLaunch);
             }
             catch { }
         }
@@ -208,7 +208,7 @@ namespace CtrlUI
                         await Notification_Send_Status("DirectXInput", "Launching DirectXInput");
                     }
 
-                    AVProcessTool.Launch_Exe("DirectXInput-Launcher.exe", "", "", false, true, false);
+                    AVProcess.Launch_ExecuteInherit("DirectXInput-Launcher.exe", "", "", true);
                 }
                 else
                 {
@@ -234,7 +234,7 @@ namespace CtrlUI
                     await Notification_Send_Status("Fps", "Showing Fps Overlayer");
 
                     //Launch Fps Overlayer
-                    AVProcessTool.Launch_Exe("FpsOverlayer-Launcher.exe", "", "", false, true, false);
+                    AVProcess.Launch_ExecuteInherit("FpsOverlayer-Launcher.exe", "", "", true);
                 }
             }
             catch { }

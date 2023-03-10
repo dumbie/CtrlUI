@@ -65,7 +65,7 @@ namespace CtrlUI
                 //Load and set application image
                 if (loadAppImage)
                 {
-                    dataBindApp.ImageBitmap = FileToBitmapImage(new string[] { dataBindApp.Name, dataBindApp.PathExe, dataBindApp.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+                    dataBindApp.ImageBitmap = Image_Application_Load(dataBindApp, vImageLoadSize);
                 }
 
                 //Add application to the list
@@ -394,7 +394,7 @@ namespace CtrlUI
                     vEditAppDataBind.LaunchEnableHDR = (bool)checkbox_AddLaunchEnableHDR.IsChecked;
 
                     //Edit images in the list
-                    vEditAppDataBind.ImageBitmap = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                    vEditAppDataBind.ImageBitmap = Image_Application_Load(vEditAppDataBind, vImageLoadSize);
                     if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Console) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadConsole; }
                     else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Handheld) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadHandheld; }
                     else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Computer) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadComputer; }
@@ -696,7 +696,7 @@ namespace CtrlUI
                 ManageInterface_UpdateCategory(dataBindApp.Category, true);
 
                 //Load application image
-                img_AddAppLogo.Source = FileToBitmapImage(new string[] { dataBindApp.Name, dataBindApp.PathExe, dataBindApp.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                img_AddAppLogo.Source = Image_Application_Load(dataBindApp, vImageLoadSize);
 
                 //Fill the text boxes with application details
                 tb_AddAppName.Text = dataBindApp.Name;
@@ -809,7 +809,7 @@ namespace CtrlUI
 
                     await Notification_Send_Status("Plus", "Added " + vFilePickerResult.Name);
                     Debug.WriteLine("Adding UWP app: " + tb_AddAppName.Text + " to the list.");
-                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, AppUserModelId = vFilePickerResult.PathFile, PathImage = vFilePickerResult.PathImage, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableHDR = (bool)checkbox_AddLaunchEnableHDR.IsChecked };
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, AppUserModelId = vFilePickerResult.PathFile, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableHDR = (bool)checkbox_AddLaunchEnableHDR.IsChecked };
                     await AddAppToList(dataBindApp, true, true);
                 }
             }

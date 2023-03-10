@@ -128,9 +128,6 @@ namespace CtrlUI
                 JsonLoadFile(ref vApiIGDBGenres, @"Resources\ApiIGDB\Genres.json");
                 JsonLoadFile(ref vApiIGDBPlatforms, @"Resources\ApiIGDB\Platforms.json");
 
-                //Update uwp application images
-                UpdateUwpApplicationImages();
-
                 //Start the background tasks
                 TasksBackgroundStart();
 
@@ -214,7 +211,7 @@ namespace CtrlUI
         {
             try
             {
-                AVProcessTool.Launch_Exe("CtrlUI.exe", "", "-restart", false, true, false);
+                AVProcess.Launch_ExecuteInherit("CtrlUI.exe", "", "-restart", true);
                 await Application_Exit();
             }
             catch { }
@@ -274,7 +271,7 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Restart the PC
-                        AVProcessTool.Launch_Exe(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /t 0", false, false, false);
+                        AVProcess.Launch_ExecuteInherit(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /t 0", false);
 
                         //Close CtrlUI
                         await Application_Exit();
@@ -287,7 +284,7 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Shutdown the PC
-                        AVProcessTool.Launch_Exe(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /t 0", false, false, false);
+                        AVProcess.Launch_ExecuteInherit(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /t 0", false);
 
                         //Close CtrlUI
                         await Application_Exit();

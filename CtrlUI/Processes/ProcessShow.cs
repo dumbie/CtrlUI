@@ -107,13 +107,20 @@ namespace CtrlUI
                         AnswerClose.Name = "Close application";
                         Answers.Add(AnswerClose);
 
-                        if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                        //Get launch information
+                        if (processMulti.Type == ProcessType.UWP || processMulti.Type == ProcessType.Win32Store)
                         {
-                            launchInformation = dataBindApp.AppUserModelId;
+                            launchInformation = processMulti.AppUserModelId;
                         }
                         else
                         {
-                            launchInformation = dataBindApp.PathExe;
+                            launchInformation = processMulti.ExePath;
+                        }
+
+                        //Add process identifier
+                        if (processMulti.Identifier != 0)
+                        {
+                            launchInformation += " (" + processMulti.Identifier + ")";
                         }
 
                         //Add launch argument
@@ -198,7 +205,7 @@ namespace CtrlUI
                     }
 
                     //Focus on application window handle
-                    bool windowFocused = AVProcessTool.Show_ProcessIdHwnd(processIdTarget, windowHandleTarget);
+                    bool windowFocused = await AVProcess.Show_ProcessByProcessIdAndWindowHandle(processIdTarget, windowHandleTarget);
                     if (!windowFocused)
                     {
                         await Notification_Send_Status("Close", "Failed showing application");

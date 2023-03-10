@@ -62,7 +62,7 @@ namespace CtrlUI
                 }
 
                 //Launch the application
-                appLaunched = await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, launchKeyboard);
+                appLaunched = await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, runAsAdmin, launchKeyboard);
 
                 //Update last launch date
                 if (appLaunched)
@@ -77,7 +77,7 @@ namespace CtrlUI
         }
 
         //Launch a Win32 application manually
-        async Task<bool> PrepareProcessLauncherWin32Async(string appTitle, string pathExe, string pathWork, string launchArgument, bool silent, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherWin32Async(string appTitle, string pathExe, string pathWork, string launchArgument, bool silent, bool runAsAdmin, bool launchKeyboard)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace CtrlUI
                 await AppWindowMinimize(true, true);
 
                 //Launch the Win32 application
-                int processId = AVProcessTool.Launch_Exe(pathExe, pathWork, launchArgument, false, true, false);
+                int processId = AVProcess.Launch_ExecuteInherit(pathExe, pathWork, launchArgument, runAsAdmin);
                 if (processId <= 0)
                 {
                     //Show failed launch messagebox

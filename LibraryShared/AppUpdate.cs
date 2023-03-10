@@ -14,7 +14,7 @@ namespace LibraryShared
                 Debug.WriteLine("Checking application update.");
 
                 //Close running application updater
-                if (AVProcessTool.Close_ProcessName("Updater.exe"))
+                if (AVProcess.Close_ProcessesByName("Updater.exe", true))
                 {
                     await Task.Delay(1000);
                 }

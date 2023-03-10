@@ -77,7 +77,7 @@ namespace CtrlUI
                 await AppWindowMinimize(true, true);
 
                 //Launch the UWP or Win32Store application
-                int processId = AVProcessTool.Launch_Uwp(appUserModelId, argument);
+                int processId = AVProcess.Launch_UwpApplication(appUserModelId, argument);
                 if (processId <= 0)
                 {
                     //Show failed launch messagebox

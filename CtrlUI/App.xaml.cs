@@ -1,10 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVFirewall;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVProcess;
 using static LibraryShared.AppCheck;
 using static LibraryShared.AppUpdate;
 
@@ -46,9 +47,12 @@ namespace CtrlUI
             {
                 if (e.Args != null && e.Args.Contains("-restart"))
                 {
-                    Process currentProcess = Process.GetCurrentProcess();
-                    string processName = currentProcess.ProcessName;
-                    while (Process.GetProcessesByName(processName).Length > 1)
+                    //Get current process information
+                    ProcessMulti currentProcess = Get_ProcessMultiCurrent();
+                    List<ProcessMulti> activeProcesses = Get_ProcessesMultiByName(currentProcess.ExeNameNoExt, true);
+
+                    //Check if application is already running
+                    while (activeProcesses.Count > 1)
                     {
                         await Task.Delay(500);
                     }
