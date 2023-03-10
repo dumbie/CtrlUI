@@ -405,8 +405,11 @@
                                 </StackPanel>
 
                                 <StackPanel Name="sp_AddEmulatorName">
-                                    <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Emulator name:"/>
-                                    <TextBox Name="tb_AddAppEmulatorName" Text="Select application executable file first" VerticalContentAlignment="Center" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}"/>
+                                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Emulator name:"/>
+                                        <TextBlock Margin="10,0,0,0" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeHuge}" Text="(Optional)"/>
+                                    </StackPanel>
+                                    <TextBox Name="tb_AddAppEmulatorName" VerticalContentAlignment="Center" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}"/>
                                 </StackPanel>
 
                                 <StackPanel Name="sp_AddEmulatorCategory">

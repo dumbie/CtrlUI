@@ -19,6 +19,10 @@ namespace CtrlUI
         {
             try
             {
+                //Check the selected categories
+                AppCategory selectedAppCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
+                EmulatorCategory selectedEmulatorCategory = (EmulatorCategory)lb_Manage_AddEmulatorCategory.SelectedIndex;
+
                 //Check if there is an application name set
                 if (string.IsNullOrWhiteSpace(tb_AddAppName.Text))
                 {
@@ -28,12 +32,20 @@ namespace CtrlUI
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
-                    await Popup_Show_MessageBox("Please enter an application name first", "", "", Answers);
+                    if (selectedAppCategory == AppCategory.Emulator)
+                    {
+                        await Popup_Show_MessageBox("Please enter a platform name first", "", "", Answers);
+                    }
+                    else
+                    {
+                        await Popup_Show_MessageBox("Please enter an application name first", "", "", Answers);
+                    }
+
                     return;
                 }
 
-                //Check if there is an application name set
-                if (tb_AddAppName.Text == "Select application executable file first" || tb_AddAppEmulatorName.Text == "Select application executable file first")
+                //Check if there is an application exe set
+                if (tb_AddAppName.Text == "Select application executable file first")
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -88,6 +100,10 @@ namespace CtrlUI
         {
             try
             {
+                //Check the selected categories
+                AppCategory selectedAppCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
+                EmulatorCategory selectedEmulatorCategory = (EmulatorCategory)lb_Manage_AddEmulatorCategory.SelectedIndex;
+
                 vFilePickerSettings = new FilePickerSettings();
                 vFilePickerSettings.FilterIn = new List<string> { "exe" };
                 vFilePickerSettings.Title = "Application Executable";
@@ -106,7 +122,7 @@ namespace CtrlUI
                 btn_AddAppPathLaunch.IsEnabled = true;
 
                 //Set application name to textbox
-                if ((AppCategory)lb_Manage_AddAppCategory.SelectedIndex == AppCategory.Emulator)
+                if (selectedAppCategory == AppCategory.Emulator)
                 {
                     tb_AddAppName.Text = string.Empty;
                     tb_AddAppEmulatorName.Text = vFilePickerResult.Name.Replace(".exe", "");

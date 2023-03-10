@@ -186,8 +186,16 @@ namespace CtrlUI
                 AppCategory selectedAppCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
                 EmulatorCategory selectedEmulatorCategory = (EmulatorCategory)lb_Manage_AddEmulatorCategory.SelectedIndex;
 
+                //Check if adding or editing application
+                bool addApplication = vEditAppDataBind == null;
+                bool editApplication = vEditAppDataBind != null;
+
+                //Check the editing application type
+                bool win32Application = editApplication && vEditAppDataBind.Type == ProcessType.Win32;
+                bool uwpApplication = editApplication && vEditAppDataBind.Type == ProcessType.UWP || vEditAppDataBind.Type == ProcessType.Win32Store;
+
                 //Check if there is an application name set
-                if (string.IsNullOrWhiteSpace(tb_AddAppName.Text))
+                if (!uwpApplication && string.IsNullOrWhiteSpace(tb_AddAppName.Text))
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -195,12 +203,20 @@ namespace CtrlUI
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
-                    await Popup_Show_MessageBox("Please enter an application name first", "", "", Answers);
+                    if (selectedAppCategory == AppCategory.Emulator)
+                    {
+                        await Popup_Show_MessageBox("Please enter a platform name first", "", "", Answers);
+                    }
+                    else
+                    {
+                        await Popup_Show_MessageBox("Please enter an application name first", "", "", Answers);
+                    }
+
                     return;
                 }
 
-                //Check if there is an application name set
-                if (tb_AddAppName.Text == "Select application executable file first" || tb_AddAppEmulatorName.Text == "Select application executable file first")
+                //Check if there is an application exe set
+                if (!uwpApplication && tb_AddAppName.Text == "Select application executable file first")
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -213,7 +229,7 @@ namespace CtrlUI
                 }
 
                 //Check if there is an application exe set
-                if (string.IsNullOrWhiteSpace(tb_AddAppPathExe.Text))
+                if (!uwpApplication && string.IsNullOrWhiteSpace(tb_AddAppPathExe.Text))
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -239,7 +255,7 @@ namespace CtrlUI
                 }
 
                 //Check if the application paths exist for Win32 apps
-                if (vEditAppDataBind != null && vEditAppDataBind.Type == ProcessType.Win32)
+                if (editApplication && win32Application)
                 {
                     //Validate the launch target
                     if (!File.Exists(tb_AddAppPathExe.Text))
@@ -266,37 +282,37 @@ namespace CtrlUI
                         await Popup_Show_MessageBox("Launch folder not found, please select another one", "", "", Answers);
                         return;
                     }
+                }
 
-                    //Check if application is emulator and validate the rom path
-                    if (selectedAppCategory == AppCategory.Emulator && !(bool)checkbox_AddLaunchSkipRom.IsChecked)
+                //Check if application is emulator and validate the rom path
+                if (selectedAppCategory == AppCategory.Emulator && !(bool)checkbox_AddLaunchSkipRom.IsChecked)
+                {
+                    if (string.IsNullOrWhiteSpace(tb_AddAppPathRoms.Text))
                     {
-                        if (string.IsNullOrWhiteSpace(tb_AddAppPathRoms.Text))
-                        {
-                            List<DataBindString> Answers = new List<DataBindString>();
-                            DataBindString Answer1 = new DataBindString();
-                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            Answer1.Name = "Ok";
-                            Answers.Add(Answer1);
+                        List<DataBindString> Answers = new List<DataBindString>();
+                        DataBindString Answer1 = new DataBindString();
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.Name = "Ok";
+                        Answers.Add(Answer1);
 
-                            await Popup_Show_MessageBox("Please select an emulator rom folder first", "", "", Answers);
-                            return;
-                        }
-                        if (!Directory.Exists(tb_AddAppPathRoms.Text))
-                        {
-                            List<DataBindString> Answers = new List<DataBindString>();
-                            DataBindString Answer1 = new DataBindString();
-                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            Answer1.Name = "Ok";
-                            Answers.Add(Answer1);
+                        await Popup_Show_MessageBox("Please select an emulator rom folder first", "", "", Answers);
+                        return;
+                    }
+                    if (!Directory.Exists(tb_AddAppPathRoms.Text))
+                    {
+                        List<DataBindString> Answers = new List<DataBindString>();
+                        DataBindString Answer1 = new DataBindString();
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.Name = "Ok";
+                        Answers.Add(Answer1);
 
-                            await Popup_Show_MessageBox("Rom folder not found, please select another one", "", "", Answers);
-                            return;
-                        }
+                        await Popup_Show_MessageBox("Rom folder not found, please select another one", "", "", Answers);
+                        return;
                     }
                 }
 
                 //Check if application needs to be edited or added
-                if (vEditAppDataBind == null)
+                if (addApplication)
                 {
                     //Check if new application already exists
                     if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower() || x.PathExe.ToLower() == tb_AddAppPathExe.Text.ToLower()))
@@ -597,11 +613,13 @@ namespace CtrlUI
         {
             try
             {
-                //Check if editing application
+                //Check if adding or editing application
+                bool addApplication = vEditAppDataBind == null;
                 bool editApplication = vEditAppDataBind != null;
 
-                //Check if the application is UWP
-                bool uwpApplication = editApplication && vEditAppDataBind.Type == ProcessType.UWP;
+                //Check the editing application type
+                bool win32Application = editApplication && vEditAppDataBind.Type == ProcessType.Win32;
+                bool uwpApplication = editApplication && vEditAppDataBind.Type == ProcessType.UWP || vEditAppDataBind.Type == ProcessType.Win32Store;
 
                 //Set default interface
                 if (editApplication)
@@ -741,7 +759,7 @@ namespace CtrlUI
 
                 //Fill the text boxes with application details
                 tb_AddAppName.Text = "Select application executable file first";
-                tb_AddAppEmulatorName.Text = "Select application executable file first";
+                tb_AddAppEmulatorName.Text = string.Empty;
                 tb_AddAppPathExe.Text = string.Empty;
                 tb_AddAppPathLaunch.Text = string.Empty;
                 tb_AddAppPathRoms.Text = string.Empty;
