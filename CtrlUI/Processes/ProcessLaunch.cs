@@ -71,7 +71,7 @@ namespace CtrlUI
                     else if (processMulti.Action == "CloseAll")
                     {
                         Debug.WriteLine("Closing all processes, skipping the launch.");
-                        await CloseAllProcessesAuto(processMulti, dataBindApp, true, false);
+                        await CloseAllProcessesAuto(dataBindApp, true, false);
                     }
                     else
                     {

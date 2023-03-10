@@ -149,7 +149,7 @@
     <Compile Include="Processes\ProcessShow.cs" />
     <Compile Include="Processes\ProcessClose.cs" />
     <Compile Include="Processes\ProcessLaunch.cs" />
-    <Compile Include="Processes\ProcessUrlLaunch.cs" />
+    <Compile Include="Processes\ProcessLaunchUrl.cs" />
     <Compile Include="Processes\ProcessWindow.cs" />
     <Compile Include="Resources\ApiHowLongToBeat\HltbSearch.cs" />
     <Compile Include="ImageFunctions.cs" />
@@ -192,10 +192,7 @@
     <Compile Include="FilePicker\FileFunctions.cs" />
     <Compile Include="Processes\ProcessCheck.cs" />
     <Compile Include="Processes\ProcessSelect.cs" />
-    <Compile Include="Processes\ProcessUwpOther.cs" />
-    <Compile Include="Processes\ProcessUwpClose.cs" />
     <Compile Include="Processes\ProcessRestart.cs" />
-    <Compile Include="Processes\ProcessWin32Close.cs" />
     <Compile Include="Processes\ProcessList.cs" />
     <Compile Include="RegistryFunctions.cs" />
     <Compile Include="QuickActionFunctions.cs" />
@@ -217,8 +214,8 @@
     <Compile Include="ListSorting.cs" />
     <Compile Include="MessageBoxHandlers.cs" />
     <Compile Include="MessageBoxFunctions.cs" />
-    <Compile Include="Processes\ProcessWin32Launch.cs" />
-    <Compile Include="Processes\ProcessUwpLaunch.cs" />
+    <Compile Include="Processes\ProcessLaunchWin32.cs" />
+    <Compile Include="Processes\ProcessLaunchUwp.cs" />
     <Compile Include="SearchFunctions.cs" />
     <Compile Include="InterfaceHandlers.cs" />
     <Compile Include="InterfaceMenuCategory.cs" />

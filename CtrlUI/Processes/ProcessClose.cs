@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
+using System.Windows;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVImage;
@@ -18,37 +19,136 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Close single process
-        async Task CloseSingleProcessAuto(ProcessMulti processMulti, DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
+        async Task<bool> CloseSingleProcessAuto(ProcessMulti processMulti, DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
         {
             try
             {
-                if (processMulti.Type == ProcessType.UWP)
-                {
-                    await CloseSingleProcessUwp(dataBindApp, processMulti, resetProcess, removeProcess);
-                }
-                else if (processMulti.Type == ProcessType.Win32 || processMulti.Type == ProcessType.Win32Store)
-                {
-                    await CloseSingleProcessWin32AndWin32Store(dataBindApp, processMulti, resetProcess, removeProcess);
-                }
-            }
-            catch { }
-        }
+                await Notification_Send_Status("AppClose", "Closing " + dataBindApp.Name);
+                Debug.WriteLine("Closing process: " + dataBindApp.Name);
 
-        //Close all processes
-        async Task CloseAllProcessesAuto(ProcessMulti processMulti, DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
-        {
-            try
-            {
-                if (processMulti.Type == ProcessType.UWP)
+                //Close the process
+                bool closedProcess = false;
+                if (processMulti.Identifier > 0)
                 {
-                    await CloseAllProcessesUwp(dataBindApp, resetProcess, removeProcess);
+                    closedProcess = AVProcess.Close_ProcessTreeByProcessId(processMulti.Identifier);
+                }
+                else if (!string.IsNullOrWhiteSpace(processMulti.AppUserModelId))
+                {
+                    closedProcess = AVProcess.Close_ProcessesByAppUserModelId(processMulti.AppUserModelId);
+                }
+                else if (!string.IsNullOrWhiteSpace(processMulti.ExeName))
+                {
+                    closedProcess = AVProcess.Close_ProcessesByName(processMulti.ExeName, true);
+                }
+                else if (!string.IsNullOrWhiteSpace(processMulti.ExePath))
+                {
+                    closedProcess = AVProcess.Close_ProcessesByExecutablePath(processMulti.ExePath);
+                }
+
+                //Check if process closed
+                if (closedProcess)
+                {
+                    await Notification_Send_Status("AppClose", "Closed " + dataBindApp.Name);
+                    Debug.WriteLine("Closed process: " + dataBindApp.Name);
+
+                    //Reset the process running status
+                    if (resetProcess)
+                    {
+                        dataBindApp.StatusRunning = Visibility.Collapsed;
+                        dataBindApp.StatusSuspended = Visibility.Collapsed;
+                        dataBindApp.RunningProcessCount = string.Empty;
+                        dataBindApp.RunningTimeLastUpdate = 0;
+                        dataBindApp.ProcessMulti.Clear();
+                    }
+
+                    //Remove the process from the list
+                    if (removeProcess)
+                    {
+                        await RemoveAppFromList(dataBindApp, false, false, true);
+                    }
+
+                    return true;
                 }
                 else
                 {
-                    await CloseAllProcessesWin32AndWin32Store(dataBindApp, resetProcess, removeProcess);
+                    await Notification_Send_Status("AppClose", "Failed to close application");
+                    Debug.WriteLine("Failed to close the application.");
+                    return false;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to close the application: " + ex.Message);
+                return false;
+            }
+        }
+
+        //Close all processes
+        async Task<bool> CloseAllProcessesAuto(DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
+        {
+            try
+            {
+                await Notification_Send_Status("AppClose", "Closing " + dataBindApp.Name);
+                Debug.WriteLine("Closing all processes: " + dataBindApp.Name);
+
+                //Close the processes
+                bool closedProcess = false;
+                foreach (ProcessMulti processMulti in dataBindApp.ProcessMulti)
+                {
+                    if (processMulti.Identifier > 0)
+                    {
+                        closedProcess = AVProcess.Close_ProcessTreeByProcessId(processMulti.Identifier);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(processMulti.AppUserModelId))
+                    {
+                        closedProcess = AVProcess.Close_ProcessesByAppUserModelId(processMulti.AppUserModelId);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(processMulti.ExeName))
+                    {
+                        closedProcess = AVProcess.Close_ProcessesByName(processMulti.ExeName, true);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(processMulti.ExePath))
+                    {
+                        closedProcess = AVProcess.Close_ProcessesByExecutablePath(processMulti.ExePath);
+                    }
+                }
+
+                //Check if process closed
+                if (closedProcess)
+                {
+                    await Notification_Send_Status("AppClose", "Closed " + dataBindApp.Name);
+                    Debug.WriteLine("Closed all processes: " + dataBindApp.Name);
+
+                    //Reset the process running status
+                    if (resetProcess)
+                    {
+                        dataBindApp.StatusRunning = Visibility.Collapsed;
+                        dataBindApp.StatusSuspended = Visibility.Collapsed;
+                        dataBindApp.RunningProcessCount = string.Empty;
+                        dataBindApp.RunningTimeLastUpdate = 0;
+                        dataBindApp.ProcessMulti.Clear();
+                    }
+
+                    //Remove the process from the list
+                    if (removeProcess)
+                    {
+                        await RemoveAppFromList(dataBindApp, false, false, true);
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    await Notification_Send_Status("AppClose", "Failed to close application");
+                    Debug.WriteLine("Failed to close the application.");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to close the application: " + ex.Message);
+                return false;
+            }
         }
 
         //Close other running launchers

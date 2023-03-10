@@ -122,5 +122,24 @@ namespace CtrlUI
                 Debug.WriteLine("Failed adding UWP app: " + appxDetails.DisplayName);
             }
         }
+
+        //Uninstall uwp application
+        async Task UwpListUninstallApplication(DataBindFile selectedItem)
+        {
+            try
+            {
+                await Notification_Send_Status("RemoveCross", "Uninstalling " + selectedItem.Name);
+
+                //Remove application from pc
+                bool uwpRemoved = UwpRemoveApplicationByPackageFullName(selectedItem.PathFull);
+
+                //Remove application from list
+                if (uwpRemoved)
+                {
+                    await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, selectedItem, true);
+                }
+            }
+            catch { }
+        }
     }
 }

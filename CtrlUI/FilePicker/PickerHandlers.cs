@@ -102,29 +102,19 @@ namespace CtrlUI
                     //Add answers for messagebox
                     List<DataBindString> Answers = new List<DataBindString>();
 
-                    DataBindString answerUpdate = new DataBindString();
-                    answerUpdate.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    answerUpdate.Name = "Check application update";
-                    Answers.Add(answerUpdate);
-
-                    DataBindString answerRemove = new DataBindString();
-                    answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    answerRemove.Name = "Remove the application";
-                    Answers.Add(answerRemove);
+                    DataBindString answerUninstall = new DataBindString();
+                    answerUninstall.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerUninstall.Name = "Uninstall this application";
+                    Answers.Add(answerUninstall);
 
                     //Show the messagebox prompt
                     DataBindString messageResult = await Popup_Show_MessageBox("Application actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
                     if (messageResult != null)
                     {
-                        //Update application
-                        if (messageResult == answerUpdate)
+                        //Uninstall application
+                        if (messageResult == answerUninstall)
                         {
-                            await UwpListUpdateApplication(selectedItem);
-                        }
-                        //Remove application
-                        else if (messageResult == answerRemove)
-                        {
-                            await UwpListRemoveApplication(selectedItem);
+                            await UwpListUninstallApplication(selectedItem);
                         }
                     }
                 }
