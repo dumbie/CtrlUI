@@ -396,7 +396,17 @@
                                     <Button Name="btn_AddAppLogo" Style="{StaticResource ButtonImageTransparentWhiteBorder}" BorderBrush="{DynamicResource ApplicationAccentLightBrush}" ToolTipService.ToolTip="Change application image">
                                         <Image Name="img_AddAppLogo" Margin="0,5,0,5" MaxWidth="120" MaxHeight="120"/>
                                     </Button>
-                                    <Button Name="btn_Manage_ResetAppLogo" Margin="0,5,0,0" Content="Reset the application image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                    <Button Name="btn_Manage_ResetAppLogo" Margin="0,5,0,0" Content="Reset application image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                </StackPanel>
+
+                                <StackPanel Name="sp_AddAppCategory">
+                                    <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application category:"/>
+                                    <ListBox Name="lb_Manage_AddAppCategory" SelectionMode="Single" Height="90" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemAppCategory}" Style="{StaticResource ListBoxHorizontal}" Template="{StaticResource ListBoxHorizontalNoScrollTemplate}"/>
+                                </StackPanel>
+
+                                <StackPanel Name="sp_AddEmulatorCategory">
+                                    <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Emulator category:"/>
+                                    <ListBox Name="lb_Manage_AddEmulatorCategory" SelectionMode="Single" Height="90" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemAppCategory}" Style="{StaticResource ListBoxHorizontal}" Template="{StaticResource ListBoxHorizontalNoScrollTemplate}"/>
                                 </StackPanel>
 
                                 <StackPanel Name="sp_AddAppName">
@@ -410,16 +420,6 @@
                                         <TextBlock Margin="10,0,0,0" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeHuge}" Text="(Optional)"/>
                                     </StackPanel>
                                     <TextBox Name="tb_AddAppEmulatorName" VerticalContentAlignment="Center" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}"/>
-                                </StackPanel>
-
-                                <StackPanel Name="sp_AddEmulatorCategory">
-                                    <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Emulator category:"/>
-                                    <ListBox Name="lb_Manage_AddEmulatorCategory" SelectionMode="Single" Height="90" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemAppCategory}" Style="{StaticResource ListBoxHorizontal}" Template="{StaticResource ListBoxHorizontalNoScrollTemplate}"/>
-                                </StackPanel>
-
-                                <StackPanel Name="sp_AddAppCategory">
-                                    <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application category:"/>
-                                    <ListBox Name="lb_Manage_AddAppCategory" SelectionMode="Single" Height="90" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemAppCategory}" Style="{StaticResource ListBoxHorizontal}" Template="{StaticResource ListBoxHorizontalNoScrollTemplate}"/>
                                 </StackPanel>
 
                                 <StackPanel Name="sp_AddAppExePath">

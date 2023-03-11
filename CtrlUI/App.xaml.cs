@@ -49,10 +49,9 @@ namespace CtrlUI
                 {
                     //Get current process information
                     ProcessMulti currentProcess = Get_ProcessMultiCurrent();
-                    List<ProcessMulti> activeProcesses = Get_ProcessesMultiByName(currentProcess.ExeNameNoExt, true);
 
                     //Check if application is already running
-                    while (activeProcesses.Count > 1)
+                    while (Get_ProcessesMultiByName(currentProcess.ExeNameNoExt, true).Count > 1)
                     {
                         await Task.Delay(500);
                     }
