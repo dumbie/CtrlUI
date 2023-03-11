@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVProcess;
-using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppBusyWait;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -85,9 +84,9 @@ namespace CtrlUI
                 }
 
                 ShowHideEmptyList();
-                await CheckActiveCategoryList();
                 UpdateSearchResults();
-                ListsUpdateCount();
+                await CategoryListCheckActive();
+                CategoryListUpdateCount();
             }
             catch { }
         }
@@ -187,28 +186,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Check active category list
-        async Task CheckActiveCategoryList()
-        {
-            try
-            {
-                ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                if (CategoryListCount(listAppCategory) == 0 && listAppCategory != ListCategory.Search)
-                {
-                    await AVActions.ActionDispatcherInvokeAsync(async delegate
-                    {
-                        ListCategory? listCategorySwitch = PreviousCategoryWithItems(listAppCategory, false);
-                        if (listCategorySwitch == null)
-                        {
-                            listCategorySwitch = NextCategoryWithItems(listAppCategory, false);
-                        }
-                        await ChangeCategoryListBox((ListCategory)listCategorySwitch, false);
-                    });
-                }
-            }
-            catch { }
-        }
-
         //Update the app running rime
         void UpdateAppRunningTime()
         {
@@ -236,31 +213,6 @@ namespace CtrlUI
                 {
                     JsonSaveApplications();
                 }
-            }
-            catch { }
-        }
-
-        //Update the list items count
-        void ListsUpdateCount()
-        {
-            try
-            {
-                //Check list category setting
-                ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                string listCountString = CategoryListCount(listAppCategory).ToString();
-
-                //Check the list count
-                if (listCountString == "0")
-                {
-                    listCountString = string.Empty;
-                }
-
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    textblock_Category_Count.Text = listCountString;
-                });
-
-                //Debug.WriteLine("Updating the lists count to: " + listCountString);
             }
             catch { }
         }

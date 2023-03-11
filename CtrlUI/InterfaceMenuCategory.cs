@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,13 +19,13 @@ namespace CtrlUI
             try
             {
                 Button senderFramework = (Button)sender;
-                if (senderFramework.Name == "button_Category_Menu_Games") { await ChangeCategoryListBox(ListCategory.Game, false); }
-                else if (senderFramework.Name == "button_Category_Menu_Apps") { await ChangeCategoryListBox(ListCategory.App, false); }
-                else if (senderFramework.Name == "button_Category_Menu_Emulators") { await ChangeCategoryListBox(ListCategory.Emulator, false); }
-                else if (senderFramework.Name == "button_Category_Menu_Launchers") { await ChangeCategoryListBox(ListCategory.Launcher, false); }
-                else if (senderFramework.Name == "button_Category_Menu_Shortcuts") { await ChangeCategoryListBox(ListCategory.Shortcut, false); }
-                else if (senderFramework.Name == "button_Category_Menu_Processes") { await ChangeCategoryListBox(ListCategory.Process, false); }
-                else if (senderFramework.Name == "button_Category_Menu_Search") { await ChangeCategoryListBox(ListCategory.Search, false); }
+                if (senderFramework.Name == "button_Category_Menu_Games") { await CategoryListChange(ListCategory.Game); }
+                else if (senderFramework.Name == "button_Category_Menu_Apps") { await CategoryListChange(ListCategory.App); }
+                else if (senderFramework.Name == "button_Category_Menu_Emulators") { await CategoryListChange(ListCategory.Emulator); }
+                else if (senderFramework.Name == "button_Category_Menu_Launchers") { await CategoryListChange(ListCategory.Launcher); }
+                else if (senderFramework.Name == "button_Category_Menu_Shortcuts") { await CategoryListChange(ListCategory.Shortcut); }
+                else if (senderFramework.Name == "button_Category_Menu_Processes") { await CategoryListChange(ListCategory.Process); }
+                else if (senderFramework.Name == "button_Category_Menu_Search") { await CategoryListChange(ListCategory.Search); }
             }
             catch { }
         }
@@ -49,8 +50,30 @@ namespace CtrlUI
             return -1;
         }
 
+        //Check active category list
+        async Task CategoryListCheckActive()
+        {
+            try
+            {
+                ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
+                if (CategoryListCount(listAppCategory) <= 0 && listAppCategory != ListCategory.Search)
+                {
+                    await AVActions.ActionDispatcherInvokeAsync(async delegate
+                    {
+                        ListCategory? listCategorySwitch = CategoryListPreviousWithItems(listAppCategory, false);
+                        if (listCategorySwitch == null)
+                        {
+                            listCategorySwitch = CategoryListNextWithItems(listAppCategory, false);
+                        }
+                        await CategoryListChange((ListCategory)listCategorySwitch);
+                    });
+                }
+            }
+            catch { }
+        }
+
         //Get first category with items
-        public ListCategory? FirstCategoryWithItems()
+        public ListCategory? CategoryListFirstWithItems()
         {
             try
             {
@@ -70,7 +93,7 @@ namespace CtrlUI
         }
 
         //Get next category with items
-        public ListCategory? NextCategoryWithItems(ListCategory listCategory, bool loopCategory)
+        public ListCategory? CategoryListNextWithItems(ListCategory listCategory, bool loopCategory)
         {
             try
             {
@@ -84,7 +107,7 @@ namespace CtrlUI
 
                 if (loopCategory)
                 {
-                    return FirstCategoryWithItems();
+                    return CategoryListFirstWithItems();
                 }
                 else
                 {
@@ -99,7 +122,7 @@ namespace CtrlUI
         }
 
         //Get previous category with items
-        public ListCategory? PreviousCategoryWithItems(ListCategory listCategory, bool loopCategory)
+        public ListCategory? CategoryListPreviousWithItems(ListCategory listCategory, bool loopCategory)
         {
             try
             {
@@ -125,30 +148,56 @@ namespace CtrlUI
                 Debug.WriteLine("Failed to get previous category with items.");
                 return null;
             }
-
         }
 
         //Change listbox category visibility
-        public async Task SwitchToListCategorySetting(bool forceSwitch)
+        public async Task CategoryListSwitchToSetting()
         {
             try
             {
                 ListCategory listCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                await ChangeCategoryListBox(listCategory, forceSwitch);
+                await CategoryListChange(listCategory);
+            }
+            catch { }
+        }
+
+        //Update listbox category items count
+        void CategoryListUpdateCount()
+        {
+            try
+            {
+                //Check list category setting
+                ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
+                int listCount = CategoryListCount(listAppCategory);
+                string listCountString = listCount.ToString();
+
+                //Check the list count
+                if (listCount <= 0)
+                {
+                    listCountString = string.Empty;
+                }
+
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    textblock_Category_Count.Text = listCountString;
+                });
+
+                //Debug.WriteLine("Updating the lists count to: " + listCountString);
             }
             catch { }
         }
 
         //Change listbox category visibility
-        async Task ChangeCategoryListBox(ListCategory listCategory, bool forceSwitch)
+        async Task CategoryListChange(ListCategory listCategory)
         {
             try
             {
                 //Check if category has items
-                if (!forceSwitch && listCategory != ListCategory.Search && CategoryListCount(listCategory) == 0)
+                if (listCategory != ListCategory.Search && CategoryListCount(listCategory) <= 0)
                 {
+                    await Notification_Send_Status("Close", "Selected category has no items.");
                     Debug.WriteLine("Category " + listCategory + " has no items, falling back to first.");
-                    listCategory = (ListCategory)FirstCategoryWithItems();
+                    listCategory = (ListCategory)CategoryListFirstWithItems();
                 }
 
                 //Set target listbox and textblock
@@ -214,7 +263,7 @@ namespace CtrlUI
                 SettingSave(vConfigurationCtrlUI, "ListAppCategory", Convert.ToInt32(listCategory).ToString());
 
                 //Update category list count
-                ListsUpdateCount();
+                CategoryListUpdateCount();
 
                 //Show or hide search interface
                 if (listCategory == ListCategory.Search)

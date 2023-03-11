@@ -159,9 +159,6 @@ namespace CtrlUI
                     await AddFirstLaunchApps();
                 }
 
-                //Switch to last used list category
-                await SwitchToListCategorySetting(true);
-
                 //Update the controller help
                 UpdateControllerHelp();
 
@@ -173,6 +170,9 @@ namespace CtrlUI
 
                 //Enable the socket server
                 await EnableSocketServer();
+
+                //Switch to last used list category
+                await CategoryListSwitchToSetting();
 
                 //Check for available application update
                 await CheckForAppUpdate(true);

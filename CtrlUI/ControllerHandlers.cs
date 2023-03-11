@@ -133,8 +133,8 @@ namespace CtrlUI
                             else if (!Popup_Open_Any())
                             {
                                 ListCategory listCategorySetting = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                                ListCategory listCategorySwitch = (ListCategory)PreviousCategoryWithItems(listCategorySetting, true);
-                                await ChangeCategoryListBox(listCategorySwitch, false);
+                                ListCategory listCategorySwitch = (ListCategory)CategoryListPreviousWithItems(listCategorySetting, true);
+                                await CategoryListChange(listCategorySwitch);
                             }
                         });
 
@@ -154,8 +154,8 @@ namespace CtrlUI
                             else if (!Popup_Open_Any())
                             {
                                 ListCategory listCategorySetting = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                                ListCategory listCategorySwitch = (ListCategory)NextCategoryWithItems(listCategorySetting, true);
-                                await ChangeCategoryListBox(listCategorySwitch, false);
+                                ListCategory listCategorySwitch = (ListCategory)CategoryListNextWithItems(listCategorySetting, true);
+                                await CategoryListChange(listCategorySwitch);
                             }
                         });
 
@@ -218,7 +218,7 @@ namespace CtrlUI
                         {
                             await AVActions.ActionDispatcherInvokeAsync(async delegate
                             {
-                                await ChangeCategoryListBox(ListCategory.Search, false);
+                                await CategoryListChange(ListCategory.Search);
                             });
                         }
 
