@@ -21,34 +21,6 @@ namespace CtrlUI
         {
             try
             {
-                //Get launch information
-                string launchInformation = string.Empty;
-                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
-                {
-                    launchInformation = dataBindApp.AppUserModelId;
-                }
-                else
-                {
-                    launchInformation = dataBindApp.PathExe;
-                }
-
-                //Add launch argument
-                if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
-                {
-                    launchInformation += " (" + dataBindApp.Argument + ")";
-                }
-
-                //Get process running time
-                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "shortcut process");
-                if (string.IsNullOrWhiteSpace(processRunningTimeString))
-                {
-                    processRunningTimeString = launchInformation;
-                }
-                else
-                {
-                    processRunningTimeString += "\n" + launchInformation;
-                }
-
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerHowLongToBeat = new DataBindString();
@@ -76,7 +48,31 @@ namespace CtrlUI
                 AnswerHide.Name = "Hide shortcut from list";
                 Answers.Add(AnswerHide);
 
-                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);
+                //Get launch information
+                string launchInformation = string.Empty;
+                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                {
+                    launchInformation = dataBindApp.AppUserModelId;
+                }
+                else
+                {
+                    launchInformation = dataBindApp.PathExe;
+                }
+
+                //Add launch argument
+                if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
+                {
+                    launchInformation += "\nLaunch argument: " + dataBindApp.Argument;
+                }
+
+                //Get process running time
+                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "Shortcut application");
+                if (!string.IsNullOrWhiteSpace(processRunningTimeString))
+                {
+                    launchInformation += "\n" + processRunningTimeString;
+                }
+
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", launchInformation, "", Answers);
                 if (messageResult != null)
                 {
                     if (messageResult == AnswerHowLongToBeat)

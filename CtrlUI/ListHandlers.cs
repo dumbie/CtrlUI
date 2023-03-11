@@ -154,30 +154,24 @@ namespace CtrlUI
                 //Add launch argument
                 if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
                 {
-                    launchInformation += " (" + dataBindApp.Argument + ")";
+                    launchInformation += "\nLaunch argument: " + dataBindApp.Argument;
                 }
 
-                //Get process running time and last launch time
-                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "application");
+                //Get process running time
+                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "Application");
+                if (!string.IsNullOrWhiteSpace(processRunningTimeString))
+                {
+                    launchInformation += "\n" + processRunningTimeString;
+                }
+
+                //Get process last launch time
                 string lastLaunchTimeString = ApplicationLastLaunchTimeString(dataBindApp.LastLaunch, "Application");
-
-                //Set the running time string
-                bool runningTimeEmpty = string.IsNullOrWhiteSpace(processRunningTimeString);
-                bool launchTimeEmpty = string.IsNullOrWhiteSpace(lastLaunchTimeString);
-                if (runningTimeEmpty && launchTimeEmpty)
+                if (!string.IsNullOrWhiteSpace(lastLaunchTimeString))
                 {
-                    processRunningTimeString = launchInformation;
-                }
-                else
-                {
-                    if (!launchTimeEmpty)
-                    {
-                        processRunningTimeString += "\n" + lastLaunchTimeString;
-                    }
-                    processRunningTimeString += "\n" + launchInformation;
+                    launchInformation += "\n" + lastLaunchTimeString;
                 }
 
-                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", launchInformation, "", Answers);
                 if (messageResult != null)
                 {
                     if (messageResult == AnswerHowLongToBeat)
@@ -222,23 +216,23 @@ namespace CtrlUI
             try
             {
                 if (runningTime == -2) { return string.Empty; }
-                else if (runningTime == -1) { return "This " + appCategory + " has been running for an unknown duration."; }
-                else if (runningTime == 0) { return "This " + appCategory + " has been running for less than a minute."; }
-                else if (runningTime < 60) { return "This " + appCategory + " has been running for a total of " + runningTime + " minutes."; }
+                else if (runningTime == -1) { return appCategory + " has been running for an unknown duration."; }
+                else if (runningTime == 0) { return appCategory + " has been running for less than a minute."; }
+                else if (runningTime < 60) { return appCategory + " has been running for a total of " + runningTime + " minutes."; }
                 else if (runningTime < 120)
                 {
                     TimeSpan RunningTimeSpan = TimeSpan.FromMinutes(runningTime);
-                    return "This " + appCategory + " has been running for a total of 1 hour and " + Convert.ToInt32(RunningTimeSpan.Minutes) + " minutes.";
+                    return appCategory + " has been running for a total of 1 hour and " + Convert.ToInt32(RunningTimeSpan.Minutes) + " minutes.";
                 }
                 else
                 {
                     TimeSpan RunningTimeSpan = TimeSpan.FromMinutes(runningTime);
-                    return "This " + appCategory + " has been running for a total of " + Convert.ToInt32(RunningTimeSpan.TotalHours) + " hours and " + Convert.ToInt32(RunningTimeSpan.Minutes) + " minutes.";
+                    return appCategory + " has been running for a total of " + Convert.ToInt32(RunningTimeSpan.TotalHours) + " hours and " + Convert.ToInt32(RunningTimeSpan.Minutes) + " minutes.";
                 }
             }
             catch
             {
-                return "This " + appCategory + " has been running for an unknown duration.";
+                return appCategory + " has been running for an unknown duration.";
             }
         }
 

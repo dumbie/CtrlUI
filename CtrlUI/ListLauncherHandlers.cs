@@ -49,7 +49,7 @@ namespace CtrlUI
                 //Add launch argument
                 if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
                 {
-                    launchInformation += " (" + dataBindApp.Argument + ")";
+                    launchInformation += "\nLaunch argument: " + dataBindApp.Argument;
                 }
 
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", launchInformation, "", Answers);

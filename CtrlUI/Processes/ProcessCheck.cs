@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -94,17 +95,19 @@ namespace CtrlUI
                 AnswerLaunch.Name = "Launch new instance";
                 Answers.Add(AnswerLaunch);
 
+                bool currentArgument = !string.IsNullOrWhiteSpace(processMulti.Argument);
                 DataBindString AnswerRestartCurrent = new DataBindString();
-                if (!string.IsNullOrWhiteSpace(processMulti.Argument))
+                if (currentArgument)
                 {
                     AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerRestartCurrent.Name = "Restart application";
-                    AnswerRestartCurrent.NameSub = "(Current argument *)";
+                    AnswerRestartCurrent.NameSub = "(Current argument)";
                     Answers.Add(AnswerRestartCurrent);
                 }
 
+                bool defaultArgument = !string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker;
                 DataBindString AnswerRestartDefault = new DataBindString();
-                if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
+                if (defaultArgument)
                 {
                     AnswerRestartDefault.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerRestartDefault.Name = "Restart application";
@@ -136,42 +139,54 @@ namespace CtrlUI
                 }
 
                 //Add launch argument
-                if (!string.IsNullOrWhiteSpace(processMulti.Argument))
+                if (currentArgument)
                 {
-                    launchInformation += " *(" + processMulti.Argument + ")";
+                    launchInformation += "\nCurrent argument: " + AVFunctions.StringCut(processMulti.Argument, 50, "...");
+                }
+                if (defaultArgument)
+                {
+                    if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
+                    {
+                        launchInformation += "\nDefault argument: Select a rom";
+                    }
+                    else if (dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker)
+                    {
+                        launchInformation += "\nDefault argument: Select a file";
+                    }
+                    else
+                    {
+                        launchInformation += "\nDefault argument: " + dataBindApp.Argument;
+                    }
                 }
 
-                //Get process running time and last launch time
-                string processRunningTimeString = string.Empty;
-                string lastLaunchTimeString = string.Empty;
                 if (dataBindApp.Category == AppCategory.Shortcut)
                 {
-                    processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "shortcut process");
-                }
-                else
-                {
-                    processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "application process");
-                    lastLaunchTimeString = ApplicationLastLaunchTimeString(dataBindApp.LastLaunch, "Application");
-                }
-
-                //Set the running time string
-                bool runningTimeEmpty = string.IsNullOrWhiteSpace(processRunningTimeString);
-                bool launchTimeEmpty = string.IsNullOrWhiteSpace(lastLaunchTimeString);
-                if (runningTimeEmpty && launchTimeEmpty)
-                {
-                    processRunningTimeString = launchInformation;
-                }
-                else
-                {
-                    if (!launchTimeEmpty)
+                    //Get process running time
+                    string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "Shortcut process");
+                    if (!string.IsNullOrWhiteSpace(processRunningTimeString))
                     {
-                        processRunningTimeString += "\n" + lastLaunchTimeString;
+                        launchInformation += "\n" + processRunningTimeString;
                     }
-                    processRunningTimeString += "\n" + launchInformation;
+                }
+                else
+                {
+                    //Get process running time
+                    string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "Application process");
+                    if (!string.IsNullOrWhiteSpace(processRunningTimeString))
+                    {
+                        launchInformation += "\n" + processRunningTimeString;
+                    }
+
+                    //Get process last launch time
+                    string lastLaunchTimeString = ApplicationLastLaunchTimeString(dataBindApp.LastLaunch, "Application");
+                    if (!string.IsNullOrWhiteSpace(lastLaunchTimeString))
+                    {
+                        launchInformation += "\n" + lastLaunchTimeString;
+                    }
                 }
 
                 //Show the messagebox
-                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", launchInformation, "", Answers);
                 if (messageResult != null)
                 {
                     if (messageResult == AnswerShow)

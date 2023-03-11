@@ -82,15 +82,17 @@ namespace CtrlUI
                     DataBindString AnswerClose = new DataBindString();
                     if (processMulti != null)
                     {
-                        if (!string.IsNullOrWhiteSpace(processMulti.Argument))
+                        bool currentArgument = !string.IsNullOrWhiteSpace(processMulti.Argument);
+                        if (currentArgument)
                         {
                             AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                             AnswerRestartCurrent.Name = "Restart application";
-                            AnswerRestartCurrent.NameSub = "(Current argument *)";
+                            AnswerRestartCurrent.NameSub = "(Current argument)";
                             Answers.Add(AnswerRestartCurrent);
                         }
 
-                        if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
+                        bool defaultArgument = !string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker;
+                        if (defaultArgument)
                         {
                             AnswerRestartDefault.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                             AnswerRestartDefault.Name = "Restart application";
@@ -124,9 +126,24 @@ namespace CtrlUI
                         }
 
                         //Add launch argument
-                        if (!string.IsNullOrWhiteSpace(processMulti.Argument))
+                        if (currentArgument)
                         {
-                            launchInformation += " *(" + processMulti.Argument + ")";
+                            launchInformation += "\nCurrent argument: " + AVFunctions.StringCut(processMulti.Argument, 50, "...");
+                        }
+                        if (defaultArgument)
+                        {
+                            if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
+                            {
+                                launchInformation += "\nDefault argument: Select a rom";
+                            }
+                            else if (dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker)
+                            {
+                                launchInformation += "\nDefault argument: Select a file";
+                            }
+                            else
+                            {
+                                launchInformation += "\nDefault argument: " + dataBindApp.Argument;
+                            }
                         }
                     }
 
