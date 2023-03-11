@@ -102,30 +102,29 @@ namespace CtrlUI
                     return;
                 }
 
+                //Set launch argument
+                string launchArgument = string.Empty;
+                if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
+                {
+                    launchArgument = await GetLaunchArgumentEmulator(dataBindApp);
+                    if (launchArgument == "Cancel") { return; }
+                }
+                else if (dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker)
+                {
+                    launchArgument = await GetLaunchArgumentFilePicker(dataBindApp);
+                    if (launchArgument == "Cancel") { return; }
+                }
+
                 //Launch the databind process
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp, string.Empty, false, keyboardLaunch);
-                }
-                else if (dataBindApp.LaunchFilePicker)
-                {
-                    string launchArgument = await GetLaunchArgumentFilePicker(dataBindApp);
-                    if (launchArgument == "Cancel") { return; }
-                    await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, false, keyboardLaunch);
-                }
-                else if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
-                {
-                    string launchArgument = await GetLaunchArgumentEmulator(dataBindApp);
-                    if (launchArgument == "Cancel") { return; }
-                    await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, false, keyboardLaunch);
+                    await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp, launchArgument, false, keyboardLaunch);
                 }
                 else
                 {
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherWin32Async(dataBindApp, string.Empty, false, false, keyboardLaunch);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, false, keyboardLaunch);
                 }
             }
             catch { }

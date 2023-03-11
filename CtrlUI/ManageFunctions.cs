@@ -687,10 +687,7 @@ namespace CtrlUI
                 {
                     sp_AddAppExePath.Visibility = Visibility.Collapsed;
                     sp_AddAppPathLaunch.Visibility = Visibility.Collapsed;
-                    sp_AddEmulatorPathRoms.Visibility = Visibility.Collapsed;
-                    sp_AddAppArgument.Visibility = Visibility.Collapsed;
                     sp_AddAppNameExe.Visibility = Visibility.Collapsed;
-                    checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
                 }
             }
             catch (Exception ex)
