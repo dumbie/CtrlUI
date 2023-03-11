@@ -21,18 +21,7 @@ namespace CtrlUI
         {
             try
             {
-                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
-                {
-                    //Check if the application exists
-                    if (GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId) == null)
-                    {
-                        await Notification_Send_Status("Close", "Application not found");
-                        Debug.WriteLine("Launch application not found.");
-                        dataBindApp.StatusAvailable = Visibility.Visible;
-                        return false;
-                    }
-                }
-                else if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
+                if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
                 {
                     //Check if the rom folder exists
                     if (!Directory.Exists(dataBindApp.PathRoms))
@@ -42,12 +31,15 @@ namespace CtrlUI
                         dataBindApp.StatusAvailable = Visibility.Visible;
                         return false;
                     }
+                }
 
-                    //Check if application executable exists
-                    if (!File.Exists(dataBindApp.PathExe))
+                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                {
+                    //Check if the application exists
+                    if (GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId) == null)
                     {
-                        await Notification_Send_Status("Close", "Executable not found");
-                        Debug.WriteLine("Launch executable not found.");
+                        await Notification_Send_Status("Close", "Application not found");
+                        Debug.WriteLine("Launch application not found.");
                         dataBindApp.StatusAvailable = Visibility.Visible;
                         return false;
                     }
@@ -105,7 +97,10 @@ namespace CtrlUI
                     Answers.Add(AnswerRestartCurrent);
                 }
 
-                bool defaultArgument = !string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker;
+                bool availableArgument = !string.IsNullOrWhiteSpace(dataBindApp.Argument);
+                bool emulatorArgument = dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom;
+                bool filepickerArgument = dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker;
+                bool defaultArgument = availableArgument || emulatorArgument || filepickerArgument;
                 DataBindString AnswerRestartDefault = new DataBindString();
                 if (defaultArgument)
                 {
@@ -145,11 +140,11 @@ namespace CtrlUI
                 }
                 if (defaultArgument)
                 {
-                    if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
+                    if (emulatorArgument)
                     {
                         launchInformation += "\nDefault argument: Select a rom";
                     }
-                    else if (dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker)
+                    else if (filepickerArgument)
                     {
                         launchInformation += "\nDefault argument: Select a file";
                     }

@@ -138,7 +138,10 @@ namespace CtrlUI
                         multiAnswers.Add(AnswerRestartCurrent);
                     }
 
-                    bool defaultArgument = !string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker;
+                    bool availableArgument = !string.IsNullOrWhiteSpace(dataBindApp.Argument);
+                    bool emulatorArgument = dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom;
+                    bool filepickerArgument = dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker;
+                    bool defaultArgument = availableArgument || emulatorArgument || filepickerArgument;
                     DataBindString AnswerRestartDefault = new DataBindString();
                     if (defaultArgument)
                     {
@@ -178,11 +181,11 @@ namespace CtrlUI
                     }
                     if (defaultArgument)
                     {
-                        if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
+                        if (emulatorArgument)
                         {
                             launchInformation += "\nDefault argument: Select a rom";
                         }
-                        else if (dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker)
+                        else if (filepickerArgument)
                         {
                             launchInformation += "\nDefault argument: Select a file";
                         }

@@ -21,6 +21,8 @@ namespace CtrlUI
         {
             try
             {
+                Debug.WriteLine("Right clicked shortcut: " + dataBindApp.Name + " from: " + listboxSender.Name);
+
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerHowLongToBeat = new DataBindString();
@@ -63,13 +65,6 @@ namespace CtrlUI
                 if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
                 {
                     launchInformation += "\nLaunch argument: " + dataBindApp.Argument;
-                }
-
-                //Get process running time
-                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "Shortcut application");
-                if (!string.IsNullOrWhiteSpace(processRunningTimeString))
-                {
-                    launchInformation += "\n" + processRunningTimeString;
                 }
 
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", launchInformation, "", Answers);

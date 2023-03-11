@@ -145,6 +145,7 @@
     <Compile Include="FilePicker\PickerLoadPC.cs" />
     <Compile Include="FilePicker\PickerLoadUwp.cs" />
     <Compile Include="HowLongToBeatFunctions.cs" />
+    <Compile Include="ListApplicationHandlers.cs" />
     <Compile Include="MouseFunctions.cs" />
     <Compile Include="Processes\ProcessShow.cs" />
     <Compile Include="Processes\ProcessClose.cs" />

@@ -18,6 +18,8 @@ namespace CtrlUI
         {
             try
             {
+                Debug.WriteLine("Right clicked launcher: " + dataBindApp.Name + " from: " + listboxSender.Name);
+
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerHowLongToBeat = new DataBindString();

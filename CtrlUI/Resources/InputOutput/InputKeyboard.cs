@@ -282,8 +282,8 @@ namespace CtrlUI
         {
             try
             {
-                if (e.Key == Key.Space) { await lb_AppList_LeftClick(sender); }
-                else if (e.Key == Key.Delete || e.Key == Key.Back) { await lb_AppList_RightClick(sender); }
+                if (e.Key == Key.Space) { await ListBox_Apps_LeftClick(sender); }
+                else if (e.Key == Key.Delete || e.Key == Key.Back) { await ListBox_Apps_RightClick(sender); }
                 else if (e.Key == Key.Insert) { await Popup_Show_AddExe(); }
             }
             catch { }

@@ -25,7 +25,7 @@ namespace CtrlUI
         {
             try
             {
-                await lb_AppList_RightClick(lb_Search);
+                await ListBox_Apps_RightClick(lb_Search);
             }
             catch { }
         }
