@@ -16,7 +16,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Show the File Picker Popup Task
-        async Task Popup_Show_FilePicker(string targetPath, int targetIndex, bool storeIndex, FrameworkElement previousFocus)
+        void Popup_Show_FilePicker(string targetPath, int targetIndex, bool storeIndex, FrameworkElement previousFocus)
         {
             try
             {
@@ -24,17 +24,17 @@ namespace CtrlUI
                 {
                     try
                     {
-                        await Popup_Show_FilePicker_Task(targetPath, targetIndex, storeIndex, previousFocus);
+                        await Popup_Show_FilePicker_NoTask(targetPath, targetIndex, storeIndex, previousFocus);
                     }
                     catch { }
                 }
-                await AVActions.TaskStartReturn(TaskAction);
+                AVActions.TaskStart(TaskAction);
             }
             catch { }
         }
 
         //Show the File Picker Popup
-        async Task Popup_Show_FilePicker_Task(string targetPath, int targetIndex, bool storeIndex, FrameworkElement previousFocus)
+        async Task Popup_Show_FilePicker_NoTask(string targetPath, int targetIndex, bool storeIndex, FrameworkElement previousFocus)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace CtrlUI
                 }
                 vFilePickerLoadBusy = true;
 
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Show file picker loading animation
                     gif_FilePicker_Loading.Show();
@@ -138,7 +138,7 @@ namespace CtrlUI
                 }
 
                 //Hide file picker loading animation
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     gif_FilePicker_Loading.Hide();
                 });
@@ -198,7 +198,7 @@ namespace CtrlUI
                 if (folderMode)
                 {
                     vFilePickerFolderSelectMode = true;
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Visible;
                         grid_Popup_FilePicker_button_ControllerStart.ToolTip = new ToolTip() { Content = "Use the currently opened folder" };
@@ -207,7 +207,7 @@ namespace CtrlUI
                 else
                 {
                     vFilePickerFolderSelectMode = false;
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Collapsed;
                         grid_Popup_FilePicker_button_ControllerStart.ToolTip = new ToolTip() { Content = "Select file or folder" };
@@ -297,7 +297,7 @@ namespace CtrlUI
                 if (totalFileCount > 0)
                 {
                     //Enable or disable file and folder availability
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;
                         grid_Popup_FilePicker_textblock_CurrentPath.Text = "Current path: " + vFilePickerCurrentPath + " (" + totalFileCount + " items)";
@@ -307,7 +307,7 @@ namespace CtrlUI
                 else
                 {
                     //Enable or disable file and folder availability
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Visible;
                     });

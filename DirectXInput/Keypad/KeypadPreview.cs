@@ -14,7 +14,7 @@ namespace DirectXInput.KeypadCode
             {
                 if (GetSystemTicksMs() >= vControllerDelay_KeypadPreview)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         try
                         {

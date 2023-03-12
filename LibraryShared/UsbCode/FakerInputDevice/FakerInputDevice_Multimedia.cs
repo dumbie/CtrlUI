@@ -11,7 +11,7 @@ namespace LibraryUsb
             try
             {
                 MultimediaPress(keyMultimedia);
-                AVActions.TaskDelayMs(50);
+                AVActions.TaskDelayHighRes(50);
                 MultimediaReset();
                 return true;
             }

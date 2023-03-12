@@ -539,7 +539,7 @@ namespace DirectXInput.KeyboardCode
                 if (vCapsEnabled)
                 {
                     vCapsEnabled = false;
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         textblock_ButtonLeft.Text = "Backspace";
 
@@ -656,7 +656,7 @@ namespace DirectXInput.KeyboardCode
                 else
                 {
                     vCapsEnabled = true;
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         textblock_ButtonLeft.Text = "Delete";
 

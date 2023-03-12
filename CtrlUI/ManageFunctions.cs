@@ -806,7 +806,7 @@ namespace CtrlUI
                     vFilePickerSettings = new FilePickerSettings();
                     vFilePickerSettings.Title = "Window Store Applications";
                     vFilePickerSettings.Description = "Please select a Windows store application to add as " + messageResult.Name + ":";
-                    await Popup_Show_FilePicker("UWP", 0, false, null);
+                    Popup_Show_FilePicker("UWP", 0, false, null);
 
                     while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                     if (vFilePickerCancelled) { return; }

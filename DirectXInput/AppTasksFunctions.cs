@@ -15,7 +15,7 @@ namespace DirectXInput
                     UpdateWindowStatus();
 
                     //Delay the loop task
-                    await TaskDelayLoop(500, vTask_UpdateWindowStatus);
+                    await TaskDelay(500, vTask_UpdateWindowStatus);
                 }
             }
             catch { }
@@ -31,7 +31,7 @@ namespace DirectXInput
                     MonitorVolumeMute();
 
                     //Delay the loop task
-                    await TaskDelayLoop(2000, vTask_ControllerMonitor);
+                    await TaskDelay(2000, vTask_ControllerMonitor);
                 }
             }
             catch { }
@@ -46,7 +46,7 @@ namespace DirectXInput
                     await CheckControllersTimeout();
 
                     //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_ControllerTimeout);
+                    await TaskDelay(1000, vTask_ControllerTimeout);
                 }
             }
             catch { }
@@ -64,7 +64,7 @@ namespace DirectXInput
                     ControllerLedColor(vController3);
 
                     //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_ControllerLedColor);
+                    await TaskDelay(1000, vTask_ControllerLedColor);
                 }
             }
             catch { }
@@ -79,7 +79,7 @@ namespace DirectXInput
                     CheckAllControllersLowBattery(false);
 
                     //Delay the loop task
-                    await TaskDelayLoop(5000, vTask_ControllerBattery);
+                    await TaskDelay(5000, vTask_ControllerBattery);
                 }
             }
             catch { }
@@ -94,7 +94,7 @@ namespace DirectXInput
                     UpdateControllerInformation();
 
                     //Delay the loop task
-                    await TaskDelayLoop(50, vTask_ControllerInformation);
+                    await TaskDelay(50, vTask_ControllerInformation);
                 }
             }
             catch { }

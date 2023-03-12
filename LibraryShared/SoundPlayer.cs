@@ -40,7 +40,7 @@ namespace LibraryShared
                     if (File.Exists(soundFileName))
                     {
                         Uri soundFileUri = new Uri(soundFileName, UriKind.RelativeOrAbsolute);
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             windowsMediaPlayer.Volume = soundVolume;
                             windowsMediaPlayer.Open(soundFileUri);

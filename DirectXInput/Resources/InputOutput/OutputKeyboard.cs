@@ -12,7 +12,7 @@ namespace DirectXInput
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     if (Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
@@ -28,7 +28,7 @@ namespace DirectXInput
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     if (Keyboard.GetKeyStates(Key.NumLock) != KeyStates.Toggled)
                     {

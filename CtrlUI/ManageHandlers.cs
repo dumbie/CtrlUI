@@ -62,7 +62,7 @@ namespace CtrlUI
                 vFilePickerSettings.Title = "Application Image";
                 vFilePickerSettings.Description = "Please select a new application image:";
                 vFilePickerSettings.ShowEmulatorImages = true;
-                await Popup_Show_FilePicker("PC", -1, false, null);
+                Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -113,7 +113,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "exe" };
                 vFilePickerSettings.Title = "Application Executable";
                 vFilePickerSettings.Description = "Please select an application executable:";
-                await Popup_Show_FilePicker("PC", -1, false, null);
+                Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -157,7 +157,7 @@ namespace CtrlUI
                 vFilePickerSettings.Title = "Launch Folder";
                 vFilePickerSettings.Description = "Please select the launch folder:";
                 vFilePickerSettings.ShowFiles = false;
-                await Popup_Show_FilePicker("PC", -1, false, null);
+                Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -177,7 +177,7 @@ namespace CtrlUI
                 vFilePickerSettings.Title = "Rom Folder";
                 vFilePickerSettings.Description = "Please select the rom folder:";
                 vFilePickerSettings.ShowFiles = false;
-                await Popup_Show_FilePicker("PC", -1, false, null);
+                Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }

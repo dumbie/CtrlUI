@@ -109,7 +109,7 @@ namespace FpsOverlayer
                     {
                         //Delay the loop task
                         int hardwareUpdateRate = SettingLoad(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", typeof(int));
-                        await TaskDelayLoop(hardwareUpdateRate, vTask_MonitorHardware);
+                        await TaskDelay(hardwareUpdateRate, vTask_MonitorHardware);
                     }
                 }
             }
@@ -125,7 +125,7 @@ namespace FpsOverlayer
                 bool showCurrentUsage = SettingLoad(vConfigurationFpsOverlayer, "NetShowCurrentUsage", typeof(bool));
                 if (!showCurrentUsage)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         stackpanel_CurrentNet.Visibility = Visibility.Collapsed;
                     });
@@ -164,7 +164,7 @@ namespace FpsOverlayer
                     if (!string.IsNullOrWhiteSpace(networkUsage))
                     {
                         string stringDisplay = AVFunctions.StringRemoveStart(vTitleNET + networkUsage, " ");
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             textblock_CurrentNet.Text = stringDisplay;
                             stackpanel_CurrentNet.Visibility = Visibility.Visible;
@@ -172,7 +172,7 @@ namespace FpsOverlayer
                     }
                     else
                     {
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             stackpanel_CurrentNet.Visibility = Visibility.Collapsed;
                         });
@@ -191,7 +191,7 @@ namespace FpsOverlayer
                 bool showPercentage = SettingLoad(vConfigurationFpsOverlayer, "BatShowPercentage", typeof(bool));
                 if (!showPercentage)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         stackpanel_CurrentBat.Visibility = Visibility.Collapsed;
                     });
@@ -236,7 +236,7 @@ namespace FpsOverlayer
                     if (!string.IsNullOrWhiteSpace(BatteryPercentage) || !string.IsNullOrWhiteSpace(BatteryStatus))
                     {
                         string stringDisplay = AVFunctions.StringRemoveStart(vTitleBAT + BatteryPercentage + BatteryStatus, " ");
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             textblock_CurrentBat.Text = stringDisplay;
                             stackpanel_CurrentBat.Visibility = Visibility.Visible;
@@ -244,7 +244,7 @@ namespace FpsOverlayer
                     }
                     else
                     {
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             stackpanel_CurrentBat.Visibility = Visibility.Collapsed;
                         });
@@ -269,7 +269,7 @@ namespace FpsOverlayer
                 bool showTotal = SettingLoad(vConfigurationFpsOverlayer, "MemShowTotal", typeof(bool));
                 if (!showName && !showSpeed && !showPercentage && !showUsed && !showFree && !showTotal)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         stackpanel_CurrentMem.Visibility = Visibility.Collapsed;
                     });
@@ -368,7 +368,7 @@ namespace FpsOverlayer
                             }
                         }
 
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             textblock_CurrentMem.Text = stringDisplay;
                             stackpanel_CurrentMem.Visibility = Visibility.Visible;
@@ -376,7 +376,7 @@ namespace FpsOverlayer
                     }
                     else
                     {
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             stackpanel_CurrentMem.Visibility = Visibility.Collapsed;
                         });
@@ -405,7 +405,7 @@ namespace FpsOverlayer
                 bool showPowerVolt = SettingLoad(vConfigurationFpsOverlayer, "GpuShowPowerVolt", typeof(bool));
                 if (!showName && !showPercentage && !showTemperature && !showMemoryUsed && !showCoreFrequency && !showFanSpeed && !showPowerWatt && !showPowerVolt)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         stackpanel_CurrentGpu.Visibility = Visibility.Collapsed;
                     });
@@ -526,7 +526,7 @@ namespace FpsOverlayer
                         }
 
                         gpuDone = true;
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             textblock_CurrentGpu.Text = stringDisplay;
                             stackpanel_CurrentGpu.Visibility = Visibility.Visible;
@@ -534,7 +534,7 @@ namespace FpsOverlayer
                     }
                     else
                     {
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             stackpanel_CurrentGpu.Visibility = Visibility.Collapsed;
                         });
@@ -604,7 +604,7 @@ namespace FpsOverlayer
                 bool showFanSpeed = SettingLoad(vConfigurationFpsOverlayer, "CpuShowFanSpeed", typeof(bool));
                 if (!showCpuName && !showBoardName && !showPercentage && !showTemperature && !showCoreFrequency && !showPowerWatt && !showPowerVolt && !showFanSpeed)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         stackpanel_CurrentCpu.Visibility = Visibility.Collapsed;
                     });
@@ -748,7 +748,7 @@ namespace FpsOverlayer
                         }
 
                         cpuDone = true;
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             textblock_CurrentCpu.Text = stringDisplay;
                             stackpanel_CurrentCpu.Visibility = Visibility.Visible;
@@ -756,7 +756,7 @@ namespace FpsOverlayer
                     }
                     else
                     {
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             stackpanel_CurrentCpu.Visibility = Visibility.Collapsed;
                         });
@@ -778,7 +778,7 @@ namespace FpsOverlayer
                 bool showRefreshRate = SettingLoad(vConfigurationFpsOverlayer, "MonShowRefreshRate", typeof(bool));
                 if (!showResolution && !showColorBitDepth && !showRefreshRate)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         stackpanel_CurrentMon.Visibility = Visibility.Collapsed;
                     });
@@ -830,7 +830,7 @@ namespace FpsOverlayer
 
                 //Update the screen resolution
                 string stringDisplay = AVFunctions.StringRemoveStart(vTitleMON + screenResolutionString + screenColorBitDepthString + screenRefreshRateString, " ");
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     textblock_CurrentMon.Text = stringDisplay;
                     stackpanel_CurrentMon.Visibility = Visibility.Visible;

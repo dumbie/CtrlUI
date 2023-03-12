@@ -230,7 +230,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Rotate the clock images
                     int clockSecond = DateTime.Now.Second;
@@ -299,7 +299,7 @@ namespace CtrlUI
                 bool runningDirectXInput = processesList.Any(x => x.ExeNameNoExt.ToLower() == "directxinput");
                 bool runningFpsOverlayer = processesList.Any(x => x.ExeNameNoExt.ToLower() == "fpsoverlayer");
 
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     if (runningSteam)
                     {

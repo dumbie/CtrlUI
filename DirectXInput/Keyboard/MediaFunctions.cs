@@ -135,8 +135,16 @@ namespace DirectXInput.KeyboardCode
                 Debug.WriteLine("Requesting SMTC access.");
 
                 //Might cause Windows Explorer issue when looping.
-                var smtcSessionManagerTask = GlobalSystemMediaTransportControlsSessionManager.RequestAsync().AsTask();
-                vSmtcSessionManager = await TaskStartReturnTimeout(smtcSessionManagerTask, 2000);
+                async Task<GlobalSystemMediaTransportControlsSessionManager> TaskAction()
+                {
+                    try
+                    {
+                        return await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
+                    }
+                    catch { }
+                    return null;
+                }
+                vSmtcSessionManager = await TaskStartTimeoutReturn(TaskAction, 2000);
                 if (vSmtcSessionManager == null)
                 {
                     HideMediaInformation();
@@ -226,14 +234,14 @@ namespace DirectXInput.KeyboardCode
                 string mediaAlbum = mediaProperties.AlbumTitle;
                 if (string.IsNullOrWhiteSpace(mediaAlbum))
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         text_Information_Album.Visibility = Visibility.Collapsed;
                     });
                 }
                 else
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         text_Information_Album.Visibility = Visibility.Visible;
                     });
@@ -248,14 +256,14 @@ namespace DirectXInput.KeyboardCode
                     mediaProgress = mediaTimeline.Position.TotalSeconds * 100 / mediaTimeline.EndTime.TotalSeconds;
                     mediaCurrent = AVFunctions.SecondsToHms((int)mediaTimeline.Position.TotalSeconds, false, true);
                     mediaTotal = AVFunctions.SecondsToHms((int)mediaTimeline.EndTime.TotalSeconds, false, true);
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         grid_Information_Progress.Visibility = Visibility.Visible;
                     });
                 }
                 else
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         grid_Information_Progress.Visibility = Visibility.Collapsed;
                     });
@@ -265,7 +273,7 @@ namespace DirectXInput.KeyboardCode
                 BitmapFrame thumbnailBitmap = await GetMediaThumbnail(mediaProperties.Thumbnail);
 
                 //Update the media and volume information
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     text_Information_Artist.Text = mediaArtist;
                     text_Information_Title.Text = mediaTitle;
@@ -301,7 +309,7 @@ namespace DirectXInput.KeyboardCode
                 //Check if volume is currently muted
                 bool currentOutputVolumeMuted = AudioMuteGetStatus(false);
                 bool currentInputVolumeMuted = AudioMuteGetStatus(true);
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     img_Main_VolumeMute.Visibility = currentOutputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;
                     img_Main_MicrophoneMute.Visibility = currentInputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;
@@ -320,7 +328,7 @@ namespace DirectXInput.KeyboardCode
                 }
 
                 //Update volume information
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     textblock_Volume_Level.Text = currentVolumeString;
                 });
@@ -336,7 +344,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     grid_MediaPlaying.Visibility = Visibility.Collapsed;
                     textblock_MediaNone.Visibility = Visibility.Visible;

@@ -55,7 +55,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Get the current selected item
                     object selectedItem = targetListBox.SelectedItem;

@@ -33,7 +33,7 @@ namespace DirectXInput.KeypadCode
                             int taskbarSize = 0;
                             if (taskbarInfo.Position == AppBarPosition.ABE_BOTTOM)
                             {
-                                AVActions.ActionDispatcherInvoke(delegate
+                                AVActions.DispatcherInvoke(delegate
                                 {
                                     try
                                     {
@@ -48,7 +48,7 @@ namespace DirectXInput.KeypadCode
                         }
 
                         //Reset taskbar margin
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             try
                             {
@@ -61,7 +61,7 @@ namespace DirectXInput.KeypadCode
                     finally
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(1000, vTask_MonitorTaskbar);
+                        await TaskDelay(1000, vTask_MonitorTaskbar);
                     }
                 }
             }

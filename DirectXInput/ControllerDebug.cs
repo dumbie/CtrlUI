@@ -14,7 +14,7 @@ namespace DirectXInput
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Set basic information
                     textblock_LiveDebugInformation.Text = GenerateControllerDebugString(false);
@@ -40,7 +40,7 @@ namespace DirectXInput
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Set basic information
                     textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";

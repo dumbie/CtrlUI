@@ -14,11 +14,11 @@ namespace FpsOverlayer
     partial class WindowMain
     {
         //Handle received socket data
-        public async Task ReceivedSocketHandler(TcpClient tcpClient, UdpEndPointDetails endPoint, byte[] receivedBytes)
+        public void ReceivedSocketHandler(TcpClient tcpClient, UdpEndPointDetails endPoint, byte[] receivedBytes)
         {
             try
             {
-                async void TaskAction()
+                async Task TaskAction()
                 {
                     try
                     {
@@ -33,7 +33,7 @@ namespace FpsOverlayer
                     }
                     catch { }
                 }
-                await AVActions.TaskStart(TaskAction);
+                AVActions.TaskStart(TaskAction);
             }
             catch { }
         }

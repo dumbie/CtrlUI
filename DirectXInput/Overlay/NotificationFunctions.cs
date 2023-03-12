@@ -29,7 +29,7 @@ namespace DirectXInput.OverlayCode
             try
             {
                 //Update the notification
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     try
                     {

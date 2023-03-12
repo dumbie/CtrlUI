@@ -268,7 +268,7 @@ namespace FpsOverlayer
             try
             {
                 Debug.WriteLine("Exiting application.");
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     this.Opacity = 0.80;
                     this.IsEnabled = false;

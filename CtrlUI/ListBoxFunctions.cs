@@ -97,7 +97,7 @@ namespace CtrlUI
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
                     if (frameworkElement != null && (frameworkElement.GetType() == typeof(ListBox) || frameworkElement.GetType() == typeof(ListBoxItem)))
@@ -272,7 +272,7 @@ namespace CtrlUI
             try
             {
                 //Show the overlay
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     try
                     {
@@ -308,7 +308,7 @@ namespace CtrlUI
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     //Debug.WriteLine("Adding item to list collection: " + listCollection);
 
@@ -349,7 +349,7 @@ namespace CtrlUI
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     //Store the current listbox items count
                     int listBoxItemCount = listBox.Items.Count;
@@ -382,7 +382,7 @@ namespace CtrlUI
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     //Store the current listbox items count
                     int listBoxItemCount = listBox.Items.Count;

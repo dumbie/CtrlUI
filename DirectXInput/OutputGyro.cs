@@ -20,7 +20,7 @@ namespace DirectXInput
                     try
                     {
                         //Delay task to prevent high cpu usage
-                        TaskDelayMs(1);
+                        TaskDelayHighRes(1);
 
                         //Send gyro motion to the dsu client
                         await SendGyroMotionController(Controller);

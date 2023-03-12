@@ -28,7 +28,7 @@ namespace CtrlUI
                 vBusyRefreshingLaunchers = true;
 
                 //Show the loading gif
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     gif_List_Loading.Show();
                 });
@@ -109,14 +109,14 @@ namespace CtrlUI
 
                     SortObservableCollection(lb_Launchers, List_Launchers, orderListLaunchers, null);
 
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         lb_Launchers.SelectedIndex = 0;
                     });
                 }
 
                 //Hide the loading gif
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     gif_List_Loading.Hide();
                 });

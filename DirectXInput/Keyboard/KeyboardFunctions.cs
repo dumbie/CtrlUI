@@ -299,7 +299,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     //Update help bar
                     stackpanel_DPad.Visibility = Visibility.Collapsed;
@@ -353,7 +353,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     //Update help bar
                     stackpanel_DPad.Visibility = Visibility.Visible;

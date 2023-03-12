@@ -18,7 +18,7 @@ namespace LibraryShared
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     //Get the currently focused element
                     FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
@@ -45,7 +45,7 @@ namespace LibraryShared
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     //Select first available listbox
                     if (focusListBox != null && focusListBox.IsEnabled && focusListBox.Visibility == Visibility.Visible && focusListBox.Items.Count > 0)
@@ -88,7 +88,7 @@ namespace LibraryShared
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Update the listbox layout
                     focusListBox.UpdateLayout();
@@ -137,7 +137,7 @@ namespace LibraryShared
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     //Get the currently focused element
                     FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
@@ -164,7 +164,7 @@ namespace LibraryShared
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     //Select first available listbox
                     if (focusListBox != null && focusListBox.IsEnabled && focusListBox.Visibility == Visibility.Visible && focusListBox.Items.Count > 0)
@@ -207,7 +207,7 @@ namespace LibraryShared
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Update the listbox layout
                     focusListBox.UpdateLayout();

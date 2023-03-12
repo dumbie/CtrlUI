@@ -220,7 +220,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (border_EmojiListPopup.Visibility == Visibility.Visible || border_TextListPopup.Visibility == Visibility.Visible)
                         {
-                            await AVActions.ActionDispatcherInvokeAsync(async delegate
+                            await AVActions.DispatcherInvoke(async delegate
                             {
                                 await HideTextEmojiPopup();
                             });
@@ -380,7 +380,7 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            await AVActions.ActionDispatcherInvokeAsync(async delegate
+                            await AVActions.DispatcherInvoke(async delegate
                             {
                                 if (vLastPopupListType == "Text")
                                 {

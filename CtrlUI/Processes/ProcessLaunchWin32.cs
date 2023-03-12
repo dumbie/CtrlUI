@@ -134,7 +134,7 @@ namespace CtrlUI
                 vFilePickerSettings.Title = "File Selection";
                 vFilePickerSettings.Description = "Please select a file to load in " + dataBindApp.Name + ":";
                 vFilePickerSettings.ShowLaunchWithoutFile = true;
-                await Popup_Show_FilePicker("PC", -1, false, null);
+                Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return "Cancel"; }
@@ -165,7 +165,7 @@ namespace CtrlUI
                 vFilePickerSettings.ShowEmulatorInterface = true;
                 vFilePickerSettings.SourceDataBindApp = dataBindApp;
                 vFilePickerSettings.RootPath = dataBindApp.PathRoms;
-                await Popup_Show_FilePicker(dataBindApp.PathRoms, -1, false, null);
+                Popup_Show_FilePicker(dataBindApp.PathRoms, -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return "Cancel"; }

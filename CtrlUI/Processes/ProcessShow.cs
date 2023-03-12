@@ -61,7 +61,7 @@ namespace CtrlUI
                     bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
                     //Force focus on the app
-                    await PrepareShowProcessWindow(dataBindApp.Name, processMulti.Identifier, processWindowHandle, true, false, keyboardLaunch);
+                    await PrepareShowProcessWindow(dataBindApp.Name, processWindowHandle, true, false, keyboardLaunch);
                 }
                 else
                 {
@@ -184,7 +184,7 @@ namespace CtrlUI
         }
 
         //Show process window
-        async Task PrepareShowProcessWindow(string processName, int processIdTarget, IntPtr windowHandleTarget, bool minimizeCtrlUI, bool silentFocus, bool launchKeyboard)
+        async Task PrepareShowProcessWindow(string processName, IntPtr windowHandleTarget, bool minimizeCtrlUI, bool silentFocus, bool launchKeyboard)
         {
             try
             {
@@ -216,7 +216,7 @@ namespace CtrlUI
                             await Notification_Send_Status("AppMiniMaxi", "Showing " + processName);
                         }
                     }
-                    Debug.WriteLine("Showing application window: " + processName + "/" + processIdTarget + "/" + windowHandleTarget);
+                    Debug.WriteLine("Showing application window: " + processName + "/" + windowHandleTarget);
 
                     //Minimize the CtrlUI window
                     if (minimizeCtrlUI)
@@ -225,7 +225,7 @@ namespace CtrlUI
                     }
 
                     //Focus on application window handle
-                    bool windowFocused = await AVProcess.Show_ProcessByProcessIdAndWindowHandle(processIdTarget, windowHandleTarget);
+                    bool windowFocused = await AVProcess.Show_ProcessByWindowHandle(windowHandleTarget);
                     if (!windowFocused)
                     {
                         await Notification_Send_Status("Close", "Failed showing application");

@@ -30,7 +30,7 @@ namespace DirectXInput
                             if (!controller.HidDevice.ReadBytesFile(controller.InputReport))
                             {
                                 Debug.WriteLine("Failed to read input data from hid controller: " + controller.NumberId);
-                                TaskDelayMs(1);
+                                TaskDelayHighRes(1);
                                 continue;
                             }
                         }
@@ -39,7 +39,7 @@ namespace DirectXInput
                             if (!controller.WinUsbDevice.ReadBytesIntPipe(controller.InputReport))
                             {
                                 Debug.WriteLine("Failed to read input data from win controller: " + controller.NumberId);
-                                TaskDelayMs(1);
+                                TaskDelayHighRes(1);
                                 continue;
                             }
                         }
@@ -205,7 +205,7 @@ namespace DirectXInput
                             Debug.WriteLine("Controller without triggers detected.");
                             App.vWindowOverlay.Notification_Show_Status("Controller", "Controller has no triggers");
 
-                            AVActions.ActionDispatcherInvoke(delegate { cb_ControllerUseButtonTriggers.IsChecked = true; });
+                            AVActions.DispatcherInvoke(delegate { cb_ControllerUseButtonTriggers.IsChecked = true; });
                             controller.Details.Profile.UseButtonTriggers = true;
 
                             //Save changes to Json file

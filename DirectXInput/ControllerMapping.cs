@@ -165,7 +165,7 @@ namespace DirectXInput
                     int buttonMapId = Array.FindIndex(Controller.InputCurrent.ButtonPressStatus, ButtonPressed => ButtonPressed);
                     if (buttonMapId != -1)
                     {
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             try
                             {

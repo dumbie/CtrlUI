@@ -17,7 +17,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     string clockStyle = SettingLoad(AppVariables.vConfigurationCtrlUI, "InterfaceClockStyleName", typeof(string));
                     string clockPath = "Assets/Default/Clocks/" + clockStyle;
@@ -40,7 +40,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Rotate the clock images
                     int clockSecond = DateTime.Now.Second;
@@ -65,14 +65,14 @@ namespace DirectXInput.KeyboardCode
                 ControllerStatus activeController = AppVariables.vActiveController();
                 if (activeController == null)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         stackpanel_ControllerActive.Visibility = Visibility.Collapsed;
                     });
                     return;
                 }
 
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     stackpanel_ControllerActive.Visibility = Visibility.Visible;
                     border_ControllerActive.Background = new SolidColorBrush((Color)activeController.Color);
@@ -90,7 +90,7 @@ namespace DirectXInput.KeyboardCode
                 ControllerStatus activeController = AppVariables.vActiveController();
                 if (activeController == null)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
@@ -103,7 +103,7 @@ namespace DirectXInput.KeyboardCode
                 //Check if battery level is available
                 if (controllerBattery.BatteryStatus == BatteryStatus.Unknown)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
@@ -115,7 +115,7 @@ namespace DirectXInput.KeyboardCode
                 //Check if battery is charging
                 if (controllerBattery.BatteryStatus == BatteryStatus.Charging)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Battery/BatteryVerCharge.png" }, null, AppVariables.vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -138,7 +138,7 @@ namespace DirectXInput.KeyboardCode
                 else if (controllerBattery.BatteryPercentage <= 90) { percentageNumber = "90"; }
 
                 //Set the battery percentage
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Set the used battery percentage text
                     txt_Main_Battery.Text = Convert.ToString(controllerBattery.BatteryPercentage) + "%";
@@ -159,7 +159,7 @@ namespace DirectXInput.KeyboardCode
             }
             catch
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     txt_Main_Battery.Visibility = Visibility.Collapsed;
                     img_Main_Battery.Visibility = Visibility.Collapsed;

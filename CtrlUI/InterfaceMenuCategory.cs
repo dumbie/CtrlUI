@@ -58,7 +58,7 @@ namespace CtrlUI
                 ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
                 if (CategoryListCount(listAppCategory) <= 0 && listAppCategory != ListCategory.Search)
                 {
-                    await AVActions.ActionDispatcherInvokeAsync(async delegate
+                    await AVActions.DispatcherInvoke(async delegate
                     {
                         ListCategory? listCategorySwitch = CategoryListPreviousWithItems(listAppCategory, false);
                         if (listCategorySwitch == null)
@@ -177,7 +177,7 @@ namespace CtrlUI
                     listCountString = string.Empty;
                 }
 
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     textblock_Category_Count.Text = listCountString;
                 });

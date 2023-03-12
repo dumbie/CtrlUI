@@ -38,7 +38,7 @@ namespace CtrlUI
                 //Check if DirectXInput is running
                 bool processDirectXInputRunning = Check_RunningProcessByName("DirectXInput", true);
 
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Check if there is any controller connected
                     if (!vControllerAnyConnected())

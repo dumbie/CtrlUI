@@ -173,7 +173,7 @@ namespace CtrlUI
                 Visibility visibilityShortcuts = List_Shortcuts.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityProcesses = List_Processes.Any() ? Visibility.Visible : Visibility.Collapsed;
 
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     button_Category_Menu_Games.Visibility = visibilityGames;
                     button_Category_Menu_Apps.Visibility = visibilityApps;

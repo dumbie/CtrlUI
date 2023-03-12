@@ -14,11 +14,11 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle received socket data
-        public async Task ReceivedSocketHandler(TcpClient tcpClient, UdpEndPointDetails endPoint, byte[] receivedBytes)
+        public void ReceivedSocketHandler(TcpClient tcpClient, UdpEndPointDetails endPoint, byte[] receivedBytes)
         {
             try
             {
-                async void TaskAction()
+                async Task TaskAction()
                 {
                     try
                     {
@@ -33,7 +33,7 @@ namespace CtrlUI
                     }
                     catch { }
                 }
-                await AVActions.TaskStart(TaskAction);
+                AVActions.TaskStart(TaskAction);
             }
             catch { }
         }
@@ -81,7 +81,7 @@ namespace CtrlUI
                         }
                         else if (receivedString == "AppWindowHideShow")
                         {
-                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await AppWindow_HideShow(); });
+                            await AVActions.DispatcherInvoke(async delegate { await AppWindow_HideShow(); });
                         }
                     }
                 }

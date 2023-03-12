@@ -41,7 +41,7 @@ namespace CtrlUI
                     }
                 }
 
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Enable or disable the copy paste status
                     if (vClipboardFiles.Any())
@@ -75,7 +75,7 @@ namespace CtrlUI
                 }
 
                 //Enable or disable the side navigate buttons
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Visible;
                     grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Visible;

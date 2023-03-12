@@ -11,7 +11,7 @@ namespace LibraryUsb
             try
             {
                 KeyboardPress(keyModifier0, keyModifier1, key0, key1, key2, key3, key4, key5);
-                AVActions.TaskDelayMs(50);
+                AVActions.TaskDelayHighRes(50);
                 KeyboardReset();
                 return true;
             }

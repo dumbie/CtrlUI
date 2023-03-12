@@ -139,7 +139,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "exe", "bat", "cmd" };
                 vFilePickerSettings.Title = "Launch Executable";
                 vFilePickerSettings.Description = "Please select an executable file to run:";
-                await Popup_Show_FilePicker("PC", -1, false, null);
+                Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -163,7 +163,7 @@ namespace CtrlUI
                 vFilePickerSettings = new FilePickerSettings();
                 vFilePickerSettings.Title = "Windows Store Applications";
                 vFilePickerSettings.Description = "Please select a Windows store application to run:";
-                await Popup_Show_FilePicker("UWP", 0, false, null);
+                Popup_Show_FilePicker("UWP", 0, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }

@@ -15,11 +15,11 @@ namespace DriverInstaller
     public partial class WindowMain
     {
         //Uninstall the required drivers
-        async void button_Driver_Uninstall_Click(object sender, RoutedEventArgs e)
+        void button_Driver_Uninstall_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                async void TaskAction()
+                async Task TaskAction()
                 {
                     try
                     {
@@ -27,7 +27,7 @@ namespace DriverInstaller
                     }
                     catch { }
                 }
-                await AVActions.TaskStart(TaskAction);
+                AVActions.TaskStart(TaskAction);
             }
             catch { }
         }

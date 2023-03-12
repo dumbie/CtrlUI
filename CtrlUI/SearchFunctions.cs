@@ -48,7 +48,7 @@ namespace CtrlUI
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     string searchString = grid_Search_textbox.Text;
                     string placeholderString = (string)grid_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
@@ -104,7 +104,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     string searchString = grid_Search_textbox.Text;
                     string placeholderString = (string)grid_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);

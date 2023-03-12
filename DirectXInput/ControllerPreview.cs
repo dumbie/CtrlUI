@@ -39,7 +39,7 @@ namespace DirectXInput
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     if (rumbleEnabled)
                     {
@@ -60,7 +60,7 @@ namespace DirectXInput
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Update name and type
                     txt_ActiveControllerType.Text = Controller.Details.Wireless ? "Wireless" : "Wired";

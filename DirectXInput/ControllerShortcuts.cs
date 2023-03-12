@@ -205,7 +205,7 @@ namespace DirectXInput
             try
             {
                 Debug.WriteLine("Switching between keyboard and keypad");
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     if (App.vWindowKeyboard.vWindowVisible)
                     {
@@ -228,7 +228,7 @@ namespace DirectXInput
             try
             {
                 Debug.WriteLine("Shortcut keypad has been pressed.");
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
                     {
@@ -253,7 +253,7 @@ namespace DirectXInput
             try
             {
                 Debug.WriteLine("Shortcut keyboard has been pressed.");
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
                     {
@@ -281,7 +281,7 @@ namespace DirectXInput
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     await App.vWindowKeyboard.Hide();
                     await App.vWindowKeypad.Hide();

@@ -120,7 +120,7 @@ namespace DirectXInput
                     bool controllerStarted = await StartControllerDirectInput(vController0);
                     if (controllerStarted)
                     {
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             image_Controller0.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller0.Text = vController0.Details.DisplayName;
@@ -134,7 +134,7 @@ namespace DirectXInput
                     bool controllerStarted = await StartControllerDirectInput(vController1);
                     if (controllerStarted)
                     {
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             image_Controller1.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller1.Text = vController1.Details.DisplayName;
@@ -148,7 +148,7 @@ namespace DirectXInput
                     bool controllerStarted = await StartControllerDirectInput(vController2);
                     if (controllerStarted)
                     {
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             image_Controller2.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller2.Text = vController2.Details.DisplayName;
@@ -162,7 +162,7 @@ namespace DirectXInput
                     bool controllerStarted = await StartControllerDirectInput(vController3);
                     if (controllerStarted)
                     {
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             image_Controller3.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller3.Text = vController3.Details.DisplayName;
@@ -188,7 +188,7 @@ namespace DirectXInput
                 else if (activeController == null)
                 {
                     //Clear the current controller information
-                    AVActions.ActionDispatcherInvoke(delegate
+                    AVActions.DispatcherInvoke(delegate
                     {
                         txt_ActiveControllerType.Text = "Type";
                         txt_ActiveControllerLatency.Text = "Latency";

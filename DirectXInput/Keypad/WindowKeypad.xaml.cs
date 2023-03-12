@@ -127,7 +127,7 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     try
                     {
@@ -183,7 +183,7 @@ namespace DirectXInput.KeypadCode
             double keypadImageHeight = 0;
             try
             {
-                ActionDispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     try
                     {
@@ -305,7 +305,7 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     try
                     {
@@ -322,7 +322,7 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     try
                     {

@@ -42,7 +42,7 @@ namespace DirectXInput.KeyboardCode
                     await UpdateCurrentMediaInformation();
 
                     //Delay the loop task
-                    await TaskDelayLoop(500, vTask_UpdateMediaInformation);
+                    await TaskDelay(500, vTask_UpdateMediaInformation);
                 }
             }
             catch { }
@@ -59,7 +59,7 @@ namespace DirectXInput.KeyboardCode
                     UpdateActiveController();
 
                     //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_UpdateInterfaceInformation);
+                    await TaskDelay(1000, vTask_UpdateInterfaceInformation);
                 }
             }
             catch { }

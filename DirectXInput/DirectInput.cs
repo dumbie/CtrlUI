@@ -58,7 +58,7 @@ namespace DirectXInput
                 notificationDetailsConnected.Color = Controller.Color;
                 App.vWindowOverlay.Notification_Show_Status(notificationDetailsConnected);
 
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     txt_Controller_Information.Text = "Connected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
                 });
@@ -142,7 +142,7 @@ namespace DirectXInput
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Check if controller supports trigger rumble
                     if (Controller.SupportedCurrent.HasRumbleTrigger)
@@ -271,7 +271,7 @@ namespace DirectXInput
                 App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Update user interface controller status
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     if (string.IsNullOrWhiteSpace(controllerInfo))
                     {

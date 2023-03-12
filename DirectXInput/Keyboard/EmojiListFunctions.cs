@@ -239,7 +239,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 int selectIndex = 0;
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Update the emoji selected index
                     UpdateSelectedIndexEmoji();

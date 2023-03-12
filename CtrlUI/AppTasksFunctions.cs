@@ -15,7 +15,7 @@ namespace CtrlUI
                     UpdateClockTime();
 
                     //Delay the loop task
-                    await TaskDelayLoop(5000, vTask_UpdateClock);
+                    await TaskDelay(5000, vTask_UpdateClock);
                 }
             }
             catch { }
@@ -30,7 +30,7 @@ namespace CtrlUI
                     UpdateWindowStatus();
 
                     //Delay the loop task
-                    await TaskDelayLoop(500, vTask_UpdateWindowStatus);
+                    await TaskDelay(500, vTask_UpdateWindowStatus);
                 }
             }
             catch { }
@@ -47,12 +47,12 @@ namespace CtrlUI
                         await UpdateControllerConnected();
 
                         //Delay the loop task
-                        await TaskDelayLoop(2000, vTask_ControllerConnected);
+                        await TaskDelay(2000, vTask_ControllerConnected);
                     }
                     else
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(1000, vTask_ControllerConnected);
+                        await TaskDelay(1000, vTask_ControllerConnected);
                     }
                 }
             }
@@ -68,7 +68,7 @@ namespace CtrlUI
                     UpdateAppRunningTime();
 
                     //Delay the loop task
-                    await TaskDelayLoop(60000, vTask_UpdateAppRunningTime);
+                    await TaskDelay(60000, vTask_UpdateAppRunningTime);
                 }
             }
             catch { }
@@ -82,15 +82,15 @@ namespace CtrlUI
                 {
                     if (vAppActivated)
                     {
-                        await UpdateCurrentVolumeInformation();
+                        UpdateCurrentVolumeInformation();
 
                         //Delay the loop task
-                        await TaskDelayLoop(2000, vTask_UpdateMediaInformation);
+                        await TaskDelay(2000, vTask_UpdateMediaInformation);
                     }
                     else
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(1000, vTask_UpdateMediaInformation);
+                        await TaskDelay(1000, vTask_UpdateMediaInformation);
                     }
                 }
             }
@@ -108,12 +108,12 @@ namespace CtrlUI
                         await RefreshListProcessesWithWait(false);
 
                         //Delay the loop task
-                        await TaskDelayLoop(3000, vTask_UpdateProcesses);
+                        await TaskDelay(3000, vTask_UpdateProcesses);
                     }
                     else
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(1000, vTask_UpdateProcesses);
+                        await TaskDelay(1000, vTask_UpdateProcesses);
                     }
                 }
             }
@@ -131,12 +131,12 @@ namespace CtrlUI
                         await LoadLauncherApplications();
 
                         //Delay the loop task
-                        await TaskDelayLoop(60000, vTask_UpdateLaunchers);
+                        await TaskDelay(60000, vTask_UpdateLaunchers);
                     }
                     else
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(1000, vTask_UpdateLaunchers);
+                        await TaskDelay(1000, vTask_UpdateLaunchers);
                     }
                 }
             }
@@ -154,12 +154,12 @@ namespace CtrlUI
                         await RefreshListShortcuts(false);
 
                         //Delay the loop task
-                        await TaskDelayLoop(30000, vTask_UpdateShortcuts);
+                        await TaskDelay(30000, vTask_UpdateShortcuts);
                     }
                     else
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(1000, vTask_UpdateShortcuts);
+                        await TaskDelay(1000, vTask_UpdateShortcuts);
                     }
                 }
             }
@@ -177,12 +177,12 @@ namespace CtrlUI
                         await RefreshListStatus();
 
                         //Delay the loop task
-                        await TaskDelayLoop(2000, vTask_UpdateListStatus);
+                        await TaskDelay(2000, vTask_UpdateListStatus);
                     }
                     else
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(1000, vTask_UpdateListStatus);
+                        await TaskDelay(1000, vTask_UpdateListStatus);
                     }
                 }
             }

@@ -45,7 +45,7 @@ namespace FpsOverlayer
             //Check the total available frames and last added frame time
             if (!vListFrameTimes.Any() || (GetSystemTicksMs() - vLastFrameTimeUpdate) >= 1000)
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     stackpanel_CurrentFrametime.Visibility = Visibility.Collapsed;
                     stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
@@ -53,7 +53,7 @@ namespace FpsOverlayer
             }
             else
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     bool showFrametime = SettingLoad(vConfigurationFpsOverlayer, "FrametimeGraphShow", typeof(bool));
                     if (showFrametime)
@@ -110,7 +110,7 @@ namespace FpsOverlayer
                         string StringDisplay = vTitleFPS + StringCurrentFramesPerSecond + StringCurrentFrameTimes + StringAverageFramesPerSecond;
                         StringDisplay = StringDisplay.Trim();
 
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AVActions.DispatcherInvoke(delegate
                         {
                             textblock_CurrentFps.Text = StringDisplay;
                         });
@@ -119,7 +119,7 @@ namespace FpsOverlayer
                     finally
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(1000, vTask_UpdateStatsFps);
+                        await TaskDelay(1000, vTask_UpdateStatsFps);
                     }
                 }
             }
@@ -134,7 +134,7 @@ namespace FpsOverlayer
                 double xPoint = vFrametimeCurrent;
                 vFrametimeCurrent += SettingLoad(vConfigurationFpsOverlayer, "FrametimeAccuracy", typeof(double));
 
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Check point height
                     double graphHeight = SettingLoad(vConfigurationFpsOverlayer, "FrametimeHeight", typeof(double)) - 2;

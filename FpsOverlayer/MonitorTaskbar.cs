@@ -84,7 +84,7 @@ namespace FpsOverlayer
                     finally
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(1000, vTask_MonitorTaskbar);
+                        await TaskDelay(1000, vTask_MonitorTaskbar);
                     }
                 }
             }

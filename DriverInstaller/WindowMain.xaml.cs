@@ -56,7 +56,7 @@ namespace DriverInstaller
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     if (enableElement)
                     {
@@ -76,7 +76,7 @@ namespace DriverInstaller
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     textbox_Status.AppendText(appendText + "\r\n");
                     textbox_Status.ScrollToEnd();
@@ -90,7 +90,7 @@ namespace DriverInstaller
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     if (Indeterminate)
                     {
@@ -176,7 +176,7 @@ namespace DriverInstaller
             try
             {
                 Debug.WriteLine("Exiting application.");
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     this.IsEnabled = false;
                 });

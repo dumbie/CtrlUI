@@ -21,7 +21,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //File Picker change select mode
                     FilePicker_ChangeSelectMode(false);

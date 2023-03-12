@@ -297,7 +297,7 @@ namespace CtrlUI
                         //Paste file or folder
                         else if (messageResult == answerPaste)
                         {
-                            async void TaskAction()
+                            async Task TaskAction()
                             {
                                 try
                                 {
@@ -305,7 +305,7 @@ namespace CtrlUI
                                 }
                                 catch { }
                             }
-                            await AVActions.TaskStart(TaskAction);
+                            AVActions.TaskStart(TaskAction);
                         }
                         //Rename file or folder
                         else if (messageResult == answerRename)
@@ -453,7 +453,7 @@ namespace CtrlUI
                     if (dataBindFile != null)
                     {
                         Debug.WriteLine("Folder up: " + dataBindFile.PathFile);
-                        await Popup_Show_FilePicker(dataBindFile.PathFile, -1, true, null);
+                        Popup_Show_FilePicker(dataBindFile.PathFile, -1, true, null);
                     }
                     else
                     {
@@ -559,7 +559,7 @@ namespace CtrlUI
                     DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
                     if (selectedItem.FileType == FileType.Folder || selectedItem.FileType == FileType.FolderDisc || selectedItem.FileType == FileType.FolderPre)
                     {
-                        await Popup_Show_FilePicker(selectedItem.PathFile, -1, true, null);
+                        Popup_Show_FilePicker(selectedItem.PathFile, -1, true, null);
                     }
                     else if (selectedItem.FileType == FileType.GoUpPre)
                     {
@@ -570,7 +570,7 @@ namespace CtrlUI
                         ShortcutDetails shortcutDetails = ReadShortcutFile(selectedItem.PathFile);
                         if (Directory.Exists(shortcutDetails.TargetPath))
                         {
-                            await Popup_Show_FilePicker(shortcutDetails.TargetPath, -1, true, null);
+                            Popup_Show_FilePicker(shortcutDetails.TargetPath, -1, true, null);
                         }
                         else if (File.Exists(shortcutDetails.TargetPath))
                         {

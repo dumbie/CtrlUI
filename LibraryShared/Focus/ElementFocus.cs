@@ -74,7 +74,7 @@ namespace LibraryShared
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Get the currently focused element
                     if (focusedElement == null)
@@ -131,7 +131,7 @@ namespace LibraryShared
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     //Check if focus element is disconnected
                     bool disconnectedSource = false;

@@ -151,7 +151,7 @@ namespace CtrlUI
                 vBusyRefreshingShortcuts = true;
 
                 //Show the loading gif
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     gif_List_Loading.Show();
                 });
@@ -238,7 +238,7 @@ namespace CtrlUI
                 }
 
                 //Hide the loading gif
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     gif_List_Loading.Hide();
                 });

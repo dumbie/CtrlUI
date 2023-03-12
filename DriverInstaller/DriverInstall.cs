@@ -14,11 +14,11 @@ namespace DriverInstaller
     public partial class WindowMain
     {
         //Install the required drivers
-        async void button_Driver_Install_Click(object sender, RoutedEventArgs e)
+        void button_Driver_Install_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                async void TaskAction()
+                async Task TaskAction()
                 {
                     try
                     {
@@ -26,7 +26,7 @@ namespace DriverInstaller
                     }
                     catch { }
                 }
-                await AVActions.TaskStart(TaskAction);
+                AVActions.TaskStart(TaskAction);
             }
             catch { }
         }

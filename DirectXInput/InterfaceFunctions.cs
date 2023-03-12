@@ -482,7 +482,7 @@ namespace DirectXInput
                 //Check if CtrlUI is currently activated
                 vProcessCtrlUIActivated = vProcessCtrlUI != null && vProcessCtrlUI.Identifier == vProcessForeground.Identifier;
 
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     try
                     {
@@ -542,7 +542,7 @@ namespace DirectXInput
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Enable the application window
                     grid_WindowActive.Visibility = Visibility.Collapsed;
@@ -556,7 +556,7 @@ namespace DirectXInput
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     //Update window status message
                     grid_WindowActiveText.Text = windowText;
