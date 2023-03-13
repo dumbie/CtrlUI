@@ -120,11 +120,6 @@ namespace CtrlUI
 
                 //Set fullpath to exe path textbox
                 tb_AddAppPathExe.Text = vFilePickerResult.PathFile;
-                tb_AddAppPathExe.IsEnabled = true;
-
-                //Set application launch path to textbox
-                tb_AddAppPathLaunch.IsEnabled = true;
-                btn_AddAppPathLaunch.IsEnabled = true;
 
                 //Set application name to textbox
                 if (selectedAppCategory == AppCategory.Emulator)
@@ -138,13 +133,11 @@ namespace CtrlUI
                     tb_AddAppEmulatorName.Text = string.Empty;
                 }
 
-                tb_AddAppName.IsEnabled = true;
-                tb_AddAppEmulatorName.IsEnabled = true;
-
                 //Set application image to image preview
                 img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppName.Text, vFilePickerResult.PathFile }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-                btn_AddAppLogo.IsEnabled = true;
-                btn_Manage_ResetAppLogo.IsEnabled = true;
+
+                //Enable manage interface
+                ManageInterface_Enable();
             }
             catch { }
         }
@@ -163,8 +156,6 @@ namespace CtrlUI
                 if (vFilePickerCancelled) { return; }
 
                 tb_AddAppPathLaunch.Text = vFilePickerResult.PathFile;
-                tb_AddAppPathLaunch.IsEnabled = true;
-                btn_AddAppPathLaunch.IsEnabled = true;
             }
             catch { }
         }
@@ -183,7 +174,6 @@ namespace CtrlUI
                 if (vFilePickerCancelled) { return; }
 
                 tb_AddAppPathRoms.Text = vFilePickerResult.PathFile;
-                tb_AddAppPathRoms.IsEnabled = true;
             }
             catch { }
         }

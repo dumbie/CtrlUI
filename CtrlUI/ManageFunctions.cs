@@ -191,8 +191,13 @@ namespace CtrlUI
                 bool editApplication = vEditAppDataBind != null;
 
                 //Check the editing application type
-                bool win32Application = editApplication && vEditAppDataBind.Type == ProcessType.Win32;
-                bool uwpApplication = editApplication && vEditAppDataBind.Type == ProcessType.UWP || vEditAppDataBind.Type == ProcessType.Win32Store;
+                bool win32Application = false;
+                bool uwpApplication = false;
+                if (editApplication)
+                {
+                    win32Application = vEditAppDataBind.Type == ProcessType.Win32;
+                    uwpApplication = vEditAppDataBind.Type == ProcessType.UWP || vEditAppDataBind.Type == ProcessType.Win32Store;
+                }
 
                 //Check if there is an application name set
                 if (!uwpApplication && string.IsNullOrWhiteSpace(tb_AddAppName.Text))
@@ -525,7 +530,7 @@ namespace CtrlUI
         }
 
         //Add categories to manage interface
-        private void ManageInterface_AddCategories()
+        void ManageInterface_AddCategories()
         {
             try
             {
@@ -620,8 +625,13 @@ namespace CtrlUI
                 bool editApplication = vEditAppDataBind != null;
 
                 //Check the editing application type
-                bool win32Application = editApplication && vEditAppDataBind.Type == ProcessType.Win32;
-                bool uwpApplication = editApplication && vEditAppDataBind.Type == ProcessType.UWP || vEditAppDataBind.Type == ProcessType.Win32Store;
+                bool win32Application = false;
+                bool uwpApplication = false;
+                if (editApplication)
+                {
+                    win32Application = vEditAppDataBind.Type == ProcessType.Win32;
+                    uwpApplication = vEditAppDataBind.Type == ProcessType.UWP || vEditAppDataBind.Type == ProcessType.Win32Store;
+                }
 
                 //Set default interface
                 if (editApplication)
@@ -629,14 +639,7 @@ namespace CtrlUI
                     grid_Popup_Manage_txt_Title.Text = "Edit application";
                     btn_Manage_SaveEditApp.Content = "Edit the application as filled in above";
                     grid_Popup_Manage_button_Save.ToolTip = new ToolTip() { Content = "Edit the application" };
-                    btn_AddAppLogo.IsEnabled = true;
-                    btn_Manage_ResetAppLogo.IsEnabled = true;
-                    tb_AddAppName.IsEnabled = true;
-                    tb_AddAppEmulatorName.IsEnabled = true;
-                    tb_AddAppPathExe.IsEnabled = true;
-                    tb_AddAppPathLaunch.IsEnabled = true;
-                    btn_AddAppPathLaunch.IsEnabled = true;
-                    tb_AddAppPathRoms.IsEnabled = true;
+                    ManageInterface_Enable();
                 }
                 else
                 {
@@ -645,14 +648,7 @@ namespace CtrlUI
                     grid_Popup_Manage_button_Save.ToolTip = new ToolTip() { Content = "Save the application" };
                     if (disableInterface)
                     {
-                        btn_AddAppLogo.IsEnabled = false;
-                        btn_Manage_ResetAppLogo.IsEnabled = false;
-                        tb_AddAppName.IsEnabled = false;
-                        tb_AddAppEmulatorName.IsEnabled = false;
-                        tb_AddAppPathExe.IsEnabled = false;
-                        tb_AddAppPathLaunch.IsEnabled = false;
-                        btn_AddAppPathLaunch.IsEnabled = false;
-                        tb_AddAppPathRoms.IsEnabled = false;
+                        ManageInterface_Disable();
                     }
                 }
 
@@ -694,6 +690,51 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Failed to update edit interface: " + ex.Message);
             }
+        }
+
+        //Disable manage interface
+        void ManageInterface_Disable()
+        {
+            try
+            {
+                btn_AddAppLogo.IsEnabled = false;
+                btn_Manage_ResetAppLogo.IsEnabled = false;
+                tb_AddAppName.IsEnabled = false;
+                tb_AddAppEmulatorName.IsEnabled = false;
+                tb_AddAppPathExe.IsEnabled = false;
+                tb_AddAppPathLaunch.IsEnabled = false;
+                btn_AddAppPathLaunch.IsEnabled = false;
+                checkbox_AddLaunchSkipRom.IsEnabled = false;
+                tb_AddAppPathRoms.IsEnabled = false;
+                btn_AddAppPathRoms.IsEnabled = false;
+                tb_AddAppArgument.IsEnabled = false;
+                tb_AddAppNameExe.IsEnabled = false;
+            }
+            catch { }
+        }
+
+        //Enable manage interface
+        void ManageInterface_Enable()
+        {
+            try
+            {
+                btn_AddAppLogo.IsEnabled = true;
+                btn_Manage_ResetAppLogo.IsEnabled = true;
+                tb_AddAppName.IsEnabled = true;
+                tb_AddAppEmulatorName.IsEnabled = true;
+                tb_AddAppPathExe.IsEnabled = true;
+                tb_AddAppPathLaunch.IsEnabled = true;
+                btn_AddAppPathLaunch.IsEnabled = true;
+                checkbox_AddLaunchSkipRom.IsEnabled = true;
+                if (!(bool)checkbox_AddLaunchSkipRom.IsChecked)
+                {
+                    tb_AddAppPathRoms.IsEnabled = true;
+                    btn_AddAppPathRoms.IsEnabled = true;
+                }
+                tb_AddAppArgument.IsEnabled = true;
+                tb_AddAppNameExe.IsEnabled = true;
+            }
+            catch { }
         }
 
         //Show the application edit popup

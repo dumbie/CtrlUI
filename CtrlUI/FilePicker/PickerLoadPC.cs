@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVDiskInfo;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
@@ -112,37 +113,26 @@ namespace CtrlUI
                 {
                     try
                     {
-                        //Get disk drive information
-                        DriveInfo driveInfo = new DriveInfo(diskDrive);
+                        //Get disk information
+                        DiskInfo diskInfo = await AVDiskInfo.GetDiskInfo(diskDrive);
 
-                        //Check if disk drive is ready
-                        if (!driveInfo.IsReady)
+                        //Check network drive setting
+                        if (diskInfo.Type == DriveTypes.Network && hideNetworkDrives)
                         {
                             continue;
                         }
 
-                        //Skip network drive depending on the setting
-                        if (driveInfo.DriveType == DriveType.Network && hideNetworkDrives)
-                        {
-                            continue;
-                        }
+                        //Create databind file
+                        DataBindFile dataBindFile = new DataBindFile();
 
-                        //Get disk size information
-                        string freeSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalFreeSpace);
-                        string usedSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalSize);
-                        string diskSpace = freeSpace + "/" + usedSpace;
-
-                        //Create databindfile
-                        DataBindFile dataBindFile = new DataBindFile() { FileType = FileType.Folder, Name = driveInfo.Name, NameSub = driveInfo.VolumeLabel, NameDetail = diskSpace, PathFile = diskDrive };
-
-                        //Get disk type information
-                        DriveType disktype = driveInfo.DriveType;
-                        if (disktype == DriveType.CDRom)
+                        //Check and set file type and image
+                        dataBindFile.FileType = FileType.FolderPre;
+                        if (diskInfo.Type == DriveTypes.CDRom)
                         {
                             dataBindFile.FileType = FileType.FolderDisc;
                             dataBindFile.ImageBitmap = imageFolderDisc;
                         }
-                        else if (disktype == DriveType.Network)
+                        else if (diskInfo.Type == DriveTypes.Network)
                         {
                             dataBindFile.ImageBitmap = imageFolderNetwork;
                         }
@@ -150,6 +140,12 @@ namespace CtrlUI
                         {
                             dataBindFile.ImageBitmap = imageFolder;
                         }
+
+                        //Set file information
+                        dataBindFile.Name = diskInfo.Path;
+                        dataBindFile.NameSub = diskInfo.Label;
+                        dataBindFile.NameDetail = diskInfo.SizeString;
+                        dataBindFile.PathFile = diskInfo.Path;
 
                         //Add databindfile to the list
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
@@ -162,41 +158,20 @@ namespace CtrlUI
                 {
                     try
                     {
-                        //Get disk drive information
-                        DriveInfo driveInfo = new DriveInfo(fileLocation.String2);
+                        //Get disk information
+                        DiskInfo diskInfo = await AVDiskInfo.GetDiskInfo(fileLocation.String2);
 
-                        //Check if disk drive is ready
-                        if (!driveInfo.IsReady)
-                        {
-                            continue;
-                        }
+                        //Create databind file
+                        DataBindFile dataBindFile = new DataBindFile();
 
-                        //Get directory information
-                        DirectoryInfo directoryInfo = new DirectoryInfo(fileLocation.String2);
-
-                        //Check if directory is a root folder
-                        FileType locationType = FileType.FolderPre;
-                        if (directoryInfo.Parent == null)
-                        {
-                            locationType = FileType.Folder;
-                        }
-
-                        //Get disk size information
-                        string freeSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalFreeSpace);
-                        string usedSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalSize);
-                        string diskSpace = freeSpace + "/" + usedSpace;
-
-                        //Create databindfile
-                        DataBindFile dataBindFile = new DataBindFile() { FileType = locationType, Name = directoryInfo.FullName, NameSub = fileLocation.String1, NameDetail = diskSpace, PathFile = directoryInfo.FullName };
-
-                        //Get disk type information
-                        DriveType disktype = driveInfo.DriveType;
-                        if (disktype == DriveType.CDRom)
+                        //Check and set file type and image
+                        dataBindFile.FileType = FileType.FolderPre;
+                        if (diskInfo.Type == DriveTypes.CDRom)
                         {
                             dataBindFile.FileType = FileType.FolderDisc;
                             dataBindFile.ImageBitmap = imageFolderDisc;
                         }
-                        else if (disktype == DriveType.Network)
+                        else if (diskInfo.Type == DriveTypes.Network)
                         {
                             dataBindFile.ImageBitmap = imageFolderNetwork;
                         }
@@ -204,6 +179,12 @@ namespace CtrlUI
                         {
                             dataBindFile.ImageBitmap = imageFolder;
                         }
+
+                        //Set file information
+                        dataBindFile.Name = diskInfo.Path;
+                        dataBindFile.NameSub = diskInfo.Label + " (" + fileLocation.String1 + ")";
+                        dataBindFile.NameDetail = diskInfo.SizeString;
+                        dataBindFile.PathFile = diskInfo.Path;
 
                         //Add databindfile to the list
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);

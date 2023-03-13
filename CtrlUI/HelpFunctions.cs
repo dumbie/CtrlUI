@@ -69,6 +69,8 @@ namespace CtrlUI
                         image_Settings_LB.Visibility = Visibility.Collapsed;
                         image_Settings_RB.Visibility = Visibility.Collapsed;
                         image_Search_Reset.Visibility = Visibility.Collapsed;
+                        gif_FilePicker_Loading.Height = 30;
+                        gif_FilePicker_Loading.Width = 30;
                         return;
                     }
                     else
@@ -98,6 +100,8 @@ namespace CtrlUI
                         image_Settings_LB.Visibility = Visibility.Visible;
                         image_Settings_RB.Visibility = Visibility.Visible;
                         image_Search_Reset.Visibility = Visibility.Visible;
+                        gif_FilePicker_Loading.Height = 75;
+                        gif_FilePicker_Loading.Width = 75;
                     }
 
                     //Check if the help setting is enabled or disabled
