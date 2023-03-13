@@ -16,7 +16,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Show the File Picker Popup Task
-        void Popup_Show_FilePicker(string targetPath, int targetIndex, bool storeIndex, FrameworkElement previousFocus)
+        async Task Popup_Show_FilePicker(string targetPath, int targetIndex, bool storeIndex, FrameworkElement previousFocus)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace CtrlUI
                     }
                     catch { }
                 }
-                AVActions.TaskStart(TaskAction);
+                await AVActions.TaskStartReturn(TaskAction);
             }
             catch { }
         }

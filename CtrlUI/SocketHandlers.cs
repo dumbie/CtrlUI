@@ -33,7 +33,7 @@ namespace CtrlUI
                     }
                     catch { }
                 }
-                AVActions.TaskStart(TaskAction);
+                AVActions.TaskStartBackground(TaskAction);
             }
             catch { }
         }

@@ -143,11 +143,7 @@ namespace CtrlUI
                         //Update the running status
                         if (processCount == 0)
                         {
-                            dataBindApp.StatusRunning = Visibility.Collapsed;
-                            dataBindApp.StatusSuspended = Visibility.Collapsed;
-                            dataBindApp.RunningProcessCount = string.Empty;
-                            dataBindApp.RunningTimeLastUpdate = 0;
-                            dataBindApp.ProcessMulti.Clear();
+                            dataBindApp.ResetStatus();
                         }
                     }
                     catch { }

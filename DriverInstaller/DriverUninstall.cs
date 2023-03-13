@@ -27,7 +27,7 @@ namespace DriverInstaller
                     }
                     catch { }
                 }
-                AVActions.TaskStart(TaskAction);
+                AVActions.TaskStartBackground(TaskAction);
             }
             catch { }
         }

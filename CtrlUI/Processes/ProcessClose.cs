@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
-using System.Windows;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVImage;
@@ -118,11 +117,7 @@ namespace CtrlUI
                     //Reset the process running status
                     if (resetProcess)
                     {
-                        dataBindApp.StatusRunning = Visibility.Collapsed;
-                        dataBindApp.StatusSuspended = Visibility.Collapsed;
-                        dataBindApp.RunningProcessCount = string.Empty;
-                        dataBindApp.RunningTimeLastUpdate = 0;
-                        dataBindApp.ProcessMulti.Clear();
+                        dataBindApp.ResetStatus();
                     }
 
                     //Remove the process from the list

@@ -22,7 +22,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "RemotePlay.exe" };
                 vFilePickerSettings.Title = "PS Remote Play";
                 vFilePickerSettings.Description = "Please select the PS Remote Play executable:";
-                Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -48,7 +48,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "Discord.exe", "Update.exe" };
                 vFilePickerSettings.Title = "Discord";
                 vFilePickerSettings.Description = "Please select the Discord executable:";
-                Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -74,7 +74,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "battle.net.exe" };
                 vFilePickerSettings.Title = "Battle.net";
                 vFilePickerSettings.Description = "Please select the Battle.net executable:";
-                Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -100,7 +100,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "galaxyclient.exe" };
                 vFilePickerSettings.Title = "GoG";
                 vFilePickerSettings.Description = "Please select the GoG executable:";
-                Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -126,7 +126,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "EpicGamesLauncher.exe" };
                 vFilePickerSettings.Title = "Epic";
                 vFilePickerSettings.Description = "Please select the Epic Games executable:";
-                Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -152,7 +152,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "upc.exe" };
                 vFilePickerSettings.Title = "Ubisoft";
                 vFilePickerSettings.Description = "Please select the Ubisoft Connect executable:";
-                Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -178,7 +178,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "eadesktop.exe", "origin.exe" };
                 vFilePickerSettings.Title = "EA";
                 vFilePickerSettings.Description = "Please select the EA Desktop executable:";
-                Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -204,7 +204,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "steam.exe" };
                 vFilePickerSettings.Title = "Steam";
                 vFilePickerSettings.Description = "Please select the Steam executable:";
-                Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -230,7 +230,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "spotify.exe" };
                 vFilePickerSettings.Title = "Spotify";
                 vFilePickerSettings.Description = "Please select the Spotify executable:";
-                Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -256,7 +256,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "kodi.exe" };
                 vFilePickerSettings.Title = "Kodi";
                 vFilePickerSettings.Description = "Please select the Kodi executable:";
-                Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -282,7 +282,7 @@ namespace CtrlUI
                 vFilePickerSettings.FilterIn = new List<string> { "msedge.exe" };
                 vFilePickerSettings.Title = "Microsoft Edge";
                 vFilePickerSettings.Description = "Please select the Microsoft Edge executable:";
-                Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }

@@ -86,13 +86,21 @@ namespace CtrlUI
                             processStatusStore = Visibility.Visible;
                         }
 
-                        //Check if the process is suspended
-                        Visibility processStatusRunning = Visibility.Visible;
+                        //Check process status
+                        Visibility processStatusRunning = Visibility.Collapsed;
                         Visibility processStatusSuspended = Visibility.Collapsed;
-                        if (processMulti.Suspended)
+                        Visibility processStatusNotResponding = Visibility.Collapsed;
+                        if (!processMulti.Responding)
                         {
-                            processStatusRunning = Visibility.Collapsed;
+                            processStatusNotResponding = Visibility.Visible;
+                        }
+                        else if (processMulti.Suspended)
+                        {
                             processStatusSuspended = Visibility.Visible;
+                        }
+                        else
+                        {
+                            processStatusRunning = Visibility.Visible;
                         }
 
                         //Set the application search filters
@@ -116,6 +124,9 @@ namespace CtrlUI
                             //Update the process suspended status
                             existingCombinedApp.StatusSuspended = processStatusSuspended;
 
+                            //Update the process not responding status
+                            existingCombinedApp.StatusNotResponding = processStatusNotResponding;
+
                             //Update the application last runtime
                             existingCombinedApp.RunningTimeLastUpdate = GetSystemTicksMs();
 
@@ -137,6 +148,9 @@ namespace CtrlUI
 
                             //Update the process suspended status
                             existingProcessApp.StatusSuspended = processStatusSuspended;
+
+                            //Update the process not responding status
+                            existingProcessApp.StatusNotResponding = processStatusNotResponding;
 
                             appUpdatedContinueLoop = true;
                         }
@@ -168,7 +182,7 @@ namespace CtrlUI
                         listProcessMulti.Add(processMulti);
 
                         //Add the process to the process list
-                        DataBindApp dataBindApp = new DataBindApp() { Type = processMulti.Type, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processMulti.WindowTitle, AppUserModelId = processAppUserModelId, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime };
+                        DataBindApp dataBindApp = new DataBindApp() { Type = processMulti.Type, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processMulti.WindowTitle, AppUserModelId = processAppUserModelId, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, StatusNotResponding = processStatusNotResponding, RunningTime = processRunningTime };
                         await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
 
                         //Add the process to the search list

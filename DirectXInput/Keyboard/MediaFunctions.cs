@@ -144,7 +144,7 @@ namespace DirectXInput.KeyboardCode
                     catch { }
                     return null;
                 }
-                vSmtcSessionManager = await TaskStartTimeoutReturn(TaskAction, 2000);
+                vSmtcSessionManager = await TaskStartTimeout(TaskAction, 2000);
                 if (vSmtcSessionManager == null)
                 {
                     HideMediaInformation();

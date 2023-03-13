@@ -65,11 +65,11 @@ namespace CtrlUI
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileplatform, false, false);
                     }
 
-                    string fileDescription = "Launch the emulator without a rom loaded";
+                    string fileDescription = "Launch without a rom loaded";
                     DataBindFile dataBindFileWithoutRom = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = vImagePreloadEmulator, PathFile = string.Empty };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutRom, false, false);
 
-                    string romDescription = "Launch the emulator with this folder as rom";
+                    string romDescription = "Launch with this folder as rom";
                     DataBindFile dataBindFileFolderRom = new DataBindFile() { FileType = FileType.FilePre, Name = romDescription, Description = romDescription + ".", ImageBitmap = vImagePreloadEmulator, PathFile = targetPath };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolderRom, false, false);
                 }

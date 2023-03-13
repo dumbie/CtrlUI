@@ -20,7 +20,7 @@ namespace CtrlUI
                 vFilePickerSettings = new FilePickerSettings();
                 vFilePickerSettings.Title = "File Manager";
                 vFilePickerSettings.Description = "Please select a file to run or interact with:";
-                Popup_Show_FilePicker("PC", -1, false, null);
+                await Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }

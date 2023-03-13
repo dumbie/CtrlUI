@@ -23,7 +23,7 @@ namespace FpsOverlayer
                 vTraceEventSession.EnableProvider(vProvider_DxgKrnl.ToString());
                 vTraceEventSession.Source.AllEvents += ProcessEvents;
 
-                AVActions.TaskStart(TaskTraceEventSource);
+                AVActions.TaskStartBackground(TaskTraceEventSource);
                 AVActions.TaskStartLoop(UpdateStatsFps, vTask_UpdateStatsFps);
 
                 Debug.WriteLine("Started monitoring fps.");

@@ -195,7 +195,7 @@ namespace CtrlUI
                     }
 
                     //Empty the windows recycle bin
-                    AVActions.TaskStart(TaskAction);
+                    AVActions.TaskStartBackground(TaskAction);
                 }
             }
             catch { }

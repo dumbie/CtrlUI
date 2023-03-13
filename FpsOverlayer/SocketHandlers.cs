@@ -33,7 +33,7 @@ namespace FpsOverlayer
                     }
                     catch { }
                 }
-                AVActions.TaskStart(TaskAction);
+                AVActions.TaskStartBackground(TaskAction);
             }
             catch { }
         }

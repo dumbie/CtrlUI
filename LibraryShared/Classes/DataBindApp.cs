@@ -422,6 +422,20 @@ namespace LibraryShared
                 }
             }
 
+            private Visibility PrivStatusNotResponding = Visibility.Collapsed;
+            public Visibility StatusNotResponding
+            {
+                get { return this.PrivStatusNotResponding; }
+                set
+                {
+                    if (this.PrivStatusNotResponding != value)
+                    {
+                        this.PrivStatusNotResponding = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private Visibility PrivStatusStore = Visibility.Collapsed;
             public Visibility StatusStore
             {
@@ -500,6 +514,7 @@ namespace LibraryShared
                     StatusAvailable = Visibility.Collapsed;
                     StatusRunning = Visibility.Collapsed;
                     StatusSuspended = Visibility.Collapsed;
+                    StatusNotResponding = Visibility.Collapsed;
                     RunningProcessCount = string.Empty;
                     RunningTimeLastUpdate = 0;
                     ProcessMulti.Clear();

@@ -74,9 +74,24 @@ namespace CtrlUI
                 }
 
                 //Add launch argument
-                if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
+                bool availableArgument = !string.IsNullOrWhiteSpace(dataBindApp.Argument);
+                bool emulatorArgument = dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom;
+                bool filepickerArgument = dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker;
+                bool defaultArgument = availableArgument || emulatorArgument || filepickerArgument;
+                if (defaultArgument)
                 {
-                    launchInformation += "\nLaunch argument: " + dataBindApp.Argument;
+                    if (emulatorArgument)
+                    {
+                        launchInformation += "\nLaunch argument: Select a rom";
+                    }
+                    else if (filepickerArgument)
+                    {
+                        launchInformation += "\nLaunch argument: Select a file";
+                    }
+                    else
+                    {
+                        launchInformation += "\nLaunch argument: " + dataBindApp.Argument;
+                    }
                 }
 
                 //Get process running time
