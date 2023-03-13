@@ -41,7 +41,6 @@ namespace CtrlUI
                 if (!SettingCheck(vConfigurationCtrlUI, "HideControllerHelp")) { SettingSave(vConfigurationCtrlUI, "HideControllerHelp", "False"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "ShowHiddenFilesFolders")) { SettingSave(vConfigurationCtrlUI, "ShowHiddenFilesFolders", "False"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "HideNetworkDrives")) { SettingSave(vConfigurationCtrlUI, "HideNetworkDrives", "False"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "NotReadyNetworkDrives")) { SettingSave(vConfigurationCtrlUI, "NotReadyNetworkDrives", "True"); }
 
                 if (!SettingCheck(vConfigurationCtrlUI, "InterfaceSound")) { SettingSave(vConfigurationCtrlUI, "InterfaceSound", "True"); } //Shared
                 if (!SettingCheck(vConfigurationCtrlUI, "InterfaceSoundVolume")) { SettingSave(vConfigurationCtrlUI, "InterfaceSoundVolume", "75"); } //Shared

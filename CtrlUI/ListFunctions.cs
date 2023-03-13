@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVProcess;
-using static CtrlUI.AppBusyWait;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -42,10 +41,22 @@ namespace CtrlUI
             try
             {
                 //Check if already refreshing
-                if (await WaitForBusyBoolCancel(() => vBusyRefreshingProcesses, refreshWait))
+                if (vBusyRefreshingProcesses)
                 {
-                    Debug.WriteLine("Processes are already refreshing, cancelling.");
-                    return;
+                    if (refreshWait)
+                    {
+                        Debug.WriteLine("Processes are refreshing, waiting...");
+                        while (vBusyRefreshingProcesses)
+                        {
+                            await Task.Delay(100);
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Processes are refreshing, cancelling.");
+                        return;
+                    }
                 }
 
                 //Update the refreshing status

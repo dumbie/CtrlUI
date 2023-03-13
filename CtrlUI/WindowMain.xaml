@@ -238,7 +238,7 @@
                             </AVStyles:ScrollViewerLoopHorizontal>
 
                             <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
-                                <AVStyles:AVGifPlayer Name="gif_List_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="25" SpeedRatio="5" HorizontalAlignment="Right" Margin="10,0,0,0"/>
+                                <AVStyles:AVGifPlayer Name="gif_List_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="25" Width="25" SpeedRatio="5" HorizontalAlignment="Right" Margin="10,0,0,0"/>
                                 <TextBlock Name="textblock_Category_Count" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Margin="10,0,0,0"/>
                                 <Image Name="image_Category_RB" Visibility="Collapsed" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Height="25" Opacity="0.80" Margin="10,0,0,0"/>
                             </StackPanel>
@@ -699,9 +699,6 @@
                                     <CheckBox Name="cb_SettingsHideNetworkDrives" Content="Hide network drives in file browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will hide mounted network drives in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                                    <CheckBox Name="cb_SettingsNotReadyNetworkDrives" Content="Show unconnected network drives in file browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show network drives that are not yet connected in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
                                     <TextBlock Text="* You can add new file locations to open in the profile manager." Margin="0,20,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                                 </StackPanel>
 
@@ -999,7 +996,7 @@
                         </Button>
 
                         <!-- Load status -->
-                        <AVStyles:AVGifPlayer Name="gif_FilePicker_Loading" Margin="0,10,0,0" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Width="75" SpeedRatio="5"/>
+                        <AVStyles:AVGifPlayer Name="gif_FilePicker_Loading" Margin="0,10,0,0" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="30" Width="30" SpeedRatio="5"/>
                     </StackPanel>
                 </Grid>
 
@@ -1095,7 +1092,7 @@
 
                         <StackPanel Grid.Row="1" Name="stackpanel_HowLongToBeat_Status">
                             <TextBlock Name="textblock_HowLongToBeat_Unknown" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Gameplay time"/>
-                            <AVStyles:AVGifPlayer Name="gif_HowLongToBeat_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="40" SpeedRatio="5" HorizontalAlignment="Center" Margin="15,0,0,0"/>
+                            <AVStyles:AVGifPlayer Name="gif_HowLongToBeat_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="40" Width="40" SpeedRatio="5" HorizontalAlignment="Center" Margin="15,0,0,0"/>
                         </StackPanel>
                     </Grid>
 

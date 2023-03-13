@@ -106,92 +106,107 @@ namespace CtrlUI
 
                 //Load file browser settings
                 bool hideNetworkDrives = SettingLoad(vConfigurationCtrlUI, "HideNetworkDrives", typeof(bool));
-                bool notReadyNetworkDrives = SettingLoad(vConfigurationCtrlUI, "NotReadyNetworkDrives", typeof(bool));
 
-                //Add all disk drives that are connected
-                DriveInfo[] diskDrives = DriveInfo.GetDrives();
-                foreach (DriveInfo disk in diskDrives)
+                //Add all disk drives
+                foreach (string diskDrive in Directory.GetLogicalDrives())
                 {
                     try
                     {
-                        //Skip network drive depending on the setting
-                        if (disk.DriveType == DriveType.Network && hideNetworkDrives)
+                        //Get disk drive information
+                        DriveInfo driveInfo = new DriveInfo(diskDrive);
+
+                        //Check if disk drive is ready
+                        if (!driveInfo.IsReady)
                         {
                             continue;
                         }
 
-                        //Check if the disk is currently connected
-                        if (disk.IsReady || (disk.DriveType == DriveType.Network && notReadyNetworkDrives))
+                        //Skip network drive depending on the setting
+                        if (driveInfo.DriveType == DriveType.Network && hideNetworkDrives)
                         {
-                            //Get the current disk size
-                            string freeSpace = AVFunctions.ConvertBytesSizeToString(disk.TotalFreeSpace);
-                            string usedSpace = AVFunctions.ConvertBytesSizeToString(disk.TotalSize);
-                            string diskSpace = freeSpace + "/" + usedSpace;
-
-                            DataBindFile dataBindFileDisk = new DataBindFile() { FileType = FileType.Folder, Name = disk.Name, NameSub = disk.VolumeLabel, NameDetail = diskSpace, PathFile = disk.Name };
-                            if (disk.DriveType == DriveType.CDRom)
-                            {
-                                dataBindFileDisk.FileType = FileType.FolderDisc;
-                                dataBindFileDisk.ImageBitmap = imageFolderDisc;
-                            }
-                            else if (disk.DriveType == DriveType.Network)
-                            {
-                                dataBindFileDisk.ImageBitmap = imageFolderNetwork;
-                            }
-                            else
-                            {
-                                dataBindFileDisk.ImageBitmap = imageFolder;
-                            }
-                            await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDisk, false, false);
+                            continue;
                         }
+
+                        //Get disk size information
+                        string freeSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalFreeSpace);
+                        string usedSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalSize);
+                        string diskSpace = freeSpace + "/" + usedSpace;
+
+                        //Create databindfile
+                        DataBindFile dataBindFile = new DataBindFile() { FileType = FileType.Folder, Name = driveInfo.Name, NameSub = driveInfo.VolumeLabel, NameDetail = diskSpace, PathFile = diskDrive };
+
+                        //Get disk type information
+                        DriveType disktype = driveInfo.DriveType;
+                        if (disktype == DriveType.CDRom)
+                        {
+                            dataBindFile.FileType = FileType.FolderDisc;
+                            dataBindFile.ImageBitmap = imageFolderDisc;
+                        }
+                        else if (disktype == DriveType.Network)
+                        {
+                            dataBindFile.ImageBitmap = imageFolderNetwork;
+                        }
+                        else
+                        {
+                            dataBindFile.ImageBitmap = imageFolder;
+                        }
+
+                        //Add databindfile to the list
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
                     }
                     catch { }
                 }
 
-                //Add Json file locations
-                foreach (ProfileShared Locations in vCtrlLocationsFile)
+                //Add user file locations
+                foreach (ProfileShared fileLocation in vCtrlLocationsFile)
                 {
                     try
                     {
-                        if (Directory.Exists(Locations.String2))
+                        //Get disk drive information
+                        DriveInfo driveInfo = new DriveInfo(fileLocation.String2);
+
+                        //Check if disk drive is ready
+                        if (!driveInfo.IsReady)
                         {
-                            //Check if the location is a root folder
-                            FileType locationType = FileType.FolderPre;
-                            DirectoryInfo locationInfo = new DirectoryInfo(Locations.String2);
-                            if (locationInfo.Parent == null)
-                            {
-                                locationType = FileType.Folder;
-                            }
-
-                            //Get the current disk size
-                            string diskSpace = string.Empty;
-                            DriveType disktype = DriveType.Unknown;
-                            try
-                            {
-                                DriveInfo driveInfo = new DriveInfo(Locations.String2);
-                                disktype = driveInfo.DriveType;
-                                string freeSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalFreeSpace);
-                                string usedSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalSize);
-                                diskSpace = freeSpace + "/" + usedSpace;
-                            }
-                            catch { }
-
-                            DataBindFile dataBindFileLocation = new DataBindFile() { FileType = locationType, Name = Locations.String2, NameSub = Locations.String1, NameDetail = diskSpace, PathFile = Locations.String2 };
-                            if (disktype == DriveType.CDRom)
-                            {
-                                dataBindFileLocation.FileType = FileType.FolderDisc;
-                                dataBindFileLocation.ImageBitmap = imageFolderDisc;
-                            }
-                            else if (disktype == DriveType.Network)
-                            {
-                                dataBindFileLocation.ImageBitmap = imageFolderNetwork;
-                            }
-                            else
-                            {
-                                dataBindFileLocation.ImageBitmap = imageFolder;
-                            }
-                            await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileLocation, false, false);
+                            continue;
                         }
+
+                        //Get directory information
+                        DirectoryInfo directoryInfo = new DirectoryInfo(fileLocation.String2);
+
+                        //Check if directory is a root folder
+                        FileType locationType = FileType.FolderPre;
+                        if (directoryInfo.Parent == null)
+                        {
+                            locationType = FileType.Folder;
+                        }
+
+                        //Get disk size information
+                        string freeSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalFreeSpace);
+                        string usedSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalSize);
+                        string diskSpace = freeSpace + "/" + usedSpace;
+
+                        //Create databindfile
+                        DataBindFile dataBindFile = new DataBindFile() { FileType = locationType, Name = directoryInfo.FullName, NameSub = fileLocation.String1, NameDetail = diskSpace, PathFile = directoryInfo.FullName };
+
+                        //Get disk type information
+                        DriveType disktype = driveInfo.DriveType;
+                        if (disktype == DriveType.CDRom)
+                        {
+                            dataBindFile.FileType = FileType.FolderDisc;
+                            dataBindFile.ImageBitmap = imageFolderDisc;
+                        }
+                        else if (disktype == DriveType.Network)
+                        {
+                            dataBindFile.ImageBitmap = imageFolderNetwork;
+                        }
+                        else
+                        {
+                            dataBindFile.ImageBitmap = imageFolder;
+                        }
+
+                        //Add databindfile to the list
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
                     }
                     catch { }
                 }
