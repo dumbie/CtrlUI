@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -48,7 +47,7 @@ namespace CtrlUI
                 else if (Check_PathUrlProtocol(dataBindApp.PathExe))
                 {
                     //Run process url protocol
-                    await PrepareProcessLauncherUrlProtocolAsync(dataBindApp, false, false, false);
+                    await PrepareProcessLauncherUrlProtocolAsync(dataBindApp, false, true, false);
                     return;
                 }
                 else
@@ -124,7 +123,7 @@ namespace CtrlUI
                 else
                 {
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, false, keyboardLaunch);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, true, keyboardLaunch);
                 }
             }
             catch { }
@@ -150,7 +149,7 @@ namespace CtrlUI
                 bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
 
                 //Launch the Win32 application
-                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, false, keyboardLaunch);
+                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, true, keyboardLaunch);
             }
             catch { }
         }
@@ -178,22 +177,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Show process launch failed message
-        async Task ShowProcessLaunchFailedMessage()
-        {
-            try
-            {
-                List<DataBindString> Answers = new List<DataBindString>();
-                DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Ok";
-                Answers.Add(Answer1);
-
-                await Popup_Show_MessageBox("Failed to launch application", "", "Perhaps the application has moved to a new location or has closed.", Answers);
-            }
-            catch { }
-        }
-
         //Launch DirectXInput application
         async Task LaunchDirectXInput(bool silentLaunch)
         {
@@ -207,7 +190,7 @@ namespace CtrlUI
                         await Notification_Send_Status("DirectXInput", "Launching DirectXInput");
                     }
 
-                    AVProcess.Launch_ExecuteInherit("DirectXInput-Launcher.exe", "", "", true);
+                    AVProcess.Launch_ShellExecute("DirectXInput-Launcher.exe", "", "", true);
                 }
                 else
                 {
@@ -233,7 +216,7 @@ namespace CtrlUI
                     await Notification_Send_Status("Fps", "Showing Fps Overlayer");
 
                     //Launch Fps Overlayer
-                    AVProcess.Launch_ExecuteInherit("FpsOverlayer-Launcher.exe", "", "", true);
+                    AVProcess.Launch_ShellExecute("FpsOverlayer-Launcher.exe", "", "", true);
                 }
             }
             catch { }

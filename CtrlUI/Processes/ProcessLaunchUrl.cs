@@ -22,11 +22,10 @@ namespace CtrlUI
                 await AppWindowMinimize(true, true);
 
                 //Launch the url protocol
-                int processId = AVProcess.Launch_ExecuteInherit(dataBindApp.PathExe, dataBindApp.PathLaunch, dataBindApp.Argument, runAsAdmin);
-                if (processId <= 0)
+                bool launchSuccess = AVProcess.Launch_ShellExecute(dataBindApp.PathExe, dataBindApp.PathLaunch, dataBindApp.Argument, runAsAdmin);
+                if (!launchSuccess)
                 {
-                    //Show failed launch messagebox
-                    await ShowProcessLaunchFailedMessage();
+                    await Notification_Send_Status("Close", "Failed launching " + dataBindApp.Name);
                     return false;
                 }
 
@@ -40,8 +39,7 @@ namespace CtrlUI
             }
             catch
             {
-                //Show failed launch messagebox
-                await ShowProcessLaunchFailedMessage();
+                await Notification_Send_Status("Close", "Failed launching " + dataBindApp.Name);
                 return false;
             }
         }

@@ -191,7 +191,7 @@ namespace DriverInstaller
                 if (runDirectXInput)
                 {
                     TextBoxAppend("Running the DirectXInput application.");
-                    AVProcess.Launch_ExecuteInherit("DirectXInput-Launcher.exe", "", "", true);
+                    AVProcess.Launch_ShellExecute("DirectXInput-Launcher.exe", "", "", true);
                 }
 
                 //Set the exit reason text message

@@ -54,8 +54,8 @@ namespace CtrlUI
                 await AppWindowMinimize(true, true);
 
                 //Restart the process
-                int processId = await AVProcess.Restart_ProcessByProcessId(processMulti.Identifier, newArguments, withoutArguments);
-                if (processId <= 0)
+                bool launchSuccess = await AVProcess.Restart_ProcessByProcessId(processMulti.Identifier, newArguments, withoutArguments);
+                if (!launchSuccess)
                 {
                     await Notification_Send_Status("Close", "Failed restarting " + dataBindApp.Name);
                     Debug.WriteLine("Failed to restart process: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandleMain);

@@ -135,6 +135,7 @@ namespace CtrlUI
                                 ListCategory listCategorySetting = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
                                 ListCategory listCategorySwitch = (ListCategory)CategoryListPreviousWithItems(listCategorySetting, true);
                                 await CategoryListChange(listCategorySwitch);
+                                KeySendSingle(KeysVirtual.F13, vProcessCurrent.WindowHandleMain);
                             }
                         });
 
@@ -156,6 +157,7 @@ namespace CtrlUI
                                 ListCategory listCategorySetting = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
                                 ListCategory listCategorySwitch = (ListCategory)CategoryListNextWithItems(listCategorySetting, true);
                                 await CategoryListChange(listCategorySwitch);
+                                KeySendSingle(KeysVirtual.F13, vProcessCurrent.WindowHandleMain);
                             }
                         });
 

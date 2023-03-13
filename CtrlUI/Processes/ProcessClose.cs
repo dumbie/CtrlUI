@@ -53,7 +53,7 @@ namespace CtrlUI
                     //Reset the process running status
                     if (resetProcess)
                     {
-                        dataBindApp.ResetStatus();
+                        dataBindApp.ResetStatus(false);
                     }
 
                     //Remove the process from the list
@@ -117,7 +117,7 @@ namespace CtrlUI
                     //Reset the process running status
                     if (resetProcess)
                     {
-                        dataBindApp.ResetStatus();
+                        dataBindApp.ResetStatus(false);
                     }
 
                     //Remove the process from the list

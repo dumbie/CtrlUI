@@ -100,11 +100,10 @@ namespace CtrlUI
                 await AppWindowMinimize(true, true);
 
                 //Launch the Win32 application
-                int processId = AVProcess.Launch_ExecuteInherit(pathExe, pathWork, launchArgument, runAsAdmin);
-                if (processId <= 0)
+                bool launchSuccess = AVProcess.Launch_ShellExecute(pathExe, pathWork, launchArgument, runAsAdmin);
+                if (!launchSuccess)
                 {
-                    //Show failed launch messagebox
-                    await ShowProcessLaunchFailedMessage();
+                    await Notification_Send_Status("Close", "Failed launching " + appTitle);
                     return false;
                 }
 
@@ -118,8 +117,7 @@ namespace CtrlUI
             }
             catch
             {
-                //Show failed launch messagebox
-                await ShowProcessLaunchFailedMessage();
+                await Notification_Send_Status("Close", "Failed launching " + appTitle);
                 return false;
             }
         }

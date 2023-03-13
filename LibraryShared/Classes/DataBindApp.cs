@@ -507,21 +507,27 @@ namespace LibraryShared
             }
 
             //Reset application status
-            public void ResetStatus()
+            public void ResetStatus(bool resetAvailable)
             {
                 try
                 {
-                    StatusAvailable = Visibility.Collapsed;
+                    if (resetAvailable)
+                    {
+                        StatusAvailable = Visibility.Collapsed;
+                    }
+
                     StatusRunning = Visibility.Collapsed;
                     StatusSuspended = Visibility.Collapsed;
                     StatusNotResponding = Visibility.Collapsed;
                     RunningProcessCount = string.Empty;
                     RunningTimeLastUpdate = 0;
                     ProcessMulti.Clear();
+
+                    //Debug.WriteLine("Reset application status: " + Name + "/" + Category);
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("Failed to reset application status: " + ex.Message);
+                    Debug.WriteLine("Failed to reset application status: " + Name + "/" + ex.Message);
                 }
             }
 

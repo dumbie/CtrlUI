@@ -77,11 +77,10 @@ namespace CtrlUI
                 await AppWindowMinimize(true, true);
 
                 //Launch the UWP or Win32Store application
-                int processId = AVProcess.Launch_UwpApplication(appUserModelId, argument);
-                if (processId <= 0)
+                bool launchSuccess = AVProcess.Launch_UwpApplication(appUserModelId, argument);
+                if (!launchSuccess)
                 {
-                    //Show failed launch messagebox
-                    await ShowProcessLaunchFailedMessage();
+                    await Notification_Send_Status("Close", "Failed launching " + appTitle);
                     return false;
                 }
 
@@ -95,8 +94,7 @@ namespace CtrlUI
             }
             catch
             {
-                //Show failed launch messagebox
-                await ShowProcessLaunchFailedMessage();
+                await Notification_Send_Status("Close", "Failed launching " + appTitle);
                 return false;
             }
         }

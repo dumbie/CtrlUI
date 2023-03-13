@@ -425,7 +425,7 @@ namespace CtrlUI
                     else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Other) { vEditAppDataBind.StatusEmulatorCategoryImage = null; }
 
                     //Reset application status
-                    vEditAppDataBind.ResetStatus();
+                    vEditAppDataBind.ResetStatus(true);
 
                     await Notification_Send_Status("Edit", "Edited " + vEditAppDataBind.Name);
                     Debug.WriteLine("Editing application: " + vEditAppDataBind.Name + " in the list.");

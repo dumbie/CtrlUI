@@ -143,7 +143,7 @@ namespace CtrlUI
                         //Update the running status
                         if (processCount == 0)
                         {
-                            dataBindApp.ResetStatus();
+                            dataBindApp.ResetStatus(false);
                         }
                     }
                     catch { }

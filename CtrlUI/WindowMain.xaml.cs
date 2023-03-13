@@ -211,7 +211,7 @@ namespace CtrlUI
         {
             try
             {
-                AVProcess.Launch_ExecuteInherit("CtrlUI.exe", "", "-restart", true);
+                AVProcess.Launch_ShellExecute("CtrlUI.exe", "", "-restart", true);
                 await Application_Exit();
             }
             catch { }
@@ -271,7 +271,7 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Restart the PC
-                        AVProcess.Launch_ExecuteInherit(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /t 0", false);
+                        AVProcess.Launch_ShellExecute(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /t 0", true);
 
                         //Close CtrlUI
                         await Application_Exit();
@@ -284,7 +284,7 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Shutdown the PC
-                        AVProcess.Launch_ExecuteInherit(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /t 0", false);
+                        AVProcess.Launch_ShellExecute(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /t 0", true);
 
                         //Close CtrlUI
                         await Application_Exit();
