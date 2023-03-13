@@ -230,40 +230,45 @@ namespace CtrlUI
 
                 //Show the closing messagebox
                 List<DataBindString> Answers = new List<DataBindString>();
-                DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Close CtrlUI";
-                Answers.Add(Answer1);
+                DataBindString AnswerCloseCtrlUI = new DataBindString();
+                AnswerCloseCtrlUI.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerCloseCtrlUI.Name = "Close CtrlUI";
+                Answers.Add(AnswerCloseCtrlUI);
 
-                DataBindString Answer4 = new DataBindString();
-                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                Answer4.Name = "Restart CtrlUI";
-                Answers.Add(Answer4);
+                DataBindString AnswerRestartCtrlUI = new DataBindString();
+                AnswerRestartCtrlUI.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerRestartCtrlUI.Name = "Restart CtrlUI";
+                Answers.Add(AnswerRestartCtrlUI);
 
-                DataBindString Answer3 = new DataBindString();
-                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shutdown.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                Answer3.Name = "Shutdown my PC";
-                Answers.Add(Answer3);
+                DataBindString AnswerShutdownPC = new DataBindString();
+                AnswerShutdownPC.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shutdown.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerShutdownPC.Name = "Shutdown my PC";
+                Answers.Add(AnswerShutdownPC);
 
-                DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Restart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                Answer2.Name = "Restart my PC";
-                Answers.Add(Answer2);
+                DataBindString AnswerRestartPC = new DataBindString();
+                AnswerRestartPC.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Restart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerRestartPC.Name = "Restart my PC";
+                Answers.Add(AnswerRestartPC);
+
+                DataBindString AnswerLockPC = new DataBindString();
+                AnswerLockPC.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Lock.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerLockPC.Name = "Lock my PC";
+                Answers.Add(AnswerLockPC);
 
                 DataBindString messageResult = await Popup_Show_MessageBox("Would you like to close CtrlUI or shutdown your PC?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);
                 if (messageResult != null)
                 {
-                    if (messageResult == Answer1)
+                    if (messageResult == AnswerCloseCtrlUI)
                     {
                         await Notification_Send_Status("AppClose", "Closing CtrlUI");
                         await Application_Exit();
                     }
-                    else if (messageResult == Answer4)
+                    else if (messageResult == AnswerRestartCtrlUI)
                     {
                         await Notification_Send_Status("AppRestart", "Restarting CtrlUI");
                         await Application_Restart();
                     }
-                    else if (messageResult == Answer2)
+                    else if (messageResult == AnswerRestartPC)
                     {
                         await Notification_Send_Status("Restart", "Restarting your PC");
 
@@ -271,12 +276,12 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Restart the PC
-                        AVProcess.Launch_ShellExecute(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /t 0", true);
+                        AVProcess.Launch_ShellExecute(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /f /t 0", true);
 
                         //Close CtrlUI
                         await Application_Exit();
                     }
-                    else if (messageResult == Answer3)
+                    else if (messageResult == AnswerShutdownPC)
                     {
                         await Notification_Send_Status("Shutdown", "Shutting down your PC");
 
@@ -284,10 +289,17 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Shutdown the PC
-                        AVProcess.Launch_ShellExecute(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /t 0", true);
+                        AVProcess.Launch_ShellExecute(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /f /t 0", true);
 
                         //Close CtrlUI
                         await Application_Exit();
+                    }
+                    else if (messageResult == AnswerLockPC)
+                    {
+                        await Notification_Send_Status("Lock", "Locking your PC");
+
+                        //Lock the PC
+                        LockWorkStation();
                     }
                 }
             }
