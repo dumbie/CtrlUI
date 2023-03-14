@@ -33,7 +33,8 @@
     "Updater.exe.config",
     "Resources/ArnoldVinkCertificate.cer",
     "Assets/Default/Background.png",
-    "Assets/Default/BackgroundLive.mp4"
+    "Assets/Default/BackgroundLive.mp4",
+    "ProcessTool.exe"
   ],
   "FoldersIgnore": [
     "Profiles/User"
