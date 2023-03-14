@@ -13,7 +13,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task LoadLauncherApplications()
+        async Task LoadListLaunchers()
         {
             try
             {
@@ -128,8 +128,11 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Failed loading launchers: " + ex.Message);
             }
-            //Update the refreshing status
-            vBusyRefreshingLaunchers = false;
+            finally
+            {
+                //Update the refreshing status
+                vBusyRefreshingLaunchers = false;
+            }
         }
     }
 }

@@ -52,31 +52,8 @@ namespace CtrlUI
                 }
                 else
                 {
-                    //Refresh the processes list
-                    await Notification_Send_Status("AppLaunch", "Preparing application launch");
-                    await RefreshListProcessesWithWait(true);
-
-                    //Check if process is running
-                    ProcessMulti processMulti = await SelectProcessMulti(dataBindApp, true);
-                    if (processMulti == null)
-                    {
-                        Debug.WriteLine("Process is not running, launching the application.");
-                        await LaunchProcessDatabindAuto(dataBindApp);
-                    }
-                    else if (processMulti.Action == "Cancel")
-                    {
-                        Debug.WriteLine("Process is already running, skipping the launch.");
-                    }
-                    else if (processMulti.Action == "CloseAll")
-                    {
-                        Debug.WriteLine("Closing all processes, skipping the launch.");
-                        await CloseAllProcessesAuto(dataBindApp, true, false);
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Process is already running, checking the app.");
-                        await SelectProcessAction(dataBindApp, processMulti);
-                    }
+                    //Select process launch action
+                    await SelectProcessAction(dataBindApp, null);
                 }
             }
             catch

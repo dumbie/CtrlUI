@@ -250,8 +250,11 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Failed loading shortcuts: " + ex.Message);
             }
-            //Update the refreshing status
-            vBusyRefreshingShortcuts = false;
+            finally
+            {
+                //Update the refreshing status
+                vBusyRefreshingShortcuts = false;
+            }
         }
 
         //Add shortcut to the shortcuts list

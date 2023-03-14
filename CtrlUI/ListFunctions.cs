@@ -33,28 +33,16 @@ namespace CtrlUI
             }
         }
 
-        //Refresh the processes and status
-        async Task RefreshListProcessesWithWait(bool refreshWait)
+        //Refresh processes and status
+        async Task RefreshProcesses()
         {
             try
             {
                 //Check if already refreshing
                 if (vBusyRefreshingProcesses)
                 {
-                    if (refreshWait)
-                    {
-                        Debug.WriteLine("Processes are refreshing, waiting...");
-                        while (vBusyRefreshingProcesses)
-                        {
-                            await Task.Delay(100);
-                        }
-                        return;
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Processes are refreshing, cancelling.");
-                        return;
-                    }
+                    Debug.WriteLine("Processes are refreshing, cancelling.");
+                    return;
                 }
 
                 //Update the refreshing status
@@ -76,8 +64,11 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Failed refreshing processes: " + ex.Message);
             }
-            //Update the refreshing status
-            vBusyRefreshingProcesses = false;
+            finally
+            {
+                //Update the refreshing status
+                vBusyRefreshingProcesses = false;
+            }
         }
 
         //Refresh the list status

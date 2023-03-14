@@ -105,7 +105,7 @@ namespace CtrlUI
                 {
                     if (vAppActivated)
                     {
-                        await RefreshListProcessesWithWait(false);
+                        await RefreshProcesses();
 
                         //Delay the loop task
                         await TaskDelay(3000, vTask_UpdateProcesses);
@@ -128,7 +128,7 @@ namespace CtrlUI
                 {
                     if (vAppActivated)
                     {
-                        await LoadLauncherApplications();
+                        await LoadListLaunchers();
 
                         //Delay the loop task
                         await TaskDelay(60000, vTask_UpdateLaunchers);

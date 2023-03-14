@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
@@ -21,11 +20,27 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Select process action: " + dataBindApp.Name + "/" + dataBindApp.Type + "/" + dataBindApp.Category);
 
-                //Get the process multi
-                //Fix move process selection here
+                //Select process multi
                 if (processMulti == null)
                 {
-                    processMulti = dataBindApp.ProcessMulti.FirstOrDefault();
+                    processMulti = await SelectProcessMulti(dataBindApp, true);
+                    if (processMulti == null)
+                    {
+                        Debug.WriteLine("Process is not running, launching the application.");
+                        await LaunchProcessDatabindAuto(dataBindApp);
+                        return;
+                    }
+                    else if (processMulti.Action == "CloseAll")
+                    {
+                        Debug.WriteLine("Closing all processes, skipping the launch.");
+                        await CloseAllProcessesAuto(dataBindApp, true, false);
+                        return;
+                    }
+                    else if (processMulti.Action == "Cancel")
+                    {
+                        Debug.WriteLine("Process is already running, skipping the launch.");
+                        return;
+                    }
                 }
 
                 //Set messagebox answers
