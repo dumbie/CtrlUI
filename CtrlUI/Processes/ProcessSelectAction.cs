@@ -22,6 +22,7 @@ namespace CtrlUI
                 Debug.WriteLine("Select process action: " + dataBindApp.Name + "/" + dataBindApp.Type + "/" + dataBindApp.Category);
 
                 //Get the process multi
+                //Fix move process selection here
                 if (processMulti == null)
                 {
                     processMulti = dataBindApp.ProcessMulti.FirstOrDefault();
@@ -133,24 +134,14 @@ namespace CtrlUI
                 }
                 else
                 {
-                    categoryTitle = "Application";
+                    categoryTitle = "Application process";
                 }
 
                 //Get process running time
-                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, categoryTitle);
+                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.StatusProcessRunTime, categoryTitle);
                 if (!string.IsNullOrWhiteSpace(processRunningTimeString))
                 {
                     launchInformation += "\n" + processRunningTimeString;
-                }
-
-                //Get process last launch time
-                if (dataBindApp.Category == AppCategory.App)
-                {
-                    string lastLaunchTimeString = ApplicationLastLaunchTimeString(dataBindApp.LastLaunch, categoryTitle);
-                    if (!string.IsNullOrWhiteSpace(lastLaunchTimeString))
-                    {
-                        launchInformation += "\n" + lastLaunchTimeString;
-                    }
                 }
 
                 //Show the messagebox

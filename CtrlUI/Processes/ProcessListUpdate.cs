@@ -66,7 +66,7 @@ namespace CtrlUI
                         }
 
                         //Check process running time
-                        int processRunningTime = (int)processMulti.RunTime.TotalMinutes;
+                        int processRunTime = (int)processMulti.RunTime.TotalMinutes;
 
                         //Check if process is in combined list and update it
                         Func<DataBindApp, bool> filterCombinedApp = x => (!string.IsNullOrWhiteSpace(x.PathExe) && x.PathExe.ToLower() == processPathExeLower) || (!string.IsNullOrWhiteSpace(x.PathExe) && Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == processNameExeNoExtLower) || (!string.IsNullOrWhiteSpace(x.NameExe) && x.NameExe.ToLower() == processNameExeLower) || (!string.IsNullOrWhiteSpace(x.AppUserModelId) && x.AppUserModelId.ToLower() == processAppUserModelIdLower);
@@ -74,10 +74,7 @@ namespace CtrlUI
                         foreach (DataBindApp existingCombinedApp in existingCombinedApps)
                         {
                             //Update the process running time
-                            if (existingCombinedApp.Category == AppCategory.Shortcut || existingCombinedApp.Category == AppCategory.Launcher)
-                            {
-                                existingCombinedApp.RunningTime = processRunningTime;
-                            }
+                            existingCombinedApp.StatusProcessRunTime = processRunTime;
 
                             //Update the process running status
                             existingCombinedApp.StatusRunning = processStatusRunning;
@@ -123,7 +120,7 @@ namespace CtrlUI
                             if (existingProcessApp.Name != processMulti.WindowTitle) { existingProcessApp.Name = processMulti.WindowTitle; }
 
                             //Update the process running time
-                            existingProcessApp.RunningTime = processRunningTime;
+                            existingProcessApp.StatusProcessRunTime = processRunTime;
 
                             //Update the process suspended status
                             existingProcessApp.StatusSuspended = processStatusSuspended;
@@ -163,7 +160,7 @@ namespace CtrlUI
                         listProcessMulti.Add(processMulti);
 
                         //Add the process to the process list
-                        DataBindApp dataBindApp = new DataBindApp() { Type = processMulti.Type, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processMulti.WindowTitle, AppUserModelId = processAppUserModelId, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, StatusNotResponding = processStatusNotResponding, RunningTime = processRunningTime };
+                        DataBindApp dataBindApp = new DataBindApp() { Type = processMulti.Type, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processMulti.WindowTitle, AppUserModelId = processAppUserModelId, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, StatusNotResponding = processStatusNotResponding, StatusProcessRunTime = processRunTime };
                         await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
 
                         //Add the process to the search list

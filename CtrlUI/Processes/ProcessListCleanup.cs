@@ -36,11 +36,11 @@ namespace CtrlUI
                         //Update the running count text
                         if (processCount > 1)
                         {
-                            dataBindApp.RunningProcessCount = Convert.ToString(processCount);
+                            dataBindApp.StatusProcessCount = Convert.ToString(processCount);
                         }
                         else
                         {
-                            dataBindApp.RunningProcessCount = string.Empty;
+                            dataBindApp.StatusProcessCount = string.Empty;
                         }
 
                         //Update the running status

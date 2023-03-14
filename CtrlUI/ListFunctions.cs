@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -158,25 +157,28 @@ namespace CtrlUI
         {
             try
             {
-                bool ApplicationUpdated = false;
+                bool applicationUpdated = false;
                 //Debug.WriteLine("Updating the application running time.");
-                foreach (DataBindApp dataBindApp in CombineAppLists(false, false, false).Where(x => x.RunningTimeLastUpdate != 0))
+                foreach (DataBindApp dataBindApp in CombineAppLists(false, false, false).Where(x => x.ProcessMulti.Any()))
                 {
                     try
                     {
-                        if (dataBindApp.StatusRunning == Visibility.Visible && (GetSystemTicksMs() - dataBindApp.RunningTimeLastUpdate) >= 60000)
+                        applicationUpdated = true;
+                        if (dataBindApp.RunningTime < 0)
                         {
-                            ApplicationUpdated = true;
-                            dataBindApp.RunningTime++;
-                            dataBindApp.RunningTimeLastUpdate = GetSystemTicksMs();
-                            //Debug.WriteLine(UpdateApp.Name + " has been running for one minute, total: " + UpdateApp.RunningTime);
+                            dataBindApp.RunningTime = 1;
                         }
+                        else
+                        {
+                            dataBindApp.RunningTime++;
+                        }
+                        //Debug.WriteLine(dataBindApp.Name + " has been running for one minute, total: " + dataBindApp.RunningTime);
                     }
                     catch { }
                 }
 
                 //Save changes to Json file
-                if (ApplicationUpdated)
+                if (applicationUpdated)
                 {
                     JsonSaveApplications();
                 }

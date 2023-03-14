@@ -92,8 +92,7 @@ namespace CtrlUI
         {
             try
             {
-                if (runningTime == -2) { return string.Empty; }
-                else if (runningTime == -1) { return appCategory + " has been running for an unknown duration."; }
+                if (runningTime < 0) { return appCategory + " has been running for an unknown duration."; }
                 else if (runningTime == 0) { return appCategory + " has been running for less than a minute."; }
                 else if (runningTime < 60) { return appCategory + " has been running for a total of " + runningTime + " minutes."; }
                 else if (runningTime < 120)

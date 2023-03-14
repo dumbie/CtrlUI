@@ -252,7 +252,7 @@ namespace LibraryShared
                 }
             }
 
-            private int PrivRunningTime = -2;
+            private int PrivRunningTime = -1;
             public int RunningTime
             {
                 get { return this.PrivRunningTime; }
@@ -310,29 +310,29 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivRunningProcessCount = string.Empty;
-            public string RunningProcessCount
+            private string PrivStatusProcessCount = string.Empty;
+            public string StatusProcessCount
             {
-                get { return this.PrivRunningProcessCount; }
+                get { return this.PrivStatusProcessCount; }
                 set
                 {
-                    if (this.PrivRunningProcessCount != value)
+                    if (this.PrivStatusProcessCount != value)
                     {
-                        this.PrivRunningProcessCount = value;
+                        this.PrivStatusProcessCount = value;
                         NotifyPropertyChanged();
                     }
                 }
             }
 
-            private long PrivRunningTimeLastUpdate = 0;
-            public long RunningTimeLastUpdate
+            private int PrivStatusProcessRunTime = -1;
+            public int StatusProcessRunTime
             {
-                get { return this.PrivRunningTimeLastUpdate; }
+                get { return this.PrivStatusProcessRunTime; }
                 set
                 {
-                    if (this.PrivRunningTimeLastUpdate != value)
+                    if (this.PrivStatusProcessRunTime != value)
                     {
-                        this.PrivRunningTimeLastUpdate = value;
+                        this.PrivStatusProcessRunTime = value;
                         NotifyPropertyChanged();
                     }
                 }
@@ -519,8 +519,7 @@ namespace LibraryShared
                     StatusRunning = Visibility.Collapsed;
                     StatusSuspended = Visibility.Collapsed;
                     StatusNotResponding = Visibility.Collapsed;
-                    RunningProcessCount = string.Empty;
-                    RunningTimeLastUpdate = 0;
+                    StatusProcessCount = string.Empty;
                     ProcessMulti.Clear();
 
                     //Debug.WriteLine("Reset application status: " + Name + "/" + Category);
