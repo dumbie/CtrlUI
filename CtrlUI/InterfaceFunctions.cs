@@ -277,27 +277,27 @@ namespace CtrlUI
         }
 
         //Check the applications running status
-        void CheckAppRunningStatus(List<ProcessMulti> processesList)
+        void CheckAppRunningStatus(List<ProcessMulti> processMultiList)
         {
             try
             {
                 //Get all running processes
-                if (processesList == null)
+                if (processMultiList == null)
                 {
-                    processesList = AVProcess.Get_AllProcessesMulti();
+                    processMultiList = AVProcess.Get_AllProcessesMulti();
                 }
 
                 //Update main menu launchers status
-                bool runningSteam = processesList.Any(x => x.ExeNameNoExt.ToLower() == "steam");
-                bool runningEADesktop = processesList.Any(x => x.ExeNameNoExt.ToLower() == "eadesktop" || x.ExeNameNoExt.ToLower() == "origin");
-                bool runningGog = processesList.Any(x => x.ExeNameNoExt.ToLower() == "galaxyclient");
-                bool runningUbisoft = processesList.Any(x => x.ExeNameNoExt.ToLower() == "ubisoftconnect" || x.ExeNameNoExt.ToLower() == "upc");
-                bool runningEpic = processesList.Any(x => x.ExeNameNoExt.ToLower() == "epicgameslauncher");
-                bool runningBlizzard = processesList.Any(x => x.ExeNameNoExt.ToLower() == "battle.net");
-                bool runningRockstar = processesList.Any(x => x.ExeNameNoExt.ToLower() == "rockstarservice");
-                bool runningDiscord = processesList.Any(x => x.ExeNameNoExt.ToLower() == "discord");
-                bool runningDirectXInput = processesList.Any(x => x.ExeNameNoExt.ToLower() == "directxinput");
-                bool runningFpsOverlayer = processesList.Any(x => x.ExeNameNoExt.ToLower() == "fpsoverlayer");
+                bool runningSteam = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "steam");
+                bool runningEADesktop = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "eadesktop" || x.ExeNameNoExt.ToLower() == "origin");
+                bool runningGog = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "galaxyclient");
+                bool runningUbisoft = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "ubisoftconnect" || x.ExeNameNoExt.ToLower() == "upc");
+                bool runningEpic = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "epicgameslauncher");
+                bool runningBlizzard = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "battle.net");
+                bool runningRockstar = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "rockstarservice");
+                bool runningDiscord = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "discord");
+                bool runningDirectXInput = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "directxinput");
+                bool runningFpsOverlayer = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "fpsoverlayer");
 
                 AVActions.DispatcherInvoke(delegate
                 {

@@ -9,7 +9,6 @@ using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -63,13 +62,13 @@ namespace CtrlUI
                 vBusyRefreshingProcesses = true;
 
                 //Get all running processes
-                List<ProcessMulti> processesList = AVProcess.Get_AllProcessesMulti();
+                List<ProcessMulti> processMultiList = AVProcess.Get_AllProcessesMulti();
 
                 //Refresh the processes list
-                await RefreshListProcesses(processesList);
+                await RefreshProcessLists(processMultiList);
 
                 //Check app running status
-                CheckAppRunningStatus(processesList);
+                CheckAppRunningStatus(processMultiList);
 
                 //Update list load status
                 vListLoadedProcesses = true;
@@ -102,68 +101,29 @@ namespace CtrlUI
             catch { }
         }
 
-        //Refresh the processes list
-        async Task RefreshListProcesses(List<ProcessMulti> processesList)
+        //Refresh process lists
+        async Task RefreshProcessLists(List<ProcessMulti> processMultiList)
         {
             try
             {
                 //Get all running processes
-                if (processesList == null)
+                if (processMultiList == null)
                 {
-                    processesList = AVProcess.Get_AllProcessesMulti();
+                    processMultiList = AVProcess.Get_AllProcessesMulti();
                 }
 
-                //List all the currently running processes
-                List<int> activeProcessesId = new List<int>();
-                List<IntPtr> activeProcessesWindow = new List<IntPtr>();
+                //List of valid process window handles
+                List<IntPtr> validProcessesWindow = new List<IntPtr>();
 
                 //Get the currently running processes
-                IEnumerable<DataBindApp> currentListApps = CombineAppLists(true, false, false).Where(x => x.StatusUrlProtocol == Visibility.Collapsed);
+                IEnumerable<DataBindApp> combinedAppLists = CombineAppLists(true, false, false).Where(x => x.StatusUrlProtocol == Visibility.Collapsed);
 
                 //Update all the processes
-                await ListLoadCheckProcesses(processesList, activeProcessesId, activeProcessesWindow, currentListApps, false);
+                await ProcessListUpdate(processMultiList, combinedAppLists, validProcessesWindow);
 
-                //Update the application running count and status
-                foreach (DataBindApp dataBindApp in currentListApps)
-                {
-                    try
-                    {
-                        //Remove closed processes
-                        dataBindApp.ProcessMulti.RemoveAll(x => !activeProcessesId.Contains(x.Identifier));
-                        dataBindApp.ProcessMulti.RemoveAll(x => !activeProcessesWindow.Contains(x.WindowHandleMain));
-
-                        //Check the running count
-                        int processCount = dataBindApp.ProcessMulti.Count();
-                        if (processCount > 1)
-                        {
-                            //Remove invalid processes
-                            dataBindApp.ProcessMulti.RemoveAll(x => x.WindowHandleMain == IntPtr.Zero);
-                            processCount = dataBindApp.ProcessMulti.Count();
-                        }
-
-                        //Update the running count
-                        if (processCount > 1)
-                        {
-                            dataBindApp.RunningProcessCount = Convert.ToString(processCount);
-                        }
-                        else
-                        {
-                            dataBindApp.RunningProcessCount = string.Empty;
-                        }
-
-                        //Update the running status
-                        if (processCount == 0)
-                        {
-                            dataBindApp.ResetStatus(false);
-                        }
-                    }
-                    catch { }
-                }
-
-                //Remove no longer running and invalid processes
-                Func<DataBindApp, bool> filterProcessApp = x => x.Category == AppCategory.Process && (!x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !activeProcessesWindow.Contains(z.WindowHandleMain)) || x.ProcessMulti.Any(z => z.WindowHandleMain == IntPtr.Zero));
-                await ListBoxRemoveAll(lb_Processes, List_Processes, filterProcessApp);
-                await ListBoxRemoveAll(lb_Search, List_Search, filterProcessApp);
+                //Cleanup all the processes
+                await ProcessListCleanupList(validProcessesWindow);
+                ProcessListCleanupCombined(processMultiList, combinedAppLists);
             }
             catch { }
         }

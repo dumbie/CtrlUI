@@ -150,6 +150,7 @@
     <Compile Include="Processes\ProcessClose.cs" />
     <Compile Include="Processes\ProcessLaunch.cs" />
     <Compile Include="Processes\ProcessLaunchUrl.cs" />
+    <Compile Include="Processes\ProcessListCleanup.cs" />
     <Compile Include="Processes\ProcessWindow.cs" />
     <Compile Include="Resources\ApiHowLongToBeat\HltbSearch.cs" />
     <Compile Include="ImageFunctions.cs" />
@@ -193,7 +194,7 @@
     <Compile Include="Processes\ProcessCheck.cs" />
     <Compile Include="Processes\ProcessSelect.cs" />
     <Compile Include="Processes\ProcessRestart.cs" />
-    <Compile Include="Processes\ProcessList.cs" />
+    <Compile Include="Processes\ProcessListUpdate.cs" />
     <Compile Include="RegistryFunctions.cs" />
     <Compile Include="QuickActionFunctions.cs" />
     <Compile Include="AppMessageFilter.cs" />
