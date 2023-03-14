@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
@@ -15,20 +14,31 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task RightClickProcess(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
+        //Select process action
+        async Task SelectProcessAction(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
             {
-                Debug.WriteLine("Right clicked process: " + dataBindApp.Name + " from: " + listboxSender.Name);
+                Debug.WriteLine("Select process action: " + dataBindApp.Name + "/" + dataBindApp.Type + "/" + dataBindApp.Category);
 
                 //Get the process multi
-                ProcessMulti processMulti = dataBindApp.ProcessMulti.FirstOrDefault();
+                if (processMulti == null)
+                {
+                    processMulti = dataBindApp.ProcessMulti.FirstOrDefault();
+                }
 
+                //Set messagebox answers
                 List<DataBindString> Answers = new List<DataBindString>();
+
                 DataBindString AnswerShow = new DataBindString();
                 AnswerShow.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerShow.Name = "Show application";
                 Answers.Add(AnswerShow);
+
+                DataBindString AnswerHide = new DataBindString();
+                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMinimize.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerHide.Name = "Hide application";
+                Answers.Add(AnswerHide);
 
                 DataBindString AnswerClose = new DataBindString();
                 AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -107,13 +117,43 @@ namespace CtrlUI
                     }
                 }
 
+                //Set category title
+                string categoryTitle = string.Empty;
+                if (dataBindApp.Category == AppCategory.Shortcut)
+                {
+                    categoryTitle = "Shortcut process";
+                }
+                else if (dataBindApp.Category == AppCategory.Launcher)
+                {
+                    categoryTitle = "Launcher process";
+                }
+                else if (dataBindApp.Category == AppCategory.Process)
+                {
+                    categoryTitle = "Process";
+                }
+                else
+                {
+                    categoryTitle = "Application";
+                }
+
                 //Get process running time
-                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "Process");
+                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, categoryTitle);
                 if (!string.IsNullOrWhiteSpace(processRunningTimeString))
                 {
                     launchInformation += "\n" + processRunningTimeString;
                 }
 
+                //Get process last launch time
+                if (dataBindApp.Category == AppCategory.App)
+                {
+                    string lastLaunchTimeString = ApplicationLastLaunchTimeString(dataBindApp.LastLaunch, categoryTitle);
+                    if (!string.IsNullOrWhiteSpace(lastLaunchTimeString))
+                    {
+                        launchInformation += "\n" + lastLaunchTimeString;
+                    }
+                }
+
+                //Show the messagebox
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", launchInformation, "", Answers);
                 if (messageResult != null)
                 {
@@ -121,9 +161,20 @@ namespace CtrlUI
                     {
                         await ShowProcessWindowAuto(dataBindApp, processMulti);
                     }
+                    else if (messageResult == AnswerHide)
+                    {
+                        await HideProcessWindowAuto(dataBindApp, processMulti);
+                    }
                     else if (messageResult == AnswerClose)
                     {
-                        await CloseSingleProcessAuto(processMulti, dataBindApp, false, true);
+                        if (dataBindApp.Category == AppCategory.Process)
+                        {
+                            await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
+                        }
+                        else
+                        {
+                            await CloseSingleProcessAuto(processMulti, dataBindApp, false, true);
+                        }
                     }
                     else if (messageResult == AnswerRestartCurrent)
                     {
@@ -142,8 +193,15 @@ namespace CtrlUI
                         await LaunchProcessDatabindAuto(dataBindApp);
                     }
                 }
+                else
+                {
+                    Debug.WriteLine("Cancelled process select action.");
+                }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed selecting process action: " + ex.Message);
+            }
         }
     }
 }

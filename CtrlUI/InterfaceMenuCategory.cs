@@ -195,7 +195,7 @@ namespace CtrlUI
                 //Check if category has items
                 if (listCategory != ListCategory.Search && CategoryListCount(listCategory) <= 0)
                 {
-                    await Notification_Send_Status("Close", "Selected category has no items.");
+                    //await Notification_Send_Status("Close", "Selected category has no items.");
                     Debug.WriteLine("Category " + listCategory + " has no items, falling back to first.");
                     listCategory = (ListCategory)CategoryListFirstWithItems();
                 }

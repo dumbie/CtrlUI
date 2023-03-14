@@ -24,14 +24,24 @@ namespace CtrlUI
             {
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
-                    //Get application image information
-                    Package appPackage = GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId);
-                    AppxDetails appxDetails = GetUwpAppxDetailsByUwpAppPackage(appPackage);
                     string imageFileName = FilterNameFile(dataBindApp.Name);
-                    string imageFileExeName = Path.GetFileNameWithoutExtension(appxDetails.ExecutableAliasName);
+                    string imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
+                    string imageSquareLargestLogoPath = string.Empty;
+                    string imageWideLargestLogoPath = string.Empty;
+
+                    //Get application image information
+                    try
+                    {
+                        Package appPackage = GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId);
+                        AppxDetails appxDetails = GetUwpAppxDetailsByUwpAppPackage(appPackage);
+                        imageFileExeName = Path.GetFileNameWithoutExtension(appxDetails.ExecutableAliasName);
+                        imageSquareLargestLogoPath = appxDetails.SquareLargestLogoPath;
+                        imageWideLargestLogoPath = appxDetails.WideLargestLogoPath;
+                    }
+                    catch { }
 
                     //Set application bitmap image
-                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, imageSize, 0);
+                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageSquareLargestLogoPath, imageWideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, imageSize, 0);
                 }
                 else
                 {

@@ -23,11 +23,11 @@ namespace DirectXInput.KeyboardCode
                 //Check the pressed key
                 if (usedVirtualKey == KeysVirtual.Up)
                 {
-                    NavigateUp(ref messageHandled);
+                    NavigateArrowUp(ref messageHandled);
                 }
                 else if (usedVirtualKey == KeysVirtual.Down)
                 {
-                    NavigateDown(ref messageHandled);
+                    NavigateArrowDown(ref messageHandled);
                 }
             }
             catch { }
@@ -48,7 +48,7 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Navigate arrow down
-        void NavigateDown(ref bool Handled)
+        void NavigateArrowDown(ref bool Handled)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Navigate arrow up
-        void NavigateUp(ref bool Handled)
+        void NavigateArrowUp(ref bool Handled)
         {
             try
             {

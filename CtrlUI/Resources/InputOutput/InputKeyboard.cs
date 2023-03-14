@@ -74,7 +74,7 @@ namespace CtrlUI
                 else if (usedVirtualKey == KeysVirtual.Up)
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                    NavigateUp(ref messageHandled);
+                    NavigateArrowUp(ref messageHandled);
                 }
                 else if (usedVirtualKey == KeysVirtual.Right)
                 {
@@ -83,7 +83,7 @@ namespace CtrlUI
                 else if (usedVirtualKey == KeysVirtual.Down)
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                    NavigateDown(ref messageHandled);
+                    NavigateArrowDown(ref messageHandled);
                 }
                 else if (usedVirtualKey == KeysVirtual.Space)
                 {
@@ -118,7 +118,7 @@ namespace CtrlUI
         }
 
         //Navigate arrow down
-        void NavigateDown(ref bool Handled)
+        void NavigateArrowDown(ref bool Handled)
         {
             try
             {
@@ -201,7 +201,7 @@ namespace CtrlUI
         }
 
         //Navigate arrow up
-        void NavigateUp(ref bool Handled)
+        void NavigateArrowUp(ref bool Handled)
         {
             try
             {

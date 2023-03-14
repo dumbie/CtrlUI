@@ -15,8 +15,8 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Check which launch method needs to be used
-        async Task LaunchProcessSelector(DataBindApp dataBindApp)
+        //Check which launch mode needs to be used
+        async Task CheckProcessLaunchMode(DataBindApp dataBindApp)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace CtrlUI
                 else
                 {
                     //Refresh the processes list
-                    await Notification_Send_Status("AppLaunch", "Preparing launch");
+                    await Notification_Send_Status("AppLaunch", "Preparing application launch");
                     await RefreshListProcessesWithWait(true);
 
                     //Check if process is running
@@ -75,7 +75,7 @@ namespace CtrlUI
                     else
                     {
                         Debug.WriteLine("Process is already running, checking the app.");
-                        await CheckLaunchProcessStatus(dataBindApp, processMulti);
+                        await SelectProcessAction(dataBindApp, processMulti);
                     }
                 }
             }
@@ -135,7 +135,7 @@ namespace CtrlUI
             try
             {
                 vFilePickerSettings = new FilePickerSettings();
-                vFilePickerSettings.FilterIn = new List<string> { "exe", "bat", "cmd" };
+                vFilePickerSettings.FilterIn = new List<string> { "exe", "bat", "cmd", "com", "pif" };
                 vFilePickerSettings.Title = "Launch Executable";
                 vFilePickerSettings.Description = "Please select an executable file to run:";
                 await Popup_Show_FilePicker("PC", -1, false, null);

@@ -45,9 +45,9 @@ namespace CtrlUI
                 ListBox ListboxSender = (ListBox)sender;
                 if (ListboxSender.SelectedItems.Count > 0 && ListboxSender.SelectedIndex != -1)
                 {
-                    //Check which launch method needs to be used
+                    //Check which launch mode needs to be used
                     DataBindApp SelectedItem = (DataBindApp)ListboxSender.SelectedItem;
-                    await LaunchProcessSelector(SelectedItem);
+                    await CheckProcessLaunchMode(SelectedItem);
                 }
             }
             catch
@@ -69,7 +69,7 @@ namespace CtrlUI
                     DataBindApp selectedItem = (DataBindApp)listboxSender.SelectedItem;
                     if (selectedItem.Category == AppCategory.Process)
                     {
-                        await RightClickProcess(listboxSender, listboxSelectedIndex, selectedItem);
+                        await SelectProcessAction(selectedItem, null);
                     }
                     else if (selectedItem.Category == AppCategory.Shortcut)
                     {

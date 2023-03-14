@@ -65,11 +65,20 @@ namespace CtrlUI
                             processStatusRunning = Visibility.Visible;
                         }
 
+                        //Check process running time
+                        int processRunningTime = (int)processMulti.RunTime.TotalMinutes;
+
                         //Check if process is in combined list and update it
                         Func<DataBindApp, bool> filterCombinedApp = x => (!string.IsNullOrWhiteSpace(x.PathExe) && x.PathExe.ToLower() == processPathExeLower) || (!string.IsNullOrWhiteSpace(x.PathExe) && Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == processNameExeNoExtLower) || (!string.IsNullOrWhiteSpace(x.NameExe) && x.NameExe.ToLower() == processNameExeLower) || (!string.IsNullOrWhiteSpace(x.AppUserModelId) && x.AppUserModelId.ToLower() == processAppUserModelIdLower);
                         IEnumerable<DataBindApp> existingCombinedApps = combinedAppLists.Where(filterCombinedApp);
                         foreach (DataBindApp existingCombinedApp in existingCombinedApps)
                         {
+                            //Update the process running time
+                            if (existingCombinedApp.Category == AppCategory.Shortcut || existingCombinedApp.Category == AppCategory.Launcher)
+                            {
+                                existingCombinedApp.RunningTime = processRunningTime;
+                            }
+
                             //Update the process running status
                             existingCombinedApp.StatusRunning = processStatusRunning;
 
@@ -103,9 +112,6 @@ namespace CtrlUI
 
                         //Check explorer process
                         ProcessNameCorrection(processMulti, processNameExeLower);
-
-                        //Check the process running time
-                        int processRunningTime = (int)processMulti.RunTime.TotalMinutes;
 
                         //Check if process is in process list and update it
                         bool appUpdatedContinueLoop = false;

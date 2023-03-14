@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,11 +7,9 @@ using System.Net;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -26,30 +23,10 @@ namespace CtrlUI
                 Debug.WriteLine("Showing the application: " + dataBindApp.Name);
 
                 //Check if application has multiple windows
-                IntPtr processWindowHandle = await CheckProcessWindowsAuto(dataBindApp, processMulti);
+                IntPtr processWindowHandle = await SelectProcessWindow(dataBindApp, processMulti);
 
                 //Check if application window has been found
-                if (processWindowHandle == new IntPtr(-50))
-                {
-                    await LaunchProcessDatabindAuto(dataBindApp);
-                }
-                else if (processWindowHandle == new IntPtr(-75))
-                {
-                    await RestartProcessAuto(processMulti, dataBindApp, true, false, false);
-                }
-                else if (processWindowHandle == new IntPtr(-80))
-                {
-                    await RestartProcessAuto(processMulti, dataBindApp, false, true, false);
-                }
-                else if (processWindowHandle == new IntPtr(-85))
-                {
-                    await RestartProcessAuto(processMulti, dataBindApp, false, false, true);
-                }
-                else if (processWindowHandle == new IntPtr(-100))
-                {
-                    await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
-                }
-                else if (processWindowHandle == new IntPtr(-200))
+                if (processWindowHandle == new IntPtr(-200))
                 {
                     Debug.WriteLine("Cancelled window selection.");
                 }
@@ -66,115 +43,8 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Show application has no window.");
-
-                    //Set messagebox answers
-                    List<DataBindString> Answers = new List<DataBindString>();
-                    DataBindString AnswerLaunch = new DataBindString();
-                    AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    AnswerLaunch.Name = "Launch new instance";
-                    Answers.Add(AnswerLaunch);
-
-                    //Check if processmulti is available
-                    string launchInformation = string.Empty;
-                    DataBindString AnswerRestartCurrent = new DataBindString();
-                    DataBindString AnswerRestartDefault = new DataBindString();
-                    DataBindString AnswerRestartWithout = new DataBindString();
-                    DataBindString AnswerClose = new DataBindString();
-                    if (processMulti != null)
-                    {
-                        bool currentArgument = !string.IsNullOrWhiteSpace(processMulti.Argument);
-                        if (currentArgument)
-                        {
-                            AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            AnswerRestartCurrent.Name = "Restart application";
-                            AnswerRestartCurrent.NameSub = "(Current argument)";
-                            Answers.Add(AnswerRestartCurrent);
-                        }
-
-                        bool availableArgument = !string.IsNullOrWhiteSpace(dataBindApp.Argument);
-                        bool emulatorArgument = dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom;
-                        bool filepickerArgument = dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker;
-                        bool defaultArgument = availableArgument || emulatorArgument || filepickerArgument;
-                        if (defaultArgument)
-                        {
-                            AnswerRestartDefault.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            AnswerRestartDefault.Name = "Restart application";
-                            AnswerRestartDefault.NameSub = "(Default argument)";
-                            Answers.Add(AnswerRestartDefault);
-                        }
-
-                        AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        AnswerRestartWithout.Name = "Restart application";
-                        AnswerRestartWithout.NameSub = "(Without argument)";
-                        Answers.Add(AnswerRestartWithout);
-
-                        AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        AnswerClose.Name = "Close application";
-                        Answers.Add(AnswerClose);
-
-                        //Get launch information
-                        if (processMulti.Type == ProcessType.UWP || processMulti.Type == ProcessType.Win32Store)
-                        {
-                            launchInformation = processMulti.AppUserModelId;
-                        }
-                        else
-                        {
-                            launchInformation = processMulti.ExePath;
-                        }
-
-                        //Add process identifier
-                        if (processMulti.Identifier != 0)
-                        {
-                            launchInformation += " (" + processMulti.Identifier + ")";
-                        }
-
-                        //Add launch argument
-                        if (currentArgument)
-                        {
-                            launchInformation += "\nCurrent argument: " + AVFunctions.StringCut(processMulti.Argument, 50, "...");
-                        }
-                        if (defaultArgument)
-                        {
-                            if (emulatorArgument)
-                            {
-                                launchInformation += "\nDefault argument: Select a rom";
-                            }
-                            else if (filepickerArgument)
-                            {
-                                launchInformation += "\nDefault argument: Select a file";
-                            }
-                            else
-                            {
-                                launchInformation += "\nDefault argument: " + dataBindApp.Argument;
-                            }
-                        }
-                    }
-
-                    //Show the messagebox
-                    DataBindString messageResult = await Popup_Show_MessageBox("Application has no window", launchInformation, "", Answers);
-                    if (messageResult != null)
-                    {
-                        if (messageResult == AnswerClose)
-                        {
-                            await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
-                        }
-                        else if (messageResult == AnswerRestartCurrent)
-                        {
-                            await RestartProcessAuto(processMulti, dataBindApp, true, false, false);
-                        }
-                        else if (messageResult == AnswerRestartDefault)
-                        {
-                            await RestartProcessAuto(processMulti, dataBindApp, false, true, false);
-                        }
-                        else if (messageResult == AnswerRestartWithout)
-                        {
-                            await RestartProcessAuto(processMulti, dataBindApp, false, false, true);
-                        }
-                        else if (messageResult == AnswerLaunch)
-                        {
-                            await LaunchProcessDatabindAuto(dataBindApp);
-                        }
-                    }
+                    await Notification_Send_Status("Close", "Show application has no window");
+                    //await SelectProcessAction(dataBindApp, processMulti);
                 }
             }
             catch (Exception ex)
@@ -191,14 +61,6 @@ namespace CtrlUI
                 if (!vBusyChangingWindow)
                 {
                     vBusyChangingWindow = true;
-
-                    //Check if process is available
-                    if (windowHandleTarget == null)
-                    {
-                        if (!silentFocus) { await Notification_Send_Status("Close", "Application no longer running"); }
-                        Debug.WriteLine("Show application no longer seems to be running.");
-                        return;
-                    }
 
                     //Check if process is available
                     if (windowHandleTarget == IntPtr.Zero)

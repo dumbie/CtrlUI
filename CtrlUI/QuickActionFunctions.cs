@@ -54,8 +54,8 @@ namespace CtrlUI
                 //Quick launch application
                 if (quickLaunchApp != null)
                 {
-                    //Check which launch method needs to be used
-                    await LaunchProcessSelector(quickLaunchApp);
+                    //Check which launch mode needs to be used
+                    await CheckProcessLaunchMode(quickLaunchApp);
                 }
                 else
                 {

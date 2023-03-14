@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,14 +8,13 @@ using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Check if process has multiple windows
-        async Task<IntPtr> CheckProcessWindowsAuto(DataBindApp dataBindApp, ProcessMulti processMulti)
+        //Select window if process has multiple windows
+        async Task<IntPtr> SelectProcessWindow(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
             {
@@ -118,111 +116,12 @@ namespace CtrlUI
                         return IntPtr.Zero;
                     }
 
-                    DataBindString AnswerClose = new DataBindString();
-                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    AnswerClose.Name = "Close application";
-                    multiAnswers.Add(AnswerClose);
-
-                    DataBindString AnswerLaunch = new DataBindString();
-                    AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    AnswerLaunch.Name = "Launch new instance";
-                    multiAnswers.Add(AnswerLaunch);
-
-                    bool currentArgument = !string.IsNullOrWhiteSpace(processMulti.Argument);
-                    DataBindString AnswerRestartCurrent = new DataBindString();
-                    if (currentArgument)
-                    {
-                        AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        AnswerRestartCurrent.Name = "Restart application";
-                        AnswerRestartCurrent.NameSub = "(Current argument)";
-                        multiAnswers.Add(AnswerRestartCurrent);
-                    }
-
-                    bool availableArgument = !string.IsNullOrWhiteSpace(dataBindApp.Argument);
-                    bool emulatorArgument = dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom;
-                    bool filepickerArgument = dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker;
-                    bool defaultArgument = availableArgument || emulatorArgument || filepickerArgument;
-                    DataBindString AnswerRestartDefault = new DataBindString();
-                    if (defaultArgument)
-                    {
-                        AnswerRestartDefault.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        AnswerRestartDefault.Name = "Restart application";
-                        AnswerRestartDefault.NameSub = "(Default argument)";
-                        multiAnswers.Add(AnswerRestartDefault);
-                    }
-
-                    DataBindString AnswerRestartWithout = new DataBindString();
-                    AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    AnswerRestartWithout.Name = "Restart application";
-                    AnswerRestartWithout.NameSub = "(Without argument)";
-                    multiAnswers.Add(AnswerRestartWithout);
-
-                    //Get launch information
-                    string launchInformation = string.Empty;
-                    if (processMulti.Type == ProcessType.UWP || processMulti.Type == ProcessType.Win32Store)
-                    {
-                        launchInformation = processMulti.AppUserModelId;
-                    }
-                    else
-                    {
-                        launchInformation = processMulti.ExePath;
-                    }
-
-                    //Add process identifier
-                    if (processMulti.Identifier != 0)
-                    {
-                        launchInformation += " (" + processMulti.Identifier + ")";
-                    }
-
-                    //Add launch argument
-                    if (currentArgument)
-                    {
-                        launchInformation += "\nCurrent argument: " + AVFunctions.StringCut(processMulti.Argument, 50, "...");
-                    }
-                    if (defaultArgument)
-                    {
-                        if (emulatorArgument)
-                        {
-                            launchInformation += "\nDefault argument: Select a rom";
-                        }
-                        else if (filepickerArgument)
-                        {
-                            launchInformation += "\nDefault argument: Select a file";
-                        }
-                        else
-                        {
-                            launchInformation += "\nDefault argument: " + dataBindApp.Argument;
-                        }
-                    }
-
-                    //Ask which window needs to be shown
-                    DataBindString messageResult = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", launchInformation, "Please select the window that you wish to be shown:", multiAnswers);
+                    //Ask which window needs to be used
+                    DataBindString messageResult = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", string.Empty, "Please select which window you want to be used:", multiAnswers);
                     if (messageResult != null)
                     {
-                        if (messageResult == AnswerLaunch)
-                        {
-                            return new IntPtr(-50);
-                        }
-                        else if (messageResult == AnswerRestartCurrent)
-                        {
-                            return new IntPtr(-75);
-                        }
-                        else if (messageResult == AnswerRestartDefault)
-                        {
-                            return new IntPtr(-80);
-                        }
-                        else if (messageResult == AnswerRestartWithout)
-                        {
-                            return new IntPtr(-85);
-                        }
-                        else if (messageResult == AnswerClose)
-                        {
-                            return new IntPtr(-100);
-                        }
-                        else
-                        {
-                            return multiVariables[multiAnswers.IndexOf(messageResult)];
-                        }
+                        //Return selected window
+                        return multiVariables[multiAnswers.IndexOf(messageResult)];
                     }
                     else
                     {
@@ -238,7 +137,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to check process windows: " + ex.Message);
+                Debug.WriteLine("Failed to select process window: " + ex.Message);
                 return IntPtr.Zero;
             }
         }

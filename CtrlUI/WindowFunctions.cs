@@ -221,6 +221,9 @@ namespace CtrlUI
                 //Play maximize sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
+                //Hide foreground window
+                //await Hide_ProcessByWindowHandle(GetForegroundWindow());
+
                 //Force focus on CtrlUI
                 await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, silentShow, false);
 
