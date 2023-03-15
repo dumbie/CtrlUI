@@ -464,6 +464,20 @@ namespace LibraryShared
                 }
             }
 
+            private Visibility PrivStatusUrlBrowser = Visibility.Collapsed;
+            public Visibility StatusUrlBrowser
+            {
+                get { return this.PrivStatusUrlBrowser; }
+                set
+                {
+                    if (this.PrivStatusUrlBrowser != value)
+                    {
+                        this.PrivStatusUrlBrowser = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private BitmapImage PrivStatusEmulatorCategoryImage = null;
             public BitmapImage StatusEmulatorCategoryImage
             {

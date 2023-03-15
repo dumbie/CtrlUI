@@ -273,6 +273,7 @@ namespace CtrlUI
                 string targetPathLower = shortcutDetails.TargetPath.ToLower();
                 string targetExtensionLower = Path.GetExtension(targetPathLower).Replace(".", string.Empty);
                 Visibility shortcutUrlProtocol = Visibility.Collapsed;
+                Visibility shortcutUrlBrowser = Visibility.Collapsed;
                 Visibility shortcutWindowStore = Visibility.Collapsed;
                 Visibility shortcutAvailable = Visibility.Collapsed;
                 ProcessType shortcutProcessType = ProcessType.Win32;
@@ -304,7 +305,14 @@ namespace CtrlUI
                     //Check if shortcut is url protocol
                     shortcutUrlProtocol = Visibility.Visible;
 
-                    //Check if url protocol is a launcher and set icon
+                    //Check if url protocol is browser and set icon
+                    if (targetPathLower.StartsWith("http") || targetPathLower.StartsWith("ftp"))
+                    {
+                        shortcutUrlProtocol = Visibility.Collapsed;
+                        shortcutUrlBrowser = Visibility.Visible;
+                    }
+
+                    //Check if url protocol is launcher and set icon
                     if (targetPathLower.Contains("steam:"))
                     {
                         launcherImage = vImagePreloadSteam;
@@ -378,7 +386,7 @@ namespace CtrlUI
                 }
 
                 //Add the shortcut to the list
-                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusUrlProtocol = shortcutUrlProtocol, StatusLauncherImage = launcherImage, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
+                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusUrlProtocol = shortcutUrlProtocol, StatusUrlBrowser = shortcutUrlBrowser, StatusLauncherImage = launcherImage, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
                 if (shortcutDetails.Type == ShortcutType.UWP)
                 {
                     dataBindApp.AppUserModelId = shortcutDetails.TargetPath;

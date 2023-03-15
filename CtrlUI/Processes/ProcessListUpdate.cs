@@ -34,6 +34,13 @@ namespace CtrlUI
                 {
                     try
                     {
+                        //Check if the process is valid
+                        if (!processMulti.Validate())
+                        {
+                            //Debug.WriteLine("Process has invalid paths: " + processMulti.Identifier);
+                            continue;
+                        }
+
                         //Get application executable path
                         string processPathExe = processMulti.ExePath;
                         string processPathExeLower = processPathExe.ToLower();
