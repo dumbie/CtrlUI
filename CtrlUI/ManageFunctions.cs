@@ -539,7 +539,7 @@ namespace CtrlUI
 
                 DataBindString categoryApp = new DataBindString();
                 categoryApp.ImageBitmap = vImagePreloadApp;
-                categoryApp.Name = "App & Media";
+                categoryApp.Name = "Apps & Media";
                 listAppCategories.Add(categoryApp);
 
                 DataBindString categoryGame = new DataBindString();
@@ -825,7 +825,7 @@ namespace CtrlUI
                 List<DataBindString> answersCategory = new List<DataBindString>();
 
                 BitmapImage imageApp = vImagePreloadApp;
-                DataBindString stringApp = new DataBindString() { Name = "App & Media", Data1 = "App", ImageBitmap = imageApp };
+                DataBindString stringApp = new DataBindString() { Name = "Apps & Media", Data1 = "App", ImageBitmap = imageApp };
                 answersCategory.Add(stringApp);
 
                 BitmapImage imageGame = vImagePreloadGame;

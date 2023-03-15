@@ -547,6 +547,11 @@ namespace CtrlUI
                 {
                     FilePicker_CheckItem();
                 }
+                else if (e.Key == Key.F2)
+                {
+                    DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
+                    await FilePicker_FileRename(selectedItem);
+                }
             }
             catch { }
         }
