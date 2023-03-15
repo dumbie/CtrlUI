@@ -6,7 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVProcess;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -46,8 +48,12 @@ namespace CtrlUI
                 }
                 else if (Check_PathUrlProtocol(dataBindApp.PathExe))
                 {
+                    //Check keyboard controller launch
+                    bool keyboardUrlProtocol = dataBindApp.PathExe.StartsWith("http") || dataBindApp.PathExe.StartsWith("ftp");
+                    bool keyboardLaunch = (keyboardUrlProtocol || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
+
                     //Run process url protocol
-                    await PrepareProcessLauncherUrlProtocolAsync(dataBindApp, false, true, false);
+                    await PrepareProcessLauncherUrlProtocolAsync(dataBindApp, false, true, keyboardLaunch);
                     return;
                 }
                 else
@@ -115,6 +121,34 @@ namespace CtrlUI
                 }
             }
             catch { }
+        }
+
+        //Check Chromium DPI launch argument
+        string CheckChromiumDpiLaunchArgument(string pathExe, string appUserModelId, string launchArgument)
+        {
+            try
+            {
+                string exeNameLower = Path.GetFileNameWithoutExtension(pathExe).ToLower();
+                string appUserModelIdLower = appUserModelId.ToLower();
+                if (vCtrlChromiumBrowsers.Any(x => x.String1.ToLower() == exeNameLower || x.String1.ToLower() == appUserModelIdLower))
+                {
+                    //Get the current active screen
+                    int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
+                    DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
+
+                    //Get the current screen dpi
+                    double screenDPI = displayMonitorSettings.DpiScaleHorizontal;
+                    double chromiumDPI = SettingLoad(vConfigurationCtrlUI, "AdjustChromiumDpi", typeof(double));
+
+                    //Update the launch argument
+                    string stringDPI = (screenDPI + chromiumDPI).ToString(vAppCultureInfo);
+                    launchArgument += " --force-device-scale-factor=" + stringDPI;
+
+                    Debug.WriteLine("Chromium dpi scale factor: " + stringDPI);
+                }
+            }
+            catch { }
+            return launchArgument;
         }
 
         //Launch selected executable file

@@ -54,7 +54,7 @@ namespace CtrlUI
         }
 
         //Launch an UWP or Win32Store application manually
-        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(string appTitle, string appUserModelId, string argument, bool silent, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(string appTitle, string appUserModelId, string launchArgument, bool silent, bool launchKeyboard)
         {
             try
             {
@@ -73,11 +73,14 @@ namespace CtrlUI
                     //Debug.WriteLine("Launching UWP or Win32Store: " + appTitle + "/" + pathExe);
                 }
 
+                //Check Chromium DPI launch argument
+                launchArgument = CheckChromiumDpiLaunchArgument(string.Empty, appUserModelId, launchArgument);
+
                 //Minimize the CtrlUI window
                 await AppWindowMinimize(true, true);
 
                 //Launch the UWP or Win32Store application
-                bool launchSuccess = AVProcess.Launch_UwpApplication(appUserModelId, argument);
+                bool launchSuccess = AVProcess.Launch_UwpApplication(appUserModelId, launchArgument);
                 if (!launchSuccess)
                 {
                     await Notification_Send_Status("Close", "Failed launching " + appTitle);

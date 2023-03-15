@@ -252,7 +252,7 @@ namespace LibraryShared
                 }
             }
 
-            private int PrivRunningTime = -1;
+            private int PrivRunningTime = -2;
             public int RunningTime
             {
                 get { return this.PrivRunningTime; }

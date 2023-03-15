@@ -3,10 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using static ArnoldVinkCode.AVDisplayMonitor;
-using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -40,25 +37,6 @@ namespace CtrlUI
                     {
                         appTitle += " with file";
                     }
-                }
-
-                //Chromium DPI launch argument
-                string processName = Path.GetFileNameWithoutExtension(dataBindApp.PathExe);
-                if (vCtrlChromiumBrowsers.Any(x => x.String1 == processName))
-                {
-                    //Get the current active screen
-                    int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
-                    DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
-
-                    //Get the current screen dpi
-                    double screenDPI = displayMonitorSettings.DpiScaleHorizontal;
-                    double chromiumDPI = SettingLoad(vConfigurationCtrlUI, "AdjustChromiumDpi", typeof(double));
-
-                    //Update the launch argument
-                    string stringDPI = (screenDPI + chromiumDPI).ToString(vAppCultureInfo);
-                    launchArgument += " --force-device-scale-factor=" + stringDPI;
-
-                    Debug.WriteLine("Chromium dpi scale factor: " + stringDPI);
                 }
 
                 //Launch the application
@@ -95,6 +73,9 @@ namespace CtrlUI
                     await Notification_Send_Status("AppLaunch", "Launching " + appTitle);
                     //Debug.WriteLine("Launching Win32: " + appTitle + "/" + pathExe);
                 }
+
+                //Check Chromium DPI launch argument
+                launchArgument = CheckChromiumDpiLaunchArgument(pathExe, string.Empty, launchArgument);
 
                 //Minimize the CtrlUI window
                 await AppWindowMinimize(true, true);

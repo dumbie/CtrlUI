@@ -1,23 +1,26 @@
 ﻿[
-    {
-        "String1": "msedge"
-    },
-    {
-        "String1": "opera"
-    },
-    {
-        "String1": "firefox"
-    },
-    {
-        "String1": "vivaldi"
-    },
-    {
-        "String1": "brave"
-    },
-    {
-        "String1": "chrome"
-    },
-    {
-        "String1": "GoogleChromePortable"
-    }
+  {
+    "String1": "msedge"
+  },
+  {
+    "String1": "opera"
+  },
+  {
+    "String1": "firefox"
+  },
+  {
+    "String1": "vivaldi"
+  },
+  {
+    "String1": "brave"
+  },
+  {
+    "String1": "chrome"
+  },
+  {
+    "String1": "GoogleChromePortable"
+  },
+  {
+    "String1": "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge"
+  }
 ]
