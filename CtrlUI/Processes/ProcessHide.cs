@@ -40,6 +40,9 @@ namespace CtrlUI
                     Debug.WriteLine("Hide application has no window.");
                     await Notification_Send_Status("Close", "Hide application has no window");
                 }
+
+                //Focus on CtrlUI window
+                await AppWindowShow(true, true);
             }
             catch (Exception ex)
             {

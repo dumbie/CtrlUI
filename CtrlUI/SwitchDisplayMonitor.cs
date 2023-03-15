@@ -49,7 +49,7 @@ namespace CtrlUI
                     SettingSave(vConfigurationCtrlUI, "DisplayMonitor", "1");
 
                     //Update the window position
-                    await UpdateWindowPosition(true, true);
+                    await UpdateWindowPosition(true, false);
                     return;
                 }
 
@@ -71,7 +71,7 @@ namespace CtrlUI
                 await UpdateWindowPosition(true, false);
 
                 //Focus on CtrlUI window
-                await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, true, false);
+                await AppWindowShow(true, true);
             }
             catch { }
         }
@@ -81,10 +81,12 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("MonitorSwitch", "Extending display monitor");
+
+                //Enable monitor extend mode
                 EnableMonitorExtendMode();
 
                 //Focus on CtrlUI window
-                await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, true, false);
+                await AppWindowShow(true, true);
             }
             catch { }
         }
@@ -94,10 +96,12 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("MonitorSwitch", "Duplicating display monitor");
+
+                //Enable monitor clone mode
                 EnableMonitorCloneMode();
 
                 //Focus on CtrlUI window
-                await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, true, false);
+                await AppWindowShow(true, true);
             }
             catch { }
         }
@@ -107,10 +111,12 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("MonitorSwitch", "Switching secondary monitor");
+
+                //Switch secondary monitor
                 EnableMonitorSecond();
 
                 //Focus on CtrlUI window
-                await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, true, false);
+                await AppWindowShow(true, true);
             }
             catch { }
         }
@@ -120,10 +126,12 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("MonitorSwitch", "Switching primary monitor");
+
+                //Switch primary monitor
                 EnableMonitorFirst();
 
                 //Focus on CtrlUI window
-                await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, true, false);
+                await AppWindowShow(true, true);
             }
             catch { }
         }

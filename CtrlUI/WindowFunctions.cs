@@ -31,7 +31,7 @@ namespace CtrlUI
         }
 
         //Update the window position
-        async Task UpdateWindowPosition(bool notifyApps, bool silent)
+        async Task UpdateWindowPosition(bool notifyApps, bool skipNotification)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace CtrlUI
                 }
 
                 //Show monitor change notification
-                if (!silent)
+                if (!skipNotification)
                 {
                     await Notification_Send_Status("MonitorNext", "Moved to monitor " + monitorNumber);
                 }
@@ -195,12 +195,12 @@ namespace CtrlUI
                 Debug.WriteLine("Show or hide the CtrlUI window.");
                 if (vAppMinimized || !vAppActivated)
                 {
-                    //Show the CtrlUI window
-                    await AppWindowShow(false);
+                    //Focus on CtrlUI window
+                    await AppWindowShow(false, false);
                 }
                 else
                 {
-                    //Minimize the CtrlUI window
+                    //Minimize CtrlUI window
                     await AppWindowMinimize(false, false);
                 }
             }
@@ -212,20 +212,23 @@ namespace CtrlUI
         }
 
         //Show the CtrlUI window
-        async Task AppWindowShow(bool silentShow)
+        async Task AppWindowShow(bool skipNotification, bool skipSound)
         {
             try
             {
                 Debug.WriteLine("Showing the CtrlUI window.");
 
                 //Play maximize sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
+                if (!skipSound)
+                {
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
+                }
 
                 //Hide foreground window
                 //await Hide_ProcessByWindowHandle(GetForegroundWindow());
 
                 //Focus on CtrlUI window
-                await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, silentShow, false);
+                await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, skipNotification, false);
 
                 //Update the window position
                 await UpdateWindowPosition(false, true);
@@ -237,7 +240,7 @@ namespace CtrlUI
         }
 
         //Minimize the CtrlUI window
-        async Task AppWindowMinimize(bool minimizeDelay, bool silentMinimize)
+        async Task AppWindowMinimize(bool minimizeDelay, bool skipNotification)
         {
             try
             {
@@ -253,7 +256,7 @@ namespace CtrlUI
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
 
                 //Show minimize notification
-                if (!silentMinimize)
+                if (!skipNotification)
                 {
                     await Notification_Send_Status("AppMinimize", "Hiding CtrlUI");
                 }

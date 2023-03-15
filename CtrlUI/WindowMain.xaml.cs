@@ -41,9 +41,6 @@ namespace CtrlUI
                 await Settings_Load();
                 Settings_Save();
 
-                //Update the window position
-                await UpdateWindowPosition(false, true);
-
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
@@ -69,10 +66,19 @@ namespace CtrlUI
                     this.Title += " (Admin)";
                 }
 
-                //Check settings if need to start minimized
+                //Check settings if need to minimize or focus window
                 if (SettingLoad(vConfigurationCtrlUI, "LaunchMinimized", typeof(bool)))
                 {
+                    //Minimize CtrlUI window
                     await AppWindowMinimize(false, true);
+                }
+                else
+                {
+                    //Prevent or allow monitor sleep
+                    UpdateMonitorSleepAuto();
+
+                    //Focus on CtrlUI window
+                    await AppWindowShow(true, true);
                 }
 
                 //Workaround for 64bit Windows problems with System32
@@ -141,16 +147,6 @@ namespace CtrlUI
                 if (SettingLoad(vConfigurationCtrlUI, "LaunchFpsOverlayer", typeof(bool)))
                 {
                     await LaunchFpsOverlayer(false);
-                }
-
-                //Force window focus on CtrlUI
-                if (!SettingLoad(vConfigurationCtrlUI, "LaunchMinimized", typeof(bool)))
-                {
-                    //Show the CtrlUI window
-                    await AppWindowShow(true);
-
-                    //Prevent or allow monitor sleep
-                    UpdateMonitorSleepAuto();
                 }
 
                 //Check settings if this is the first application launch
@@ -222,12 +218,6 @@ namespace CtrlUI
         {
             try
             {
-                //Focus on CtrlUI window
-                if (!vAppActivated)
-                {
-                    await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, true, false);
-                }
-
                 //Show the closing messagebox
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString AnswerCloseCtrlUI = new DataBindString();

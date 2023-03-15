@@ -54,29 +54,30 @@ namespace CtrlUI
         }
 
         //Show process window
-        async Task ShowProcessWindow(string processName, IntPtr windowHandleTarget, bool minimizeCtrlUI, bool silentFocus, bool launchKeyboard)
+        async Task ShowProcessWindow(string processName, IntPtr windowHandleTarget, bool minimizeCtrlUI, bool skipNotification, bool launchKeyboard)
         {
             try
             {
                 //Check if process is available
                 if (windowHandleTarget == IntPtr.Zero)
                 {
-                    if (!silentFocus) { await Notification_Send_Status("Close", "Application cannot be shown"); }
+                    if (!skipNotification)
+                    {
+                        await Notification_Send_Status("Close", "Application cannot be shown");
+                    }
                     Debug.WriteLine("Application cannot be shown, window handle is empty.");
                     return;
                 }
 
-                //Update the interface status
-                if (!silentFocus)
-                {
-                    if (!(processName.ToLower() == "ctrlui" && vAppActivated))
-                    {
-                        await Notification_Send_Status("AppMiniMaxi", "Showing " + processName);
-                    }
-                }
                 Debug.WriteLine("Showing application window: " + processName + "/" + windowHandleTarget);
 
-                //Minimize the CtrlUI window
+                //Update the interface status
+                if (!skipNotification)
+                {
+                    await Notification_Send_Status("AppMiniMaxi", "Showing " + processName);
+                }
+
+                //Minimize CtrlUI window
                 if (minimizeCtrlUI)
                 {
                     await AppWindowMinimize(true, true);

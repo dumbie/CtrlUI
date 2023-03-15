@@ -77,7 +77,7 @@ namespace CtrlUI
                 //Check Chromium DPI launch argument
                 launchArgument = CheckChromiumDpiLaunchArgument(pathExe, string.Empty, launchArgument);
 
-                //Minimize the CtrlUI window
+                //Minimize CtrlUI window
                 await AppWindowMinimize(true, true);
 
                 //Launch the Win32 application

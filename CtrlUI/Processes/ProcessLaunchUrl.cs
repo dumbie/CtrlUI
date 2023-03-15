@@ -18,7 +18,7 @@ namespace CtrlUI
                     //Debug.WriteLine("Launching url protocol: " + dataBindApp.PathExe + " / " + dataBindApp.PathLaunch);
                 }
 
-                //Minimize the CtrlUI window
+                //Minimize CtrlUI window
                 await AppWindowMinimize(true, true);
 
                 //Launch the url protocol

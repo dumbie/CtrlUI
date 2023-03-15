@@ -14,7 +14,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Check for available application update
-        public async Task<bool> CheckForAppUpdate(bool silentCheck)
+        public async Task<bool> CheckForAppUpdate(bool onlyNotification)
         {
             bool updateAvailable = false;
             try
@@ -40,7 +40,7 @@ namespace CtrlUI
                     MainMenuInsertUpdate();
 
                     //Notification or interaction
-                    if (silentCheck)
+                    if (onlyNotification)
                     {
                         await Notification_Send_Status("Refresh", "CtrlUI update available");
                     }
@@ -64,7 +64,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    if (!silentCheck)
+                    if (!onlyNotification)
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
@@ -78,7 +78,7 @@ namespace CtrlUI
             }
             catch
             {
-                await AppUpdateFailed(silentCheck);
+                await AppUpdateFailed(onlyNotification);
             }
 
             vBusyCheckingForUpdate = false;
