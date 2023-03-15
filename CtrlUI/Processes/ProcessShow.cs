@@ -10,6 +10,7 @@ using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -23,28 +24,27 @@ namespace CtrlUI
                 Debug.WriteLine("Showing the application: " + dataBindApp.Name);
 
                 //Check if application has multiple windows
-                IntPtr processWindowHandle = await SelectProcessWindow(dataBindApp, processMulti);
+                ProcessWindowAction windowAction = await SelectProcessWindow(dataBindApp, processMulti, false);
 
                 //Check if application window has been found
-                if (processWindowHandle == new IntPtr(-200))
-                {
-                    Debug.WriteLine("Cancelled window selection.");
-                }
-                else if (processWindowHandle != IntPtr.Zero)
+                if (windowAction.Action == ProcessWindowActions.Single)
                 {
                     //Check keyboard controller launch
                     string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
                     bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower() || x.String1.ToLower() == dataBindApp.AppUserModelId.ToLower());
                     bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
-                    //Force focus on the app
-                    await PrepareShowProcessWindow(dataBindApp.Name, processWindowHandle, true, false, keyboardLaunch);
+                    //Focus on application window
+                    await ShowProcessWindow(dataBindApp.Name, windowAction.WindowHandle, true, false, keyboardLaunch);
+                }
+                else if (windowAction.Action == ProcessWindowActions.Cancel)
+                {
+                    Debug.WriteLine("Cancelled window selection.");
                 }
                 else
                 {
                     Debug.WriteLine("Show application has no window.");
                     await Notification_Send_Status("Close", "Show application has no window");
-                    //await SelectProcessAction(dataBindApp, processMulti);
                 }
             }
             catch (Exception ex)
@@ -54,62 +54,53 @@ namespace CtrlUI
         }
 
         //Show process window
-        async Task PrepareShowProcessWindow(string processName, IntPtr windowHandleTarget, bool minimizeCtrlUI, bool silentFocus, bool launchKeyboard)
+        async Task ShowProcessWindow(string processName, IntPtr windowHandleTarget, bool minimizeCtrlUI, bool silentFocus, bool launchKeyboard)
         {
             try
             {
-                if (!vBusyChangingWindow)
+                //Check if process is available
+                if (windowHandleTarget == IntPtr.Zero)
                 {
-                    vBusyChangingWindow = true;
+                    if (!silentFocus) { await Notification_Send_Status("Close", "Application cannot be shown"); }
+                    Debug.WriteLine("Application cannot be shown, window handle is empty.");
+                    return;
+                }
 
-                    //Check if process is available
-                    if (windowHandleTarget == IntPtr.Zero)
+                //Update the interface status
+                if (!silentFocus)
+                {
+                    if (!(processName.ToLower() == "ctrlui" && vAppActivated))
                     {
-                        if (!silentFocus) { await Notification_Send_Status("Close", "Application cannot be shown"); }
-                        Debug.WriteLine("Application cannot be shown, window handle is empty.");
-                        return;
+                        await Notification_Send_Status("AppMiniMaxi", "Showing " + processName);
                     }
+                }
+                Debug.WriteLine("Showing application window: " + processName + "/" + windowHandleTarget);
 
-                    //Update the interface status
-                    if (!silentFocus)
-                    {
-                        if (!(processName.ToLower() == "ctrlui" && vAppActivated))
-                        {
-                            await Notification_Send_Status("AppMiniMaxi", "Showing " + processName);
-                        }
-                    }
-                    Debug.WriteLine("Showing application window: " + processName + "/" + windowHandleTarget);
+                //Minimize the CtrlUI window
+                if (minimizeCtrlUI)
+                {
+                    await AppWindowMinimize(true, true);
+                }
 
-                    //Minimize the CtrlUI window
-                    if (minimizeCtrlUI)
-                    {
-                        await AppWindowMinimize(true, true);
-                    }
+                //Focus on application window handle
+                bool windowFocused = await AVProcess.Show_ProcessByWindowHandle(windowHandleTarget);
+                if (!windowFocused)
+                {
+                    await Notification_Send_Status("Close", "Failed showing application");
+                    Debug.WriteLine("Failed showing the application, no longer running?");
+                    return;
+                }
 
-                    //Focus on application window handle
-                    bool windowFocused = await AVProcess.Show_ProcessByWindowHandle(windowHandleTarget);
-                    if (!windowFocused)
-                    {
-                        await Notification_Send_Status("Close", "Failed showing application");
-                        Debug.WriteLine("Failed showing the application, no longer running?");
-                        return;
-                    }
-
-                    //Launch the keyboard controller
-                    if (launchKeyboard)
-                    {
-                        await ShowHideKeyboardController(true);
-                    }
+                //Launch the keyboard controller
+                if (launchKeyboard)
+                {
+                    await ShowHideKeyboardController(true);
                 }
             }
             catch (Exception ex)
             {
                 await Notification_Send_Status("Close", "Failed showing application");
                 Debug.WriteLine("Failed showing the application, no longer running? " + ex.Message);
-            }
-            finally
-            {
-                vBusyChangingWindow = false;
             }
         }
 

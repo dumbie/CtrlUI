@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVImage;
@@ -12,14 +13,14 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Select a process multi from the list
-        async Task<ProcessMulti> SelectProcessMulti(DataBindApp dataBindApp, bool selectProcess)
+        async Task<ProcessMultiAction> SelectProcessMulti(DataBindApp dataBindApp)
         {
             try
             {
                 List<DataBindString> multiAnswers = new List<DataBindString>();
                 if (dataBindApp.ProcessMulti.Any())
                 {
-                    if (selectProcess && dataBindApp.ProcessMulti.Count > 1)
+                    if (dataBindApp.ProcessMulti.Count > 1)
                     {
                         foreach (ProcessMulti multiProcess in dataBindApp.ProcessMulti)
                         {
@@ -36,46 +37,59 @@ namespace CtrlUI
                                 AnswerApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Process.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                                 AnswerApp.Name = processTitle;
                                 AnswerApp.NameSub = multiProcess.Identifier.ToString();
+                                AnswerApp.Data1 = multiProcess;
                                 multiAnswers.Add(AnswerApp);
                             }
                             catch { }
                         }
 
-                        DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Launch new instance";
-                        multiAnswers.Add(Answer1);
+                        DataBindString AnswerLaunchNew = new DataBindString();
+                        AnswerLaunchNew.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        AnswerLaunchNew.Name = "Launch new instance";
+                        multiAnswers.Add(AnswerLaunchNew);
 
-                        DataBindString Answer2 = new DataBindString();
-                        Answer2.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer2.Name = "Close all the instances";
-                        multiAnswers.Add(Answer2);
+                        DataBindString AnswerCloseAll = new DataBindString();
+                        AnswerCloseAll.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        AnswerCloseAll.Name = "Close all the instances";
+                        multiAnswers.Add(AnswerCloseAll);
 
                         DataBindString messageResult = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple running instances", "", "Please select the instance that you wish to interact with:", multiAnswers);
                         if (messageResult != null)
                         {
-                            if (messageResult == Answer2)
+                            if (messageResult == AnswerLaunchNew)
                             {
-                                return new ProcessMulti("CloseAll");
+                                return new ProcessMultiAction() { Action = ProcessMultiActions.Launch };
                             }
-                            else
+                            else if (messageResult == AnswerCloseAll)
                             {
-                                return dataBindApp.ProcessMulti[multiAnswers.IndexOf(messageResult)];
+                                return new ProcessMultiAction() { Action = ProcessMultiActions.CloseAll };
+                            }
+                            else if (messageResult.Data1 != null)
+                            {
+                                return new ProcessMultiAction() { Action = ProcessMultiActions.Select, ProcessMulti = (ProcessMulti)messageResult.Data1 };
                             }
                         }
-                        else
-                        {
-                            return new ProcessMulti("Cancel");
-                        }
+
+                        //Return cancel selection
+                        return new ProcessMultiAction() { Action = ProcessMultiActions.Cancel };
                     }
                     else
                     {
-                        return dataBindApp.ProcessMulti.FirstOrDefault();
+                        Debug.WriteLine("Single process, returning process multi.");
+                        return new ProcessMultiAction() { Action = ProcessMultiActions.Select, ProcessMulti = dataBindApp.ProcessMulti.FirstOrDefault() };
                     }
                 }
+                else
+                {
+                    Debug.WriteLine("No process, requesting process launch.");
+                    return new ProcessMultiAction() { Action = ProcessMultiActions.Launch };
+                }
             }
-            catch { }
-            return null;
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to select process multi: " + ex.Message);
+                return new ProcessMultiAction() { Action = ProcessMultiActions.Cancel };
+            }
         }
     }
 }

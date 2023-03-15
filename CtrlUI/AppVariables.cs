@@ -100,7 +100,6 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadHelp = FileToBitmapImage(new string[] { "Assets/Default/Icons/Help.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
 
         //Busy Variables
-        public static bool vBusyChangingWindow = false;
         public static bool vBusyCheckingForUpdate = false;
         public static bool vBusyRefreshingProcesses = false;
         public static bool vBusyRefreshingShortcuts = false;

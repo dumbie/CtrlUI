@@ -83,35 +83,39 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("AppClose", "Closing " + dataBindApp.Name);
+                await Notification_Send_Status("AppClose", "Closing all " + dataBindApp.Name);
                 Debug.WriteLine("Closing all processes: " + dataBindApp.Name);
 
                 //Close the processes
                 bool closedProcess = false;
                 foreach (ProcessMulti processMulti in dataBindApp.ProcessMulti)
                 {
-                    if (processMulti.Identifier > 0)
+                    try
                     {
-                        closedProcess = AVProcess.Close_ProcessTreeByProcessId(processMulti.Identifier);
+                        if (processMulti.Identifier > 0)
+                        {
+                            closedProcess = AVProcess.Close_ProcessTreeByProcessId(processMulti.Identifier);
+                        }
+                        else if (!string.IsNullOrWhiteSpace(processMulti.AppUserModelId))
+                        {
+                            closedProcess = AVProcess.Close_ProcessesByAppUserModelId(processMulti.AppUserModelId);
+                        }
+                        else if (!string.IsNullOrWhiteSpace(processMulti.ExeName))
+                        {
+                            closedProcess = AVProcess.Close_ProcessesByName(processMulti.ExeName, true);
+                        }
+                        else if (!string.IsNullOrWhiteSpace(processMulti.ExePath))
+                        {
+                            closedProcess = AVProcess.Close_ProcessesByExecutablePath(processMulti.ExePath);
+                        }
                     }
-                    else if (!string.IsNullOrWhiteSpace(processMulti.AppUserModelId))
-                    {
-                        closedProcess = AVProcess.Close_ProcessesByAppUserModelId(processMulti.AppUserModelId);
-                    }
-                    else if (!string.IsNullOrWhiteSpace(processMulti.ExeName))
-                    {
-                        closedProcess = AVProcess.Close_ProcessesByName(processMulti.ExeName, true);
-                    }
-                    else if (!string.IsNullOrWhiteSpace(processMulti.ExePath))
-                    {
-                        closedProcess = AVProcess.Close_ProcessesByExecutablePath(processMulti.ExePath);
-                    }
+                    catch { }
                 }
 
                 //Check if process closed
                 if (closedProcess)
                 {
-                    await Notification_Send_Status("AppClose", "Closed " + dataBindApp.Name);
+                    await Notification_Send_Status("AppClose", "Closed all " + dataBindApp.Name);
                     Debug.WriteLine("Closed all processes: " + dataBindApp.Name);
 
                     //Reset the process running status
@@ -143,34 +147,32 @@ namespace CtrlUI
         }
 
         //Close other running launchers
-        async Task CloseLaunchers(bool SilentClose)
+        async Task CloseLaunchers()
         {
             try
             {
                 List<DataBindString> Answers = new List<DataBindString>();
-                DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Close launchers";
-                Answers.Add(Answer1);
+                DataBindString AnswerCloseLaunchers = new DataBindString();
+                AnswerCloseLaunchers.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerCloseLaunchers.Name = "Close launchers";
+                Answers.Add(AnswerCloseLaunchers);
 
-                DataBindString messageResult = null;
-                if (!SilentClose)
+                DataBindString messageResult = await Popup_Show_MessageBox("Do you want to close other running launchers?", "You can edit the launchers that are closing in the profile manager.", "This includes launchers like Steam, EA Desktop, Ubisoft, GoG, Battle.net and Epic.", Answers);
+                if (messageResult != null)
                 {
-                    messageResult = await Popup_Show_MessageBox("Do you want to close other running launchers?", "You can edit the launchers that are closing in the profile manager.", "This includes launchers like Steam, EA Desktop, Ubisoft, GoG, Battle.net and Epic.", Answers);
-                }
-
-                if (SilentClose || (messageResult != null && messageResult == Answer1))
-                {
-                    await Notification_Send_Status("AppClose", "Closing other launchers");
-
-                    //Close all known other launchers
-                    foreach (ProfileShared closeLauncher in vCtrlCloseLaunchers)
+                    if (messageResult == AnswerCloseLaunchers)
                     {
-                        try
+                        await Notification_Send_Status("AppClose", "Closing other launchers");
+
+                        //Close all known other launchers
+                        foreach (ProfileShared closeLauncher in vCtrlCloseLaunchers)
                         {
-                            AVProcess.Close_ProcessesByName(closeLauncher.String1, true);
+                            try
+                            {
+                                AVProcess.Close_ProcessesByName(closeLauncher.String1, true);
+                            }
+                            catch { }
                         }
-                        catch { }
                     }
                 }
             }
@@ -184,27 +186,30 @@ namespace CtrlUI
             {
                 //Ask if the user really wants to disconnect remote streams
                 List<DataBindString> Answers = new List<DataBindString>();
-                DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Stream.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Disconnect streams";
-                Answers.Add(Answer1);
+                DataBindString AnswerDisconnectStreams = new DataBindString();
+                AnswerDisconnectStreams.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Stream.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerDisconnectStreams.Name = "Disconnect streams";
+                Answers.Add(AnswerDisconnectStreams);
 
                 DataBindString messageResult = await Popup_Show_MessageBox("Do you want to disconnect remote streams?", "", "This includes streams from GeForce Experience, Parsec and Steam In-Home Streaming.", Answers);
-                if (messageResult != null && messageResult == Answer1)
+                if (messageResult != null)
                 {
-                    await Notification_Send_Status("Stream", "Disconnecting remote streams");
+                    if (messageResult == AnswerDisconnectStreams)
+                    {
+                        await Notification_Send_Status("Stream", "Disconnecting remote streams");
 
-                    //Disconnect Steam Streaming
-                    AVProcess.Close_ProcessesByName("steam.exe", true);
+                        //Disconnect Steam Streaming
+                        AVProcess.Close_ProcessesByName("steam.exe", true);
 
-                    //Disconnect GeForce Experience
-                    AVProcess.Close_ProcessesByName("nvstreamer.exe", true);
+                        //Disconnect GeForce Experience
+                        AVProcess.Close_ProcessesByName("nvstreamer.exe", true);
 
-                    //Disconnect Parsec Streaming
-                    KeyPressReleaseCombo(KeysVirtual.Control, KeysVirtual.F3);
+                        //Disconnect Parsec Streaming
+                        KeyPressReleaseCombo(KeysVirtual.Control, KeysVirtual.F3);
 
-                    //Disconnect Remote Desktop
-                    //LaunchProcess(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\tsdiscon.exe", "", "", "");
+                        //Disconnect Remote Desktop
+                        //LaunchProcess(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\tsdiscon.exe", "", "", "");
+                    }
                 }
             }
             catch { }

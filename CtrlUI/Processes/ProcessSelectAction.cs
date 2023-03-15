@@ -23,23 +23,28 @@ namespace CtrlUI
                 //Select process multi
                 if (processMulti == null)
                 {
-                    processMulti = await SelectProcessMulti(dataBindApp, true);
-                    if (processMulti == null)
+                    ProcessMultiAction processMultiAction = await SelectProcessMulti(dataBindApp);
+                    if (processMultiAction.Action == ProcessMultiActions.Launch)
                     {
-                        Debug.WriteLine("Process is not running, launching the application.");
+                        Debug.WriteLine("Launching the application.");
                         await LaunchProcessDatabindAuto(dataBindApp);
                         return;
                     }
-                    else if (processMulti.Action == "CloseAll")
+                    else if (processMultiAction.Action == ProcessMultiActions.CloseAll)
                     {
                         Debug.WriteLine("Closing all processes, skipping the launch.");
                         await CloseAllProcessesAuto(dataBindApp, true, false);
                         return;
                     }
-                    else if (processMulti.Action == "Cancel")
+                    else if (processMultiAction.Action == ProcessMultiActions.Cancel)
                     {
-                        Debug.WriteLine("Process is already running, skipping the launch.");
+                        Debug.WriteLine("Cancelled process selection, skipping the launch.");
                         return;
+                    }
+                    else if (processMultiAction.Action == ProcessMultiActions.Select)
+                    {
+                        processMulti = processMultiAction.ProcessMulti;
+                        Debug.WriteLine("Selected process: " + processMulti.ExeName);
                     }
                 }
 
@@ -175,11 +180,11 @@ namespace CtrlUI
                     {
                         if (dataBindApp.Category == AppCategory.Process)
                         {
-                            await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
+                            await CloseSingleProcessAuto(processMulti, dataBindApp, false, true);
                         }
                         else
                         {
-                            await CloseSingleProcessAuto(processMulti, dataBindApp, false, true);
+                            await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
                         }
                     }
                     else if (messageResult == AnswerRestartCurrent)

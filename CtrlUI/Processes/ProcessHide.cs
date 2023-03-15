@@ -1,10 +1,12 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVProcess;
-using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -18,22 +20,25 @@ namespace CtrlUI
                 Debug.WriteLine("Hiding the application: " + dataBindApp.Name);
 
                 //Check if application has multiple windows
-                IntPtr processWindowHandle = await SelectProcessWindow(dataBindApp, processMulti);
+                ProcessWindowAction windowAction = await SelectProcessWindow(dataBindApp, processMulti, true);
 
                 //Check if application window has been found
-                if (processWindowHandle == new IntPtr(-200))
+                if (windowAction.Action == ProcessWindowActions.Single)
+                {
+                    await HideProcessWindow(dataBindApp.Name, windowAction.WindowHandle, false);
+                }
+                else if (windowAction.Action == ProcessWindowActions.Multiple)
+                {
+                    await HideAllProcessWindows(dataBindApp.Name, windowAction.WindowHandles, false);
+                }
+                else if (windowAction.Action == ProcessWindowActions.Cancel)
                 {
                     Debug.WriteLine("Cancelled window selection.");
-                }
-                else if (processWindowHandle != IntPtr.Zero)
-                {
-                    await PrepareHideProcessWindow(dataBindApp.Name, processWindowHandle, false);
                 }
                 else
                 {
                     Debug.WriteLine("Hide application has no window.");
                     await Notification_Send_Status("Close", "Hide application has no window");
-                    //await SelectProcessAction(dataBindApp, processMulti);
                 }
             }
             catch (Exception ex)
@@ -43,40 +48,35 @@ namespace CtrlUI
         }
 
         //Hide process window
-        async Task PrepareHideProcessWindow(string processName, IntPtr windowHandleTarget, bool silentHide)
+        async Task HideProcessWindow(string processName, IntPtr windowHandleTarget, bool silentHide)
         {
             try
             {
-                if (!vBusyChangingWindow)
+                //Check if window is available
+                if (windowHandleTarget == IntPtr.Zero)
                 {
-                    vBusyChangingWindow = true;
-
-                    //Check if process is available
-                    if (windowHandleTarget == IntPtr.Zero)
-                    {
-                        if (!silentHide)
-                        {
-                            await Notification_Send_Status("Close", "Hide application has no window");
-                        }
-                        Debug.WriteLine("Application cannot be hidden, window handle is empty.");
-                        return;
-                    }
-
-                    //Update the interface status
                     if (!silentHide)
                     {
-                        await Notification_Send_Status("AppMiniMaxi", "Hiding " + processName);
+                        await Notification_Send_Status("Close", "Hide application has no window");
                     }
-                    Debug.WriteLine("Hiding application window: " + processName + "/" + windowHandleTarget);
+                    Debug.WriteLine("Application cannot be hidden, window handle is empty.");
+                    return;
+                }
 
-                    //Hide application window handle
-                    bool windowFocused = await AVProcess.Hide_ProcessByWindowHandle(windowHandleTarget);
-                    if (!windowFocused)
-                    {
-                        await Notification_Send_Status("Close", "Failed hiding application");
-                        Debug.WriteLine("Failed hiding the application, no longer running?");
-                        return;
-                    }
+                //Update the interface status
+                if (!silentHide)
+                {
+                    await Notification_Send_Status("AppMinimize", "Hiding " + processName);
+                }
+                Debug.WriteLine("Hiding application window: " + processName + "/" + windowHandleTarget);
+
+                //Hide application window handle
+                bool windowHidden = await AVProcess.Hide_ProcessByWindowHandle(windowHandleTarget);
+                if (!windowHidden)
+                {
+                    await Notification_Send_Status("Close", "Failed hiding application");
+                    Debug.WriteLine("Failed hiding the application, no longer running?");
+                    return;
                 }
             }
             catch (Exception ex)
@@ -84,9 +84,57 @@ namespace CtrlUI
                 await Notification_Send_Status("Close", "Failed hiding application");
                 Debug.WriteLine("Failed hiding the application, no longer running? " + ex.Message);
             }
-            finally
+        }
+
+        //Hide all process windows
+        async Task HideAllProcessWindows(string processName, List<IntPtr> windowHandleTargets, bool silentHide)
+        {
+            try
             {
-                vBusyChangingWindow = false;
+                //Check if window is available
+                if (!windowHandleTargets.Any())
+                {
+                    if (!silentHide)
+                    {
+                        await Notification_Send_Status("Close", "Hide application has no window");
+                    }
+                    Debug.WriteLine("Application cannot be hidden, window handle is empty.");
+                    return;
+                }
+
+                //Update the interface status
+                if (!silentHide)
+                {
+                    await Notification_Send_Status("AppMinimize", "Hiding all " + processName);
+                }
+                Debug.WriteLine("Hiding all application windows: " + processName);
+
+                //Hide application window handles
+                bool windowHidden = true;
+                foreach (IntPtr windowHandle in windowHandleTargets)
+                {
+                    try
+                    {
+                        bool hideResult = await AVProcess.Hide_ProcessByWindowHandle(windowHandle);
+                        if (windowHidden)
+                        {
+                            windowHidden = hideResult;
+                        }
+                    }
+                    catch { }
+                }
+
+                if (!windowHidden)
+                {
+                    await Notification_Send_Status("Close", "Failed hiding application");
+                    Debug.WriteLine("Failed hiding the application, no longer running?");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                await Notification_Send_Status("Close", "Failed hiding application");
+                Debug.WriteLine("Failed hiding the application, no longer running? " + ex.Message);
             }
         }
     }

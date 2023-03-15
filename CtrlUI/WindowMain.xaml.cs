@@ -222,10 +222,10 @@ namespace CtrlUI
         {
             try
             {
-                //Force focus on CtrlUI
+                //Focus on CtrlUI window
                 if (!vAppActivated)
                 {
-                    await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, true, false);
+                    await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, true, false);
                 }
 
                 //Show the closing messagebox
@@ -272,9 +272,6 @@ namespace CtrlUI
                     {
                         await Notification_Send_Status("Restart", "Restarting your PC");
 
-                        //Close all other launchers
-                        await CloseLaunchers(true);
-
                         //Restart the PC
                         AVProcess.Launch_ShellExecute(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /f /t 0", true);
 
@@ -284,9 +281,6 @@ namespace CtrlUI
                     else if (messageResult == AnswerShutdownPC)
                     {
                         await Notification_Send_Status("Shutdown", "Shutting down your PC");
-
-                        //Close all other launchers
-                        await CloseLaunchers(true);
 
                         //Shutdown the PC
                         AVProcess.Launch_ShellExecute(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /f /t 0", true);

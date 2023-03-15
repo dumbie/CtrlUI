@@ -47,15 +47,18 @@ namespace CtrlUI
                     else
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
-                        DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Update and restart CtrlUI";
-                        Answers.Add(Answer1);
+                        DataBindString AnswerUpdateRestart = new DataBindString();
+                        AnswerUpdateRestart.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        AnswerUpdateRestart.Name = "Update and restart CtrlUI";
+                        Answers.Add(AnswerUpdateRestart);
 
                         DataBindString messageResult = await Popup_Show_MessageBox("A newer version has been found: " + onlineVersion, "", "Do you want to update the application to the newest version now?", Answers);
-                        if (messageResult != null && messageResult == Answer1)
+                        if (messageResult != null)
                         {
-                            await AppUpdateRestart();
+                            if (messageResult == AnswerUpdateRestart)
+                            {
+                                await AppUpdateRestart();
+                            }
                         }
                     }
                 }

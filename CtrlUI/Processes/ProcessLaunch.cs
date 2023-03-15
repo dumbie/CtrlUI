@@ -52,6 +52,17 @@ namespace CtrlUI
                 }
                 else
                 {
+                    //Wait for processes to have refreshed
+                    if (vBusyRefreshingProcesses)
+                    {
+                        await Notification_Send_Status("AppLaunch", "Preparing application launch");
+                        Debug.WriteLine("Processes are refreshing, wait for it to complete.");
+                        while (vBusyRefreshingProcesses)
+                        {
+                            await Task.Delay(50);
+                        }
+                    }
+
                     //Select process launch action
                     await SelectProcessAction(dataBindApp, null);
                 }

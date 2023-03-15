@@ -101,14 +101,17 @@ namespace CtrlUI
                 bool useRecycleBin = true;
                 string deleteString = "Do you want to remove: " + dataBindFile.Name + "?";
                 DataBindString messageResult = await Popup_Show_MessageBox("Remove file or folder", "* Files and folders on a network drive get permanently deleted.", deleteString, messageAnswers);
-                if (messageResult == null)
+                if (messageResult != null)
+                {
+                    if (messageResult == answerPerma)
+                    {
+                        useRecycleBin = false;
+                    }
+                }
+                else
                 {
                     Debug.WriteLine("Cancelled file or folder removal.");
                     return;
-                }
-                else if (messageResult == answerPerma)
-                {
-                    useRecycleBin = false;
                 }
 
                 await Notification_Send_Status("Remove", "Removing file or folder");
@@ -142,14 +145,17 @@ namespace CtrlUI
                 bool useRecycleBin = true;
                 string deleteString = "Do you want to remove the selected files or folders?";
                 DataBindString messageResult = await Popup_Show_MessageBox("Remove files or folders", "* Files and folders on a network drive get permanently deleted.", deleteString, messageAnswers);
-                if (messageResult == null)
+                if (messageResult != null)
+                {
+                    if (messageResult == answerPerma)
+                    {
+                        useRecycleBin = false;
+                    }
+                }
+                else
                 {
                     Debug.WriteLine("Cancelled files or folders removal.");
                     return;
-                }
-                else if (messageResult == answerPerma)
-                {
-                    useRecycleBin = false;
                 }
 
                 await Notification_Send_Status("Remove", "Removing files or folders");

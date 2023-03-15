@@ -8,13 +8,14 @@ using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
         //Select window if process has multiple windows
-        async Task<IntPtr> SelectProcessWindow(DataBindApp dataBindApp, ProcessMulti processMulti)
+        async Task<ProcessWindowAction> SelectProcessWindow(DataBindApp dataBindApp, ProcessMulti processMulti, bool addHideAll)
         {
             try
             {
@@ -24,20 +25,12 @@ namespace CtrlUI
                 if (processWindowCount > 1)
                 {
                     Debug.WriteLine("Found process windows: " + processWindowCount);
-                    List<DataBindString> multiAnswers = new List<DataBindString>();
-                    List<IntPtr> multiVariables = new List<IntPtr>();
+                    List<DataBindString> Answers = new List<DataBindString>();
+                    List<IntPtr> validWindowHandles = new List<IntPtr>();
                     foreach (IntPtr windowHandle in processWindows)
                     {
                         try
                         {
-                            //Check if window handle is already added
-                            string windowHandleString = windowHandle.ToString();
-                            if (multiAnswers.Any(x => x.Data1.ToString() == windowHandleString))
-                            {
-                                //Debug.WriteLine("Duplicate window handle detected, skipping.");
-                                continue;
-                            }
-
                             //Validate the window handle
                             if (windowHandle == processMulti.WindowHandleMain || Check_ValidWindowHandle(windowHandle))
                             {
@@ -47,7 +40,7 @@ namespace CtrlUI
 
                                 //Get the window title
                                 string windowTitleString = Detail_WindowTitleByWindowHandle(windowHandle);
-                                string windowSubString = windowHandleString;
+                                string windowSubString = windowHandle.ToString();
 
                                 //Check window main
                                 if (windowHandle == processMulti.WindowHandleMain)
@@ -82,20 +75,20 @@ namespace CtrlUI
                                 }
 
                                 //Add window to selection
-                                DataBindString Answer1 = new DataBindString();
-                                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                                Answer1.Name = windowTitleString;
-                                Answer1.NameSub = windowSubString;
-                                Answer1.Data1 = windowHandleString;
+                                DataBindString AnswerWindow = new DataBindString();
+                                AnswerWindow.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                                AnswerWindow.Name = windowTitleString;
+                                AnswerWindow.NameSub = windowSubString;
+                                AnswerWindow.Data1 = windowHandle;
                                 if (windowHandle == processMulti.WindowHandleMain)
                                 {
-                                    multiAnswers.Insert(0, Answer1);
-                                    multiVariables.Insert(0, windowHandle);
+                                    Answers.Insert(0, AnswerWindow);
+                                    validWindowHandles.Insert(0, windowHandle);
                                 }
                                 else
                                 {
-                                    multiAnswers.Add(Answer1);
-                                    multiVariables.Add(windowHandle);
+                                    Answers.Add(AnswerWindow);
+                                    validWindowHandles.Add(windowHandle);
                                 }
                             }
                         }
@@ -106,39 +99,54 @@ namespace CtrlUI
                     }
 
                     //Check if there are multiple answers
-                    if (multiVariables.Count == 1)
+                    if (validWindowHandles.Count == 1)
                     {
                         Debug.WriteLine("There is only one visible window, returning the window.");
-                        return multiVariables.FirstOrDefault();
+                        return new ProcessWindowAction() { Action = ProcessWindowActions.Single, WindowHandle = validWindowHandles.FirstOrDefault() };
                     }
-                    else if (multiVariables.Count == 0)
+                    else if (validWindowHandles.Count == 0)
                     {
-                        return IntPtr.Zero;
+                        return new ProcessWindowAction() { Action = ProcessWindowActions.NoAction };
+                    }
+
+                    //Add hide all windows
+                    DataBindString AnswerHideAll = new DataBindString();
+                    if (addHideAll)
+                    {
+                        AnswerHideAll.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMinimize.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        AnswerHideAll.Name = "Hide all the windows";
+                        Answers.Add(AnswerHideAll);
                     }
 
                     //Ask which window needs to be used
-                    DataBindString messageResult = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", string.Empty, "Please select which window you want to be used:", multiAnswers);
+                    DataBindString messageResult = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", string.Empty, "Please select which window you want to interact with:", Answers);
                     if (messageResult != null)
                     {
-                        //Return selected window
-                        return multiVariables[multiAnswers.IndexOf(messageResult)];
+                        if (messageResult == AnswerHideAll)
+                        {
+                            //Hide all windows
+                            return new ProcessWindowAction() { Action = ProcessWindowActions.Multiple, WindowHandles = validWindowHandles };
+                        }
+                        else if (messageResult.Data1 != null)
+                        {
+                            //Return selected window
+                            return new ProcessWindowAction() { Action = ProcessWindowActions.Single, WindowHandle = (IntPtr)messageResult.Data1 };
+                        }
                     }
-                    else
-                    {
-                        //Cancel the selection
-                        return new IntPtr(-200);
-                    }
+
+                    //Return cancel selection
+                    return new ProcessWindowAction() { Action = ProcessWindowActions.Cancel };
                 }
                 else
                 {
                     Debug.WriteLine("Single window process, returning main window.");
-                    return processMulti.WindowHandleMain;
+                    return new ProcessWindowAction() { Action = ProcessWindowActions.Single, WindowHandle = processMulti.WindowHandleMain };
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to select process window: " + ex.Message);
-                return IntPtr.Zero;
+                return new ProcessWindowAction() { Action = ProcessWindowActions.Cancel };
             }
         }
     }

@@ -111,7 +111,6 @@ namespace CtrlUI
                     DataBindString messageResult = await Popup_Show_MessageBox("Application actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
                     if (messageResult != null)
                     {
-                        //Uninstall application
                         if (messageResult == answerUninstall)
                         {
                             await UwpListUninstallApplication(selectedItem);
@@ -130,9 +129,12 @@ namespace CtrlUI
 
                     //Show the messagebox prompt
                     DataBindString messageResult = await Popup_Show_MessageBox("Application actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
-                    if (messageResult != null && messageResult == answerEjectDisc)
+                    if (messageResult != null)
                     {
-                        await FilePicker_EjectDrive(selectedItem, selectedItem.PathFile);
+                        if (messageResult == answerEjectDisc)
+                        {
+                            await FilePicker_EjectDrive(selectedItem, selectedItem.PathFile);
+                        }
                     }
                 }
                 else

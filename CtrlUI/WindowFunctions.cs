@@ -224,8 +224,8 @@ namespace CtrlUI
                 //Hide foreground window
                 //await Hide_ProcessByWindowHandle(GetForegroundWindow());
 
-                //Force focus on CtrlUI
-                await PrepareShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, silentShow, false);
+                //Focus on CtrlUI window
+                await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, silentShow, false);
 
                 //Update the window position
                 await UpdateWindowPosition(false, true);

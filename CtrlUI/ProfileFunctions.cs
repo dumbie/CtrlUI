@@ -232,11 +232,14 @@ namespace CtrlUI
                 DataBindString messageResult = await Popup_Show_MessageBox("Profile Category", "", "Please select the profile to manage:", Answers);
                 if (messageResult != null)
                 {
-                    //Set the selected profile category
-                    vProfileManagerName = messageResult.Data1.ToString();
+                    if (messageResult.Data1 != null)
+                    {
+                        //Set the selected profile category
+                        vProfileManagerName = messageResult.Data1.ToString();
 
-                    //Load profile in manager
-                    await ProfileManager_LoadProfile();
+                        //Load profile in manager
+                        await ProfileManager_LoadProfile();
+                    }
                 }
             }
             catch { }

@@ -127,15 +127,18 @@ namespace CtrlUI
             try
             {
                 List<DataBindString> Answers = new List<DataBindString>();
-                DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Manage controllers";
-                Answers.Add(Answer1);
+                DataBindString AnswerManage = new DataBindString();
+                AnswerManage.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerManage.Name = "Manage controllers";
+                Answers.Add(AnswerManage);
 
                 DataBindString messageResult = await Popup_Show_MessageBox("This will open a window that can't be used with controller", "", "You can always return back to CtrlUI using the 'Guide' button on your controller or you can use the on screen keyboard mouse function.", Answers);
-                if (messageResult != null && messageResult == Answer1)
+                if (messageResult != null)
                 {
-                    Process.Start("joy.cpl");
+                    if (messageResult == AnswerManage)
+                    {
+                        Process.Start("joy.cpl");
+                    }
                 }
             }
             catch { }

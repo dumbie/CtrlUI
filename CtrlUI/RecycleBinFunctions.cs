@@ -176,26 +176,29 @@ namespace CtrlUI
                 messageAnswers.Add(answerEmpty);
 
                 DataBindString messageResult = await Popup_Show_MessageBox("Empty the recycle bin?", "", "This will permanently remove all the files and folders from your recycle bin.", messageAnswers);
-                if (messageResult != null && messageResult == answerEmpty)
+                if (messageResult != null)
                 {
-                    await Notification_Send_Status("Remove", "Emptying recycle bin");
-                    Debug.WriteLine("Emptying the Windows recycle bin.");
-
-                    //Play recycle bin empty sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "RecycleBinEmpty", false, false);
-
-                    //Prepare the recycle bin task
-                    void TaskAction()
+                    if (messageResult == answerEmpty)
                     {
-                        try
-                        {
-                            SHEmptyRecycleBin(IntPtr.Zero, null, RecycleBin_FLAGS.SHRB_NOCONFIRMATION | RecycleBin_FLAGS.SHRB_NOSOUND);
-                        }
-                        catch { }
-                    }
+                        await Notification_Send_Status("Remove", "Emptying recycle bin");
+                        Debug.WriteLine("Emptying the Windows recycle bin.");
 
-                    //Empty the windows recycle bin
-                    AVActions.TaskStartBackground(TaskAction);
+                        //Play recycle bin empty sound
+                        PlayInterfaceSound(vConfigurationCtrlUI, "RecycleBinEmpty", false, false);
+
+                        //Prepare the recycle bin task
+                        void TaskAction()
+                        {
+                            try
+                            {
+                                SHEmptyRecycleBin(IntPtr.Zero, null, RecycleBin_FLAGS.SHRB_NOCONFIRMATION | RecycleBin_FLAGS.SHRB_NOSOUND);
+                            }
+                            catch { }
+                        }
+
+                        //Empty the windows recycle bin
+                        AVActions.TaskStartBackground(TaskAction);
+                    }
                 }
             }
             catch { }
