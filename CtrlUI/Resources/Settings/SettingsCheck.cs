@@ -14,6 +14,7 @@ namespace CtrlUI
             {
                 if (!SettingCheck(vConfigurationCtrlUI, "AppFirstLaunch")) { SettingSave(vConfigurationCtrlUI, "AppFirstLaunch", "True"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "AppFontSize")) { SettingSave(vConfigurationCtrlUI, "AppFontSize", "0"); }
+                if (!SettingCheck(vConfigurationCtrlUI, "AppImageSize")) { SettingSave(vConfigurationCtrlUI, "AppImageSize", "10"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "AppWindowSize")) { SettingSave(vConfigurationCtrlUI, "AppWindowSize", "70"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "ApiIGDBUpdate")) { SettingSave(vConfigurationCtrlUI, "ApiIGDBUpdate", "01/01/1970 00:00:00"); }
 

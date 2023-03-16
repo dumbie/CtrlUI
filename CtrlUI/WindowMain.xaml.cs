@@ -60,6 +60,9 @@ namespace CtrlUI
                 //Adjust the application font size
                 AdjustApplicationFontSize();
 
+                //Adjust the application image size
+                AdjustApplicationImageSize();
+
                 //Check if application has launched as admin
                 if (vAdministratorPermission)
                 {

@@ -45,9 +45,14 @@ namespace CtrlUI
                 txt_SettingsSocketClientPortRange.Text = Convert.ToString(serverPortRange);
 
                 //Load the application font size
-                textblock_SettingsFontSize.Text = "Adjust the application font size: " + SettingLoad(vConfigurationCtrlUI, "AppFontSize", typeof(string));
-                slider_SettingsFontSize.Value = SettingLoad(vConfigurationCtrlUI, "AppFontSize", typeof(double));
+                textblock_SettingsAppFontSize.Text = "Adjust the application font size: " + SettingLoad(vConfigurationCtrlUI, "AppFontSize", typeof(string));
+                slider_SettingsAppFontSize.Value = SettingLoad(vConfigurationCtrlUI, "AppFontSize", typeof(double));
 
+                //Load the application image size
+                textblock_SettingsAppImageSize.Text = "Adjust the application image size: " + SettingLoad(vConfigurationCtrlUI, "AppImageSize", typeof(string));
+                slider_SettingsAppImageSize.Value = SettingLoad(vConfigurationCtrlUI, "AppImageSize", typeof(double));
+
+                //Load the application window size
                 textblock_SettingsAppWindowSize.Text = textblock_SettingsAppWindowSize.Tag + ": " + SettingLoad(vConfigurationCtrlUI, "AppWindowSize", typeof(string)) + "%";
                 slider_SettingsAppWindowSize.Value = SettingLoad(vConfigurationCtrlUI, "AppWindowSize", typeof(double));
 

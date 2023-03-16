@@ -120,11 +120,18 @@ namespace CtrlUI
                     AVSettings.ManageStartupShortcut("CtrlUI-Launcher.exe");
                 };
 
-                slider_SettingsFontSize.ValueChanged += (sender, e) =>
+                slider_SettingsAppFontSize.ValueChanged += (sender, e) =>
                 {
-                    textblock_SettingsFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(slider_SettingsFontSize.Value);
-                    SettingSave(vConfigurationCtrlUI, "AppFontSize", slider_SettingsFontSize.Value);
+                    textblock_SettingsAppFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(slider_SettingsAppFontSize.Value);
+                    SettingSave(vConfigurationCtrlUI, "AppFontSize", slider_SettingsAppFontSize.Value);
                     AdjustApplicationFontSize();
+                };
+
+                slider_SettingsAppImageSize.ValueChanged += (sender, e) =>
+                {
+                    textblock_SettingsAppImageSize.Text = "Adjust the application image size: " + Convert.ToInt32(slider_SettingsAppImageSize.Value);
+                    SettingSave(vConfigurationCtrlUI, "AppImageSize", slider_SettingsAppImageSize.Value);
+                    AdjustApplicationImageSize();
                 };
 
                 slider_SettingsAppWindowSize.ValueChanged += async (sender, e) =>

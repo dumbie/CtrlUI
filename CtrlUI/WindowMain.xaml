@@ -638,9 +638,13 @@
                                     <TextBlock Text="Select the window size that you want to use for this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                                     <AVStyles:SliderDelay Name="slider_SettingsAppWindowSize" Width="400" Minimum="50" Maximum="95" TickFrequency="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
 
-                                    <TextBlock Name="textblock_SettingsFontSize" Text="Adjust the application font size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                    <TextBlock Name="textblock_SettingsAppFontSize" Text="Adjust the application font size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Select the font size that you want to use in this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                    <Slider Name="slider_SettingsFontSize" Width="400" Maximum="6" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
+                                    <Slider Name="slider_SettingsAppFontSize" Width="400" Maximum="6" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
+
+                                    <TextBlock Name="textblock_SettingsAppImageSize" Text="Adjust the application image size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                    <TextBlock Text="Select the image size that you want to use for applications in the lists." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                    <Slider Name="slider_SettingsAppImageSize" Width="400" Minimum="-20" Maximum="80" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
 
                                     <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
 

@@ -426,6 +426,25 @@ namespace CtrlUI
             catch { }
         }
 
+        //Adjust the application image size
+        void AdjustApplicationImageSize()
+        {
+            try
+            {
+                int targetSize = SettingLoad(vConfigurationCtrlUI, "AppImageSize", typeof(int));
+                Debug.WriteLine("Adjusting the image size to: " + targetSize);
+
+                double ApplicationPanelSize = 110;
+                double ApplicationImageHeight = 100;
+                double ApplicationImageMaxWidth = 90;
+
+                Application.Current.Resources["ApplicationPanelSize"] = ApplicationPanelSize + targetSize;
+                Application.Current.Resources["ApplicationImageHeight"] = ApplicationImageHeight + targetSize;
+                Application.Current.Resources["ApplicationImageMaxWidth"] = ApplicationImageMaxWidth + targetSize;
+            }
+            catch { }
+        }
+
         //Set content and resource images with Cache OnLoad
         void SetContentResourceXamlImages()
         {

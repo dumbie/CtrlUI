@@ -70,7 +70,7 @@ namespace CtrlUI
         };
 
         //Image Variables
-        public static int vImageLoadSize = 150;
+        public static int vImageLoadSize = 180;
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
         public static BitmapImage vImagePreloadSteam = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
         public static BitmapImage vImagePreloadUbisoft = FileToBitmapImage(new string[] { "Ubisoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
