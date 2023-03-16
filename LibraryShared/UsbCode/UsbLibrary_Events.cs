@@ -8,18 +8,18 @@ namespace LibraryUsb
 {
     public static class Events
     {
-        public static bool SafeFreeMarshal(IntPtr hglobal)
+        public static bool SafeCloseMarshal(IntPtr hGlobal)
         {
             try
             {
-                if (hglobal != IntPtr.Zero)
+                if (hGlobal != IntPtr.Zero)
                 {
-                    Marshal.FreeHGlobal(hglobal);
-                    Debug.WriteLine("Marshal freed: " + hglobal);
+                    Marshal.FreeHGlobal(hGlobal);
+                    //Debug.WriteLine("Marshal freed: " + hGlobal);
                 }
                 else
                 {
-                    Debug.WriteLine("Marshal is already free.");
+                    Debug.WriteLine("Marshal is already free: " + hGlobal);
                 }
                 return true;
             }
@@ -30,19 +30,18 @@ namespace LibraryUsb
             }
         }
 
-        public static bool SafeCloseHandle(IntPtr handle)
+        public static bool SafeCloseHandle(IntPtr hHandle)
         {
             try
             {
-                if (handle != IntPtr.Zero)
+                if (hHandle != IntPtr.Zero)
                 {
-                    CloseHandle(handle);
-                    Marshal.FreeHGlobal(handle);
-                    Debug.WriteLine("Closed the handle: " + handle);
+                    CloseHandle(hHandle);
+                    //Debug.WriteLine("Closed the handle: " + hHandle);
                 }
                 else
                 {
-                    Debug.WriteLine("Handle is already closed.");
+                    Debug.WriteLine("Handle is already closed: " + hHandle);
                 }
                 return true;
             }
@@ -58,7 +57,7 @@ namespace LibraryUsb
             try
             {
                 SetEvent(hEvent);
-                CloseHandle(hEvent);
+                SafeCloseHandle(hEvent);
                 Debug.WriteLine("Set and closed the event: " + hEvent);
                 return true;
             }

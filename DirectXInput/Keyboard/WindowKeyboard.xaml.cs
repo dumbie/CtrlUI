@@ -628,8 +628,8 @@ namespace DirectXInput.KeyboardCode
                 key_Quote_Normal.Text = "\"";
                 key_Quote_Caps.Text = "'";
                 key_Quote.Tag = new KeyboardAction() { Modifier0 = KeyboardModifiers.ShiftLeft, Key0 = KeyboardKeys.Quote };
-                key_Up.Content = "⯅";
-                key_Up.Tag = new KeyboardAction() { Key0 = KeyboardKeys.ArrowUp };
+                key_Up.Content = "PgU";
+                key_Up.Tag = new KeyboardAction() { Key0 = KeyboardKeys.PageUp };
                 key_Pipe_Normal.Text = "|";
                 key_Pipe_Caps.Text = "\\";
                 key_Pipe.Tag = new KeyboardAction() { Modifier0 = KeyboardModifiers.ShiftLeft, Key0 = KeyboardKeys.Backslash };
@@ -662,8 +662,8 @@ namespace DirectXInput.KeyboardCode
                 key_Question.Tag = new KeyboardAction() { Modifier0 = KeyboardModifiers.ShiftLeft, Key0 = KeyboardKeys.Slash };
                 key_Left.Content = "⯇";
                 key_Left.Tag = new KeyboardAction() { Key0 = KeyboardKeys.ArrowLeft };
-                key_Down.Content = "⯆";
-                key_Down.Tag = new KeyboardAction() { Key0 = KeyboardKeys.ArrowDown };
+                key_Down.Content = "PgD";
+                key_Down.Tag = new KeyboardAction() { Key0 = KeyboardKeys.PageDown };
                 key_Right.Content = "⯈";
                 key_Right.Tag = new KeyboardAction() { Key0 = KeyboardKeys.ArrowRight };
 

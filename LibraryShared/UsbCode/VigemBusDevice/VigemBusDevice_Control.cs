@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static LibraryShared.Classes;
 using static LibraryUsb.NativeMethods_IoControl;
+using static LibraryUsb.Events;
 
 namespace LibraryUsb
 {
@@ -140,10 +141,7 @@ namespace LibraryUsb
             }
             finally
             {
-                if (controlIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(controlIntPtr);
-                }
+                SafeCloseMarshal(controlIntPtr);
             }
         }
 
@@ -176,10 +174,7 @@ namespace LibraryUsb
             }
             finally
             {
-                if (controlIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(controlIntPtr);
-                }
+                SafeCloseMarshal(controlIntPtr);
             }
         }
 
@@ -232,10 +227,7 @@ namespace LibraryUsb
             }
             finally
             {
-                if (controlIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(controlIntPtr);
-                }
+                SafeCloseMarshal(controlIntPtr);
             }
         }
 
@@ -278,10 +270,7 @@ namespace LibraryUsb
             }
             finally
             {
-                if (controlIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(controlIntPtr);
-                }
+                SafeCloseMarshal(controlIntPtr);
             }
         }
     }

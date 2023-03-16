@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static LibraryUsb.Events;
 using static LibraryUsb.NativeMethods_File;
 using static LibraryUsb.NativeMethods_IoControl;
 
@@ -98,10 +99,7 @@ namespace LibraryUsb
             }
             finally
             {
-                if (controlIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(controlIntPtr);
-                }
+                SafeCloseMarshal(controlIntPtr);
             }
         }
 
@@ -141,10 +139,7 @@ namespace LibraryUsb
             }
             finally
             {
-                if (controlIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(controlIntPtr);
-                }
+                SafeCloseMarshal(controlIntPtr);
             }
         }
 
@@ -175,10 +170,7 @@ namespace LibraryUsb
             }
             finally
             {
-                if (controlIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(controlIntPtr);
-                }
+                SafeCloseMarshal(controlIntPtr);
             }
         }
 
@@ -227,10 +219,7 @@ namespace LibraryUsb
             }
             finally
             {
-                if (controlIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(controlIntPtr);
-                }
+                SafeCloseMarshal(controlIntPtr);
             }
         }
 
@@ -261,10 +250,7 @@ namespace LibraryUsb
             }
             finally
             {
-                if (controlIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(controlIntPtr);
-                }
+                SafeCloseMarshal(controlIntPtr);
             }
         }
 
@@ -296,10 +282,7 @@ namespace LibraryUsb
             }
             finally
             {
-                if (controlIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(controlIntPtr);
-                }
+                SafeCloseMarshal(controlIntPtr);
             }
         }
     }

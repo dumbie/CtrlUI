@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
+using static LibraryUsb.Events;
 
 namespace LibraryUsb
 {
@@ -32,6 +33,7 @@ namespace LibraryUsb
 
         private bool KeysPress(byte Modifier, byte Key0, byte Key1, byte Key2, byte Key3, byte Key4, byte Key5)
         {
+            IntPtr featureIntPtr = IntPtr.Zero;
             try
             {
                 //Set feature data
@@ -50,10 +52,9 @@ namespace LibraryUsb
                 //Convert to byte array
                 int featureSize = Marshal.SizeOf(featureData);
                 byte[] featureArray = new byte[featureSize];
-                IntPtr featureIntPtr = Marshal.AllocHGlobal(featureSize);
+                featureIntPtr = Marshal.AllocHGlobal(featureSize);
                 Marshal.StructureToPtr(featureData, featureIntPtr, false);
                 Marshal.Copy(featureIntPtr, featureArray, 0, featureSize);
-                Marshal.FreeHGlobal(featureIntPtr);
 
                 //Send byte array to driver
                 return SetFeature(FileHandle, featureArray);
@@ -63,10 +64,15 @@ namespace LibraryUsb
                 Debug.WriteLine("Failed to press tether keys.");
                 return false;
             }
+            finally
+            {
+                SafeCloseMarshal(featureIntPtr);
+            }
         }
 
         private bool KeysRelease()
         {
+            IntPtr featureIntPtr = IntPtr.Zero;
             try
             {
                 //Set feature data
@@ -78,10 +84,9 @@ namespace LibraryUsb
                 //Convert to byte array
                 int featureSize = Marshal.SizeOf(featureData);
                 byte[] featureArray = new byte[featureSize];
-                IntPtr featureIntPtr = Marshal.AllocHGlobal(featureSize);
+                featureIntPtr = Marshal.AllocHGlobal(featureSize);
                 Marshal.StructureToPtr(featureData, featureIntPtr, false);
                 Marshal.Copy(featureIntPtr, featureArray, 0, featureSize);
-                Marshal.FreeHGlobal(featureIntPtr);
 
                 //Send byte array to driver
                 return SetFeature(FileHandle, featureArray);
@@ -90,6 +95,10 @@ namespace LibraryUsb
             {
                 Debug.WriteLine("Failed to release tether keys.");
                 return false;
+            }
+            finally
+            {
+                SafeCloseMarshal(featureIntPtr);
             }
         }
     }

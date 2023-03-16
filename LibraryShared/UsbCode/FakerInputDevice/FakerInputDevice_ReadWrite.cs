@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static LibraryUsb.Events;
 
 namespace LibraryUsb
 {
@@ -25,10 +26,7 @@ namespace LibraryUsb
             }
             finally
             {
-                if (marshalPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(marshalPtr);
-                }
+                SafeCloseMarshal(marshalPtr);
             }
         }
 
