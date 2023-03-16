@@ -6,7 +6,7 @@ namespace LibraryUsb
 {
     public partial class FakerInputDevice
     {
-        public bool MouseRelative(int moveHorizontal, int moveVertical, int scrollHorizontal, int scrollVertical, MouseButtons mouseButton)
+        public bool MouseRelative(MouseAction mouseAction)
         {
             try
             {
@@ -17,11 +17,11 @@ namespace LibraryUsb
 
                 FAKERINPUT_RELATIVE_MOUSE_REPORT structInput = new FAKERINPUT_RELATIVE_MOUSE_REPORT();
                 structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_RELATIVE_MOUSE;
-                structInput.XValue = (short)moveHorizontal;
-                structInput.YValue = (short)moveVertical;
-                structInput.VWheelPosition = (byte)scrollVertical;
-                structInput.HWheelPosition = (byte)scrollHorizontal;
-                structInput.Button = (byte)mouseButton;
+                structInput.XValue = (short)mouseAction.MoveHorizontal;
+                structInput.YValue = (short)mouseAction.MoveVertical;
+                structInput.VWheelPosition = (byte)mouseAction.ScrollVertical;
+                structInput.HWheelPosition = (byte)mouseAction.ScrollHorizontal;
+                structInput.Button = (byte)mouseAction.Button;
                 byte[] inputArray = ConvertToByteArray(structInput);
 
                 return WriteBytesFile(MergeHeaderInputByteArray(CONTROL_REPORT_SIZE, headerArray, inputArray));
@@ -55,18 +55,18 @@ namespace LibraryUsb
             }
         }
 
-        public bool MouseAbsolute(int moveHorizontal, int moveVertical, int scrollHorizontal, int scrollVertical, MouseButtons mouseButton)
+        public bool MouseAbsolute(MouseAction mouseAction)
         {
             try
             {
                 Screen screen = Screen.FromPoint(Cursor.Position);
                 double maxValue = 32767.5;
 
-                double targetWidth = (double)moveHorizontal / screen.Bounds.Width;
+                double targetWidth = (double)mouseAction.MoveHorizontal / screen.Bounds.Width;
                 targetWidth *= maxValue;
                 if (targetWidth > maxValue) { targetWidth = maxValue; }
 
-                double targetHeight = (double)moveVertical / screen.Bounds.Height;
+                double targetHeight = (double)mouseAction.MoveVertical / screen.Bounds.Height;
                 targetHeight *= maxValue;
                 if (targetHeight > maxValue) { targetHeight = maxValue; }
 
@@ -79,9 +79,9 @@ namespace LibraryUsb
                 structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_ABSOLUTE_MOUSE;
                 structInput.XValue = (ushort)targetWidth;
                 structInput.YValue = (ushort)targetHeight;
-                structInput.VWheelPosition = (byte)scrollVertical;
-                structInput.HWheelPosition = (byte)scrollHorizontal;
-                structInput.Button = (byte)mouseButton;
+                structInput.VWheelPosition = (byte)mouseAction.ScrollVertical;
+                structInput.HWheelPosition = (byte)mouseAction.ScrollHorizontal;
+                structInput.Button = (byte)mouseAction.Button;
                 byte[] inputArray = ConvertToByteArray(structInput);
 
                 return WriteBytesFile(MergeHeaderInputByteArray(CONTROL_REPORT_SIZE, headerArray, inputArray));

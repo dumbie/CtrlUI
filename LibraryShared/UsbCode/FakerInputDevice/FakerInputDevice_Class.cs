@@ -198,6 +198,27 @@ namespace LibraryUsb
             Menu = 101
         }
 
+        public class KeyboardAction
+        {
+            public KeyboardModifiers Modifier0 { get; set; } = KeyboardModifiers.None;
+            public KeyboardModifiers Modifier1 { get; set; } = KeyboardModifiers.None;
+            public KeyboardKeys Key0 { get; set; } = KeyboardKeys.None;
+            public KeyboardKeys Key1 { get; set; } = KeyboardKeys.None;
+            public KeyboardKeys Key2 { get; set; } = KeyboardKeys.None;
+            public KeyboardKeys Key3 { get; set; } = KeyboardKeys.None;
+            public KeyboardKeys Key4 { get; set; } = KeyboardKeys.None;
+            public KeyboardKeys Key5 { get; set; } = KeyboardKeys.None;
+        }
+
+        public class MouseAction
+        {
+            public int MoveHorizontal { get; set; } = 0;
+            public int MoveVertical { get; set; } = 0;
+            public int ScrollHorizontal { get; set; } = 0;
+            public int ScrollVertical { get; set; } = 0;
+            public MouseButtons Button { get; set; } = MouseButtons.None;
+        }
+
         public string GetMouseButtonsName(MouseButtons mouseButton, bool shortName)
         {
             try

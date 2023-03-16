@@ -119,7 +119,12 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+Enter";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            KeyboardAction keyboardAction = new KeyboardAction()
+                            {
+                                Modifier0 = KeyboardModifiers.AltLeft,
+                                Key0 = KeyboardKeys.Enter
+                            };
+                            vFakerInputDevice.KeyboardPressRelease(keyboardAction);
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
@@ -137,7 +142,12 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+Tab";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            KeyboardAction keyboardAction = new KeyboardAction()
+                            {
+                                Modifier0 = KeyboardModifiers.AltLeft,
+                                Key0 = KeyboardKeys.Tab
+                            };
+                            vFakerInputDevice.KeyboardPressRelease(keyboardAction);
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
@@ -175,7 +185,13 @@ namespace DirectXInput
                             Debug.WriteLine("Shortcut ctrl + alt + delete pressed.");
 
                             //Press ctrl + alt + delete
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.AltLeft, KeyboardKeys.Delete, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            KeyboardAction keyboardAction = new KeyboardAction()
+                            {
+                                Modifier0 = KeyboardModifiers.ControlLeft,
+                                Modifier1 = KeyboardModifiers.AltLeft,
+                                Key0 = KeyboardKeys.Delete
+                            };
+                            vFakerInputDevice.KeyboardPressRelease(keyboardAction);
 
                             //Show the keyboard
                             await KeyboardPopupHideShow(true, true);

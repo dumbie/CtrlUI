@@ -65,22 +65,16 @@ namespace DirectXInput.KeyboardCode
                 }
                 else
                 {
-                    if (sendKeyType == typeof(KeyboardKeys))
+                    if (sendKeyType == typeof(KeyboardAction))
                     {
-                        KeyboardKeys sendKey = (KeyboardKeys)sendButton.Tag;
-                        Debug.WriteLine("Sending Keyboard key: " + sendKey);
-                        SendKeyKeyboard(sendKey);
-                    }
-                    else if (sendKeyType == typeof(KeyboardModifiers))
-                    {
-                        KeyboardModifiers sendKey = (KeyboardModifiers)sendButton.Tag;
-                        Debug.WriteLine("Sending Modifier key: " + sendKey);
-                        SendKeyModifier(sendKey);
+                        KeyboardAction sendKey = (KeyboardAction)sendButton.Tag;
+                        Debug.WriteLine("Sending Keyboard action: " + sendKey);
+                        SendKeyAction(sendKey);
                     }
                     else if (sendKeyType == typeof(KeyboardMultimedia))
                     {
                         KeyboardMultimedia sendKey = (KeyboardMultimedia)sendButton.Tag;
-                        Debug.WriteLine("Sending Multimedia key: " + sendKey);
+                        Debug.WriteLine("Sending multimedia key: " + sendKey);
                         if (sendKey == KeyboardMultimedia.VolumeMute)
                         {
                             VolumeOutputMute();
@@ -103,66 +97,11 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        void SendKeyKeyboard(KeyboardKeys sendKey)
+        void SendKeyAction(KeyboardAction sendKey)
         {
             try
             {
-                //Check if the caps lock is enabled
-                if (vCapsEnabled)
-                {
-                    if (sendKey == KeyboardKeys.Enter)
-                    {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.None, KeyboardKeys.Z, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                    }
-                    else if (sendKey == KeyboardKeys.Home)
-                    {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Home, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                    }
-                    else if (sendKey == KeyboardKeys.End)
-                    {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.End, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                    }
-                    else
-                    {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ShiftLeft, KeyboardModifiers.None, sendKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                    }
-                }
-                else
-                {
-                    vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, sendKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                }
-            }
-            catch { }
-        }
-
-        void SendKeyModifier(KeyboardModifiers sendKey)
-        {
-            try
-            {
-                //Check if the caps lock is enabled
-                if (vCapsEnabled)
-                {
-                    if (sendKey == KeyboardModifiers.ShiftLeft || sendKey == KeyboardModifiers.ShiftRight)
-                    {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.None, KeyboardKeys.X, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                    }
-                    else if (sendKey == KeyboardModifiers.ControlLeft || sendKey == KeyboardModifiers.ControlRight)
-                    {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.None, KeyboardKeys.C, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                    }
-                    else if (sendKey == KeyboardModifiers.AltLeft || sendKey == KeyboardModifiers.AltRight)
-                    {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.None, KeyboardKeys.V, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                    }
-                    else if (sendKey == KeyboardModifiers.WindowsLeft || sendKey == KeyboardModifiers.WindowsRight)
-                    {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.None, KeyboardKeys.A, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                    }
-                }
-                else
-                {
-                    vFakerInputDevice.KeyboardPressRelease(sendKey, KeyboardModifiers.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                }
+                vFakerInputDevice.KeyboardPressRelease(sendKey);
             }
             catch { }
         }

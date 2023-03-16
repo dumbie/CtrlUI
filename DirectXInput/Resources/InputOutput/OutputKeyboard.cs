@@ -16,7 +16,11 @@ namespace DirectXInput
                 {
                     if (Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.CapsLock, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        KeyboardAction keyboardAction = new KeyboardAction()
+                        {
+                            Key0 = KeyboardKeys.CapsLock
+                        };
+                        vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                     }
                 });
             }
@@ -32,7 +36,11 @@ namespace DirectXInput
                 {
                     if (Keyboard.GetKeyStates(Key.NumLock) != KeyStates.Toggled)
                     {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.NumLock, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        KeyboardAction keyboardAction = new KeyboardAction()
+                        {
+                            Key0 = KeyboardKeys.NumLock
+                        };
+                        vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                     }
                 });
             }

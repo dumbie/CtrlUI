@@ -64,7 +64,12 @@ namespace DirectXInput.KeyboardCode
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                KeyboardAction keyboardAction = new KeyboardAction()
+                {
+                    Modifier0 = KeyboardModifiers.AltLeft,
+                    Key0 = KeyboardKeys.Enter
+                };
+                vFakerInputDevice.KeyboardPressRelease(keyboardAction);
             }
             catch { }
         }
