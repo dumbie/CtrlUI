@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Windows.Media.Control;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
@@ -32,7 +33,7 @@ namespace DirectXInput
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;
-        public static string[] vVerticalLoopTargetLists = { "listbox_TextList", "listbox_ShortcutList" };
+        public static string[] vLoopTargetListsFirstLastItem = { "listbox_TextList", "listbox_ShortcutList", "listbox_ToolList" };
         public static bool vShowDebugInformation = false;
 
         //Dispatcher Timers
@@ -68,10 +69,10 @@ namespace DirectXInput
         public static int vLastPopupListEmojiIndex = 0;
         public static int vLastPopupListShortcutIndex = 0;
         public static string vLastPopupListType = "Emoji";
-        public static FrameworkElementFocus vFocusedButtonKeyboard = new FrameworkElementFocus();
-        public static FrameworkElementFocus vFocusedButtonText = new FrameworkElementFocus();
-        public static FrameworkElementFocus vFocusedButtonEmoji = new FrameworkElementFocus();
-        public static FrameworkElementFocus vFocusedButtonShortcut = new FrameworkElementFocus();
+        public static AVFocusDetails vFocusedButtonKeyboard = new AVFocusDetails();
+        public static AVFocusDetails vFocusedButtonText = new AVFocusDetails();
+        public static AVFocusDetails vFocusedButtonEmoji = new AVFocusDetails();
+        public static AVFocusDetails vFocusedButtonShortcut = new AVFocusDetails();
         public static int vDirectKeyboardEmojiIndexActivity = 0;
         public static int vDirectKeyboardEmojiIndexNature = 0;
         public static int vDirectKeyboardEmojiIndexFood = 0;

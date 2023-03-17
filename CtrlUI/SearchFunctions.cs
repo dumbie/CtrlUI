@@ -3,10 +3,10 @@ using ArnoldVinkCode.Styles;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
@@ -28,7 +28,7 @@ namespace CtrlUI
                     grid_Search_textbox.Text = string.Empty;
 
                     //Force focus on element
-                    await FrameworkElementFocus(grid_Search_textbox, false, vProcessCurrent.WindowHandleMain);
+                    await FocusElement(grid_Search_textbox, this, vProcessCurrent.WindowHandleMain);
                 }
                 else
                 {

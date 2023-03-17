@@ -1,12 +1,13 @@
-﻿using System.Linq;
+﻿using ArnoldVinkCode;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput.KeyboardCode
@@ -39,7 +40,7 @@ namespace DirectXInput.KeyboardCode
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                 //Store keyboard focus button
-                FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
+                AVFocusDetailsSave(vFocusedButtonKeyboard, null);
 
                 //Show the textlist menu
                 border_TextListPopup.Visibility = Visibility.Visible;
@@ -50,19 +51,19 @@ namespace DirectXInput.KeyboardCode
                 {
                     if (vDirectKeyboardTextList.Any())
                     {
-                        FrameworkElementFocus focusListbox = new FrameworkElementFocus();
+                        AVFocusDetails focusListbox = new AVFocusDetails();
                         focusListbox.FocusListBox = listbox_TextList;
                         focusListbox.FocusIndex = vLastPopupListTextIndex;
-                        await FrameworkElementFocusFocus(focusListbox, vInteropWindowHandle);
+                        await AVFocusDetailsFocus(focusListbox, this, vInteropWindowHandle);
                     }
                     else
                     {
-                        await FrameworkElementFocus(key_TextListClose, false, vInteropWindowHandle);
+                        await FocusElement(key_TextListClose, this, vInteropWindowHandle);
                     }
                 }
                 else
                 {
-                    await FrameworkElementFocusFocus(vFocusedButtonText, vInteropWindowHandle);
+                    await AVFocusDetailsFocus(vFocusedButtonText, this, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -77,7 +78,7 @@ namespace DirectXInput.KeyboardCode
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
 
                 //Store open focus button
-                FrameworkElementFocusSave(vFocusedButtonText, null);
+                AVFocusDetailsSave(vFocusedButtonText, null);
 
                 //Hide the textlist menu
                 border_TextListPopup.Visibility = Visibility.Collapsed;
@@ -88,11 +89,11 @@ namespace DirectXInput.KeyboardCode
                 //Focus on keyboard button
                 if (vFocusedButtonKeyboard.FocusElement == null)
                 {
-                    await FrameworkElementFocus(key_TextList, false, vInteropWindowHandle);
+                    await FocusElement(key_TextList, this, vInteropWindowHandle);
                 }
                 else
                 {
-                    await FrameworkElementFocusFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
+                    await AVFocusDetailsFocus(vFocusedButtonKeyboard, this, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -124,6 +125,9 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
+                //Check if an actual ListBoxItem is clicked
+                if (!AVFunctions.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+
                 KeyTypeStringSenderShared(sender);
             }
             catch { }

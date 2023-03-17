@@ -3,9 +3,9 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -35,7 +35,7 @@ namespace CtrlUI
                     PlayInterfaceSound(vConfigurationCtrlUI, "PromptOpen", false, false);
 
                     //Save the previous focus element
-                    FrameworkElementFocusSave(vHowLongToBeatElementFocus, null);
+                    AVFocusDetailsSave(vHowLongToBeatElementFocus, null);
                 }
 
                 //Clear current search results
@@ -141,7 +141,7 @@ namespace CtrlUI
                 }
 
                 //Focus on first listbox answer
-                await ListboxFocusIndex(lb_HowLongToBeat, true, false, -1, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(lb_HowLongToBeat, false, 0, this, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {
@@ -164,7 +164,7 @@ namespace CtrlUI
                 Popup_Hide_Element(grid_Popup_HowLongToBeat);
 
                 //Focus on the previous focus element
-                await FrameworkElementFocusFocus(vHowLongToBeatElementFocus, vProcessCurrent.WindowHandleMain);
+                await AVFocusDetailsFocus(vHowLongToBeatElementFocus, this, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {

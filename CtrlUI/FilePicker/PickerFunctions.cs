@@ -5,10 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -45,7 +45,7 @@ namespace CtrlUI
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                     //Save the previous focus element
-                    FrameworkElementFocusSave(vFilePickerElementFocus, previousFocus);
+                    AVFocusDetailsSave(vFilePickerElementFocus, previousFocus);
                 }
 
                 //Reset file picker variables
@@ -177,13 +177,13 @@ namespace CtrlUI
                         Debug.WriteLine("Source file path found: " + vFilePickerSourcePath);
 
                         //Focus on the file picker listbox item
-                        await ListBoxFocusItem(lb_FilePicker, sourceFileItem, vProcessCurrent.WindowHandleMain);
+                        await ListBoxFocusItem(lb_FilePicker, sourceFileItem, this, vProcessCurrent.WindowHandleMain);
                         return true;
                     }
                 }
 
                 //Focus on the file picker listbox index
-                await ListboxFocusIndex(lb_FilePicker, false, false, targetIndex, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(lb_FilePicker, false, targetIndex, this, vProcessCurrent.WindowHandleMain);
                 return true;
             }
             catch { }
@@ -368,7 +368,7 @@ namespace CtrlUI
                 Popup_Hide_Element(grid_Popup_FilePicker);
 
                 //Focus on the previous focus element
-                await FrameworkElementFocusFocus(vFilePickerElementFocus, vProcessCurrent.WindowHandleMain);
+                await AVFocusDetailsFocus(vFilePickerElementFocus, this, vProcessCurrent.WindowHandleMain);
             }
             catch { }
         }

@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Enums;
-using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
@@ -274,11 +274,11 @@ namespace CtrlUI
                     //Focus on the interface
                     if (lb_Search.Items.Count > 0)
                     {
-                        await ListboxFocusIndex(lb_Search, false, false, -1, vProcessCurrent.WindowHandleMain);
+                        await ListBoxFocusIndex(lb_Search, false, -1, this, vProcessCurrent.WindowHandleMain);
                     }
                     else
                     {
-                        await FrameworkElementFocus(grid_Search_textbox, false, vProcessCurrent.WindowHandleMain);
+                        await FocusElement(grid_Search_textbox, this, vProcessCurrent.WindowHandleMain);
                     }
                 }
                 else
@@ -287,7 +287,7 @@ namespace CtrlUI
                     stackpanel_Search_Interface.Visibility = Visibility.Collapsed;
 
                     //Focus on the listbox
-                    await ListboxFocusIndex(targetListbox, false, false, -1, vProcessCurrent.WindowHandleMain);
+                    await ListBoxFocusIndex(targetListbox, false, -1, this, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }

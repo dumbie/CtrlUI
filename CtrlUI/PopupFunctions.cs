@@ -1,8 +1,8 @@
 ﻿using ArnoldVinkCode;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVFocus;
 using static CtrlUI.AppVariables;
-using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -149,7 +149,7 @@ namespace CtrlUI
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                 //Save the previous focus element
-                FrameworkElementFocusSave(vMainMenuElementFocus, null);
+                AVFocusDetailsSave(vMainMenuElementFocus, null);
 
                 //Show the popup
                 Popup_Show_Element(grid_Popup_MainMenu);
@@ -157,7 +157,7 @@ namespace CtrlUI
                 vMainMenuOpen = true;
 
                 //Focus on the menu listbox
-                await ListboxFocusIndex(listbox_MainMenu, false, false, -1, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(listbox_MainMenu, false, -1, this, vProcessCurrent.WindowHandleMain);
 
                 //Update the clock with date
                 UpdateClockTime();
@@ -187,7 +187,7 @@ namespace CtrlUI
                     UpdateClockTime();
 
                     //Focus on the previous focus element
-                    await FrameworkElementFocusFocus(vMainMenuElementFocus, vProcessCurrent.WindowHandleMain);
+                    await AVFocusDetailsFocus(vMainMenuElementFocus, this, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }
@@ -206,7 +206,7 @@ namespace CtrlUI
                     vPopupElementTarget = ShowPopup;
 
                     //Save the previous focus element
-                    FrameworkElementFocusSave(vPopupElementFocus, null);
+                    AVFocusDetailsSave(vPopupElementFocus, null);
 
                     //Show the popup
                     Popup_Show_Element(ShowPopup, mainOpacity);
@@ -217,7 +217,7 @@ namespace CtrlUI
                     //Force focus on element
                     if (FocusElement != null)
                     {
-                        await FrameworkElementFocus(FocusElement, false, vProcessCurrent.WindowHandleMain);
+                        await AVFocus.FocusElement(FocusElement, this, vProcessCurrent.WindowHandleMain);
                     }
                 }
             }
@@ -240,7 +240,7 @@ namespace CtrlUI
                     Popup_Hide_Element(vPopupElementTarget);
 
                     //Focus on the previous focus element
-                    await FrameworkElementFocusFocus(vPopupElementFocus, vProcessCurrent.WindowHandleMain);
+                    await AVFocusDetailsFocus(vPopupElementFocus, this, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }

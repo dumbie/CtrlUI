@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVClassConverters;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
@@ -190,7 +190,7 @@ namespace CtrlUI
                 }
 
                 //Focus on the listbox item
-                await ListboxFocusIndex(lb_FilePicker, false, true, -1, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(lb_FilePicker, true, -1, this, vProcessCurrent.WindowHandleMain);
 
                 if (resetClipboard)
                 {

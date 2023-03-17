@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVFocus;
 using static DirectXInput.AppVariables;
-using static LibraryShared.Classes;
-using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput.KeyboardCode
@@ -36,7 +35,7 @@ namespace DirectXInput.KeyboardCode
             PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
             //Store keyboard focus button
-            FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
+            AVFocusDetailsSave(vFocusedButtonKeyboard, null);
 
             //Show the emoji menu
             border_EmojiListPopup.Visibility = Visibility.Visible;
@@ -49,14 +48,14 @@ namespace DirectXInput.KeyboardCode
             //Focus on popup button
             if (vFocusedButtonEmoji.FocusListBox == null)
             {
-                FrameworkElementFocus focusListbox = new FrameworkElementFocus();
+                AVFocusDetails focusListbox = new AVFocusDetails();
                 focusListbox.FocusListBox = listbox_EmojiList;
                 focusListbox.FocusIndex = vLastPopupListEmojiIndex;
-                await FrameworkElementFocusFocus(focusListbox, vInteropWindowHandle);
+                await AVFocusDetailsFocus(focusListbox, this, vInteropWindowHandle);
             }
             else
             {
-                await FrameworkElementFocusFocus(vFocusedButtonEmoji, vInteropWindowHandle);
+                await AVFocusDetailsFocus(vFocusedButtonEmoji, this, vInteropWindowHandle);
             }
         }
 
@@ -69,7 +68,7 @@ namespace DirectXInput.KeyboardCode
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
 
                 //Store open focus button
-                FrameworkElementFocusSave(vFocusedButtonEmoji, null);
+                AVFocusDetailsSave(vFocusedButtonEmoji, null);
 
                 //Hide the emoji menu
                 border_EmojiListPopup.Visibility = Visibility.Collapsed;
@@ -84,11 +83,11 @@ namespace DirectXInput.KeyboardCode
                 //Focus on keyboard button
                 if (vFocusedButtonKeyboard.FocusElement == null)
                 {
-                    await FrameworkElementFocus(key_EmojiList, false, vInteropWindowHandle);
+                    await FocusElement(key_EmojiList, this, vInteropWindowHandle);
                 }
                 else
                 {
-                    await FrameworkElementFocusFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
+                    await AVFocusDetailsFocus(vFocusedButtonKeyboard, this, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -184,10 +183,10 @@ namespace DirectXInput.KeyboardCode
                 }
 
                 //Focus on the current emoji
-                FrameworkElementFocus focusListbox = new FrameworkElementFocus();
+                AVFocusDetails focusListbox = new AVFocusDetails();
                 focusListbox.FocusListBox = listbox_EmojiList;
                 focusListbox.FocusIndex = selectIndex;
-                await FrameworkElementFocusFocus(focusListbox, vInteropWindowHandle);
+                await AVFocusDetailsFocus(focusListbox, this, vInteropWindowHandle);
             }
             catch { }
         }
@@ -388,10 +387,10 @@ namespace DirectXInput.KeyboardCode
                 });
 
                 //Focus on the first emoji
-                FrameworkElementFocus focusListbox = new FrameworkElementFocus();
+                AVFocusDetails focusListbox = new AVFocusDetails();
                 focusListbox.FocusListBox = listbox_EmojiList;
                 focusListbox.FocusIndex = selectIndex;
-                await FrameworkElementFocusFocus(focusListbox, vInteropWindowHandle);
+                await AVFocusDetailsFocus(focusListbox, this, vInteropWindowHandle);
             }
             catch { }
         }
@@ -443,6 +442,9 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
+                //Check if an actual ListBoxItem is clicked
+                if (!AVFunctions.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+
                 KeyTypeStringSenderShared(sender);
             }
             catch { }

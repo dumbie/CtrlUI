@@ -10,11 +10,11 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
-using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
 
@@ -134,11 +134,11 @@ namespace DirectXInput.KeyboardCode
                 //Enable hardware numlock
                 EnableHardwareNumLock();
 
-                //Focus on keyboard button
-                await FocusPopupButton(false, key_h);
-
                 //Update the window visibility
                 UpdateWindowVisibility(true);
+
+                //Focus on keyboard button
+                await FocusPopupButton(false, key_h);
 
                 //Force keyboard mode
                 if (forceKeyboardMode)
@@ -242,7 +242,7 @@ namespace DirectXInput.KeyboardCode
             {
                 if (forceFocus || Keyboard.FocusedElement == null || Keyboard.FocusedElement == this)
                 {
-                    await FrameworkElementFocus(targetButton, false, vInteropWindowHandle);
+                    await FocusElement(targetButton, this, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -788,12 +788,16 @@ namespace DirectXInput.KeyboardCode
         //Check if text popups are open
         bool CheckTextPopupsOpen()
         {
+            bool textPopupsOpen = false;
             try
             {
-                return border_EmojiListPopup.Visibility == Visibility.Visible || border_TextListPopup.Visibility == Visibility.Visible || border_ShortcutListPopup.Visibility == Visibility.Visible;
+                AVActions.DispatcherInvoke(delegate
+                {
+                    textPopupsOpen = border_EmojiListPopup.Visibility == Visibility.Visible || border_TextListPopup.Visibility == Visibility.Visible || border_ShortcutListPopup.Visibility == Visibility.Visible;
+                });
             }
             catch { }
-            return false;
+            return textPopupsOpen;
         }
 
         //Hide open texts popup
@@ -801,18 +805,21 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                if (border_EmojiListPopup.Visibility == Visibility.Visible)
+                await AVActions.DispatcherInvoke(async delegate
                 {
-                    await HideEmojiPopup();
-                }
-                if (border_TextListPopup.Visibility == Visibility.Visible)
-                {
-                    await HideTextPopup();
-                }
-                if (border_ShortcutListPopup.Visibility == Visibility.Visible)
-                {
-                    await HideShortcutPopup();
-                }
+                    if (border_EmojiListPopup.Visibility == Visibility.Visible)
+                    {
+                        await HideEmojiPopup();
+                    }
+                    if (border_TextListPopup.Visibility == Visibility.Visible)
+                    {
+                        await HideTextPopup();
+                    }
+                    if (border_ShortcutListPopup.Visibility == Visibility.Visible)
+                    {
+                        await HideShortcutPopup();
+                    }
+                });
             }
             catch { }
         }

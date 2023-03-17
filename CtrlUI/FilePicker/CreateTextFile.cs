@@ -4,11 +4,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
@@ -58,7 +58,7 @@ namespace CtrlUI
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
 
                     //Focus on the listbox item
-                    await ListboxFocusIndex(lb_FilePicker, false, true, -1, vProcessCurrent.WindowHandleMain);
+                    await ListBoxFocusIndex(lb_FilePicker, true, -1, this, vProcessCurrent.WindowHandleMain);
 
                     //Check if there are files or folders
                     FilePicker_CheckFilesAndFoldersCount();

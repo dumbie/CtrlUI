@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
@@ -126,7 +126,7 @@ namespace CtrlUI
                         await RemoveAppFromList(dataBindApp, true, true, false);
 
                         //Select the previous index
-                        await ListboxFocusIndex(listboxSender, false, false, listboxSelectedIndex, vProcessCurrent.WindowHandleMain);
+                        await ListBoxFocusIndex(listboxSender, false, listboxSelectedIndex, this, vProcessCurrent.WindowHandleMain);
                     }
                     else if (messageResult == AnswerMove)
                     {

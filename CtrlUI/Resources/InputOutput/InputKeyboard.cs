@@ -4,11 +4,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Enums;
-using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -160,7 +160,7 @@ namespace CtrlUI
                         int itemsCount = parentListbox.Items.Count;
                         if ((parentListbox.SelectedIndex + 1) == itemsCount)
                         {
-                            ListboxFocusIndex(parentListbox, false, false, 0, vProcessCurrent.WindowHandleMain).Start();
+                            ListBoxFocusIndex(parentListbox, false, 0, this, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }
@@ -169,7 +169,7 @@ namespace CtrlUI
                     {
                         if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, false))
                         {
-                            ListboxFocusIndex(parentListbox, false, false, 0, vProcessCurrent.WindowHandleMain).Start();
+                            ListBoxFocusIndex(parentListbox, false, 0, this, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }
@@ -242,7 +242,7 @@ namespace CtrlUI
                         if (parentListbox.SelectedIndex == 0)
                         {
                             int itemsCount = parentListbox.Items.Count;
-                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vProcessCurrent.WindowHandleMain).Start();
+                            ListBoxFocusIndex(parentListbox, false, itemsCount - 1, this, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }
@@ -252,7 +252,7 @@ namespace CtrlUI
                         if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, true))
                         {
                             int itemsCount = parentListbox.Items.Count;
-                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vProcessCurrent.WindowHandleMain).Start();
+                            ListBoxFocusIndex(parentListbox, false, itemsCount - 1, this, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }

@@ -132,12 +132,12 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            //Update the window style
-                            WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
-
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
+                                //Update the window style
+                                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                                 KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
                             }
@@ -158,12 +158,12 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            //Update the window style
-                            WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
-
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
+                                //Update the window style
+                                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                                 KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
                             }
@@ -184,12 +184,12 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            //Update the window style
-                            WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
-
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
+                                //Update the window style
+                                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                                 KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
                             }
@@ -210,12 +210,12 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            //Update the window style
-                            WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
-
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
+                                //Update the window style
+                                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                                 KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
                             }
@@ -226,16 +226,23 @@ namespace DirectXInput.KeyboardCode
                     //Send internal space key
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
-                        //Update the window style
-                        WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
-
                         //Check the foreground window
                         if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                         {
+                            //Update the window style
+                            WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+
                             KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
                         }
 
-                        ControllerDelay125 = true;
+                        if (CheckTextPopupsOpen())
+                        {
+                            ControllerDelay250 = true;
+                        }
+                        else
+                        {
+                            ControllerDelay125 = true;
+                        }
                     }
                     //Send external enter key
                     else if (ControllerInput.ButtonB.PressedRaw)
@@ -244,10 +251,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (CheckTextPopupsOpen())
                         {
-                            await AVActions.DispatcherInvoke(async delegate
-                            {
-                                await HideTextPopups();
-                            });
+                            await HideTextPopups();
                             ControllerDelay250 = true;
                         }
                         else if (keyboardMode == KeyboardMode.Media)

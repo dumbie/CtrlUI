@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -192,7 +192,7 @@ namespace CtrlUI
                     ShowCharacterOverlay(selectStringCurrent, selectStringNext, selectStringPrev);
 
                     //Listbox focus and select the item
-                    await ListBoxFocusItem(parentListbox, selectAppCurrent, vProcessCurrent.WindowHandleMain);
+                    await ListBoxFocusItem(parentListbox, selectAppCurrent, this, vProcessCurrent.WindowHandleMain);
 
                     Debug.WriteLine("Selected list character: " + selectCharacterCurrent + "/" + selectAppCurrent.Name);
                 }
@@ -255,7 +255,7 @@ namespace CtrlUI
                     ShowCharacterOverlay(selectStringCurrent, selectStringNext, selectStringPrev);
 
                     //Listbox focus and select the item
-                    await ListBoxFocusItem(parentListbox, selectAppCurrent, vProcessCurrent.WindowHandleMain);
+                    await ListBoxFocusItem(parentListbox, selectAppCurrent, this, vProcessCurrent.WindowHandleMain);
 
                     Debug.WriteLine("Selected list character: " + selectCharacterCurrent + "/" + selectAppCurrent.Name);
                 }
@@ -329,11 +329,11 @@ namespace CtrlUI
                     {
                         if (insertItem)
                         {
-                            await ListBoxFocusOrSelectIndex(listBox, true, false, -1, vProcessCurrent.WindowHandleMain);
+                            await ListBoxFocusOrSelectIndex(listBox, false, 0, this, vProcessCurrent.WindowHandleMain);
                         }
                         else
                         {
-                            await ListBoxFocusOrSelectIndex(listBox, false, true, -1, vProcessCurrent.WindowHandleMain);
+                            await ListBoxFocusOrSelectIndex(listBox, true, -1, this, vProcessCurrent.WindowHandleMain);
                         }
                     }
                 });
@@ -366,7 +366,7 @@ namespace CtrlUI
                         Debug.WriteLine(listBox.Name + " listbox item has been removed.");
                         if (selectItem)
                         {
-                            await ListBoxFocusOrSelectIndex(listBox, false, false, listBoxSelectedIndex, vProcessCurrent.WindowHandleMain);
+                            await ListBoxFocusOrSelectIndex(listBox, false, listBoxSelectedIndex, this, vProcessCurrent.WindowHandleMain);
                         }
                     }
                 });
@@ -397,7 +397,7 @@ namespace CtrlUI
                     if (listBoxItemCount != listBox.Items.Count)
                     {
                         Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed.");
-                        await ListBoxFocusOrSelectIndex(listBox, false, false, listBoxSelectedIndex, vProcessCurrent.WindowHandleMain);
+                        await ListBoxFocusOrSelectIndex(listBox, false, listBoxSelectedIndex, this, vProcessCurrent.WindowHandleMain);
                     }
                 });
             }

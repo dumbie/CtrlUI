@@ -1,11 +1,12 @@
-﻿using System.Linq;
+﻿using ArnoldVinkCode;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVFocus;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
 
@@ -39,7 +40,7 @@ namespace DirectXInput.KeyboardCode
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                 //Store keyboard focus button
-                FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
+                AVFocusDetailsSave(vFocusedButtonKeyboard, null);
 
                 //Show the ShortcutList menu
                 border_ShortcutListPopup.Visibility = Visibility.Visible;
@@ -48,14 +49,14 @@ namespace DirectXInput.KeyboardCode
                 //Focus on popup button
                 if (vFocusedButtonShortcut.FocusListBox == null)
                 {
-                    FrameworkElementFocus focusListbox = new FrameworkElementFocus();
+                    AVFocusDetails focusListbox = new AVFocusDetails();
                     focusListbox.FocusListBox = listbox_ShortcutList;
                     focusListbox.FocusIndex = vLastPopupListShortcutIndex;
-                    await FrameworkElementFocusFocus(focusListbox, vInteropWindowHandle);
+                    await AVFocusDetailsFocus(focusListbox, this, vInteropWindowHandle);
                 }
                 else
                 {
-                    await FrameworkElementFocusFocus(vFocusedButtonShortcut, vInteropWindowHandle);
+                    await AVFocusDetailsFocus(vFocusedButtonShortcut, this, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -70,7 +71,7 @@ namespace DirectXInput.KeyboardCode
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
 
                 //Store open focus button
-                FrameworkElementFocusSave(vFocusedButtonShortcut, null);
+                AVFocusDetailsSave(vFocusedButtonShortcut, null);
 
                 //Hide the ShortcutList menu
                 border_ShortcutListPopup.Visibility = Visibility.Collapsed;
@@ -81,11 +82,11 @@ namespace DirectXInput.KeyboardCode
                 //Focus on keyboard button
                 if (vFocusedButtonKeyboard.FocusElement == null)
                 {
-                    await FrameworkElementFocus(key_ShortcutList, false, vInteropWindowHandle);
+                    await FocusElement(key_ShortcutList, this, vInteropWindowHandle);
                 }
                 else
                 {
-                    await FrameworkElementFocusFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
+                    await AVFocusDetailsFocus(vFocusedButtonKeyboard, this, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -117,6 +118,9 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
+                //Check if an actual ListBoxItem is clicked
+                if (!AVFunctions.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+
                 ShortcutPressKeyboard(sender);
             }
             catch { }

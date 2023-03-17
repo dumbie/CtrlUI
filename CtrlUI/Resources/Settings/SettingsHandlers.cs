@@ -11,11 +11,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
@@ -79,42 +79,42 @@ namespace CtrlUI
                     if (SelStackPanel.Name == "settingsButtonLaunch")
                     {
                         settingsStackpanelLaunch.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsWindowsStartup, false, vProcessCurrent.WindowHandleMain);
+                        await FocusElement(cb_SettingsWindowsStartup, this, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonDisplay")
                     {
                         settingsStackpanelDisplay.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsLaunchMinimized, false, vProcessCurrent.WindowHandleMain);
+                        await FocusElement(cb_SettingsLaunchMinimized, this, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonApps")
                     {
                         settingsStackpanelApps.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsShowLibrarySteam, false, vProcessCurrent.WindowHandleMain);
+                        await FocusElement(cb_SettingsShowLibrarySteam, this, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonInterface")
                     {
                         settingsStackpanelInterface.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsHideBatteryLevel, false, vProcessCurrent.WindowHandleMain);
+                        await FocusElement(cb_SettingsHideBatteryLevel, this, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonSound")
                     {
                         settingsStackpanelSound.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsInterfaceSound, false, vProcessCurrent.WindowHandleMain);
+                        await FocusElement(cb_SettingsInterfaceSound, this, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonBrowser")
                     {
                         settingsStackpanelBrowser.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsShowHiddenFilesFolders, false, vProcessCurrent.WindowHandleMain);
+                        await FocusElement(cb_SettingsShowHiddenFilesFolders, this, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonNetwork")
                     {
                         settingsStackpanelNetwork.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(txt_SettingsSocketClientPortStart, false, vProcessCurrent.WindowHandleMain);
+                        await FocusElement(txt_SettingsSocketClientPortStart, this, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonOther")
                     {
                         settingsStackpanelOther.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(btn_Settings_AddGeforceExperience, false, vProcessCurrent.WindowHandleMain);
+                        await FocusElement(btn_Settings_AddGeforceExperience, this, vProcessCurrent.WindowHandleMain);
                     }
                 }
             }

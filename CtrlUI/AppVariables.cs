@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSearch;
@@ -116,34 +117,34 @@ namespace CtrlUI
         //Popup Variables
         public static bool vPopupOpen = false;
         public static FrameworkElement vPopupElementTarget = null;
-        public static FrameworkElementFocus vPopupElementFocus = new FrameworkElementFocus();
+        public static AVFocusDetails vPopupElementFocus = new AVFocusDetails();
 
         //ColorPicker Variables
         public static bool vColorPickerOpen = false;
-        public static FrameworkElementFocus vColorPickerElementFocus = new FrameworkElementFocus();
+        public static AVFocusDetails vColorPickerElementFocus = new AVFocusDetails();
 
         //Text Input Variables
         public static bool vTextInputOpen = false;
         public static bool vTextInputCancelled = false;
         public static string vTextInputResult = string.Empty;
-        public static FrameworkElementFocus vTextInputElementFocus = new FrameworkElementFocus();
+        public static AVFocusDetails vTextInputElementFocus = new AVFocusDetails();
 
         //MainMenu Variables
         public static bool vMainMenuOpen = false;
-        public static FrameworkElementFocus vMainMenuElementFocus = new FrameworkElementFocus();
+        public static AVFocusDetails vMainMenuElementFocus = new AVFocusDetails();
 
         //Sort Variables
         public static SortingType vSortType = SortingType.Number;
 
         //HowLongToBeat Variables
         public static bool vHowLongToBeatOpen = false;
-        public static FrameworkElementFocus vHowLongToBeatElementFocus = new FrameworkElementFocus();
+        public static AVFocusDetails vHowLongToBeatElementFocus = new AVFocusDetails();
 
         //MessageBox Variables
         public static bool vMessageBoxOpen = false;
         public static bool vMessageBoxCancelled = false;
         public static DataBindString vMessageBoxResult = null;
-        public static FrameworkElementFocus vMessageBoxElementFocus = new FrameworkElementFocus();
+        public static AVFocusDetails vMessageBoxElementFocus = new AVFocusDetails();
 
         //File Picker Variables
         public static bool vFilePickerOpen = false;
@@ -154,7 +155,7 @@ namespace CtrlUI
         public static bool vFilePickerFolderSelectMode = false;
         public static DataBindFile vFilePickerResult = null;
         public static FilePickerSettings vFilePickerSettings = new FilePickerSettings();
-        public static FrameworkElementFocus vFilePickerElementFocus = new FrameworkElementFocus();
+        public static AVFocusDetails vFilePickerElementFocus = new AVFocusDetails();
         public static List<PickerNavigation> vFilePickerNavigationHistory = new List<PickerNavigation>();
         public static SortingType vFilePickerSortingType = SortingType.Name;
         public static string vFilePickerSourcePath = string.Empty;

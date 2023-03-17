@@ -155,7 +155,7 @@
             </Border>
 
             <StackPanel Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <ListBox Name="listbox_ToolList" HorizontalAlignment="Center" Tag="0,0,10,0" MaxWidth="720" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemToolList}" Style="{StaticResource ListBoxHorizontal}" PreviewKeyUp="listbox_ToolList_PreviewKeyUp" PreviewMouseUp="listbox_ToolList_PreviewMouseUp" SelectionChanged="listbox_ToolList_SelectionChanged"/>
+                <ListBox Name="listbox_ToolList" Tag="0,0,10,0" MaxWidth="720" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemToolList}" Style="{StaticResource ListBoxHorizontal}" PreviewKeyUp="listbox_ToolList_PreviewKeyUp" PreviewMouseUp="listbox_ToolList_PreviewMouseUp" SelectionChanged="listbox_ToolList_SelectionChanged"/>
                 <TextBlock Name="textblock_ToolSelect" Margin="0,20,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Center" Text="Please select an action."/>
             </StackPanel>
         </Grid>

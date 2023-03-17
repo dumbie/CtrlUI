@@ -4,9 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static DirectXInput.AppVariables;
-using static LibraryShared.FocusFunctions;
 
 namespace DirectXInput.KeyboardCode
 {
@@ -23,11 +23,19 @@ namespace DirectXInput.KeyboardCode
                 //Check the pressed key
                 if (usedVirtualKey == KeysVirtual.Up)
                 {
-                    NavigateArrowUp(ref messageHandled);
+                    NavigateArrowUpLeft(ref messageHandled);
                 }
                 else if (usedVirtualKey == KeysVirtual.Down)
                 {
-                    NavigateArrowDown(ref messageHandled);
+                    NavigateArrowDownRight(ref messageHandled);
+                }
+                else if (usedVirtualKey == KeysVirtual.Left)
+                {
+                    NavigateArrowUpLeft(ref messageHandled);
+                }
+                else if (usedVirtualKey == KeysVirtual.Right)
+                {
+                    NavigateArrowDownRight(ref messageHandled);
                 }
             }
             catch { }
@@ -47,8 +55,8 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Navigate arrow down
-        void NavigateArrowDown(ref bool Handled)
+        //Navigate arrow down and right
+        void NavigateArrowDownRight(ref bool Handled)
         {
             try
             {
@@ -56,12 +64,12 @@ namespace DirectXInput.KeyboardCode
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vVerticalLoopTargetLists.Contains(parentListbox.Name))
+                    if (vLoopTargetListsFirstLastItem.Contains(parentListbox.Name))
                     {
                         int itemsCount = parentListbox.Items.Count;
                         if ((parentListbox.SelectedIndex + 1) == itemsCount)
                         {
-                            ListboxFocusIndex(parentListbox, false, false, 0, vInteropWindowHandle);
+                            ListBoxFocusIndex(parentListbox, false, 0, this, vInteropWindowHandle).Start();
                             Handled = true;
                             return;
                         }
@@ -71,8 +79,8 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Navigate arrow up
-        void NavigateArrowUp(ref bool Handled)
+        //Navigate arrow up and left
+        void NavigateArrowUpLeft(ref bool Handled)
         {
             try
             {
@@ -80,12 +88,12 @@ namespace DirectXInput.KeyboardCode
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vVerticalLoopTargetLists.Contains(parentListbox.Name))
+                    if (vLoopTargetListsFirstLastItem.Contains(parentListbox.Name))
                     {
                         if (parentListbox.SelectedIndex == 0)
                         {
                             int itemsCount = parentListbox.Items.Count;
-                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vInteropWindowHandle);
+                            ListBoxFocusIndex(parentListbox, false, itemsCount - 1, this, vInteropWindowHandle).Start();
                             Handled = true;
                             return;
                         }

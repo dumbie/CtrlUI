@@ -109,7 +109,6 @@
     <Compile Include="Classes\DataBindApp.cs" />
     <Compile Include="Classes\DataBindFile.cs" />
     <Compile Include="Classes\DataBindString.cs" />
-    <Compile Include="Classes\FrameworkElementFocus.cs" />
     <Compile Include="Classes\KeypadMapping.cs" />
     <Compile Include="Classes\KeypadSize.cs" />
     <Compile Include="Classes\LauncherBattleNet.cs" />
@@ -131,8 +130,6 @@
     <Compile Include="Enums\FileType.cs" />
     <Compile Include="Enums\MappingStatus.cs" />
     <Compile Include="Enums\OverlayPosition.cs" />
-    <Compile Include="Focus\ListboxFocus.cs" />
-    <Compile Include="Focus\ElementFocus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoundPlayer.cs" />
     <Compile Include="SteamKit2\Types\KeyValue.cs" />
@@ -197,5 +194,6 @@
       <Name>ArnoldVinkCode</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
