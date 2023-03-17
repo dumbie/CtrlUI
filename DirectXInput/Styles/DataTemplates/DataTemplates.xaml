@@ -50,4 +50,11 @@
             <emoji:TextBlock Text="{Binding String1}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeLarge}"/>
         </Border>
     </DataTemplate>
+
+    <!-- ListboxItemToolList -->
+    <DataTemplate x:Key="ListboxItemToolList">
+        <Border Cursor="Hand" CornerRadius="2">
+            <Image Height="100" Width="100" Source="{Binding Object1}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+    </DataTemplate>
 </ResourceDictionary>

@@ -61,6 +61,7 @@ namespace DirectXInput.KeyboardCode
                 UpdateWindowPosition();
 
                 //Update the listbox sources
+                ToolList_AddItems();
                 ShortcutList_AddItems();
                 UpdateListBoxSources();
 
@@ -255,6 +256,7 @@ namespace DirectXInput.KeyboardCode
                 listbox_TextList.ItemsSource = vDirectKeyboardTextList;
                 listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
                 listbox_ShortcutList.ItemsSource = vDirectKeyboardShortcutList;
+                listbox_ToolList.ItemsSource = vDirectKeyboardToolList;
 
                 //Check if texts are set
                 if (!vDirectKeyboardTextList.Any())

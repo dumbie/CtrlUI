@@ -45,53 +45,53 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/DPad.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_DPad" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Arrows"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_ButtonLeft" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_ButtonLeft" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Backspace"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_ButtonUp" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_ButtonUp" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Space"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_ButtonRight" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_ButtonRight" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Enter"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_ButtonLbRb" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="26" Opacity="0.80"/>
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Mouse click"/>
+                        <TextBlock Name="textblock_ButtonLbRb" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Mouse click"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_LeftTriggerOff" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LtOff.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_LeftTriggerOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Caps"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_RightTriggerOff" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RtOff.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_RightTriggerOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Tab"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_ThumbPress" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbLeftClickOff.png" Height="26" Opacity="0.80"/>
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbRightClickOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_ThumbPress" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Arrows"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_ThumbLeftOff" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbLeftOff.png" Height="26" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Mouse"/>
+                        <TextBlock Name="textblock_ThumbLeftOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Mouse"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_ThumbRightOff" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbRightOff.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_ThumbRightOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Move"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_BackOff" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_BackOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Emoji/Text"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_StartOff" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/StartOff.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_StartOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Mode"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                    <StackPanel Name="stackpanel_Guide" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/GuideOff.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_Guide" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Close"/>
                     </StackPanel>
@@ -146,6 +146,20 @@
             </Grid>
         </Grid>
 
+        <!-- Grid Tool -->
+        <Grid Name="grid_Tool" Grid.Row="2" Height="320" Visibility="Collapsed">
+            <Border CornerRadius="5">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
+                </Border.Background>
+            </Border>
+
+            <StackPanel Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ListBox Name="listbox_ToolList" HorizontalAlignment="Center" Tag="0,0,10,0" MaxWidth="720" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemToolList}" Style="{StaticResource ListBoxHorizontal}" PreviewKeyUp="listbox_ToolList_PreviewKeyUp" PreviewMouseUp="listbox_ToolList_PreviewMouseUp" SelectionChanged="listbox_ToolList_SelectionChanged"/>
+                <TextBlock Name="textblock_ToolSelect" Margin="0,20,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Center" Text="Please select an action."/>
+            </StackPanel>
+        </Grid>
+
         <!-- Grid Media -->
         <Grid Name="grid_Media" Grid.Row="2" Height="320" Visibility="Collapsed">
             <Border CornerRadius="5">
@@ -191,7 +205,7 @@
                 </Grid>
                 <TextBlock Name="textblock_MediaNone" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Center" Text="No media is currently playing"/>
                 <StackPanel Margin="0,20,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Button Name="key_ModeMedia" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonMode_PreviewKeyUp" PreviewMouseUp="ButtonMode_PreviewMouseUp">
+                    <Button Name="key_ModeKeyboard" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonModeKeyboard_PreviewKeyUp" PreviewMouseUp="ButtonModeKeyboard_PreviewMouseUp">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keyboard.png" Height="30"/>
                     </Button>
                     <Button Name="key_CloseMedia" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonClose_PreviewKeyUp" PreviewMouseUp="ButtonClose_PreviewMouseUp">
@@ -481,10 +495,10 @@
                         <Button Name="key_TextList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/List.png" Height="30"/>
                         </Button>
-                        <Button Name="key_CtrlUI" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCtrlUI_PreviewKeyUp" PreviewMouseUp="ButtonCtrlUI_PreviewMouseUp">
+                        <Button Name="key_ModeTool" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonModeTool_PreviewKeyUp" PreviewMouseUp="ButtonModeTool_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png" Height="30"/>
                         </Button>
-                        <Button Name="key_ModeKeyboard" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonMode_PreviewKeyUp" PreviewMouseUp="ButtonMode_PreviewMouseUp">
+                        <Button Name="key_ModeMedia" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonModeMedia_PreviewKeyUp" PreviewMouseUp="ButtonModeMedia_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Music.png" Height="30"/>
                         </Button>
                         <Button Name="key_Close" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonClose_PreviewKeyUp" PreviewMouseUp="ButtonClose_PreviewMouseUp">

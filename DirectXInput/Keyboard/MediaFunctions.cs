@@ -293,7 +293,16 @@ namespace DirectXInput.KeyboardCode
                     }
                     else
                     {
-                        image_Information_Thumbnail.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        string currentImage = string.Empty;
+                        if (image_Information_Thumbnail.Source != null)
+                        {
+                            currentImage = image_Information_Thumbnail.Source.ToString();
+                        }
+                        string updatedImage = "Assets/Default/Icons/Music.png";
+                        if (currentImage.ToLower() != updatedImage.ToLower())
+                        {
+                            image_Information_Thumbnail.Source = FileToBitmapImage(new string[] { updatedImage }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        }
                     }
                     grid_MediaPlaying.Visibility = Visibility.Visible;
                     textblock_MediaNone.Visibility = Visibility.Collapsed;

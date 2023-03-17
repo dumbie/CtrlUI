@@ -120,7 +120,11 @@ namespace DirectXInput.KeyboardCode
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
 
                         //Set the used battery status icon
-                        string currentImage = img_Main_Battery.Source.ToString();
+                        string currentImage = string.Empty;
+                        if (img_Main_Battery.Source != null)
+                        {
+                            currentImage = img_Main_Battery.Source.ToString();
+                        }
                         string updatedImage = "Assets/Default/Icons/Battery/BatteryVerCharge.png";
                         if (currentImage.ToLower() != updatedImage.ToLower())
                         {
@@ -152,7 +156,11 @@ namespace DirectXInput.KeyboardCode
                     txt_Main_Battery.Text = Convert.ToString(controllerBattery.BatteryPercentage) + "%";
 
                     //Set the used battery status icon
-                    string currentImage = img_Main_Battery.Source.ToString();
+                    string currentImage = string.Empty;
+                    if (img_Main_Battery.Source != null)
+                    {
+                        currentImage = img_Main_Battery.Source.ToString();
+                    }
                     string updatedImage = "Assets/Default/Icons/Battery/BatteryVerDis" + percentageNumber + ".png";
                     if (currentImage.ToLower() != updatedImage.ToLower())
                     {

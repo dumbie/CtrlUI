@@ -267,7 +267,11 @@ namespace CtrlUI
                     txt_Main_Battery.Text = Convert.ToString(controllerBattery.BatteryPercentage) + "%";
 
                     //Set the used battery status icon
-                    string currentImage = img_Main_Battery.Source.ToString();
+                    string currentImage = string.Empty;
+                    if (img_Main_Battery.Source != null)
+                    {
+                        currentImage = img_Main_Battery.Source.ToString();
+                    }
                     string updatedImage = "Assets/Default/Icons/Battery/BatteryVerDis" + percentageNumber + ".png";
                     if (currentImage.ToLower() != updatedImage.ToLower())
                     {
