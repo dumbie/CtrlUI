@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ArnoldVinkCode;
+using System.Windows;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppVariables;
@@ -12,14 +13,17 @@ namespace FpsOverlayer
         {
             try
             {
-                if (grid_CrosshairOverlayer.Visibility == Visibility.Visible)
+                AVActions.DispatcherInvoke(delegate
                 {
-                    grid_CrosshairOverlayer.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    grid_CrosshairOverlayer.Visibility = Visibility.Visible;
-                }
+                    if (grid_CrosshairOverlayer.Visibility == Visibility.Visible)
+                    {
+                        grid_CrosshairOverlayer.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        grid_CrosshairOverlayer.Visibility = Visibility.Visible;
+                    }
+                });
             }
             catch { }
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Web.WebView2.Wpf;
+﻿using ArnoldVinkCode;
+using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -129,18 +130,21 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                if (vWindowVisible && vBrowserWindowClickThrough)
+                AVActions.DispatcherInvoke(delegate
                 {
-                    Browser_Switch_Clickthrough(false);
-                }
-                else if (vWindowVisible)
-                {
-                    Hide();
-                }
-                else
-                {
-                    Show();
-                }
+                    if (vWindowVisible && vBrowserWindowClickThrough)
+                    {
+                        Browser_Switch_Clickthrough(false);
+                    }
+                    else if (vWindowVisible)
+                    {
+                        Hide();
+                    }
+                    else
+                    {
+                        Show();
+                    }
+                });
             }
             catch { }
         }

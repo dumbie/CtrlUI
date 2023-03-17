@@ -152,7 +152,7 @@
     <Compile Include="Keyboard\ToolFunctions.cs" />
     <Compile Include="Keyboard\ModeFunctions.cs" />
     <Compile Include="Keyboard\ShortcutListFunctions.cs" />
-    <Compile Include="ProcessFunctions.cs" />
+    <Compile Include="ToolFunctions.cs" />
     <Compile Include="Keyboard\KeyboardTasks.cs" />
     <Compile Include="Keyboard\MediaFunctions.cs" />
     <Compile Include="Keyboard\Resources\InputOutput\InputKeyboard.cs" />

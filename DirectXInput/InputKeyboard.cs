@@ -33,7 +33,7 @@ namespace DirectXInput
                     if (SettingLoad(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard", typeof(bool)))
                     {
                         Debug.WriteLine("Button Global - Show or hide CtrlUI");
-                        await ProcessFunctions.LaunchShowCtrlUI();
+                        await ToolFunctions.CtrlUI_LaunchShow();
                     }
                 }
             }

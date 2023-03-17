@@ -56,6 +56,22 @@ namespace FpsOverlayer
                         {
                             await Application_Exit();
                         }
+                        else if (receivedString == "SwitchFpsOverlayVisibility")
+                        {
+                            SwitchFpsOverlayVisibility();
+                        }
+                        else if (receivedString == "SwitchBrowserOverlayVisibility")
+                        {
+                            vWindowBrowser.Browser_Switch_Visibility();
+                        }
+                        else if (receivedString == "SwitchCrosshairOverlayVisibility")
+                        {
+                            SwitchCrosshairVisibility();
+                        }
+                        else if (receivedString == "ChangeFpsOverlayPosition")
+                        {
+                            ChangeFpsOverlayPosition();
+                        }
                         else if (receivedString == "SettingChangedColorAccentLight")
                         {
                             vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");

@@ -26,7 +26,7 @@ namespace FpsOverlayer
                 else if (altPressed && keysPressed.Contains(KeysVirtual.F10))
                 {
                     Debug.WriteLine("Button Global - Alt + F10");
-                    SwitchFpsOverlayVisibilityManual();
+                    SwitchFpsOverlayVisibility();
                 }
                 else if (altPressed && keysPressed.Contains(KeysVirtual.F11))
                 {

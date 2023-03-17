@@ -1,17 +1,9 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using static ArnoldVinkCode.AVSettings;
-using static ArnoldVinkCode.Styles.AVColors;
 using static DirectXInput.AppVariables;
-using static LibraryShared.Classes;
-using static LibraryShared.Enums;
-using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
 

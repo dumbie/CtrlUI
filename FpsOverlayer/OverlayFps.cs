@@ -41,7 +41,7 @@ namespace FpsOverlayer
         }
 
         //Switch the stats visibility
-        public void SwitchFpsOverlayVisibilityManual()
+        public void SwitchFpsOverlayVisibility()
         {
             try
             {
@@ -77,7 +77,11 @@ namespace FpsOverlayer
 
                 Debug.WriteLine("Changing text postion to: " + nextPosition);
                 SettingSave(vConfigurationFpsOverlayer, "TextPosition", nextPosition.ToString());
-                UpdateFpsOverlayStyle();
+
+                AVActions.DispatcherInvoke(delegate
+                {
+                    UpdateFpsOverlayStyle();
+                });
             }
             catch { }
         }

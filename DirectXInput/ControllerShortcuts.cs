@@ -49,7 +49,7 @@ namespace DirectXInput
                         if (SettingLoad(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", typeof(bool)))
                         {
                             Debug.WriteLine("Shortcut show or hide CtrlUI has been pressed.");
-                            await ProcessFunctions.LaunchShowCtrlUI();
+                            await ToolFunctions.CtrlUI_LaunchShow();
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
@@ -238,7 +238,7 @@ namespace DirectXInput
         }
 
         //Hide or show the keypad
-        async Task KeypadPopupHideShow(bool forceShow)
+        public async Task KeypadPopupHideShow(bool forceShow)
         {
             try
             {
@@ -257,13 +257,18 @@ namespace DirectXInput
                         await App.vWindowKeyboard.Hide();
                         await App.vWindowKeypad.Hide();
                     }
+                    else if (forceShow)
+                    {
+                        await App.vWindowKeyboard.Hide();
+                        await App.vWindowKeypad.Show();
+                    }
                 });
             }
             catch { }
         }
 
         //Hide or show the keyboard
-        async Task KeyboardPopupHideShow(bool forceShow, bool forceKeyboardMode)
+        public async Task KeyboardPopupHideShow(bool forceShow, bool forceKeyboardMode)
         {
             try
             {
@@ -281,6 +286,11 @@ namespace DirectXInput
                     {
                         await App.vWindowKeyboard.Hide();
                         await App.vWindowKeypad.Hide();
+                    }
+                    else if (forceShow)
+                    {
+                        await App.vWindowKeypad.Hide();
+                        await App.vWindowKeyboard.Show(forceKeyboardMode, forceKeyboardMode);
                     }
                     else if (forceKeyboardMode)
                     {

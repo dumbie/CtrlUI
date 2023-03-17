@@ -12,6 +12,16 @@ namespace DirectXInput.KeyboardCode
 {
     partial class WindowKeyboard
     {
+        //Profile variables
+        private ProfileShared shortcutCtrlUILaunch = new ProfileShared();
+        private ProfileShared shortcutFpsOverlayerLaunch = new ProfileShared();
+        private ProfileShared shortcutFpsOverlayerPosition = new ProfileShared();
+        private ProfileShared shortcutFpsBrowser = new ProfileShared();
+        private ProfileShared shortcutFpsCrosshair = new ProfileShared();
+        private ProfileShared shortcutSwitchKeyboard = new ProfileShared();
+        private ProfileShared shortcutSwitchKeypad = new ProfileShared();
+        private ProfileShared shortcutCloseKeyboard = new ProfileShared();
+
         //Add tool functions to the list
         void ToolList_AddItems()
         {
@@ -19,42 +29,34 @@ namespace DirectXInput.KeyboardCode
             {
                 if (!vDirectKeyboardToolList.Any())
                 {
-                    ProfileShared shortcutCtrlUI = new ProfileShared();
-                    shortcutCtrlUI.String1 = "Launch or show CtrlUI";
-                    shortcutCtrlUI.Object1 = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
-                    vDirectKeyboardToolList.Add(shortcutCtrlUI);
+                    shortcutCtrlUILaunch.String1 = "Launch or show CtrlUI";
+                    shortcutCtrlUILaunch.Object1 = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
+                    vDirectKeyboardToolList.Add(shortcutCtrlUILaunch);
 
-                    ProfileShared shortcutFpsOverlayer = new ProfileShared();
-                    shortcutFpsOverlayer.String1 = "Launch or show Fps Overlayer";
-                    shortcutFpsOverlayer.Object1 = FileToBitmapImage(new string[] { "Assets/Default/Icons/Fps.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
-                    vDirectKeyboardToolList.Add(shortcutFpsOverlayer);
+                    shortcutFpsOverlayerLaunch.String1 = "Launch, show or hide Fps Overlayer";
+                    shortcutFpsOverlayerLaunch.Object1 = FileToBitmapImage(new string[] { "Assets/Default/Icons/Fps.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
+                    vDirectKeyboardToolList.Add(shortcutFpsOverlayerLaunch);
 
-                    ProfileShared shortcutFpsBrowser = new ProfileShared();
+                    shortcutFpsOverlayerPosition.String1 = "Change Fps Overlayer stats position";
+                    shortcutFpsOverlayerPosition.Object1 = FileToBitmapImage(new string[] { "Assets/Default/Icons/Move.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
+                    vDirectKeyboardToolList.Add(shortcutFpsOverlayerPosition);
+
                     shortcutFpsBrowser.String1 = "Show or hide browser overlay";
                     shortcutFpsBrowser.Object1 = FileToBitmapImage(new string[] { "Assets/Default/Icons/Browser.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
                     vDirectKeyboardToolList.Add(shortcutFpsBrowser);
 
-                    ProfileShared shortcutFpsCrosshair = new ProfileShared();
                     shortcutFpsCrosshair.String1 = "Show or hide crosshair overlay";
                     shortcutFpsCrosshair.Object1 = FileToBitmapImage(new string[] { "Assets/Default/Icons/Crosshair.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
                     vDirectKeyboardToolList.Add(shortcutFpsCrosshair);
 
-                    ProfileShared shortcutFpsMove = new ProfileShared();
-                    shortcutFpsMove.String1 = "Move fps overlay position";
-                    shortcutFpsMove.Object1 = FileToBitmapImage(new string[] { "Assets/Default/Icons/Move.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
-                    vDirectKeyboardToolList.Add(shortcutFpsMove);
-
-                    ProfileShared shortcutSwitchKeyboard = new ProfileShared();
                     shortcutSwitchKeyboard.String1 = "Switch to keyboard";
                     shortcutSwitchKeyboard.Object1 = FileToBitmapImage(new string[] { "Assets/Default/Icons/Keyboard.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
                     vDirectKeyboardToolList.Add(shortcutSwitchKeyboard);
 
-                    ProfileShared shortcutSwitchKeypad = new ProfileShared();
                     shortcutSwitchKeypad.String1 = "Switch to keypad";
                     shortcutSwitchKeypad.Object1 = FileToBitmapImage(new string[] { "Assets/Default/Icons/Keypad.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
                     vDirectKeyboardToolList.Add(shortcutSwitchKeypad);
 
-                    ProfileShared shortcutCloseKeyboard = new ProfileShared();
                     shortcutCloseKeyboard.String1 = "Close keyboard overlay";
                     shortcutCloseKeyboard.Object1 = FileToBitmapImage(new string[] { "Assets/Default/Icons/Close.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
                     vDirectKeyboardToolList.Add(shortcutCloseKeyboard);
@@ -110,17 +112,35 @@ namespace DirectXInput.KeyboardCode
                 if (ListboxSender.SelectedItems.Count > 0 && ListboxSender.SelectedIndex != -1)
                 {
                     ProfileShared selectedItem = (ProfileShared)ListboxSender.SelectedItem;
-                    string selectedAction = selectedItem.String1;
-
-                    if (selectedAction == "Launch or show CtrlUI")
+                    if (selectedItem == shortcutCtrlUILaunch)
                     {
-                        await ProcessFunctions.LaunchShowCtrlUI();
+                        await ToolFunctions.CtrlUI_LaunchShow();
                     }
-                    else if (selectedAction == "Launch or show fps overlay")
+                    else if (selectedItem == shortcutFpsOverlayerLaunch)
                     {
-                        await ProcessFunctions.LaunchFpsOverlayer(false);
+                        await ToolFunctions.FpsOverlayer_LaunchShowHide();
                     }
-                    else if (selectedAction == "Close keyboard overlay")
+                    else if (selectedItem == shortcutFpsOverlayerPosition)
+                    {
+                        await ToolFunctions.FpsOverlayer_ChangePosition();
+                    }
+                    else if (selectedItem == shortcutFpsBrowser)
+                    {
+                        await ToolFunctions.FpsOverlayer_ShowHideBrowser();
+                    }
+                    else if (selectedItem == shortcutFpsCrosshair)
+                    {
+                        await ToolFunctions.FpsOverlayer_ShowHideCrosshair();
+                    }
+                    else if (selectedItem == shortcutSwitchKeyboard)
+                    {
+                        await SetModeKeyboard();
+                    }
+                    else if (selectedItem == shortcutSwitchKeypad)
+                    {
+                        await App.vWindowMain.KeypadPopupHideShow(true);
+                    }
+                    else if (selectedItem == shortcutCloseKeyboard)
                     {
                         await this.Hide();
                     }
