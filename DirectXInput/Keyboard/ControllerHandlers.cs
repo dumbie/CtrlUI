@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVSettings;
@@ -135,10 +136,16 @@ namespace DirectXInput.KeyboardCode
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
+                                //Play interface sound
+                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+
                                 //Update the window style
                                 WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
-                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                                //Focus on the window
+                                FocusWindow(this);
+
+                                //Send arrow left to window
                                 KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
                             }
                         }
@@ -161,10 +168,16 @@ namespace DirectXInput.KeyboardCode
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
+                                //Play interface sound
+                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+
                                 //Update the window style
                                 WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
-                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                                //Focus on the window
+                                FocusWindow(this);
+
+                                //Send arrow right to window
                                 KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
                             }
                         }
@@ -187,10 +200,16 @@ namespace DirectXInput.KeyboardCode
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
+                                //Play interface sound
+                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+
                                 //Update the window style
                                 WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
-                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                                //Focus on the window
+                                FocusWindow(this);
+
+                                //Send arrow up to window
                                 KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
                             }
                         }
@@ -213,10 +232,16 @@ namespace DirectXInput.KeyboardCode
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                             {
+                                //Play interface sound
+                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+
                                 //Update the window style
                                 WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
-                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                                //Focus on the window
+                                FocusWindow(this);
+
+                                //Send arrow down to window
                                 KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
                             }
                         }
@@ -229,9 +254,16 @@ namespace DirectXInput.KeyboardCode
                         //Check the foreground window
                         if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
                         {
+                            //Play interface sound
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+
                             //Update the window style
                             WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
+                            //Focus on the window
+                            FocusWindow(this);
+
+                            //Send space key to window
                             KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
                         }
 
