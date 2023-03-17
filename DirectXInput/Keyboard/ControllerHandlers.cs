@@ -242,11 +242,11 @@ namespace DirectXInput.KeyboardCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
-                        if (border_EmojiListPopup.Visibility == Visibility.Visible || border_TextListPopup.Visibility == Visibility.Visible)
+                        if (CheckTextPopupsOpen())
                         {
                             await AVActions.DispatcherInvoke(async delegate
                             {
-                                await HideTextEmojiPopup();
+                                await HideTextPopups();
                             });
                             ControllerDelay250 = true;
                         }
@@ -407,7 +407,7 @@ namespace DirectXInput.KeyboardCode
                         {
                             KeyboardAction keyboardAction = new KeyboardAction()
                             {
-                                Modifier0 = KeyboardModifiers.ShiftLeft,
+                                Modifiers = KeyboardModifiers.ShiftLeft,
                                 Key0 = KeyboardKeys.Tab
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
@@ -442,6 +442,10 @@ namespace DirectXInput.KeyboardCode
                                 if (vLastPopupListType == "Text")
                                 {
                                     await ShowHideTextListPopup();
+                                }
+                                else if (vLastPopupListType == "Shortcut")
+                                {
+                                    await ShowHideShortcutListPopup();
                                 }
                                 else
                                 {

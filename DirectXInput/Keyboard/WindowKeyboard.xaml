@@ -290,7 +290,7 @@
                                 <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_F12_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
-                        <Button Name="key_Delete" Width="80" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
+                        <Button Name="key_Insert" Width="80" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                     </StackPanel>
                     <!-- Key Row 1 -->
                     <StackPanel Name="sp_Row1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4,0,0">
@@ -475,14 +475,14 @@
                         <Button Name="key_EmojiList" Style="{StaticResource ButtonEmoji}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
                             <emoji:TextBlock Text="😄"/>
                         </Button>
+                        <Button Name="key_ShortcutList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shortcut.png" Height="30"/>
+                        </Button>
                         <Button Name="key_TextList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/List.png" Height="30"/>
                         </Button>
                         <Button Name="key_CtrlUI" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCtrlUI_PreviewKeyUp" PreviewMouseUp="ButtonCtrlUI_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png" Height="30"/>
-                        </Button>
-                        <Button Name="key_FpsOverlayer" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonFpsOverlayer_PreviewKeyUp" PreviewMouseUp="ButtonFpsOverlayer_PreviewMouseUp">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Fps.png" Height="30"/>
                         </Button>
                         <Button Name="key_ModeKeyboard" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonMode_PreviewKeyUp" PreviewMouseUp="ButtonMode_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Music.png" Height="30"/>
@@ -493,6 +493,27 @@
                     </StackPanel>
                 </StackPanel>
             </Grid>
+
+            <!-- Shortcut Popup -->
+            <Border Name="border_ShortcutListPopup" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
+                </Border.Background>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!-- Shortcut ListBox -->
+                    <ListBox Name="listbox_ShortcutList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="210" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemTextList}" Style="{StaticResource ListBoxVertical}" PreviewKeyUp="Listbox_ShortcutList_PreviewKeyUp" PreviewMouseUp="Listbox_ShortcutList_PreviewMouseUp"/>
+
+                    <!-- Popup Close Button -->
+                    <Button Name="key_ShortcutListClose" Margin="6,2,6,6" HorizontalAlignment="Stretch" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseShortcutList_PreviewKeyUp" PreviewMouseUp="ButtonCloseShortcutList_PreviewMouseUp">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30" Margin="0,0,10,0"/>
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Height="26"/>
+                            <TextBlock Margin="5,0,5,0" FontSize="{DynamicResource TextSizeMedium}" Text="or"/>
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="26"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
 
             <!-- TextList Popup -->
             <Border Name="border_TextListPopup" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">

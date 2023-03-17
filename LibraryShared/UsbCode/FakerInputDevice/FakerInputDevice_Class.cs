@@ -200,14 +200,15 @@ namespace LibraryUsb
 
         public class KeyboardAction
         {
-            public KeyboardModifiers Modifier0 { get; set; } = KeyboardModifiers.None;
-            public KeyboardModifiers Modifier1 { get; set; } = KeyboardModifiers.None;
+            public KeyboardModifiers Modifiers { get; set; } = KeyboardModifiers.None;
             public KeyboardKeys Key0 { get; set; } = KeyboardKeys.None;
             public KeyboardKeys Key1 { get; set; } = KeyboardKeys.None;
             public KeyboardKeys Key2 { get; set; } = KeyboardKeys.None;
             public KeyboardKeys Key3 { get; set; } = KeyboardKeys.None;
             public KeyboardKeys Key4 { get; set; } = KeyboardKeys.None;
             public KeyboardKeys Key5 { get; set; } = KeyboardKeys.None;
+            public KeyboardKeys Key6 { get; set; } = KeyboardKeys.None;
+            public KeyboardKeys Key7 { get; set; } = KeyboardKeys.None;
         }
 
         public class MouseAction

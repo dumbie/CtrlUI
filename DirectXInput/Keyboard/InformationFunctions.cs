@@ -118,7 +118,15 @@ namespace DirectXInput.KeyboardCode
                     AVActions.DispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
-                        img_Main_Battery.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Battery/BatteryVerCharge.png" }, null, AppVariables.vImageBackupSource, IntPtr.Zero, -1, 0);
+
+                        //Set the used battery status icon
+                        string currentImage = img_Main_Battery.Source.ToString();
+                        string updatedImage = "Assets/Default/Icons/Battery/BatteryVerCharge.png";
+                        if (currentImage.ToLower() != updatedImage.ToLower())
+                        {
+                            img_Main_Battery.Source = FileToBitmapImage(new string[] { updatedImage }, null, AppVariables.vImageBackupSource, IntPtr.Zero, -1, 0);
+                        }
+
                         img_Main_Battery.Visibility = Visibility.Visible;
                         grid_Main_Time.Visibility = Visibility.Visible;
                     });

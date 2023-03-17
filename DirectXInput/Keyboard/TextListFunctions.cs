@@ -18,13 +18,13 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                if (border_EmojiListPopup.Visibility == Visibility.Collapsed && border_TextListPopup.Visibility == Visibility.Collapsed)
+                if (!CheckTextPopupsOpen())
                 {
                     await ShowTextPopup();
                 }
                 else
                 {
-                    await HideTextEmojiPopup();
+                    await HideTextPopups();
                 }
             }
             catch { }
@@ -38,12 +38,12 @@ namespace DirectXInput.KeyboardCode
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
+                //Store keyboard focus button
+                FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
+
                 //Show the textlist menu
                 border_TextListPopup.Visibility = Visibility.Visible;
                 grid_Keyboard_Keys.IsEnabled = false;
-
-                //Store close focus button
-                FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
 
                 //Focus on popup button
                 if (vFocusedButtonText.FocusListBox == null)
@@ -93,23 +93,6 @@ namespace DirectXInput.KeyboardCode
                 else
                 {
                     await FrameworkElementFocusFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
-                }
-            }
-            catch { }
-        }
-
-        //Hide the text or emoji popup
-        async Task HideTextEmojiPopup()
-        {
-            try
-            {
-                if (border_EmojiListPopup.Visibility == Visibility.Visible)
-                {
-                    await HideEmojiPopup();
-                }
-                else if (border_TextListPopup.Visibility == Visibility.Visible)
-                {
-                    await HideTextPopup();
                 }
             }
             catch { }

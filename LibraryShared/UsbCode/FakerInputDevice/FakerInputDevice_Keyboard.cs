@@ -33,32 +33,8 @@ namespace LibraryUsb
 
                 FAKERINPUT_KEYBOARD_REPORT structInput = new FAKERINPUT_KEYBOARD_REPORT();
                 structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_KEYBOARD;
-                structInput.ModifierCodes = (byte)(keyboardAction.Modifier0 | keyboardAction.Modifier1);
-                structInput.KeyCodes = new byte[] { (byte)keyboardAction.Key0, (byte)keyboardAction.Key1, (byte)keyboardAction.Key2, (byte)keyboardAction.Key3, (byte)keyboardAction.Key4, (byte)keyboardAction.Key5 };
-                byte[] inputArray = ConvertToByteArray(structInput);
-
-                return WriteBytesFile(MergeHeaderInputByteArray(CONTROL_REPORT_SIZE, headerArray, inputArray));
-            }
-            catch
-            {
-                Debug.WriteLine("Failed to press keyboard key.");
-                return false;
-            }
-        }
-
-        public bool KeyboardPressByte(byte byteModifiers, byte[] byteKeys)
-        {
-            try
-            {
-                FAKERINPUT_CONTROL_REPORT_HEADER structHeader = new FAKERINPUT_CONTROL_REPORT_HEADER();
-                structHeader.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_CONTROL;
-                structHeader.ReportLength = (byte)Marshal.SizeOf(typeof(FAKERINPUT_KEYBOARD_REPORT));
-                byte[] headerArray = ConvertToByteArray(structHeader);
-
-                FAKERINPUT_KEYBOARD_REPORT structInput = new FAKERINPUT_KEYBOARD_REPORT();
-                structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_KEYBOARD;
-                structInput.ModifierCodes = byteModifiers;
-                structInput.KeyCodes = byteKeys;
+                structInput.ModifierCodes = (byte)keyboardAction.Modifiers;
+                structInput.KeyCodes = new byte[] { (byte)keyboardAction.Key0, (byte)keyboardAction.Key1, (byte)keyboardAction.Key2, (byte)keyboardAction.Key3, (byte)keyboardAction.Key4, (byte)keyboardAction.Key5, (byte)keyboardAction.Key6, (byte)keyboardAction.Key7 };
                 byte[] inputArray = ConvertToByteArray(structInput);
 
                 return WriteBytesFile(MergeHeaderInputByteArray(CONTROL_REPORT_SIZE, headerArray, inputArray));

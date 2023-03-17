@@ -436,7 +436,7 @@ namespace CtrlUI
 
                 double ApplicationPanelSize = 110;
                 double ApplicationImageHeight = 100;
-                double ApplicationImageMaxWidth = 90;
+                double ApplicationImageMaxWidth = 80;
 
                 Application.Current.Resources["ApplicationPanelSize"] = ApplicationPanelSize + targetSize;
                 Application.Current.Resources["ApplicationImageHeight"] = ApplicationImageHeight + targetSize;

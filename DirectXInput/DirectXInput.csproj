@@ -149,6 +149,7 @@
     <Compile Include="InputKeyboard.cs" />
     <Compile Include="Keyboard\AppMessageFilter.cs" />
     <Compile Include="Keyboard\InformationFunctions.cs" />
+    <Compile Include="Keyboard\ShortcutListFunctions.cs" />
     <Compile Include="ProcessFunctions.cs" />
     <Compile Include="Keyboard\KeyboardTasks.cs" />
     <Compile Include="Keyboard\MediaFunctions.cs" />

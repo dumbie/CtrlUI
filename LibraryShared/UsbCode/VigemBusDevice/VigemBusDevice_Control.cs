@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static LibraryShared.Classes;
-using static LibraryUsb.NativeMethods_IoControl;
 using static LibraryUsb.Events;
+using static LibraryUsb.NativeMethods_IoControl;
 
 namespace LibraryUsb
 {

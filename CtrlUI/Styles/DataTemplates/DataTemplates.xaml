@@ -8,7 +8,7 @@
     <!-- Style Variables -->
     <sys:Double x:Key="ApplicationPanelSize">110</sys:Double>
     <sys:Double x:Key="ApplicationImageHeight">100</sys:Double>
-    <sys:Double x:Key="ApplicationImageMaxWidth">90</sys:Double>
+    <sys:Double x:Key="ApplicationImageMaxWidth">80</sys:Double>
 
     <!-- ListBoxItemAppCategory -->
     <DataTemplate x:Key="ListBoxItemAppCategory">

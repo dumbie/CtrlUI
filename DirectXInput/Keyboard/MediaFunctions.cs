@@ -66,7 +66,7 @@ namespace DirectXInput.KeyboardCode
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 KeyboardAction keyboardAction = new KeyboardAction()
                 {
-                    Modifier0 = KeyboardModifiers.AltLeft,
+                    Modifiers = KeyboardModifiers.AltLeft,
                     Key0 = KeyboardKeys.Enter
                 };
                 vFakerInputDevice.KeyboardPressRelease(keyboardAction);

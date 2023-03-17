@@ -32,7 +32,7 @@ namespace DirectXInput
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;
-        public static string[] vVerticalLoopTargetLists = { "listbox_TextList" };
+        public static string[] vVerticalLoopTargetLists = { "listbox_TextList", "listbox_ShortcutList" };
         public static bool vShowDebugInformation = false;
 
         //Dispatcher Timers
@@ -66,10 +66,12 @@ namespace DirectXInput
         //Emoji and text list Variables
         public static int vLastPopupListTextIndex = 0;
         public static int vLastPopupListEmojiIndex = 0;
+        public static int vLastPopupListShortcutIndex = 0;
         public static string vLastPopupListType = "Emoji";
         public static FrameworkElementFocus vFocusedButtonKeyboard = new FrameworkElementFocus();
-        public static FrameworkElementFocus vFocusedButtonEmoji = new FrameworkElementFocus();
         public static FrameworkElementFocus vFocusedButtonText = new FrameworkElementFocus();
+        public static FrameworkElementFocus vFocusedButtonEmoji = new FrameworkElementFocus();
+        public static FrameworkElementFocus vFocusedButtonShortcut = new FrameworkElementFocus();
         public static int vDirectKeyboardEmojiIndexActivity = 0;
         public static int vDirectKeyboardEmojiIndexNature = 0;
         public static int vDirectKeyboardEmojiIndexFood = 0;
@@ -169,6 +171,7 @@ namespace DirectXInput
         public static List<ProfileShared> vDirectKeyboardEmojiListSymbol = new List<ProfileShared>();
         public static List<ProfileShared> vDirectKeyboardEmojiListTravel = new List<ProfileShared>();
         public static ObservableCollection<ProfileShared> vDirectKeyboardTextList = new ObservableCollection<ProfileShared>();
+        public static ObservableCollection<ProfileShared> vDirectKeyboardShortcutList = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<KeypadMapping> vDirectKeypadMapping = new ObservableCollection<KeypadMapping>();
         public static ObservableCollection<ControllerProfile> vDirectControllersProfile = new ObservableCollection<ControllerProfile>();
         public static ObservableCollection<ProfileShared> vControllerDebugInput = new ObservableCollection<ProfileShared>(new ProfileShared[180]);

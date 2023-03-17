@@ -121,7 +121,7 @@ namespace DirectXInput
 
                             KeyboardAction keyboardAction = new KeyboardAction()
                             {
-                                Modifier0 = KeyboardModifiers.AltLeft,
+                                Modifiers = KeyboardModifiers.AltLeft,
                                 Key0 = KeyboardKeys.Enter
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
@@ -144,7 +144,7 @@ namespace DirectXInput
 
                             KeyboardAction keyboardAction = new KeyboardAction()
                             {
-                                Modifier0 = KeyboardModifiers.AltLeft,
+                                Modifiers = KeyboardModifiers.AltLeft,
                                 Key0 = KeyboardKeys.Tab
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
@@ -187,8 +187,7 @@ namespace DirectXInput
                             //Press ctrl + alt + delete
                             KeyboardAction keyboardAction = new KeyboardAction()
                             {
-                                Modifier0 = KeyboardModifiers.ControlLeft,
-                                Modifier1 = KeyboardModifiers.AltLeft,
+                                Modifiers = KeyboardModifiers.ControlLeft | KeyboardModifiers.AltLeft,
                                 Key0 = KeyboardKeys.Delete
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);

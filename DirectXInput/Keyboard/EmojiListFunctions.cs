@@ -17,13 +17,13 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                if (border_EmojiListPopup.Visibility == Visibility.Collapsed && border_TextListPopup.Visibility == Visibility.Collapsed)
+                if (!CheckTextPopupsOpen())
                 {
                     await ShowEmojiPopup();
                 }
                 else
                 {
-                    await HideTextEmojiPopup();
+                    await HideTextPopups();
                 }
             }
             catch { }
@@ -35,6 +35,9 @@ namespace DirectXInput.KeyboardCode
             //Play window open sound
             PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
+            //Store keyboard focus button
+            FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
+
             //Show the emoji menu
             border_EmojiListPopup.Visibility = Visibility.Visible;
             grid_Keyboard_Keys.IsEnabled = false;
@@ -42,9 +45,6 @@ namespace DirectXInput.KeyboardCode
             //Update the help bar
             textblock_LeftTriggerOff.Text = string.Empty;
             textblock_RightTriggerOff.Text = "Switch emoji";
-
-            //Store close focus button
-            FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
 
             //Focus on popup button
             if (vFocusedButtonEmoji.FocusListBox == null)

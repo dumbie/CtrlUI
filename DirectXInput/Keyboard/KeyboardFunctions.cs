@@ -62,6 +62,10 @@ namespace DirectXInput.KeyboardCode
                     {
                         await ShowHideTextListPopup();
                     }
+                    else if (sendKeyName == "ShortcutListPopup")
+                    {
+                        await ShowHideShortcutListPopup();
+                    }
                 }
                 else
                 {
@@ -157,7 +161,7 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Handle CtrlUI and Fps Overlayer
+        //Handle CtrlUI
         async void ButtonCtrlUI_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             try
@@ -173,26 +177,6 @@ namespace DirectXInput.KeyboardCode
                 if (e.Key == Key.Space)
                 {
                     await ProcessFunctions.LaunchShowCtrlUI();
-                }
-            }
-            catch { }
-        }
-
-        async void ButtonFpsOverlayer_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                await ProcessFunctions.LaunchCloseFpsOverlayer();
-            }
-            catch { }
-        }
-        async void ButtonFpsOverlayer_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Space)
-                {
-                    await ProcessFunctions.LaunchCloseFpsOverlayer();
                 }
             }
             catch { }
