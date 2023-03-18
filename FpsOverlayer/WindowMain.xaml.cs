@@ -42,8 +42,8 @@ namespace FpsOverlayer
                 HwndTarget hwndTarget = hwndSource.CompositionTarget;
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
-                //Update the window style
-                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, true, true);
 
                 //Check application settings
                 vWindowSettings.Settings_Check();
@@ -52,7 +52,7 @@ namespace FpsOverlayer
                 string colorLightHex = SettingLoad(vConfigurationCtrlUI, "ColorAccentLight", typeof(string));
                 ChangeApplicationAccentColor(colorLightHex);
 
-                //Update the window position
+                //Update window position
                 UpdateWindowPosition();
 
                 //Update the fps overlay style
@@ -155,15 +155,18 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update the window position on resolution change
+        //Update window position on resolution change
         public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
             try
             {
                 //Wait for change to complete
-                await Task.Delay(1000);
+                await Task.Delay(2000);
 
-                //Update the window position
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, true, true);
+
+                //Update window position
                 UpdateWindowPosition();
             }
             catch { }
@@ -181,8 +184,11 @@ namespace FpsOverlayer
                         //Create and show the window
                         base.Show();
 
-                        //Update the window style
-                        WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                        //Update window visibility
+                        WindowUpdateVisibility(vInteropWindowHandle, true);
+
+                        //Update window style
+                        WindowUpdateStyle(vInteropWindowHandle, true, true, true);
 
                         this.Title = "Fps Overlayer (Visible)";
                         vWindowVisible = true;
@@ -193,8 +199,8 @@ namespace FpsOverlayer
                 {
                     if (vWindowVisible)
                     {
-                        //Update the window style
-                        WindowUpdateStyleHidden(vInteropWindowHandle);
+                        //Update window visibility
+                        WindowUpdateVisibility(vInteropWindowHandle, false);
 
                         this.Title = "Fps Overlayer (Hidden)";
                         vWindowVisible = false;
@@ -205,7 +211,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update the window position
+        //Update window position
         public void UpdateWindowPosition()
         {
             try

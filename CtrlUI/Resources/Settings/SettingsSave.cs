@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -138,6 +139,7 @@ namespace CtrlUI
                 {
                     textblock_SettingsAppWindowSize.Text = textblock_SettingsAppWindowSize.Tag + ": " + slider_SettingsAppWindowSize.Value.ToString() + "%";
                     SettingSave(vConfigurationCtrlUI, "AppWindowSize", slider_SettingsAppWindowSize.Value);
+                    WindowUpdateStyle(vInteropWindowHandle, true, false, false);
                     await UpdateWindowPosition(false, true);
                 };
 
@@ -145,6 +147,7 @@ namespace CtrlUI
                 {
                     textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
                     SettingSave(vConfigurationCtrlUI, "DisplayMonitor", slider_SettingsDisplayMonitor.Value);
+                    WindowUpdateStyle(vInteropWindowHandle, true, false, false);
                     await UpdateWindowPosition(true, false);
                 };
 

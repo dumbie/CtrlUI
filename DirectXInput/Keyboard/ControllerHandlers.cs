@@ -139,8 +139,8 @@ namespace DirectXInput.KeyboardCode
                                 //Play interface sound
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
 
-                                //Update the window style
-                                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+                                //Update window style
+                                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
                                 //Focus on the window
                                 FocusWindow(this);
@@ -171,8 +171,8 @@ namespace DirectXInput.KeyboardCode
                                 //Play interface sound
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
 
-                                //Update the window style
-                                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+                                //Update window style
+                                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
                                 //Focus on the window
                                 FocusWindow(this);
@@ -203,8 +203,8 @@ namespace DirectXInput.KeyboardCode
                                 //Play interface sound
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
 
-                                //Update the window style
-                                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+                                //Update window style
+                                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
                                 //Focus on the window
                                 FocusWindow(this);
@@ -235,8 +235,8 @@ namespace DirectXInput.KeyboardCode
                                 //Play interface sound
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
 
-                                //Update the window style
-                                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+                                //Update window style
+                                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
                                 //Focus on the window
                                 FocusWindow(this);
@@ -257,8 +257,8 @@ namespace DirectXInput.KeyboardCode
                             //Play interface sound
                             PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
 
-                            //Update the window style
-                            WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+                            //Update window style
+                            WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
                             //Focus on the window
                             FocusWindow(this);

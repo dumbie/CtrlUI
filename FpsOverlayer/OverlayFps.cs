@@ -86,7 +86,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update the window position
+        //Update window position
         public void UpdateFpsOverlayPosition(string processName)
         {
             try

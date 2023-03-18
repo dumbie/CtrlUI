@@ -27,7 +27,7 @@ namespace CtrlUI
             {
                 while (TaskCheckLoop(vTask_UpdateWindowStatus))
                 {
-                    UpdateWindowStatus();
+                    await UpdateWindowStatus();
 
                     //Delay the loop task
                     await TaskDelay(500, vTask_UpdateWindowStatus);

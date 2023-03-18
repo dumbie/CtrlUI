@@ -42,8 +42,8 @@ namespace DirectXInput.KeyboardCode
                 HwndTarget hwndTarget = hwndSource.CompositionTarget;
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
-                //Update the window style
-                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
                 //Update the user interface clock style
                 UpdateClockStyle();
@@ -57,7 +57,7 @@ namespace DirectXInput.KeyboardCode
                 //Set current keyboard mode
                 await SetKeyboardMode();
 
-                //Update the window position
+                //Update window position
                 UpdateWindowPosition();
 
                 //Update the listbox sources
@@ -146,7 +146,7 @@ namespace DirectXInput.KeyboardCode
                     await SetModeKeyboard();
                 }
 
-                //Update the window position
+                //Update window position
                 if (resetPosition || SettingLoad(vConfigurationDirectXInput, "KeyboardResetPosition", typeof(bool)))
                 {
                     UpdateWindowPosition();
@@ -171,15 +171,18 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Update the window position on resolution change
+        //Update window position on resolution change
         public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
             try
             {
                 //Wait for change to complete
-                await Task.Delay(1000);
+                await Task.Delay(2000);
 
-                //Update the window position
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
+
+                //Update window position
                 UpdateWindowPosition();
             }
             catch { }
@@ -197,8 +200,11 @@ namespace DirectXInput.KeyboardCode
                         //Create and show the window
                         base.Show();
 
-                        //Update the window style
-                        WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+                        //Update window visibility
+                        WindowUpdateVisibility(vInteropWindowHandle, true);
+
+                        //Update window style
+                        WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
                         this.Title = "DirectXInput Keyboard (Visible)";
                         vWindowVisible = true;
@@ -209,8 +215,8 @@ namespace DirectXInput.KeyboardCode
                 {
                     if (vWindowVisible)
                     {
-                        //Update the window style
-                        WindowUpdateStyleHidden(vInteropWindowHandle);
+                        //Update window visibility
+                        WindowUpdateVisibility(vInteropWindowHandle, false);
 
                         this.Title = "DirectXInput Keyboard (Hidden)";
                         vWindowVisible = false;
@@ -221,7 +227,7 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Update the window position
+        //Update window position
         public void UpdateWindowPosition()
         {
             try

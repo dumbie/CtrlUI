@@ -25,7 +25,7 @@ namespace FpsOverlayer.OverlayCode
                     return;
                 }
 
-                //Update the window style (UIAccess render workaround)
+                //Update window style (UIAccess render workaround)
                 this.Topmost = false;
                 await Task.Delay(500);
 
@@ -54,7 +54,7 @@ namespace FpsOverlayer.OverlayCode
                 vBrowserWebView.CoreWebView2.NavigationStarting += WebView2_NavigationStarting;
                 vBrowserWebView.CoreWebView2.NavigationCompleted += WebView2_NavigationCompleted;
 
-                //Update the window style (UIAccess render workaround)
+                //Update window style (UIAccess render workaround)
                 await Task.Delay(500);
                 this.Topmost = true;
 
@@ -107,9 +107,9 @@ namespace FpsOverlayer.OverlayCode
                     //Show menu bar
                     grid_Menu.Visibility = Visibility.Visible;
 
-                    //Update the window style
+                    //Update window style
                     vBrowserWindowClickThrough = false;
-                    WindowUpdateStyleVisible(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
+                    WindowUpdateStyle(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
                 }
                 else
                 {
@@ -117,9 +117,9 @@ namespace FpsOverlayer.OverlayCode
                     grid_Menu.Visibility = Visibility.Collapsed;
                     grid_Link.Visibility = Visibility.Collapsed;
 
-                    //Update the window style
+                    //Update window style
                     vBrowserWindowClickThrough = true;
-                    WindowUpdateStyleVisible(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
+                    WindowUpdateStyle(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
                 }
             }
             catch { }

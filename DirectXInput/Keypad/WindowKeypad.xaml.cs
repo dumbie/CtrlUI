@@ -44,10 +44,10 @@ namespace DirectXInput.KeypadCode
                 HwndTarget hwndTarget = hwndSource.CompositionTarget;
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
-                //Update the window style
-                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, true, true);
 
-                //Update the window position
+                //Update window position
                 UpdateWindowPosition();
 
                 //Check if resolution has changed
@@ -236,15 +236,18 @@ namespace DirectXInput.KeypadCode
             catch { }
         }
 
-        //Update the window position on resolution change
+        //Update window position on resolution change
         public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
             try
             {
                 //Wait for change to complete
-                await Task.Delay(1000);
+                await Task.Delay(2000);
 
-                //Update the window position
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, true, true);
+
+                //Update window position
                 UpdateWindowPosition();
             }
             catch { }
@@ -262,8 +265,11 @@ namespace DirectXInput.KeypadCode
                         //Create and show the window
                         base.Show();
 
-                        //Update the window style
-                        WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                        //Update window visibility
+                        WindowUpdateVisibility(vInteropWindowHandle, true);
+
+                        //Update window style
+                        WindowUpdateStyle(vInteropWindowHandle, true, true, true);
 
                         this.Title = "DirectXInput Keypad (Visible)";
                         vWindowVisible = true;
@@ -274,8 +280,8 @@ namespace DirectXInput.KeypadCode
                 {
                     if (vWindowVisible)
                     {
-                        //Update the window style
-                        WindowUpdateStyleHidden(vInteropWindowHandle);
+                        //Update window visibility
+                        WindowUpdateVisibility(vInteropWindowHandle, false);
 
                         this.Title = "DirectXInput Keypad (Hidden)";
                         vWindowVisible = false;
@@ -286,7 +292,7 @@ namespace DirectXInput.KeypadCode
             catch { }
         }
 
-        //Update the window position
+        //Update window position
         public void UpdateWindowPosition()
         {
             try

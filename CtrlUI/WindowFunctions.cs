@@ -9,6 +9,7 @@ using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
 
@@ -17,20 +18,23 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Update window on resolution change
-        async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
             try
             {
                 //Wait for change to complete
-                await Task.Delay(1000);
+                await Task.Delay(2000);
 
-                //Update the window position
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, false, false);
+
+                //Update window position
                 await UpdateWindowPosition(false, true);
             }
             catch { }
         }
 
-        //Update the window position
+        //Update window position
         async Task UpdateWindowPosition(bool notifyApps, bool skipNotification)
         {
             try
@@ -49,9 +53,6 @@ namespace CtrlUI
                 int horizontalLeft = (int)(displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthNative - windowWidth) / 2);
                 int verticalTop = (int)(displayMonitorSettings.BoundsTop + (displayMonitorSettings.HeightNative - windowHeight) / 2);
                 WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
-
-                //Set the window as top most
-                SetWindowPos(vInteropWindowHandle, (IntPtr)SWP_WindowPosition.TopMost, 0, 0, 0, 0, (int)(SWP_WindowFlags.NOMOVE | SWP_WindowFlags.NOSIZE));
 
                 //Notify apps the monitor changed
                 if (notifyApps)
@@ -72,21 +73,21 @@ namespace CtrlUI
         }
 
         //Update the window status
-        void UpdateWindowStatus()
+        async Task UpdateWindowStatus()
         {
             try
             {
                 vProcessDirectXInput = Get_ProcessesMultiByName("DirectXInput", true).FirstOrDefault();
                 int focusedProcessId = Detail_ProcessIdByWindowHandle(GetForegroundWindow());
 
-                AVActions.DispatcherInvoke(delegate
+                await AVActions.DispatcherInvoke(async delegate
                 {
                     try
                     {
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
                         if (vProcessCurrent.Identifier == focusedProcessId)
                         {
-                            AppWindowActivated();
+                            await AppWindowActivated();
                         }
                         else
                         {
@@ -100,7 +101,7 @@ namespace CtrlUI
         }
 
         //Application window activated event
-        void AppWindowActivated()
+        async Task AppWindowActivated()
         {
             try
             {
@@ -111,6 +112,9 @@ namespace CtrlUI
 
                     //Enable application window
                     AppWindowEnable();
+
+                    //Update window position
+                    await UpdateWindowPosition(false, true);
 
                     //Resume ScrollViewerLoops
                     PauseResumeScrollviewerLoops(false);
@@ -230,7 +234,10 @@ namespace CtrlUI
                 //Focus on CtrlUI window
                 await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, skipNotification, false);
 
-                //Update the window position
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, false, false);
+
+                //Update window position
                 await UpdateWindowPosition(false, true);
 
                 //Move mouse cursor to target

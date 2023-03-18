@@ -92,16 +92,10 @@ namespace FpsOverlayer
                             UpdateApplicationName(foregroundProcess.WindowTitle);
 
                             //Update fps window style
-                            if (vWindowVisible)
-                            {
-                                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
-                            }
+                            WindowUpdateStyle(vInteropWindowHandle, true, true, true);
 
                             //Update browser window style
-                            if (vWindowBrowser.vWindowVisible)
-                            {
-                                WindowUpdateStyleVisible(vWindowBrowser.vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
-                            }
+                            WindowUpdateStyle(vWindowBrowser.vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
                         }
 
                         //Update the current target process

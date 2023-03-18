@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -48,7 +49,10 @@ namespace CtrlUI
                     //Save the new monitor number
                     SettingSave(vConfigurationCtrlUI, "DisplayMonitor", "1");
 
-                    //Update the window position
+                    //Update window style
+                    WindowUpdateStyle(vInteropWindowHandle, true, false, false);
+
+                    //Update window position
                     await UpdateWindowPosition(true, false);
                     return;
                 }
@@ -67,7 +71,10 @@ namespace CtrlUI
                 //Save the new monitor number
                 SettingSave(vConfigurationCtrlUI, "DisplayMonitor", monitorNumber.ToString());
 
-                //Update the window position
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, false, false);
+
+                //Update window position
                 await UpdateWindowPosition(true, false);
 
                 //Focus on CtrlUI window
