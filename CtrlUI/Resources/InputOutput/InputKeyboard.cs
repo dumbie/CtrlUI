@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkCode.Styles;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -190,7 +191,7 @@ namespace CtrlUI
                         return;
                     }
                 }
-                else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider)))
+                else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider) || frameworkElement.GetType() == typeof(SliderDelay)))
                 {
                     KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
                     Handled = true;
@@ -267,7 +268,7 @@ namespace CtrlUI
                         return;
                     }
                 }
-                else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider)))
+                else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider) || frameworkElement.GetType() == typeof(SliderDelay)))
                 {
                     KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                     Handled = true;
