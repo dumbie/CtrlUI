@@ -122,6 +122,7 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairColor")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairColor", "#FFFFFF"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairOpacity")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairOpacity", "0,80"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairVerticalPosition")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", "0"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairHorizontalPosition")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairHorizontalPosition", "0"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairSize")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairSize", "10"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairStyle")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairStyle", "0"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairThickness")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairThickness", "1"); }

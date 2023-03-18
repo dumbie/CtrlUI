@@ -168,6 +168,9 @@ namespace FpsOverlayer
                 textblock_CrosshairVerticalPosition.Text = textblock_CrosshairVerticalPosition.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", typeof(string)) + "px";
                 slider_CrosshairVerticalPosition.Value = SettingLoad(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", typeof(double));
 
+                textblock_CrosshairHorizontalPosition.Text = textblock_CrosshairHorizontalPosition.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "CrosshairHorizontalPosition", typeof(string)) + "px";
+                slider_CrosshairHorizontalPosition.Value = SettingLoad(vConfigurationFpsOverlayer, "CrosshairHorizontalPosition", typeof(double));
+
                 textblock_CrosshairSize.Text = textblock_CrosshairSize.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "CrosshairSize", typeof(string)) + "px";
                 slider_CrosshairSize.Value = SettingLoad(vConfigurationFpsOverlayer, "CrosshairSize", typeof(double));
 

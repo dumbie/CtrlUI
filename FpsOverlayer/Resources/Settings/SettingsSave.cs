@@ -438,6 +438,13 @@ namespace FpsOverlayer
                     vWindowMain.UpdateCrosshairOverlayStyle();
                 };
 
+                slider_CrosshairHorizontalPosition.ValueChanged += (sender, e) =>
+                {
+                    textblock_CrosshairHorizontalPosition.Text = textblock_CrosshairHorizontalPosition.Tag + ": " + slider_CrosshairHorizontalPosition.Value.ToString("0") + "px";
+                    SettingSave(vConfigurationFpsOverlayer, "CrosshairHorizontalPosition", slider_CrosshairHorizontalPosition.Value);
+                    vWindowMain.UpdateCrosshairOverlayStyle();
+                };
+
                 slider_CrosshairSize.ValueChanged += (sender, e) =>
                 {
                     textblock_CrosshairSize.Text = textblock_CrosshairSize.Tag + ": " + slider_CrosshairSize.Value.ToString("0") + "px";

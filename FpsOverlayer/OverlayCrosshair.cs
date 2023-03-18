@@ -81,7 +81,7 @@ namespace FpsOverlayer
                 SolidColorBrush crosshairBrush = new BrushConverter().ConvertFrom(crosshairColor) as SolidColorBrush;
                 crosshair_Dot.Background = crosshairBrush;
                 crosshair_Circle.Stroke = crosshairBrush;
-                crosshair_Squarebox.BorderBrush= crosshairBrush;
+                crosshair_Squarebox.BorderBrush = crosshairBrush;
                 crosshair_LineHorizontal.Fill = crosshairBrush;
                 crosshair_CrossClosed_Vertical.Fill = crosshairBrush;
                 crosshair_CrossClosed_Horizontal.Fill = crosshairBrush;
@@ -133,9 +133,10 @@ namespace FpsOverlayer
                 //Change the crosshair opacity
                 grid_CrosshairOverlayer.Opacity = SettingLoad(vConfigurationFpsOverlayer, "CrosshairOpacity", typeof(double));
 
-                //Change the vertical position
+                //Change the crosshair position
                 int crosshairVerticalPosition = SettingLoad(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", typeof(int));
-                grid_CrosshairOverlayer.Margin = new Thickness(0, 0, 0, crosshairVerticalPosition);
+                int crosshairHorizontalPosition = SettingLoad(vConfigurationFpsOverlayer, "CrosshairHorizontalPosition", typeof(int));
+                grid_CrosshairOverlayer.Margin = new Thickness(crosshairHorizontalPosition, 0, 0, crosshairVerticalPosition);
             }
             catch { }
         }
