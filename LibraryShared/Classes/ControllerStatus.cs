@@ -32,12 +32,12 @@ namespace LibraryShared
             public ControllerBattery BatteryCurrent = new ControllerBattery();
             public ControllerBattery BatteryPrevious = new ControllerBattery();
 
-            //Time Variables
+            //Timeout Variables
+            public bool TimeoutIgnore = false;
             public long PrevInputTicks = 0;
             public long LastInputTicks = 0;
             public long LastActiveTicks = 0;
             public int MilliSecondsTimeout = 3000;
-            public int MilliSecondsAllowReadWrite = 2000;
 
             //Controller Details
             public ControllerDetails Details = null;
@@ -109,7 +109,8 @@ namespace LibraryShared
                     BatteryCurrent = new ControllerBattery();
                     BatteryPrevious = new ControllerBattery();
 
-                    //Time Variables
+                    //Timeout Variables
+                    TimeoutIgnore = false;
                     PrevInputTicks = 0;
                     LastInputTicks = 0;
                     LastActiveTicks = 0;

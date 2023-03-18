@@ -14,7 +14,7 @@ namespace DirectXInput
             try
             {
                 //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has timed out for " + Controller.MilliSecondsTimeout + " ms.");
-                if (Controller.Connected() && Controller.InputReport != null && Controller.LastInputTicks != 0 && Controller.PrevInputTicks != 0)
+                if (Controller.Connected() && Controller.InputReport != null && Controller.LastInputTicks != 0 && Controller.PrevInputTicks != 0 && !Controller.TimeoutIgnore)
                 {
                     long latencyMs = GetSystemTicksMs() - Controller.LastInputTicks;
                     if (latencyMs > Controller.MilliSecondsTimeout)

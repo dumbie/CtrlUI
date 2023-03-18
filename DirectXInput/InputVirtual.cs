@@ -69,11 +69,17 @@ namespace DirectXInput
                     return;
                 }
 
+                //Ignore controller timeout
+                Controller.TimeoutIgnore = true;
+
                 //Check if controller shortcut is pressed
                 bool blockOutputShortcut = await ControllerShortcut(Controller);
 
                 //Check if controller output needs to be forwarded
                 bool blockOutputApplication = await ControllerOutputApps(Controller);
+
+                //Allow controller timeout 
+                Controller.TimeoutIgnore = false;
 
                 //Check if controller output needs to be blocked
                 if (blockOutputShortcut || blockOutputApplication)
