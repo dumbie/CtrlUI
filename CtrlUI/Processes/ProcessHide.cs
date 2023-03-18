@@ -25,11 +25,11 @@ namespace CtrlUI
                 //Check if application window has been found
                 if (windowAction.Action == ProcessWindowActions.Single)
                 {
-                    await HideProcessWindow(dataBindApp.Name, windowAction.WindowHandle, false);
+                    await HideProcessWindow(dataBindApp.Name, windowAction.WindowHandle, true, false);
                 }
                 else if (windowAction.Action == ProcessWindowActions.Multiple)
                 {
-                    await HideAllProcessWindows(dataBindApp.Name, windowAction.WindowHandles, false);
+                    await HideAllProcessWindows(dataBindApp.Name, windowAction.WindowHandles, true, false);
                 }
                 else if (windowAction.Action == ProcessWindowActions.Cancel)
                 {
@@ -51,14 +51,14 @@ namespace CtrlUI
         }
 
         //Hide process window
-        async Task HideProcessWindow(string processName, IntPtr windowHandleTarget, bool silentHide)
+        async Task HideProcessWindow(string processName, IntPtr windowHandleTarget, bool hideDelay, bool skipNotification)
         {
             try
             {
                 //Check if window is available
                 if (windowHandleTarget == IntPtr.Zero)
                 {
-                    if (!silentHide)
+                    if (!skipNotification)
                     {
                         await Notification_Send_Status("Close", "Hide application has no window");
                     }
@@ -67,7 +67,7 @@ namespace CtrlUI
                 }
 
                 //Update the interface status
-                if (!silentHide)
+                if (!skipNotification)
                 {
                     await Notification_Send_Status("AppMinimize", "Hiding " + processName);
                 }
@@ -81,6 +81,12 @@ namespace CtrlUI
                     Debug.WriteLine("Failed hiding the application, no longer running?");
                     return;
                 }
+
+                //Wait for process to hide
+                if (hideDelay)
+                {
+                    await Task.Delay(500);
+                }
             }
             catch (Exception ex)
             {
@@ -90,14 +96,14 @@ namespace CtrlUI
         }
 
         //Hide all process windows
-        async Task HideAllProcessWindows(string processName, List<IntPtr> windowHandleTargets, bool silentHide)
+        async Task HideAllProcessWindows(string processName, List<IntPtr> windowHandleTargets, bool hideDelay, bool skipNotification)
         {
             try
             {
                 //Check if window is available
                 if (!windowHandleTargets.Any())
                 {
-                    if (!silentHide)
+                    if (!skipNotification)
                     {
                         await Notification_Send_Status("Close", "Hide application has no window");
                     }
@@ -106,7 +112,7 @@ namespace CtrlUI
                 }
 
                 //Update the interface status
-                if (!silentHide)
+                if (!skipNotification)
                 {
                     await Notification_Send_Status("AppMinimize", "Hiding all " + processName);
                 }
@@ -132,6 +138,12 @@ namespace CtrlUI
                     await Notification_Send_Status("Close", "Failed hiding application");
                     Debug.WriteLine("Failed hiding the application, no longer running?");
                     return;
+                }
+
+                //Wait for process to hide
+                if (hideDelay)
+                {
+                    await Task.Delay(500);
                 }
             }
             catch (Exception ex)
