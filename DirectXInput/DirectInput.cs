@@ -401,10 +401,14 @@ namespace DirectXInput
                 Controller.ResetControllerStatus();
 
                 //Check if any controller is connected
-                if (!vControllerAnyConnected() && SettingLoad(vConfigurationDirectXInput, "KeyboardCloseNoController", typeof(bool)))
+                if (!vControllerAnyConnected())
                 {
-                    Debug.WriteLine("No controller connected closing open popups.");
-                    await HideOpenPopups();
+                    //Close open popups
+                    if (SettingLoad(vConfigurationDirectXInput, "KeyboardCloseNoController", typeof(bool)))
+                    {
+                        Debug.WriteLine("No controller connected closing open popups.");
+                        await HideOpenPopups();
+                    }
                 }
 
                 Debug.WriteLine("Succesfully stopped direct input controller " + Controller.NumberId);

@@ -18,6 +18,7 @@ namespace DirectXInput
         {
             bool ControllerUsed = false;
             bool ControllerDelay125 = false;
+            bool ControllerDelay250 = false;
             bool ControllerDelay750 = false;
             try
             {
@@ -135,22 +136,51 @@ namespace DirectXInput
                     {
                         if (SettingLoad(vConfigurationDirectXInput, "ShortcutAltTab", typeof(bool)))
                         {
-                            Debug.WriteLine("Button Global - Alt+Tab");
+                            Debug.WriteLine("Button Global - Press Alt+Tab");
 
                             NotificationDetails notificationDetails = new NotificationDetails();
                             notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Pressing Alt+Tab";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            //Press and hold Alt+Tab
+                            KeyboardAction keyboardAltTab = new KeyboardAction()
                             {
                                 Modifiers = KeyboardModifiers.AltLeft,
                                 Key0 = KeyboardKeys.Tab
                             };
-                            vFakerInputDevice.KeyboardPressRelease(keyboardAction);
+                            vFakerInputDevice.KeyboardPress(keyboardAltTab);
 
+                            //Press and Hold Alt
+                            KeyboardAction keyboardAlt = new KeyboardAction()
+                            {
+                                Modifiers = KeyboardModifiers.AltLeft,
+                            };
+                            vFakerInputDevice.KeyboardPress(keyboardAlt);
+
+                            vAltTabDownStatus = true;
                             ControllerUsed = true;
-                            ControllerDelay750 = true;
+                            ControllerDelay250 = true;
+                        }
+                    }
+                    //Release Alt+Tab
+                    else if (vAltTabDownStatus && !Controller.InputCurrent.ButtonStart.PressedRaw)
+                    {
+                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutAltTab", typeof(bool)))
+                        {
+                            Debug.WriteLine("Button Global - Release Alt+Tab");
+
+                            NotificationDetails notificationDetails = new NotificationDetails();
+                            notificationDetails.Icon = "AppMiniMaxi";
+                            notificationDetails.Text = "Releasing Alt+Tab";
+                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
+                            //Release all key presses
+                            vFakerInputDevice.KeyboardReset();
+
+                            vAltTabDownStatus = false;
+                            ControllerUsed = true;
+                            ControllerDelay250 = true;
                         }
                     }
                     //Make screenshot
@@ -203,6 +233,10 @@ namespace DirectXInput
                     if (ControllerDelay125)
                     {
                         Controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayTicks125;
+                    }
+                    else if (ControllerDelay250)
+                    {
+                        Controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayTicks250;
                     }
                     else if (ControllerDelay750)
                     {

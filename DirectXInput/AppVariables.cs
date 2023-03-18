@@ -93,6 +93,7 @@ namespace DirectXInput
         public static bool vKeysEnabled = true;
         public static bool vMouseLeftDownStatus = false;
         public static bool vMouseRightDownStatus = false;
+        public static bool vAltTabDownStatus = false;
 
         //Keypad Variables
         public static KeypadMapping vKeypadMappingProfile = new KeypadMapping();
