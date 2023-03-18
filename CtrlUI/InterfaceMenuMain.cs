@@ -220,5 +220,32 @@ namespace CtrlUI
             }
             catch { }
         }
+
+        //Disable main menu buttons
+        void MainMenuButtonsDisable()
+        {
+            try
+            {
+                button_MenuHamburger.IsEnabled = false;
+                button_MenuClose.IsEnabled = false;
+                button_MenuSorting.IsEnabled = false;
+            }
+            catch { }
+        }
+
+        //Enable main menu buttons
+        void MainMenuButtonsEnable(bool forceEnable)
+        {
+            try
+            {
+                if (forceEnable || grid_Popup_Welcome.Visibility != Visibility.Visible)
+                {
+                    button_MenuHamburger.IsEnabled = true;
+                    button_MenuClose.IsEnabled = true;
+                    button_MenuSorting.IsEnabled = true;
+                }
+            }
+            catch { }
+        }
     }
 }

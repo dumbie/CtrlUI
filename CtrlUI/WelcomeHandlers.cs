@@ -12,6 +12,19 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        async void Grid_Popup_Welcome_button_Start_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Close top popup
+                await Popup_Close_Top();
+
+                //Enable main menu
+                MainMenuButtonsEnable(true);
+            }
+            catch { }
+        }
+
         async void Grid_Popup_Welcome_button_PSRemote_Click(object sender, RoutedEventArgs e)
         {
             try

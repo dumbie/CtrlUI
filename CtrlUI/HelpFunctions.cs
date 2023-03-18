@@ -45,7 +45,6 @@ namespace CtrlUI
                     {
                         grid_ControllerHelp.Visibility = Visibility.Collapsed;
                         image_MainMenu_Close.Visibility = Visibility.Collapsed;
-                        image_Welcome_Close.Visibility = Visibility.Collapsed;
                         image_Manage_Close.Visibility = Visibility.Collapsed;
                         image_Manage_Save.Visibility = Visibility.Collapsed;
                         image_Settings_Close.Visibility = Visibility.Collapsed;
@@ -76,7 +75,6 @@ namespace CtrlUI
                     else
                     {
                         image_MainMenu_Close.Visibility = Visibility.Visible;
-                        image_Welcome_Close.Visibility = Visibility.Visible;
                         image_Manage_Close.Visibility = Visibility.Visible;
                         image_Manage_Save.Visibility = Visibility.Visible;
                         image_Settings_Close.Visibility = Visibility.Visible;

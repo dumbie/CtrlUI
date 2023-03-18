@@ -89,7 +89,6 @@ namespace CtrlUI
                 grid_Popup_MoveApplication_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_MessageBox_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_HowLongToBeat_button_Close.Click += Button_Popup_Close_Click;
-                grid_Popup_Welcome_button_Close.Click += Button_Popup_Close_Click;
 
                 //Search functions
                 grid_Search_textbox.TextChanged += grid_Search_textbox_TextChanged;
@@ -123,7 +122,7 @@ namespace CtrlUI
                 lb_ColorPicker.PreviewMouseUp += ListBox_ColorPicker_MousePressUp;
 
                 //Welcome functions
-                grid_Popup_Welcome_button_Start.Click += Button_Popup_Close_Click;
+                grid_Popup_Welcome_button_Start.Click += Grid_Popup_Welcome_button_Start_Click;
                 grid_Popup_Welcome_button_Edge.Click += Grid_Popup_Welcome_button_Edge_Click;
                 grid_Popup_Welcome_button_Kodi.Click += Grid_Popup_Welcome_button_Kodi_Click;
                 grid_Popup_Welcome_button_Spotify.Click += Grid_Popup_Welcome_button_Spotify_Click;

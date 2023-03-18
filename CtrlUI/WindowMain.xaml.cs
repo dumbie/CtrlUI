@@ -155,7 +155,7 @@ namespace CtrlUI
                 //Check settings if this is the first application launch
                 if (SettingLoad(vConfigurationCtrlUI, "AppFirstLaunch", typeof(bool)))
                 {
-                    await AddFirstLaunchApps();
+                    await FirstLaunchAddApps();
                 }
 
                 //Update the controller help

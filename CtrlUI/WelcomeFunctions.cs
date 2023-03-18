@@ -14,12 +14,15 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Add first launch applications automatically
-        async Task AddFirstLaunchApps()
+        async Task FirstLaunchAddApps()
         {
             try
             {
                 //Set application first launch to false
                 SettingSave(vConfigurationCtrlUI, "AppFirstLaunch", "False");
+
+                //Disable main menu buttons
+                MainMenuButtonsDisable();
 
                 //Open the Windows registry
                 RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);

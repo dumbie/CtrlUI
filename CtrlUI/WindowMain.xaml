@@ -304,76 +304,64 @@
                 </Grid>
 
                 <!-- Popup - Welcome -->
-                <Grid Name="grid_Popup_Welcome" Visibility="Collapsed">
-                    <Grid Margin="140,0,140,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                <Grid Name="grid_Popup_Welcome" Margin="140,0,140,0" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Row="0">
-                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Welcome to Controller User Interface"/>
-                            <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
-                        </StackPanel>
-
-                        <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
-                            <StackPanel>
-                                <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Now it's time to quickly setup some basics to get you going along with the application."/>
-                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Connect your controller and set it up in DirectXInput and then you will able to use it in this application."/>
-                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Once you have a controller connected through DirectXInput you can always access CtrlUI by pressing on the 'Guide' button, holding down the 'Guide' button will open an onscreen keyboard."/>
-                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="If you are running into an issue or can't find something, you might find your answer on the 'Help' page."/>
-                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Here are some popular applications for you to setup and easily launch later on, you can add all the applications you want later on by clicking on the 'Add application' button in the main menu."/>
-
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
-                                    <Button Name="grid_Popup_Welcome_button_Edge" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Image Name="grid_Popup_Welcome_img_Edge"/>
-                                    </Button>
-                                    <Button Name="grid_Popup_Welcome_button_Spotify" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Image Name="grid_Popup_Welcome_img_Spotify"/>
-                                    </Button>
-                                    <Button Name="grid_Popup_Welcome_button_Kodi" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Image Name="grid_Popup_Welcome_img_Kodi"/>
-                                    </Button>
-                                    <Button Name="grid_Popup_Welcome_button_PSRemote" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Image Name="grid_Popup_Welcome_img_PSRemote"/>
-                                    </Button>
-                                    <Button Name="grid_Popup_Welcome_button_Discord" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Image Name="grid_Popup_Welcome_img_Discord"/>
-                                    </Button>
-                                    <Button Name="grid_Popup_Welcome_button_Steam" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Image Name="grid_Popup_Welcome_img_Steam"/>
-                                    </Button>
-                                    <Button Name="grid_Popup_Welcome_button_Ubisoft" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Image Name="grid_Popup_Welcome_img_Ubisoft"/>
-                                    </Button>
-                                    <Button Name="grid_Popup_Welcome_button_EADesktop" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Image Name="grid_Popup_Welcome_img_EADesktop"/>
-                                    </Button>
-                                    <Button Name="grid_Popup_Welcome_button_GoG" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Image Name="grid_Popup_Welcome_img_GoG"/>
-                                    </Button>
-                                    <Button Name="grid_Popup_Welcome_button_Epic" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Image Name="grid_Popup_Welcome_img_Epic"/>
-                                    </Button>
-                                    <Button Name="grid_Popup_Welcome_button_Battle" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Image Name="grid_Popup_Welcome_img_Battle"/>
-                                    </Button>
-                                </StackPanel>
-
-                                <Button Name="grid_Popup_Welcome_button_Start" Margin="0,20,0,0" Content="Let's get started" Style="{StaticResource ButtonAccentWhite}"/>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Grid>
-
-                    <!-- Shortcuts -->
-                    <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_Welcome_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Name="image_Welcome_Close" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
-                            </StackPanel>
-                        </Button>
+                    <StackPanel Grid.Row="0">
+                        <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Welcome to Controller User Interface"/>
+                        <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                     </StackPanel>
+
+                    <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Now it's time to quickly setup some basics to get you going along with the application."/>
+                            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Connect your controller and set it up in DirectXInput and then you will able to use it in this application."/>
+                            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Once you have a controller connected through DirectXInput you can always access CtrlUI by pressing on the 'Guide' button, holding down the 'Guide' button will open an onscreen keyboard."/>
+                            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="If you are running into an issue or can't find something, you might find your answer on the 'Help' page."/>
+                            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Here are some popular applications for you to setup and easily launch later on, you can add all the applications you want later on by clicking on the 'Add application' button in the main menu."/>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                                <Button Name="grid_Popup_Welcome_button_Edge" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Image Name="grid_Popup_Welcome_img_Edge"/>
+                                </Button>
+                                <Button Name="grid_Popup_Welcome_button_Spotify" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Image Name="grid_Popup_Welcome_img_Spotify"/>
+                                </Button>
+                                <Button Name="grid_Popup_Welcome_button_Kodi" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Image Name="grid_Popup_Welcome_img_Kodi"/>
+                                </Button>
+                                <Button Name="grid_Popup_Welcome_button_PSRemote" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Image Name="grid_Popup_Welcome_img_PSRemote"/>
+                                </Button>
+                                <Button Name="grid_Popup_Welcome_button_Discord" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Image Name="grid_Popup_Welcome_img_Discord"/>
+                                </Button>
+                                <Button Name="grid_Popup_Welcome_button_Steam" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Image Name="grid_Popup_Welcome_img_Steam"/>
+                                </Button>
+                                <Button Name="grid_Popup_Welcome_button_Ubisoft" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Image Name="grid_Popup_Welcome_img_Ubisoft"/>
+                                </Button>
+                                <Button Name="grid_Popup_Welcome_button_EADesktop" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Image Name="grid_Popup_Welcome_img_EADesktop"/>
+                                </Button>
+                                <Button Name="grid_Popup_Welcome_button_GoG" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Image Name="grid_Popup_Welcome_img_GoG"/>
+                                </Button>
+                                <Button Name="grid_Popup_Welcome_button_Epic" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Image Name="grid_Popup_Welcome_img_Epic"/>
+                                </Button>
+                                <Button Name="grid_Popup_Welcome_button_Battle" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Image Name="grid_Popup_Welcome_img_Battle"/>
+                                </Button>
+                            </StackPanel>
+
+                            <Button Name="grid_Popup_Welcome_button_Start" Margin="0,20,0,0" Content="Let's get started" Style="{StaticResource ButtonAccentWhite}"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
 
                 <!-- Popup - Manage -->

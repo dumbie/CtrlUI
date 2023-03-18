@@ -159,10 +159,10 @@ namespace CtrlUI
                     //Update window status message
                     textblock_DisableMain.Text = string.Empty;
 
+                    //Enable main menu buttons
+                    MainMenuButtonsEnable(false);
+
                     //Enable the application window
-                    button_MenuHamburger.IsEnabled = true;
-                    button_MenuClose.IsEnabled = true;
-                    button_MenuSorting.IsEnabled = true;
                     grid_DisableHelp.Visibility = Visibility.Collapsed;
                     grid_DisableMain.Visibility = Visibility.Collapsed;
                 });
@@ -180,10 +180,10 @@ namespace CtrlUI
                     //Update window status message
                     textblock_DisableMain.Text = windowText;
 
+                    //Disable main menu buttons
+                    MainMenuButtonsDisable();
+
                     //Disable the application window
-                    button_MenuHamburger.IsEnabled = false;
-                    button_MenuClose.IsEnabled = false;
-                    button_MenuSorting.IsEnabled = false;
                     grid_DisableHelp.Visibility = Visibility.Visible;
                     grid_DisableMain.Visibility = Visibility.Visible;
                 });
