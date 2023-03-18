@@ -191,7 +191,7 @@ namespace CtrlUI
                 bool editApplication = vEditAppDataBind != null;
 
                 //Check the editing application type
-                bool win32Application = false;
+                bool win32Application = true;
                 bool uwpApplication = false;
                 if (editApplication)
                 {
@@ -200,7 +200,7 @@ namespace CtrlUI
                 }
 
                 //Check if there is an application name set
-                if (!uwpApplication && string.IsNullOrWhiteSpace(tb_AddAppName.Text))
+                if (string.IsNullOrWhiteSpace(tb_AddAppName.Text))
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -221,7 +221,7 @@ namespace CtrlUI
                 }
 
                 //Check if there is an application exe set
-                if (!uwpApplication && tb_AddAppName.Text == "Select application executable file first")
+                if (win32Application && tb_AddAppName.Text == "Select application executable file first")
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -234,7 +234,7 @@ namespace CtrlUI
                 }
 
                 //Check if there is an application exe set
-                if (!uwpApplication && string.IsNullOrWhiteSpace(tb_AddAppPathExe.Text))
+                if (win32Application && string.IsNullOrWhiteSpace(tb_AddAppPathExe.Text))
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -247,7 +247,7 @@ namespace CtrlUI
                 }
 
                 //Prevent CtrlUI from been added to the list
-                if (tb_AddAppPathExe.Text.Contains("CtrlUI.exe") || tb_AddAppPathExe.Text.Contains("CtrlUI-Launcher.exe"))
+                if (win32Application && (tb_AddAppPathExe.Text.ToLower().Contains("ctrlui.exe") || tb_AddAppPathExe.Text.ToLower().Contains("ctrlui-launcher.exe")))
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -259,34 +259,30 @@ namespace CtrlUI
                     return;
                 }
 
-                //Check if the application paths exist for Win32 apps
-                if (editApplication && win32Application)
+                //Check if set application exe exists
+                if (win32Application && !File.Exists(tb_AddAppPathExe.Text))
                 {
-                    //Validate the launch target
-                    if (!File.Exists(tb_AddAppPathExe.Text))
-                    {
-                        List<DataBindString> Answers = new List<DataBindString>();
-                        DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Ok";
-                        Answers.Add(Answer1);
+                    List<DataBindString> Answers = new List<DataBindString>();
+                    DataBindString Answer1 = new DataBindString();
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.Name = "Ok";
+                    Answers.Add(Answer1);
 
-                        await Popup_Show_MessageBox("Application executable not found, please select another one", "", "", Answers);
-                        return;
-                    }
+                    await Popup_Show_MessageBox("Application executable not found, please select another one", "", "", Answers);
+                    return;
+                }
 
-                    //Validate the launch path
-                    if (!string.IsNullOrWhiteSpace(tb_AddAppPathLaunch.Text) && !Directory.Exists(tb_AddAppPathLaunch.Text))
-                    {
-                        List<DataBindString> Answers = new List<DataBindString>();
-                        DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Ok";
-                        Answers.Add(Answer1);
+                //Validate application launch path
+                if (win32Application && !string.IsNullOrWhiteSpace(tb_AddAppPathLaunch.Text) && !Directory.Exists(tb_AddAppPathLaunch.Text))
+                {
+                    List<DataBindString> Answers = new List<DataBindString>();
+                    DataBindString Answer1 = new DataBindString();
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.Name = "Ok";
+                    Answers.Add(Answer1);
 
-                        await Popup_Show_MessageBox("Launch folder not found, please select another one", "", "", Answers);
-                        return;
-                    }
+                    await Popup_Show_MessageBox("Launch folder not found, please select another one", "", "", Answers);
+                    return;
                 }
 
                 //Check if application is emulator and validate the rom path
@@ -625,7 +621,7 @@ namespace CtrlUI
                 bool editApplication = vEditAppDataBind != null;
 
                 //Check the editing application type
-                bool win32Application = false;
+                bool win32Application = true;
                 bool uwpApplication = false;
                 if (editApplication)
                 {
