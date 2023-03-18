@@ -217,7 +217,7 @@
                             <ComboBoxItem>Horizontal</ComboBoxItem>
                             <ComboBoxItem>Vertical</ComboBoxItem>
                         </ComboBox>
-                        
+
                         <TextBlock Name="textblock_DisplayOpacity" Text="Stats display transparency" Tag="Stats display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the transparency of the shown fps overlay stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Width="440" Name="slider_DisplayOpacity" Style="{StaticResource SliderBlockWhite}"/>
@@ -253,8 +253,11 @@
                         <TextBlock Text="Change the displayed crosshair style." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <ComboBox Name="combobox_CrosshairStyle" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
                             <ComboBoxItem>Dot</ComboBoxItem>
-                            <ComboBoxItem>Cross</ComboBoxItem>
-                            <ComboBoxItem>Line</ComboBoxItem>
+                            <ComboBoxItem>Circle</ComboBoxItem>
+                            <ComboBoxItem>Squarebox</ComboBoxItem>
+                            <ComboBoxItem>Cross Closed</ComboBoxItem>
+                            <ComboBoxItem>Cross Opened</ComboBoxItem>
+                            <ComboBoxItem>Line Horizontal</ComboBoxItem>
                         </ComboBox>
 
                         <TextBlock Name="textblock_CrosshairSize" Text="Crosshair display size" Tag="Crosshair display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
@@ -356,7 +359,7 @@
                         <TextBlock Name="textblock_FrametimeAccuracy" Tag="Frametime frame width" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the frametime graph frame width." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="1" Maximum="8" HorizontalAlignment="Left" Width="440" Name="slider_FrametimeAccuracy" Style="{StaticResource SliderBlockWhite}"/>
-                        
+
                         <TextBlock Name="textblock_FrametimeWidth" Tag="Frametime graph width" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the frametime graph display width." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="200" Maximum="800" HorizontalAlignment="Left" Width="440" Name="slider_FrametimeWidth" Style="{StaticResource SliderBlockWhite}"/>
