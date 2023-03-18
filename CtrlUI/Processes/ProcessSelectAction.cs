@@ -71,16 +71,6 @@ namespace CtrlUI
                 AnswerLaunch.Name = "Launch new instance";
                 Answers.Add(AnswerLaunch);
 
-                bool currentArgument = !string.IsNullOrWhiteSpace(processMulti.Argument);
-                DataBindString AnswerRestartCurrent = new DataBindString();
-                if (currentArgument)
-                {
-                    AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    AnswerRestartCurrent.Name = "Restart application";
-                    AnswerRestartCurrent.NameSub = "(Current argument)";
-                    Answers.Add(AnswerRestartCurrent);
-                }
-
                 bool availableArgument = !string.IsNullOrWhiteSpace(dataBindApp.Argument);
                 bool emulatorArgument = dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom;
                 bool filepickerArgument = dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker;
@@ -92,6 +82,17 @@ namespace CtrlUI
                     AnswerRestartDefault.Name = "Restart application";
                     AnswerRestartDefault.NameSub = "(Default argument)";
                     Answers.Add(AnswerRestartDefault);
+                }
+
+                bool currentMatchesDefaultArgument = processMulti.Argument == dataBindApp.Argument;
+                bool currentArgument = !string.IsNullOrWhiteSpace(processMulti.Argument);
+                DataBindString AnswerRestartCurrent = new DataBindString();
+                if (currentArgument && !currentMatchesDefaultArgument)
+                {
+                    AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerRestartCurrent.Name = "Restart application";
+                    AnswerRestartCurrent.NameSub = "(Current argument)";
+                    Answers.Add(AnswerRestartCurrent);
                 }
 
                 DataBindString AnswerRestartWithout = new DataBindString();
@@ -118,10 +119,6 @@ namespace CtrlUI
                 }
 
                 //Add launch argument
-                if (currentArgument)
-                {
-                    launchInformation += "\nCurrent argument: " + AVFunctions.StringCut(processMulti.Argument, 50, "...");
-                }
                 if (defaultArgument)
                 {
                     if (emulatorArgument)
@@ -136,6 +133,10 @@ namespace CtrlUI
                     {
                         launchInformation += "\nDefault argument: " + dataBindApp.Argument;
                     }
+                }
+                if (currentArgument && !currentMatchesDefaultArgument)
+                {
+                    launchInformation += "\nCurrent argument: " + AVFunctions.StringCut(processMulti.Argument, 50, "...");
                 }
 
                 //Set category title
