@@ -56,9 +56,6 @@ namespace CtrlUI
 
                 //Check app running status
                 CheckAppRunningStatus(processMultiList);
-
-                //Update list load status
-                vListLoadedProcesses = true;
             }
             catch (Exception ex)
             {
@@ -66,6 +63,9 @@ namespace CtrlUI
             }
             finally
             {
+                //Update list load status
+                vListLoadedProcesses = true;
+
                 //Update the refreshing status
                 vBusyRefreshingProcesses = false;
             }

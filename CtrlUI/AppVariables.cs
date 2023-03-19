@@ -105,6 +105,17 @@ namespace CtrlUI
         public static bool vBusyRefreshingProcesses = false;
         public static bool vBusyRefreshingShortcuts = false;
         public static bool vBusyRefreshingLaunchers = false;
+        public static int vBusyRefreshingCount()
+        {
+            int refreshCount = 0;
+            try
+            {
+                if (vBusyRefreshingShortcuts) { refreshCount++; }
+                if (vBusyRefreshingLaunchers) { refreshCount++; }
+            }
+            catch { }
+            return refreshCount;
+        }
 
         //Process Variables
         public static ProcessMulti vProcessCurrent = Get_ProcessMultiCurrent();

@@ -238,13 +238,13 @@ namespace CtrlUI
                 }
 
                 //Hide the loading gif
-                AVActions.DispatcherInvoke(delegate
+                if (vBusyRefreshingCount() == 1)
                 {
-                    gif_List_Loading.Hide();
-                });
-
-                //Update list load status
-                vListLoadedShortcuts = true;
+                    AVActions.DispatcherInvoke(delegate
+                    {
+                        gif_List_Loading.Hide();
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -252,6 +252,9 @@ namespace CtrlUI
             }
             finally
             {
+                //Update list load status
+                vListLoadedShortcuts = true;
+
                 //Update the refreshing status
                 vBusyRefreshingShortcuts = false;
             }
