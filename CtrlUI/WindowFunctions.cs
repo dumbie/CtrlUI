@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
@@ -121,6 +122,9 @@ namespace CtrlUI
 
                     //Prevent monitor sleep
                     UpdateMonitorSleepAuto();
+
+                    //Check keyboard focus
+                    FocusCheckKeyboard(this, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }

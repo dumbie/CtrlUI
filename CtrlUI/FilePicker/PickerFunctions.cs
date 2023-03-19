@@ -177,13 +177,13 @@ namespace CtrlUI
                         Debug.WriteLine("Source file path found: " + vFilePickerSourcePath);
 
                         //Focus on the file picker listbox item
-                        await ListBoxFocusItem(lb_FilePicker, sourceFileItem, this, vProcessCurrent.WindowHandleMain);
+                        await ListBoxFocusItem(lb_FilePicker, sourceFileItem, vProcessCurrent.WindowHandleMain);
                         return true;
                     }
                 }
 
                 //Focus on the file picker listbox index
-                await ListBoxFocusIndex(lb_FilePicker, false, targetIndex, this, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(lb_FilePicker, false, targetIndex, vProcessCurrent.WindowHandleMain);
                 return true;
             }
             catch { }
@@ -368,7 +368,7 @@ namespace CtrlUI
                 Popup_Hide_Element(grid_Popup_FilePicker);
 
                 //Focus on the previous focus element
-                await AVFocusDetailsFocus(vFilePickerElementFocus, this, vProcessCurrent.WindowHandleMain);
+                await AVFocusDetailsFocus(vFilePickerElementFocus, vProcessCurrent.WindowHandleMain);
             }
             catch { }
         }

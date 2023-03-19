@@ -141,7 +141,7 @@ namespace CtrlUI
                 }
 
                 //Focus on first listbox answer
-                await ListBoxFocusIndex(lb_HowLongToBeat, false, 0, this, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(lb_HowLongToBeat, false, 0, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {
@@ -164,7 +164,7 @@ namespace CtrlUI
                 Popup_Hide_Element(grid_Popup_HowLongToBeat);
 
                 //Focus on the previous focus element
-                await AVFocusDetailsFocus(vHowLongToBeatElementFocus, this, vProcessCurrent.WindowHandleMain);
+                await AVFocusDetailsFocus(vHowLongToBeatElementFocus, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {

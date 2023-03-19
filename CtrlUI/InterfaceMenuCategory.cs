@@ -274,11 +274,11 @@ namespace CtrlUI
                     //Focus on the interface
                     if (lb_Search.Items.Count > 0)
                     {
-                        await ListBoxFocusIndex(lb_Search, false, -1, this, vProcessCurrent.WindowHandleMain);
+                        await ListBoxFocusIndex(lb_Search, false, 0, vProcessCurrent.WindowHandleMain);
                     }
                     else
                     {
-                        await FocusElement(grid_Search_textbox, this, vProcessCurrent.WindowHandleMain);
+                        await FocusElement(grid_Search_textbox, vProcessCurrent.WindowHandleMain);
                     }
                 }
                 else
@@ -287,7 +287,7 @@ namespace CtrlUI
                     stackpanel_Search_Interface.Visibility = Visibility.Collapsed;
 
                     //Focus on the listbox
-                    await ListBoxFocusIndex(targetListbox, false, -1, this, vProcessCurrent.WindowHandleMain);
+                    await ListBoxFocusIndex(targetListbox, false, 0, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }

@@ -248,7 +248,7 @@ namespace DirectXInput.KeyboardCode
             {
                 if (forceFocus || Keyboard.FocusedElement == null || Keyboard.FocusedElement == this)
                 {
-                    await FocusElement(targetButton, this, vInteropWindowHandle);
+                    await FocusElement(targetButton, vInteropWindowHandle);
                 }
             }
             catch { }

@@ -62,7 +62,7 @@ namespace CtrlUI
                 vColorPickerOpen = true;
 
                 //Focus on the file picker listbox
-                await ListBoxFocusIndex(lb_ColorPicker, false, -1, this, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(lb_ColorPicker, false, 0, vProcessCurrent.WindowHandleMain);
             }
             catch { }
         }
@@ -106,7 +106,7 @@ namespace CtrlUI
                     Popup_Hide_Element(grid_Popup_ColorPicker);
 
                     //Focus on the previous focus element
-                    await AVFocusDetailsFocus(vColorPickerElementFocus, this, vProcessCurrent.WindowHandleMain);
+                    await AVFocusDetailsFocus(vColorPickerElementFocus, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }

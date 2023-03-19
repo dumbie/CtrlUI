@@ -169,11 +169,11 @@ namespace DirectXInput.KeyboardCode
                     //Focus on keyboard button
                     if (vFocusedButtonKeyboard.FocusElement == null)
                     {
-                        await FocusElement(key_h, this, vInteropWindowHandle);
+                        await FocusElement(key_h, vInteropWindowHandle);
                     }
                     else
                     {
-                        await AVFocusDetailsFocus(vFocusedButtonKeyboard, this, vInteropWindowHandle);
+                        await AVFocusDetailsFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
                     }
 
                     //Play sound
@@ -246,7 +246,7 @@ namespace DirectXInput.KeyboardCode
                     border_Media_Accent.Background = backgroundBrushOpacity;
 
                     //Focus on keyboard button
-                    await FocusElement(key_ModeKeyboard, this, vInteropWindowHandle);
+                    await FocusElement(key_ModeKeyboard, vInteropWindowHandle);
 
                     //Play sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
@@ -317,8 +317,8 @@ namespace DirectXInput.KeyboardCode
                     border_Media_Accent.Background = backgroundColor;
 
                     //Focus on tool list
-                    await ListBoxFocusOrSelectIndex(listbox_ToolList, false, listbox_ToolList.SelectedIndex, this, vInteropWindowHandle);
-                    await ListBoxFocusIndex(listbox_ToolList, false, listbox_ToolList.SelectedIndex, this, vInteropWindowHandle);
+                    await ListBoxFocusOrSelectIndex(listbox_ToolList, false, listbox_ToolList.SelectedIndex, vInteropWindowHandle);
+                    await ListBoxFocusIndex(listbox_ToolList, false, listbox_ToolList.SelectedIndex, vInteropWindowHandle);
 
                     //Play sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);

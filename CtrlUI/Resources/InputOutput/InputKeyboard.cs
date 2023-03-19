@@ -161,7 +161,7 @@ namespace CtrlUI
                         int itemsCount = parentListbox.Items.Count;
                         if ((parentListbox.SelectedIndex + 1) == itemsCount)
                         {
-                            ListBoxFocusIndex(parentListbox, false, 0, this, vProcessCurrent.WindowHandleMain).Start();
+                            ListBoxFocusIndex(parentListbox, false, 0, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }
@@ -170,7 +170,7 @@ namespace CtrlUI
                     {
                         if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, false))
                         {
-                            ListBoxFocusIndex(parentListbox, false, 0, this, vProcessCurrent.WindowHandleMain).Start();
+                            ListBoxFocusIndex(parentListbox, false, 0, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }
@@ -242,8 +242,7 @@ namespace CtrlUI
                     {
                         if (parentListbox.SelectedIndex == 0)
                         {
-                            int itemsCount = parentListbox.Items.Count;
-                            ListBoxFocusIndex(parentListbox, false, itemsCount - 1, this, vProcessCurrent.WindowHandleMain).Start();
+                            ListBoxFocusIndex(parentListbox, true, 0, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }
@@ -252,8 +251,7 @@ namespace CtrlUI
                     {
                         if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, true))
                         {
-                            int itemsCount = parentListbox.Items.Count;
-                            ListBoxFocusIndex(parentListbox, false, itemsCount - 1, this, vProcessCurrent.WindowHandleMain).Start();
+                            ListBoxFocusIndex(parentListbox, true, 0, vProcessCurrent.WindowHandleMain).Start();
                             Handled = true;
                             return;
                         }

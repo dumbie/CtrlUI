@@ -51,11 +51,11 @@ namespace DirectXInput.KeyboardCode
                 AVFocusDetails focusListbox = new AVFocusDetails();
                 focusListbox.FocusListBox = listbox_EmojiList;
                 focusListbox.FocusIndex = vLastPopupListEmojiIndex;
-                await AVFocusDetailsFocus(focusListbox, this, vInteropWindowHandle);
+                await AVFocusDetailsFocus(focusListbox, vInteropWindowHandle);
             }
             else
             {
-                await AVFocusDetailsFocus(vFocusedButtonEmoji, this, vInteropWindowHandle);
+                await AVFocusDetailsFocus(vFocusedButtonEmoji, vInteropWindowHandle);
             }
         }
 
@@ -83,11 +83,11 @@ namespace DirectXInput.KeyboardCode
                 //Focus on keyboard button
                 if (vFocusedButtonKeyboard.FocusElement == null)
                 {
-                    await FocusElement(key_EmojiList, this, vInteropWindowHandle);
+                    await FocusElement(key_EmojiList, vInteropWindowHandle);
                 }
                 else
                 {
-                    await AVFocusDetailsFocus(vFocusedButtonKeyboard, this, vInteropWindowHandle);
+                    await AVFocusDetailsFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -186,7 +186,7 @@ namespace DirectXInput.KeyboardCode
                 AVFocusDetails focusListbox = new AVFocusDetails();
                 focusListbox.FocusListBox = listbox_EmojiList;
                 focusListbox.FocusIndex = selectIndex;
-                await AVFocusDetailsFocus(focusListbox, this, vInteropWindowHandle);
+                await AVFocusDetailsFocus(focusListbox, vInteropWindowHandle);
             }
             catch { }
         }
@@ -390,7 +390,7 @@ namespace DirectXInput.KeyboardCode
                 AVFocusDetails focusListbox = new AVFocusDetails();
                 focusListbox.FocusListBox = listbox_EmojiList;
                 focusListbox.FocusIndex = selectIndex;
-                await AVFocusDetailsFocus(focusListbox, this, vInteropWindowHandle);
+                await AVFocusDetailsFocus(focusListbox, vInteropWindowHandle);
             }
             catch { }
         }

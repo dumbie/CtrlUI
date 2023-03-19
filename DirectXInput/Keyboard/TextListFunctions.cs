@@ -54,16 +54,16 @@ namespace DirectXInput.KeyboardCode
                         AVFocusDetails focusListbox = new AVFocusDetails();
                         focusListbox.FocusListBox = listbox_TextList;
                         focusListbox.FocusIndex = vLastPopupListTextIndex;
-                        await AVFocusDetailsFocus(focusListbox, this, vInteropWindowHandle);
+                        await AVFocusDetailsFocus(focusListbox, vInteropWindowHandle);
                     }
                     else
                     {
-                        await FocusElement(key_TextListClose, this, vInteropWindowHandle);
+                        await FocusElement(key_TextListClose, vInteropWindowHandle);
                     }
                 }
                 else
                 {
-                    await AVFocusDetailsFocus(vFocusedButtonText, this, vInteropWindowHandle);
+                    await AVFocusDetailsFocus(vFocusedButtonText, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -89,11 +89,11 @@ namespace DirectXInput.KeyboardCode
                 //Focus on keyboard button
                 if (vFocusedButtonKeyboard.FocusElement == null)
                 {
-                    await FocusElement(key_TextList, this, vInteropWindowHandle);
+                    await FocusElement(key_TextList, vInteropWindowHandle);
                 }
                 else
                 {
-                    await AVFocusDetailsFocus(vFocusedButtonKeyboard, this, vInteropWindowHandle);
+                    await AVFocusDetailsFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
                 }
             }
             catch { }

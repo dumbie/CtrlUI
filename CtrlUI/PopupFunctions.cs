@@ -157,7 +157,7 @@ namespace CtrlUI
                 vMainMenuOpen = true;
 
                 //Focus on the menu listbox
-                await ListBoxFocusIndex(listbox_MainMenu, false, -1, this, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(listbox_MainMenu, false, 0, vProcessCurrent.WindowHandleMain);
 
                 //Update the clock with date
                 UpdateClockTime();
@@ -187,7 +187,7 @@ namespace CtrlUI
                     UpdateClockTime();
 
                     //Focus on the previous focus element
-                    await AVFocusDetailsFocus(vMainMenuElementFocus, this, vProcessCurrent.WindowHandleMain);
+                    await AVFocusDetailsFocus(vMainMenuElementFocus, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }
@@ -217,7 +217,7 @@ namespace CtrlUI
                     //Force focus on element
                     if (FocusElement != null)
                     {
-                        await AVFocus.FocusElement(FocusElement, this, vProcessCurrent.WindowHandleMain);
+                        await AVFocus.FocusElement(FocusElement, vProcessCurrent.WindowHandleMain);
                     }
                 }
             }
@@ -240,7 +240,7 @@ namespace CtrlUI
                     Popup_Hide_Element(vPopupElementTarget);
 
                     //Focus on the previous focus element
-                    await AVFocusDetailsFocus(vPopupElementFocus, this, vProcessCurrent.WindowHandleMain);
+                    await AVFocusDetailsFocus(vPopupElementFocus, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }

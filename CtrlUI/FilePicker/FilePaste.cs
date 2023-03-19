@@ -190,7 +190,7 @@ namespace CtrlUI
                 }
 
                 //Focus on the listbox item
-                await ListBoxFocusIndex(lb_FilePicker, true, -1, this, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(lb_FilePicker, true, 0, vProcessCurrent.WindowHandleMain);
 
                 if (resetClipboard)
                 {

@@ -142,8 +142,8 @@ namespace DirectXInput.KeyboardCode
                                 //Update window style
                                 WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
-                                //Focus on the window
-                                FocusWindow(this);
+                                //Check keyboard focus
+                                FocusCheckKeyboard(this, vInteropWindowHandle);
 
                                 //Send arrow left to window
                                 KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
@@ -174,8 +174,8 @@ namespace DirectXInput.KeyboardCode
                                 //Update window style
                                 WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
-                                //Focus on the window
-                                FocusWindow(this);
+                                //Check keyboard focus
+                                FocusCheckKeyboard(this, vInteropWindowHandle);
 
                                 //Send arrow right to window
                                 KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
@@ -206,8 +206,8 @@ namespace DirectXInput.KeyboardCode
                                 //Update window style
                                 WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
-                                //Focus on the window
-                                FocusWindow(this);
+                                //Check keyboard focus
+                                FocusCheckKeyboard(this, vInteropWindowHandle);
 
                                 //Send arrow up to window
                                 KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
@@ -238,8 +238,8 @@ namespace DirectXInput.KeyboardCode
                                 //Update window style
                                 WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
-                                //Focus on the window
-                                FocusWindow(this);
+                                //Check keyboard focus
+                                FocusCheckKeyboard(this, vInteropWindowHandle);
 
                                 //Send arrow down to window
                                 KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
@@ -260,8 +260,8 @@ namespace DirectXInput.KeyboardCode
                             //Update window style
                             WindowUpdateStyle(vInteropWindowHandle, true, true, false);
 
-                            //Focus on the window
-                            FocusWindow(this);
+                            //Check keyboard focus
+                            FocusCheckKeyboard(this, vInteropWindowHandle);
 
                             //Send space key to window
                             KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);

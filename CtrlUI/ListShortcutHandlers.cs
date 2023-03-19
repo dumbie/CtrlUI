@@ -122,7 +122,7 @@ namespace CtrlUI
                 await RemoveAppFromList(dataBindApp, false, false, true);
 
                 //Select the previous index
-                await ListBoxFocusIndex(listboxSender, false, listboxSelectedIndex, this, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(listboxSender, false, listboxSelectedIndex, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {
@@ -186,7 +186,7 @@ namespace CtrlUI
                 }
 
                 //Select the previous index
-                await ListBoxFocusIndex(listboxSender, false, listboxSelectedIndex, this, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(listboxSender, false, listboxSelectedIndex, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {
