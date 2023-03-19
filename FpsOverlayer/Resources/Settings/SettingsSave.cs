@@ -59,6 +59,12 @@ namespace FpsOverlayer
                     vWindowMain.UpdateFpsOverlayStyle();
                 };
 
+                checkbox_StatsFlipBottom.Click += (sender, e) =>
+                {
+                    SettingSave(vConfigurationFpsOverlayer, "StatsFlipBottom", checkbox_StatsFlipBottom.IsChecked.ToString());
+                    vWindowMain.UpdateFpsOverlayStyle();
+                };
+
                 combobox_InterfaceFontStyleName.SelectionChanged += (sender, e) =>
                 {
                     SettingSave(vConfigurationFpsOverlayer, "InterfaceFontStyleName", combobox_InterfaceFontStyleName.SelectedItem.ToString());

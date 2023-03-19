@@ -233,7 +233,6 @@ namespace FpsOverlayer
 
                 int newId = 0;
                 int currentId = 0;
-                int totalId = 10;
                 if (!moveUp)
                 {
                     if (targetName == "AppId") { currentId = AppId; newId = currentId + 1; }
@@ -264,7 +263,7 @@ namespace FpsOverlayer
                 }
 
                 //Move current id
-                if (newId <= totalId && newId >= 0)
+                if (newId <= vTotalStatsCount && newId >= 0)
                 {
                     if (AppId == newId)
                     {

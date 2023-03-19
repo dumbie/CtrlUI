@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using Microsoft.Diagnostics.Tracing.StackSources;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -64,7 +65,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Move the fps overlayer to the next position
+        //Move window to next position
         public void ChangeFpsOverlayPosition()
         {
             try
@@ -86,8 +87,8 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update window position
-        public void UpdateFpsOverlayPosition(string processName)
+        //Get window position
+        public OverlayPosition GetFpsOverlayPosition(string processName)
         {
             try
             {
@@ -103,8 +104,22 @@ namespace FpsOverlayer
                     }
                 }
 
+                return targetTextPosition;
+            }
+            catch { }
+            return OverlayPosition.TopLeft;
+        }
+
+        //Update window position
+        public void UpdateFpsOverlayPosition(string processName)
+        {
+            try
+            {
+                //Get target overlay position
+                OverlayPosition targetOverlayPosition = GetFpsOverlayPosition(processName);
+
                 //Hide or show the fps overlayer
-                if (vManualHidden || targetTextPosition == OverlayPosition.Hidden)
+                if (vManualHidden || targetOverlayPosition == OverlayPosition.Hidden)
                 {
                     HideFpsOverlayVisibility();
                     return;
@@ -115,7 +130,7 @@ namespace FpsOverlayer
                 }
 
                 //Move fps to set position
-                if (targetTextPosition == OverlayPosition.TopLeft)
+                if (targetOverlayPosition == OverlayPosition.TopLeft)
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
@@ -139,7 +154,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Left;
                     });
                 }
-                else if (targetTextPosition == OverlayPosition.TopCenter)
+                else if (targetOverlayPosition == OverlayPosition.TopCenter)
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
@@ -162,7 +177,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Center;
                     });
                 }
-                else if (targetTextPosition == OverlayPosition.TopRight)
+                else if (targetOverlayPosition == OverlayPosition.TopRight)
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
@@ -186,7 +201,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
-                else if (targetTextPosition == OverlayPosition.MiddleRight)
+                else if (targetOverlayPosition == OverlayPosition.MiddleRight)
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
@@ -209,7 +224,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
-                else if (targetTextPosition == OverlayPosition.BottomRight)
+                else if (targetOverlayPosition == OverlayPosition.BottomRight)
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
@@ -234,7 +249,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
-                else if (targetTextPosition == OverlayPosition.BottomCenter)
+                else if (targetOverlayPosition == OverlayPosition.BottomCenter)
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
@@ -258,7 +273,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Center;
                     });
                 }
-                else if (targetTextPosition == OverlayPosition.BottomLeft)
+                else if (targetOverlayPosition == OverlayPosition.BottomLeft)
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
@@ -283,7 +298,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Left;
                     });
                 }
-                else if (targetTextPosition == OverlayPosition.MiddleLeft)
+                else if (targetOverlayPosition == OverlayPosition.MiddleLeft)
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
@@ -389,6 +404,27 @@ namespace FpsOverlayer
                 //Update the stats text orientation and order
                 if (SettingLoad(vConfigurationFpsOverlayer, "TextDirection", typeof(int)) == 1)
                 {
+                    //Reverse stats order when on bottom
+                    if (SettingLoad(vConfigurationFpsOverlayer, "StatsFlipBottom", typeof(bool)))
+                    {
+                        OverlayPosition overlayPosition = GetFpsOverlayPosition(vTargetProcess.ExeNameNoExt);
+                        if (overlayPosition == OverlayPosition.BottomLeft || overlayPosition == OverlayPosition.BottomCenter || overlayPosition == OverlayPosition.BottomRight)
+                        {
+                            TimeId = vTotalStatsCount - TimeId;
+                            CustomTextId = vTotalStatsCount - CustomTextId;
+                            MonId = vTotalStatsCount - MonId;
+                            AppId = vTotalStatsCount - AppId;
+                            FpsId = vTotalStatsCount - FpsId;
+                            FrametimeId = vTotalStatsCount - FrametimeId;
+                            NetId = vTotalStatsCount - NetId;
+                            CpuId = vTotalStatsCount - CpuId;
+                            GpuId = vTotalStatsCount - GpuId;
+                            MemId = vTotalStatsCount - MemId;
+                            BatId = vTotalStatsCount - BatId;
+                        }
+                    }
+
+                    //Vertical text order
                     stackpanel_CurrentTime.SetValue(Grid.RowProperty, TimeId);
                     stackpanel_CustomText.SetValue(Grid.RowProperty, CustomTextId);
                     stackpanel_CurrentMon.SetValue(Grid.RowProperty, MonId);
@@ -415,6 +451,7 @@ namespace FpsOverlayer
                 }
                 else
                 {
+                    //Horizontal text order
                     stackpanel_CurrentTime.SetValue(Grid.ColumnProperty, TimeId);
                     stackpanel_CustomText.SetValue(Grid.ColumnProperty, CustomTextId);
                     stackpanel_CurrentMon.SetValue(Grid.ColumnProperty, MonId);

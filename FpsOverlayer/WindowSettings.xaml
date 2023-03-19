@@ -235,6 +235,9 @@
 
                         <CheckBox Margin="0,10,0,0" Name="checkbox_CheckTaskbarVisible" Content="Adjust margin to taskbar visibility" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Automatically adjust the overlay margin to your taskbar visibility when you have taskbar auto hide enabled in Windows." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_StatsFlipBottom" Content="Flip stats order when positioned on bottom" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Flip stats order when the stats overlay is positioned on the bottom of the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Crosshair" Visibility="Collapsed">

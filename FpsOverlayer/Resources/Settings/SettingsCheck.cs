@@ -17,6 +17,7 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MarginHorizontal")) { SettingSave(vConfigurationFpsOverlayer, "MarginHorizontal", "5"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MarginVertical")) { SettingSave(vConfigurationFpsOverlayer, "MarginVertical", "5"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CheckTaskbarVisible")) { SettingSave(vConfigurationFpsOverlayer, "CheckTaskbarVisible", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "StatsFlipBottom")) { SettingSave(vConfigurationFpsOverlayer, "StatsFlipBottom", "False"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "InterfaceFontStyleName")) { SettingSave(vConfigurationFpsOverlayer, "InterfaceFontStyleName", "Segoe UI"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "TextPosition")) { SettingSave(vConfigurationFpsOverlayer, "TextPosition", "0"); } //Shared
                 if (!SettingCheck(vConfigurationFpsOverlayer, "TextDirection")) { SettingSave(vConfigurationFpsOverlayer, "TextDirection", "1"); }

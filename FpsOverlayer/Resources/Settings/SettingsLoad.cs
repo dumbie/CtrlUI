@@ -29,7 +29,9 @@ namespace FpsOverlayer
 
                 textblock_MarginVertical.Text = textblock_MarginVertical.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(string)) + "px";
                 slider_MarginVertical.Value = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
+
                 checkbox_CheckTaskbarVisible.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CheckTaskbarVisible", typeof(bool));
+                checkbox_StatsFlipBottom.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "StatsFlipBottom", typeof(bool));
 
                 //Select the current font name
                 try
