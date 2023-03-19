@@ -47,7 +47,13 @@ namespace DirectXInput
             try
             {
                 //Get the source server ip and port
-                //Debug.WriteLine("Received udp socket from: " + endPoint.IPEndPoint.Address.ToString() + ":" + endPoint.IPEndPoint.Port);
+                //Debug.WriteLine("Received udp socket from: " + endPoint.IPEndPoint.Address.ToString() + ":" + endPoint.IPEndPoint.Port + "/" + receivedBytes.Length + "bytes");
+
+                //Check incoming gyro dsu bytes
+                if (await GyroDsuClientHandler(endPoint, receivedBytes))
+                {
+                    return;
+                }
 
                 //Deserialize the received bytes
                 if (DeserializeBytesToObject(receivedBytes, out SocketSendContainer deserializedBytes))
@@ -100,11 +106,6 @@ namespace DirectXInput
                             await KeyboardPopupHideShow(true, true);
                         }
                     }
-                }
-                else
-                {
-                    //Check incoming gyro dsu bytes
-                    await GyroDsuClientHandler(endPoint, receivedBytes);
                 }
             }
             catch { }
