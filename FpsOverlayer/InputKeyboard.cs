@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
@@ -15,23 +16,35 @@ namespace FpsOverlayer
 
                 if (altPressed && keysPressed.Contains(KeysVirtual.F8))
                 {
-                    Debug.WriteLine("Button Global - Alt + F8");
-                    vWindowBrowser.Browser_Switch_Visibility();
+                    if (SettingLoad(vConfigurationFpsOverlayer, "ShortcutShowHideBrowser", typeof(bool)))
+                    {
+                        Debug.WriteLine("Button Global - Alt + F8");
+                        vWindowBrowser.Browser_Switch_Visibility();
+                    }
                 }
                 else if (altPressed && keysPressed.Contains(KeysVirtual.F9))
                 {
-                    Debug.WriteLine("Button Global - Alt + F9");
-                    SwitchCrosshairVisibility();
+                    if (SettingLoad(vConfigurationFpsOverlayer, "ShortcutShowHideCrosshair", typeof(bool)))
+                    {
+                        Debug.WriteLine("Button Global - Alt + F9");
+                        SwitchCrosshairVisibility();
+                    }
                 }
                 else if (altPressed && keysPressed.Contains(KeysVirtual.F10))
                 {
-                    Debug.WriteLine("Button Global - Alt + F10");
-                    SwitchFpsOverlayVisibility();
+                    if (SettingLoad(vConfigurationFpsOverlayer, "ShortcutShowHideFpsStats", typeof(bool)))
+                    {
+                        Debug.WriteLine("Button Global - Alt + F10");
+                        SwitchFpsOverlayVisibility();
+                    }
                 }
                 else if (altPressed && keysPressed.Contains(KeysVirtual.F11))
                 {
-                    Debug.WriteLine("Button Global - Alt + F11");
-                    ChangeFpsOverlayPosition();
+                    if (SettingLoad(vConfigurationFpsOverlayer, "ShortcutPositionFpsStats", typeof(bool)))
+                    {
+                        Debug.WriteLine("Button Global - Alt + F11");
+                        ChangeFpsOverlayPosition();
+                    }
                 }
             }
             catch { }

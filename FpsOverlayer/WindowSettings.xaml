@@ -313,10 +313,17 @@
                     <StackPanel Name="stackpanel_Shortcuts" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcuts Settings"/>
 
-                        <TextBlock Text="* You can show, hide or unpin the browser with ALT+F8." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <TextBlock Text="* You can toggle the crosshair visibility with ALT+F9." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <TextBlock Text="* You can toggle the stats visibility with ALT+F10." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <TextBlock Text="* You can change the stats position with ALT+F11." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <CheckBox Name="cb_SettingsShortcutShowHideBrowser" Content="Show, hide or unpin the browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this allows you to show, hide or unpin the browser by pressing Alt+F8" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="cb_SettingsShortcutShowHideCrosshair" Content="Show or hide the crosshair" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this allows you to show or hide the crosshair by pressing Alt+F9" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="cb_SettingsShortcutShowHideFpsStats" Content="Show or hide the fps stats" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this allows you to show or hide the fps stats by pressing Alt+F10" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="cb_SettingsShortcutPositionFpsStats" Content="Change fps stats position" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this allows you to change the fps stats position by pressing Alt+F11" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Fps" Visibility="Collapsed">

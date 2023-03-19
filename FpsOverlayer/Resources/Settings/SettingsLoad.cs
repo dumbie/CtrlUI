@@ -186,6 +186,12 @@ namespace FpsOverlayer
                 textblock_BrowserOpacity.Text = textblock_BrowserOpacity.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "BrowserOpacity", typeof(string)) + "%";
                 slider_BrowserOpacity.Value = SettingLoad(vConfigurationFpsOverlayer, "BrowserOpacity", typeof(double));
 
+                //Shortcuts
+                cb_SettingsShortcutShowHideBrowser.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "ShortcutShowHideBrowser", typeof(bool));
+                cb_SettingsShortcutShowHideCrosshair.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "ShortcutShowHideCrosshair", typeof(bool));
+                cb_SettingsShortcutShowHideFpsStats.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "ShortcutShowHideFpsStats", typeof(bool));
+                cb_SettingsShortcutPositionFpsStats.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "ShortcutPositionFpsStats", typeof(bool));
+
                 //Update stats position text
                 UpdateStatsPositionText();
 

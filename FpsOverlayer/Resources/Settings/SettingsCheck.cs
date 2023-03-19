@@ -127,6 +127,12 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairStyle")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairStyle", "0"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairThickness")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairThickness", "1"); }
 
+                //Shortcuts
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ShortcutShowHideBrowser")) { SettingSave(vConfigurationFpsOverlayer, "ShortcutShowHideBrowser", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ShortcutShowHideCrosshair")) { SettingSave(vConfigurationFpsOverlayer, "ShortcutShowHideCrosshair", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ShortcutShowHideFpsStats")) { SettingSave(vConfigurationFpsOverlayer, "ShortcutShowHideFpsStats", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ShortcutPositionFpsStats")) { SettingSave(vConfigurationFpsOverlayer, "ShortcutPositionFpsStats", "True"); }
+
                 Debug.WriteLine("Checked the application settings.");
             }
             catch (Exception ex)
