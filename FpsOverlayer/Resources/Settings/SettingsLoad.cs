@@ -91,6 +91,7 @@ namespace FpsOverlayer
                 checkbox_BatShowPercentage.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "BatShowPercentage", typeof(bool));
 
                 checkbox_TimeShowCurrentTime.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "TimeShowCurrentTime", typeof(bool));
+                checkbox_TimeShowCurrentDate.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "TimeShowCurrentDate", typeof(bool));
 
                 textbox_MonCategoryTitle.Text = SettingLoad(vConfigurationFpsOverlayer, "MonCategoryTitle", typeof(string));
                 checkbox_MonShowCategoryTitle.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowCategoryTitle", typeof(bool));

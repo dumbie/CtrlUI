@@ -394,6 +394,9 @@
 
                         <CheckBox Margin="0,10,0,0" Name="checkbox_TimeShowCurrentTime" Content="Show the current time" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the current time." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_TimeShowCurrentDate" Content="Show the current date" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the current date." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Processor" Visibility="Collapsed">

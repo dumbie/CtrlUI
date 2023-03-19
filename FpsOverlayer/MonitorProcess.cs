@@ -132,19 +132,41 @@ namespace FpsOverlayer
         {
             try
             {
-                if (SettingLoad(vConfigurationFpsOverlayer, "TimeShowCurrentTime", typeof(bool)))
+                string currentTimeString = string.Empty;
+                bool showTime = SettingLoad(vConfigurationFpsOverlayer, "TimeShowCurrentTime", typeof(bool));
+                bool showDate = SettingLoad(vConfigurationFpsOverlayer, "TimeShowCurrentDate", typeof(bool));
+
+                if (showTime)
+                {
+                    currentTimeString = DateTime.Now.ToShortTimeString();
+                }
+
+                if (showDate)
+                {
+                    if (string.IsNullOrWhiteSpace(currentTimeString))
+                    {
+                        currentTimeString += DateTime.Now.ToShortDateString();
+                    }
+                    else
+                    {
+                        currentTimeString += " (" + DateTime.Now.ToShortDateString() + ")";
+                    }
+                }
+
+                //Check if time string is empty
+                if (string.IsNullOrWhiteSpace(currentTimeString))
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
-                        textblock_CurrentTime.Text = DateTime.Now.ToShortTimeString();
-                        stackpanel_CurrentTime.Visibility = Visibility.Visible;
+                        stackpanel_CurrentTime.Visibility = Visibility.Collapsed;
                     });
                 }
                 else
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
-                        stackpanel_CurrentTime.Visibility = Visibility.Collapsed;
+                        textblock_CurrentTime.Text = currentTimeString;
+                        stackpanel_CurrentTime.Visibility = Visibility.Visible;
                     });
                 }
             }

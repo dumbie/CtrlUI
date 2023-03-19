@@ -189,6 +189,7 @@ namespace FpsOverlayer
                 checkbox_BatShowPercentage.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "BatShowPercentage", checkbox_BatShowPercentage.IsChecked.ToString()); };
 
                 checkbox_TimeShowCurrentTime.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "TimeShowCurrentTime", checkbox_TimeShowCurrentTime.IsChecked.ToString()); };
+                checkbox_TimeShowCurrentDate.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "TimeShowCurrentDate", checkbox_TimeShowCurrentDate.IsChecked.ToString()); };
 
                 textbox_MonCategoryTitle.TextChanged += (sender, e) =>
                 {
