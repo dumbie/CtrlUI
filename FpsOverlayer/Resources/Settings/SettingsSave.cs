@@ -208,6 +208,7 @@ namespace FpsOverlayer
                 checkbox_MonShowColorBitDepth.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MonShowColorBitDepth", checkbox_MonShowColorBitDepth.IsChecked.ToString()); };
                 checkbox_MonShowRefreshRate.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MonShowRefreshRate", checkbox_MonShowRefreshRate.IsChecked.ToString()); };
 
+                //Frames
                 textbox_FpsCategoryTitle.TextChanged += (sender, e) =>
                 {
                     TextBox senderTextbox = (TextBox)sender;
@@ -224,6 +225,13 @@ namespace FpsOverlayer
                 checkbox_FpsShowCurrentLatency.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "FpsShowCurrentLatency", checkbox_FpsShowCurrentLatency.IsChecked.ToString()); };
                 checkbox_FpsShowAverageFps.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "FpsShowAverageFps", checkbox_FpsShowAverageFps.IsChecked.ToString()); };
 
+                slider_FpsAverageSeconds.ValueChanged += (sender, e) =>
+                {
+                    textblock_FpsAverageSeconds.Text = textblock_FpsAverageSeconds.Tag + ": " + slider_FpsAverageSeconds.Value.ToString("0") + " seconds";
+                    SettingSave(vConfigurationFpsOverlayer, "FpsAverageSeconds", slider_FpsAverageSeconds.Value);
+                };
+
+                //Colors
                 colorpicker_ColorSingle.Click += async (sender, e) =>
                 {
                     Color? newColor = await new AVColorPicker().Popup(null);

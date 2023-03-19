@@ -351,7 +351,11 @@
                         <TextBlock Text="Enabling this will show the current frame times latency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <CheckBox Name="checkbox_FpsShowAverageFps" Content="Show the average fps" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this will show the average fps from the last 10 seconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Text="Enabling this will show the average fps." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <TextBlock Name="textblock_FpsAverageSeconds" Tag="Average fps time span" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change time span used to calculate the average fps." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <Slider Minimum="5" Maximum="15" HorizontalAlignment="Left" Width="440" Name="slider_FpsAverageSeconds" Style="{StaticResource SliderBlockWhite}"/>
 
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Frametime settings"/>
                         <StackPanel Orientation="Horizontal">

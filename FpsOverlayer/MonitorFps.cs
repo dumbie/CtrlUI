@@ -93,8 +93,9 @@ namespace FpsOverlayer
                         double CurrentFrameTimes = vListFrameTimes.Take(100).Average();
                         int CurrentFramesPerSecond = Convert.ToInt32(1000 / CurrentFrameTimes);
 
-                        //Calculate the average fps (10sec)
-                        double AverageFrameTimes = vListFrameTimes.Take(1000).Average();
+                        //Calculate the average fps (setting)
+                        int AverageTimeSpan = SettingLoad(vConfigurationFpsOverlayer, "FpsAverageSeconds", typeof(int)) * 100;
+                        double AverageFrameTimes = vListFrameTimes.Take(AverageTimeSpan).Average();
                         int AverageFramesPerSecond = Convert.ToInt32(1000 / AverageFrameTimes);
 
                         //Convert fps to string

@@ -105,12 +105,14 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CustomTextId")) { SettingSave(vConfigurationFpsOverlayer, "CustomTextId", "9"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CustomTextString")) { SettingSave(vConfigurationFpsOverlayer, "CustomTextString", ""); }
 
+                //Frames
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsId")) { SettingSave(vConfigurationFpsOverlayer, "FpsId", "1"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "FpsCategoryTitle", "FPS"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowCategoryTitle", "False"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowCurrentFps")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowCurrentFps", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowCurrentLatency")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowCurrentLatency", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowAverageFps")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowAverageFps", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FpsAverageSeconds")) { SettingSave(vConfigurationFpsOverlayer, "FpsAverageSeconds", "10"); }
 
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeId")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeId", "10"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeGraphShow")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeGraphShow", "True"); }

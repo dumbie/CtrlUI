@@ -100,12 +100,17 @@ namespace FpsOverlayer
                 checkbox_MonShowColorBitDepth.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowColorBitDepth", typeof(bool));
                 checkbox_MonShowRefreshRate.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowRefreshRate", typeof(bool));
 
+                //Frames
                 textbox_FpsCategoryTitle.Text = SettingLoad(vConfigurationFpsOverlayer, "FpsCategoryTitle", typeof(string));
                 checkbox_FpsShowCategoryTitle.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FpsShowCategoryTitle", typeof(bool));
                 checkbox_FpsShowCurrentFps.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FpsShowCurrentFps", typeof(bool));
                 checkbox_FpsShowCurrentLatency.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FpsShowCurrentLatency", typeof(bool));
                 checkbox_FpsShowAverageFps.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FpsShowAverageFps", typeof(bool));
 
+                textblock_FpsAverageSeconds.Text = textblock_FpsAverageSeconds.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "FpsAverageSeconds", typeof(string)) + " seconds";
+                slider_FpsAverageSeconds.Value = SettingLoad(vConfigurationFpsOverlayer, "FpsAverageSeconds", typeof(double));
+
+                //Colors
                 string ColorBackground = SettingLoad(vConfigurationFpsOverlayer, "ColorBackground", typeof(string));
                 colorpicker_ColorBackground.Background = new BrushConverter().ConvertFrom(ColorBackground) as SolidColorBrush;
 
