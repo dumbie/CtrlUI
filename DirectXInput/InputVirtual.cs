@@ -89,10 +89,17 @@ namespace DirectXInput
                     return;
                 }
 
-                //Check if guide button needs to be blocked
+                //Check if guide button is exclusive and needs to be blocked
                 if (Controller.InputCurrent.ButtonGuide.PressedRaw && SettingLoad(vConfigurationDirectXInput, "ExclusiveGuide", typeof(bool)))
                 {
                     Controller.InputCurrent.ButtonGuide.PressedRaw = false;
+                }
+
+                //Check if alt tab is active and buttons need to be blocked
+                if (vAltTabDownStatus)
+                {
+                    Controller.InputCurrent.ButtonStart.PressedRaw = false;
+                    Controller.InputCurrent.ButtonShoulderLeft.PressedRaw = false;
                 }
 
                 //Prepare current xinput data
