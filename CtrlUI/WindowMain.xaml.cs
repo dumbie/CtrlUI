@@ -149,7 +149,13 @@ namespace CtrlUI
                 //Check settings if Fps Overlayer launches on start
                 if (SettingLoad(vConfigurationCtrlUI, "LaunchFpsOverlayer", typeof(bool)))
                 {
-                    await LaunchFpsOverlayer(false);
+                    await LaunchFpsOverlayer(true);
+                }
+
+                //Check settings if Screen Capture Tool launches on start
+                if (SettingLoad(vConfigurationCtrlUI, "LaunchScreenCaptureTool", typeof(bool)))
+                {
+                    await LaunchScreenCaptureTool(true);
                 }
 
                 //Check settings if this is the first application launch
@@ -201,17 +207,6 @@ namespace CtrlUI
             {
                 e.Cancel = true;
                 await Application_Exit_Prompt();
-            }
-            catch { }
-        }
-
-        //Restart the application
-        public async Task Application_Restart()
-        {
-            try
-            {
-                AVProcess.Launch_ShellExecute("CtrlUI.exe", "", "-restart", true);
-                await Application_Exit();
             }
             catch { }
         }

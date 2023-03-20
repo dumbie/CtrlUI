@@ -120,6 +120,7 @@ namespace CtrlUI
         //Process Variables
         public static ProcessMulti vProcessCurrent = Get_ProcessMultiCurrent();
         public static ProcessMulti vProcessDirectXInput = null;
+        public static ProcessMulti vProcessScreenCaptureTool = null;
 
         //App Status Variables
         public static bool vAppMinimized = false;

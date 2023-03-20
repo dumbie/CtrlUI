@@ -38,6 +38,7 @@ namespace CtrlUI
                 cb_SettingsInterfaceSound.IsChecked = SettingLoad(vConfigurationCtrlUI, "InterfaceSound", typeof(bool));
                 cb_SettingsLaunchFpsOverlayer.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchFpsOverlayer", typeof(bool));
                 cb_SettingsLaunchDirectXInput.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchDirectXInput", typeof(bool));
+                cb_SettingsLaunchScreenCaptureTool.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchScreenCaptureTool", typeof(bool));
 
                 //Load the socket used ports
                 int serverPortRange = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(int)) + 2;

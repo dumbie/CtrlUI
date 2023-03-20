@@ -115,18 +115,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\ScreenCaptureDLL\ScreenCaptureShared\CaptureBitmap.cs">
-      <Link>ScreenCapture\CaptureBitmap.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ScreenCaptureDLL\ScreenCaptureShared\CaptureClasses.cs">
-      <Link>ScreenCapture\CaptureClasses.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ScreenCaptureDLL\ScreenCaptureShared\CaptureFunctions.cs">
-      <Link>ScreenCapture\CaptureFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ScreenCaptureDLL\ScreenCaptureShared\CaptureImport.cs">
-      <Link>ScreenCapture\CaptureImport.cs</Link>
-    </Compile>
     <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
@@ -152,6 +140,7 @@
     <Compile Include="Keyboard\ToolFunctions.cs" />
     <Compile Include="Keyboard\ModeFunctions.cs" />
     <Compile Include="Keyboard\ShortcutListFunctions.cs" />
+    <Compile Include="Processes\ProcessLaunch.cs" />
     <Compile Include="ToolFunctions.cs" />
     <Compile Include="Keyboard\KeyboardTasks.cs" />
     <Compile Include="Keyboard\MediaFunctions.cs" />
@@ -201,7 +190,6 @@
     <Compile Include="InputController.cs" />
     <Compile Include="ConnectionFunctions.cs" />
     <Compile Include="Resources\Settings\SettingsFunctions.cs" />
-    <Compile Include="ScreenCapture\CaptureScreen.cs" />
     <Compile Include="SocketHandlers.cs" />
     <Page Include="Keypad\WindowKeypad.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -229,6 +217,8 @@
     </Page>
     <Compile Include="DirectInput.cs" />
     <Compile Include="ProfileFunctions.cs" />
+    <Compile Include="AppStartup.cs" />
+    <Compile Include="AppClose.cs" />
     <Compile Include="WindowMain.xaml.cs" />
     <Page Include="Overlay\WindowOverlay.xaml">
       <SubType>Designer</SubType>
@@ -242,15 +232,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DirectXInput.exe.csettings">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\PixelShader.hlsl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\ScreenCapture.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\VertexShader.hlsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

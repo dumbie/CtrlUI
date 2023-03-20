@@ -460,8 +460,6 @@ namespace DirectXInput
 
                 //Settings functions
                 btn_Settings_InstallDrivers.Click += btn_Settings_InstallDrivers_Click;
-                btn_Settings_ScreenshotLocationChange.Click += Btn_Settings_ScreenshotLocationChange_Click;
-                btn_Settings_ScreenshotLocationOpen.Click += Btn_Settings_ScreenshotLocationOpen_Click;
 
                 //Help functions
                 btn_Help_ProjectWebsite.Click += btn_Help_ProjectWebsite_Click;

@@ -23,7 +23,6 @@ namespace DirectXInput
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutAltTab")) { SettingSave(vConfigurationDirectXInput, "ShortcutAltTab", "True"); } //Shared
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutCtrlAltDelete")) { SettingSave(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", "True"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutScreenshotController")) { SettingSave(vConfigurationDirectXInput, "ShortcutScreenshotController", "True"); } //Shared
-                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard")) { SettingSave(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", "True"); }
 
                 //Battery settings
                 if (!SettingCheck(vConfigurationDirectXInput, "BatteryLowLevel")) { SettingSave(vConfigurationDirectXInput, "BatteryLowLevel", "20"); }
@@ -49,10 +48,6 @@ namespace DirectXInput
                 //Media settings
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutMuteFunction")) { SettingSave(vConfigurationDirectXInput, "ShortcutMuteFunction", "0"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "MediaVolumeStep")) { SettingSave(vConfigurationDirectXInput, "MediaVolumeStep", "2"); }
-
-                //Screenshot settings
-                if (!SettingCheck(vConfigurationDirectXInput, "ScreenshotLocation")) { SettingSave(vConfigurationDirectXInput, "ScreenshotLocation", "Screenshots"); }
-                if (!SettingCheck(vConfigurationDirectXInput, "ScreenshotHDRtoSDR")) { SettingSave(vConfigurationDirectXInput, "ScreenshotHDRtoSDR", "False"); }
             }
             catch (Exception ex)
             {

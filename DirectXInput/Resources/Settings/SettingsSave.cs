@@ -194,11 +194,6 @@ namespace DirectXInput
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
-                cb_SettingsShortcutScreenshotKeyboard.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", cb_SettingsShortcutScreenshotKeyboard.IsChecked.ToString());
-                };
-
                 //Keyboard settings
                 cb_SettingsKeyboardCloseNoController.Click += (sender, e) =>
                 {
@@ -302,12 +297,6 @@ namespace DirectXInput
                 {
                     textblock_SettingsMediaVolumeStep.Text = textblock_SettingsMediaVolumeStep.Tag.ToString() + slider_SettingsMediaVolumeStep.Value.ToString();
                     SettingSave(vConfigurationDirectXInput, "MediaVolumeStep", slider_SettingsMediaVolumeStep.Value);
-                };
-
-                //Screenshot settings
-                cb_Settings_ScreenshotHDRtoSDR.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ScreenshotHDRtoSDR", cb_Settings_ScreenshotHDRtoSDR.IsChecked.ToString());
                 };
             }
             catch (Exception ex)

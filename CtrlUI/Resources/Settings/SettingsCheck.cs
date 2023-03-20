@@ -51,6 +51,7 @@ namespace CtrlUI
 
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchFpsOverlayer")) { SettingSave(vConfigurationCtrlUI, "LaunchFpsOverlayer", "False"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchDirectXInput")) { SettingSave(vConfigurationCtrlUI, "LaunchDirectXInput", "True"); }
+                if (!SettingCheck(vConfigurationCtrlUI, "LaunchScreenCaptureTool")) { SettingSave(vConfigurationCtrlUI, "LaunchScreenCaptureTool", "False"); }
             }
             catch (Exception ex)
             {

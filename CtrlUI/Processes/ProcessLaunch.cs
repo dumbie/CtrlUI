@@ -225,6 +225,25 @@ namespace CtrlUI
             catch { }
         }
 
+        //Launch Screen Capture Tool
+        async Task LaunchScreenCaptureTool(bool forceLaunch)
+        {
+            try
+            {
+                if (forceLaunch || !Check_RunningProcessByName("ScreenCaptureTool", true))
+                {
+                    Debug.WriteLine("Launching Screen Capture Tool");
+
+                    //Show notification
+                    await Notification_Send_Status("Screenshot", "Launching Screen Capture Tool");
+
+                    //Launch Fps Overlayer
+                    AVProcess.Launch_ShellExecute("ScreenCaptureTool.exe", "", "", true);
+                }
+            }
+            catch { }
+        }
+
         //Launch Fps Overlayer application
         async Task LaunchFpsOverlayer(bool forceLaunch)
         {
@@ -232,7 +251,7 @@ namespace CtrlUI
             {
                 if (forceLaunch || !Check_RunningProcessByName("FpsOverlayer", true))
                 {
-                    Debug.WriteLine("Showing Fps Overlayer");
+                    Debug.WriteLine("Launching Fps Overlayer");
 
                     //Show notification
                     await Notification_Send_Status("Fps", "Showing Fps Overlayer");
@@ -244,21 +263,13 @@ namespace CtrlUI
             catch { }
         }
 
-        //Launch or close Fps Overlayer application
-        async Task LaunchCloseFpsOverlayer()
+        //Restart the application
+        public async Task Application_Restart()
         {
             try
             {
-                if (Check_RunningProcessByName("FpsOverlayer", true))
-                {
-                    //Close the Fps Overlayer
-                    await CloseFpsOverlayer();
-                }
-                else
-                {
-                    //Launch the Fps Overlayer
-                    await LaunchFpsOverlayer(true);
-                }
+                AVProcess.Launch_ShellExecute("CtrlUI.exe", "", "-restart", true);
+                await Application_Exit();
             }
             catch { }
         }

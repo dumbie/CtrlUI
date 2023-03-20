@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 
@@ -11,32 +10,16 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Check if DirectXInput is running and the keyboard setting is enabled
-        bool CheckKeyboardEnabled()
-        {
-            try
-            {
-                //Load the current DirectXInput settings
-                vConfigurationDirectXInput = SettingLoadConfig("DirectXInput.exe.csettings");
-
-                bool processDirectXInputRunning = Check_RunningProcessByName("DirectXInput", true);
-                bool ShortcutKeyboardPopup = SettingLoad(vConfigurationDirectXInput, "ShortcutKeyboardPopup", typeof(bool));
-                if (ShortcutKeyboardPopup && processDirectXInputRunning)
-                {
-                    return true;
-                }
-            }
-            catch { }
-            return false;
-        }
-
         //Update controller help
         void UpdateControllerHelp()
         {
             try
             {
-                //Check if DirectXInput is running
-                bool processDirectXInputRunning = Check_RunningProcessByName("DirectXInput", true);
+                //Check if tools are running
+                bool processDirectXInputRunning = vProcessDirectXInput != null;
+                bool processScreenCaptureToolRunning = vProcessScreenCaptureTool != null;
+                //Debug.WriteLine("DirectXInput running: " + processDirectXInputRunning);
+                //Debug.WriteLine("ScreenCaptureTool running: " + processScreenCaptureToolRunning);
 
                 AVActions.DispatcherInvoke(delegate
                 {
@@ -124,7 +107,7 @@ namespace CtrlUI
                     }
 
                     bool ShortcutScreenshotController = SettingLoad(vConfigurationDirectXInput, "ShortcutScreenshotController", typeof(bool));
-                    if (processDirectXInputRunning && ShortcutScreenshotController)
+                    if (processScreenCaptureToolRunning && ShortcutScreenshotController)
                     {
                         sp_ControllerHelpScreenshot.Visibility = Visibility.Visible;
                     }

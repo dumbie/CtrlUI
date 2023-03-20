@@ -125,7 +125,7 @@ namespace DirectXInput
         {
             try
             {
-                ToolFunctions.LaunchFpsOverlayer(true);
+                ProcessLaunch.LaunchFpsOverlayer(true);
             }
             catch { }
         }

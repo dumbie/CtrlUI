@@ -57,7 +57,6 @@ namespace CtrlUI
                     else if (selectedItemString == "menuButtonRunStore") { await LaunchStoreApplication(); }
                     else if (selectedItemString == "menuButtonAddExe") { await Popup_Show_AddExe(); }
                     else if (selectedItemString == "menuButtonAddStore") { await Popup_Show_AddStore(); }
-                    else if (selectedItemString == "menuButtonFps") { await LaunchCloseFpsOverlayer(); }
                     else if (selectedItemString == "menuButtonSettings") { await ShowLoadSettingsPopup(); }
                     else if (selectedItemString == "menuButtonHelp") { await Popup_Show(grid_Popup_Help, btn_Help_Focus); }
                     else if (selectedItemString == "menuButtonCloseLaunchers") { await CloseLaunchers(); }
@@ -91,14 +90,6 @@ namespace CtrlUI
                     Data1 = "menuButtonAudioDevice"
                 };
                 List_MainMenu.Add(menuButtonAudioDevice);
-
-                DataBindString menuButtonFps = new DataBindString
-                {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Fps.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Show or hide the fps overlayer",
-                    Data1 = "menuButtonFps"
-                };
-                List_MainMenu.Add(menuButtonFps);
 
                 DataBindString menuButtonRunExe = new DataBindString
                 {

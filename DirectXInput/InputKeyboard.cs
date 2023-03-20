@@ -18,16 +18,7 @@ namespace DirectXInput
                 bool windowsPressed = keysPressed.Contains(KeysVirtual.WindowsLeft);
                 bool modifierKeyPressed = altPressed || controlPressed || shiftPressed || windowsPressed;
 
-                if (!modifierKeyPressed && keysPressed.Contains(KeysVirtual.F12))
-                {
-                    //Make screenshot hotkey
-                    if (SettingLoad(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", typeof(bool)))
-                    {
-                        Debug.WriteLine("Button Global - Screenshot");
-                        await CaptureScreen.CaptureScreenToFile();
-                    }
-                }
-                else if (windowsPressed && keysPressed.Contains(KeysVirtual.OEMTilde))
+                if (windowsPressed && keysPressed.Contains(KeysVirtual.OEMTilde))
                 {
                     //Launch or show CtrlUI
                     if (SettingLoad(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard", typeof(bool)))

@@ -183,13 +183,13 @@ namespace DirectXInput
                             ControllerDelay250 = true;
                         }
                     }
-                    //Make screenshot
+                    //Signal screen capture tool to take screenshot
                     else if (Controller.InputCurrent.ButtonTouchpad.PressedRaw)
                     {
                         if (SettingLoad(vConfigurationDirectXInput, "ShortcutScreenshotController", typeof(bool)))
                         {
                             Debug.WriteLine("Button Global - Screenshot");
-                            await CaptureScreen.CaptureScreenToFile();
+                            await ToolFunctions.ScreenCaptureToolTakeScreenshot();
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;

@@ -61,7 +61,6 @@ namespace DirectXInput
                 cb_SettingsShortcutAltTab.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutAltTab", typeof(bool));
                 cb_SettingsShortcutCtrlAltDelete.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", typeof(bool));
                 cb_SettingsShortcutScreenshotController.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutScreenshotController", typeof(bool));
-                cb_SettingsShortcutScreenshotKeyboard.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", typeof(bool));
 
                 //Load keyboard settings
                 cb_SettingsKeyboardCloseNoController.IsChecked = SettingLoad(vConfigurationDirectXInput, "KeyboardCloseNoController", typeof(bool));
@@ -78,10 +77,6 @@ namespace DirectXInput
                 combobox_ShortcutMuteFunction.SelectedIndex = SettingLoad(vConfigurationDirectXInput, "ShortcutMuteFunction", typeof(int));
                 textblock_SettingsMediaVolumeStep.Text = textblock_SettingsMediaVolumeStep.Tag.ToString() + SettingLoad(vConfigurationDirectXInput, "MediaVolumeStep", typeof(string));
                 slider_SettingsMediaVolumeStep.Value = SettingLoad(vConfigurationDirectXInput, "MediaVolumeStep", typeof(double));
-
-                //Load screenshot settings
-                textblock_Settings_ScreenshotLocation.Text = textblock_Settings_ScreenshotLocation.Tag + SettingLoad(vConfigurationDirectXInput, "ScreenshotLocation", typeof(string));
-                cb_Settings_ScreenshotHDRtoSDR.IsChecked = SettingLoad(vConfigurationDirectXInput, "ScreenshotHDRtoSDR", typeof(bool));
 
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;

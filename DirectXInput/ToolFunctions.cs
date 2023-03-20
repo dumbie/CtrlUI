@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
@@ -19,7 +18,7 @@ namespace DirectXInput
             {
                 if (!Check_RunningProcessByName("CtrlUI", true))
                 {
-                    LaunchCtrlUI(true);
+                    ProcessLaunch.LaunchCtrlUI(true);
                 }
                 else
                 {
@@ -29,27 +28,7 @@ namespace DirectXInput
             catch { }
         }
 
-        private static void LaunchCtrlUI(bool forceLaunch)
-        {
-            try
-            {
-                if (forceLaunch || !Check_RunningProcessByName("CtrlUI", true))
-                {
-                    Debug.WriteLine("Launching CtrlUI.");
-
-                    //Show notification
-                    NotificationDetails notificationDetails = new NotificationDetails();
-                    notificationDetails.Icon = "AppLaunch";
-                    notificationDetails.Text = "Launching CtrlUI";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
-                    //Launch CtrlUI
-                    AVProcess.Launch_ShellExecute("CtrlUI-Launcher.exe", "", "", true);
-                }
-            }
-            catch { }
-        }
-
+        //Show CtrlUI
         private static async Task ShowCtrlUI()
         {
             try
@@ -90,33 +69,11 @@ namespace DirectXInput
             {
                 if (!Check_RunningProcessByName("FpsOverlayer", true))
                 {
-                    LaunchFpsOverlayer(true);
+                    ProcessLaunch.LaunchFpsOverlayer(true);
                 }
                 else
                 {
                     await ShowHideFpsOverlayer();
-                }
-            }
-            catch { }
-        }
-
-        //Launch the Fps Overlayer
-        public static void LaunchFpsOverlayer(bool forceLaunch)
-        {
-            try
-            {
-                if (forceLaunch || !Check_RunningProcessByName("FpsOverlayer", true))
-                {
-                    Debug.WriteLine("Launching Fps Overlayer");
-
-                    //Show notification
-                    NotificationDetails notificationDetails = new NotificationDetails();
-                    notificationDetails.Icon = "Fps";
-                    notificationDetails.Text = "Launching Fps Overlayer";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
-                    //Launch Fps Overlayer
-                    AVProcess.Launch_ShellExecute("FpsOverlayer-Launcher.exe", "", "", true);
                 }
             }
             catch { }
@@ -289,6 +246,31 @@ namespace DirectXInput
 
                 //Send socket data
                 IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), vArnoldVinkSockets.vSocketServerPort + 1);
+                await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
+            }
+            catch { }
+        }
+
+        //Screen Capture Tool take screenshot
+        public static async Task ScreenCaptureToolTakeScreenshot()
+        {
+            try
+            {
+                //Check if socket server is running
+                if (vArnoldVinkSockets == null)
+                {
+                    Debug.WriteLine("The socket server is not running.");
+                    return;
+                }
+
+                Debug.WriteLine("Signal screen capture tool to take screenshot.");
+
+                //Prepare socket data
+                string socketSend = "TakeScreenshot";
+                byte[] SerializedData = SerializeObjectToBytes(socketSend);
+
+                //Send socket data
+                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), 1040);
                 await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
             }
             catch { }

@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using Microsoft.Diagnostics.Tracing.StackSources;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
