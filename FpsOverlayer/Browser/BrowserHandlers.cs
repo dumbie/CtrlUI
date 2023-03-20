@@ -115,6 +115,19 @@ namespace FpsOverlayer.OverlayCode
             catch { }
         }
 
+        //Copy current link to clipboard
+        private void button_CopyLink_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (textblock_Link.Text != "Current website link")
+                {
+                    Clipboard.SetText(textblock_Link.Text);
+                }
+            }
+            catch { }
+        }
+
         //Open new window link
         private void WebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
         {

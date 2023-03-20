@@ -52,7 +52,13 @@
                 </Grid.RowDefinitions>
 
                 <ListBox Grid.Row="0" MaxHeight="210" Name="listbox_Link" Style="{StaticResource ListBoxVertical}" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemLink}" SelectionMode="Single" PreviewMouseUp="listbox_Link_PreviewMouseUp"/>
-                <TextBlock Grid.Row="1" Name="textblock_Link" Style="{StaticResource TextBlockGray}" Text="Current website link"/>
+
+                <Button Grid.Row="1" Name="button_CopyLink" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_CopyLink_Click" ToolTip="Copy current link">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Copy.png" Height="20"/>
+                        <TextBlock Name="textblock_Link" Margin="5,0,0,0" Style="{StaticResource TextBlockGray}" Text="Current website link"/>
+                    </StackPanel>
+                </Button>
             </Grid>
 
             <Grid Grid.Row="3" Name="grid_Menu" Margin="5,0,5,5">
