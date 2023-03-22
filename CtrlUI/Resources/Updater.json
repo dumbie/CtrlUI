@@ -16,7 +16,8 @@
     "FpsOverlayer",
     "FpsOverlayer-Admin",
     "FpsOverlayer-Launcher",
-    "DriverInstaller"
+    "DriverInstaller",
+    "ScreenCaptureTool"
   ],
   "FilesIgnore": [
     ".csettings"
