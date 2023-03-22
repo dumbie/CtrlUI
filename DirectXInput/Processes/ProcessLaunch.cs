@@ -52,7 +52,7 @@ namespace DirectXInput
         }
 
         //Launch Screen Capture Tool
-        public static void LaunchScreenCaptureTool(bool forceLaunch)
+        public static void LaunchScreenCaptureTool(bool forceLaunch, bool skipNotification)
         {
             try
             {
@@ -61,10 +61,13 @@ namespace DirectXInput
                     Debug.WriteLine("Launching Screen Capture Tool");
 
                     //Show notification
-                    NotificationDetails notificationDetails = new NotificationDetails();
-                    notificationDetails.Icon = "Screenshot";
-                    notificationDetails.Text = "Launching Screen Capture Tool";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    if (!skipNotification)
+                    {
+                        NotificationDetails notificationDetails = new NotificationDetails();
+                        notificationDetails.Icon = "Screenshot";
+                        notificationDetails.Text = "Launching Screen Capture Tool";
+                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    }
 
                     //Launch Fps Overlayer
                     AVProcess.Launch_ShellExecute("ScreenCaptureTool.exe", "", "", true);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace CtrlUI
             {
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
-                    string imageFileName = FilterNameFile(dataBindApp.Name);
+                    string imageFileName = AVFiles.FileNameReplaceInvalidChars(string.Empty, dataBindApp.Name);
                     string imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
                     string imageSquareLargestLogoPath = string.Empty;
                     string imageWideLargestLogoPath = string.Empty;
@@ -46,7 +47,7 @@ namespace CtrlUI
                 else
                 {
                     //Get application image information
-                    string imageFileName = FilterNameFile(dataBindApp.Name);
+                    string imageFileName = AVFiles.FileNameReplaceInvalidChars(string.Empty, dataBindApp.Name);
                     string imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
                     string imageFileExePath = dataBindApp.PathExe;
 
@@ -70,7 +71,7 @@ namespace CtrlUI
             try
             {
                 //Set application and executable name
-                string imageFileName = FilterNameFile(dataBindApp.Name);
+                string imageFileName = AVFiles.FileNameReplaceInvalidChars(string.Empty, dataBindApp.Name);
                 string imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.PathExe);
 
                 //Search application image files
@@ -101,13 +102,13 @@ namespace CtrlUI
                 string imageFileExePath = string.Empty;
                 if (dataBindApp != null)
                 {
-                    imageFileName = FilterNameFile(dataBindApp.Name);
+                    imageFileName = AVFiles.FileNameReplaceInvalidChars(string.Empty, dataBindApp.Name);
                     imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
                     imageFileExePath = dataBindApp.PathExe;
                 }
                 else
                 {
-                    imageFileName = FilterNameFile(tb_AddAppName.Text);
+                    imageFileName = AVFiles.FileNameReplaceInvalidChars(string.Empty, tb_AddAppName.Text);
                     imageFileExeName = Path.GetFileNameWithoutExtension(tb_AddAppPathExe.Text);
                     imageFileExePath = tb_AddAppPathExe.Text;
                 }

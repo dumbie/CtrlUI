@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
@@ -48,6 +49,9 @@ namespace DirectXInput
                 //Media settings
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutMuteFunction")) { SettingSave(vConfigurationDirectXInput, "ShortcutMuteFunction", "0"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "MediaVolumeStep")) { SettingSave(vConfigurationDirectXInput, "MediaVolumeStep", "2"); }
+
+                //Socket settings
+                if (!SettingCheck(vConfigurationDirectXInput, "ServerPortScreenCaptureTool")) { SettingSave(vConfigurationDirectXInput, "ServerPortScreenCaptureTool", "1040"); }
             }
             catch (Exception ex)
             {

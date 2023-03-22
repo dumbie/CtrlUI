@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using static ArnoldVinkCode.AVFunctions;
@@ -12,28 +11,13 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Filter file name
-        public string FilterNameFile(string nameFile)
-        {
-            try
-            {
-                //Remove invalid characters
-                nameFile = string.Join(string.Empty, nameFile.Split(Path.GetInvalidFileNameChars())).Trim();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed filtering file name: " + ex.Message);
-            }
-            return nameFile;
-        }
-
         //Filter game name
         public string FilterNameGame(string nameFile, bool removeExtension, bool removeSpaces, bool removePlatform, int takeWords)
         {
             try
             {
                 //Remove invalid characters
-                nameFile = string.Join(string.Empty, nameFile.Split(Path.GetInvalidFileNameChars())).Trim();
+                nameFile = AVFiles.FileNameReplaceInvalidChars(string.Empty, nameFile).Trim();
 
                 //Remove unicode characters
                 nameFile = StringRemoveUnicode(nameFile);
@@ -62,7 +46,7 @@ namespace CtrlUI
                 nameFile = Regex.Replace(nameFile, @"multi\s?\d+", string.Empty);
 
                 //Remove whole words
-                string[] nameFilterRemove = { "usa", "eur", "pal", "ntsc", "repack", "proper", "ps2dvd", "psn" };
+                string[] nameFilterRemove = { "usa", "eur", "pal", "ntsc", "repack", "proper", "ps2dvd", "psn", "nsw" };
                 foreach (string replaceString in nameFilterRemove)
                 {
                     nameFile = Regex.Replace(nameFile, @"\b" + replaceString + @"\b", string.Empty);

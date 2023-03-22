@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVProcess;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -270,7 +271,8 @@ namespace DirectXInput
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), 1040);
+                int SocketServerPort = SettingLoad(vConfigurationDirectXInput, "ServerPortScreenCaptureTool", typeof(int));
+                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), SocketServerPort);
                 await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
             }
             catch { }

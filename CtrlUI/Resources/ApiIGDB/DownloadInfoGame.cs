@@ -24,8 +24,8 @@ namespace CtrlUI
             try
             {
                 //Filter the name
-                string namePlatformSave = FilterNameFile(nameEmulatorPlatform);
-                string nameGameSave = FilterNameFile(nameGame);
+                string namePlatformSave = AVFiles.FileNameReplaceInvalidChars(string.Empty, nameEmulatorPlatform);
+                string nameGameSave = AVFiles.FileNameReplaceInvalidChars(string.Empty, nameGame);
                 string nameGameSearch = FilterNameGame(nameGame, true, false, true, 0);
                 string userSaveDirectory = string.Empty;
                 string defaultDirectory = string.Empty;

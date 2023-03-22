@@ -192,6 +192,10 @@ namespace DirectXInput
                 {
                     SettingSave(vConfigurationDirectXInput, "ShortcutScreenshotController", cb_SettingsShortcutScreenshotController.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
+                    if ((bool)cb_SettingsShortcutScreenshotController.IsChecked)
+                    {
+                        ProcessLaunch.LaunchScreenCaptureTool(true, false);
+                    }
                 };
 
                 //Keyboard settings

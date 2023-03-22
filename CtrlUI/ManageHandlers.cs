@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -71,7 +72,7 @@ namespace CtrlUI
                 if (vEditAppDataBind != null)
                 {
                     //Check invalid file name
-                    string saveFileName = FilterNameFile(vEditAppDataBind.Name);
+                    string saveFileName = AVFiles.FileNameReplaceInvalidChars(string.Empty, vEditAppDataBind.Name);
 
                     //Copy the new application image
                     File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + saveFileName + ".png", true);
@@ -86,7 +87,7 @@ namespace CtrlUI
                 else
                 {
                     //Check invalid file name
-                    string saveFileName = FilterNameFile(tb_AddAppName.Text);
+                    string saveFileName = AVFiles.FileNameReplaceInvalidChars(string.Empty, tb_AddAppName.Text);
 
                     //Copy the new application image
                     File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + saveFileName + ".png", true);
