@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Diagnostics;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;

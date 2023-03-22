@@ -132,7 +132,7 @@ namespace CtrlUI
             {
                 if (vMainMenuOpen)
                 {
-                    await Popup_Close_Top();
+                    await Popup_Close_Top(false);
                     return;
                 }
 
@@ -247,10 +247,11 @@ namespace CtrlUI
         }
 
         //Close open top popup (xaml order)
-        async Task Popup_Close_Top()
+        async Task Popup_Close_Top(bool waitClose, bool selectEditItem = false)
         {
             try
             {
+                //Close open top popup
                 if (vTextInputOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_TextInput(); }); }
                 else if (vMessageBoxOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_MessageBox(); }); }
                 else if (vHowLongToBeatOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_HowLongToBeat(); }); }
@@ -258,6 +259,18 @@ namespace CtrlUI
                 else if (vColorPickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ColorPicker(); }); }
                 else if (vPopupOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close(); }); }
                 else if (vMainMenuOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_MainMenu(); }); }
+
+                //Wait for popups to have closed
+                if (waitClose)
+                {
+                    await Task.Delay(250);
+                }
+
+                //Focus on the edit listbox item
+                if (selectEditItem)
+                {
+                    await FocusEditListboxItem();
+                }
             }
             catch { }
         }

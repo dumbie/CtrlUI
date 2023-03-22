@@ -71,7 +71,7 @@ namespace CtrlUI
                 btn_AddAppPathLaunch.Click += Button_AddAppPathLaunch_Click;
                 btn_AddAppPathRoms.Click += Button_AddAppPathRoms_Click;
                 checkbox_AddLaunchSkipRom.Click += Checkbox_AddLaunchSkipRom_Click;
-                grid_Popup_Manage_button_Close.Click += Button_Popup_Close_Click;
+                grid_Popup_Manage_button_Close.Click += Grid_Popup_Manage_button_Close_Click;
                 grid_Popup_Manage_button_Save.Click += Grid_Popup_Manage_button_Save_Click;
 
                 //Move app functions

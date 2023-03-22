@@ -202,6 +202,16 @@ namespace CtrlUI
             catch { }
         }
 
+        //Close edit popup window and focus on item
+        async void Grid_Popup_Manage_button_Close_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await Popup_Close_Top(true, true);
+            }
+            catch { }
+        }
+
         //Add or edit application to list apps and Json file
         async void Grid_Popup_Manage_button_Save_Click(object sender, RoutedEventArgs e)
         {

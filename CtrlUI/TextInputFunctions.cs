@@ -17,7 +17,7 @@ namespace CtrlUI
                 //Check if the popup is open
                 if (vTextInputOpen)
                 {
-                    await Popup_Close_Top();
+                    await Popup_Close_Top(false);
                     return string.Empty;
                 }
 

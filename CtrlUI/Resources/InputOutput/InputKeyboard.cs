@@ -304,11 +304,24 @@ namespace CtrlUI
                 else
                 {
                     //Debug.WriteLine("Key pressed: " + e.Key);
-                    if (e.Key == Key.Escape) { await Popup_Close_Top(); }
+                    if (e.Key == Key.Escape)
+                    {
+                        if (Popup_Open_Check(grid_Popup_Manage))
+                        {
+                            await Popup_Close_Top(true, true);
+                        }
+                        else
+                        {
+                            await Popup_Close_Top(false);
+                        }
+                    }
                     else if (e.Key == Key.F1) { await Popup_Show(grid_Popup_Help, grid_Popup_Help_button_Close); }
                     else if (e.Key == Key.F2)
                     {
-                        if (!vFilePickerOpen) { await QuickLaunchPrompt(); }
+                        if (!vFilePickerOpen)
+                        {
+                            await QuickLaunchPrompt();
+                        }
                     }
                     else if (e.Key == Key.F3) { await CategoryListChange(ListCategory.Search); }
                     else if (e.Key == Key.F4) { await SortListsAuto(); }

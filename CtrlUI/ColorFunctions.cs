@@ -38,7 +38,7 @@ namespace CtrlUI
             {
                 if (vColorPickerOpen)
                 {
-                    await Popup_Close_Top();
+                    await Popup_Close_Top(false);
                     return;
                 }
 

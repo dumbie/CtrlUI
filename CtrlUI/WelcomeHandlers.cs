@@ -17,7 +17,7 @@ namespace CtrlUI
             try
             {
                 //Close top popup
-                await Popup_Close_Top();
+                await Popup_Close_Top(false);
 
                 //Enable main menu
                 MainMenuButtonsEnable(true);

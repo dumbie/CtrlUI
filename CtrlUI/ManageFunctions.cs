@@ -12,7 +12,6 @@ using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVUwpAppx;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -335,7 +334,7 @@ namespace CtrlUI
                     await AddAppToList(dataBindApp, true, true);
 
                     //Close the open popup
-                    await Popup_Close_Top();
+                    await Popup_Close_Top(true);
 
                     //Focus on the application list
                     if (selectedAppCategory == AppCategory.Game)
@@ -413,8 +412,10 @@ namespace CtrlUI
                     vEditAppDataBind.LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked;
                     vEditAppDataBind.LaunchEnableHDR = (bool)checkbox_AddLaunchEnableHDR.IsChecked;
 
-                    //Edit images in the list
+                    //Edit application image in the list
                     vEditAppDataBind.ImageBitmap = Image_Application_Load(vEditAppDataBind, vImageLoadSize);
+
+                    //Edit emulator image in the list
                     if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Console) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadConsole; }
                     else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Handheld) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadHandheld; }
                     else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Computer) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadComputer; }
@@ -436,8 +437,7 @@ namespace CtrlUI
                     JsonSaveApplications();
 
                     //Close the open popup
-                    await Popup_Close_Top();
-                    await Task.Delay(500);
+                    await Popup_Close_Top(true);
 
                     //Focus on the application list
                     if (vEditAppDataBindCategory != vEditAppDataBind.Category)
@@ -472,56 +472,46 @@ namespace CtrlUI
                             await ListBoxAddItem(lb_Emulators, List_Emulators, vEditAppDataBind, false, false);
                         }
 
-                        //Focus on the edited item listbox
+                        //Edit search image in the list
                         if (vCurrentListCategory == ListCategory.Search)
                         {
-                            await ListBoxFocusIndex(lb_Search, false, 0, vProcessCurrent.WindowHandleMain);
-                        }
-                        else
-                        {
-                            if (vEditAppDataBind.Category == AppCategory.Game)
-                            {
-                                await ListBoxFocusIndex(lb_Games, true, 0, vProcessCurrent.WindowHandleMain);
-                            }
-                            else if (vEditAppDataBind.Category == AppCategory.App)
-                            {
-                                await ListBoxFocusIndex(lb_Apps, true, 0, vProcessCurrent.WindowHandleMain);
-                            }
-                            else if (vEditAppDataBind.Category == AppCategory.Emulator)
-                            {
-                                await ListBoxFocusIndex(lb_Emulators, true, 0, vProcessCurrent.WindowHandleMain);
-                            }
+                            SearchAppSetCategoryImage(vEditAppDataBind);
                         }
                     }
-                    else
-                    {
-                        //Focus on the item listbox
-                        if (vCurrentListCategory == ListCategory.Search)
-                        {
-                            await ListBoxFocusIndex(lb_Search, false, 0, vProcessCurrent.WindowHandleMain);
-                        }
-                        else
-                        {
-                            if (vEditAppDataBind.Category == AppCategory.Game)
-                            {
-                                await ListBoxFocusIndex(lb_Games, false, 0, vProcessCurrent.WindowHandleMain);
-                            }
-                            else if (vEditAppDataBind.Category == AppCategory.App)
-                            {
-                                await ListBoxFocusIndex(lb_Apps, false, 0, vProcessCurrent.WindowHandleMain);
-                            }
-                            else if (vEditAppDataBind.Category == AppCategory.Emulator)
-                            {
-                                await ListBoxFocusIndex(lb_Emulators, false, 0, vProcessCurrent.WindowHandleMain);
-                            }
-                        }
-                    }
+
+                    //Focus on the edit listbox item
+                    await FocusEditListboxItem();
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Application edit or add failed: " + ex.Message);
             }
+        }
+
+        //Focus on the edit listbox item
+        async Task FocusEditListboxItem()
+        {
+            try
+            {
+                if (vCurrentListCategory == ListCategory.Search)
+                {
+                    await ListBoxFocusItem(lb_Search, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                }
+                else if (vEditAppDataBind.Category == AppCategory.Game)
+                {
+                    await ListBoxFocusItem(lb_Games, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                }
+                else if (vEditAppDataBind.Category == AppCategory.App)
+                {
+                    await ListBoxFocusItem(lb_Apps, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                }
+                else if (vEditAppDataBind.Category == AppCategory.Emulator)
+                {
+                    await ListBoxFocusItem(lb_Emulators, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                }
+            }
+            catch { }
         }
 
         //Add categories to manage interface

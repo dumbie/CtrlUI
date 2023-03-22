@@ -9,7 +9,7 @@ namespace CtrlUI
         {
             try
             {
-                await Popup_Close_Top();
+                await Popup_Close_Top(false);
             }
             catch { }
         }
