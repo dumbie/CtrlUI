@@ -315,8 +315,8 @@ namespace CtrlUI
                 //Check if application needs to be edited or added
                 if (addApplication)
                 {
-                    //Check if new application already exists
-                    if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower() || x.PathExe.ToLower() == tb_AddAppPathExe.Text.ToLower()))
+                    //Check if application executable already exists
+                    if (CombineAppLists(false, false, false).Any(x => x.PathExe.ToLower() == tb_AddAppPathExe.Text.ToLower()))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
@@ -324,7 +324,7 @@ namespace CtrlUI
                         Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
-                        await Popup_Show_MessageBox("This application already exists", "", "", Answers);
+                        await Popup_Show_MessageBox("Application executable already exists", "", "Please select another executable that is not yet added.", Answers);
                         return;
                     }
 
@@ -352,23 +352,6 @@ namespace CtrlUI
                 }
                 else
                 {
-                    //Check if application name already exists
-                    if (vEditAppDataBind.Name.ToLower() == tb_AddAppName.Text.ToLower())
-                    {
-                        Debug.WriteLine("Application name has not changed or just caps.");
-                    }
-                    else if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower()))
-                    {
-                        List<DataBindString> Answers = new List<DataBindString>();
-                        DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Ok";
-                        Answers.Add(Answer1);
-
-                        await Popup_Show_MessageBox("This application name already exists, please use another one", "", "", Answers);
-                        return;
-                    }
-
                     //Check if application executable already exists
                     if (vEditAppDataBind.PathExe == tb_AddAppPathExe.Text)
                     {
@@ -382,7 +365,7 @@ namespace CtrlUI
                         Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
-                        await Popup_Show_MessageBox("This application executable already exists, please select another one", "", "", Answers);
+                        await Popup_Show_MessageBox("Application executable already exists", "", "Please select another executable that is not yet added.", Answers);
                         return;
                     }
 
