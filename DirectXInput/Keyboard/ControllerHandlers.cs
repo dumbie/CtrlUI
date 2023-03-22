@@ -39,7 +39,7 @@ namespace DirectXInput.KeyboardCode
 
                     //Check the keyboard mode
                     KeyboardMode keyboardMode = (KeyboardMode)SettingLoad(vConfigurationDirectXInput, "KeyboardMode", typeof(int));
-                    if (keyboardMode == KeyboardMode.Media || keyboardMode == KeyboardMode.Tool)
+                    if (keyboardMode == KeyboardMode.Media)
                     {
                         //Get the mouse move amount
                         GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);

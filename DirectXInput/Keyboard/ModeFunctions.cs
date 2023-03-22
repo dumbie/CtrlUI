@@ -16,23 +16,23 @@ namespace DirectXInput.KeyboardCode
 {
     partial class WindowKeyboard
     {
-        //Handle Mode Switch
-        async void ButtonModeTool_PreviewKeyUp(object sender, KeyEventArgs e)
+        //Handle keypad switch
+        async void ButtonKeypad_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             try
             {
                 if (e.Key == Key.Space)
                 {
-                    await SetModeTool();
+                    await App.vWindowMain.KeypadPopupHideShow(true);
                 }
             }
             catch { }
         }
-        async void ButtonModeTool_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        async void ButtonKeypad_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                await SetModeTool();
+                await App.vWindowMain.KeypadPopupHideShow(true);
             }
             catch { }
         }
@@ -89,10 +89,6 @@ namespace DirectXInput.KeyboardCode
                 }
                 else if (keyboardMode == KeyboardMode.Media)
                 {
-                    await SetModeTool();
-                }
-                else if (keyboardMode == KeyboardMode.Tool)
-                {
                     await SetModeKeyboard();
                 }
             }
@@ -112,10 +108,6 @@ namespace DirectXInput.KeyboardCode
                 else if (keyboardMode == KeyboardMode.Keyboard)
                 {
                     await SetModeKeyboard();
-                }
-                else if (keyboardMode == KeyboardMode.Tool)
-                {
-                    await SetModeTool();
                 }
             }
             catch { }
@@ -158,13 +150,15 @@ namespace DirectXInput.KeyboardCode
                     //Show keyboard interface
                     grid_Keyboard.Visibility = Visibility.Visible;
                     grid_Media.Visibility = Visibility.Collapsed;
-                    grid_Tool.Visibility = Visibility.Collapsed;
 
                     //Update border color
                     SolidColorBrush backgroundColor = new SolidColorBrush(Colors.Transparent);
                     border_ControllerHelp_Accent.Background = backgroundColor;
                     border_Header_Accent.Background = backgroundColor;
                     border_Media_Accent.Background = backgroundColor;
+
+                    //Show tool header
+                    grid_Tool.Visibility = Visibility.Visible;
 
                     //Focus on keyboard button
                     if (vFocusedButtonKeyboard.FocusElement == null)
@@ -236,7 +230,6 @@ namespace DirectXInput.KeyboardCode
                     //Show media interface
                     grid_Keyboard.Visibility = Visibility.Collapsed;
                     grid_Media.Visibility = Visibility.Visible;
-                    grid_Tool.Visibility = Visibility.Collapsed;
 
                     //Update border color
                     SolidColorBrush backgroundBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
@@ -244,6 +237,9 @@ namespace DirectXInput.KeyboardCode
                     border_ControllerHelp_Accent.Background = backgroundBrushOpacity;
                     border_Header_Accent.Background = backgroundBrushOpacity;
                     border_Media_Accent.Background = backgroundBrushOpacity;
+
+                    //Hide tool header
+                    grid_Tool.Visibility = Visibility.Collapsed;
 
                     //Focus on keyboard button
                     await FocusElement(key_ModeKeyboard, vInteropWindowHandle);
@@ -259,78 +255,6 @@ namespace DirectXInput.KeyboardCode
 
                     //Update settings
                     SettingSave(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Media).ToString());
-                });
-            }
-            catch { }
-        }
-
-        public async Task SetModeTool()
-        {
-            try
-            {
-                await AVActions.DispatcherInvoke(async delegate
-                {
-                    //Update help bar
-                    stackpanel_DPad.Visibility = Visibility.Collapsed;
-                    textblock_DPad.Text = string.Empty;
-                    stackpanel_ButtonLeft.Visibility = Visibility.Collapsed;
-                    textblock_ButtonLeft.Text = string.Empty;
-                    stackpanel_ButtonUp.Visibility = Visibility.Collapsed;
-                    textblock_ButtonUp.Text = string.Empty;
-                    stackpanel_ButtonRight.Visibility = Visibility.Collapsed;
-                    textblock_ButtonRight.Text = string.Empty;
-                    stackpanel_ButtonLbRb.Visibility = Visibility.Visible;
-                    textblock_ButtonLbRb.Text = "Mouse click";
-                    stackpanel_LeftTriggerOff.Visibility = Visibility.Collapsed;
-                    textblock_LeftTriggerOff.Text = string.Empty;
-                    stackpanel_RightTriggerOff.Visibility = Visibility.Collapsed;
-                    textblock_RightTriggerOff.Text = string.Empty;
-                    stackpanel_ThumbPress.Visibility = Visibility.Collapsed;
-                    textblock_ThumbPress.Text = string.Empty;
-                    stackpanel_ThumbLeftOff.Visibility = Visibility.Visible;
-                    textblock_ThumbLeftOff.Text = "Mouse";
-                    stackpanel_ThumbRightOff.Visibility = Visibility.Visible;
-                    textblock_ThumbRightOff.Text = "Move";
-                    stackpanel_BackOff.Visibility = Visibility.Collapsed;
-                    textblock_BackOff.Text = string.Empty;
-                    stackpanel_StartOff.Visibility = Visibility.Visible;
-                    textblock_StartOff.Text = "Keyboard";
-                    stackpanel_Guide.Visibility = Visibility.Visible;
-                    textblock_Guide.Text = "Close";
-
-                    //Save keyboard focus element
-                    KeyboardMode keyboardMode = (KeyboardMode)SettingLoad(vConfigurationDirectXInput, "KeyboardMode", typeof(int));
-                    if (keyboardMode == KeyboardMode.Keyboard)
-                    {
-                        AVFocusDetailsSave(vFocusedButtonKeyboard, null);
-                    }
-
-                    //Show tool interface
-                    grid_Keyboard.Visibility = Visibility.Collapsed;
-                    grid_Media.Visibility = Visibility.Collapsed;
-                    grid_Tool.Visibility = Visibility.Visible;
-
-                    //Update border color
-                    SolidColorBrush backgroundColor = new SolidColorBrush(Colors.Transparent);
-                    border_ControllerHelp_Accent.Background = backgroundColor;
-                    border_Header_Accent.Background = backgroundColor;
-                    border_Media_Accent.Background = backgroundColor;
-
-                    //Focus on tool list
-                    await ListBoxFocusOrSelectIndex(listbox_ToolList, false, listbox_ToolList.SelectedIndex, vInteropWindowHandle);
-                    await ListBoxFocusIndex(listbox_ToolList, false, listbox_ToolList.SelectedIndex, vInteropWindowHandle);
-
-                    //Play sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-
-                    //Show notification
-                    NotificationDetails notificationDetails = new NotificationDetails();
-                    notificationDetails.Icon = "Keyboard";
-                    notificationDetails.Text = "Switched to tool mode";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
-                    //Update settings
-                    SettingSave(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Tool).ToString());
                 });
             }
             catch { }

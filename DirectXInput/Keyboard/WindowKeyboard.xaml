@@ -24,6 +24,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -147,21 +148,45 @@
         </Grid>
 
         <!-- Grid Tool -->
-        <Grid Name="grid_Tool" Grid.Row="2" Height="320" Visibility="Collapsed">
+        <Grid Name="grid_Tool" Grid.Row="2" Margin="0,0,0,5" Height="45">
             <Border CornerRadius="5">
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
                 </Border.Background>
             </Border>
 
-            <StackPanel Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <ListBox Name="listbox_ToolList" Tag="0,0,10,0" MaxWidth="720" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemToolList}" Style="{StaticResource ListBoxHorizontal}" PreviewKeyUp="listbox_ToolList_PreviewKeyUp" PreviewMouseUp="listbox_ToolList_PreviewMouseUp" SelectionChanged="listbox_ToolList_SelectionChanged"/>
-                <TextBlock Name="textblock_ToolSelect" Margin="0,20,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Center" Text="Please select an action."/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <Button Name="key_Tool_CtrlUILaunch" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png" Height="35"/>
+                    </Button>
+                    <Button Name="key_Tool_FpsOverlayerLaunch" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Fps.png" Height="35"/>
+                    </Button>
+                    <Button Name="key_Tool_FpsOverlayerPosition" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Move.png" Height="35"/>
+                    </Button>
+                    <Button Name="key_Tool_FpsBrowser" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Browser.png" Height="35"/>
+                    </Button>
+                    <Button Name="key_Tool_FpsCrosshair" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Crosshair.png" Height="35"/>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Name="textblock_Tool_Help" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeLarge}" Margin="0,0,5,0" Style="{StaticResource TextBlockWhiteLight}"/>
+                </StackPanel>
+            </Grid>
         </Grid>
 
         <!-- Grid Media -->
-        <Grid Name="grid_Media" Grid.Row="2" Height="320" Visibility="Collapsed">
+        <Grid Name="grid_Media" Grid.Row="2" Height="370" Visibility="Collapsed">
             <Border CornerRadius="5">
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
@@ -216,7 +241,7 @@
         </Grid>
 
         <!-- Grid Keyboard -->
-        <Grid Name="grid_Keyboard" Grid.Row="2" Height="320" Visibility="Visible">
+        <Grid Name="grid_Keyboard" Grid.Row="3" Height="320" Visibility="Visible">
             <Grid Name="grid_Keyboard_Keys">
                 <Border CornerRadius="5">
                     <Border.Background>
@@ -495,8 +520,8 @@
                         <Button Name="key_TextList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/List.png" Height="30"/>
                         </Button>
-                        <Button Name="key_ModeTool" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonModeTool_PreviewKeyUp" PreviewMouseUp="ButtonModeTool_PreviewMouseUp">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png" Height="30"/>
+                        <Button Name="key_Keypad" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKeypad_PreviewKeyUp" PreviewMouseUp="ButtonKeypad_PreviewMouseUp">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keypad.png" Height="30"/>
                         </Button>
                         <Button Name="key_ModeMedia" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonModeMedia_PreviewKeyUp" PreviewMouseUp="ButtonModeMedia_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Music.png" Height="30"/>
