@@ -176,8 +176,8 @@ namespace CtrlUI
                 //Enable the socket server
                 await EnableSocketServer();
 
-                //Switch to last used list category
-                await CategoryListSwitchToSetting();
+                //Change listbox category to default
+                await CategoryListChange(vCurrentListCategory);
 
                 //Check for available application update
                 await CheckForAppUpdate(true);

@@ -19,8 +19,8 @@ namespace CtrlUI
             try
             {
                 Button senderFramework = (Button)sender;
-                if (senderFramework.Name == "button_Category_Menu_Games") { await CategoryListChange(ListCategory.Game); }
-                else if (senderFramework.Name == "button_Category_Menu_Apps") { await CategoryListChange(ListCategory.App); }
+                if (senderFramework.Name == "button_Category_Menu_Apps") { await CategoryListChange(ListCategory.App); }
+                else if (senderFramework.Name == "button_Category_Menu_Games") { await CategoryListChange(ListCategory.Game); }
                 else if (senderFramework.Name == "button_Category_Menu_Emulators") { await CategoryListChange(ListCategory.Emulator); }
                 else if (senderFramework.Name == "button_Category_Menu_Launchers") { await CategoryListChange(ListCategory.Launcher); }
                 else if (senderFramework.Name == "button_Category_Menu_Shortcuts") { await CategoryListChange(ListCategory.Shortcut); }
@@ -35,8 +35,8 @@ namespace CtrlUI
         {
             try
             {
-                if (listCategory == ListCategory.Game) { return List_Games.Count; }
-                else if (listCategory == ListCategory.App) { return List_Apps.Count; }
+                if (listCategory == ListCategory.App) { return List_Apps.Count; }
+                else if (listCategory == ListCategory.Game) { return List_Games.Count; }
                 else if (listCategory == ListCategory.Emulator) { return List_Emulators.Count; }
                 else if (listCategory == ListCategory.Launcher) { return List_Launchers.Count; }
                 else if (listCategory == ListCategory.Shortcut) { return List_Shortcuts.Count; }
@@ -55,15 +55,14 @@ namespace CtrlUI
         {
             try
             {
-                ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                if (CategoryListCount(listAppCategory) <= 0 && listAppCategory != ListCategory.Search)
+                if (CategoryListCount(vCurrentListCategory) <= 0 && vCurrentListCategory != ListCategory.Search)
                 {
                     await AVActions.DispatcherInvoke(async delegate
                     {
-                        ListCategory? listCategorySwitch = CategoryListPreviousWithItems(listAppCategory, false);
+                        ListCategory? listCategorySwitch = CategoryListPreviousWithItems(vCurrentListCategory, false);
                         if (listCategorySwitch == null)
                         {
-                            listCategorySwitch = CategoryListNextWithItems(listAppCategory, false);
+                            listCategorySwitch = CategoryListNextWithItems(vCurrentListCategory, false);
                         }
                         await CategoryListChange((ListCategory)listCategorySwitch);
                     });
@@ -77,8 +76,8 @@ namespace CtrlUI
         {
             try
             {
-                if (List_Games.Count > 0) { return ListCategory.Game; }
-                else if (List_Apps.Count > 0) { return ListCategory.App; }
+                if (List_Apps.Count > 0) { return ListCategory.App; }
+                else if (List_Games.Count > 0) { return ListCategory.Game; }
                 else if (List_Emulators.Count > 0) { return ListCategory.Emulator; }
                 else if (List_Launchers.Count > 0) { return ListCategory.Launcher; }
                 else if (List_Shortcuts.Count > 0) { return ListCategory.Shortcut; }
@@ -150,25 +149,13 @@ namespace CtrlUI
             }
         }
 
-        //Change listbox category visibility
-        public async Task CategoryListSwitchToSetting()
-        {
-            try
-            {
-                ListCategory listCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                await CategoryListChange(listCategory);
-            }
-            catch { }
-        }
-
         //Update listbox category items count
         void CategoryListUpdateCount()
         {
             try
             {
-                //Check list category setting
-                ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                int listCount = CategoryListCount(listAppCategory);
+                //Check current list category
+                int listCount = CategoryListCount(vCurrentListCategory);
                 string listCountString = listCount.ToString();
 
                 //Check the list count
@@ -196,22 +183,22 @@ namespace CtrlUI
                 if (listCategory != ListCategory.Search && CategoryListCount(listCategory) <= 0)
                 {
                     //await Notification_Send_Status("Close", "Selected category has no items.");
-                    Debug.WriteLine("Category " + listCategory + " has no items, falling back to first.");
+                    Debug.WriteLine("Category " + listCategory + " has no items, falling back to first with items.");
                     listCategory = (ListCategory)CategoryListFirstWithItems();
                 }
 
                 //Set target listbox and textblock
                 ListBox targetListbox = null;
                 TextBlock targetTextblock = null;
-                if (listCategory == ListCategory.Game)
-                {
-                    targetListbox = lb_Games;
-                    targetTextblock = textblock_Category_Menu_Games;
-                }
-                else if (listCategory == ListCategory.App)
+                if (listCategory == ListCategory.App)
                 {
                     targetListbox = lb_Apps;
                     targetTextblock = textblock_Category_Menu_Apps;
+                }
+                else if (listCategory == ListCategory.Game)
+                {
+                    targetListbox = lb_Games;
+                    targetTextblock = textblock_Category_Menu_Games;
                 }
                 else if (listCategory == ListCategory.Emulator)
                 {
@@ -240,8 +227,8 @@ namespace CtrlUI
                 }
 
                 //Show target listbox
-                lb_Games.Visibility = Visibility.Collapsed;
                 lb_Apps.Visibility = Visibility.Collapsed;
+                lb_Games.Visibility = Visibility.Collapsed;
                 lb_Emulators.Visibility = Visibility.Collapsed;
                 lb_Launchers.Visibility = Visibility.Collapsed;
                 lb_Shortcuts.Visibility = Visibility.Collapsed;
@@ -250,8 +237,8 @@ namespace CtrlUI
                 targetListbox.Visibility = Visibility.Visible;
 
                 //Update button foreground
-                textblock_Category_Menu_Games.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
                 textblock_Category_Menu_Apps.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
+                textblock_Category_Menu_Games.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
                 textblock_Category_Menu_Emulators.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
                 textblock_Category_Menu_Launchers.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
                 textblock_Category_Menu_Shortcuts.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
@@ -259,8 +246,8 @@ namespace CtrlUI
                 textblock_Category_Menu_Search.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
                 targetTextblock.Style = (Style)Application.Current.Resources["TextBlockWhiteLight"];
 
-                //Update list category setting
-                SettingSave(vConfigurationCtrlUI, "ListAppCategory", Convert.ToInt32(listCategory).ToString());
+                //Update list category variable
+                vCurrentListCategory = listCategory;
 
                 //Update category list count
                 CategoryListUpdateCount();

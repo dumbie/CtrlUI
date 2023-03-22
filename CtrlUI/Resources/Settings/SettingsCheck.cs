@@ -23,9 +23,6 @@ namespace CtrlUI
                 if (!SettingCheck(vConfigurationCtrlUI, "AdjustChromiumDpi")) { SettingSave(vConfigurationCtrlUI, "AdjustChromiumDpi", "0,50"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "ColorAccentLight")) { SettingSave(vConfigurationCtrlUI, "ColorAccentLight", "#1E90FF"); } //Shared
                 if (!SettingCheck(vConfigurationCtrlUI, "ServerPort")) { SettingSave(vConfigurationCtrlUI, "ServerPort", "26759"); } //Shared
-
-                if (!SettingCheck(vConfigurationCtrlUI, "ListAppCategory")) { SettingSave(vConfigurationCtrlUI, "ListAppCategory", "1"); }
-
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchMinimized")) { SettingSave(vConfigurationCtrlUI, "LaunchMinimized", "False"); }
 
                 if (!SettingCheck(vConfigurationCtrlUI, "ShowLibrarySteam")) { SettingSave(vConfigurationCtrlUI, "ShowLibrarySteam", "True"); }

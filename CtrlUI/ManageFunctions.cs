@@ -473,8 +473,7 @@ namespace CtrlUI
                         }
 
                         //Focus on the edited item listbox
-                        ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                        if (listAppCategory == ListCategory.Search)
+                        if (vCurrentListCategory == ListCategory.Search)
                         {
                             await ListBoxFocusIndex(lb_Search, false, 0, vProcessCurrent.WindowHandleMain);
                         }
@@ -497,8 +496,7 @@ namespace CtrlUI
                     else
                     {
                         //Focus on the item listbox
-                        ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                        if (listAppCategory == ListCategory.Search)
+                        if (vCurrentListCategory == ListCategory.Search)
                         {
                             await ListBoxFocusIndex(lb_Search, false, 0, vProcessCurrent.WindowHandleMain);
                         }
@@ -536,7 +534,7 @@ namespace CtrlUI
 
                 DataBindString categoryApp = new DataBindString();
                 categoryApp.ImageBitmap = vImagePreloadApp;
-                categoryApp.Name = "Apps & Media";
+                categoryApp.Name = "App";
                 listAppCategories.Add(categoryApp);
 
                 DataBindString categoryGame = new DataBindString();
@@ -822,7 +820,7 @@ namespace CtrlUI
                 List<DataBindString> answersCategory = new List<DataBindString>();
 
                 BitmapImage imageApp = vImagePreloadApp;
-                DataBindString stringApp = new DataBindString() { Name = "Apps & Media", Data1 = "App", ImageBitmap = imageApp };
+                DataBindString stringApp = new DataBindString() { Name = "App", Data1 = "App", ImageBitmap = imageApp };
                 answersCategory.Add(stringApp);
 
                 BitmapImage imageGame = vImagePreloadGame;

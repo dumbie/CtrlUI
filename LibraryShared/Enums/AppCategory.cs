@@ -15,8 +15,8 @@
 
         public enum ListCategory
         {
-            Game = 0,
-            App = 1,
+            App = 0,
+            Game = 1,
             Emulator = 2,
             Launcher = 3,
             Shortcut = 4,

@@ -145,6 +145,9 @@ namespace CtrlUI
         public static bool vMainMenuOpen = false;
         public static AVFocusDetails vMainMenuElementFocus = new AVFocusDetails();
 
+        //Category Variables
+        public static ListCategory vCurrentListCategory = ListCategory.App;
+
         //Sort Variables
         public static SortingType vSortType = SortingType.Number;
 

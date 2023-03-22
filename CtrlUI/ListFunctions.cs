@@ -123,8 +123,8 @@ namespace CtrlUI
         {
             try
             {
-                Visibility visibilityGames = List_Games.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityApps = List_Apps.Any() ? Visibility.Visible : Visibility.Collapsed;
+                Visibility visibilityGames = List_Games.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityEmulators = List_Emulators.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityLaunchers = List_Launchers.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityShortcuts = List_Shortcuts.Any() ? Visibility.Visible : Visibility.Collapsed;
@@ -132,8 +132,8 @@ namespace CtrlUI
 
                 AVActions.DispatcherInvoke(delegate
                 {
-                    button_Category_Menu_Games.Visibility = visibilityGames;
                     button_Category_Menu_Apps.Visibility = visibilityApps;
+                    button_Category_Menu_Games.Visibility = visibilityGames;
                     button_Category_Menu_Emulators.Visibility = visibilityEmulators;
                     button_Category_Menu_Launchers.Visibility = visibilityLaunchers;
                     button_Category_Menu_Shortcuts.Visibility = visibilityShortcuts;

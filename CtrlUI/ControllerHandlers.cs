@@ -88,7 +88,6 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonY.PressedRaw)
                     {
                         Debug.WriteLine("Button: YPressed");
-                        ListCategory listAppCategory = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
 
                         if (vTextInputOpen)
                         {
@@ -99,7 +98,7 @@ namespace CtrlUI
                         {
                             KeySendSingle(KeysVirtual.BackSpace, vProcessCurrent.WindowHandleMain);
                         }
-                        else if (listAppCategory == ListCategory.Search)
+                        else if (vCurrentListCategory == ListCategory.Search)
                         {
                             await AVActions.DispatcherInvoke(async delegate { await Search_Reset(true); });
                         }
@@ -132,8 +131,7 @@ namespace CtrlUI
                             }
                             else if (!Popup_Open_Any())
                             {
-                                ListCategory listCategorySetting = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                                ListCategory listCategorySwitch = (ListCategory)CategoryListPreviousWithItems(listCategorySetting, true);
+                                ListCategory listCategorySwitch = (ListCategory)CategoryListPreviousWithItems(vCurrentListCategory, true);
                                 await CategoryListChange(listCategorySwitch);
                                 KeySendSingle(KeysVirtual.F13, vProcessCurrent.WindowHandleMain);
                             }
@@ -154,8 +152,7 @@ namespace CtrlUI
                             }
                             else if (!Popup_Open_Any())
                             {
-                                ListCategory listCategorySetting = (ListCategory)SettingLoad(vConfigurationCtrlUI, "ListAppCategory", typeof(int));
-                                ListCategory listCategorySwitch = (ListCategory)CategoryListNextWithItems(listCategorySetting, true);
+                                ListCategory listCategorySwitch = (ListCategory)CategoryListNextWithItems(vCurrentListCategory, true);
                                 await CategoryListChange(listCategorySwitch);
                                 KeySendSingle(KeysVirtual.F13, vProcessCurrent.WindowHandleMain);
                             }
