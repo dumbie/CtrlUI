@@ -25,7 +25,7 @@ namespace CtrlUI
             try
             {
                 //Filter the name
-                string namePlatformSave = AVFiles.FileNameReplaceInvalidChars(string.Empty, namePlatform);
+                string namePlatformSave = AVFiles.FileNameReplaceInvalidChars(namePlatform, string.Empty);
                 string userSaveDirectory = "Assets/User/Emulators/" + namePlatformSave + "/";
                 string defaultDirectory = "Assets/Default/Emulators/" + namePlatformSave + "/";
 

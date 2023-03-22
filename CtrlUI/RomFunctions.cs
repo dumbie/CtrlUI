@@ -17,7 +17,7 @@ namespace CtrlUI
             try
             {
                 //Remove invalid characters
-                nameFile = AVFiles.FileNameReplaceInvalidChars(string.Empty, nameFile).Trim();
+                nameFile = AVFiles.FileNameReplaceInvalidChars(nameFile, string.Empty);
 
                 //Remove unicode characters
                 nameFile = StringRemoveUnicode(nameFile);

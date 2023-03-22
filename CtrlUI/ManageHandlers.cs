@@ -72,7 +72,7 @@ namespace CtrlUI
                 if (vEditAppDataBind != null)
                 {
                     //Check invalid file name
-                    string saveFileName = AVFiles.FileNameReplaceInvalidChars(string.Empty, vEditAppDataBind.Name);
+                    string saveFileName = AVFiles.FileNameReplaceInvalidChars(vEditAppDataBind.Name, string.Empty);
 
                     //Copy the new application image
                     File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + saveFileName + ".png", true);
@@ -87,7 +87,7 @@ namespace CtrlUI
                 else
                 {
                     //Check invalid file name
-                    string saveFileName = AVFiles.FileNameReplaceInvalidChars(string.Empty, tb_AddAppName.Text);
+                    string saveFileName = AVFiles.FileNameReplaceInvalidChars(tb_AddAppName.Text, string.Empty);
 
                     //Copy the new application image
                     File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + saveFileName + ".png", true);
