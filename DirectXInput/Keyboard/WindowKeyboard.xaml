@@ -154,7 +154,11 @@
                     <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
                 </Border.Background>
             </Border>
-
+            <Border Name="border_Tool_Accent" CornerRadius="5">
+                <Border.Background>
+                    <SolidColorBrush Color="Transparent"/>
+                </Border.Background>
+            </Border>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -162,19 +166,28 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Button Name="key_Tool_CtrlUILaunch" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                    <Button Name="key_Tool_Close" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35"/>
+                    </Button>
+                    <Button Name="key_Tool_SwitchMode" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                        <Image Name="image_Tool_SwitchMode" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Music.png" Height="35"/>
+                    </Button>
+                    <Button Name="key_Tool_Keypad" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keypad.png" Height="35"/>
+                    </Button>
+                    <Button Name="key_Tool_CtrlUILaunch" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png" Height="35"/>
                     </Button>
-                    <Button Name="key_Tool_FpsOverlayerLaunch" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                    <Button Name="key_Tool_FpsOverlayerLaunch" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Fps.png" Height="35"/>
                     </Button>
-                    <Button Name="key_Tool_FpsOverlayerPosition" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                    <Button Name="key_Tool_FpsOverlayerPosition" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Move.png" Height="35"/>
                     </Button>
-                    <Button Name="key_Tool_FpsBrowser" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                    <Button Name="key_Tool_FpsBrowser" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Browser.png" Height="35"/>
                     </Button>
-                    <Button Name="key_Tool_FpsCrosshair" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                    <Button Name="key_Tool_FpsCrosshair" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Crosshair.png" Height="35"/>
                     </Button>
                 </StackPanel>
@@ -186,7 +199,7 @@
         </Grid>
 
         <!-- Grid Media -->
-        <Grid Name="grid_Media" Grid.Row="2" Height="370" Visibility="Collapsed">
+        <Grid Name="grid_Media" Grid.Row="3" Height="320" Visibility="Collapsed">
             <Border CornerRadius="5">
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
@@ -229,14 +242,6 @@
                     </StackPanel>
                 </Grid>
                 <TextBlock Name="textblock_MediaNone" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Center" Text="No media is currently playing"/>
-                <StackPanel Margin="0,20,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Button Name="key_ModeKeyboard" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonModeKeyboard_PreviewKeyUp" PreviewMouseUp="ButtonModeKeyboard_PreviewMouseUp">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keyboard.png" Height="30"/>
-                    </Button>
-                    <Button Name="key_CloseMedia" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonClose_PreviewKeyUp" PreviewMouseUp="ButtonClose_PreviewMouseUp">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
-                    </Button>
-                </StackPanel>
             </StackPanel>
         </Grid>
 
@@ -509,25 +514,18 @@
                         <Button Name="key_Control" Width="70" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_Alt" Width="70" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_LeftWindows" Width="100" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
-                        <Button Name="key_Space" Width="139" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
+                        <Button Name="key_Space" Width="135" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
+                        <Button Name="key_Save" Width="80" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_End" Width="70" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
+                        <Button Name="key_Page" Width="70" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_EmojiList" Style="{StaticResource ButtonEmoji}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
                             <emoji:TextBlock Text="😄"/>
-                        </Button>
-                        <Button Name="key_ShortcutList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shortcut.png" Height="30"/>
                         </Button>
                         <Button Name="key_TextList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/List.png" Height="30"/>
                         </Button>
-                        <Button Name="key_Keypad" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKeypad_PreviewKeyUp" PreviewMouseUp="ButtonKeypad_PreviewMouseUp">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keypad.png" Height="30"/>
-                        </Button>
-                        <Button Name="key_ModeMedia" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonModeMedia_PreviewKeyUp" PreviewMouseUp="ButtonModeMedia_PreviewMouseUp">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Music.png" Height="30"/>
-                        </Button>
-                        <Button Name="key_Close" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonClose_PreviewKeyUp" PreviewMouseUp="ButtonClose_PreviewMouseUp">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
+                        <Button Name="key_ShortcutList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shortcut.png" Height="30"/>
                         </Button>
                     </StackPanel>
                 </StackPanel>

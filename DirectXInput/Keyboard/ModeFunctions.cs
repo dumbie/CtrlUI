@@ -1,11 +1,8 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVFocus;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.AVColors;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -16,78 +13,16 @@ namespace DirectXInput.KeyboardCode
 {
     partial class WindowKeyboard
     {
-        //Handle keypad switch
-        async void ButtonKeypad_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Space)
-                {
-                    await App.vWindowMain.KeypadPopupHideShow(true);
-                }
-            }
-            catch { }
-        }
-        async void ButtonKeypad_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                await App.vWindowMain.KeypadPopupHideShow(true);
-            }
-            catch { }
-        }
-
-        async void ButtonModeMedia_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Space)
-                {
-                    await SetModeMedia();
-                }
-            }
-            catch { }
-        }
-        async void ButtonModeMedia_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                await SetModeMedia();
-            }
-            catch { }
-        }
-
-        async void ButtonModeKeyboard_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Space)
-                {
-                    await SetModeKeyboard();
-                }
-            }
-            catch { }
-        }
-        async void ButtonModeKeyboard_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                await SetModeKeyboard();
-            }
-            catch { }
-        }
-
         //Switch between keyboard modes
         async Task SwitchKeyboardMode()
         {
             try
             {
-                KeyboardMode keyboardMode = (KeyboardMode)SettingLoad(vConfigurationDirectXInput, "KeyboardMode", typeof(int));
-                if (keyboardMode == KeyboardMode.Keyboard)
+                if (vKeyboardCurrentMode == KeyboardMode.Keyboard)
                 {
                     await SetModeMedia();
                 }
-                else if (keyboardMode == KeyboardMode.Media)
+                else if (vKeyboardCurrentMode == KeyboardMode.Media)
                 {
                     await SetModeKeyboard();
                 }
@@ -100,12 +35,11 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                KeyboardMode keyboardMode = (KeyboardMode)SettingLoad(vConfigurationDirectXInput, "KeyboardMode", typeof(int));
-                if (keyboardMode == KeyboardMode.Media)
+                if (vKeyboardCurrentMode == KeyboardMode.Media)
                 {
                     await SetModeMedia();
                 }
-                else if (keyboardMode == KeyboardMode.Keyboard)
+                else if (vKeyboardCurrentMode == KeyboardMode.Keyboard)
                 {
                     await SetModeKeyboard();
                 }
@@ -147,6 +81,9 @@ namespace DirectXInput.KeyboardCode
                     stackpanel_Guide.Visibility = Visibility.Visible;
                     textblock_Guide.Text = "Close";
 
+                    //Update tool bar
+                    image_Tool_SwitchMode.Source = vImagePreloadIconMusic;
+
                     //Show keyboard interface
                     grid_Keyboard.Visibility = Visibility.Visible;
                     grid_Media.Visibility = Visibility.Collapsed;
@@ -155,10 +92,8 @@ namespace DirectXInput.KeyboardCode
                     SolidColorBrush backgroundColor = new SolidColorBrush(Colors.Transparent);
                     border_ControllerHelp_Accent.Background = backgroundColor;
                     border_Header_Accent.Background = backgroundColor;
+                    border_Tool_Accent.Background = backgroundColor;
                     border_Media_Accent.Background = backgroundColor;
-
-                    //Show tool header
-                    grid_Tool.Visibility = Visibility.Visible;
 
                     //Focus on keyboard button
                     if (vFocusedButtonKeyboard.FocusElement == null)
@@ -179,8 +114,8 @@ namespace DirectXInput.KeyboardCode
                     notificationDetails.Text = "Switched to keyboard mode";
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                    //Update settings
-                    SettingSave(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Keyboard).ToString());
+                    //Update variables
+                    vKeyboardCurrentMode = KeyboardMode.Keyboard;
                 });
             }
             catch { }
@@ -220,9 +155,11 @@ namespace DirectXInput.KeyboardCode
                     stackpanel_Guide.Visibility = Visibility.Visible;
                     textblock_Guide.Text = "Close";
 
+                    //Update tool bar
+                    image_Tool_SwitchMode.Source = vImagePreloadIconKeyboard;
+
                     //Save keyboard focus element
-                    KeyboardMode keyboardMode = (KeyboardMode)SettingLoad(vConfigurationDirectXInput, "KeyboardMode", typeof(int));
-                    if (keyboardMode == KeyboardMode.Keyboard)
+                    if (vKeyboardCurrentMode == KeyboardMode.Keyboard)
                     {
                         AVFocusDetailsSave(vFocusedButtonKeyboard, null);
                     }
@@ -236,13 +173,11 @@ namespace DirectXInput.KeyboardCode
                     SolidColorBrush backgroundBrushOpacity = AdjustColorOpacity(backgroundBrush, 0.20);
                     border_ControllerHelp_Accent.Background = backgroundBrushOpacity;
                     border_Header_Accent.Background = backgroundBrushOpacity;
+                    border_Tool_Accent.Background = backgroundBrushOpacity;
                     border_Media_Accent.Background = backgroundBrushOpacity;
 
-                    //Hide tool header
-                    grid_Tool.Visibility = Visibility.Collapsed;
-
                     //Focus on keyboard button
-                    await FocusElement(key_ModeKeyboard, vInteropWindowHandle);
+                    await FocusElement(key_Tool_SwitchMode, vInteropWindowHandle);
 
                     //Play sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
@@ -253,8 +188,8 @@ namespace DirectXInput.KeyboardCode
                     notificationDetails.Text = "Switched to media mode";
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                    //Update settings
-                    SettingSave(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Media).ToString());
+                    //Update variables
+                    vKeyboardCurrentMode = KeyboardMode.Media;
                 });
             }
             catch { }

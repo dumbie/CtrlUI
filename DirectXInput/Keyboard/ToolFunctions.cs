@@ -17,7 +17,19 @@ namespace DirectXInput.KeyboardCode
                 Button senderButton = (Button)sender;
                 //Debug.WriteLine("Tool key selected: " + senderButton);
 
-                if (senderButton == key_Tool_CtrlUILaunch)
+                if (senderButton == key_Tool_Close)
+                {
+                    textblock_Tool_Help.Text = "Close keyboard overlay";
+                }
+                else if (senderButton == key_Tool_SwitchMode)
+                {
+                    textblock_Tool_Help.Text = "Switch keyboard mode";
+                }
+                else if (senderButton == key_Tool_Keypad)
+                {
+                    textblock_Tool_Help.Text = "Show keypad overlay";
+                }
+                else if (senderButton == key_Tool_CtrlUILaunch)
                 {
                     textblock_Tool_Help.Text = "Launch or show CtrlUI";
                 }
@@ -79,7 +91,19 @@ namespace DirectXInput.KeyboardCode
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
                 Button senderButton = (Button)sender;
-                if (senderButton == key_Tool_CtrlUILaunch)
+                if (senderButton == key_Tool_Close)
+                {
+                    await this.Hide();
+                }
+                else if (senderButton == key_Tool_SwitchMode)
+                {
+                    await SwitchKeyboardMode();
+                }
+                else if (senderButton == key_Tool_Keypad)
+                {
+                    await App.vWindowMain.KeypadPopupHideShow(true);
+                }
+                else if (senderButton == key_Tool_CtrlUILaunch)
                 {
                     await ToolFunctions.CtrlUI_LaunchShow();
                 }

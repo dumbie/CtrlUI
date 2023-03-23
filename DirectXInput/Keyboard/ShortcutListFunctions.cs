@@ -161,16 +161,6 @@ namespace DirectXInput.KeyboardCode
             {
                 if (!vDirectKeyboardShortcutList.Any())
                 {
-                    ProfileShared shortcutSave = new ProfileShared();
-                    shortcutSave.String1 = "Save (Ctrl+S)";
-                    shortcutSave.Object1 = new KeyboardAction { Modifiers = KeyboardModifiers.ControlLeft, Key0 = KeyboardKeys.S };
-                    vDirectKeyboardShortcutList.Add(shortcutSave);
-
-                    ProfileShared shortcutSearch = new ProfileShared();
-                    shortcutSearch.String1 = "Search (Ctrl+F)";
-                    shortcutSearch.Object1 = new KeyboardAction { Modifiers = KeyboardModifiers.ControlLeft, Key0 = KeyboardKeys.F };
-                    vDirectKeyboardShortcutList.Add(shortcutSearch);
-
                     ProfileShared shortcutDesktop = new ProfileShared();
                     shortcutDesktop.String1 = "Toggle Desktop (Windows+D)";
                     shortcutDesktop.Object1 = new KeyboardAction { Modifiers = KeyboardModifiers.WindowsLeft, Key0 = KeyboardKeys.D };
@@ -195,6 +185,31 @@ namespace DirectXInput.KeyboardCode
                     shortcutTaskMan.String1 = "Task Manager (Ctrl+Shift+Esc)";
                     shortcutTaskMan.Object1 = new KeyboardAction { Modifiers = KeyboardModifiers.ControlLeft | KeyboardModifiers.ShiftLeft, Key0 = KeyboardKeys.Escape };
                     vDirectKeyboardShortcutList.Add(shortcutTaskMan);
+
+                    ProfileShared shortcutPrintScreen = new ProfileShared();
+                    shortcutPrintScreen.String1 = "Print Screen";
+                    shortcutPrintScreen.Object1 = new KeyboardAction { Key0 = KeyboardKeys.PrintScreen };
+                    vDirectKeyboardShortcutList.Add(shortcutPrintScreen);
+
+                    ProfileShared shortcutNumericLock = new ProfileShared();
+                    shortcutNumericLock.String1 = "Numeric Lock";
+                    shortcutNumericLock.Object1 = new KeyboardAction { Key0 = KeyboardKeys.NumLock };
+                    vDirectKeyboardShortcutList.Add(shortcutNumericLock);
+
+                    ProfileShared shortcutScrollLock = new ProfileShared();
+                    shortcutScrollLock.String1 = "Scroll Lock";
+                    shortcutScrollLock.Object1 = new KeyboardAction { Key0 = KeyboardKeys.ScrollLock };
+                    vDirectKeyboardShortcutList.Add(shortcutScrollLock);
+
+                    ProfileShared shortcutCapsLock = new ProfileShared();
+                    shortcutCapsLock.String1 = "Caps Lock";
+                    shortcutCapsLock.Object1 = new KeyboardAction { Key0 = KeyboardKeys.CapsLock };
+                    vDirectKeyboardShortcutList.Add(shortcutCapsLock);
+
+                    ProfileShared shortcutPauseBreak = new ProfileShared();
+                    shortcutPauseBreak.String1 = "Pause Break";
+                    shortcutPauseBreak.Object1 = new KeyboardAction { Key0 = KeyboardKeys.Pause };
+                    vDirectKeyboardShortcutList.Add(shortcutPauseBreak);
                 }
             }
             catch { }

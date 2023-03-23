@@ -27,9 +27,12 @@ namespace DirectXInput
         public static Configuration vConfigurationDirectXInput = SettingLoadConfig("DirectXInput.exe.csettings");
 
         //Image Variables
+        public static int vImageLoadSize = 120;
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
-        public static BitmapImage vImagePreloadIconControllerAccent = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadIconControllerDark = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadIconControllerAccent = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadIconControllerDark = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadIconKeyboard = FileToBitmapImage(new string[] { "Assets/Default/Icons/Keyboard.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadIconMusic = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;
@@ -89,6 +92,7 @@ namespace DirectXInput
 
         //Keyboard Variables
         public static GlobalSystemMediaTransportControlsSessionManager vSmtcSessionManager = null;
+        public static KeyboardMode vKeyboardCurrentMode = KeyboardMode.Keyboard;
         public static string vKeyboardKeypadLastActive = "Keyboard";
         public static bool vCapsEnabled = false;
         public static bool vKeysEnabled = true;

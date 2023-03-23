@@ -164,8 +164,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 //Check the current keyboard mode
-                KeyboardMode keyboardMode = (KeyboardMode)SettingLoad(vConfigurationDirectXInput, "KeyboardMode", typeof(int));
-                if (keyboardMode != KeyboardMode.Media)
+                if (vKeyboardCurrentMode != KeyboardMode.Media)
                 {
                     //Debug.WriteLine("Keyboard is not in media mode, no update needed.");
                     return;

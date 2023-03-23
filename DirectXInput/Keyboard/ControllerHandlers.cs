@@ -38,8 +38,7 @@ namespace DirectXInput.KeyboardCode
                     GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY, true, out int moveHorizontalLeft, out int moveVerticalLeft);
 
                     //Check the keyboard mode
-                    KeyboardMode keyboardMode = (KeyboardMode)SettingLoad(vConfigurationDirectXInput, "KeyboardMode", typeof(int));
-                    if (keyboardMode == KeyboardMode.Media)
+                    if (vKeyboardCurrentMode == KeyboardMode.Media)
                     {
                         //Get the mouse move amount
                         GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
@@ -47,7 +46,7 @@ namespace DirectXInput.KeyboardCode
                         //Move the keyboard window
                         MoveKeyboardWindow(moveHorizontalRight, moveVerticalRight);
                     }
-                    else if (keyboardMode == KeyboardMode.Keyboard)
+                    else if (vKeyboardCurrentMode == KeyboardMode.Keyboard)
                     {
                         //Get the mouse scroll amount
                         int scrollSensitivity = SettingLoad(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", typeof(int));
@@ -116,13 +115,10 @@ namespace DirectXInput.KeyboardCode
             {
                 if (GetSystemTicksMs() >= vControllerDelay_Keyboard)
                 {
-                    //Check the keyboard mode
-                    KeyboardMode keyboardMode = (KeyboardMode)SettingLoad(vConfigurationDirectXInput, "KeyboardMode", typeof(int));
-
                     //Send internal arrow left key
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
-                        if (keyboardMode == KeyboardMode.Media)
+                        if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                             KeyboardAction keyboardAction = new KeyboardAction()
@@ -154,7 +150,7 @@ namespace DirectXInput.KeyboardCode
                     //Send internal arrow right key
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
-                        if (keyboardMode == KeyboardMode.Media)
+                        if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                             KeyboardAction keyboardAction = new KeyboardAction()
@@ -186,7 +182,7 @@ namespace DirectXInput.KeyboardCode
                     //Send internal arrow up key
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
-                        if (keyboardMode == KeyboardMode.Media)
+                        if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                             KeyboardAction keyboardAction = new KeyboardAction()
@@ -218,7 +214,7 @@ namespace DirectXInput.KeyboardCode
                     //Send internal arrow down key
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
-                        if (keyboardMode == KeyboardMode.Media)
+                        if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                             KeyboardAction keyboardAction = new KeyboardAction()
@@ -286,7 +282,7 @@ namespace DirectXInput.KeyboardCode
                             await HideTextPopups();
                             ControllerDelay250 = true;
                         }
-                        else if (keyboardMode == KeyboardMode.Media)
+                        else if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             MediaNext();
                             ControllerDelay250 = true;
@@ -306,7 +302,7 @@ namespace DirectXInput.KeyboardCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
-                        if (keyboardMode == KeyboardMode.Media)
+                        if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             MediaPlayPause();
                             ControllerDelay250 = true;
@@ -326,7 +322,7 @@ namespace DirectXInput.KeyboardCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
-                        if (keyboardMode == KeyboardMode.Media)
+                        if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             MediaPrevious();
                             ControllerDelay250 = true;
@@ -356,7 +352,7 @@ namespace DirectXInput.KeyboardCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
-                        if (keyboardMode == KeyboardMode.Media)
+                        if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             VolumeOutputMute();
                             ControllerDelay500 = true;
@@ -376,7 +372,7 @@ namespace DirectXInput.KeyboardCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
-                        if (keyboardMode == KeyboardMode.Media)
+                        if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             VolumeInputMute();
                             ControllerDelay500 = true;
@@ -397,7 +393,7 @@ namespace DirectXInput.KeyboardCode
                     {
                         Debug.WriteLine("Button: TriggerLeft and TriggerRight / Mute");
 
-                        if (keyboardMode == KeyboardMode.Media)
+                        if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             VolumeOutputMute();
                         }
@@ -414,7 +410,7 @@ namespace DirectXInput.KeyboardCode
                             await SwitchEmojiTypeListTrigger(true);
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         }
-                        else if (keyboardMode == KeyboardMode.Media)
+                        else if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             VolumeDown();
                         }
@@ -435,7 +431,7 @@ namespace DirectXInput.KeyboardCode
                             await SwitchEmojiTypeListTrigger(false);
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         }
-                        else if (keyboardMode == KeyboardMode.Media)
+                        else if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             VolumeUp();
                         }
@@ -467,11 +463,11 @@ namespace DirectXInput.KeyboardCode
                     {
                         Debug.WriteLine("Button: BackPressed / Show hide text emoji popup");
 
-                        if (keyboardMode == KeyboardMode.Media)
+                        if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             MediaFullscreen();
                         }
-                        else if (keyboardMode == KeyboardMode.Keyboard)
+                        else if (vKeyboardCurrentMode == KeyboardMode.Keyboard)
                         {
                             await AVActions.DispatcherInvoke(async delegate
                             {
