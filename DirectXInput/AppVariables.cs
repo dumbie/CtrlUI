@@ -54,6 +54,7 @@ namespace DirectXInput
         public static ProcessMulti vProcessCurrent = Get_ProcessMultiCurrent();
         public static ProcessMulti vProcessCtrlUI = null;
         public static ProcessMulti vProcessFpsOverlayer = null;
+        public static ProcessMulti vProcessScreenCaptureTool = null;
         public static ProcessMulti vProcessForeground = null;
         public static bool vProcessCtrlUIActivated = false;
 

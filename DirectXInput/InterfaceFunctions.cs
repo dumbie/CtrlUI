@@ -475,6 +475,7 @@ namespace DirectXInput
             {
                 vProcessCtrlUI = Get_ProcessesMultiByName("CtrlUI", true).FirstOrDefault();
                 vProcessFpsOverlayer = Get_ProcessesMultiByName("FpsOverlayer", true).FirstOrDefault();
+                vProcessScreenCaptureTool = Get_ProcessesMultiByName("ScreenCaptureTool", true).FirstOrDefault();
                 vProcessForeground = Get_ProcessMultiByWindowHandle(GetForegroundWindow());
 
                 //Check if CtrlUI is currently activated

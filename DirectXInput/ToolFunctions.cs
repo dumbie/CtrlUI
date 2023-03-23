@@ -257,6 +257,13 @@ namespace DirectXInput
         {
             try
             {
+                //Check if screen capture tool is running
+                if (vProcessScreenCaptureTool == null)
+                {
+                    ProcessLaunch.LaunchScreenCaptureTool(true, false);
+                    return;
+                }
+
                 //Check if socket server is running
                 if (vArnoldVinkSockets == null)
                 {
