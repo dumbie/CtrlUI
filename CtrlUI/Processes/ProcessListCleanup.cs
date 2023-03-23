@@ -12,7 +12,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Cleanup no longer running combined processes
-        void ProcessListCleanupCombined(List<ProcessMulti> processMultiList, IEnumerable<DataBindApp> combinedAppLists)
+        void ProcessListCleanupCombined(IEnumerable<int> processIdentifiers, IEnumerable<DataBindApp> combinedAppLists)
         {
             try
             {
@@ -21,7 +21,8 @@ namespace CtrlUI
                     try
                     {
                         //Remove closed processes
-                        dataBindApp.ProcessMulti.RemoveAll(x => !processMultiList.Any(y => y.Identifier == x.Identifier));
+                        Predicate<ProcessMulti> filterProcessApp = x => !processIdentifiers.Any(y => y == x.Identifier);
+                        dataBindApp.ProcessMulti.RemoveAll(filterProcessApp);
 
                         //Check the running count
                         int processCount = dataBindApp.ProcessMulti.Count();
@@ -56,11 +57,11 @@ namespace CtrlUI
         }
 
         //Cleanup no longer running list processes
-        async Task ProcessListCleanupList(List<IntPtr> activeProcessesWindow)
+        async Task ProcessListCleanupList(IEnumerable<int> processIdentifiers)
         {
             try
             {
-                Func<DataBindApp, bool> filterProcessApp = x => x.Category == AppCategory.Process && (!x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !activeProcessesWindow.Contains(z.WindowHandleMain)) || x.ProcessMulti.Any(z => z.WindowHandleMain == IntPtr.Zero));
+                Func<DataBindApp, bool> filterProcessApp = x => x.Category == AppCategory.Process && (!x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !processIdentifiers.Contains(z.Identifier)));
                 await ListBoxRemoveAll(lb_Processes, List_Processes, filterProcessApp);
                 await ListBoxRemoveAll(lb_Search, List_Search, filterProcessApp);
             }

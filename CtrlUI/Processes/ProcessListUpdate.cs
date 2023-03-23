@@ -17,7 +17,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Get all active processes and update lists
-        async Task ProcessListUpdate(List<ProcessMulti> processMultiList, IEnumerable<DataBindApp> combinedAppLists, List<IntPtr> activeProcessesWindow)
+        async Task ProcessListUpdate(List<ProcessMulti> processMultiList, IEnumerable<DataBindApp> combinedAppLists)
         {
             try
             {
@@ -110,9 +110,6 @@ namespace CtrlUI
                         {
                             continue;
                         }
-
-                        //Add active process to the list
-                        activeProcessesWindow.Add(processMulti.WindowHandleMain);
 
                         //Check explorer process
                         ProcessNameCorrection(processMulti, processNameExeLower);

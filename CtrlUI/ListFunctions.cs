@@ -102,18 +102,18 @@ namespace CtrlUI
                     processMultiList = AVProcess.Get_AllProcessesMulti();
                 }
 
-                //List of valid process window handles
-                List<IntPtr> validProcessesWindow = new List<IntPtr>();
-
                 //Get the currently running processes
                 IEnumerable<DataBindApp> combinedAppLists = CombineAppLists(true, false, false).Where(x => x.StatusUrlProtocol == Visibility.Collapsed);
 
                 //Update all the processes
-                await ProcessListUpdate(processMultiList, combinedAppLists, validProcessesWindow);
+                await ProcessListUpdate(processMultiList, combinedAppLists);
+
+                //Get active process identifiers
+                IEnumerable<int> processIdentifiers = processMultiList.Select(x => x.Identifier);
 
                 //Cleanup all the processes
-                await ProcessListCleanupList(validProcessesWindow);
-                ProcessListCleanupCombined(processMultiList, combinedAppLists);
+                await ProcessListCleanupList(processIdentifiers);
+                ProcessListCleanupCombined(processIdentifiers, combinedAppLists);
             }
             catch { }
         }
