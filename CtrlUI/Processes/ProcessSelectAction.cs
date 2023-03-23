@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
@@ -19,6 +20,13 @@ namespace CtrlUI
             try
             {
                 Debug.WriteLine("Select process action: " + dataBindApp.Name + "/" + dataBindApp.Type + "/" + dataBindApp.Category);
+
+                //Check if process is file explorer
+                bool processIsExplorer = Path.GetFileName(dataBindApp.PathExe).ToLower() == "explorer.exe";
+                if (!processIsExplorer && processMulti != null)
+                {
+                    processIsExplorer = processMulti.ExeName.ToLower() == "explorer.exe";
+                }
 
                 //Select process multi
                 if (processMulti == null)
@@ -62,9 +70,12 @@ namespace CtrlUI
                 Answers.Add(AnswerHide);
 
                 DataBindString AnswerClose = new DataBindString();
-                AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerClose.Name = "Close application";
-                Answers.Add(AnswerClose);
+                if (!processIsExplorer)
+                {
+                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerClose.Name = "Close application";
+                    Answers.Add(AnswerClose);
+                }
 
                 DataBindString AnswerLaunch = new DataBindString();
                 AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -76,7 +87,7 @@ namespace CtrlUI
                 bool filepickerArgument = dataBindApp.Category != AppCategory.Emulator && dataBindApp.LaunchFilePicker;
                 bool defaultArgument = availableArgument || emulatorArgument || filepickerArgument;
                 DataBindString AnswerRestartDefault = new DataBindString();
-                if (defaultArgument)
+                if (defaultArgument && !processIsExplorer)
                 {
                     AnswerRestartDefault.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerRestartDefault.Name = "Restart application";
@@ -87,7 +98,7 @@ namespace CtrlUI
                 bool currentMatchesDefaultArgument = processMulti.Argument == dataBindApp.Argument;
                 bool currentArgument = !string.IsNullOrWhiteSpace(processMulti.Argument);
                 DataBindString AnswerRestartCurrent = new DataBindString();
-                if (currentArgument && !currentMatchesDefaultArgument)
+                if (currentArgument && !currentMatchesDefaultArgument && !processIsExplorer)
                 {
                     AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerRestartCurrent.Name = "Restart application";
@@ -96,10 +107,13 @@ namespace CtrlUI
                 }
 
                 DataBindString AnswerRestartWithout = new DataBindString();
-                AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerRestartWithout.Name = "Restart application";
-                AnswerRestartWithout.NameSub = "(Without argument)";
-                Answers.Add(AnswerRestartWithout);
+                if (!processIsExplorer)
+                {
+                    AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerRestartWithout.Name = "Restart application";
+                    AnswerRestartWithout.NameSub = "(Without argument)";
+                    Answers.Add(AnswerRestartWithout);
+                }
 
                 //Get launch information
                 string launchInformation = string.Empty;
