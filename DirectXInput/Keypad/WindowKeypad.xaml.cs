@@ -98,6 +98,16 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
+                //Check if controller is connected
+                if (!vControllerAnyConnected())
+                {
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "Keypad";
+                    notificationDetails.Text = "No controller connected";
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    return;
+                }
+
                 //Close other popups
                 await App.vWindowKeyboard.Hide();
 
