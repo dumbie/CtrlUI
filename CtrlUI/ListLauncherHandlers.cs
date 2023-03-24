@@ -41,7 +41,7 @@ namespace CtrlUI
                 string launchInformation = string.Empty;
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
-                    launchInformation = dataBindApp.AppUserModelId;
+                    launchInformation = dataBindApp.AppUserModelId + " (" + dataBindApp.NameExe + ")";
                 }
                 else
                 {

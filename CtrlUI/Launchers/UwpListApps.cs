@@ -110,6 +110,7 @@ namespace CtrlUI
                     Category = AppCategory.Launcher,
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
+                    NameExe = appxDetails.ExecutableAliasName,
                     AppUserModelId = appUserModelId,
                     StatusLauncherImage = vImagePreloadMicrosoft
                 };

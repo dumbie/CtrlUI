@@ -119,7 +119,7 @@ namespace CtrlUI
                 string launchInformation = string.Empty;
                 if (processMulti.Type == ProcessType.UWP || processMulti.Type == ProcessType.Win32Store)
                 {
-                    launchInformation = processMulti.AppUserModelId;
+                    launchInformation = processMulti.AppUserModelId + " (" + processMulti.ExeName + ")";
                 }
                 else
                 {
