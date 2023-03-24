@@ -105,14 +105,15 @@ namespace CtrlUI
                 //Get the currently running processes
                 IEnumerable<DataBindApp> combinedAppLists = CombineAppLists(true, false, false).Where(x => x.StatusUrlProtocol == Visibility.Collapsed);
 
-                //Update all the processes
-                await ProcessListUpdate(processMultiList, combinedAppLists);
-
-                //Get active process identifiers
+                //List process identifiers and window handles
+                List<IntPtr> processWindowHandles = new List<IntPtr>();
                 IEnumerable<int> processIdentifiers = processMultiList.Select(x => x.Identifier);
 
+                //Update all the processes
+                await ProcessListUpdate(processWindowHandles, processMultiList, combinedAppLists);
+
                 //Cleanup all the processes
-                await ProcessListCleanupList(processIdentifiers);
+                await ProcessListCleanupProcesses(processIdentifiers, processWindowHandles);
                 ProcessListCleanupCombined(processIdentifiers, combinedAppLists);
             }
             catch { }

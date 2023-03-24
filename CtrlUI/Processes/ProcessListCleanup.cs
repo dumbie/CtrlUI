@@ -57,11 +57,11 @@ namespace CtrlUI
         }
 
         //Cleanup no longer running list processes
-        async Task ProcessListCleanupList(IEnumerable<int> processIdentifiers)
+        async Task ProcessListCleanupProcesses(IEnumerable<int> processIdentifiers, IEnumerable<IntPtr> processWindowHandles)
         {
             try
             {
-                Func<DataBindApp, bool> filterProcessApp = x => x.Category == AppCategory.Process && (!x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !processIdentifiers.Contains(z.Identifier)));
+                Func<DataBindApp, bool> filterProcessApp = x => x.Category == AppCategory.Process && (!x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !processIdentifiers.Contains(z.Identifier)) || x.ProcessMulti.Any(z => !processWindowHandles.Contains(z.WindowHandleMain)) || x.ProcessMulti.Any(z => z.WindowHandleMain == IntPtr.Zero));
                 await ListBoxRemoveAll(lb_Processes, List_Processes, filterProcessApp);
                 await ListBoxRemoveAll(lb_Search, List_Search, filterProcessApp);
             }

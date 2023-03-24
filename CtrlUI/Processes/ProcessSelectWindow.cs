@@ -32,23 +32,11 @@ namespace CtrlUI
                         try
                         {
                             //Validate the window handle
-                            if (!Check_ValidWindowHandle(windowHandle))
+                            if (!Check_WindowHandleValid(windowHandle))
                             {
                                 //Debug.WriteLine("Window handle is not valid.");
                                 continue;
                             }
-
-                            //Validate the window class name
-                            string windowClassName = Detail_ClassNameByWindowHandle(windowHandle);
-                            if (!Check_ClassNameIsValid(windowClassName))
-                            {
-                                //Debug.WriteLine("Window class name is not valid.");
-                                continue;
-                            }
-
-                            //Get the window state
-                            WindowPlacement processWindowState = new WindowPlacement();
-                            GetWindowPlacement(windowHandle, ref processWindowState);
 
                             //Get the window title
                             string windowTitleString = Detail_WindowTitleByWindowHandle(windowHandle);
@@ -62,28 +50,24 @@ namespace CtrlUI
 
                             //Check window style
                             WindowStylesEx windowStyle = (WindowStylesEx)GetWindowLongAuto(windowHandle, (int)WindowLongFlags.GWL_EXSTYLE).ToInt64();
-                            if (windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW) || windowStyle.HasFlag(WindowStylesEx.WS_EX_LAYERED))
+                            if (windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW))
                             {
                                 windowSubString += " (Tool)";
+                            }
+                            else if (windowStyle.HasFlag(WindowStylesEx.WS_EX_LAYERED))
+                            {
+                                windowSubString += " (Layer)";
                             }
                             else
                             {
                                 windowSubString += " (Window)";
                             }
 
-                            //Check window state
-                            if (processWindowState.windowShowCommand == WindowShowCommand.Minimized)
+                            //Check window placement
+                            GetWindowPlacement(windowHandle, out WindowPlacement windowPlacement);
+                            if (windowPlacement.windowShowCommand == WindowShowCommand.Minimized)
                             {
                                 windowSubString += " (Minimized)";
-                            }
-
-                            //Check explorer window
-                            if (dataBindApp.NameExe.ToLower() == "explorer.exe")
-                            {
-                                if (windowTitleString == "Unknown" || windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW) || windowStyle.HasFlag(WindowStylesEx.WS_EX_LAYERED))
-                                {
-                                    continue;
-                                }
                             }
 
                             //Add window to selection

@@ -17,7 +17,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Get all active processes and update lists
-        async Task ProcessListUpdate(List<ProcessMulti> processMultiList, IEnumerable<DataBindApp> combinedAppLists)
+        async Task ProcessListUpdate(List<IntPtr> processWindowHandles, List<ProcessMulti> processMultiList, IEnumerable<DataBindApp> combinedAppLists)
         {
             try
             {
@@ -106,12 +106,15 @@ namespace CtrlUI
                         }
 
                         //Check if application has valid window
-                        if (!Check_ValidWindowHandle(processMulti.WindowHandleMain))
+                        if (!Check_WindowHandleValid(processMulti.WindowHandleMain))
                         {
                             continue;
                         }
 
-                        //Check explorer process
+                        //Add valid window handle to list
+                        processWindowHandles.Add(processMulti.WindowHandleMain);
+
+                        //Check process name for correction
                         ProcessNameCorrection(processMulti, processNameExeLower);
 
                         //Check if process is in process list and update it

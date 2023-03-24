@@ -21,7 +21,7 @@ namespace CtrlUI
         {
             try
             {
-                Debug.WriteLine("Showing the application: " + dataBindApp.Name);
+                Debug.WriteLine("Showing the application: " + dataBindApp.Name + " / Identifier: " + processMulti.Identifier);
 
                 //Check if application has multiple windows
                 ProcessWindowAction windowAction = await SelectProcessWindow(dataBindApp, processMulti, false);
@@ -43,8 +43,8 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Debug.WriteLine("Show application has no window.");
-                    await Notification_Send_Status("Close", "Show application has no window");
+                    Debug.WriteLine("Application has no window.");
+                    await Notification_Send_Status("Close", "Application has no window");
                 }
             }
             catch (Exception ex)
