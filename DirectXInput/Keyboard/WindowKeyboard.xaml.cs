@@ -15,6 +15,7 @@ using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
+using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
 
@@ -136,9 +137,6 @@ namespace DirectXInput.KeyboardCode
                 //Update the window visibility
                 UpdateWindowVisibility(true);
 
-                //Focus on keyboard button
-                await FocusPopupButton(false, key_h);
-
                 //Force keyboard mode
                 if (forceKeyboardMode)
                 {
@@ -149,6 +147,16 @@ namespace DirectXInput.KeyboardCode
                 if (resetPosition || SettingLoad(vConfigurationDirectXInput, "KeyboardResetPosition", typeof(bool)))
                 {
                     UpdateWindowPosition();
+                }
+
+                //Focus on keyboard button
+                if (vKeyboardCurrentMode == KeyboardMode.Keyboard)
+                {
+                    await FocusPopupButton(false, key_h);
+                }
+                else
+                {
+                    await FocusPopupButton(true, key_Tool_SwitchMode);
                 }
 
                 //Move mouse cursor to target
