@@ -17,8 +17,42 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        public static string[] vBattleNetUidBlacklist = { "agent", "bna", "battle.net" };
-        public static string[] vBattleNetBranchReplace = { "retail" };
+        //Classes
+        private class LaunchIdConvert
+        {
+            public string UID { get; set; }
+            public string LaunchID { get; set; }
+        }
+
+        //Arrays
+        private static string[] vBattleNetUidBlacklist = { "agent", "bna", "battle.net" };
+        private static string[] vBattleNetBranchReplace = { "retail" };
+        private static LaunchIdConvert[] vBattleNetLaunchIdentifiers =
+        {
+            //Test LaunchId with battlenet://LaunchId
+            new LaunchIdConvert { UID = "wlby", LaunchID = "WLBY" }, //Crash Bandicoot 4: It's About Time
+            new LaunchIdConvert { UID = "rtro", LaunchID = "RTRO" }, //Blizzard Arcade Collection
+            new LaunchIdConvert { UID = "heroes", LaunchID = "Hero" }, //Heroes of the Storm
+            new LaunchIdConvert { UID = "prometheus", LaunchID = "Pro" }, //Overwatch
+            new LaunchIdConvert { UID = "s1", LaunchID = "S1" }, //StarCraft: Remastered
+            new LaunchIdConvert { UID = "s2", LaunchID = "S2" }, //StarCraft II
+            new LaunchIdConvert { UID = "hs_beta", LaunchID = "WTCG" }, //Hearthstone
+            new LaunchIdConvert { UID = "w3", LaunchID = "W3" }, //Warcraft III: Reforged
+            new LaunchIdConvert { UID = "wow", LaunchID = "WoW" }, //World of Warcraft
+            //new LaunchIdConvert { UID = "wow_classic", LaunchID = "WoWC" }, //World of Warcraft Classic Expansion
+            //new LaunchIdConvert { UID = "wow_classic_era", LaunchID = "WoWC" }, //World of Warcraft Classic Basegame
+            new LaunchIdConvert { UID = "anbs", LaunchID = "ANBS" }, //Diablo: Immortal
+            new LaunchIdConvert { UID = "osi", LaunchID = "OSI" }, //Diablo II: Resurrected
+            new LaunchIdConvert { UID = "d3cn", LaunchID = "D3CN" }, //Diablo III China
+            new LaunchIdConvert { UID = "diablo3", LaunchID = "D3" }, //Diablo III
+            new LaunchIdConvert { UID = "fenris", LaunchID = "Fen" }, //Diablo IV
+            new LaunchIdConvert { UID = "fore", LaunchID = "FORE" }, //Call of Duty: Vanguard
+            new LaunchIdConvert { UID = "auks", LaunchID = "AUKS" }, //Call of Duty: Modern Warfare II
+            new LaunchIdConvert { UID = "lazarus", LaunchID = "LAZR" }, //Call of Duty: Modern Warfare II Campaign
+            new LaunchIdConvert { UID = "odin", LaunchID = "ODIN" }, //Call of Duty: Modern Warfare
+            new LaunchIdConvert { UID = "zeus", LaunchID = "ZEUS" }, //Call of Duty: Black Ops Cold War
+            new LaunchIdConvert { UID = "viper", LaunchID = "VIPR" }, //Call of Duty: Black Ops 4
+        };
 
         string BattleNetLauncherExePath()
         {
@@ -78,9 +112,9 @@ namespace CtrlUI
             try
             {
                 //Get application details
-                //Improve find way to load proper uid
                 string appUid = productInstall.uid;
                 string installDir = productInstall.settings.installPath;
+                //Debug.WriteLine("BattleNet uid: " + appUid + " / " + installDir);
 
                 //Check if application id is in blacklist
                 if (vBattleNetUidBlacklist.Contains(appUid))
@@ -96,8 +130,22 @@ namespace CtrlUI
                     return;
                 }
 
-                //Set application launch argument
-                string launchArgument = "--exec=\"launch_uid " + appUid + "\"";
+                //Set launch argument and convert UID to LaunchID
+                //Improve find way to automatically load LaunchID
+                bool launchKeyboard = false;
+                string launchArgument = string.Empty;
+                LaunchIdConvert launchIdConvert = vBattleNetLaunchIdentifiers.Where(x => x.UID == appUid).FirstOrDefault();
+                if (launchIdConvert != null)
+                {
+                    launchArgument = "--exec=\"launch " + launchIdConvert.LaunchID + "\"";
+                }
+                else
+                {
+                    launchArgument = "--exec=\"launch_uid " + appUid + "\"";
+                    launchKeyboard = true;
+                }
+
+                //Add application to available list
                 vLauncherAppAvailableCheck.Add(launcherExePath);
 
                 //Check if application is already added
@@ -146,7 +194,7 @@ namespace CtrlUI
                     PathExe = launcherExePath,
                     Argument = launchArgument,
                     StatusLauncherImage = vImagePreloadBattleNet,
-                    LaunchKeyboard = true
+                    LaunchKeyboard = launchKeyboard
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
