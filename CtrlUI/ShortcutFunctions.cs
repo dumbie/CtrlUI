@@ -206,7 +206,7 @@ namespace CtrlUI
                         Func<DataBindApp, bool> duplicateCheckShortcut = x => (x.PathExe.ToLower() == targetPathLower && x.Argument.ToLower() == targetArgumentLower) || x.AppUserModelId.ToLower() == targetPathLower;
 
                         //Check if already in combined list and remove it
-                        if (CombineAppLists(false, false, true).Any(combineCheckShortcut))
+                        if (CombineAppLists(true, true, true, true, false, false).Any(combineCheckShortcut))
                         {
                             //Debug.WriteLine("Shortcut is in the combined list skipping: " + targetPathLower);
                             await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);

@@ -17,7 +17,7 @@ namespace CtrlUI
             try
             {
                 //Get the current quick launch application
-                DataBindApp quickLaunchApp = CombineAppLists(false, false, false).Where(x => x.QuickLaunch).FirstOrDefault();
+                DataBindApp quickLaunchApp = CombineAppLists(true, true, true, false, false, false).Where(x => x.QuickLaunch).FirstOrDefault();
 
                 //Prompt user to quick launch application
                 List<DataBindString> Answers = new List<DataBindString>();
@@ -49,7 +49,7 @@ namespace CtrlUI
             try
             {
                 //Get the current quick launch application
-                DataBindApp quickLaunchApp = CombineAppLists(false, false, false).Where(x => x.QuickLaunch).FirstOrDefault();
+                DataBindApp quickLaunchApp = CombineAppLists(true, true, true, false, false, false).Where(x => x.QuickLaunch).FirstOrDefault();
 
                 //Quick launch application
                 if (quickLaunchApp != null)

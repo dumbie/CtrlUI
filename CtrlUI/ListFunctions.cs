@@ -14,23 +14,23 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Combine all the saved lists to make comparison
-        IEnumerable<DataBindApp> CombineAppLists(bool includeShortcuts, bool includeProcesses, bool includeLaunchers)
+        IEnumerable<DataBindApp> CombineAppLists(bool includeApps, bool includeGames, bool includeEmulators, bool includeLaunchers, bool includeShortcuts, bool includeProcesses)
         {
+            IEnumerable<DataBindApp> combinedLists = new List<DataBindApp>();
             try
             {
-                IEnumerable<DataBindApp> combinedLists = List_Apps.ToList();
-                combinedLists = combinedLists.Concat(List_Games.ToList());
-                combinedLists = combinedLists.Concat(List_Emulators.ToList());
-                if (includeShortcuts) { combinedLists = combinedLists.Concat(List_Shortcuts.ToList()); }
-                if (includeProcesses) { combinedLists = combinedLists.Concat(List_Processes.ToList()); }
-                if (includeLaunchers) { combinedLists = combinedLists.Concat(List_Launchers.ToList()); }
-                return combinedLists;
+                if (includeApps) { combinedLists = combinedLists.Concat(List_Apps); }
+                if (includeGames) { combinedLists = combinedLists.Concat(List_Games); }
+                if (includeEmulators) { combinedLists = combinedLists.Concat(List_Emulators); }
+                if (includeLaunchers) { combinedLists = combinedLists.Concat(List_Launchers); }
+                if (includeShortcuts) { combinedLists = combinedLists.Concat(List_Shortcuts); }
+                if (includeProcesses) { combinedLists = combinedLists.Concat(List_Processes); }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed combining application lists: " + ex.Message);
-                return null;
             }
+            return combinedLists;
         }
 
         //Refresh processes and status
@@ -103,18 +103,18 @@ namespace CtrlUI
                 }
 
                 //Get the currently running processes
-                IEnumerable<DataBindApp> combinedAppLists = CombineAppLists(true, false, false).Where(x => x.StatusUrlProtocol == Visibility.Collapsed);
+                IEnumerable<DataBindApp> combinedAppLists = CombineAppLists(true, true, true, false, true, false).Where(x => x.StatusUrlProtocol == Visibility.Collapsed);
 
                 //List process identifiers and window handles
                 List<IntPtr> processWindowHandles = new List<IntPtr>();
                 IEnumerable<int> processIdentifiers = processMultiList.Select(x => x.Identifier);
 
                 //Update all the processes
-                await ProcessListUpdate(processWindowHandles, processMultiList, combinedAppLists);
+                await ProcessListUpdate(processMultiList, processWindowHandles, combinedAppLists);
 
                 //Cleanup all the processes
+                ProcessListCleanupApps(processIdentifiers, combinedAppLists);
                 await ProcessListCleanupProcesses(processIdentifiers, processWindowHandles);
-                ProcessListCleanupCombined(processIdentifiers, combinedAppLists);
             }
             catch { }
         }
@@ -151,7 +151,7 @@ namespace CtrlUI
             {
                 bool applicationUpdated = false;
                 //Debug.WriteLine("Updating the application running time.");
-                foreach (DataBindApp dataBindApp in CombineAppLists(false, false, false).Where(x => x.ProcessMulti.Any()))
+                foreach (DataBindApp dataBindApp in CombineAppLists(true, true, true, false, false, false).Where(x => x.ProcessMulti.Any()))
                 {
                     try
                     {

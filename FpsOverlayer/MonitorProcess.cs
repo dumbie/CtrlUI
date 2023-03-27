@@ -65,7 +65,7 @@ namespace FpsOverlayer
                             vTargetProcess = foregroundProcess;
 
                             //Update the application name
-                            UpdateApplicationName(foregroundProcess.WindowTitle);
+                            UpdateApplicationName(foregroundProcess.WindowTitleMain);
 
                             continue;
                         }
@@ -89,7 +89,7 @@ namespace FpsOverlayer
                         else
                         {
                             //Update the application name
-                            UpdateApplicationName(foregroundProcess.WindowTitle);
+                            UpdateApplicationName(foregroundProcess.WindowTitleMain);
 
                             //Update fps window style
                             WindowUpdateStyle(vInteropWindowHandle, true, true, true);

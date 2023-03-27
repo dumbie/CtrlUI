@@ -32,7 +32,7 @@ namespace CtrlUI
                         try
                         {
                             //Validate the window handle
-                            if (!Check_WindowHandleValid(windowHandle))
+                            if (!Check_WindowHandleValid(windowHandle, string.Empty))
                             {
                                 //Debug.WriteLine("Window handle is not valid.");
                                 continue;

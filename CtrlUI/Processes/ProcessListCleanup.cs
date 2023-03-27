@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Cleanup no longer running combined processes
-        void ProcessListCleanupCombined(IEnumerable<int> processIdentifiers, IEnumerable<DataBindApp> combinedAppLists)
+        //Cleanup no longer running list apps
+        void ProcessListCleanupApps(IEnumerable<int> processIdentifiers, IEnumerable<DataBindApp> combinedAppLists)
         {
             try
             {
@@ -24,7 +23,7 @@ namespace CtrlUI
                         Predicate<ProcessMulti> filterProcessApp = x => !processIdentifiers.Any(y => y == x.Identifier);
                         dataBindApp.ProcessMulti.RemoveAll(filterProcessApp);
 
-                        //Check the running count
+                        //Check process running count
                         int processCount = dataBindApp.ProcessMulti.Count();
 
                         //Remove invalid processes
@@ -61,9 +60,23 @@ namespace CtrlUI
         {
             try
             {
-                Func<DataBindApp, bool> filterProcessApp = x => x.Category == AppCategory.Process && (!x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !processIdentifiers.Contains(z.Identifier)) || x.ProcessMulti.Any(z => !processWindowHandles.Contains(z.WindowHandleMain)) || x.ProcessMulti.Any(z => z.WindowHandleMain == IntPtr.Zero));
-                await ListBoxRemoveAll(lb_Processes, List_Processes, filterProcessApp);
-                await ListBoxRemoveAll(lb_Search, List_Search, filterProcessApp);
+                foreach (DataBindApp dataBindApp in List_Processes)
+                {
+                    try
+                    {
+                        //Remove closed processes
+                        Predicate<ProcessMulti> filterProcessApp = x => !processIdentifiers.Any(y => y == x.Identifier) || !processWindowHandles.Any(y => y == x.WindowHandleMain);
+                        dataBindApp.ProcessMulti.RemoveAll(filterProcessApp);
+
+                        //Check process running count
+                        if (!dataBindApp.ProcessMulti.Any())
+                        {
+                            await ListBoxRemoveItem(lb_Processes, List_Processes, dataBindApp, true);
+                            await ListBoxRemoveItem(lb_Search, List_Search, dataBindApp, true);
+                        }
+                    }
+                    catch { }
+                }
             }
             catch { }
         }

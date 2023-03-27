@@ -42,7 +42,7 @@ namespace CtrlUI
                     List_Search.Clear();
 
                     //Search and add applications
-                    IEnumerable<DataBindApp> searchResult = CombineAppLists(true, true, true).Where(x => x.Name.ToLower().Contains(searchString.ToLower()));
+                    IEnumerable<DataBindApp> searchResult = CombineAppLists(true, true, true, true, true, true).Where(x => x.Name.ToLower().Contains(searchString.ToLower()));
                     foreach (DataBindApp dataBindApp in searchResult)
                     {
                         try

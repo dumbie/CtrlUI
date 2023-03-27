@@ -27,7 +27,7 @@ namespace CtrlUI
                             try
                             {
                                 //Get the process title
-                                string processTitle = multiProcess.WindowTitle;
+                                string processTitle = multiProcess.WindowTitleMain;
                                 if (processTitle == "Unknown")
                                 {
                                     processTitle += " (Hidden)";

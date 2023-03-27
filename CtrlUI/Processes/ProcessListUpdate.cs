@@ -17,7 +17,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Get all active processes and update lists
-        async Task ProcessListUpdate(List<IntPtr> processWindowHandles, List<ProcessMulti> processMultiList, IEnumerable<DataBindApp> combinedAppLists)
+        async Task ProcessListUpdate(List<ProcessMulti> processMultiList, List<IntPtr> processWindowHandles, IEnumerable<DataBindApp> combinedAppLists)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace CtrlUI
                             //Update the process not responding status
                             existingCombinedApp.StatusNotResponding = processStatusNotResponding;
 
-                            //Add the new process multi application
+                            //Add new process multi application
                             if (!existingCombinedApp.ProcessMulti.Any(x => x.Identifier == processMulti.Identifier))
                             {
                                 existingCombinedApp.ProcessMulti.Add(processMulti);
@@ -106,7 +106,7 @@ namespace CtrlUI
                         }
 
                         //Check if application has valid window
-                        if (!Check_WindowHandleValid(processMulti.WindowHandleMain))
+                        if (!Check_WindowHandleValid(processMulti.WindowHandleMain, processMulti.WindowClassNameMain))
                         {
                             continue;
                         }
@@ -124,7 +124,10 @@ namespace CtrlUI
                         foreach (DataBindApp existingProcessApp in existingProcessApps)
                         {
                             //Update the process title
-                            if (existingProcessApp.Name != processMulti.WindowTitle) { existingProcessApp.Name = processMulti.WindowTitle; }
+                            if (existingProcessApp.Name != processMulti.WindowTitleMain)
+                            {
+                                existingProcessApp.Name = processMulti.WindowTitleMain;
+                            }
 
                             //Update the process running time
                             existingProcessApp.StatusProcessRunTime = processRunTime;
@@ -160,14 +163,14 @@ namespace CtrlUI
                         }
 
                         //Load the application image
-                        BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processMulti.WindowTitle, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExe }, vImageSourceFolders, vImageBackupSource, processMulti.WindowHandleMain, vImageLoadSize, 0);
+                        BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processMulti.WindowTitleMain, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExe }, vImageSourceFolders, vImageBackupSource, processMulti.WindowHandleMain, vImageLoadSize, 0);
 
                         //Create new ProcessMulti list
                         List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();
                         listProcessMulti.Add(processMulti);
 
                         //Add the process to the process list
-                        DataBindApp dataBindApp = new DataBindApp() { Type = processMulti.Type, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processMulti.WindowTitle, AppUserModelId = processAppUserModelId, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, StatusNotResponding = processStatusNotResponding, StatusProcessRunTime = processRunTime };
+                        DataBindApp dataBindApp = new DataBindApp() { Type = processMulti.Type, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processMulti.WindowTitleMain, AppUserModelId = processAppUserModelId, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, StatusNotResponding = processStatusNotResponding, StatusProcessRunTime = processRunTime };
                         await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
 
                         //Add the process to the search list
@@ -189,11 +192,11 @@ namespace CtrlUI
             {
                 if (processNameExeLower == "explorer.exe")
                 {
-                    processMulti.WindowTitle = "File Explorer";
+                    processMulti.WindowTitleMain = "File Explorer";
                 }
                 else if (processNameExeLower == "msedge.exe")
                 {
-                    processMulti.WindowTitle = "Microsoft Edge";
+                    processMulti.WindowTitleMain = "Microsoft Edge";
                 }
             }
             catch { }
