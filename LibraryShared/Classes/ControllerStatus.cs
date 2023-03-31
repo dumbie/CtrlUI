@@ -34,10 +34,10 @@ namespace LibraryShared
 
             //Timeout Variables
             public bool TimeoutIgnore = false;
-            public long PrevInputTicks = 0;
-            public long LastInputTicks = 0;
-            public long LastActiveTicks = 0;
-            public int MilliSecondsTimeout = 3000;
+            public long TicksInputLast = 0;
+            public long TicksInputPrev = 0;
+            public long TicksActiveLast = 0;
+            public int TicksTargetTimeout = 3000;
 
             //Controller Details
             public ControllerDetails Details = null;
@@ -111,9 +111,9 @@ namespace LibraryShared
 
                     //Timeout Variables
                     TimeoutIgnore = false;
-                    PrevInputTicks = 0;
-                    LastInputTicks = 0;
-                    LastActiveTicks = 0;
+                    TicksInputPrev = 0;
+                    TicksInputLast = 0;
+                    TicksActiveLast = 0;
 
                     //Controller Details
                     Details = null;

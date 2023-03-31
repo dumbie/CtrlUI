@@ -43,7 +43,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Debug.WriteLine("Application has no window.");
+                    Debug.WriteLine("Show application has no window.");
                     await Notification_Send_Status("Close", "Application has no window");
                 }
             }

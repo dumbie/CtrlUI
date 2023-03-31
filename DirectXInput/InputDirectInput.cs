@@ -44,10 +44,6 @@ namespace DirectXInput
                             }
                         }
 
-                        //Update the controller last input time
-                        controller.PrevInputTicks = controller.LastInputTicks;
-                        controller.LastInputTicks = GetSystemTicksMs();
-
                         //Set controller header offset
                         int HeaderOffset = controller.Details.Wireless ? controller.SupportedCurrent.OffsetWireless : controller.SupportedCurrent.OffsetWired;
 
@@ -515,6 +511,17 @@ namespace DirectXInput
 
                             //Send input to the virtual device
                             await SendInputVirtualController(controller);
+
+                            //Update controller input time
+                            long ticksSystem = GetSystemTicksMs();
+                            controller.TicksInputPrev = controller.TicksInputLast;
+                            controller.TicksInputLast = ticksSystem;
+
+                            //Check if controller is idle and update active time
+                            if (!CheckControllerIdlePress(controller))
+                            {
+                                controller.TicksActiveLast = ticksSystem;
+                            }
                         }
                     }
                     catch

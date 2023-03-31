@@ -68,7 +68,7 @@ namespace DirectXInput
                     txt_ActiveControllerName.Foreground = new SolidColorBrush((Color)Controller.Color);
 
                     //Update latency
-                    long latencyMs = Controller.LastInputTicks - Controller.PrevInputTicks;
+                    long latencyMs = Controller.TicksInputLast - Controller.TicksInputPrev;
                     txt_ActiveControllerLatency.Text = "Latency " + latencyMs + "ms";
 
                     //Update battery

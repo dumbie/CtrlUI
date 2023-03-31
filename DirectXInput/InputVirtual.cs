@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Enums;
 
 namespace DirectXInput
 {
@@ -32,28 +29,7 @@ namespace DirectXInput
             {
                 //Update and check button press times
                 UpdateCheckButtonPressTimes(Controller.InputCurrent.ButtonGuide);
-
-                //Check if the controller is currently idle
-                if (Controller.Details.Wireless)
-                {
-                    long currentTimeMs = GetSystemTicksMs();
-                    if (Controller.BatteryCurrent.BatteryStatus != BatteryStatus.Charging && CheckControllerIdle(Controller))
-                    {
-                        long idleTimeMs = currentTimeMs - Controller.LastActiveTicks;
-                        int targetTimeMs = SettingLoad(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", typeof(int)) * 60000;
-                        if (targetTimeMs > 0 && idleTimeMs > targetTimeMs)
-                        {
-                            Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTimeMs + "/" + targetTimeMs + "ms");
-                            Controller.LastActiveTicks = currentTimeMs;
-                            await StopController(Controller, "idle", "Disconnected idle controller " + Controller.NumberId + ".");
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        Controller.LastActiveTicks = currentTimeMs;
-                    }
-                }
+                UpdateCheckButtonPressTimes(Controller.InputCurrent.ButtonTouchpad);
 
                 //Check if controller output needs to be blocked
                 if (vAppActivated && !vAppMinimized && vShowDebugInformation)
@@ -62,6 +38,7 @@ namespace DirectXInput
                     SendInputVirtualEmpty(Controller);
                     return;
                 }
+                //Check if controller is currently disconnecting
                 else if (Controller.Disconnecting)
                 {
                     //Send empty input to the virtual device

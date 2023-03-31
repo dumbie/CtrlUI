@@ -1,13 +1,54 @@
 ﻿using System;
+using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Check if the controller is currently idle
-        bool CheckControllerIdle(ControllerStatus controllerStatus)
+        //Check for idle controllers
+        async Task CheckAllControllersIdle()
+        {
+            try
+            {
+                await CheckControllerIdle(vController0);
+                await CheckControllerIdle(vController1);
+                await CheckControllerIdle(vController2);
+                await CheckControllerIdle(vController3);
+            }
+            catch { }
+        }
+
+        //Check if controller is idle
+        async Task<bool> CheckControllerIdle(ControllerStatus Controller)
+        {
+            try
+            {
+                if (Controller.Connected() && Controller.InputReport != null && Controller.TicksActiveLast != 0)
+                {
+                    if (Controller.Details.Wireless && Controller.BatteryCurrent.BatteryStatus != BatteryStatus.Charging)
+                    {
+                        long lastMs = GetSystemTicksMs() - Controller.TicksActiveLast;
+                        int targetTimeMs = SettingLoad(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", typeof(int)) * 60000;
+                        //Debug.WriteLine("Controller " + Controller.NumberId + " idle check: " + lastMs + "/" + targetTimeMs + "ms.");
+                        if (targetTimeMs > 0 && lastMs > targetTimeMs)
+                        {
+                            await StopController(Controller, "idle", "Disconnected idle controller " + Controller.NumberId);
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch { }
+            return false;
+        }
+
+        //Check if controller is currently pressed
+        bool CheckControllerIdlePress(ControllerStatus controllerStatus)
         {
             try
             {

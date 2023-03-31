@@ -37,16 +37,17 @@ namespace DirectXInput
             catch { }
         }
 
-        async Task vTaskLoop_ControllerTimeout()
+        async Task vTaskLoop_ControllerDisconnect()
         {
             try
             {
-                while (TaskCheckLoop(vTask_ControllerTimeout))
+                while (TaskCheckLoop(vTask_ControllerDisconnect))
                 {
-                    await CheckControllersTimeout();
+                    await CheckAllControllersTimeout();
+                    await CheckAllControllersIdle();
 
                     //Delay the loop task
-                    await TaskDelay(1000, vTask_ControllerTimeout);
+                    await TaskDelay(1000, vTask_ControllerDisconnect);
                 }
             }
             catch { }

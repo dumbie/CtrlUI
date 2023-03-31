@@ -38,7 +38,7 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Hide application has no window.");
-                    await Notification_Send_Status("Close", "Hide application has no window");
+                    await Notification_Send_Status("Close", "Application has no window");
                 }
 
                 //Focus on CtrlUI window
@@ -60,7 +60,7 @@ namespace CtrlUI
                 {
                     if (!skipNotification)
                     {
-                        await Notification_Send_Status("Close", "Hide application has no window");
+                        await Notification_Send_Status("Close", "Application has no window");
                     }
                     Debug.WriteLine("Application cannot be hidden, window handle is empty.");
                     return;
@@ -105,7 +105,7 @@ namespace CtrlUI
                 {
                     if (!skipNotification)
                     {
-                        await Notification_Send_Status("Close", "Hide application has no window");
+                        await Notification_Send_Status("Close", "Application has no window");
                     }
                     Debug.WriteLine("Application cannot be hidden, window handle is empty.");
                     return;

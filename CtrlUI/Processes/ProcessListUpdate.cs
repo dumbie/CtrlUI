@@ -106,7 +106,7 @@ namespace CtrlUI
                         }
 
                         //Check if application has valid window
-                        if (!Check_WindowHandleValid(processMulti.WindowHandleMain, processMulti.WindowClassNameMain))
+                        if (!Check_WindowHandleValid(processMulti.WindowHandleMain))
                         {
                             continue;
                         }

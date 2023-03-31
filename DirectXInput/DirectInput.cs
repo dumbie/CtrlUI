@@ -66,12 +66,13 @@ namespace DirectXInput
                 //Update the controller interface settings
                 ControllerUpdateSettingsInterface(Controller);
 
-                //Update the controller last read time
-                Controller.PrevInputTicks = GetSystemTicksMs();
-                Controller.LastInputTicks = GetSystemTicksMs();
+                //Update the controller last input time
+                long ticksSystem = GetSystemTicksMs();
+                Controller.TicksInputPrev = ticksSystem;
+                Controller.TicksInputLast = ticksSystem;
 
                 //Update the controller last active time
-                Controller.LastActiveTicks = GetSystemTicksMs();
+                Controller.TicksActiveLast = ticksSystem;
 
                 //Set the controller supported profile
                 Controller.SupportedCurrent = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower())).FirstOrDefault();

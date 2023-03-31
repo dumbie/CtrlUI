@@ -85,10 +85,11 @@ namespace DirectXInput
                 grid_Controller.Visibility = Visibility.Collapsed;
                 grid_Battery.Visibility = Visibility.Collapsed;
                 grid_Ignore.Visibility = Visibility.Collapsed;
+                grid_Shortcuts.Visibility = Visibility.Collapsed;
                 grid_Keyboard.Visibility = Visibility.Collapsed;
                 grid_Keypad.Visibility = Visibility.Collapsed;
                 grid_Media.Visibility = Visibility.Collapsed;
-                grid_Shortcuts.Visibility = Visibility.Collapsed;
+                grid_Settings.Visibility = Visibility.Collapsed;
                 grid_Debug.Visibility = Visibility.Collapsed;
                 grid_Help.Visibility = Visibility.Collapsed;
                 elementTarget.Visibility = Visibility.Visible;

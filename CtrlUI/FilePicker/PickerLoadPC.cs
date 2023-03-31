@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using Microsoft.Win32;
 using System;
 using System.IO;
 using System.Linq;
@@ -9,6 +8,7 @@ using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVDiskInfo;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkCode.AVShellInfo;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -87,16 +87,12 @@ namespace CtrlUI
                 DataBindFile dataBindFileDocuments = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Documents", ImageBitmap = imageFolderDocuments, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) };
                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDocuments, false, false);
 
-                try
+                string downloadsPath = AVShellInfo.ShellPath_KnownFolder(KnownFolder.Downloads);
+                if (!string.IsNullOrWhiteSpace(downloadsPath) && Directory.Exists(downloadsPath))
                 {
-                    string downloadsPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "{374DE290-123F-4565-9164-39C4925E467B}", string.Empty).ToString();
-                    if (!string.IsNullOrWhiteSpace(downloadsPath) && Directory.Exists(downloadsPath))
-                    {
-                        DataBindFile dataBindFileDownloads = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Downloads", ImageBitmap = imageFolderDownload, PathFile = downloadsPath };
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDownloads, false, false);
-                    }
+                    DataBindFile dataBindFileDownloads = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Downloads", ImageBitmap = imageFolderDownload, PathFile = downloadsPath };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDownloads, false, false);
                 }
-                catch { }
 
                 DataBindFile dataBindFileMusic = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Music", ImageBitmap = imageFolderMusic, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) };
                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileMusic, false, false);

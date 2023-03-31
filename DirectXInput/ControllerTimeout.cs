@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -8,36 +7,40 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Check if a controller has timed out
-        async Task ControllerTimeout(ControllerStatus Controller)
+        //Check for timed out controllers
+        async Task CheckAllControllersTimeout()
         {
             try
             {
-                //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has timed out for " + Controller.MilliSecondsTimeout + " ms.");
-                if (Controller.Connected() && Controller.InputReport != null && Controller.LastInputTicks != 0 && Controller.PrevInputTicks != 0 && !Controller.TimeoutIgnore)
-                {
-                    long latencyMs = GetSystemTicksMs() - Controller.LastInputTicks;
-                    if (latencyMs > Controller.MilliSecondsTimeout)
-                    {
-                        Debug.WriteLine("Controller " + Controller.NumberId + " has timed out, stopping and removing the controller.");
-                        await StopController(Controller, "timeout", "Controller " + Controller.NumberId + " has timed out.");
-                    }
-                }
+                await CheckControllerTimeout(vController0);
+                await CheckControllerTimeout(vController1);
+                await CheckControllerTimeout(vController2);
+                await CheckControllerTimeout(vController3);
             }
             catch { }
         }
 
-        //Check for timed out controllers
-        async Task CheckControllersTimeout()
+        //Check if controller has timed out
+        async Task<bool> CheckControllerTimeout(ControllerStatus Controller)
         {
             try
             {
-                await ControllerTimeout(vController0);
-                await ControllerTimeout(vController1);
-                await ControllerTimeout(vController2);
-                await ControllerTimeout(vController3);
+                if (Controller.Connected() && Controller.InputReport != null && Controller.TicksInputLast != 0 && Controller.TicksInputPrev != 0)
+                {
+                    if (!Controller.TimeoutIgnore)
+                    {
+                        long lastMs = GetSystemTicksMs() - Controller.TicksInputLast;
+                        //Debug.WriteLine("Controller " + Controller.NumberId + " time out check: " + lastMs + "/" + Controller.TicksTargetTimeout + "ms.");
+                        if (lastMs > Controller.TicksTargetTimeout)
+                        {
+                            await StopController(Controller, "timeout", "Disconnected timed out controller " + Controller.NumberId);
+                            return true;
+                        }
+                    }
+                }
             }
             catch { }
+            return false;
         }
     }
 }
