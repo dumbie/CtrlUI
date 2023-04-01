@@ -30,8 +30,8 @@ namespace DirectXInput
 
                 //Load controller settings
                 int controllerIdleDisconnectMinInt = SettingLoad(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", typeof(int));
-                textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + batteryLevelLowInt + " minutes";
-                slider_ControllerIdleDisconnectMin.Value = batteryLevelLowInt;
+                textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinInt + " minutes";
+                slider_ControllerIdleDisconnectMin.Value = controllerIdleDisconnectMinInt;
 
                 string ControllerColor0 = SettingLoad(vConfigurationDirectXInput, "ControllerColor0", typeof(string));
                 SolidColorBrush ControllerColor0Brush = new BrushConverter().ConvertFrom(ControllerColor0) as SolidColorBrush;
