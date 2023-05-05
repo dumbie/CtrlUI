@@ -32,31 +32,32 @@ namespace CtrlUI
                     dataBindApp.Number = GetHighestAppNumber();
                 }
 
-                //Check if application is a Win32 app
-                if (dataBindApp.Type == ProcessType.Win32)
+                //Check if application executable exists
+                if (dataBindApp.Type == ProcessType.Win32 || dataBindApp.Type == ProcessType.Unknown)
                 {
-                    //Check if application executable exists
-                    if (!File.Exists(dataBindApp.PathExe))
+                    if (!string.IsNullOrWhiteSpace(dataBindApp.PathExe) && !File.Exists(dataBindApp.PathExe))
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
                     }
-                    //Check if the rom folder is available
-                    else if (dataBindApp.Category == AppCategory.Emulator)
+                }
+
+                //Check if application is UWP or Win32Store app
+                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                {
+                    //Set store status to visible
+                    dataBindApp.StatusStore = Visibility.Visible;
+
+                    //Check if application is installed
+                    if (!string.IsNullOrWhiteSpace(dataBindApp.AppUserModelId) && GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId) == null)
                     {
-                        if (!string.IsNullOrWhiteSpace(dataBindApp.PathRoms) && !Directory.Exists(dataBindApp.PathRoms))
-                        {
-                            dataBindApp.StatusAvailable = Visibility.Visible;
-                        }
+                        dataBindApp.StatusAvailable = Visibility.Visible;
                     }
                 }
 
-                //Check if application is an UWP or Win32Store app
-                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                //Check if application rom folder exists
+                if (dataBindApp.Category == AppCategory.Emulator)
                 {
-                    dataBindApp.StatusStore = Visibility.Visible;
-
-                    //Check if application still exists
-                    if (GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId) == null)
+                    if (!string.IsNullOrWhiteSpace(dataBindApp.PathRoms) && !Directory.Exists(dataBindApp.PathRoms))
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
                     }
