@@ -52,24 +52,59 @@ namespace LibraryShared
             0XB40BBE37, 0XC30C8EA1, 0X5A05DF1B, 0X2D02EF8D
         };
 
-        public static byte[] ComputeHashCRC32(byte[] byteData, bool reversed)
+        public static byte[] ComputeHashCRC32(uint md5Seed, byte[] byteData, bool reversed)
         {
             try
             {
+                //Set MD5 seed
                 uint hashResult = 0xFFFFFFFF;
+                if (md5Seed != 0)
+                {
+                    hashResult = md5Seed;
+                }
+
+                //Generate MD5
                 foreach (byte currentByte in byteData)
                 {
                     hashResult = ChecksumTableCRC32[(hashResult & 0xFF) ^ currentByte] ^ (hashResult >> 8);
                 }
 
+                //Return result
                 byte[] computedHash = BitConverter.GetBytes(~hashResult);
                 if (reversed) { Array.Reverse(computedHash); }
                 return computedHash;
             }
-            catch
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed to compute CRC32 hash.");
+                Debug.WriteLine("Failed to compute CRC32 hash: " + ex.Message);
                 return null;
+            }
+        }
+
+        public static uint ComputeHashCRC32(uint md5Seed, byte[] byteData)
+        {
+            try
+            {
+                //Set MD5 seed
+                uint hashResult = 0xFFFFFFFF;
+                if (md5Seed != 0)
+                {
+                    hashResult = md5Seed;
+                }
+
+                //Generate MD5
+                foreach (byte currentByte in byteData)
+                {
+                    hashResult = ChecksumTableCRC32[(hashResult & 0xFF) ^ currentByte] ^ (hashResult >> 8);
+                }
+
+                //Return result
+                return ~hashResult;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to compute CRC32 hash: " + ex.Message);
+                return 0;
             }
         }
     }
