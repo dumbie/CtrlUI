@@ -22,7 +22,8 @@
     "Gyroscope": 15,
     "Accelerometer": 21,
     "BatteryLevel": 52,
-    "BatteryStatus": 53
+    "BatteryStatus": 53,
+    "Checksum": 72
   },
   "OffsetButton": {
     "A": {

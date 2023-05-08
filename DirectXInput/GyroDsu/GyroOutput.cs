@@ -61,7 +61,7 @@ namespace DirectXInput
                 sendBytes[30] = (byte)DsuBattery.None;
 
                 //Compute and set CRC32 hash
-                byte[] checksum = ComputeHashCRC32(sendBytes, false);
+                byte[] checksum = ComputeHashCRC32(0, sendBytes, false);
                 sendBytes[8] = checksum[0];
                 sendBytes[9] = checksum[1];
                 sendBytes[10] = checksum[2];
@@ -127,7 +127,7 @@ namespace DirectXInput
                 sendBytes[30] = (byte)DsuBattery.None;
 
                 //Compute and set CRC32 hash
-                byte[] checksum = ComputeHashCRC32(sendBytes, false);
+                byte[] checksum = ComputeHashCRC32(0, sendBytes, false);
                 sendBytes[8] = checksum[0];
                 sendBytes[9] = checksum[1];
                 sendBytes[10] = checksum[2];
@@ -263,7 +263,7 @@ namespace DirectXInput
                 sendBytes[99] = gyroRollBytes[3];
 
                 //Compute and set CRC32 hash
-                byte[] checksum = ComputeHashCRC32(sendBytes, false);
+                byte[] checksum = ComputeHashCRC32(0, sendBytes, false);
                 sendBytes[8] = checksum[0];
                 sendBytes[9] = checksum[1];
                 sendBytes[10] = checksum[2];

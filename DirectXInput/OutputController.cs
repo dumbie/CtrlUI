@@ -183,7 +183,8 @@ namespace DirectXInput
                     outputReport[49] = Controller.ColorLedCurrentB;
 
                     //Add CRC32 to bytes array
-                    byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport, 74);
+                    int checksumOffset = Controller.SupportedCurrent.OffsetWireless + (int)Controller.SupportedCurrent.OffsetHeader.Checksum;
+                    byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport, checksumOffset);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReportCRC32);

@@ -44,6 +44,14 @@ namespace DirectXInput
                             }
                         }
 
+                        //Validate controller input data
+                        if (!ControllerValidateInputData(controller))
+                        {
+                            Debug.WriteLine("Invalid input data read from controller: " + controller.NumberId);
+                            TaskDelayHighRes(1);
+                            continue;
+                        }
+
                         //Set controller header offset
                         int HeaderOffset = controller.Details.Wireless ? controller.SupportedCurrent.OffsetWireless : controller.SupportedCurrent.OffsetWired;
 

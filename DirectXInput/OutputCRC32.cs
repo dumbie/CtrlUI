@@ -12,7 +12,7 @@ namespace DirectXInput
             try
             {
                 //Compute CRC32 hash
-                byte[] checksum = ComputeHashCRC32(outputReport, false);
+                byte[] checksum = ComputeHashCRC32(0, outputReport, false);
 
                 //Add CRC32 hash bytes
                 byte[] outputReportCRC32 = new byte[outputReport.Length + 4];

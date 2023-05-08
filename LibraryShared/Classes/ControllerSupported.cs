@@ -32,6 +32,7 @@
                 public int? Accelerometer { get; set; }
                 public int? BatteryLevel { get; set; }
                 public int? BatteryStatus { get; set; }
+                public int? Checksum { get; set; }
             }
 
             public class ClassOffsetButton

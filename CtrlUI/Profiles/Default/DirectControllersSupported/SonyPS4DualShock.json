@@ -21,7 +21,8 @@
     "Touchpad": 34,
     "Gyroscope": 12,
     "Accelerometer": 18,
-    "BatteryLevel": 29
+    "BatteryLevel": 29,
+    "Checksum": 71
   },
   "OffsetButton": {
     "A": {
