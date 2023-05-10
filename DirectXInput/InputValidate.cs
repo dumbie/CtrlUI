@@ -25,13 +25,13 @@ namespace DirectXInput
 
                         //Compare MD5
                         byte check0 = controllerStatus.InputReport[checksumOffset];
-                        byte check1 = controllerStatus.InputReport[checksumOffset + 1];
-                        byte check2 = controllerStatus.InputReport[checksumOffset + 2];
-                        byte check3 = controllerStatus.InputReport[checksumOffset + 3];
                         if (checksumCompute[0] != check0) { return false; }
-                        else if (checksumCompute[1] != check1) { return false; }
-                        else if (checksumCompute[2] != check2) { return false; }
-                        else if (checksumCompute[3] != check3) { return false; }
+                        byte check1 = controllerStatus.InputReport[checksumOffset + 1];
+                        if (checksumCompute[1] != check1) { return false; }
+                        byte check2 = controllerStatus.InputReport[checksumOffset + 2];
+                        if (checksumCompute[2] != check2) { return false; }
+                        byte check3 = controllerStatus.InputReport[checksumOffset + 3];
+                        if (checksumCompute[3] != check3) { return false; }
                     }
                 }
 
