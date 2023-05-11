@@ -17,9 +17,7 @@ namespace CtrlUI
             {
                 //Check if tools are running
                 bool processDirectXInputRunning = vProcessDirectXInput != null;
-                bool processScreenCaptureToolRunning = vProcessScreenCaptureTool != null;
                 //Debug.WriteLine("DirectXInput running: " + processDirectXInputRunning);
-                //Debug.WriteLine("ScreenCaptureTool running: " + processScreenCaptureToolRunning);
 
                 AVActions.DispatcherInvoke(delegate
                 {
@@ -106,8 +104,9 @@ namespace CtrlUI
                         sp_ControllerHelpGuideHold.Visibility = Visibility.Collapsed;
                     }
 
-                    bool ShortcutScreenshotController = SettingLoad(vConfigurationDirectXInput, "ShortcutScreenshotController", typeof(bool));
-                    if (processScreenCaptureToolRunning && ShortcutScreenshotController)
+                    bool ShortcutCaptureImage = SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImage", typeof(bool));
+                    bool ShortcutCaptureVideo = SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideo", typeof(bool));
+                    if (ShortcutCaptureImage || ShortcutCaptureVideo)
                     {
                         sp_ControllerHelpScreenshot.Visibility = Visibility.Visible;
                     }

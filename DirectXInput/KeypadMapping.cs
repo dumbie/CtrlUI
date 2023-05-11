@@ -2,11 +2,11 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
-using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput
 {
@@ -195,9 +195,9 @@ namespace DirectXInput
 
                 //Reset combobox selection
                 vComboboxSaveEnabled = false;
-                combobox_SetPad_Modifier0.SelectedItem = KeyboardModifiers.None;
-                combobox_SetPad_Modifier1.SelectedItem = KeyboardModifiers.None;
-                combobox_SetPad_Keyboard.SelectedItem = KeyboardKeys.None;
+                combobox_SetPad_Modifier0.SelectedItem = KeysModifierHid.None;
+                combobox_SetPad_Modifier1.SelectedItem = KeysModifierHid.None;
+                combobox_SetPad_Keyboard.SelectedItem = KeysHid.None;
                 vComboboxSaveEnabled = true;
 
                 //Get keypad mapping profile
@@ -206,147 +206,147 @@ namespace DirectXInput
                 //Store new keypad mapping in Json
                 if (vMappingKeypadButton == btn_SetPadDPadLeft)
                 {
-                    keypadMappingProfile.DPadLeftMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.DPadLeftMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.DPadLeft = KeyboardKeys.None;
+                    keypadMappingProfile.DPadLeftMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.DPadLeftMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.DPadLeft = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadDPadUp)
                 {
-                    keypadMappingProfile.DPadUpMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.DPadUpMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.DPadUp = KeyboardKeys.None;
+                    keypadMappingProfile.DPadUpMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.DPadUpMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.DPadUp = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadDPadRight)
                 {
-                    keypadMappingProfile.DPadRightMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.DPadRightMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.DPadRight = KeyboardKeys.None;
+                    keypadMappingProfile.DPadRightMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.DPadRightMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.DPadRight = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadDPadDown)
                 {
-                    keypadMappingProfile.DPadDownMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.DPadDownMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.DPadDown = KeyboardKeys.None;
+                    keypadMappingProfile.DPadDownMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.DPadDownMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.DPadDown = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadThumbLeftLeft)
                 {
-                    keypadMappingProfile.ThumbLeftLeftMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbLeftLeftMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbLeftLeft = KeyboardKeys.None;
+                    keypadMappingProfile.ThumbLeftLeftMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbLeftLeftMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbLeftLeft = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadThumbLeftUp)
                 {
-                    keypadMappingProfile.ThumbLeftUpMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbLeftUpMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbLeftUp = KeyboardKeys.None;
+                    keypadMappingProfile.ThumbLeftUpMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbLeftUpMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbLeftUp = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadThumbLeftRight)
                 {
-                    keypadMappingProfile.ThumbLeftRightMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbLeftRightMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbLeftRight = KeyboardKeys.None;
+                    keypadMappingProfile.ThumbLeftRightMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbLeftRightMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbLeftRight = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadThumbLeftDown)
                 {
-                    keypadMappingProfile.ThumbLeftDownMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbLeftDownMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbLeftDown = KeyboardKeys.None;
+                    keypadMappingProfile.ThumbLeftDownMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbLeftDownMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbLeftDown = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadThumbRightLeft)
                 {
-                    keypadMappingProfile.ThumbRightLeftMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbRightLeftMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbRightLeft = KeyboardKeys.None;
+                    keypadMappingProfile.ThumbRightLeftMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbRightLeftMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbRightLeft = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadThumbRightUp)
                 {
-                    keypadMappingProfile.ThumbRightUpMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbRightUpMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbRightUp = KeyboardKeys.None;
+                    keypadMappingProfile.ThumbRightUpMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbRightUpMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbRightUp = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadThumbRightRight)
                 {
-                    keypadMappingProfile.ThumbRightRightMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbRightRightMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbRightRight = KeyboardKeys.None;
+                    keypadMappingProfile.ThumbRightRightMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbRightRightMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbRightRight = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadThumbRightDown)
                 {
-                    keypadMappingProfile.ThumbRightDownMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbRightDownMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ThumbRightDown = KeyboardKeys.None;
+                    keypadMappingProfile.ThumbRightDownMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbRightDownMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ThumbRightDown = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadA)
                 {
-                    keypadMappingProfile.ButtonAMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonAMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonA = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonAMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonAMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonA = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadB)
                 {
-                    keypadMappingProfile.ButtonBMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonBMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonB = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonBMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonBMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonB = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadX)
                 {
-                    keypadMappingProfile.ButtonXMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonXMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonX = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonXMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonXMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonX = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadY)
                 {
-                    keypadMappingProfile.ButtonYMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonYMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonY = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonYMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonYMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonY = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadShoulderLeft)
                 {
-                    keypadMappingProfile.ButtonShoulderLeftMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonShoulderLeftMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonShoulderLeft = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonShoulderLeftMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonShoulderLeftMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonShoulderLeft = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadShoulderRight)
                 {
-                    keypadMappingProfile.ButtonShoulderRightMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonShoulderRightMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonShoulderRight = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonShoulderRightMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonShoulderRightMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonShoulderRight = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadBack)
                 {
-                    keypadMappingProfile.ButtonBackMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonBackMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonBack = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonBackMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonBackMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonBack = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadStart)
                 {
-                    keypadMappingProfile.ButtonStartMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonStartMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonStart = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonStartMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonStartMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonStart = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadThumbLeft)
                 {
-                    keypadMappingProfile.ButtonThumbLeftMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonThumbLeftMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonThumbLeft = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonThumbLeftMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonThumbLeftMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonThumbLeft = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadThumbRight)
                 {
-                    keypadMappingProfile.ButtonThumbRightMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonThumbRightMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonThumbRight = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonThumbRightMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonThumbRightMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonThumbRight = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadTriggerLeft)
                 {
-                    keypadMappingProfile.ButtonTriggerLeftMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonTriggerLeftMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonTriggerLeft = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonTriggerLeftMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonTriggerLeftMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonTriggerLeft = KeysHid.None;
                 }
                 else if (vMappingKeypadButton == btn_SetPadTriggerRight)
                 {
-                    keypadMappingProfile.ButtonTriggerRightMod0 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonTriggerRightMod1 = KeyboardModifiers.None;
-                    keypadMappingProfile.ButtonTriggerRight = KeyboardKeys.None;
+                    keypadMappingProfile.ButtonTriggerRightMod0 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonTriggerRightMod1 = KeysModifierHid.None;
+                    keypadMappingProfile.ButtonTriggerRight = KeysHid.None;
                 }
 
                 //Save changes to Json file
@@ -370,9 +370,9 @@ namespace DirectXInput
                 if (!vComboboxSaveEnabled) { return; }
 
                 //Get selected keypad buttons
-                KeyboardModifiers usedModifierKey0 = (KeyboardModifiers)combobox_SetPad_Modifier0.SelectedItem;
-                KeyboardModifiers usedModifierKey1 = (KeyboardModifiers)combobox_SetPad_Modifier1.SelectedItem;
-                KeyboardKeys usedVirtualKey = (KeyboardKeys)combobox_SetPad_Keyboard.SelectedItem;
+                KeysModifierHid usedModifierKey0 = (KeysModifierHid)combobox_SetPad_Modifier0.SelectedItem;
+                KeysModifierHid usedModifierKey1 = (KeysModifierHid)combobox_SetPad_Modifier1.SelectedItem;
+                KeysHid usedVirtualKey = (KeysHid)combobox_SetPad_Keyboard.SelectedItem;
 
                 //Get keypad mapping profile
                 KeypadMapping keypadMappingProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
@@ -543,14 +543,14 @@ namespace DirectXInput
         {
             try
             {
-                combobox_SetPad_Modifier0.ItemsSource = Enum.GetValues(typeof(KeyboardModifiers));
-                combobox_SetPad_Modifier0.SelectedItem = KeyboardModifiers.None;
+                combobox_SetPad_Modifier0.ItemsSource = Enum.GetValues(typeof(KeysModifierHid));
+                combobox_SetPad_Modifier0.SelectedItem = KeysModifierHid.None;
 
-                combobox_SetPad_Modifier1.ItemsSource = Enum.GetValues(typeof(KeyboardModifiers));
-                combobox_SetPad_Modifier1.SelectedItem = KeyboardModifiers.None;
+                combobox_SetPad_Modifier1.ItemsSource = Enum.GetValues(typeof(KeysModifierHid));
+                combobox_SetPad_Modifier1.SelectedItem = KeysModifierHid.None;
 
-                combobox_SetPad_Keyboard.ItemsSource = Enum.GetValues(typeof(KeyboardKeys));
-                combobox_SetPad_Keyboard.SelectedItem = KeyboardKeys.None;
+                combobox_SetPad_Keyboard.ItemsSource = Enum.GetValues(typeof(KeysHid));
+                combobox_SetPad_Keyboard.SelectedItem = KeysHid.None;
             }
             catch { }
         }

@@ -79,7 +79,6 @@ namespace CtrlUI
             try
             {
                 vProcessDirectXInput = Get_ProcessesMultiByName("DirectXInput", true).FirstOrDefault();
-                vProcessScreenCaptureTool = Get_ProcessesMultiByName("ScreenCaptureTool", true).FirstOrDefault();
                 int focusedProcessId = Detail_ProcessIdByWindowHandle(GetForegroundWindow());
 
                 await AVActions.DispatcherInvoke(async delegate

@@ -127,11 +127,11 @@ namespace CtrlUI
                         {
                             if (selectNextCharacter)
                             {
-                                KeySendSingle(KeysVirtual.Next, vProcessCurrent.WindowHandleMain);
+                                KeySendSingle(KeysVirtual.PageDown, vProcessCurrent.WindowHandleMain);
                             }
                             else
                             {
-                                KeySendSingle(KeysVirtual.Prior, vProcessCurrent.WindowHandleMain);
+                                KeySendSingle(KeysVirtual.PageUp, vProcessCurrent.WindowHandleMain);
                             }
                         }
                     }

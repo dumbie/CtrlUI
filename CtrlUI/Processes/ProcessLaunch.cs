@@ -225,25 +225,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Launch Screen Capture Tool
-        async Task LaunchScreenCaptureTool(bool forceLaunch)
-        {
-            try
-            {
-                if (forceLaunch || !Check_RunningProcessByName("ScreenCaptureTool", true))
-                {
-                    Debug.WriteLine("Launching Screen Capture Tool");
-
-                    //Show notification
-                    await Notification_Send_Status("Screenshot", "Launching Screen Capture Tool");
-
-                    //Launch Fps Overlayer
-                    AVProcess.Launch_ShellExecute("ScreenCaptureTool.exe", "", "", true);
-                }
-            }
-            catch { }
-        }
-
         //Launch Fps Overlayer application
         async Task LaunchFpsOverlayer(bool forceLaunch)
         {

@@ -50,30 +50,5 @@ namespace DirectXInput
             }
             catch { }
         }
-
-        //Launch Screen Capture Tool
-        public static void LaunchScreenCaptureTool(bool forceLaunch, bool skipNotification)
-        {
-            try
-            {
-                if (forceLaunch || !Check_RunningProcessByName("ScreenCaptureTool", true))
-                {
-                    Debug.WriteLine("Launching Screen Capture Tool");
-
-                    //Show notification
-                    if (!skipNotification)
-                    {
-                        NotificationDetails notificationDetails = new NotificationDetails();
-                        notificationDetails.Icon = "Screenshot";
-                        notificationDetails.Text = "Launching Screen Capture Tool";
-                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-                    }
-
-                    //Launch Fps Overlayer
-                    AVProcess.Launch_ShellExecute("ScreenCaptureTool.exe", "", "", true);
-                }
-            }
-            catch { }
-        }
     }
 }

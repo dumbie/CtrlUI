@@ -11,6 +11,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static DirectXInput.AppVariables;
@@ -18,7 +19,6 @@ using static DirectXInput.SettingsNotify;
 using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
-using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput.KeypadCode
 {
@@ -390,43 +390,43 @@ namespace DirectXInput.KeypadCode
         }
 
         //Update key details
-        void UpdateKeypadKeyDetails(KeyboardModifiers modifierKey0, KeyboardModifiers modifierKey1, KeyboardKeys virtualKey, TextBlock keyTextLabel)
+        void UpdateKeypadKeyDetails(KeysModifierHid modifierKey0, KeysModifierHid modifierKey1, KeysHid virtualKey, TextBlock keyTextLabel)
         {
             try
             {
-                if (modifierKey0 != KeyboardModifiers.None && modifierKey1 != KeyboardModifiers.None && virtualKey != KeyboardKeys.None)
+                if (modifierKey0 != KeysModifierHid.None && modifierKey1 != KeysModifierHid.None && virtualKey != KeysHid.None)
                 {
-                    keyTextLabel.Text = vFakerInputDevice.GetKeyboardModifiersName(modifierKey0, true) + "\n" + vFakerInputDevice.GetKeyboardModifiersName(modifierKey1, true) + "\n" + vFakerInputDevice.GetKeyboardKeysName(virtualKey, true);
+                    keyTextLabel.Text = GetKeyboardModifiersName(modifierKey0, true) + "\n" + GetKeyboardModifiersName(modifierKey1, true) + "\n" + GetKeyboardKeysName(virtualKey, true);
                     keyTextLabel.Opacity = 1;
                 }
-                else if (modifierKey0 != KeyboardModifiers.None && modifierKey1 != KeyboardModifiers.None)
+                else if (modifierKey0 != KeysModifierHid.None && modifierKey1 != KeysModifierHid.None)
                 {
-                    keyTextLabel.Text = vFakerInputDevice.GetKeyboardModifiersName(modifierKey0, true) + "\n" + vFakerInputDevice.GetKeyboardModifiersName(modifierKey1, true);
+                    keyTextLabel.Text = GetKeyboardModifiersName(modifierKey0, true) + "\n" + GetKeyboardModifiersName(modifierKey1, true);
                     keyTextLabel.Opacity = 1;
                 }
-                else if (modifierKey0 != KeyboardModifiers.None && virtualKey != KeyboardKeys.None)
+                else if (modifierKey0 != KeysModifierHid.None && virtualKey != KeysHid.None)
                 {
-                    keyTextLabel.Text = vFakerInputDevice.GetKeyboardModifiersName(modifierKey0, true) + "\n" + vFakerInputDevice.GetKeyboardKeysName(virtualKey, true);
+                    keyTextLabel.Text = GetKeyboardModifiersName(modifierKey0, true) + "\n" + GetKeyboardKeysName(virtualKey, true);
                     keyTextLabel.Opacity = 1;
                 }
-                else if (modifierKey1 != KeyboardModifiers.None && virtualKey != KeyboardKeys.None)
+                else if (modifierKey1 != KeysModifierHid.None && virtualKey != KeysHid.None)
                 {
-                    keyTextLabel.Text = vFakerInputDevice.GetKeyboardModifiersName(modifierKey1, true) + "\n" + vFakerInputDevice.GetKeyboardKeysName(virtualKey, true);
+                    keyTextLabel.Text = GetKeyboardModifiersName(modifierKey1, true) + "\n" + GetKeyboardKeysName(virtualKey, true);
                     keyTextLabel.Opacity = 1;
                 }
-                else if (modifierKey0 != KeyboardModifiers.None)
+                else if (modifierKey0 != KeysModifierHid.None)
                 {
-                    keyTextLabel.Text = vFakerInputDevice.GetKeyboardModifiersName(modifierKey0, true);
+                    keyTextLabel.Text = GetKeyboardModifiersName(modifierKey0, true);
                     keyTextLabel.Opacity = 1;
                 }
-                else if (modifierKey1 != KeyboardModifiers.None)
+                else if (modifierKey1 != KeysModifierHid.None)
                 {
-                    keyTextLabel.Text = vFakerInputDevice.GetKeyboardModifiersName(modifierKey1, true);
+                    keyTextLabel.Text = GetKeyboardModifiersName(modifierKey1, true);
                     keyTextLabel.Opacity = 1;
                 }
-                else if (virtualKey != KeyboardKeys.None)
+                else if (virtualKey != KeysHid.None)
                 {
-                    keyTextLabel.Text = vFakerInputDevice.GetKeyboardKeysName(virtualKey, true);
+                    keyTextLabel.Text = GetKeyboardKeysName(virtualKey, true);
                     keyTextLabel.Opacity = 1;
                 }
                 else

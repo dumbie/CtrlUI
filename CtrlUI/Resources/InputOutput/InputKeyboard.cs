@@ -56,7 +56,7 @@ namespace CtrlUI
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 }
-                else if (usedVirtualKey == KeysVirtual.Prior)
+                else if (usedVirtualKey == KeysVirtual.PageUp)
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 }
@@ -64,24 +64,24 @@ namespace CtrlUI
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 }
-                else if (usedVirtualKey == KeysVirtual.Next)
+                else if (usedVirtualKey == KeysVirtual.PageDown)
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 }
-                else if (usedVirtualKey == KeysVirtual.Left)
+                else if (usedVirtualKey == KeysVirtual.ArrowLeft)
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                 }
-                else if (usedVirtualKey == KeysVirtual.Up)
+                else if (usedVirtualKey == KeysVirtual.ArrowUp)
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                     NavigateArrowUp(ref messageHandled);
                 }
-                else if (usedVirtualKey == KeysVirtual.Right)
+                else if (usedVirtualKey == KeysVirtual.ArrowRight)
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                 }
-                else if (usedVirtualKey == KeysVirtual.Down)
+                else if (usedVirtualKey == KeysVirtual.ArrowDown)
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                     NavigateArrowDown(ref messageHandled);
@@ -112,8 +112,8 @@ namespace CtrlUI
                 //Check the pressed keys
                 KeysVirtual usedVirtualKey = (KeysVirtual)windowMessage.wParam;
 
-                if (usedVirtualKey == KeysVirtual.Up) { messageHandled = true; }
-                else if (usedVirtualKey == KeysVirtual.Down) { messageHandled = true; }
+                if (usedVirtualKey == KeysVirtual.ArrowUp) { messageHandled = true; }
+                else if (usedVirtualKey == KeysVirtual.ArrowDown) { messageHandled = true; }
             }
             catch { }
         }

@@ -648,7 +648,7 @@ namespace FpsOverlayer
                             if (showPercentage && sensor.SensorType == SensorType.Load)
                             {
                                 //Debug.WriteLine("CPU Load: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
-                                if (sensor.Identifier.ToString().EndsWith("load/0") || sensor.Identifier.ToString().EndsWith("load/1"))
+                                if (sensor.Name == "CPU Total")
                                 {
                                     CpuPercentage = " " + Convert.ToInt32(sensor.Value) + "%";
                                 }

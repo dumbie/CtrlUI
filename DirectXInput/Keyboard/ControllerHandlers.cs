@@ -14,7 +14,6 @@ using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
-using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput.KeyboardCode
 {
@@ -31,7 +30,7 @@ namespace DirectXInput.KeyboardCode
                 {
                     int scrollHorizontalRight = 0;
                     int scrollVerticalRight = 0;
-                    MouseButtons buttonPress = MouseButtons.None;
+                    MouseHidButtons buttonPress = MouseHidButtons.None;
 
                     //Get the mouse move amount
                     double moveSensitivity = SettingLoad(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", typeof(double));
@@ -60,24 +59,24 @@ namespace DirectXInput.KeyboardCode
                     //Emulate mouse button press
                     if (ControllerInput.ButtonShoulderLeft.PressedRaw && ControllerInput.ButtonShoulderRight.PressedRaw)
                     {
-                        buttonPress = MouseButtons.MiddleButton;
+                        buttonPress = MouseHidButtons.MiddleButton;
                         ControllerDelay500 = true;
                     }
                     else if (ControllerInput.ButtonShoulderLeft.PressedRaw)
                     {
-                        buttonPress = MouseButtons.LeftButton;
+                        buttonPress = MouseHidButtons.LeftButton;
                     }
                     else if (ControllerInput.ButtonShoulderRight.PressedRaw)
                     {
-                        buttonPress = MouseButtons.RightButton;
+                        buttonPress = MouseHidButtons.RightButton;
                     }
                     else
                     {
-                        buttonPress = MouseButtons.None;
+                        buttonPress = MouseHidButtons.None;
                     }
 
                     //Update current mouse input
-                    MouseAction mouseAction = new MouseAction()
+                    MouseHidAction mouseAction = new MouseHidAction()
                     {
                         MoveHorizontal = moveHorizontalLeft,
                         MoveVertical = moveVerticalLeft,
@@ -121,9 +120,9 @@ namespace DirectXInput.KeyboardCode
                         if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Key0 = KeyboardKeys.ArrowLeft
+                                Key0 = KeysHid.ArrowLeft
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                         }
@@ -142,7 +141,7 @@ namespace DirectXInput.KeyboardCode
                                 FocusCheckKeyboard(this, vInteropWindowHandle);
 
                                 //Send arrow left to window
-                                KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
+                                KeySendSingle(KeysVirtual.ArrowLeft, vInteropWindowHandle);
                             }
                         }
                         ControllerDelay125 = true;
@@ -153,9 +152,9 @@ namespace DirectXInput.KeyboardCode
                         if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Key0 = KeyboardKeys.ArrowRight
+                                Key0 = KeysHid.ArrowRight
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                         }
@@ -174,7 +173,7 @@ namespace DirectXInput.KeyboardCode
                                 FocusCheckKeyboard(this, vInteropWindowHandle);
 
                                 //Send arrow right to window
-                                KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
+                                KeySendSingle(KeysVirtual.ArrowRight, vInteropWindowHandle);
                             }
                         }
                         ControllerDelay125 = true;
@@ -185,9 +184,9 @@ namespace DirectXInput.KeyboardCode
                         if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Key0 = KeyboardKeys.ArrowUp
+                                Key0 = KeysHid.ArrowUp
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                         }
@@ -206,7 +205,7 @@ namespace DirectXInput.KeyboardCode
                                 FocusCheckKeyboard(this, vInteropWindowHandle);
 
                                 //Send arrow up to window
-                                KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
+                                KeySendSingle(KeysVirtual.ArrowUp, vInteropWindowHandle);
                             }
                         }
                         ControllerDelay125 = true;
@@ -217,9 +216,9 @@ namespace DirectXInput.KeyboardCode
                         if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Key0 = KeyboardKeys.ArrowDown
+                                Key0 = KeysHid.ArrowDown
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                         }
@@ -238,7 +237,7 @@ namespace DirectXInput.KeyboardCode
                                 FocusCheckKeyboard(this, vInteropWindowHandle);
 
                                 //Send arrow down to window
-                                KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
+                                KeySendSingle(KeysVirtual.ArrowDown, vInteropWindowHandle);
                             }
                         }
                         ControllerDelay125 = true;
@@ -289,9 +288,9 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Key0 = KeyboardKeys.Enter
+                                Key0 = KeysHid.Enter
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                             ControllerDelay125 = true;
@@ -309,9 +308,9 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Key0 = KeyboardKeys.Space
+                                Key0 = KeysHid.Space
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                             ControllerDelay125 = true;
@@ -329,18 +328,18 @@ namespace DirectXInput.KeyboardCode
                         }
                         else if (vCapsEnabled)
                         {
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Key0 = KeyboardKeys.Delete
+                                Key0 = KeysHid.Delete
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                             ControllerDelay125 = true;
                         }
                         else
                         {
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Key0 = KeyboardKeys.Backspace
+                                Key0 = KeysHid.BackSpace
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                             ControllerDelay125 = true;
@@ -359,9 +358,9 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Key0 = KeyboardKeys.ArrowLeft
+                                Key0 = KeysHid.ArrowLeft
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                             ControllerDelay125 = true;
@@ -379,9 +378,9 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Key0 = KeyboardKeys.ArrowRight
+                                Key0 = KeysHid.ArrowRight
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                             ControllerDelay125 = true;
@@ -437,19 +436,19 @@ namespace DirectXInput.KeyboardCode
                         }
                         else if (vCapsEnabled)
                         {
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Modifiers = KeyboardModifiers.ShiftLeft,
-                                Key0 = KeyboardKeys.Tab
+                                Modifiers = KeysModifierHid.ShiftLeft,
+                                Key0 = KeysHid.Tab
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         }
                         else
                         {
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction keyboardAction = new KeysHidAction()
                             {
-                                Key0 = KeyboardKeys.Tab
+                                Key0 = KeysHid.Tab
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);

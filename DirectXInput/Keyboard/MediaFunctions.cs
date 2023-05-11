@@ -11,11 +11,11 @@ using Windows.Storage.Streams;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
-using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput.KeyboardCode
 {
@@ -28,7 +28,7 @@ namespace DirectXInput.KeyboardCode
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.PlayPause);
+                vFakerInputDevice.MultimediaPressRelease(KeysMediaHid.PlayPause);
             }
             catch { }
         }
@@ -40,7 +40,7 @@ namespace DirectXInput.KeyboardCode
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.Next);
+                vFakerInputDevice.MultimediaPressRelease(KeysMediaHid.Next);
             }
             catch { }
         }
@@ -52,7 +52,7 @@ namespace DirectXInput.KeyboardCode
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.Previous);
+                vFakerInputDevice.MultimediaPressRelease(KeysMediaHid.Previous);
             }
             catch { }
         }
@@ -64,10 +64,10 @@ namespace DirectXInput.KeyboardCode
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                KeyboardAction keyboardAction = new KeyboardAction()
+                KeysHidAction keyboardAction = new KeysHidAction()
                 {
-                    Modifiers = KeyboardModifiers.AltLeft,
-                    Key0 = KeyboardKeys.Enter
+                    Modifiers = KeysModifierHid.AltLeft,
+                    Key0 = KeysHid.Enter
                 };
                 vFakerInputDevice.KeyboardPressRelease(keyboardAction);
             }

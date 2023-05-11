@@ -2,14 +2,14 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static LibraryUsb.Events;
 
 namespace LibraryUsb
 {
     public partial class TetherScriptDevice
     {
-
-        public void KeyPressSingle(KeyboardKeys keyPress)
+        public void KeyPressSingle(KeysHid keyPress)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace LibraryUsb
             catch { }
         }
 
-        public void KeyPressCombo(KeyboardModifiers keyMod, KeyboardKeys keyPress)
+        public void KeyPressCombo(KeysModifierHid keyMod, KeysHid keyPress)
         {
             try
             {

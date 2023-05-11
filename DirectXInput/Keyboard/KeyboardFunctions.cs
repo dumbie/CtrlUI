@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static DirectXInput.AppVariables;
 using static LibraryShared.SoundPlayer;
-using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput.KeyboardCode
 {
@@ -61,25 +61,25 @@ namespace DirectXInput.KeyboardCode
                 }
                 else
                 {
-                    if (sendKeyType == typeof(KeyboardAction))
+                    if (sendKeyType == typeof(KeysHidAction))
                     {
-                        KeyboardAction sendKey = (KeyboardAction)sendButton.Tag;
+                        KeysHidAction sendKey = (KeysHidAction)sendButton.Tag;
                         Debug.WriteLine("Sending Keyboard action: " + sendKey);
                         SendKeyAction(sendKey);
                     }
-                    else if (sendKeyType == typeof(KeyboardMultimedia))
+                    else if (sendKeyType == typeof(KeysMediaHid))
                     {
-                        KeyboardMultimedia sendKey = (KeyboardMultimedia)sendButton.Tag;
+                        KeysMediaHid sendKey = (KeysMediaHid)sendButton.Tag;
                         Debug.WriteLine("Sending multimedia key: " + sendKey);
-                        if (sendKey == KeyboardMultimedia.VolumeMute)
+                        if (sendKey == KeysMediaHid.VolumeMute)
                         {
                             VolumeOutputMute();
                         }
-                        else if (sendKey == KeyboardMultimedia.VolumeUp)
+                        else if (sendKey == KeysMediaHid.VolumeUp)
                         {
                             VolumeUp();
                         }
-                        else if (sendKey == KeyboardMultimedia.VolumeDown)
+                        else if (sendKey == KeysMediaHid.VolumeDown)
                         {
                             VolumeDown();
                         }
@@ -93,7 +93,7 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        void SendKeyAction(KeyboardAction sendKey)
+        void SendKeyAction(KeysHidAction sendKey)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        void SendKeyMultimedia(KeyboardMultimedia sendKey)
+        void SendKeyMultimedia(KeysMediaHid sendKey)
         {
             try
             {

@@ -5,10 +5,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVFocus;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static DirectXInput.AppVariables;
+using static DirectXInput.XboxGameDVR;
 using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
-using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput.KeyboardCode
 {
@@ -148,7 +149,16 @@ namespace DirectXInput.KeyboardCode
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                     ProfileShared selectedItem = (ProfileShared)ListboxSender.SelectedItem;
-                    vFakerInputDevice.KeyboardPressRelease((KeyboardAction)selectedItem.Object1);
+
+                    //Get Xbox Game Bar toggle keys
+                    if (selectedItem.Object1.ToString() == "ToggleXboxGameBar")
+                    {
+                        vFakerInputDevice.KeyboardPressRelease(GetKeysHidAction_ToggleGameBar());
+                    }
+                    else
+                    {
+                        vFakerInputDevice.KeyboardPressRelease((KeysHidAction)selectedItem.Object1);
+                    }
                 }
             }
             catch { }
@@ -163,52 +173,57 @@ namespace DirectXInput.KeyboardCode
                 {
                     ProfileShared shortcutDesktop = new ProfileShared();
                     shortcutDesktop.String1 = "Toggle Desktop (Windows+D)";
-                    shortcutDesktop.Object1 = new KeyboardAction { Modifiers = KeyboardModifiers.WindowsLeft, Key0 = KeyboardKeys.D };
+                    shortcutDesktop.Object1 = new KeysHidAction { Modifiers = KeysModifierHid.WindowsLeft, Key0 = KeysHid.D };
                     vDirectKeyboardShortcutList.Add(shortcutDesktop);
 
                     ProfileShared shortcutMaximize = new ProfileShared();
                     shortcutMaximize.String1 = "Maximize Window (Alt+Enter)";
-                    shortcutMaximize.Object1 = new KeyboardAction { Modifiers = KeyboardModifiers.AltLeft, Key0 = KeyboardKeys.Enter };
+                    shortcutMaximize.Object1 = new KeysHidAction { Modifiers = KeysModifierHid.AltLeft, Key0 = KeysHid.Enter };
                     vDirectKeyboardShortcutList.Add(shortcutMaximize);
 
                     ProfileShared shortcutSwitch = new ProfileShared();
                     shortcutSwitch.String1 = "Switch Application (Alt+Tab)";
-                    shortcutSwitch.Object1 = new KeyboardAction { Modifiers = KeyboardModifiers.AltLeft, Key0 = KeyboardKeys.Tab };
+                    shortcutSwitch.Object1 = new KeysHidAction { Modifiers = KeysModifierHid.AltLeft, Key0 = KeysHid.Tab };
                     vDirectKeyboardShortcutList.Add(shortcutSwitch);
 
                     ProfileShared shortcutClose = new ProfileShared();
                     shortcutClose.String1 = "Close Application (Alt+F4)";
-                    shortcutClose.Object1 = new KeyboardAction { Modifiers = KeyboardModifiers.AltLeft, Key0 = KeyboardKeys.F4 };
+                    shortcutClose.Object1 = new KeysHidAction { Modifiers = KeysModifierHid.AltLeft, Key0 = KeysHid.F4 };
                     vDirectKeyboardShortcutList.Add(shortcutClose);
 
                     ProfileShared shortcutTaskMan = new ProfileShared();
                     shortcutTaskMan.String1 = "Task Manager (Ctrl+Shift+Esc)";
-                    shortcutTaskMan.Object1 = new KeyboardAction { Modifiers = KeyboardModifiers.ControlLeft | KeyboardModifiers.ShiftLeft, Key0 = KeyboardKeys.Escape };
+                    shortcutTaskMan.Object1 = new KeysHidAction { Modifiers = KeysModifierHid.CtrlLeft | KeysModifierHid.ShiftLeft, Key0 = KeysHid.Escape };
                     vDirectKeyboardShortcutList.Add(shortcutTaskMan);
+
+                    ProfileShared shortcutXboxGameBar = new ProfileShared();
+                    shortcutXboxGameBar.String1 = "Toggle Xbox Game Bar";
+                    shortcutXboxGameBar.Object1 = "ToggleXboxGameBar";
+                    vDirectKeyboardShortcutList.Add(shortcutXboxGameBar);
 
                     ProfileShared shortcutPrintScreen = new ProfileShared();
                     shortcutPrintScreen.String1 = "Print Screen";
-                    shortcutPrintScreen.Object1 = new KeyboardAction { Key0 = KeyboardKeys.PrintScreen };
+                    shortcutPrintScreen.Object1 = new KeysHidAction { Key0 = KeysHid.PrintScreen };
                     vDirectKeyboardShortcutList.Add(shortcutPrintScreen);
 
                     ProfileShared shortcutNumericLock = new ProfileShared();
                     shortcutNumericLock.String1 = "Numeric Lock";
-                    shortcutNumericLock.Object1 = new KeyboardAction { Key0 = KeyboardKeys.NumLock };
+                    shortcutNumericLock.Object1 = new KeysHidAction { Key0 = KeysHid.NumpadLock };
                     vDirectKeyboardShortcutList.Add(shortcutNumericLock);
 
                     ProfileShared shortcutScrollLock = new ProfileShared();
                     shortcutScrollLock.String1 = "Scroll Lock";
-                    shortcutScrollLock.Object1 = new KeyboardAction { Key0 = KeyboardKeys.ScrollLock };
+                    shortcutScrollLock.Object1 = new KeysHidAction { Key0 = KeysHid.ScrollLock };
                     vDirectKeyboardShortcutList.Add(shortcutScrollLock);
 
                     ProfileShared shortcutCapsLock = new ProfileShared();
                     shortcutCapsLock.String1 = "Caps Lock";
-                    shortcutCapsLock.Object1 = new KeyboardAction { Key0 = KeyboardKeys.CapsLock };
+                    shortcutCapsLock.Object1 = new KeysHidAction { Key0 = KeysHid.CapsLock };
                     vDirectKeyboardShortcutList.Add(shortcutCapsLock);
 
                     ProfileShared shortcutPauseBreak = new ProfileShared();
                     shortcutPauseBreak.String1 = "Pause Break";
-                    shortcutPauseBreak.Object1 = new KeyboardAction { Key0 = KeyboardKeys.Pause };
+                    shortcutPauseBreak.Object1 = new KeysHidAction { Key0 = KeysHid.Pause };
                     vDirectKeyboardShortcutList.Add(shortcutPauseBreak);
                 }
             }

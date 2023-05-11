@@ -21,19 +21,19 @@ namespace DirectXInput.KeyboardCode
                 KeysVirtual usedVirtualKey = (KeysVirtual)windowMessage.wParam;
 
                 //Check the pressed key
-                if (usedVirtualKey == KeysVirtual.Up)
+                if (usedVirtualKey == KeysVirtual.ArrowUp)
                 {
                     NavigateArrowUpLeft(ref messageHandled);
                 }
-                else if (usedVirtualKey == KeysVirtual.Down)
+                else if (usedVirtualKey == KeysVirtual.ArrowDown)
                 {
                     NavigateArrowDownRight(ref messageHandled);
                 }
-                else if (usedVirtualKey == KeysVirtual.Left)
+                else if (usedVirtualKey == KeysVirtual.ArrowLeft)
                 {
                     NavigateArrowUpLeft(ref messageHandled);
                 }
-                else if (usedVirtualKey == KeysVirtual.Right)
+                else if (usedVirtualKey == KeysVirtual.ArrowRight)
                 {
                     NavigateArrowDownRight(ref messageHandled);
                 }
@@ -49,8 +49,8 @@ namespace DirectXInput.KeyboardCode
                 //Check the pressed keys
                 KeysVirtual usedVirtualKey = (KeysVirtual)windowMessage.wParam;
 
-                if (usedVirtualKey == KeysVirtual.Up) { messageHandled = true; }
-                else if (usedVirtualKey == KeysVirtual.Down) { messageHandled = true; }
+                if (usedVirtualKey == KeysVirtual.ArrowUp) { messageHandled = true; }
+                else if (usedVirtualKey == KeysVirtual.ArrowDown) { messageHandled = true; }
             }
             catch { }
         }

@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput
 {
@@ -120,12 +120,12 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+Enter";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction KeysHidAction = new KeysHidAction()
                             {
-                                Modifiers = KeyboardModifiers.AltLeft,
-                                Key0 = KeyboardKeys.Enter
+                                Modifiers = KeysModifierHid.AltLeft,
+                                Key0 = KeysHid.Enter
                             };
-                            vFakerInputDevice.KeyboardPressRelease(keyboardAction);
+                            vFakerInputDevice.KeyboardPressRelease(KeysHidAction);
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
@@ -144,17 +144,17 @@ namespace DirectXInput
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                             //Press and hold Alt+Tab
-                            KeyboardAction keyboardAltTab = new KeyboardAction()
+                            KeysHidAction keyboardAltTab = new KeysHidAction()
                             {
-                                Modifiers = KeyboardModifiers.AltLeft,
-                                Key0 = KeyboardKeys.Tab
+                                Modifiers = KeysModifierHid.AltLeft,
+                                Key0 = KeysHid.Tab
                             };
                             vFakerInputDevice.KeyboardPress(keyboardAltTab);
 
                             //Press and Hold Alt
-                            KeyboardAction keyboardAlt = new KeyboardAction()
+                            KeysHidAction keyboardAlt = new KeysHidAction()
                             {
-                                Modifiers = KeyboardModifiers.AltLeft,
+                                Modifiers = KeysModifierHid.AltLeft,
                             };
                             vFakerInputDevice.KeyboardPress(keyboardAlt);
 
@@ -183,13 +183,25 @@ namespace DirectXInput
                             ControllerDelay250 = true;
                         }
                     }
-                    //Signal screen capture tool to take screenshot
-                    else if (Controller.InputCurrent.ButtonTouchpad.PressedRaw)
+                    //Signal to capture image
+                    else if (Controller.InputCurrent.ButtonTouchpad.PressedShort)
                     {
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutScreenshotController", typeof(bool)))
+                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImage", typeof(bool)))
                         {
-                            Debug.WriteLine("Button Global - Screenshot");
-                            await ToolFunctions.ScreenCaptureToolTakeScreenshot();
+                            Debug.WriteLine("Button Global - Image capture");
+                            XboxGameDVR.CaptureImage();
+
+                            ControllerUsed = true;
+                            ControllerDelay750 = true;
+                        }
+                    }
+                    //Signal to capture video
+                    else if (Controller.InputCurrent.ButtonTouchpad.PressedLong)
+                    {
+                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideo", typeof(bool)))
+                        {
+                            Debug.WriteLine("Button Global - Video capture");
+                            XboxGameDVR.CaptureVideo();
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
@@ -215,12 +227,12 @@ namespace DirectXInput
                             Debug.WriteLine("Shortcut ctrl + alt + delete pressed.");
 
                             //Press ctrl + alt + delete
-                            KeyboardAction keyboardAction = new KeyboardAction()
+                            KeysHidAction KeysHidAction = new KeysHidAction()
                             {
-                                Modifiers = KeyboardModifiers.ControlLeft | KeyboardModifiers.AltLeft,
-                                Key0 = KeyboardKeys.Delete
+                                Modifiers = KeysModifierHid.CtrlLeft | KeysModifierHid.AltLeft,
+                                Key0 = KeysHid.Delete
                             };
-                            vFakerInputDevice.KeyboardPressRelease(keyboardAction);
+                            vFakerInputDevice.KeyboardPressRelease(KeysHidAction);
 
                             //Show the keyboard
                             await KeyboardPopupHideShow(true, true);

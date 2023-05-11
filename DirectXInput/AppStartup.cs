@@ -85,12 +85,6 @@ namespace DirectXInput
                     return;
                 }
 
-                //Check settings if Screen Capture Tool launches on start
-                if (SettingLoad(vConfigurationDirectXInput, "ShortcutScreenshotController", typeof(bool)))
-                {
-                    ProcessLaunch.LaunchScreenCaptureTool(true, true);
-                }
-
                 //Load the help text
                 LoadHelp();
 

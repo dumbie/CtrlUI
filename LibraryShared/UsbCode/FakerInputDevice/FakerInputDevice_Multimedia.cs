@@ -1,12 +1,13 @@
 ﻿using ArnoldVinkCode;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static ArnoldVinkCode.AVInputOutputClass;
 
 namespace LibraryUsb
 {
     public partial class FakerInputDevice
     {
-        public bool MultimediaPressRelease(KeyboardMultimedia keyMultimedia)
+        public bool MultimediaPressRelease(KeysMediaHid keyMultimedia)
         {
             try
             {
@@ -22,7 +23,7 @@ namespace LibraryUsb
             }
         }
 
-        private bool MultimediaPress(KeyboardMultimedia keyMultimedia)
+        private bool MultimediaPress(KeysMediaHid keyMultimedia)
         {
             try
             {

@@ -1,12 +1,13 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using static ArnoldVinkCode.AVInputOutputClass;
 
 namespace LibraryUsb
 {
     public partial class FakerInputDevice
     {
-        public bool MouseRelative(MouseAction mouseAction)
+        public bool MouseRelative(MouseHidAction mouseAction)
         {
             try
             {
@@ -55,7 +56,7 @@ namespace LibraryUsb
             }
         }
 
-        public bool MouseAbsolute(MouseAction mouseAction)
+        public bool MouseAbsolute(MouseHidAction mouseAction)
         {
             try
             {

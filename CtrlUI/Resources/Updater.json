@@ -35,7 +35,13 @@
     "Resources/ArnoldVinkCertificate.cer",
     "Assets/Default/Background.png",
     "Assets/Default/BackgroundLive.mp4",
-    "ProcessTool.exe"
+    "ProcessTool.exe",
+    "ScreenCaptureTool.exe",
+    "ScreenCaptureTool.exe.config",
+    "ScreenCaptureTool.exe.csettings",
+    "Resources/ScreenCapture.dll",
+    "Resources/PixelShader.hlsl",
+    "Resources/VertexShader.hlsl"
   ],
   "FoldersIgnore": [
     "Profiles/User"

@@ -1,12 +1,13 @@
 ﻿using ArnoldVinkCode;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static ArnoldVinkCode.AVInputOutputClass;
 
 namespace LibraryUsb
 {
     public partial class FakerInputDevice
     {
-        public bool KeyboardPressRelease(KeyboardAction keyboardAction)
+        public bool KeyboardPressRelease(KeysHidAction keyboardAction)
         {
             try
             {
@@ -22,7 +23,7 @@ namespace LibraryUsb
             }
         }
 
-        public bool KeyboardPress(KeyboardAction keyboardAction)
+        public bool KeyboardPress(KeysHidAction keyboardAction)
         {
             try
             {

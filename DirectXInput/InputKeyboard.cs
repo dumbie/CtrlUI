@@ -13,10 +13,10 @@ namespace DirectXInput
             try
             {
                 bool altPressed = keysPressed.Contains(KeysVirtual.AltLeft);
-                bool controlPressed = keysPressed.Contains(KeysVirtual.ControlLeft);
+                bool ctrlPressed = keysPressed.Contains(KeysVirtual.ControlLeft);
                 bool shiftPressed = keysPressed.Contains(KeysVirtual.ShiftLeft);
                 bool windowsPressed = keysPressed.Contains(KeysVirtual.WindowsLeft);
-                bool modifierKeyPressed = altPressed || controlPressed || shiftPressed || windowsPressed;
+                bool modifierKeyPressed = altPressed || ctrlPressed || shiftPressed || windowsPressed;
 
                 if (windowsPressed && keysPressed.Contains(KeysVirtual.OEMTilde))
                 {
@@ -25,6 +25,24 @@ namespace DirectXInput
                     {
                         Debug.WriteLine("Button Global - Show or hide CtrlUI");
                         await ToolFunctions.CtrlUI_LaunchShow();
+                    }
+                }
+                else if (altPressed && keysPressed.Contains(KeysVirtual.F12))
+                {
+                    //Signal to capture image
+                    if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImageKeyboard", typeof(bool)))
+                    {
+                        Debug.WriteLine("Button Global - Image capture");
+                        XboxGameDVR.CaptureImage();
+                    }
+                }
+                else if (ctrlPressed && keysPressed.Contains(KeysVirtual.F12))
+                {
+                    //Signal to capture video
+                    if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideoKeyboard", typeof(bool)))
+                    {
+                        Debug.WriteLine("Button Global - Video capture");
+                        XboxGameDVR.CaptureVideo();
                     }
                 }
             }

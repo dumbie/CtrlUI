@@ -458,6 +458,11 @@ namespace DirectXInput
                 btn_Settings_KeypadProcessProfile_Remove.Click += Btn_Settings_KeypadProcessProfile_Remove_Click;
                 combobox_KeypadProcessProfile.SelectionChanged += Combobox_KeypadProcessProfile_SelectionChanged;
 
+                //Capture functions
+                btn_Settings_OpenXboxGameBar.Click += Btn_Settings_OpenXboxGameBar_Click;
+                btn_Settings_OpenXboxCapture.Click += Btn_Settings_OpenXboxCapture_Click;
+                btn_Settings_OpenCaptureFolder.Click += Btn_Settings_OpenCaptureFolder_Click;
+
                 //Settings functions
                 btn_Settings_InstallDrivers.Click += btn_Settings_InstallDrivers_Click;
 
@@ -475,7 +480,6 @@ namespace DirectXInput
             {
                 vProcessCtrlUI = Get_ProcessesMultiByName("CtrlUI", true).FirstOrDefault();
                 vProcessFpsOverlayer = Get_ProcessesMultiByName("FpsOverlayer", true).FirstOrDefault();
-                vProcessScreenCaptureTool = Get_ProcessesMultiByName("ScreenCaptureTool", true).FirstOrDefault();
                 vProcessForeground = Get_ProcessMultiByWindowHandle(GetForegroundWindow());
 
                 //Check if CtrlUI is currently activated

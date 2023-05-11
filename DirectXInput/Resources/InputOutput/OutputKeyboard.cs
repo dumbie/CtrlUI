@@ -1,7 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static DirectXInput.AppVariables;
-using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput
 {
@@ -16,11 +16,11 @@ namespace DirectXInput
                 {
                     if (Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
-                        KeyboardAction keyboardAction = new KeyboardAction()
+                        KeysHidAction KeysHidAction = new KeysHidAction()
                         {
-                            Key0 = KeyboardKeys.CapsLock
+                            Key0 = KeysHid.CapsLock
                         };
-                        vFakerInputDevice.KeyboardPressRelease(keyboardAction);
+                        vFakerInputDevice.KeyboardPressRelease(KeysHidAction);
                     }
                 });
             }
@@ -36,11 +36,11 @@ namespace DirectXInput
                 {
                     if (Keyboard.GetKeyStates(Key.NumLock) != KeyStates.Toggled)
                     {
-                        KeyboardAction keyboardAction = new KeyboardAction()
+                        KeysHidAction KeysHidAction = new KeysHidAction()
                         {
-                            Key0 = KeyboardKeys.NumLock
+                            Key0 = KeysHid.NumpadLock
                         };
-                        vFakerInputDevice.KeyboardPressRelease(keyboardAction);
+                        vFakerInputDevice.KeyboardPressRelease(KeysHidAction);
                     }
                 });
             }

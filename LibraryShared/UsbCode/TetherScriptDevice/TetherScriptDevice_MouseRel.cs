@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInteropDll;
 
 namespace LibraryUsb
@@ -39,7 +40,7 @@ namespace LibraryUsb
             }
         }
 
-        public bool MousePressRel(MouseButtons mouseButtons)
+        public bool MousePressRel(MouseHidButtons mouseButtons)
         {
             IntPtr featureIntPtr = IntPtr.Zero;
             try

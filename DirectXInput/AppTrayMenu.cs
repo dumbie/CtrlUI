@@ -25,7 +25,6 @@ namespace DirectXInput
                 TrayContextMenu.MenuItems.Add("-");
                 TrayContextMenu.MenuItems.Add("Launch CtrlUI", NotifyIcon_CtrlUI);
                 TrayContextMenu.MenuItems.Add("Launch Fps Overlayer", NotifyIcon_FpsOverlayer);
-                TrayContextMenu.MenuItems.Add("Launch Screen Capture Tool", NotifyIcon_ScreenCaptureTool);
                 TrayContextMenu.MenuItems.Add("-");
                 TrayContextMenu.MenuItems.Add("Re/disconnect all controllers", NotifyIcon_DisconnectAll);
                 TrayContextMenu.MenuItems.Add("-");
@@ -127,15 +126,6 @@ namespace DirectXInput
             try
             {
                 ProcessLaunch.LaunchFpsOverlayer(true);
-            }
-            catch { }
-        }
-
-        void NotifyIcon_ScreenCaptureTool(object sender, EventArgs args)
-        {
-            try
-            {
-                ProcessLaunch.LaunchScreenCaptureTool(true, false);
             }
             catch { }
         }
