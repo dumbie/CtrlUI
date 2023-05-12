@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using static ArnoldVinkCode.AVShellInfo;
+using static DirectXInput.XboxGameDVR;
 
 namespace DirectXInput
 {
@@ -16,8 +17,18 @@ namespace DirectXInput
             catch { }
         }
 
+        //Open Xbox game bar overlay
+        void Btn_Settings_OpenXboxGameBarOverlay_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ShowXboxGameBar();
+            }
+            catch { }
+        }
+
         //Open Xbox game bar settings
-        void Btn_Settings_OpenXboxGameBar_Click(object sender, RoutedEventArgs e)
+        void Btn_Settings_OpenXboxGameBarSettings_Click(object sender, RoutedEventArgs e)
         {
             try
             {
