@@ -71,6 +71,10 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v1.96.0.0 (12-May-2023)
+- DirectXInput: Holding the touchpad now starts video screen capture.
+* Miscellaneous application improvements and fixes.
+
 v1.95.0.0 (22-March-2023)
 - CtrlUI: Added 'Hide/minimize application' function.
 - CtrlUI: Added setting to increase or decrease application image size.
@@ -82,7 +86,6 @@ v1.95.0.0 (22-March-2023)
 - FpsOverlayer: Added setting to change the average fps time span.
 - FpsOverlayer: Added setting to flip stats order when positioned on bottom.
 - Added Screen Capture Tool to take screenshots.
-* Miscellaneous application improvements and fixes.
 
 v1.90.0.0 (21-February-2023)
 - FpsOverlayer: Added frametime graph.
