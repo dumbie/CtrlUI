@@ -150,10 +150,10 @@ namespace DirectXInput.KeyboardCode
                     PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                     ProfileShared selectedItem = (ProfileShared)ListboxSender.SelectedItem;
 
-                    //Get Xbox Game Bar toggle keys
-                    if (selectedItem.Object1.ToString() == "ToggleXboxGameBar")
+                    //Show Xbox Game Bar
+                    if (selectedItem.Object1.ToString() == "ShowXboxGameBar")
                     {
-                        vFakerInputDevice.KeyboardPressRelease(GetKeysHidAction_ToggleGameBar());
+                        ShowXboxGameBar();
                     }
                     else
                     {
@@ -197,8 +197,8 @@ namespace DirectXInput.KeyboardCode
                     vDirectKeyboardShortcutList.Add(shortcutTaskMan);
 
                     ProfileShared shortcutXboxGameBar = new ProfileShared();
-                    shortcutXboxGameBar.String1 = "Toggle Xbox Game Bar";
-                    shortcutXboxGameBar.Object1 = "ToggleXboxGameBar";
+                    shortcutXboxGameBar.String1 = "Show Xbox Game Bar";
+                    shortcutXboxGameBar.Object1 = "ShowXboxGameBar";
                     vDirectKeyboardShortcutList.Add(shortcutXboxGameBar);
 
                     ProfileShared shortcutPrintScreen = new ProfileShared();
