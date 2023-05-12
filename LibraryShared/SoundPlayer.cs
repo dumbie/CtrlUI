@@ -32,21 +32,19 @@ namespace LibraryShared
 
                     string soundPackName = SettingLoad(sourceConfig, "InterfaceSoundPackName", typeof(string));
                     string soundFileName = "Assets/Default/Sounds/" + soundPackName + "/" + soundName + ".mp3";
-                    if (Directory.Exists("Assets/User/Sounds/" + soundPackName))
+                    string soundFileNameUser = "Assets/User/Sounds/" + soundPackName + "/" + soundName + ".mp3";
+                    if (File.Exists(soundFileNameUser))
                     {
-                        soundFileName = "Assets/User/Sounds/" + soundPackName + "/" + soundName + ".mp3";
+                        soundFileName = soundFileNameUser;
                     }
 
-                    if (File.Exists(soundFileName))
+                    Uri soundFileUri = new Uri(soundFileName, UriKind.RelativeOrAbsolute);
+                    AVActions.DispatcherInvoke(delegate
                     {
-                        Uri soundFileUri = new Uri(soundFileName, UriKind.RelativeOrAbsolute);
-                        AVActions.DispatcherInvoke(delegate
-                        {
-                            windowsMediaPlayer.Volume = soundVolume;
-                            windowsMediaPlayer.Open(soundFileUri);
-                            windowsMediaPlayer.Play();
-                        });
-                    }
+                        windowsMediaPlayer.Volume = soundVolume;
+                        windowsMediaPlayer.Open(soundFileUri);
+                        windowsMediaPlayer.Play();
+                    });
                 }
             }
             catch (Exception ex)
