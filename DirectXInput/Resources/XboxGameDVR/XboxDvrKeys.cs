@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
-using Windows.Media.Capture;
 using static ArnoldVinkCode.AVInputOutputClass;
 
 namespace DirectXInput
@@ -12,12 +12,17 @@ namespace DirectXInput
         {
             try
             {
-                //Get Xbox Game DVR settings
-                AppCaptureSettings appCaptureSettings = AppCaptureManager.GetCurrentSettings();
-
                 //Get alternate shortcut keys
-                KeysVirtual keysVirtual = (KeysVirtual)appCaptureSettings.AlternateShortcutKeys.ToggleGameBarKey;
-                KeysModifierVirtual keysModifier = (KeysModifierVirtual)appCaptureSettings.AlternateShortcutKeys.ToggleGameBarKeyModifiers;
+                KeysVirtual keysVirtual = KeysVirtual.None;
+                KeysModifierVirtual keysModifier = KeysModifierVirtual.None;
+                using (RegistryKey registryKeyBase = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
+                {
+                    using (RegistryKey registryKeySub = registryKeyBase.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR"))
+                    {
+                        keysVirtual = (KeysVirtual)Convert.ToByte(registryKeySub.GetValue("VKToggleGameBar"));
+                        keysModifier = (KeysModifierVirtual)Convert.ToByte(registryKeySub.GetValue("VKMToggleGameBar"));
+                    }
+                }
 
                 //Create keyboard action
                 KeysHidAction keyboardAction = new KeysHidAction();
@@ -47,15 +52,17 @@ namespace DirectXInput
         {
             try
             {
-                //Get Xbox Game DVR settings
-                AppCaptureSettings appCaptureSettings = AppCaptureManager.GetCurrentSettings();
-
-                //Enable Xbox Game DVR capture
-                appCaptureSettings.IsAppCaptureEnabled = true;
-
                 //Get alternate shortcut keys
-                KeysVirtual keysVirtual = (KeysVirtual)appCaptureSettings.AlternateShortcutKeys.TakeScreenshotKey;
-                KeysModifierVirtual keysModifier = (KeysModifierVirtual)appCaptureSettings.AlternateShortcutKeys.TakeScreenshotKeyModifiers;
+                KeysVirtual keysVirtual = KeysVirtual.None;
+                KeysModifierVirtual keysModifier = KeysModifierVirtual.None;
+                using (RegistryKey registryKeyBase = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
+                {
+                    using (RegistryKey registryKeySub = registryKeyBase.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR"))
+                    {
+                        keysVirtual = (KeysVirtual)Convert.ToByte(registryKeySub.GetValue("VKTakeScreenshot"));
+                        keysModifier = (KeysModifierVirtual)Convert.ToByte(registryKeySub.GetValue("VKMTakeScreenshot"));
+                    }
+                }
 
                 //Create keyboard action
                 KeysHidAction keyboardAction = new KeysHidAction();
@@ -85,15 +92,17 @@ namespace DirectXInput
         {
             try
             {
-                //Get Xbox Game DVR settings
-                AppCaptureSettings appCaptureSettings = AppCaptureManager.GetCurrentSettings();
-
-                //Enable Xbox Game DVR capture
-                appCaptureSettings.IsAppCaptureEnabled = true;
-
                 //Get alternate shortcut keys
-                KeysVirtual keysVirtual = (KeysVirtual)appCaptureSettings.AlternateShortcutKeys.ToggleRecordingKey;
-                KeysModifierVirtual keysModifier = (KeysModifierVirtual)appCaptureSettings.AlternateShortcutKeys.ToggleRecordingKeyModifiers;
+                KeysVirtual keysVirtual = KeysVirtual.None;
+                KeysModifierVirtual keysModifier = KeysModifierVirtual.None;
+                using (RegistryKey registryKeyBase = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
+                {
+                    using (RegistryKey registryKeySub = registryKeyBase.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR"))
+                    {
+                        keysVirtual = (KeysVirtual)Convert.ToByte(registryKeySub.GetValue("VKToggleRecording"));
+                        keysModifier = (KeysModifierVirtual)Convert.ToByte(registryKeySub.GetValue("VKMToggleRecording"));
+                    }
+                }
 
                 //Create keyboard action
                 KeysHidAction keyboardAction = new KeysHidAction();

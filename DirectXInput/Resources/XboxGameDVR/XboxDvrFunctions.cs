@@ -11,15 +11,15 @@ namespace DirectXInput
             try
             {
                 //Check if capture is available
-                if (!CaptureIsAvailable())
+                if (!CaptureIsAvailable(false))
                 {
                     //Play interface sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "RecycleBinEmpty", false, true);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "CaptureFailed", false, true);
                     return;
                 }
 
                 //Play interface sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, true);
+                PlayInterfaceSound(vConfigurationCtrlUI, "CaptureScreenshot", false, true);
 
                 //Capture keyboard shortcut
                 vFakerInputDevice.KeyboardPressRelease(GetKeysHidAction_TakeScreenshot());
@@ -33,21 +33,21 @@ namespace DirectXInput
             try
             {
                 //Check if capture is available
-                if (!CaptureIsAvailable())
+                if (!CaptureIsAvailable(true))
                 {
                     //Play interface sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "RecycleBinEmpty", false, true);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "CaptureFailed", false, true);
                     return;
                 }
 
                 //Play interface sound
                 if (CaptureIsRecording())
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, true);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "CaptureVideoStop", false, true);
                 }
                 else
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, true);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "CaptureVideoStart", false, true);
                 }
 
                 //Capture keyboard shortcut

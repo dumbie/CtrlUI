@@ -9,7 +9,7 @@ namespace DirectXInput
     partial class XboxGameDVR
     {
         //Check if capture is available
-        public static bool CaptureIsAvailable()
+        public static bool CaptureIsAvailable(bool videoCapture)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace DirectXInput
                 }
 
                 //Check if GPU is supported
-                if (recordingStatus.Details.IsGpuConstrained)
+                if (videoCapture && recordingStatus.Details.IsGpuConstrained)
                 {
                     //Show notification
                     NotificationDetails notificationDetails = new NotificationDetails();
