@@ -176,12 +176,18 @@ namespace DirectXInput
                     cb_ControllerThumbFlipAxesRight.IsChecked = Controller.Details.Profile.ThumbFlipAxesRight;
                     cb_ControllerThumbReverseAxesLeft.IsChecked = Controller.Details.Profile.ThumbReverseAxesLeft;
                     cb_ControllerThumbReverseAxesRight.IsChecked = Controller.Details.Profile.ThumbReverseAxesRight;
+
+                    //Thumb deadzone
                     textblock_ControllerDeadzoneThumbLeft.Text = textblock_ControllerDeadzoneThumbLeft.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.DeadzoneThumbLeft) + "%";
                     slider_ControllerDeadzoneThumbLeft.Value = Controller.Details.Profile.DeadzoneThumbLeft;
                     textblock_ControllerDeadzoneThumbRight.Text = textblock_ControllerDeadzoneThumbRight.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.DeadzoneThumbRight) + "%";
                     slider_ControllerDeadzoneThumbRight.Value = Controller.Details.Profile.DeadzoneThumbRight;
-                    textblock_ControllerSensitivityThumb.Text = textblock_ControllerSensitivityThumb.Tag.ToString() + Controller.Details.Profile.SensitivityThumb.ToString("0.00");
-                    slider_ControllerSensitivityThumb.Value = Controller.Details.Profile.SensitivityThumb;
+
+                    //Thumb sensitivity
+                    textblock_ControllerSensitivityThumbLeft.Text = textblock_ControllerSensitivityThumbLeft.Tag.ToString() + Controller.Details.Profile.SensitivityThumbLeft.ToString("0.00");
+                    slider_ControllerSensitivityThumbLeft.Value = Controller.Details.Profile.SensitivityThumbLeft;
+                    textblock_ControllerSensitivityThumbRight.Text = textblock_ControllerSensitivityThumbRight.Tag.ToString() + Controller.Details.Profile.SensitivityThumbRight.ToString("0.00");
+                    slider_ControllerSensitivityThumbRight.Value = Controller.Details.Profile.SensitivityThumbRight;
 
                     cb_ControllerRumbleEnabled.IsChecked = Controller.Details.Profile.ControllerRumbleEnabled;
                     if (Controller.Details.Profile.ControllerRumbleEnabled)

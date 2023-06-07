@@ -133,12 +133,15 @@ namespace DirectXInput
                         }
 
                         //Calculate thumbs sensitivity
-                        if (controller.Details.Profile.SensitivityThumb != 1)
+                        if (controller.Details.Profile.SensitivityThumbLeft != 1)
                         {
-                            ThumbLeftX = Convert.ToInt32(ThumbLeftX * controller.Details.Profile.SensitivityThumb);
-                            ThumbLeftY = Convert.ToInt32(ThumbLeftY * controller.Details.Profile.SensitivityThumb);
-                            ThumbRightX = Convert.ToInt32(ThumbRightX * controller.Details.Profile.SensitivityThumb);
-                            ThumbRightY = Convert.ToInt32(ThumbRightY * controller.Details.Profile.SensitivityThumb);
+                            ThumbLeftX = Convert.ToInt32(ThumbLeftX * controller.Details.Profile.SensitivityThumbLeft);
+                            ThumbLeftY = Convert.ToInt32(ThumbLeftY * controller.Details.Profile.SensitivityThumbLeft);
+                        }
+                        if (controller.Details.Profile.SensitivityThumbRight != 1)
+                        {
+                            ThumbRightX = Convert.ToInt32(ThumbRightX * controller.Details.Profile.SensitivityThumbRight);
+                            ThumbRightY = Convert.ToInt32(ThumbRightY * controller.Details.Profile.SensitivityThumbRight);
                         }
 
                         //Check the thumbs range

@@ -261,13 +261,26 @@ namespace DirectXInput
                     }
                 };
 
-                slider_ControllerSensitivityThumb.ValueChanged += (sender, e) =>
+                slider_ControllerSensitivityThumbLeft.ValueChanged += (sender, e) =>
                 {
                     ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
-                        textblock_ControllerSensitivityThumb.Text = textblock_ControllerSensitivityThumb.Tag.ToString() + slider_ControllerSensitivityThumb.Value.ToString("0.00");
-                        activeController.Details.Profile.SensitivityThumb = slider_ControllerSensitivityThumb.Value;
+                        textblock_ControllerSensitivityThumbLeft.Text = textblock_ControllerSensitivityThumbLeft.Tag.ToString() + slider_ControllerSensitivityThumbLeft.Value.ToString("0.00");
+                        activeController.Details.Profile.SensitivityThumbLeft = slider_ControllerSensitivityThumbLeft.Value;
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
+                    }
+                };
+
+                slider_ControllerSensitivityThumbRight.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_ControllerSensitivityThumbRight.Text = textblock_ControllerSensitivityThumbRight.Tag.ToString() + slider_ControllerSensitivityThumbRight.Value.ToString("0.00");
+                        activeController.Details.Profile.SensitivityThumbRight = slider_ControllerSensitivityThumbRight.Value;
 
                         //Save changes to Json file
                         JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));

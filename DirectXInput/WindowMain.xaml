@@ -302,9 +302,13 @@
                             <TextBlock Text="Changes the range when right thumb stick starts to move from the inside." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                             <Slider Name="slider_ControllerDeadzoneThumbRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
-                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityThumb" Style="{StaticResource TextBlockBlack}" Text="Thumb sticks sensitivity" Tag="Thumb sticks sensitivity: "/>
-                            <TextBlock Text="Changes the movement sensitivity on both thumb sticks." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerSensitivityThumb" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
+                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityThumbLeft" Style="{StaticResource TextBlockBlack}" Text="Left thumb stick sensitivity" Tag="Left thumb stick sensitivity: "/>
+                            <TextBlock Text="Changes the movement sensitivity on left thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerSensitivityThumbLeft" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
+
+                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityThumbRight" Style="{StaticResource TextBlockBlack}" Text="Right thumb stick sensitivity" Tag="Right thumb stick sensitivity: "/>
+                            <TextBlock Text="Changes the movement sensitivity on right thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerSensitivityThumbRight" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>                            
 
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Rumble Settings"/>
                             <StackPanel Orientation="Horizontal">

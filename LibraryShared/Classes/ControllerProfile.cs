@@ -558,15 +558,29 @@ namespace LibraryShared
                 }
             }
 
-            private double PrivSensitivityThumb = 1;
-            public double SensitivityThumb
+            private double PrivSensitivityThumbLeft = 1;
+            public double SensitivityThumbLeft
             {
-                get { return this.PrivSensitivityThumb; }
+                get { return this.PrivSensitivityThumbLeft; }
                 set
                 {
-                    if (this.PrivSensitivityThumb != value)
+                    if (this.PrivSensitivityThumbLeft != value)
                     {
-                        this.PrivSensitivityThumb = value;
+                        this.PrivSensitivityThumbLeft = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private double PrivSensitivityThumbRight = 1;
+            public double SensitivityThumbRight
+            {
+                get { return this.PrivSensitivityThumbRight; }
+                set
+                {
+                    if (this.PrivSensitivityThumbRight != value)
+                    {
+                        this.PrivSensitivityThumbRight = value;
                         NotifyPropertyChanged();
                     }
                 }
