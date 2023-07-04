@@ -30,7 +30,7 @@ namespace DirectXInput
 
                 cb_SettingsWindowsStartup.Click += (sender, e) =>
                 {
-                    AVSettings.ManageStartupShortcut("DirectXInput-Launcher.exe");
+                    AVSettings.StartupShortcutManage("DirectXInput-Launcher.exe", false);
                 };
 
                 //Battery settings

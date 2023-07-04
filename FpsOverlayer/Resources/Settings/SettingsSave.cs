@@ -17,7 +17,7 @@ namespace FpsOverlayer
             {
                 cb_SettingsWindowsStartup.Click += (sender, e) =>
                 {
-                    AVSettings.ManageStartupShortcut("FpsOverlayer-Launcher.exe");
+                    AVSettings.StartupShortcutManage("FpsOverlayer-Launcher.exe", false);
                 };
 
                 checkbox_DisplayBackground.Click += (sender, e) =>

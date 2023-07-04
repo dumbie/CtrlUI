@@ -118,7 +118,7 @@ namespace CtrlUI
 
                 cb_SettingsWindowsStartup.Click += (sender, e) =>
                 {
-                    AVSettings.ManageStartupShortcut("CtrlUI-Launcher.exe");
+                    AVSettings.StartupShortcutManage("CtrlUI-Launcher.exe", false);
                 };
 
                 slider_SettingsAppFontSize.ValueChanged += (sender, e) =>
