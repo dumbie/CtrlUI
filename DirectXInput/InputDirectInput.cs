@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVJsonFunctions;
+using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -155,6 +156,84 @@ namespace DirectXInput
                         controller.InputCurrent.ThumbLeftY = ThumbLeftY;
                         controller.InputCurrent.ThumbRightX = ThumbRightX;
                         controller.InputCurrent.ThumbRightY = ThumbRightY;
+
+                        //Check left thumb stick movement
+                        int absThumbLeftY = Math.Abs(controller.InputCurrent.ThumbLeftY);
+                        int absThumbLeftX = Math.Abs(controller.InputCurrent.ThumbLeftX);
+                        if (controller.InputCurrent.ThumbLeftX < -vControllerThumbOffset7500 && absThumbLeftY < vControllerThumbOffset15000)
+                        {
+                            controller.InputCurrent.ButtonThumbLeftLeft.PressedRaw = true;
+                        }
+                        else
+                        {
+                            controller.InputCurrent.ButtonThumbLeftLeft.PressedRaw = false;
+                        }
+
+                        if (controller.InputCurrent.ThumbLeftY > vControllerThumbOffset7500 && absThumbLeftX < vControllerThumbOffset15000)
+                        {
+                            controller.InputCurrent.ButtonThumbLeftUp.PressedRaw = true;
+                        }
+                        else
+                        {
+                            controller.InputCurrent.ButtonThumbLeftUp.PressedRaw = false;
+                        }
+
+                        if (controller.InputCurrent.ThumbLeftX > vControllerThumbOffset7500 && absThumbLeftY < vControllerThumbOffset15000)
+                        {
+                            controller.InputCurrent.ButtonThumbLeftRight.PressedRaw = true;
+                        }
+                        else
+                        {
+                            controller.InputCurrent.ButtonThumbLeftRight.PressedRaw = false;
+                        }
+
+                        if (controller.InputCurrent.ThumbLeftY < -vControllerThumbOffset7500 && absThumbLeftX < vControllerThumbOffset15000)
+                        {
+                            controller.InputCurrent.ButtonThumbLeftDown.PressedRaw = true;
+                        }
+                        else
+                        {
+                            controller.InputCurrent.ButtonThumbLeftDown.PressedRaw = false;
+                        }
+
+                        //Check right thumb stick movement
+                        int absThumbRightY = Math.Abs(controller.InputCurrent.ThumbRightY);
+                        int absThumbRightX = Math.Abs(controller.InputCurrent.ThumbRightX);
+                        if (controller.InputCurrent.ThumbRightX < -vControllerThumbOffset7500 && absThumbRightY < vControllerThumbOffset15000)
+                        {
+                            controller.InputCurrent.ButtonThumbRightLeft.PressedRaw = true;
+                        }
+                        else
+                        {
+                            controller.InputCurrent.ButtonThumbRightLeft.PressedRaw = false;
+                        }
+
+                        if (controller.InputCurrent.ThumbRightY > vControllerThumbOffset7500 && absThumbRightX < vControllerThumbOffset15000)
+                        {
+                            controller.InputCurrent.ButtonThumbRightUp.PressedRaw = true;
+                        }
+                        else
+                        {
+                            controller.InputCurrent.ButtonThumbRightUp.PressedRaw = false;
+                        }
+
+                        if (controller.InputCurrent.ThumbRightX > vControllerThumbOffset7500 && absThumbRightY < vControllerThumbOffset15000)
+                        {
+                            controller.InputCurrent.ButtonThumbRightRight.PressedRaw = true;
+                        }
+                        else
+                        {
+                            controller.InputCurrent.ButtonThumbRightRight.PressedRaw = false;
+                        }
+
+                        if (controller.InputCurrent.ThumbRightY < -vControllerThumbOffset7500 && absThumbRightX < vControllerThumbOffset15000)
+                        {
+                            controller.InputCurrent.ButtonThumbRightDown.PressedRaw = true;
+                        }
+                        else
+                        {
+                            controller.InputCurrent.ButtonThumbRightDown.PressedRaw = false;
+                        }
 
                         //Raw Triggers
                         if (controller.SupportedCurrent.OffsetHeader.TriggerLeft != null || controller.SupportedCurrent.OffsetHeader.TriggerRight != null)
