@@ -27,10 +27,6 @@ namespace DirectXInput
         {
             try
             {
-                //Update and check button press times
-                UpdateCheckButtonPressTimes(Controller.InputCurrent.ButtonGuide);
-                UpdateCheckButtonPressTimes(Controller.InputCurrent.ButtonTouchpad);
-
                 //Check if controller output needs to be blocked
                 if (vAppActivated && !vAppMinimized && vShowDebugInformation)
                 {
@@ -45,6 +41,9 @@ namespace DirectXInput
                     SendInputVirtualEmpty(Controller);
                     return;
                 }
+
+                //Update and check button press times
+                UpdateCheckButtonPressTimes(Controller);
 
                 //Ignore controller timeout
                 Controller.TimeoutIgnore = true;
