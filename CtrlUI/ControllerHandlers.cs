@@ -262,6 +262,7 @@ namespace CtrlUI
         bool Controller_DPadPress(ControllerInput ControllerInput)
         {
             bool ControllerUsed = false;
+            bool ControllerDelay25 = false;
             bool ControllerDelay125 = false;
             bool ControllerDelay750 = false;
             try
@@ -275,7 +276,16 @@ namespace CtrlUI
                         KeySendSingle(KeysVirtual.ArrowLeft, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
-                        ControllerDelay125 = true;
+
+                        //Check navigation delay
+                        if (ControllerInput.DPadLeft.PressTimeCurrent > 200)
+                        {
+                            ControllerDelay25 = true;
+                        }
+                        else
+                        {
+                            ControllerDelay125 = true;
+                        }
                     }
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
@@ -284,7 +294,16 @@ namespace CtrlUI
                         KeySendSingle(KeysVirtual.ArrowUp, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
-                        ControllerDelay125 = true;
+
+                        //Check navigation delay
+                        if (ControllerInput.DPadUp.PressTimeCurrent > 200)
+                        {
+                            ControllerDelay25 = true;
+                        }
+                        else
+                        {
+                            ControllerDelay125 = true;
+                        }
                     }
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
@@ -293,7 +312,16 @@ namespace CtrlUI
                         KeySendSingle(KeysVirtual.ArrowRight, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
-                        ControllerDelay125 = true;
+
+                        //Check navigation delay
+                        if (ControllerInput.DPadRight.PressTimeCurrent > 200)
+                        {
+                            ControllerDelay25 = true;
+                        }
+                        else
+                        {
+                            ControllerDelay125 = true;
+                        }
                     }
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
@@ -302,10 +330,23 @@ namespace CtrlUI
                         KeySendSingle(KeysVirtual.ArrowDown, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
-                        ControllerDelay125 = true;
+
+                        //Check navigation delay
+                        if (ControllerInput.DPadDown.PressTimeCurrent > 200)
+                        {
+                            ControllerDelay25 = true;
+                        }
+                        else
+                        {
+                            ControllerDelay125 = true;
+                        }
                     }
 
-                    if (ControllerDelay125)
+                    if (ControllerDelay25)
+                    {
+                        vControllerDelay_DPad = GetSystemTicksMs() + vControllerDelayTicks25;
+                    }
+                    else if (ControllerDelay125)
                     {
                         vControllerDelay_DPad = GetSystemTicksMs() + vControllerDelayTicks125;
                     }
@@ -362,6 +403,7 @@ namespace CtrlUI
         bool Controller_StickMovement(ControllerInput ControllerInput)
         {
             bool ControllerUsed = false;
+            bool ControllerDelay25 = false;
             bool ControllerDelay125 = false;
             bool ControllerDelay750 = false;
             try
@@ -369,58 +411,94 @@ namespace CtrlUI
                 if (GetSystemTicksMs() >= vControllerDelay_Stick)
                 {
                     //Left stick movement
-                    if (ControllerInput.ThumbLeftX < -10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
+                    if (ControllerInput.ButtonThumbLeftLeft.PressedRaw)
                     {
                         KeySendSingle(KeysVirtual.ArrowLeft, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
-                        ControllerDelay125 = true;
+
+                        //Check navigation delay
+                        if (ControllerInput.ButtonThumbLeftLeft.PressTimeCurrent > 200)
+                        {
+                            ControllerDelay25 = true;
+                        }
+                        else
+                        {
+                            ControllerDelay125 = true;
+                        }
                     }
-                    else if (ControllerInput.ThumbLeftY > 10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
+                    else if (ControllerInput.ButtonThumbLeftUp.PressedRaw)
                     {
                         KeySendSingle(KeysVirtual.ArrowUp, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
-                        ControllerDelay125 = true;
+
+                        //Check navigation delay
+                        if (ControllerInput.ButtonThumbLeftUp.PressTimeCurrent > 200)
+                        {
+                            ControllerDelay25 = true;
+                        }
+                        else
+                        {
+                            ControllerDelay125 = true;
+                        }
                     }
-                    else if (ControllerInput.ThumbLeftX > 10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
+                    else if (ControllerInput.ButtonThumbLeftRight.PressedRaw)
                     {
                         KeySendSingle(KeysVirtual.ArrowRight, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
-                        ControllerDelay125 = true;
+
+                        //Check navigation delay
+                        if (ControllerInput.ButtonThumbLeftRight.PressTimeCurrent > 200)
+                        {
+                            ControllerDelay25 = true;
+                        }
+                        else
+                        {
+                            ControllerDelay125 = true;
+                        }
                     }
-                    else if (ControllerInput.ThumbLeftY < -10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
+                    else if (ControllerInput.ButtonThumbLeftDown.PressedRaw)
                     {
                         KeySendSingle(KeysVirtual.ArrowDown, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
-                        ControllerDelay125 = true;
+
+                        //Check navigation delay
+                        if (ControllerInput.ButtonThumbLeftDown.PressTimeCurrent > 200)
+                        {
+                            ControllerDelay25 = true;
+                        }
+                        else
+                        {
+                            ControllerDelay125 = true;
+                        }
                     }
 
                     //Right stick movement
-                    if (ControllerInput.ThumbRightX < -10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
+                    if (ControllerInput.ButtonThumbRightLeft.PressedRaw)
                     {
                         KeySendSingle(KeysVirtual.PageUp, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
                     }
-                    else if (ControllerInput.ThumbRightY > 10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
+                    else if (ControllerInput.ButtonThumbRightUp.PressedRaw)
                     {
                         KeySendSingle(KeysVirtual.PageUp, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
                     }
-                    else if (ControllerInput.ThumbRightX > 10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
+                    else if (ControllerInput.ButtonThumbRightRight.PressedRaw)
                     {
                         KeySendSingle(KeysVirtual.PageDown, vProcessCurrent.WindowHandleMain);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
                     }
-                    else if (ControllerInput.ThumbRightY < -10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
+                    else if (ControllerInput.ButtonThumbRightDown.PressedRaw)
                     {
                         KeySendSingle(KeysVirtual.PageDown, vProcessCurrent.WindowHandleMain);
 
@@ -428,7 +506,11 @@ namespace CtrlUI
                         ControllerDelay125 = true;
                     }
 
-                    if (ControllerDelay125)
+                    if (ControllerDelay25)
+                    {
+                        vControllerDelay_Stick = GetSystemTicksMs() + vControllerDelayTicks25;
+                    }
+                    else if (ControllerDelay125)
                     {
                         vControllerDelay_Stick = GetSystemTicksMs() + vControllerDelayTicks125;
                     }

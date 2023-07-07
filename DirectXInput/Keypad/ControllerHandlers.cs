@@ -67,25 +67,25 @@ namespace DirectXInput.KeypadCode
                     }
 
                     //Thumb Left
-                    if (controllerInput.ThumbLeftX < -vControllerThumbOffset7500)
+                    if (controllerInput.ButtonThumbLeftLeft.PressedRaw)
                     {
                         if (vKeypadMappingProfile.ThumbLeftLeftMod0 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftLeftMod0; }
                         if (vKeypadMappingProfile.ThumbLeftLeftMod1 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftLeftMod1; }
                         if (vKeypadMappingProfile.ThumbLeftLeft != KeysHid.None) { UpdateKeyPressByteArray(ref keyboardAction, vKeypadMappingProfile.ThumbLeftLeft); }
                     }
-                    if (controllerInput.ThumbLeftY > vControllerThumbOffset7500)
+                    if (controllerInput.ButtonThumbLeftUp.PressedRaw)
                     {
                         if (vKeypadMappingProfile.ThumbLeftUpMod0 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftUpMod0; }
                         if (vKeypadMappingProfile.ThumbLeftUpMod1 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftUpMod1; }
                         if (vKeypadMappingProfile.ThumbLeftUp != KeysHid.None) { UpdateKeyPressByteArray(ref keyboardAction, vKeypadMappingProfile.ThumbLeftUp); }
                     }
-                    if (controllerInput.ThumbLeftX > vControllerThumbOffset7500)
+                    if (controllerInput.ButtonThumbLeftRight.PressedRaw)
                     {
                         if (vKeypadMappingProfile.ThumbLeftRightMod0 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftRightMod0; }
                         if (vKeypadMappingProfile.ThumbLeftRightMod1 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftRightMod1; }
                         if (vKeypadMappingProfile.ThumbLeftRight != KeysHid.None) { UpdateKeyPressByteArray(ref keyboardAction, vKeypadMappingProfile.ThumbLeftRight); }
                     }
-                    if (controllerInput.ThumbLeftY < -vControllerThumbOffset7500)
+                    if (controllerInput.ButtonThumbLeftDown.PressedRaw)
                     {
                         if (vKeypadMappingProfile.ThumbLeftDownMod0 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftDownMod0; }
                         if (vKeypadMappingProfile.ThumbLeftDownMod1 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftDownMod1; }
@@ -95,25 +95,25 @@ namespace DirectXInput.KeypadCode
                     //Thumb Right
                     if (!vKeypadMappingProfile.KeypadMouseMoveEnabled)
                     {
-                        if (controllerInput.ThumbRightX < -vControllerThumbOffset7500)
+                        if (controllerInput.ButtonThumbRightLeft.PressedRaw)
                         {
                             if (vKeypadMappingProfile.ThumbRightLeftMod0 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightLeftMod0; }
                             if (vKeypadMappingProfile.ThumbRightLeftMod1 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightLeftMod1; }
                             if (vKeypadMappingProfile.ThumbRightLeft != KeysHid.None) { UpdateKeyPressByteArray(ref keyboardAction, vKeypadMappingProfile.ThumbRightLeft); }
                         }
-                        if (controllerInput.ThumbRightX > vControllerThumbOffset7500)
-                        {
-                            if (vKeypadMappingProfile.ThumbRightRightMod0 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightRightMod0; }
-                            if (vKeypadMappingProfile.ThumbRightRightMod1 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightRightMod1; }
-                            if (vKeypadMappingProfile.ThumbRightRight != KeysHid.None) { UpdateKeyPressByteArray(ref keyboardAction, vKeypadMappingProfile.ThumbRightRight); }
-                        }
-                        if (controllerInput.ThumbRightY > vControllerThumbOffset7500)
+                        if (controllerInput.ButtonThumbRightUp.PressedRaw)
                         {
                             if (vKeypadMappingProfile.ThumbRightUpMod0 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightUpMod0; }
                             if (vKeypadMappingProfile.ThumbRightUpMod1 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightUpMod1; }
                             if (vKeypadMappingProfile.ThumbRightUp != KeysHid.None) { UpdateKeyPressByteArray(ref keyboardAction, vKeypadMappingProfile.ThumbRightUp); }
                         }
-                        if (controllerInput.ThumbRightY < -vControllerThumbOffset7500)
+                        if (controllerInput.ButtonThumbRightRight.PressedRaw)
+                        {
+                            if (vKeypadMappingProfile.ThumbRightRightMod0 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightRightMod0; }
+                            if (vKeypadMappingProfile.ThumbRightRightMod1 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightRightMod1; }
+                            if (vKeypadMappingProfile.ThumbRightRight != KeysHid.None) { UpdateKeyPressByteArray(ref keyboardAction, vKeypadMappingProfile.ThumbRightRight); }
+                        }
+                        if (controllerInput.ButtonThumbRightDown.PressedRaw)
                         {
                             if (vKeypadMappingProfile.ThumbRightDownMod0 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightDownMod0; }
                             if (vKeypadMappingProfile.ThumbRightDownMod1 != KeysModifierHid.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightDownMod1; }

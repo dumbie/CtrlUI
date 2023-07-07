@@ -107,6 +107,7 @@ namespace DirectXInput.KeyboardCode
         //Process controller input for keyboard
         public async Task ControllerInteractionKeyboard(ControllerInput ControllerInput)
         {
+            bool ControllerDelay25 = false;
             bool ControllerDelay125 = false;
             bool ControllerDelay250 = false;
             bool ControllerDelay500 = false;
@@ -125,6 +126,8 @@ namespace DirectXInput.KeyboardCode
                                 Key0 = KeysHid.ArrowLeft
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
+
+                            ControllerDelay125 = true;
                         }
                         else
                         {
@@ -142,9 +145,18 @@ namespace DirectXInput.KeyboardCode
 
                                 //Send arrow left to window
                                 KeySendSingle(KeysVirtual.ArrowLeft, vInteropWindowHandle);
+
+                                //Check navigation delay
+                                if (ControllerInput.DPadLeft.PressTimeCurrent > 200)
+                                {
+                                    ControllerDelay25 = true;
+                                }
+                                else
+                                {
+                                    ControllerDelay125 = true;
+                                }
                             }
                         }
-                        ControllerDelay125 = true;
                     }
                     //Send internal arrow right key
                     else if (ControllerInput.DPadRight.PressedRaw)
@@ -157,6 +169,8 @@ namespace DirectXInput.KeyboardCode
                                 Key0 = KeysHid.ArrowRight
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
+
+                            ControllerDelay125 = true;
                         }
                         else
                         {
@@ -174,9 +188,18 @@ namespace DirectXInput.KeyboardCode
 
                                 //Send arrow right to window
                                 KeySendSingle(KeysVirtual.ArrowRight, vInteropWindowHandle);
+
+                                //Check navigation delay
+                                if (ControllerInput.DPadRight.PressTimeCurrent > 200)
+                                {
+                                    ControllerDelay25 = true;
+                                }
+                                else
+                                {
+                                    ControllerDelay125 = true;
+                                }
                             }
                         }
-                        ControllerDelay125 = true;
                     }
                     //Send internal arrow up key
                     else if (ControllerInput.DPadUp.PressedRaw)
@@ -189,6 +212,8 @@ namespace DirectXInput.KeyboardCode
                                 Key0 = KeysHid.ArrowUp
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
+
+                            ControllerDelay125 = true;
                         }
                         else
                         {
@@ -206,9 +231,18 @@ namespace DirectXInput.KeyboardCode
 
                                 //Send arrow up to window
                                 KeySendSingle(KeysVirtual.ArrowUp, vInteropWindowHandle);
+
+                                //Check navigation delay
+                                if (ControllerInput.DPadUp.PressTimeCurrent > 200)
+                                {
+                                    ControllerDelay25 = true;
+                                }
+                                else
+                                {
+                                    ControllerDelay125 = true;
+                                }
                             }
                         }
-                        ControllerDelay125 = true;
                     }
                     //Send internal arrow down key
                     else if (ControllerInput.DPadDown.PressedRaw)
@@ -221,6 +255,8 @@ namespace DirectXInput.KeyboardCode
                                 Key0 = KeysHid.ArrowDown
                             };
                             vFakerInputDevice.KeyboardPressRelease(keyboardAction);
+
+                            ControllerDelay125 = true;
                         }
                         else
                         {
@@ -238,9 +274,18 @@ namespace DirectXInput.KeyboardCode
 
                                 //Send arrow down to window
                                 KeySendSingle(KeysVirtual.ArrowDown, vInteropWindowHandle);
+
+                                //Check navigation delay
+                                if (ControllerInput.DPadDown.PressTimeCurrent > 200)
+                                {
+                                    ControllerDelay25 = true;
+                                }
+                                else
+                                {
+                                    ControllerDelay125 = true;
+                                }
                             }
                         }
-                        ControllerDelay125 = true;
                     }
 
                     //Send internal space key
@@ -497,7 +542,11 @@ namespace DirectXInput.KeyboardCode
                     }
 
                     //Delay input to prevent repeat
-                    if (ControllerDelay125)
+                    if (ControllerDelay25)
+                    {
+                        vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayTicks25;
+                    }
+                    else if (ControllerDelay125)
                     {
                         vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayTicks125;
                     }

@@ -118,11 +118,21 @@ namespace DirectXInput
         public static bool vControllerBusy = false;
         public static bool vControllerMuteLedCurrent = false;
         public static bool vControllerMuteLedPrevious = false;
+        public static bool vControllerRumbleTest = false;
+        public static ControllerStatus vController0 = new ControllerStatus(0);
+        public static ControllerStatus vController1 = new ControllerStatus(1);
+        public static ControllerStatus vController2 = new ControllerStatus(2);
+        public static ControllerStatus vController3 = new ControllerStatus(3);
+
+        //Controller Timings
+        public static int vControllerButtonPressShort = 400;
+        public static int vControllerButtonPressLong = 800;
         public static int vControllerThumbOffset2500 = 2500;
         public static int vControllerThumbOffset7500 = 7500;
         public static int vControllerThumbOffset10000 = 10000;
         public static int vControllerThumbOffset15000 = 15000;
         public static int vControllerDelayTicks10 = 10;
+        public static int vControllerDelayTicks25 = 25;
         public static int vControllerDelayTicks125 = 125;
         public static int vControllerDelayTicks250 = 250;
         public static int vControllerDelayTicks500 = 500;
@@ -133,11 +143,11 @@ namespace DirectXInput
         public static long vControllerDelay_Keyboard = 0;
         public static long vControllerDelay_Media = 0;
         public static long vControllerDelay_Mouse = 0;
-        public static bool vControllerRumbleTest = false;
-        public static ControllerStatus vController0 = new ControllerStatus(0);
-        public static ControllerStatus vController1 = new ControllerStatus(1);
-        public static ControllerStatus vController2 = new ControllerStatus(2);
-        public static ControllerStatus vController3 = new ControllerStatus(3);
+        public static long vControllerDelay_DPad = 0;
+        public static long vControllerDelay_Stick = 0;
+        public static long vControllerDelay_Trigger = 0;
+        public static long vControllerDelay_Button = 0;
+        public static long vControllerDelay_Activate = 0;
 
         //Returns if a controller is connected
         public static bool vControllerAnyConnected()
