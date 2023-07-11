@@ -13,7 +13,6 @@ namespace LibraryShared
             public bool PressTimeDone { get; set; } = false;
             public long PressTimeStart { get; set; } = 0;
             public long PressTimeCurrent { get; set; } = 0;
-            public long PressTimePrevious { get; set; } = 0;
         }
     }
 }

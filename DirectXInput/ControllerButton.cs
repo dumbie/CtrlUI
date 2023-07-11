@@ -1,6 +1,6 @@
 ﻿using static ArnoldVinkCode.AVActions;
-using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.ControllerTimings;
 
 namespace DirectXInput
 {
@@ -13,6 +13,7 @@ namespace DirectXInput
             {
                 UpdateCheckButtonPressTime(controllerStatus.InputCurrent.ButtonGuide);
                 UpdateCheckButtonPressTime(controllerStatus.InputCurrent.ButtonTouchpad);
+                UpdateCheckButtonPressTime(controllerStatus.InputCurrent.ButtonMedia);
                 UpdateCheckButtonPressTime(controllerStatus.InputCurrent.ButtonThumbLeftLeft);
                 UpdateCheckButtonPressTime(controllerStatus.InputCurrent.ButtonThumbLeftUp);
                 UpdateCheckButtonPressTime(controllerStatus.InputCurrent.ButtonThumbLeftRight);
@@ -36,28 +37,19 @@ namespace DirectXInput
                     long currentSystemTicksMs = GetSystemTicksMs();
                     if (buttonDetails.PressTimeStart == 0)
                     {
+                        buttonDetails.PressTimeDone = false;
                         buttonDetails.PressTimeStart = currentSystemTicksMs;
+                        buttonDetails.PressTimeCurrent = 0;
                     }
                     else
                     {
                         buttonDetails.PressTimeCurrent = currentSystemTicksMs - buttonDetails.PressTimeStart;
+                        //Debug.WriteLine("Holding button press: " + buttonDetails.PressTimeCurrent);
                     }
-                    //Debug.WriteLine("Holding button press: " + buttonDetails.PressTimeCurrent);
                 }
                 else
                 {
-                    if (buttonDetails.PressTimeDone)
-                    {
-                        buttonDetails.PressTimePrevious = 0;
-                    }
-                    else
-                    {
-                        buttonDetails.PressTimePrevious = buttonDetails.PressTimeCurrent;
-                    }
-                    buttonDetails.PressTimeDone = false;
                     buttonDetails.PressTimeStart = 0;
-                    buttonDetails.PressTimeCurrent = 0;
-                    //Debug.WriteLine("Releasing button press: " + buttonDetails.PressTimePrevious);
                 }
 
                 //Check button press times
@@ -65,17 +57,23 @@ namespace DirectXInput
                 buttonDetails.PressedLong = false;
                 if (!buttonDetails.PressTimeDone)
                 {
-                    if (buttonDetails.PressTimePrevious > 0 && buttonDetails.PressTimePrevious <= vControllerButtonPressShort)
+                    if (buttonDetails.PressedRaw)
                     {
-                        //Debug.WriteLine("Button press short: " + buttonDetails.PressTimePrevious);
-                        buttonDetails.PressedShort = true;
-                        buttonDetails.PressTimeDone = true;
+                        if (buttonDetails.PressTimeCurrent >= vControllerButtonPressLong)
+                        {
+                            //Debug.WriteLine("Button press long: " + buttonDetails.PressTimeCurrent);
+                            buttonDetails.PressedLong = true;
+                            buttonDetails.PressTimeDone = true;
+                        }
                     }
-                    else if (buttonDetails.PressTimeCurrent >= vControllerButtonPressLong)
+                    else
                     {
-                        //Debug.WriteLine("Button press long: " + buttonDetails.PressTimeCurrent);
-                        buttonDetails.PressedLong = true;
-                        buttonDetails.PressTimeDone = true;
+                        if (buttonDetails.PressTimeCurrent > 0 && buttonDetails.PressTimeCurrent <= vControllerButtonPressShort)
+                        {
+                            //Debug.WriteLine("Button press short: " + buttonDetails.PressTimeCurrent);
+                            buttonDetails.PressedShort = true;
+                            buttonDetails.PressTimeDone = true;
+                        }
                     }
                 }
             }
