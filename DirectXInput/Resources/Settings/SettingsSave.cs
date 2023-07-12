@@ -305,9 +305,9 @@ namespace DirectXInput
                 };
 
                 //Media settings
-                combobox_ShortcutMuteFunction.SelectionChanged += (sender, e) =>
+                combobox_ControllerLedCondition.SelectionChanged += (sender, e) =>
                 {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutMuteFunction", combobox_ShortcutMuteFunction.SelectedIndex.ToString());
+                    SettingSave(vConfigurationDirectXInput, "ControllerLedCondition", combobox_ControllerLedCondition.SelectedIndex.ToString());
                 };
 
                 slider_SettingsMediaVolumeStep.ValueChanged += (sender, e) =>

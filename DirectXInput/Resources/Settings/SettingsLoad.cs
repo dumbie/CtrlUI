@@ -79,7 +79,7 @@ namespace DirectXInput
                 slider_SettingsKeyboardMouseScrollSensitivity2.Value = SettingLoad(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", typeof(double));
 
                 //Load media settings
-                combobox_ShortcutMuteFunction.SelectedIndex = SettingLoad(vConfigurationDirectXInput, "ShortcutMuteFunction", typeof(int));
+                combobox_ControllerLedCondition.SelectedIndex = SettingLoad(vConfigurationDirectXInput, "ControllerLedCondition", typeof(int));
                 textblock_SettingsMediaVolumeStep.Text = textblock_SettingsMediaVolumeStep.Tag.ToString() + SettingLoad(vConfigurationDirectXInput, "MediaVolumeStep", typeof(string));
                 slider_SettingsMediaVolumeStep.Value = SettingLoad(vConfigurationDirectXInput, "MediaVolumeStep", typeof(double));
 

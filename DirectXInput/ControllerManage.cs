@@ -41,7 +41,7 @@ namespace DirectXInput
         {
             try
             {
-                int muteFunction = SettingLoad(vConfigurationDirectXInput, "ShortcutMuteFunction", typeof(int));
+                int muteFunction = SettingLoad(vConfigurationDirectXInput, "ControllerLedCondition", typeof(int));
                 if (muteFunction == 0)
                 {
                     vControllerMuteLedCurrent = AudioMuteGetStatus(true);

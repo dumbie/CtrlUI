@@ -49,7 +49,7 @@ namespace DirectXInput
                 if (!SettingCheck(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2")) { SettingSave(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", "2"); }
 
                 //Media settings
-                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutMuteFunction")) { SettingSave(vConfigurationDirectXInput, "ShortcutMuteFunction", "0"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ControllerLedCondition")) { SettingSave(vConfigurationDirectXInput, "ControllerLedCondition", "0"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "MediaVolumeStep")) { SettingSave(vConfigurationDirectXInput, "MediaVolumeStep", "2"); }
             }
             catch (Exception ex)
