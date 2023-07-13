@@ -60,6 +60,8 @@ namespace DirectXInput
                 cb_SettingsShortcutAltEnter.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutAltEnter", typeof(bool));
                 cb_SettingsShortcutAltTab.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutAltTab", typeof(bool));
                 cb_SettingsShortcutCtrlAltDelete.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", typeof(bool));
+                cb_SettingsShortcutMuteOutput.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutMuteOutput", typeof(bool));
+                cb_SettingsShortcutMuteInput.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutMuteInput", typeof(bool));
 
                 //Load capture settings
                 cb_SettingsShortcutCaptureImage.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImage", typeof(bool));

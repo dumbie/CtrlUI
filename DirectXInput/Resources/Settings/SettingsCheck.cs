@@ -22,6 +22,8 @@ namespace DirectXInput
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutAltEnter")) { SettingSave(vConfigurationDirectXInput, "ShortcutAltEnter", "True"); } //Shared
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutAltTab")) { SettingSave(vConfigurationDirectXInput, "ShortcutAltTab", "True"); } //Shared
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutCtrlAltDelete")) { SettingSave(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutMuteOutput")) { SettingSave(vConfigurationDirectXInput, "ShortcutMuteOutput", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutMuteInput")) { SettingSave(vConfigurationDirectXInput, "ShortcutMuteInput", "True"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutCaptureImage")) { SettingSave(vConfigurationDirectXInput, "ShortcutCaptureImage", "True"); } //Shared
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutCaptureImageKeyboard")) { SettingSave(vConfigurationDirectXInput, "ShortcutCaptureImageKeyboard", "True"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutCaptureVideo")) { SettingSave(vConfigurationDirectXInput, "ShortcutCaptureVideo", "True"); }
@@ -35,6 +37,7 @@ namespace DirectXInput
 
                 //Controller settings
                 if (!SettingCheck(vConfigurationDirectXInput, "ControllerIdleDisconnectMin")) { SettingSave(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", "10"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ControllerLedCondition")) { SettingSave(vConfigurationDirectXInput, "ControllerLedCondition", "0"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "ControllerColor0")) { SettingSave(vConfigurationDirectXInput, "ControllerColor0", "#00C7FF"); } //Shared
                 if (!SettingCheck(vConfigurationDirectXInput, "ControllerColor1")) { SettingSave(vConfigurationDirectXInput, "ControllerColor1", "#F0140A"); } //Shared
                 if (!SettingCheck(vConfigurationDirectXInput, "ControllerColor2")) { SettingSave(vConfigurationDirectXInput, "ControllerColor2", "#14F00A"); } //Shared
@@ -47,9 +50,6 @@ namespace DirectXInput
                 if (!SettingCheck(vConfigurationDirectXInput, "KeyboardCloseNoController")) { SettingSave(vConfigurationDirectXInput, "KeyboardCloseNoController", "True"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity")) { SettingSave(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", "7,50"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2")) { SettingSave(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", "2"); }
-
-                //Media settings
-                if (!SettingCheck(vConfigurationDirectXInput, "ControllerLedCondition")) { SettingSave(vConfigurationDirectXInput, "ControllerLedCondition", "0"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "MediaVolumeStep")) { SettingSave(vConfigurationDirectXInput, "MediaVolumeStep", "2"); }
             }
             catch (Exception ex)

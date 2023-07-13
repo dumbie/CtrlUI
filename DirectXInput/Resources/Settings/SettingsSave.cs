@@ -182,6 +182,16 @@ namespace DirectXInput
                     SettingSave(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", cb_SettingsShortcutCtrlAltDelete.IsChecked.ToString());
                 };
 
+                cb_SettingsShortcutMuteOutput.Click += (sender, e) =>
+                {
+                    SettingSave(vConfigurationDirectXInput, "ShortcutMuteOutput", cb_SettingsShortcutMuteOutput.IsChecked.ToString());
+                };
+
+                cb_SettingsShortcutMuteInput.Click += (sender, e) =>
+                {
+                    SettingSave(vConfigurationDirectXInput, "ShortcutMuteInput", cb_SettingsShortcutMuteInput.IsChecked.ToString());
+                };
+
                 cb_SettingsShortcutAltTab.Click += async (sender, e) =>
                 {
                     SettingSave(vConfigurationDirectXInput, "ShortcutAltTab", cb_SettingsShortcutAltTab.IsChecked.ToString());

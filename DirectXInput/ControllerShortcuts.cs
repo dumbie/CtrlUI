@@ -8,6 +8,7 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.ControllerTimings;
 
 namespace DirectXInput
 {
@@ -79,21 +80,9 @@ namespace DirectXInput
                         ControllerDelay750 = true;
                     }
                     //Mute or unmute the input/microphone
-                    else if (Controller.InputCurrent.ButtonMedia.PressedRaw)
+                    else if (Controller.InputCurrent.ButtonMedia.PressedShort)
                     {
-                        int muteFunction = SettingLoad(vConfigurationDirectXInput, "ShortcutMuteFunction", typeof(int));
-                        if (muteFunction == 0)
-                        {
-                            if (AudioMuteSwitch(true))
-                            {
-                                App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume muted");
-                            }
-                            else
-                            {
-                                App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume unmuted");
-                            }
-                        }
-                        else
+                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutMuteOutput", typeof(bool)))
                         {
                             if (AudioMuteSwitch(false))
                             {
@@ -103,10 +92,27 @@ namespace DirectXInput
                             {
                                 App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume unmuted");
                             }
-                        }
 
-                        ControllerUsed = true;
-                        ControllerDelay750 = true;
+                            ControllerUsed = true;
+                            ControllerDelay750 = true;
+                        }
+                    }
+                    else if (Controller.InputCurrent.ButtonMedia.PressedLong)
+                    {
+                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutMuteInput", typeof(bool)))
+                        {
+                            if (AudioMuteSwitch(true))
+                            {
+                                App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume muted");
+                            }
+                            else
+                            {
+                                App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume unmuted");
+                            }
+
+                            ControllerUsed = true;
+                            ControllerDelay750 = true;
+                        }
                     }
                     //Press Alt+Enter
                     else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderRight.PressedRaw)

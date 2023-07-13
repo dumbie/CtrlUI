@@ -61,10 +61,6 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keypad.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Keypad" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Name="menuButtonMedia" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open media settings">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Music.png" Width="55" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Media" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                    </StackPanel>
                     <StackPanel Name="menuButtonSettings" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application settings">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Settings.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Settings" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -308,7 +304,7 @@
 
                             <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityThumbRight" Style="{StaticResource TextBlockBlack}" Text="Right thumb stick sensitivity" Tag="Right thumb stick sensitivity: "/>
                             <TextBlock Text="Changes the movement sensitivity on right thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerSensitivityThumbRight" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>                            
+                            <Slider Name="slider_ControllerSensitivityThumbRight" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Rumble Settings"/>
                             <StackPanel Orientation="Horizontal">
@@ -357,6 +353,13 @@
                             <TextBlock Text="Changes the controller led brightness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                             <Slider Name="slider_ControllerLedBrightness" Minimum="1" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
+                            <TextBlock Margin="0,10,0,0" Text="Media led condition" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <TextBlock Text="Change the condition when media led turns on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <ComboBox Name="combobox_ControllerLedCondition" HorizontalAlignment="Left" Width="400" Style="{StaticResource ComboBoxBlack}">
+                                <ComboBoxItem>Input volume muted</ComboBoxItem>
+                                <ComboBoxItem>Output volume muted</ComboBoxItem>
+                            </ComboBox>
+
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                 <TextBlock Text="First controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <Button Name="colorpicker_Controller0" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Set first controller led color"/>
@@ -381,7 +384,7 @@
                             <CheckBox Name="cb_ControllerFakeGuideButton" Style="{StaticResource CheckBoxBlack}" Content="Fake LB and Back combined press as Guide button"/>
                             <TextBlock Text="Enabling this will fake the LB and Back button combined as Guide button on a controller without the Guide button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                            <CheckBox Name="cb_ControllerFakeMediaButton" Style="{StaticResource CheckBoxBlack}" Content="Fake LB and Back combined press as Media button"/>
+                            <CheckBox Margin="0,10,0,0" Name="cb_ControllerFakeMediaButton" Style="{StaticResource CheckBoxBlack}" Content="Fake LB and Back combined press as Media button"/>
                             <TextBlock Text="Enabling this will fake the LB and Back button combined as Media button on a controller without the Media button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                             <CheckBox Margin="0,10,0,0" Name="cb_ControllerFakeTouchpadButton" Style="{StaticResource CheckBoxBlack}" Content="Fake RB and Back combined press as Touchpad button"/>
@@ -493,6 +496,13 @@
 
                                 <CheckBox Name="cb_SettingsShortcutCtrlAltDelete" Content="Press Ctrl + Alt + Delete by pressing Guide and Back combined" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to press Ctrl + Alt + Delete with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Audio Shortcuts"/>
+                                <CheckBox Name="cb_SettingsShortcutMuteOutput" Content="Mute audio output by pressing the Media button" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will allow you to mute your output audio with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Margin="0,10,0,0" Name="cb_SettingsShortcutMuteInput" Content="Mute audio input by holding the Media button" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will allow you to mute your input audio with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
@@ -517,7 +527,7 @@
                     <Grid Grid.Row="1">
                         <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
                             <StackPanel>
-                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Screenshot Shortcuts"/>
+                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Capture Shortcuts"/>
                                 <CheckBox Name="cb_SettingsShortcutCaptureImage" Content="Capture image by pressing the Touchpad button" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to take a screenshot with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
@@ -593,6 +603,11 @@
                                 <TextBlock Name="textblock_SettingsKeyboardMouseScrollSensitivity2" Text="Mouse scrollwheel sensitivity" Tag="Mouse scrollwheel sensitivity: " Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the used mouse scrollwheel sensitivity." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_SettingsKeyboardMouseScrollSensitivity2" Width="400" Minimum="1" Maximum="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Volume Settings"/>
+                                <TextBlock Name="textblock_SettingsMediaVolumeStep" Text="Volume change step" Tag="Volume change step: " Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Text="Change the used step when changing system volume." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <Slider Name="slider_SettingsMediaVolumeStep" Width="400" Minimum="1" Maximum="20" TickFrequency="1" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                                 <TextBlock Margin="0,15,0,0" Text="* You can access the on screen keyboard by holding the guide button." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>
@@ -704,42 +719,6 @@
                                 <Slider Name="slider_SettingsKeypadMouseMoveSensitivity" Width="460" Minimum="1.00" Maximum="50.00" TickFrequency="0.25" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                                 <TextBlock Margin="0,15,0,0" Text="* You can access the keypad by holding the guide button when the on screen keyboard is already open." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Grid>
-                </Grid>
-            </Grid>
-
-            <!-- Grid Media -->
-            <Grid Name="grid_Media" Grid.Column="1" Background="{DynamicResource ApplicationWhiteBrush}" Visibility="Collapsed">
-                <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
-                        <StackPanel>
-                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Media"/>
-                            <Border Margin="0,30,0,0" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
-                        </StackPanel>
-                    </Grid>
-
-                    <Grid Grid.Row="1">
-                        <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
-                            <StackPanel>
-                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Controller Settings"/>
-                                <TextBlock Text="Controller media led condition" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                                <TextBlock Text="Change the condition when media led turns on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <ComboBox Name="combobox_ControllerLedCondition" HorizontalAlignment="Left" Width="400" Style="{StaticResource ComboBoxBlack}">
-                                    <ComboBoxItem>Input volume muted</ComboBoxItem>
-                                    <ComboBoxItem>Output volume muted</ComboBoxItem>
-                                </ComboBox>
-
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Volume Settings"/>
-                                <TextBlock Name="textblock_SettingsMediaVolumeStep" Text="Volume change step" Tag="Volume change step: " Style="{StaticResource TextBlockBlack}"/>
-                                <TextBlock Text="Change the used step when changing your system volume." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_SettingsMediaVolumeStep" Width="400" Minimum="1" Maximum="20" TickFrequency="1" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
