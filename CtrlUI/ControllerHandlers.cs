@@ -10,6 +10,7 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.ControllerTimings;
 using static LibraryShared.Enums;
 
 namespace CtrlUI
@@ -278,7 +279,7 @@ namespace CtrlUI
                         ControllerUsed = true;
 
                         //Check navigation delay
-                        if (ControllerInput.DPadLeft.PressTimeCurrent > 200)
+                        if (ControllerInput.DPadLeft.PressTimeCurrent > vControllerButtonPressTap)
                         {
                             ControllerDelay25 = true;
                         }
@@ -296,7 +297,7 @@ namespace CtrlUI
                         ControllerUsed = true;
 
                         //Check navigation delay
-                        if (ControllerInput.DPadUp.PressTimeCurrent > 200)
+                        if (ControllerInput.DPadUp.PressTimeCurrent > vControllerButtonPressTap)
                         {
                             ControllerDelay25 = true;
                         }
@@ -314,7 +315,7 @@ namespace CtrlUI
                         ControllerUsed = true;
 
                         //Check navigation delay
-                        if (ControllerInput.DPadRight.PressTimeCurrent > 200)
+                        if (ControllerInput.DPadRight.PressTimeCurrent > vControllerButtonPressTap)
                         {
                             ControllerDelay25 = true;
                         }
@@ -332,7 +333,7 @@ namespace CtrlUI
                         ControllerUsed = true;
 
                         //Check navigation delay
-                        if (ControllerInput.DPadDown.PressTimeCurrent > 200)
+                        if (ControllerInput.DPadDown.PressTimeCurrent > vControllerButtonPressTap)
                         {
                             ControllerDelay25 = true;
                         }
@@ -418,7 +419,7 @@ namespace CtrlUI
                         ControllerUsed = true;
 
                         //Check navigation delay
-                        if (ControllerInput.ButtonThumbLeftLeft.PressTimeCurrent > 200)
+                        if (ControllerInput.ButtonThumbLeftLeft.PressTimeCurrent > vControllerButtonPressTap)
                         {
                             ControllerDelay25 = true;
                         }
@@ -434,7 +435,7 @@ namespace CtrlUI
                         ControllerUsed = true;
 
                         //Check navigation delay
-                        if (ControllerInput.ButtonThumbLeftUp.PressTimeCurrent > 200)
+                        if (ControllerInput.ButtonThumbLeftUp.PressTimeCurrent > vControllerButtonPressTap)
                         {
                             ControllerDelay25 = true;
                         }
@@ -450,7 +451,7 @@ namespace CtrlUI
                         ControllerUsed = true;
 
                         //Check navigation delay
-                        if (ControllerInput.ButtonThumbLeftRight.PressTimeCurrent > 200)
+                        if (ControllerInput.ButtonThumbLeftRight.PressTimeCurrent > vControllerButtonPressTap)
                         {
                             ControllerDelay25 = true;
                         }
@@ -466,7 +467,7 @@ namespace CtrlUI
                         ControllerUsed = true;
 
                         //Check navigation delay
-                        if (ControllerInput.ButtonThumbLeftDown.PressTimeCurrent > 200)
+                        if (ControllerInput.ButtonThumbLeftDown.PressTimeCurrent > vControllerButtonPressTap)
                         {
                             ControllerDelay25 = true;
                         }

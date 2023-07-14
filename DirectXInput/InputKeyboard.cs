@@ -4,6 +4,7 @@ using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
+using static LibraryShared.ControllerTimings;
 
 namespace DirectXInput
 {

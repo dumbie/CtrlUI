@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVJsonFunctions;
-using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.ControllerTimings;
 using static LibraryShared.Enums;
 
 namespace DirectXInput

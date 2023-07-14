@@ -12,6 +12,7 @@ using static ArnoldVinkCode.AVWindowFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
+using static LibraryShared.ControllerTimings;
 using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
 
@@ -147,7 +148,7 @@ namespace DirectXInput.KeyboardCode
                                 KeySendSingle(KeysVirtual.ArrowLeft, vInteropWindowHandle);
 
                                 //Check navigation delay
-                                if (ControllerInput.DPadLeft.PressTimeCurrent > 200)
+                                if (ControllerInput.DPadLeft.PressTimeCurrent > vControllerButtonPressTap)
                                 {
                                     ControllerDelay25 = true;
                                 }
@@ -190,7 +191,7 @@ namespace DirectXInput.KeyboardCode
                                 KeySendSingle(KeysVirtual.ArrowRight, vInteropWindowHandle);
 
                                 //Check navigation delay
-                                if (ControllerInput.DPadRight.PressTimeCurrent > 200)
+                                if (ControllerInput.DPadRight.PressTimeCurrent > vControllerButtonPressTap)
                                 {
                                     ControllerDelay25 = true;
                                 }
@@ -233,7 +234,7 @@ namespace DirectXInput.KeyboardCode
                                 KeySendSingle(KeysVirtual.ArrowUp, vInteropWindowHandle);
 
                                 //Check navigation delay
-                                if (ControllerInput.DPadUp.PressTimeCurrent > 200)
+                                if (ControllerInput.DPadUp.PressTimeCurrent > vControllerButtonPressTap)
                                 {
                                     ControllerDelay25 = true;
                                 }
@@ -276,7 +277,7 @@ namespace DirectXInput.KeyboardCode
                                 KeySendSingle(KeysVirtual.ArrowDown, vInteropWindowHandle);
 
                                 //Check navigation delay
-                                if (ControllerInput.DPadDown.PressTimeCurrent > 200)
+                                if (ControllerInput.DPadDown.PressTimeCurrent > vControllerButtonPressTap)
                                 {
                                     ControllerDelay25 = true;
                                 }

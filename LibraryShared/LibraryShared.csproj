@@ -118,6 +118,7 @@
     <Compile Include="Classes\ProfileShared.cs" />
     <Compile Include="Classes\RomInformation.cs" />
     <Compile Include="Classes\ShortcutDetails.cs" />
+    <Compile Include="ControllerTimings.cs" />
     <Compile Include="Cryptography\CRC32.cs" />
     <Compile Include="Classes\ProcessWindowAction.cs" />
     <Compile Include="Enums\AppCategory.cs" />

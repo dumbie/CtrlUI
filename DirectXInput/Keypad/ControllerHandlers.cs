@@ -4,6 +4,7 @@ using static ArnoldVinkCode.AVInputOutputMouse;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
+using static LibraryShared.ControllerTimings;
 
 namespace DirectXInput.KeypadCode
 {

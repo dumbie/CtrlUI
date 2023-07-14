@@ -2,6 +2,7 @@
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.ControllerTimings;
 
 namespace DirectXInput.KeypadCode
 {

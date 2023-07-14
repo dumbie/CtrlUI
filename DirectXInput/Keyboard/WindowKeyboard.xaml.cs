@@ -16,6 +16,7 @@ using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
+using static LibraryShared.ControllerTimings;
 using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
 

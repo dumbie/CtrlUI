@@ -18,6 +18,7 @@ using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
 using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
+using static LibraryShared.ControllerTimings;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput.KeypadCode

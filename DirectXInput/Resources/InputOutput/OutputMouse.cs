@@ -1,5 +1,5 @@
 ﻿using System;
-using static DirectXInput.AppVariables;
+using static LibraryShared.ControllerTimings;
 
 namespace DirectXInput
 {
