@@ -157,7 +157,7 @@ namespace CtrlUI
                 vMainMenuOpen = true;
 
                 //Focus on the menu listbox
-                await ListBoxFocusIndex(listbox_MainMenu, false, 0, vProcessCurrent.WindowHandleMain);
+                await ListBoxFocusIndex(listbox_MainMenu, false, -1, vProcessCurrent.WindowHandleMain);
 
                 //Update the clock with date
                 UpdateClockTime();
