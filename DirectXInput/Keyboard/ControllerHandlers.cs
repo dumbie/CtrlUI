@@ -108,7 +108,7 @@ namespace DirectXInput.KeyboardCode
         //Process controller input for keyboard
         public async Task ControllerInteractionKeyboard(ControllerInput ControllerInput)
         {
-            bool ControllerDelay25 = false;
+            bool ControllerDelay30 = false;
             bool ControllerDelay125 = false;
             bool ControllerDelay250 = false;
             bool ControllerDelay500 = false;
@@ -150,7 +150,7 @@ namespace DirectXInput.KeyboardCode
                                 //Check navigation delay
                                 if (ControllerInput.DPadLeft.PressTimeCurrent > vControllerButtonPressTap)
                                 {
-                                    ControllerDelay25 = true;
+                                    ControllerDelay30 = true;
                                 }
                                 else
                                 {
@@ -193,7 +193,7 @@ namespace DirectXInput.KeyboardCode
                                 //Check navigation delay
                                 if (ControllerInput.DPadRight.PressTimeCurrent > vControllerButtonPressTap)
                                 {
-                                    ControllerDelay25 = true;
+                                    ControllerDelay30 = true;
                                 }
                                 else
                                 {
@@ -236,7 +236,7 @@ namespace DirectXInput.KeyboardCode
                                 //Check navigation delay
                                 if (ControllerInput.DPadUp.PressTimeCurrent > vControllerButtonPressTap)
                                 {
-                                    ControllerDelay25 = true;
+                                    ControllerDelay30 = true;
                                 }
                                 else
                                 {
@@ -279,7 +279,7 @@ namespace DirectXInput.KeyboardCode
                                 //Check navigation delay
                                 if (ControllerInput.DPadDown.PressTimeCurrent > vControllerButtonPressTap)
                                 {
-                                    ControllerDelay25 = true;
+                                    ControllerDelay30 = true;
                                 }
                                 else
                                 {
@@ -543,9 +543,9 @@ namespace DirectXInput.KeyboardCode
                     }
 
                     //Delay input to prevent repeat
-                    if (ControllerDelay25)
+                    if (ControllerDelay30)
                     {
-                        vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayTicks25;
+                        vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayTicks30;
                     }
                     else if (ControllerDelay125)
                     {

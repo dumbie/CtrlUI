@@ -263,7 +263,7 @@ namespace CtrlUI
         bool Controller_DPadPress(ControllerInput ControllerInput)
         {
             bool ControllerUsed = false;
-            bool ControllerDelay25 = false;
+            bool ControllerDelay30 = false;
             bool ControllerDelay125 = false;
             bool ControllerDelay750 = false;
             try
@@ -281,7 +281,7 @@ namespace CtrlUI
                         //Check navigation delay
                         if (ControllerInput.DPadLeft.PressTimeCurrent > vControllerButtonPressTap)
                         {
-                            ControllerDelay25 = true;
+                            ControllerDelay30 = true;
                         }
                         else
                         {
@@ -299,7 +299,7 @@ namespace CtrlUI
                         //Check navigation delay
                         if (ControllerInput.DPadUp.PressTimeCurrent > vControllerButtonPressTap)
                         {
-                            ControllerDelay25 = true;
+                            ControllerDelay30 = true;
                         }
                         else
                         {
@@ -317,7 +317,7 @@ namespace CtrlUI
                         //Check navigation delay
                         if (ControllerInput.DPadRight.PressTimeCurrent > vControllerButtonPressTap)
                         {
-                            ControllerDelay25 = true;
+                            ControllerDelay30 = true;
                         }
                         else
                         {
@@ -335,7 +335,7 @@ namespace CtrlUI
                         //Check navigation delay
                         if (ControllerInput.DPadDown.PressTimeCurrent > vControllerButtonPressTap)
                         {
-                            ControllerDelay25 = true;
+                            ControllerDelay30 = true;
                         }
                         else
                         {
@@ -343,9 +343,9 @@ namespace CtrlUI
                         }
                     }
 
-                    if (ControllerDelay25)
+                    if (ControllerDelay30)
                     {
-                        vControllerDelay_DPad = GetSystemTicksMs() + vControllerDelayTicks25;
+                        vControllerDelay_DPad = GetSystemTicksMs() + vControllerDelayTicks30;
                     }
                     else if (ControllerDelay125)
                     {
@@ -404,7 +404,7 @@ namespace CtrlUI
         bool Controller_StickMovement(ControllerInput ControllerInput)
         {
             bool ControllerUsed = false;
-            bool ControllerDelay25 = false;
+            bool ControllerDelay30 = false;
             bool ControllerDelay125 = false;
             bool ControllerDelay750 = false;
             try
@@ -421,7 +421,7 @@ namespace CtrlUI
                         //Check navigation delay
                         if (ControllerInput.ButtonThumbLeftLeft.PressTimeCurrent > vControllerButtonPressTap)
                         {
-                            ControllerDelay25 = true;
+                            ControllerDelay30 = true;
                         }
                         else
                         {
@@ -437,7 +437,7 @@ namespace CtrlUI
                         //Check navigation delay
                         if (ControllerInput.ButtonThumbLeftUp.PressTimeCurrent > vControllerButtonPressTap)
                         {
-                            ControllerDelay25 = true;
+                            ControllerDelay30 = true;
                         }
                         else
                         {
@@ -453,7 +453,7 @@ namespace CtrlUI
                         //Check navigation delay
                         if (ControllerInput.ButtonThumbLeftRight.PressTimeCurrent > vControllerButtonPressTap)
                         {
-                            ControllerDelay25 = true;
+                            ControllerDelay30 = true;
                         }
                         else
                         {
@@ -469,7 +469,7 @@ namespace CtrlUI
                         //Check navigation delay
                         if (ControllerInput.ButtonThumbLeftDown.PressTimeCurrent > vControllerButtonPressTap)
                         {
-                            ControllerDelay25 = true;
+                            ControllerDelay30 = true;
                         }
                         else
                         {
@@ -507,9 +507,9 @@ namespace CtrlUI
                         ControllerDelay125 = true;
                     }
 
-                    if (ControllerDelay25)
+                    if (ControllerDelay30)
                     {
-                        vControllerDelay_Stick = GetSystemTicksMs() + vControllerDelayTicks25;
+                        vControllerDelay_Stick = GetSystemTicksMs() + vControllerDelayTicks30;
                     }
                     else if (ControllerDelay125)
                     {

@@ -10,7 +10,7 @@
         public static int vControllerThumbOffset10000 = 10000;
         public static int vControllerThumbOffset15000 = 15000;
         public static int vControllerDelayTicks10 = 10;
-        public static int vControllerDelayTicks25 = 25;
+        public static int vControllerDelayTicks30 = 30;
         public static int vControllerDelayTicks125 = 125;
         public static int vControllerDelayTicks250 = 250;
         public static int vControllerDelayTicks500 = 500;
