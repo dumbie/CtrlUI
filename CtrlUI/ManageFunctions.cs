@@ -331,7 +331,7 @@ namespace CtrlUI
 
                     await Notification_Send_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding Win32 app: " + tb_AddAppName.Text + " to the list.");
-                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = selectedAppCategory, EmulatorCategory = selectedEmulatorCategory, Name = tb_AddAppName.Text, EmulatorName = tb_AddAppEmulatorName.Text, PathExe = tb_AddAppPathExe.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, NameExe = tb_AddAppNameExe.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchSkipRom = (bool)checkbox_AddLaunchSkipRom.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableHDR = (bool)checkbox_AddLaunchEnableHDR.IsChecked };
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = selectedAppCategory, EmulatorCategory = selectedEmulatorCategory, Name = tb_AddAppName.Text, EmulatorName = tb_AddAppEmulatorName.Text, PathExe = tb_AddAppPathExe.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, NameExe = tb_AddAppNameExe.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchSkipRom = (bool)checkbox_AddLaunchSkipRom.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableHDR = (bool)checkbox_AddLaunchEnableHDR.IsChecked, LaunchAsAdmin = (bool)checkbox_AddLaunchAsAdmin.IsChecked };
                     await AddAppToList(dataBindApp, true, true);
 
                     //Close the open popup
@@ -391,6 +391,7 @@ namespace CtrlUI
                     vEditAppDataBind.PathRoms = tb_AddAppPathRoms.Text;
                     vEditAppDataBind.Argument = tb_AddAppArgument.Text;
                     vEditAppDataBind.NameExe = tb_AddAppNameExe.Text;
+                    vEditAppDataBind.LaunchAsAdmin = (bool)checkbox_AddLaunchAsAdmin.IsChecked;
                     vEditAppDataBind.LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked;
                     vEditAppDataBind.LaunchSkipRom = (bool)checkbox_AddLaunchSkipRom.IsChecked;
                     vEditAppDataBind.LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked;
@@ -632,6 +633,7 @@ namespace CtrlUI
                     sp_AddEmulatorCategory.Visibility = Visibility.Visible;
                     sp_AddAppArgument.Visibility = Visibility.Visible;
                     sp_AddAppNameExe.Visibility = Visibility.Visible;
+                    checkbox_AddLaunchAsAdmin.Visibility = Visibility.Visible;
                     checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
                 }
                 else
@@ -644,6 +646,7 @@ namespace CtrlUI
                     sp_AddEmulatorCategory.Visibility = Visibility.Collapsed;
                     sp_AddAppArgument.Visibility = Visibility.Visible;
                     sp_AddAppNameExe.Visibility = Visibility.Visible;
+                    checkbox_AddLaunchAsAdmin.Visibility = Visibility.Visible;
                     checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible;
                 }
 
@@ -653,6 +656,7 @@ namespace CtrlUI
                     sp_AddAppExePath.Visibility = Visibility.Collapsed;
                     sp_AddAppPathLaunch.Visibility = Visibility.Collapsed;
                     sp_AddAppNameExe.Visibility = Visibility.Collapsed;
+                    checkbox_AddLaunchAsAdmin.Visibility = Visibility.Collapsed;
                 }
             }
             catch (Exception ex)
@@ -733,6 +737,7 @@ namespace CtrlUI
                 tb_AddAppPathRoms.Text = dataBindApp.PathRoms;
                 tb_AddAppArgument.Text = dataBindApp.Argument;
                 tb_AddAppNameExe.Text = dataBindApp.NameExe;
+                checkbox_AddLaunchAsAdmin.IsChecked = dataBindApp.LaunchAsAdmin;
                 checkbox_AddLaunchFilePicker.IsChecked = dataBindApp.LaunchFilePicker;
                 checkbox_AddLaunchKeyboard.IsChecked = dataBindApp.LaunchKeyboard;
                 checkbox_AddLaunchSkipRom.IsChecked = dataBindApp.LaunchSkipRom;
@@ -774,6 +779,7 @@ namespace CtrlUI
                 tb_AddAppPathRoms.Text = string.Empty;
                 tb_AddAppArgument.Text = string.Empty;
                 tb_AddAppNameExe.Text = string.Empty;
+                checkbox_AddLaunchAsAdmin.IsChecked = true;
                 checkbox_AddLaunchFilePicker.IsChecked = false;
                 checkbox_AddLaunchKeyboard.IsChecked = false;
                 checkbox_AddLaunchSkipRom.IsChecked = false;
@@ -836,7 +842,7 @@ namespace CtrlUI
 
                     await Notification_Send_Status("Plus", "Added " + vFilePickerResult.Name);
                     Debug.WriteLine("Adding UWP app: " + tb_AddAppName.Text + " to the list.");
-                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, AppUserModelId = vFilePickerResult.PathFile, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableHDR = (bool)checkbox_AddLaunchEnableHDR.IsChecked };
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, AppUserModelId = vFilePickerResult.PathFile, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableHDR = (bool)checkbox_AddLaunchEnableHDR.IsChecked, LaunchAsAdmin = (bool)checkbox_AddLaunchAsAdmin.IsChecked };
                     await AddAppToList(dataBindApp, true, true);
                 }
             }

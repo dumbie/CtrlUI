@@ -7,7 +7,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Launch an url protocol from databindapp
-        async Task<bool> PrepareProcessLauncherUrlProtocolAsync(DataBindApp dataBindApp, bool silent, bool runAsAdmin, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherUrlProtocolAsync(DataBindApp dataBindApp, bool silent, bool launchKeyboard)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace CtrlUI
                 await AppWindowMinimize(true, true);
 
                 //Launch the url protocol
-                bool launchSuccess = AVProcess.Launch_ShellExecute(dataBindApp.PathExe, dataBindApp.PathLaunch, dataBindApp.Argument, runAsAdmin);
+                bool launchSuccess = AVProcess.Launch_ShellExecute(dataBindApp.PathExe, dataBindApp.PathLaunch, dataBindApp.Argument, dataBindApp.LaunchAsAdmin);
                 if (!launchSuccess)
                 {
                     await Notification_Send_Status("Close", "Failed launching " + dataBindApp.Name);

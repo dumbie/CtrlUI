@@ -53,7 +53,7 @@ namespace CtrlUI
                     bool keyboardLaunch = (keyboardUrlProtocol || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
                     //Run process url protocol
-                    await PrepareProcessLauncherUrlProtocolAsync(dataBindApp, false, true, keyboardLaunch);
+                    await PrepareProcessLauncherUrlProtocolAsync(dataBindApp, false, keyboardLaunch);
                     return;
                 }
                 else

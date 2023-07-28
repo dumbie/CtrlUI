@@ -168,6 +168,20 @@ namespace LibraryShared
                 }
             }
 
+            private bool PrivLaunchAsAdmin = true;
+            public bool LaunchAsAdmin
+            {
+                get { return this.PrivLaunchAsAdmin; }
+                set
+                {
+                    if (this.PrivLaunchAsAdmin != value)
+                    {
+                        this.PrivLaunchAsAdmin = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private bool PrivLaunchFilePicker = false;
             public bool LaunchFilePicker
             {
