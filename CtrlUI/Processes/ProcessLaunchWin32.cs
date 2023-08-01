@@ -13,7 +13,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Launch a Win32 application from databindapp
-        async Task<bool> PrepareProcessLauncherWin32Async(DataBindApp dataBindApp, string launchArgument, bool silent, bool runAsAdmin, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherWin32Async(DataBindApp dataBindApp, string launchArgument, bool silent, bool launchKeyboard)
         {
             bool appLaunched = false;
             try
@@ -40,7 +40,7 @@ namespace CtrlUI
                 }
 
                 //Launch the application
-                appLaunched = await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, runAsAdmin, launchKeyboard);
+                appLaunched = await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, dataBindApp.LaunchAsAdmin, launchKeyboard);
 
                 //Update last launch date
                 if (appLaunched)
@@ -55,7 +55,7 @@ namespace CtrlUI
         }
 
         //Launch a Win32 application manually
-        async Task<bool> PrepareProcessLauncherWin32Async(string appTitle, string pathExe, string pathWork, string launchArgument, bool silent, bool runAsAdmin, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherWin32Async(string appTitle, string pathExe, string pathWork, string launchArgument, bool silent, bool launchAsAdmin, bool launchKeyboard)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace CtrlUI
                 await AppWindowMinimize(true, true);
 
                 //Launch the Win32 application
-                bool launchSuccess = AVProcess.Launch_ShellExecute(pathExe, pathWork, launchArgument, runAsAdmin);
+                bool launchSuccess = AVProcess.Launch_ShellExecute(pathExe, pathWork, launchArgument, launchAsAdmin);
                 if (!launchSuccess)
                 {
                     await Notification_Send_Status("Close", "Failed launching " + appTitle);

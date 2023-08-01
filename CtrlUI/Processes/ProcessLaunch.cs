@@ -117,7 +117,7 @@ namespace CtrlUI
                 else
                 {
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, true, keyboardLaunch);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, keyboardLaunch);
                 }
             }
             catch { }
