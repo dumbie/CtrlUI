@@ -164,6 +164,7 @@ namespace CtrlUI
                 }
 
                 //Get application image
+                string libraryImageLink = "https://cdn.cloudflare.steamstatic.com/steam/apps/" + appId + "/library_600x900.jpg";
                 string libraryImageName = steamMainPath + "\\appcache\\librarycache\\" + appId + "_library_600x900.jpg";
                 string logoImageName = steamMainPath + "\\appcache\\librarycache\\" + appId + "_logo.png";
                 BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, libraryImageName, logoImageName, "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);

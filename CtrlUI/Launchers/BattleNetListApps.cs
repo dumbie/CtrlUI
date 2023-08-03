@@ -25,7 +25,7 @@ namespace CtrlUI
         }
 
         //Arrays
-        private static string[] vBattleNetUidBlacklist = { "agent", "bna", "battle.net" };
+        private static string[] vBattleNetUidBlacklist = { "agent", "agent_beta", "bna", "battle.net" };
         private static string[] vBattleNetBranchReplace = { "retail" };
         private static LaunchIdConvert[] vBattleNetLaunchIdentifiers =
         {
