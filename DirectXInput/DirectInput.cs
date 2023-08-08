@@ -145,6 +145,16 @@ namespace DirectXInput
             {
                 AVActions.DispatcherInvoke(delegate
                 {
+                    //Check if controller supports rumble mode
+                    if (Controller.SupportedCurrent.HasRumbleMode)
+                    {
+                        stackpanel_ControllerRumbleMode.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        stackpanel_ControllerRumbleMode.Visibility = Visibility.Collapsed;
+                    }
+
                     //Check if controller supports trigger rumble
                     if (Controller.SupportedCurrent.HasRumbleTrigger)
                     {
@@ -190,13 +200,16 @@ namespace DirectXInput
                     slider_ControllerSensitivityThumbRight.Value = Controller.Details.Profile.SensitivityThumbRight;
 
                     cb_ControllerRumbleEnabled.IsChecked = Controller.Details.Profile.ControllerRumbleEnabled;
+                    combobox_ControllerRumbleMode.SelectedIndex = Controller.Details.Profile.ControllerRumbleMode;
                     if (Controller.Details.Profile.ControllerRumbleEnabled)
                     {
+                        combobox_ControllerRumbleMode.IsEnabled = true;
                         slider_ControllerRumbleStrength.IsEnabled = true;
                         slider_ControllerRumbleLimit.IsEnabled = true;
                     }
                     else
                     {
+                        combobox_ControllerRumbleMode.IsEnabled = false;
                         slider_ControllerRumbleStrength.IsEnabled = false;
                         slider_ControllerRumbleLimit.IsEnabled = false;
                     }

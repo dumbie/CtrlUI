@@ -29,9 +29,6 @@ namespace DirectXInput
                 {
                     try
                     {
-                        //Delay task to prevent high cpu usage
-                        TaskDelayHighRes(1);
-
                         //Check if output values have changed
                         bool ledRChanged = Controller.ColorLedCurrentR == Controller.ColorLedPreviousR;
                         bool ledGChanged = Controller.ColorLedCurrentG == Controller.ColorLedPreviousG;
@@ -39,7 +36,12 @@ namespace DirectXInput
                         bool ledMuteChanged = vControllerMuteLedCurrent == vControllerMuteLedPrevious;
                         bool heavyRumbleChanged = Controller.XOutputCurrentRumbleHeavy == Controller.XOutputPreviousRumbleHeavy;
                         bool lightRumbleChanged = Controller.XOutputCurrentRumbleLight == Controller.XOutputPreviousRumbleLight;
-                        if (ledRChanged && ledGChanged && ledBChanged && ledMuteChanged && heavyRumbleChanged && lightRumbleChanged) { continue; }
+                        if (ledRChanged && ledGChanged && ledBChanged && ledMuteChanged && heavyRumbleChanged && lightRumbleChanged)
+                        {
+                            //Delay task to prevent high cpu usage
+                            TaskDelayHighRes(1);
+                            continue;
+                        }
 
                         //Update the previous output values
                         Controller.ColorLedPreviousR = Controller.ColorLedCurrentR;
@@ -71,6 +73,7 @@ namespace DirectXInput
                 }
 
                 //Read the rumble strength
+                byte controllerRumbleMode = 0;
                 byte controllerRumbleHeavy = 0;
                 byte controllerRumbleLight = 0;
                 if (testHeavy)
@@ -119,6 +122,25 @@ namespace DirectXInput
                     controllerRumbleLight = Convert.ToByte(controllerRumbleLight * controllerRumbleStrength);
                     if (controllerRumbleLight > controllerRumbleLimit) { controllerRumbleLight = controllerRumbleLimit; }
                     Debug.WriteLine("Controller rumble Light: " + controllerRumbleLight + " / Limit: " + controllerRumbleLimit);
+
+                    if (Controller.Details.Profile.ControllerRumbleMode == 1)
+                    {
+                        controllerRumbleMode = 0x01; //90%
+                    }
+                    else if (Controller.Details.Profile.ControllerRumbleMode == 2)
+                    {
+                        controllerRumbleMode = 0x02; //80%
+                    }
+                    else if (Controller.Details.Profile.ControllerRumbleMode == 3)
+                    {
+                        controllerRumbleMode = 0x03; //70%
+                    }
+                    else if (Controller.Details.Profile.ControllerRumbleMode == 4)
+                    {
+                        controllerRumbleMode = 0x04; //60%
+                    }
+
+                    Debug.WriteLine("Controller rumble Mode: " + controllerRumbleMode);
                 }
                 else
                 {
@@ -137,9 +159,12 @@ namespace DirectXInput
                     outputReport[3] = 0xFF;
                     outputReport[4] = 0xF7;
 
-                    //Controller rumble
+                    //Controller rumble strength
                     outputReport[5] = controllerRumbleLight;
                     outputReport[6] = controllerRumbleHeavy;
+
+                    //Controller rumble mode
+                    outputReport[39] = controllerRumbleMode;
 
                     //Trigger rumble
                     if (triggerRumbleRight >= triggerRumbleMinimum)
@@ -177,7 +202,7 @@ namespace DirectXInput
                         outputReport[11] = 0x00;
                     }
 
-                    //Set the controller led color
+                    //Set controller led color
                     outputReport[47] = Controller.ColorLedCurrentR;
                     outputReport[48] = Controller.ColorLedCurrentG;
                     outputReport[49] = Controller.ColorLedCurrentB;
@@ -198,9 +223,12 @@ namespace DirectXInput
                     outputReport[1] = 0xFF;
                     outputReport[2] = 0xF7;
 
-                    //Controller rumble
+                    //Controller rumble strength
                     outputReport[3] = controllerRumbleLight;
                     outputReport[4] = controllerRumbleHeavy;
+
+                    //Controller rumble mode
+                    outputReport[37] = controllerRumbleMode;
 
                     //Trigger rumble
                     if (triggerRumbleRight >= triggerRumbleMinimum)
@@ -238,7 +266,7 @@ namespace DirectXInput
                         outputReport[9] = 0x00;
                     }
 
-                    //Set the controller led color
+                    //Set controller led color
                     outputReport[45] = Controller.ColorLedCurrentR;
                     outputReport[46] = Controller.ColorLedCurrentG;
                     outputReport[47] = Controller.ColorLedCurrentB;

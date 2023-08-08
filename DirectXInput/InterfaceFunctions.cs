@@ -300,14 +300,28 @@ namespace DirectXInput
                         //Update settings interface
                         if (activeController.Details.Profile.ControllerRumbleEnabled)
                         {
+                            combobox_ControllerRumbleMode.IsEnabled = true;
                             slider_ControllerRumbleStrength.IsEnabled = true;
                             slider_ControllerRumbleLimit.IsEnabled = true;
                         }
                         else
                         {
+                            combobox_ControllerRumbleMode.IsEnabled = false;
                             slider_ControllerRumbleStrength.IsEnabled = false;
                             slider_ControllerRumbleLimit.IsEnabled = false;
                         }
+                    }
+                };
+
+                combobox_ControllerRumbleMode.SelectionChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
+                    {
+                        activeController.Details.Profile.ControllerRumbleMode = combobox_ControllerRumbleMode.SelectedIndex;
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 

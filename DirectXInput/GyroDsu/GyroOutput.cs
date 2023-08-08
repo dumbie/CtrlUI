@@ -143,13 +143,20 @@ namespace DirectXInput
         }
 
         //Send controller input to gyro dsu
-        async Task SendGyroMotionController(ControllerStatus controller)
+        async Task<bool> SendGyroMotionController(ControllerStatus controller)
         {
             try
             {
                 //Check if client endpoint is set
-                if (controller.GyroDsuClientEndPoint == null || !controller.GyroDsuClientEndPoint.Active) { return; }
-                //Debug.WriteLine("Sending gyro motion " + controller.NumberId + " to dsu client.");
+                if (controller.GyroDsuClientEndPoint == null || !controller.GyroDsuClientEndPoint.Active)
+                {
+                    //Debug.WriteLine("No gyro motion end point found to send input.");
+                    return false;
+                }
+                else
+                {
+                    //Debug.WriteLine("Sending gyro motion " + controller.NumberId + " to dsu client.");
+                }
 
                 //Set message header
                 byte[] sendBytes = new byte[100];
@@ -272,10 +279,20 @@ namespace DirectXInput
                 //Send bytes to dsu client
                 if (!await vArnoldVinkSockets.UdpClientSendBytesServer(controller.GyroDsuClientEndPoint.IPEndPoint, sendBytes, vArnoldVinkSockets.vSocketTimeout))
                 {
-                    Debug.WriteLine("Failed to send motion bytes to dsu client.");
+                    //Debug.WriteLine("Failed sending motion bytes to dsu client.");
+                    return false;
+                }
+                else
+                {
+                    //Debug.WriteLine("Sended motion bytes to dsu client.");
+                    return true;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed sending motion to dsu client: " + ex.Message);
+                return false;
+            }
         }
     }
 }

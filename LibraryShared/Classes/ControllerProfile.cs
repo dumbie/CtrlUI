@@ -658,6 +658,20 @@ namespace LibraryShared
                 }
             }
 
+            private int PrivControllerRumbleMode = 2;
+            public int ControllerRumbleMode
+            {
+                get { return this.PrivControllerRumbleMode; }
+                set
+                {
+                    if (this.PrivControllerRumbleMode != value)
+                    {
+                        this.PrivControllerRumbleMode = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private int PrivControllerRumbleLimit = 80;
             public int ControllerRumbleLimit
             {
