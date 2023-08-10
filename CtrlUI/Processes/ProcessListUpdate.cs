@@ -77,8 +77,7 @@ namespace CtrlUI
 
                         //Check if process is in combined list and update it
                         Func<DataBindApp, bool> filterCombinedApp = x => (!string.IsNullOrWhiteSpace(x.PathExe) && x.PathExe.ToLower() == processPathExeLower) || (!string.IsNullOrWhiteSpace(x.PathExe) && Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == processNameExeNoExtLower) || (!string.IsNullOrWhiteSpace(x.NameExe) && x.NameExe.ToLower() == processNameExeLower) || (!string.IsNullOrWhiteSpace(x.AppUserModelId) && x.AppUserModelId.ToLower() == processAppUserModelIdLower);
-                        IEnumerable<DataBindApp> existingCombinedApps = combinedAppLists.Where(filterCombinedApp);
-                        foreach (DataBindApp existingCombinedApp in existingCombinedApps)
+                        foreach (DataBindApp existingCombinedApp in combinedAppLists.Where(filterCombinedApp))
                         {
                             //Update the process running time
                             existingCombinedApp.StatusProcessRunTime = processRunTime;
@@ -105,14 +104,26 @@ namespace CtrlUI
                             continue;
                         }
 
-                        //Check if application has valid window
-                        if (!Check_WindowHandleValid(processMulti.WindowHandleMain))
+                        //Get application main window handle
+                        IntPtr windowHandleMain = processMulti.WindowHandleMain;
+
+                        //Check if application has valid main window
+                        if (windowHandleMain == IntPtr.Zero)
                         {
                             continue;
                         }
 
+                        //Check if uwp application has foreground window
+                        if (processMulti.Type == ProcessType.UWP)
+                        {
+                            if (!Check_ProcessIsForegroundUwpApp(processMulti.Identifier))
+                            {
+                                continue;
+                            }
+                        }
+
                         //Add valid window handle to list
-                        processWindowHandles.Add(processMulti.WindowHandleMain);
+                        processWindowHandles.Add(windowHandleMain);
 
                         //Check process name for correction
                         ProcessNameCorrection(processMulti, processNameExeLower);
@@ -163,7 +174,7 @@ namespace CtrlUI
                         }
 
                         //Load the application image
-                        BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processMulti.WindowTitleMain, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExe }, vImageSourceFolders, vImageBackupSource, processMulti.WindowHandleMain, vImageLoadSize, 0);
+                        BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processMulti.WindowTitleMain, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExe }, vImageSourceFolders, vImageBackupSource, windowHandleMain, vImageLoadSize, 0);
 
                         //Create new ProcessMulti list
                         List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();

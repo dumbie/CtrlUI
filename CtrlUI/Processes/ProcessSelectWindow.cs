@@ -32,7 +32,7 @@ namespace CtrlUI
                         try
                         {
                             //Validate the window handle
-                            if (!Check_WindowHandleValid(windowHandle))
+                            if (!Check_WindowHandleValid(windowHandle, false))
                             {
                                 //Debug.WriteLine("Window handle is not valid.");
                                 continue;
@@ -53,6 +53,10 @@ namespace CtrlUI
                             if (windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW))
                             {
                                 windowSubString += " (Tool)";
+                            }
+                            else if (windowStyle.HasFlag(WindowStylesEx.WS_EX_APPWINDOW))
+                            {
+                                windowSubString += " (App)";
                             }
                             else if (windowStyle.HasFlag(WindowStylesEx.WS_EX_LAYERED))
                             {
