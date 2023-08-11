@@ -14,9 +14,10 @@ namespace LibraryUsb
         public class EnumerateInfo
         {
             public string DevicePath { get; set; }
+            public string DeviceInstanceId { get; set; }
+            public string DeviceModelId { get; set; }
             public string Description { get; set; }
             public string HardwareId { get; set; }
-            public string ModelId { get; set; }
         }
 
         public static List<FileInfo> EnumerateDevicesStore(string infFileName)
@@ -98,19 +99,21 @@ namespace LibraryUsb
                             {
                                 deviceIndexInterfaces++;
                                 string devicePath = GetDevicePath(deviceInfoList, deviceInterfaceData);
+                                string deviceInstanceId = GetDeviceInstanceId(deviceInfoList, ref deviceInfoData);
                                 string description = GetBusReportedDeviceDescription(deviceInfoList, ref deviceInfoData);
                                 if (string.IsNullOrWhiteSpace(description))
                                 {
                                     description = GetDeviceDescription(deviceInfoList, ref deviceInfoData);
                                 }
                                 string hardwareId = GetDeviceHardwareId(deviceInfoList, ref deviceInfoData);
-                                string modelId = GetDeviceModelId(devicePath);
+                                string deviceModelId = GetDeviceModelId(devicePath);
 
                                 EnumerateInfo foundDevice = new EnumerateInfo();
                                 foundDevice.DevicePath = devicePath;
+                                foundDevice.DeviceInstanceId = deviceInstanceId;
                                 foundDevice.Description = description;
                                 foundDevice.HardwareId = hardwareId;
-                                foundDevice.ModelId = modelId;
+                                foundDevice.DeviceModelId = deviceModelId;
                                 enumeratedInfoList.Add(foundDevice);
                             }
                             catch { }
@@ -142,31 +145,47 @@ namespace LibraryUsb
                 SetupDiGetDeviceInterfaceDetail(deviceInfoList, ref deviceInterfaceData, IntPtr.Zero, 0, ref bufferSize, IntPtr.Zero);
                 SP_DEVICE_INTERFACE_DETAIL_DATA interfaceDetail = new SP_DEVICE_INTERFACE_DETAIL_DATA
                 {
-                    Size = IntPtr.Size == 4 ? 4 + Marshal.SystemDefaultCharSize : 8
+                    cbSize = IntPtr.Size == 4 ? 4 + Marshal.SystemDefaultCharSize : 8
                 };
 
                 //Read device details
                 if (SetupDiGetDeviceInterfaceDetail(deviceInfoList, ref deviceInterfaceData, ref interfaceDetail, bufferSize, ref bufferSize, IntPtr.Zero))
                 {
-                    if (!string.IsNullOrWhiteSpace(interfaceDetail.DevicePath))
-                    {
-                        return interfaceDetail.DevicePath.ToLower();
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Failed to get device path, empty string.");
-                        return string.Empty;
-                    }
+                    return interfaceDetail.DevicePath.ToLower();
                 }
                 else
                 {
-                    Debug.WriteLine("Failed to get device path, detail missing.");
+                    //Debug.WriteLine("Failed to get device path, detail missing.");
                     return string.Empty;
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to get device path: " + ex.Message);
+                return string.Empty;
+            }
+        }
+
+        private static string GetDeviceInstanceId(IntPtr deviceInfoList, ref SP_DEVICE_INFO_DATA devinfoData)
+        {
+            try
+            {
+                byte[] instanceIdBuffer = new byte[1024];
+                int requiredSize = 0;
+
+                if (SetupDiGetDeviceInstanceId(deviceInfoList, ref devinfoData, instanceIdBuffer, 1024, out requiredSize))
+                {
+                    return instanceIdBuffer.ToUTF16String().ToLower();
+                }
+                else
+                {
+                    //Debug.WriteLine("Failed to get device instance id, detail missing.");
+                    return string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to get device instance id: " + ex.Message);
                 return string.Empty;
             }
         }
@@ -185,6 +204,7 @@ namespace LibraryUsb
                 }
                 else
                 {
+                    //Debug.WriteLine("Failed to get device description, detail missing.");
                     return string.Empty;
                 }
             }
@@ -209,6 +229,7 @@ namespace LibraryUsb
                 }
                 else
                 {
+                    //Debug.WriteLine("Failed to get bus device description, detail missing.");
                     return string.Empty;
                 }
             }
@@ -233,7 +254,7 @@ namespace LibraryUsb
                 }
                 else
                 {
-                    Debug.WriteLine("Failed to get hardware id.");
+                    //Debug.WriteLine("Failed to get hardware id, detail missing.");
                     return string.Empty;
                 }
             }

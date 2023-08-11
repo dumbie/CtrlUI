@@ -172,22 +172,5 @@ namespace LibraryUsb
                 }
             }
         }
-
-        //Convert device path to InstanceId
-        public static string ConvertPathToInstanceId(string devicePath)
-        {
-            try
-            {
-                string InstanceId = devicePath.Remove(0, devicePath.LastIndexOf("\\") + 1);
-                InstanceId = InstanceId.Remove(InstanceId.LastIndexOf("{"));
-                InstanceId = InstanceId.Replace('#', '\\');
-                if (InstanceId.EndsWith("\\")) { InstanceId = InstanceId.Remove(InstanceId.Length - 1); }
-                return InstanceId;
-            }
-            catch
-            {
-                return string.Empty;
-            }
-        }
     }
 }
