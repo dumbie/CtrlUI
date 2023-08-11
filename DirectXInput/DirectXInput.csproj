@@ -136,7 +136,6 @@
     <Compile Include="GyroDsu\GyroDsuEnum.cs" />
     <Compile Include="GyroDsu\GyroClientHandler.cs" />
     <Compile Include="InputKeyboard.cs" />
-    <Compile Include="Keyboard\AppMessageFilter.cs" />
     <Compile Include="Keyboard\InformationFunctions.cs" />
     <Compile Include="Keyboard\ToolFunctions.cs" />
     <Compile Include="Keyboard\ModeFunctions.cs" />
@@ -145,7 +144,6 @@
     <Compile Include="ToolFunctions.cs" />
     <Compile Include="Keyboard\KeyboardTasks.cs" />
     <Compile Include="Keyboard\MediaFunctions.cs" />
-    <Compile Include="Keyboard\Resources\InputOutput\InputKeyboard.cs" />
     <Compile Include="Keyboard\TextListFunctions.cs" />
     <Compile Include="Keyboard\EmojiListFunctions.cs" />
     <Compile Include="Keypad\KeypadTasks.cs" />

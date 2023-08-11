@@ -538,7 +538,7 @@
                 </Border.Background>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <!-- Shortcut ListBox -->
-                    <ListBox Name="listbox_ShortcutList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="210" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemTextList}" Style="{StaticResource ListBoxVertical}" PreviewKeyUp="Listbox_ShortcutList_PreviewKeyUp" PreviewMouseUp="Listbox_ShortcutList_PreviewMouseUp"/>
+                    <ListBox Name="listbox_ShortcutList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="210" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemTextList}" Style="{StaticResource ListBoxVertical}" PreviewKeyUp="Listbox_ShortcutList_PreviewKeyUp" PreviewMouseUp="Listbox_ShortcutList_PreviewMouseUp" KeyboardNavigation.DirectionalNavigation="Cycle"/>
 
                     <!-- Popup Close Button -->
                     <Button Name="key_ShortcutListClose" Margin="6,2,6,6" HorizontalAlignment="Stretch" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseShortcutList_PreviewKeyUp" PreviewMouseUp="ButtonCloseShortcutList_PreviewMouseUp">
@@ -562,7 +562,7 @@
                     <TextBlock Name="textblock_TextListNoTextSet" Visibility="Collapsed" Margin="4" FontSize="{StaticResource TextSizeLarge}" Text="No texts are set, you can add texts in the DirectXInput settings." Style="{StaticResource TextBlockWhite}"/>
 
                     <!-- Text ListBox -->
-                    <ListBox Name="listbox_TextList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="210" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemTextList}" Style="{StaticResource ListBoxVertical}" PreviewKeyUp="Listbox_TextList_PreviewKeyUp" PreviewMouseUp="Listbox_TextList_PreviewMouseUp"/>
+                    <ListBox Name="listbox_TextList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="210" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemTextList}" Style="{StaticResource ListBoxVertical}" PreviewKeyUp="Listbox_TextList_PreviewKeyUp" PreviewMouseUp="Listbox_TextList_PreviewMouseUp" KeyboardNavigation.DirectionalNavigation="Cycle"/>
 
                     <!-- Popup Close Button -->
                     <Button Name="key_TextListClose" Margin="6,2,6,6" HorizontalAlignment="Stretch" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseTextList_PreviewKeyUp" PreviewMouseUp="ButtonCloseTextList_PreviewMouseUp">
@@ -583,7 +583,7 @@
                 </Border.Background>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <!-- Emoji ListBox -->
-                    <ListBox Name="listbox_EmojiList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="220" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemEmojiList}" Style="{StaticResource ListBoxWrapPanelHorizontal}" PreviewKeyUp="listbox_EmojiList_PreviewKeyUp" PreviewMouseUp="listbox_EmojiList_PreviewMouseUp"/>
+                    <ListBox Name="listbox_EmojiList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="220" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemEmojiList}" Style="{StaticResource ListBoxWrapPanelHorizontal}" PreviewKeyUp="listbox_EmojiList_PreviewKeyUp" PreviewMouseUp="listbox_EmojiList_PreviewMouseUp" KeyboardNavigation.DirectionalNavigation="Cycle"/>
 
                     <Grid Margin="2,4,4,6">
                         <Grid.ColumnDefinitions>

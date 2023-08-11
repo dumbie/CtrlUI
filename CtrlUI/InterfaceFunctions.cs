@@ -66,7 +66,7 @@ namespace CtrlUI
                 btn_Manage_ResetAppLogo.Click += Button_Manage_ResetAppLogo_Click;
                 btn_Manage_SaveEditApp.Click += Button_Manage_SaveEditApp_Click;
                 lb_Manage_AddAppCategory.SelectionChanged += Lb_Manage_AddAppCategory_SelectionChanged;
-                btn_AddAppLogo.Click += Button_AddAppLogo_Click;
+                btn_Manage_AddAppLogo.Click += Button_AddAppLogo_Click;
                 btn_AddAppPathExe.Click += Button_AddAppPathExe_Click;
                 btn_AddAppPathLaunch.Click += Button_AddAppPathLaunch_Click;
                 btn_AddAppPathRoms.Click += Button_AddAppPathRoms_Click;

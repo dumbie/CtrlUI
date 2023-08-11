@@ -135,7 +135,7 @@ namespace CtrlUI
                 dataBindApp.ImageBitmap = applicationImage;
                 img_AddAppLogo.Source = applicationImage;
 
-                await Notification_Send_Status("Restart", "App image reset");
+                await Notification_Send_Status("Restart", "Application image reset");
                 Debug.WriteLine("Application image reset: " + imageFileName);
             }
             catch (Exception ex)

@@ -670,7 +670,7 @@ namespace CtrlUI
         {
             try
             {
-                btn_AddAppLogo.IsEnabled = false;
+                btn_Manage_AddAppLogo.IsEnabled = false;
                 btn_Manage_ResetAppLogo.IsEnabled = false;
                 tb_AddAppName.IsEnabled = false;
                 tb_AddAppEmulatorName.IsEnabled = false;
@@ -691,7 +691,7 @@ namespace CtrlUI
         {
             try
             {
-                btn_AddAppLogo.IsEnabled = true;
+                btn_Manage_AddAppLogo.IsEnabled = true;
                 btn_Manage_ResetAppLogo.IsEnabled = true;
                 tb_AddAppName.IsEnabled = true;
                 tb_AddAppEmulatorName.IsEnabled = true;

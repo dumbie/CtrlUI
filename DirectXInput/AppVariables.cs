@@ -37,7 +37,6 @@ namespace DirectXInput
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;
-        public static string[] vLoopTargetListsFirstLastItem = { "listbox_TextList", "listbox_ShortcutList" };
         public static bool vShowDebugInformation = false;
 
         //Dispatcher Timers

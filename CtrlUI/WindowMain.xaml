@@ -266,13 +266,13 @@
 
                     <!-- Application Lists -->
                     <Grid Grid.Row="1" Margin="20,0,20,10">
-                        <ListBox Name="lb_Games" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
-                        <ListBox Name="lb_Apps" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
-                        <ListBox Name="lb_Emulators" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
-                        <ListBox Name="lb_Launchers" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
-                        <ListBox Name="lb_Shortcuts" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
-                        <ListBox Name="lb_Processes" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
-                        <ListBox Name="lb_Search" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemSearch}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
+                        <ListBox Name="lb_Games" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                        <ListBox Name="lb_Apps" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                        <ListBox Name="lb_Emulators" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                        <ListBox Name="lb_Launchers" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                        <ListBox Name="lb_Shortcuts" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                        <ListBox Name="lb_Processes" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                        <ListBox Name="lb_Search" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemSearch}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Continue"/>
                     </Grid>
                 </Grid>
 
@@ -289,7 +289,7 @@
                             <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                         </StackPanel>
 
-                        <ListBox Grid.Row="1" Name="listbox_MainMenu" SelectedIndex="0" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemIconString}" Style="{StaticResource ListBoxVertical}"/>
+                        <ListBox Grid.Row="1" Name="listbox_MainMenu" SelectedIndex="0" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemIconString}" Style="{StaticResource ListBoxVertical}" KeyboardNavigation.DirectionalNavigation="Cycle"/>
                     </Grid>
 
                     <!-- Shortcuts -->
@@ -381,7 +381,7 @@
                             <StackPanel Margin="0,0,0,10">
                                 <StackPanel Name="sp_AddAppImage">
                                     <TextBlock HorizontalAlignment="Left" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application image:"/>
-                                    <Button Name="btn_AddAppLogo" Style="{StaticResource ButtonImageTransparentWhiteBorder}" BorderBrush="{DynamicResource ApplicationAccentLightBrush}" ToolTipService.ToolTip="Change application image">
+                                    <Button Name="btn_Manage_AddAppLogo" Style="{StaticResource ButtonImageTransparentWhiteBorder}" BorderBrush="{DynamicResource ApplicationAccentLightBrush}" ToolTipService.ToolTip="Change application image">
                                         <Image Name="img_AddAppLogo" Margin="0,5,0,5" MaxWidth="120" MaxHeight="120"/>
                                     </Button>
                                     <Button Name="btn_Manage_ResetAppLogo" Margin="0,5,0,0" Content="Reset application image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
@@ -898,7 +898,7 @@
                             <TextBlock Name="grid_Popup_ColorPicker_txt_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Please select a new accent color:"/>
                         </StackPanel>
 
-                        <ListBox Grid.Row="1" Name="lb_ColorPicker" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemColor}" Style="{StaticResource ListBoxWrapPanelVertical}"/>
+                        <ListBox Grid.Row="1" Name="lb_ColorPicker" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemColor}" Style="{StaticResource ListBoxWrapPanelVertical}" KeyboardNavigation.DirectionalNavigation="Cycle"/>
                     </Grid>
 
                     <!-- Shortcuts -->
@@ -937,7 +937,7 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <ListBox Grid.Row="0" Name="lb_FilePicker" HorizontalAlignment="Stretch" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemFile}" Style="{StaticResource ListBoxVertical}"/>
+                                <ListBox Grid.Row="0" Name="lb_FilePicker" HorizontalAlignment="Stretch" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemFile}" Style="{StaticResource ListBoxVertical}" KeyboardNavigation.DirectionalNavigation="Continue"/>
                                 <StackPanel Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Stretch">
                                     <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_NoFilesAvailable" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed" Text="No files or folders available in this directory."/>
                                     <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_ClipboardStatus" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
@@ -1031,7 +1031,7 @@
                             <Button Name="grid_Popup_ProfileManager_button_ChangeProfile" Margin="0,10,0,0" Content="Change manage profile" Style="{StaticResource ButtonAccentWhite}"/>
                         </StackPanel>
 
-                        <ListBox Grid.Row="2" Margin="0,10,0,0" Name="lb_ProfileManager" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemProfile}" Style="{StaticResource ListBoxVertical}"/>
+                        <ListBox Grid.Row="2" Margin="0,10,0,0" Name="lb_ProfileManager" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemProfile}" Style="{StaticResource ListBoxVertical}" KeyboardNavigation.DirectionalNavigation="Continue"/>
                     </Grid>
 
                     <!-- Shortcuts -->
@@ -1080,7 +1080,7 @@
                                 <TextBlock Grid.Column="4" Text="Finished" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeHuge}"/>
                             </Grid>
 
-                            <ListBox Grid.Row="1" Name="lb_HowLongToBeat" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemHowLongToBeat}" Style="{StaticResource ListBoxVertical}"/>
+                            <ListBox Grid.Row="1" Name="lb_HowLongToBeat" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemHowLongToBeat}" Style="{StaticResource ListBoxVertical}" KeyboardNavigation.DirectionalNavigation="Cycle"/>
                         </Grid>
 
                         <StackPanel Grid.Row="1" Name="stackpanel_HowLongToBeat_Status">
@@ -1115,7 +1115,7 @@
                             <TextBlock Name="grid_MessageBox_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Description"/>
                         </StackPanel>
 
-                        <ListBox Grid.Row="1" Name="lb_MessageBox" VerticalAlignment="Top" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemIconString}" Style="{StaticResource ListBoxVertical}"/>
+                        <ListBox Grid.Row="1" Name="lb_MessageBox" VerticalAlignment="Top" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemIconString}" Style="{StaticResource ListBoxVertical}" KeyboardNavigation.DirectionalNavigation="Cycle"/>
                         <TextBlock Grid.Row="2" Name="grid_MessageBox_Subtitle" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" TextAlignment="Center" TextWrapping="Wrap" Text="Subtitle"/>
                     </Grid>
 

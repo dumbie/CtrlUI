@@ -66,9 +66,6 @@ namespace DirectXInput.KeyboardCode
                 ShortcutList_AddItems();
                 UpdateListBoxSources();
 
-                //Register Hotkeys and Filtermessage
-                ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
-
                 //Make window able to drag from border
                 this.MouseDown += Window_MouseDown;
 

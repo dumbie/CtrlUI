@@ -42,13 +42,9 @@ namespace CtrlUI
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
         public static string[] vSelectNearCharacterLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Search", "lb_FilePicker" };
-        public static string[] vLoopTargetListsFirstLastColumn = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes" };
-        public static string[] vLoopTargetListsFirstLastItem = { "listbox_MainMenu", "lb_MessageBox" };
-        public static string[] vTabTargetListsSingle = { "lb_Manage_AddAppCategory", "lb_Manage_AddEmulatorCategory" };
-        public static string[] vTabTargetListsFirstLastColumn = { "lb_Search" };
-        public static string[] vTabTargetListsFirstLastItem = { "lb_FilePicker", "lb_ProfileManager" };
-        public static string[] vTabTargetButtonsDown = { "btn_Monitor_Switch_Primary", "grid_Popup_TextInput_button_ConfirmText", "btn_Manage_SaveEditApp" };
-        public static string[] vTabTargetButtonsUp = { };
+        public static string[] vTabTargetListsSingleColumn = { "lb_Manage_AddAppCategory", "lb_Manage_AddEmulatorCategory" };
+        public static string[] vTabTargetListsFirstLastColumn = { };
+        public static string[] vTabTargetListsFirstLastItem = { };
 
         //Dispatcher Timers
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();

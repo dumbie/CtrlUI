@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
-using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
@@ -127,9 +126,7 @@ namespace CtrlUI
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-
-                    //Tab target
-                    if (vTabTargetListsSingle.Contains(parentListbox.Name))
+                    if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
                     {
                         KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
                         Handled = true;
@@ -137,8 +134,7 @@ namespace CtrlUI
                     }
                     else if (vTabTargetListsFirstLastItem.Contains(parentListbox.Name))
                     {
-                        int itemsCount = parentListbox.Items.Count;
-                        if ((parentListbox.SelectedIndex + 1) == itemsCount)
+                        if ((parentListbox.SelectedIndex + 1) == parentListbox.Items.Count)
                         {
                             KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
                             Handled = true;
@@ -154,44 +150,8 @@ namespace CtrlUI
                             return;
                         }
                     }
-
-                    //Loop target
-                    else if (vLoopTargetListsFirstLastItem.Contains(parentListbox.Name))
-                    {
-                        int itemsCount = parentListbox.Items.Count;
-                        if ((parentListbox.SelectedIndex + 1) == itemsCount)
-                        {
-                            ListBoxFocusIndex(parentListbox, false, 0, vProcessCurrent.WindowHandleMain).Start();
-                            Handled = true;
-                            return;
-                        }
-                    }
-                    else if (vLoopTargetListsFirstLastColumn.Contains(parentListbox.Name))
-                    {
-                        if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, false))
-                        {
-                            ListBoxFocusIndex(parentListbox, false, 0, vProcessCurrent.WindowHandleMain).Start();
-                            Handled = true;
-                            return;
-                        }
-                    }
                 }
-                else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
-                {
-                    if (vTabTargetButtonsDown.Any(x => x == frameworkElement.Name))
-                    {
-                        KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
-                        Handled = true;
-                        return;
-                    }
-                    else if (vTabTargetButtonsUp.Any(x => x == frameworkElement.Name))
-                    {
-                        KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
-                        Handled = true;
-                        return;
-                    }
-                }
-                else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider) || frameworkElement.GetType() == typeof(SliderDelay)))
+                else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button) || (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider) || frameworkElement.GetType() == typeof(SliderDelay)))
                 {
                     KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
                     Handled = true;
@@ -210,9 +170,7 @@ namespace CtrlUI
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-
-                    //Tab target
-                    if (vTabTargetListsSingle.Contains(parentListbox.Name))
+                    if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
                     {
                         KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;
@@ -236,37 +194,8 @@ namespace CtrlUI
                             return;
                         }
                     }
-
-                    //Loop target
-                    else if (vLoopTargetListsFirstLastItem.Contains(parentListbox.Name))
-                    {
-                        if (parentListbox.SelectedIndex == 0)
-                        {
-                            ListBoxFocusIndex(parentListbox, true, 0, vProcessCurrent.WindowHandleMain).Start();
-                            Handled = true;
-                            return;
-                        }
-                    }
-                    else if (vLoopTargetListsFirstLastColumn.Contains(parentListbox.Name))
-                    {
-                        if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, true))
-                        {
-                            ListBoxFocusIndex(parentListbox, true, 0, vProcessCurrent.WindowHandleMain).Start();
-                            Handled = true;
-                            return;
-                        }
-                    }
                 }
-                else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
-                {
-                    if (vTabTargetButtonsDown.Any(x => x == frameworkElement.Name))
-                    {
-                        KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
-                        Handled = true;
-                        return;
-                    }
-                }
-                else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider) || frameworkElement.GetType() == typeof(SliderDelay)))
+                else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button) || (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider) || frameworkElement.GetType() == typeof(SliderDelay)))
                 {
                     KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                     Handled = true;
