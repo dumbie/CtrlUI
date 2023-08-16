@@ -167,7 +167,6 @@
     <Compile Include="UsbCode\TetherScriptDevice\TetherScriptDevice_MouseRel.cs" />
     <Compile Include="UsbCode\UsbLibrary_DeviceManager.cs" />
     <Compile Include="UsbCode\UsbLibrary_Enumerate.cs" />
-    <Compile Include="UsbCode\UsbLibrary_Events.cs" />
     <Compile Include="UsbCode\UsbLibrary_Extensions.cs" />
     <Compile Include="UsbCode\VigemBusDevice\VigemBusDevice_Control.cs" />
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice.cs" />

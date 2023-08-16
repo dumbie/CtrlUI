@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace LibraryUsb
 {
+    [SuppressUnmanagedCodeSecurity]
     public class NativeMethods_Bth
     {
         public const int BLUETOOTH_MAX_NAME_SIZE = 248;

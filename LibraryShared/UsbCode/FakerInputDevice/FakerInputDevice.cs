@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_File;
 using static LibraryUsb.NativeMethods_Guid;
@@ -12,12 +11,9 @@ namespace LibraryUsb
     public partial class FakerInputDevice
     {
         public bool Connected;
-        public bool Installed;
         public bool Exclusive;
         public string DevicePath;
         private SafeFileHandle FileHandle;
-        private FileStream FileStream;
-
         private const byte KBD_KEY_CODES = 6;
         private const int CONTROL_REPORT_SIZE = 65;
         private string FAKER_VENDOR_HEXID = "0xFE0F";
@@ -29,7 +25,6 @@ namespace LibraryUsb
             {
                 FindDevice();
                 OpenDevice();
-                OpenFileStream();
             }
             catch (Exception ex)
             {
@@ -48,7 +43,13 @@ namespace LibraryUsb
                     try
                     {
                         //Read information from the device
-                        HidDevice foundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.ModelId, false, true);
+                        HidDevice foundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.DeviceInstanceId, false, true);
+
+                        //Check if device has attributes
+                        if (foundHidDevice.Attributes == null) { continue; }
+
+                        //Check if device has capabilities
+                        if (foundHidDevice.Capabilities == null) { continue; }
 
                         //Check if device is FakerInput
                         if (foundHidDevice.Attributes.ProductHexId == FAKER_PRODUCT_HEXID && foundHidDevice.Attributes.VendorHexId == FAKER_VENDOR_HEXID)
@@ -77,7 +78,7 @@ namespace LibraryUsb
                 FileShareMode shareModeNormal = FileShareMode.FILE_SHARE_READ | FileShareMode.FILE_SHARE_WRITE;
                 FileDesiredAccess desiredAccess = FileDesiredAccess.GENERIC_READ | FileDesiredAccess.GENERIC_WRITE;
                 FileCreationDisposition creationDisposition = FileCreationDisposition.OPEN_EXISTING;
-                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_FLAG_OVERLAPPED | FileFlagsAndAttributes.FILE_FLAG_NO_BUFFERING;
+                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_FLAG_NO_BUFFERING | FileFlagsAndAttributes.FILE_FLAG_WRITE_THROUGH;
 
                 //Try to open the device exclusively
                 FileHandle = CreateFile(DevicePath, desiredAccess, shareModeExclusive, IntPtr.Zero, creationDisposition, flagsAttributes, IntPtr.Zero);
@@ -96,14 +97,12 @@ namespace LibraryUsb
                 {
                     //Debug.WriteLine("Failed to open FakerInput device: " + DevicePath);
                     Connected = false;
-                    Installed = false;
                     return false;
                 }
                 else
                 {
                     //Debug.WriteLine("Opened FakerInput device: " + DevicePath + ", exclusively: " + Exclusive);
                     Connected = true;
-                    Installed = true;
                     return true;
                 }
             }
@@ -111,26 +110,6 @@ namespace LibraryUsb
             {
                 Debug.WriteLine("Failed to open FakerInput device: " + ex.Message);
                 Connected = false;
-                Installed = false;
-                return false;
-            }
-        }
-
-        private bool OpenFileStream()
-        {
-            try
-            {
-                FileStream = new FileStream(FileHandle, FileAccess.ReadWrite, 1, true);
-                if (FileStream.CanTimeout)
-                {
-                    FileStream.ReadTimeout = 2000;
-                    FileStream.WriteTimeout = 2000;
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to open FakerInput file stream: " + ex.Message);
                 return false;
             }
         }
@@ -139,11 +118,6 @@ namespace LibraryUsb
         {
             try
             {
-                if (FileStream != null)
-                {
-                    FileStream.Dispose();
-                    FileStream = null;
-                }
                 if (FileHandle != null)
                 {
                     FileHandle.Dispose();

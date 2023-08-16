@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace LibraryUsb
 {
+    [SuppressUnmanagedCodeSecurity]
     public class NativeMethods_WinUsb
     {
         public enum USBD_PIPE_TYPE : int

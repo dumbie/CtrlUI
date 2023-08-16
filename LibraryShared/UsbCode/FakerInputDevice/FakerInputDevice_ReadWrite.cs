@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using static LibraryUsb.Events;
+using static ArnoldVinkCode.AVInteropDll;
+using static LibraryUsb.NativeMethods_File;
 
 namespace LibraryUsb
 {
@@ -51,8 +52,8 @@ namespace LibraryUsb
             try
             {
                 if (!Connected) { return false; }
-                FileStream.Write(outputBuffer, 0, outputBuffer.Length);
-                return true;
+                WriteFile(FileHandle, outputBuffer, outputBuffer.Length, out int lpNumberOfBytesWritten, IntPtr.Zero);
+                return lpNumberOfBytesWritten > 0;
             }
             catch (Exception ex)
             {

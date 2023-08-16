@@ -1,12 +1,14 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using static LibraryUsb.HidDeviceAttributes;
 using static LibraryUsb.HidDeviceButtonValues;
 using static LibraryUsb.HidDeviceCapabilities;
 
 namespace LibraryUsb
 {
+    [SuppressUnmanagedCodeSecurity]
     public class NativeMethods_Hid
     {
         public enum HIDP_REPORT_TYPE : int

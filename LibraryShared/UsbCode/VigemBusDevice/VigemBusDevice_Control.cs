@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static ArnoldVinkCode.AVInteropDll;
 using static LibraryShared.Classes;
-using static LibraryUsb.Events;
 using static LibraryUsb.NativeMethods_IoControl;
 
 namespace LibraryUsb

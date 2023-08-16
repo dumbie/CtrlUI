@@ -1,10 +1,12 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 
 namespace LibraryUsb
 {
+    [SuppressUnmanagedCodeSecurity]
     public class NativeMethods_File
     {
         public static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);

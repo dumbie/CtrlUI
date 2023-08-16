@@ -7,10 +7,10 @@ namespace LibraryShared
         public class ControllerDetails
         {
             public string DisplayName { get; set; }
-            public string Path { get; set; }
-            public string ModelId { get; set; }
-            public ControllerType Type { get; set; }
+            public string DevicePath { get; set; }
+            public string DeviceInstanceId { get; set; }
             public bool Wireless { get; set; }
+            public ControllerType Type { get; set; }
             public ControllerProfile Profile { get; set; }
         }
     }

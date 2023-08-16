@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using static ArnoldVinkCode.AVInputOutputClass;
-using static LibraryUsb.Events;
+using static ArnoldVinkCode.AVInteropDll;
 
 namespace LibraryUsb
 {

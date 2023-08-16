@@ -15,7 +15,6 @@ namespace LibraryUsb
         {
             public string DevicePath { get; set; }
             public string DeviceInstanceId { get; set; }
-            public string DeviceModelId { get; set; }
             public string Description { get; set; }
             public string HardwareId { get; set; }
         }
@@ -100,20 +99,18 @@ namespace LibraryUsb
                                 deviceIndexInterfaces++;
                                 string devicePath = GetDevicePath(deviceInfoList, deviceInterfaceData);
                                 string deviceInstanceId = GetDeviceInstanceId(deviceInfoList, ref deviceInfoData);
-                                string description = GetBusReportedDeviceDescription(deviceInfoList, ref deviceInfoData);
-                                if (string.IsNullOrWhiteSpace(description))
+                                string deviceHardwareId = GetDeviceHardwareId(deviceInfoList, ref deviceInfoData);
+                                string deviceDescription = GetBusReportedDeviceDescription(deviceInfoList, ref deviceInfoData);
+                                if (string.IsNullOrWhiteSpace(deviceDescription))
                                 {
-                                    description = GetDeviceDescription(deviceInfoList, ref deviceInfoData);
+                                    deviceDescription = GetDeviceDescription(deviceInfoList, ref deviceInfoData);
                                 }
-                                string hardwareId = GetDeviceHardwareId(deviceInfoList, ref deviceInfoData);
-                                string deviceModelId = GetDeviceModelId(devicePath);
 
                                 EnumerateInfo foundDevice = new EnumerateInfo();
                                 foundDevice.DevicePath = devicePath;
                                 foundDevice.DeviceInstanceId = deviceInstanceId;
-                                foundDevice.Description = description;
-                                foundDevice.HardwareId = hardwareId;
-                                foundDevice.DeviceModelId = deviceModelId;
+                                foundDevice.Description = deviceDescription;
+                                foundDevice.HardwareId = deviceHardwareId;
                                 enumeratedInfoList.Add(foundDevice);
                             }
                             catch { }
@@ -261,28 +258,6 @@ namespace LibraryUsb
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to get hardware id: " + ex.Message);
-                return string.Empty;
-            }
-        }
-
-        private static string GetDeviceModelId(string devicePath)
-        {
-            try
-            {
-                string modelId = devicePath.Replace("#", @"\");
-                modelId = modelId.Replace(@"\\?\hid", @"hid");
-
-                int slashCount = modelId.Count(x => x == '\\');
-                if (slashCount > 2)
-                {
-                    modelId = modelId.Substring(0, modelId.LastIndexOf(@"\"));
-                }
-
-                return modelId;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to get model id: " + ex.Message);
                 return string.Empty;
             }
         }

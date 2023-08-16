@@ -1,9 +1,7 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using static LibraryUsb.DeviceManager;
 using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_File;
 using static LibraryUsb.NativeMethods_WinUsb;
@@ -13,11 +11,9 @@ namespace LibraryUsb
     public partial class WinUsbDevice
     {
         public bool Connected;
-        public bool Installed;
         public bool Initialized;
         public string DevicePath;
         public string DeviceInstanceId;
-        public Guid DeviceGuid;
         private SafeFileHandle FileHandle;
         private IntPtr WinUsbHandle;
         public byte IntIn = 0xFF;
@@ -25,27 +21,46 @@ namespace LibraryUsb
         public byte BulkIn = 0xFF;
         public byte BulkOut = 0xFF;
 
-        public WinUsbDevice(Guid deviceGuid, string devicePath, bool initialize, bool closeDevice)
+        public WinUsbDevice(Guid deviceGuid, bool initialize, bool closeDevice)
         {
             try
             {
-                DeviceGuid = deviceGuid;
-                DevicePath = devicePath;
-                if (DeviceGuid != Guid.Empty && string.IsNullOrWhiteSpace(DevicePath))
+                EnumerateInfo enumerateInfo = EnumerateDevicesDi(deviceGuid, true).FirstOrDefault();
+                if (enumerateInfo != null)
                 {
-                    List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(DeviceGuid, true);
-                    if (enumerateInfoList.Any())
+                    DevicePath = enumerateInfo.DevicePath.ToLower();
+                    DeviceInstanceId = enumerateInfo.DeviceInstanceId.ToLower();
+                }
+                else
+                {
+                    Debug.WriteLine("Create winusb device not found.");
+                    return;
+                }
+
+                if (OpenDevice())
+                {
+                    if (initialize)
                     {
-                        DevicePath = enumerateInfoList.FirstOrDefault().DevicePath;
+                        InitializeDevice();
                     }
-                    else
+                    if (closeDevice)
                     {
-                        Debug.WriteLine("Create winusb device not found.");
-                        return;
+                        CloseDevice();
                     }
                 }
-                DevicePath = DevicePath.ToLower();
-                DeviceInstanceId = ConvertPathToInstanceId(DevicePath);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to create winusb device: " + ex.Message);
+            }
+        }
+
+        public WinUsbDevice(string devicePath, string deviceInstanceId, bool initialize, bool closeDevice)
+        {
+            try
+            {
+                DevicePath = devicePath.ToLower();
+                DeviceInstanceId = deviceInstanceId.ToLower();
 
                 if (OpenDevice())
                 {
@@ -72,7 +87,7 @@ namespace LibraryUsb
                 FileShareMode shareModeNormal = FileShareMode.FILE_SHARE_READ | FileShareMode.FILE_SHARE_WRITE;
                 FileDesiredAccess desiredAccess = FileDesiredAccess.GENERIC_READ | FileDesiredAccess.GENERIC_WRITE;
                 FileCreationDisposition creationDisposition = FileCreationDisposition.OPEN_EXISTING;
-                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_FLAG_OVERLAPPED | FileFlagsAndAttributes.FILE_FLAG_NO_BUFFERING;
+                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_FLAG_OVERLAPPED | FileFlagsAndAttributes.FILE_FLAG_NO_BUFFERING | FileFlagsAndAttributes.FILE_FLAG_WRITE_THROUGH;
 
                 //Try to open the device normally
                 FileHandle = CreateFile(DevicePath, desiredAccess, shareModeNormal, IntPtr.Zero, creationDisposition, flagsAttributes, IntPtr.Zero);
@@ -82,14 +97,12 @@ namespace LibraryUsb
                 {
                     //Debug.WriteLine("Failed to open winusb device: " + DevicePath);
                     Connected = false;
-                    Installed = false;
                     return false;
                 }
                 else
                 {
                     //Debug.WriteLine("Opened winusb device: " + DevicePath);
                     Connected = true;
-                    Installed = true;
                     return true;
                 }
             }
@@ -97,7 +110,6 @@ namespace LibraryUsb
             {
                 Debug.WriteLine("Failed to open winusb device: " + ex.Message);
                 Connected = false;
-                Installed = false;
                 return false;
             }
         }

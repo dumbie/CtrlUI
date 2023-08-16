@@ -5,7 +5,7 @@ using System.Threading;
 using System.Windows.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVActions;
-using static LibraryUsb.NativeMethods_IoControl;
+using static ArnoldVinkCode.AVInteropDll;
 using static LibraryUsb.WinUsbDevice;
 
 namespace LibraryShared

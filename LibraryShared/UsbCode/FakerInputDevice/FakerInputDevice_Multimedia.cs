@@ -1,6 +1,6 @@
-﻿using ArnoldVinkCode;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 
 namespace LibraryUsb
@@ -12,7 +12,7 @@ namespace LibraryUsb
             try
             {
                 MultimediaPress(keyMultimedia);
-                AVActions.TaskDelayHighRes(50);
+                AVHighResDelay.Delay(50);
                 MultimediaReset();
                 return true;
             }

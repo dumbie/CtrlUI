@@ -1,14 +1,14 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Threading;
 
 namespace LibraryUsb
 {
+    [SuppressUnmanagedCodeSecurity]
     public class NativeMethods_IoControl
     {
-        public const uint INFINITE = 0xFFFFFFFF;
-
         public enum IoErrorCodes : int
         {
             ERROR_UNKNOWN = -1,
@@ -40,14 +40,5 @@ namespace LibraryUsb
 
         [DllImport("kernel32.dll")]
         public static extern bool GetOverlappedResult(SafeFileHandle hFile, ref NativeOverlapped lpOverlapped, out int lpBytesTransferred, bool bWait);
-
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr CreateEvent(IntPtr lpEventAttributes, bool bManualReset, bool bInitialState, string lpName);
-
-        [DllImport("kernel32.dll")]
-        public static extern bool SetEvent(IntPtr hEvent);
-
-        [DllImport("kernel32.dll")]
-        public static extern uint WaitForSingleObject(IntPtr hEvent, uint dwMilliseconds);
     }
 }

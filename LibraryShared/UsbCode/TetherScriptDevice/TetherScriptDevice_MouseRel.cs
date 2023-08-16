@@ -36,7 +36,7 @@ namespace LibraryUsb
             }
             finally
             {
-                CloseMarshalAuto(featureIntPtr);
+                SafeCloseMarshal(featureIntPtr);
             }
         }
 
@@ -68,7 +68,7 @@ namespace LibraryUsb
             }
             finally
             {
-                CloseMarshalAuto(featureIntPtr);
+                SafeCloseMarshal(featureIntPtr);
             }
         }
 
@@ -101,7 +101,7 @@ namespace LibraryUsb
             }
             finally
             {
-                CloseMarshalAuto(featureIntPtr);
+                SafeCloseMarshal(featureIntPtr);
             }
         }
 
@@ -132,7 +132,7 @@ namespace LibraryUsb
             }
             finally
             {
-                CloseMarshalAuto(featureIntPtr);
+                SafeCloseMarshal(featureIntPtr);
             }
         }
     }
