@@ -67,7 +67,8 @@ namespace DirectXInput
                             Type = ControllerType.WinUsbDevice,
                             Profile = profileController,
                             DisplayName = EnumDevice.Description,
-                            Path = EnumDevice.DevicePath,
+                            DevicePath = EnumDevice.DevicePath,
+                            DeviceInstanceId = EnumDevice.DeviceInstanceId,
                             Wireless = ConnectedWireless
                         };
 
@@ -84,7 +85,13 @@ namespace DirectXInput
                     try
                     {
                         //Read information from the controller
-                        HidDevice foundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.ModelId, false, true);
+                        HidDevice foundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.DeviceInstanceId, false, true);
+
+                        //Check if device has attributes
+                        if (foundHidDevice.Attributes == null) { continue; }
+
+                        //Check if device has capabilities
+                        if (foundHidDevice.Capabilities == null) { continue; }
 
                         //Check if device is a gamepad or joystick
                         bool genericGamePad = foundHidDevice.Capabilities.UsageGeneric == (short)HID_USAGE_GENERIC_DESKTOP_PAGE.HID_USAGE_GENERIC_GAMEPAD;
@@ -133,8 +140,8 @@ namespace DirectXInput
                             Type = ControllerType.HidDevice,
                             Profile = profileController,
                             DisplayName = ProductNameString,
-                            ModelId = foundHidDevice.ModelId,
-                            Path = foundHidDevice.DevicePath,
+                            DevicePath = foundHidDevice.DevicePath,
+                            DeviceInstanceId = foundHidDevice.DeviceInstanceId,
                             Wireless = ConnectedWireless
                         };
 

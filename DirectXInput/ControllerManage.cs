@@ -105,10 +105,10 @@ namespace DirectXInput
             {
                 //Check if the controller is already in use
                 bool ControllerInuse = false;
-                if (vController0.Connected() && vController0.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController1.Connected() && vController1.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController2.Connected() && vController2.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController3.Connected() && vController3.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController0.Connected() && vController0.Details.DevicePath == ConnectedController.DevicePath) { ControllerInuse = true; }
+                if (vController1.Connected() && vController1.Details.DevicePath == ConnectedController.DevicePath) { ControllerInuse = true; }
+                if (vController2.Connected() && vController2.Details.DevicePath == ConnectedController.DevicePath) { ControllerInuse = true; }
+                if (vController3.Connected() && vController3.Details.DevicePath == ConnectedController.DevicePath) { ControllerInuse = true; }
                 if (ControllerInuse) { return; }
 
                 Debug.WriteLine("Found a connected " + ConnectedController.Type + " controller to use: " + ConnectedController.DisplayName);

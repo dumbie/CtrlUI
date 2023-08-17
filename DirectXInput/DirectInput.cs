@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryUsb.Events;
 
 namespace DirectXInput
 {
@@ -33,7 +33,7 @@ namespace DirectXInput
                 //Allow controller in HidHide
                 if (Controller.Details.Type == ControllerType.HidDevice)
                 {
-                    await vHidHideDevice.ListDeviceAdd(Controller.Details.ModelId);
+                    await vHidHideDevice.ListDeviceAdd(Controller.Details.DeviceInstanceId);
                 }
 
                 //Set controller interface information
@@ -352,8 +352,8 @@ namespace DirectXInput
                     SendInputVirtualEmpty(Controller);
 
                     //Close the controller virtual events
-                    SetAndCloseEvent(Controller.InputVirtualOverlapped.EventHandle);
-                    SetAndCloseEvent(Controller.OutputVirtualOverlapped.EventHandle);
+                    SafeCloseEvent(Controller.InputVirtualOverlapped.EventHandle);
+                    SafeCloseEvent(Controller.OutputVirtualOverlapped.EventHandle);
 
                     //Disconnect the virtual controller
                     vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
@@ -431,7 +431,7 @@ namespace DirectXInput
                     }
                 }
 
-                Debug.WriteLine("Succesfully stopped direct input controller " + Controller.NumberId);
+                Debug.WriteLine("Successfully stopped direct input controller " + Controller.NumberId);
                 return true;
             }
             catch (Exception ex)
@@ -473,7 +473,7 @@ namespace DirectXInput
                 //Find and connect to win controller
                 if (Controller.Details.Type == ControllerType.WinUsbDevice)
                 {
-                    Controller.WinUsbDevice = new WinUsbDevice(Guid.Empty, Controller.Details.Path, true, false);
+                    Controller.WinUsbDevice = new WinUsbDevice(Controller.Details.DevicePath, Controller.Details.DeviceInstanceId, true, false);
                     if (!Controller.WinUsbDevice.Connected)
                     {
                         Debug.WriteLine("Invalid winusb open device: " + Controller.Details.DisplayName);
@@ -492,7 +492,7 @@ namespace DirectXInput
                 //Find and connect to hid controller
                 else
                 {
-                    Controller.HidDevice = new HidDevice(Controller.Details.Path, Controller.Details.ModelId, true, false);
+                    Controller.HidDevice = new HidDevice(Controller.Details.DevicePath, Controller.Details.DeviceInstanceId, true, false);
                     if (!Controller.HidDevice.Connected)
                     {
                         Debug.WriteLine("Invalid hid open device: " + Controller.Details.DisplayName);

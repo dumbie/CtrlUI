@@ -28,7 +28,7 @@ namespace DirectXInput
             try
             {
                 //Check if controller output needs to be blocked
-                if (vAppActivated && !vAppMinimized && vShowDebugInformation)
+                if (vAppActivated && !vAppMinimized && (vShowControllerDebug || vShowControllerPreview))
                 {
                     //Send empty input to the virtual device
                     SendInputVirtualEmpty(Controller);

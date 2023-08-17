@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.ControllerTimings;
 using static LibraryShared.Enums;
 
 namespace DirectXInput
@@ -102,13 +100,13 @@ namespace DirectXInput
                 }
 
                 //Left stick movement
-                if (Math.Abs(controllerStatus.InputCurrent.ThumbLeftY) > vControllerThumbOffset7500 || Math.Abs(controllerStatus.InputCurrent.ThumbLeftX) > vControllerThumbOffset7500)
+                if (controllerStatus.InputCurrent.ButtonThumbLeftLeft.PressedRaw || controllerStatus.InputCurrent.ButtonThumbLeftUp.PressedRaw || controllerStatus.InputCurrent.ButtonThumbLeftRight.PressedRaw || controllerStatus.InputCurrent.ButtonThumbLeftDown.PressedRaw)
                 {
                     return false;
                 }
 
                 //Right stick movement
-                if (Math.Abs(controllerStatus.InputCurrent.ThumbRightY) > vControllerThumbOffset7500 || Math.Abs(controllerStatus.InputCurrent.ThumbRightX) > vControllerThumbOffset7500)
+                if (controllerStatus.InputCurrent.ButtonThumbRightLeft.PressedRaw || controllerStatus.InputCurrent.ButtonThumbRightUp.PressedRaw || controllerStatus.InputCurrent.ButtonThumbRightRight.PressedRaw || controllerStatus.InputCurrent.ButtonThumbRightDown.PressedRaw)
                 {
                     return false;
                 }

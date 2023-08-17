@@ -39,7 +39,7 @@ namespace DirectXInput
                         if (ledRChanged && ledGChanged && ledBChanged && ledMuteChanged && heavyRumbleChanged && lightRumbleChanged)
                         {
                             //Delay task to prevent high cpu usage
-                            TaskDelayHighRes(1);
+                            AVHighResDelay.Delay(1);
                             continue;
                         }
 

@@ -367,7 +367,16 @@ namespace DirectXInput
             try
             {
                 //Check if combobox saving is enabled
-                if (!vComboboxSaveEnabled) { return; }
+                if (!vComboboxSaveEnabled)
+                {
+                    return;
+                }
+
+                //Check selected keypad buttons
+                if (combobox_SetPad_Modifier0.SelectedItem == null || combobox_SetPad_Modifier1.SelectedItem == null || combobox_SetPad_Keyboard.SelectedItem == null || vMappingKeypadButton == null || vMappingKeypadButton.Tag == null)
+                {
+                    return;
+                }
 
                 //Get selected keypad buttons
                 KeysModifierHid usedModifierKey0 = (KeysModifierHid)combobox_SetPad_Modifier0.SelectedItem;

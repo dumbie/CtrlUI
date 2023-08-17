@@ -116,6 +116,12 @@ namespace DirectXInput
                 //Get current selected profile
                 KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
 
+                //Check selected profile
+                if (selectedProfile == null)
+                {
+                    return;
+                }
+
                 //Load keypad opacity
                 textblock_KeypadOpacity.Text = textblock_KeypadOpacity.Tag + ": " + selectedProfile.KeypadOpacity.ToString("0.00") + "%";
                 slider_KeypadOpacity.Value = selectedProfile.KeypadOpacity;
