@@ -73,12 +73,23 @@ namespace DirectXInput
                 if (elementTarget == grid_Debug)
                 {
                     Debug.WriteLine("Enabling controller debug mode.");
-                    vShowDebugInformation = true;
+                    vShowControllerDebug = true;
                 }
                 else
                 {
                     Debug.WriteLine("Disabling controller debug mode.");
-                    vShowDebugInformation = false;
+                    vShowControllerDebug = false;
+                }
+
+                if (elementTarget == grid_Controller)
+                {
+                    Debug.WriteLine("Enabling controller preview mode.");
+                    vShowControllerPreview = true;
+                }
+                else
+                {
+                    Debug.WriteLine("Disabling controller preview mode.");
+                    vShowControllerPreview = false;
                 }
 
                 grid_Connection.Visibility = Visibility.Collapsed;

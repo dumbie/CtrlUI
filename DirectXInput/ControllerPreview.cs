@@ -20,11 +20,17 @@ namespace DirectXInput
                     ControllerStatus activeController = vActiveController();
                     if (activeController != null && activeController.Connected())
                     {
+                        //Update controller information
+                        UpdateControllerInformation(activeController);
+
                         //Update controller button preview
-                        UpdateControllerPreviewButtons(activeController);
+                        if (vShowControllerPreview)
+                        {
+                            UpdateControllerPreviewButtons(activeController);
+                        }
 
                         //Update controller debug information
-                        if (vShowDebugInformation)
+                        if (vShowControllerDebug)
                         {
                             UpdateControllerDebugInformation(activeController);
                         }
@@ -55,8 +61,8 @@ namespace DirectXInput
             catch { }
         }
 
-        //Update interface controller buttons preview
-        void UpdateControllerPreviewButtons(ControllerStatus Controller)
+        //Update interface controller information
+        void UpdateControllerInformation(ControllerStatus Controller)
         {
             try
             {
@@ -84,7 +90,18 @@ namespace DirectXInput
                     {
                         txt_ActiveControllerBattery.Text = "Battery is at " + Controller.BatteryCurrent.BatteryPercentage + "%";
                     }
+                });
+            }
+            catch { }
+        }
 
+        //Update interface controller buttons preview
+        void UpdateControllerPreviewButtons(ControllerStatus Controller)
+        {
+            try
+            {
+                AVActions.DispatcherInvoke(delegate
+                {
                     //DPad
                     if (Controller.InputCurrent.DPadLeft.PressedRaw) { img_ControllerPreview_DPadLeft.Visibility = Visibility.Visible; } else { img_ControllerPreview_DPadLeft.Visibility = Visibility.Collapsed; }
                     if (Controller.InputCurrent.DPadUp.PressedRaw) { img_ControllerPreview_DPadUp.Visibility = Visibility.Visible; } else { img_ControllerPreview_DPadUp.Visibility = Visibility.Collapsed; }

@@ -37,7 +37,8 @@ namespace DirectXInput
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;
-        public static bool vShowDebugInformation = false;
+        public static bool vShowControllerDebug = false;
+        public static bool vShowControllerPreview = false;
 
         //Dispatcher Timers
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
