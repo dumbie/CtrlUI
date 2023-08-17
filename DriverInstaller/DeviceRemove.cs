@@ -20,8 +20,7 @@ namespace DriverInstaller
                     {
                         try
                         {
-                            string DeviceInstanceId = ConvertPathToInstanceId(device.DevicePath);
-                            DeviceRemove(GuidClassScpVirtualBus, DeviceInstanceId);
+                            DeviceRemove(GuidClassScpVirtualBus, device.DeviceInstanceId);
                         }
                         catch { }
                     }
@@ -46,8 +45,7 @@ namespace DriverInstaller
                     {
                         try
                         {
-                            string DeviceInstanceId = ConvertPathToInstanceId(device.DevicePath);
-                            DeviceRemove(GuidClassVigemVirtualBus, DeviceInstanceId);
+                            DeviceRemove(GuidClassVigemVirtualBus, device.DeviceInstanceId);
                         }
                         catch { }
                     }
@@ -72,8 +70,7 @@ namespace DriverInstaller
                     {
                         try
                         {
-                            string DeviceInstanceId = ConvertPathToInstanceId(device.DevicePath);
-                            DeviceRemove(GuidClassX360Controller, DeviceInstanceId);
+                            DeviceRemove(GuidClassX360Controller, device.DeviceInstanceId);
                         }
                         catch { }
                     }
@@ -98,8 +95,7 @@ namespace DriverInstaller
                     {
                         try
                         {
-                            string DeviceInstanceId = ConvertPathToInstanceId(device.DevicePath);
-                            DeviceRemove(GuidClassScpDS3Driver, DeviceInstanceId);
+                            DeviceRemove(GuidClassScpDS3Driver, device.DeviceInstanceId);
                         }
                         catch { }
                     }
@@ -124,8 +120,7 @@ namespace DriverInstaller
                     {
                         try
                         {
-                            string DeviceInstanceId = ConvertPathToInstanceId(device.DevicePath);
-                            DeviceRemove(GuidClassFakerInputDevice, DeviceInstanceId);
+                            DeviceRemove(GuidClassFakerInputDevice, device.DeviceInstanceId);
                         }
                         catch { }
                     }
