@@ -59,7 +59,7 @@ namespace FpsOverlayer
                     {
                         memoryCount++;
                         vHardwareMemoryName = memoryDevice.ManufacturerName + " " + memoryDevice.PartNumber + " (" + memoryCount + "X) " + memoryDevice.Type;
-                        vHardwareMemorySpeed = memoryDevice.ConfiguredSpeed + "MT/s";
+                        vHardwareMemorySpeed = memoryDevice.ConfiguredSpeed + "MTs";
                         vHardwareMemoryVoltage = (memoryDevice.ConfiguredVoltage / 1000F).ToString("0.000") + "V";
                     }
                 }
