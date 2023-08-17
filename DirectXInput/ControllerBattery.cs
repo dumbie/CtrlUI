@@ -16,6 +16,14 @@ namespace DirectXInput
         {
             try
             {
+                //Check if controller is connected
+                if (!Controller.Connected())
+                {
+                    //Debug.WriteLine("Controller is not connected skipping battery level check: " + Controller.NumberId);
+                    Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Unknown;
+                    return;
+                }
+
                 //Check which controller is connected
                 if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && Controller.Details.Wireless)
                 {

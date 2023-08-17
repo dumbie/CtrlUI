@@ -59,6 +59,7 @@ namespace DirectXInput
             {
                 while (TaskCheckLoop(vTask_ControllerLedColor))
                 {
+                    //Controller update led color
                     ControllerLedColor(vController0);
                     ControllerLedColor(vController1);
                     ControllerLedColor(vController2);
@@ -77,10 +78,17 @@ namespace DirectXInput
             {
                 while (TaskCheckLoop(vTask_ControllerBattery))
                 {
+                    //Read controller battery level
+                    ControllerReadBatteryLevel(vController0);
+                    ControllerReadBatteryLevel(vController1);
+                    ControllerReadBatteryLevel(vController2);
+                    ControllerReadBatteryLevel(vController3);
+
+                    //Check controller low battery level
                     CheckAllControllersLowBattery(false);
 
                     //Delay the loop task
-                    await TaskDelay(5000, vTask_ControllerBattery);
+                    await TaskDelay(2000, vTask_ControllerBattery);
                 }
             }
             catch { }
@@ -95,7 +103,7 @@ namespace DirectXInput
                     UpdateControllerInformation();
 
                     //Delay the loop task
-                    await TaskDelay(50, vTask_ControllerInformation);
+                    await TaskDelay(100, vTask_ControllerInformation);
                 }
             }
             catch { }
