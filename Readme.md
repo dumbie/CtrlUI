@@ -44,7 +44,7 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 - Let CtrlUI automatically launch on Windows startup for easier alltime usage.
 - Some users may need to run the application as administrator to let it work properly.*
 - For more information and help open the "Help" window or tab in the application.
-* You can run it as administrator by using the "CtrlUI-Admin" executable.
+* You can run it as administrator by using the "CtrlUI-Launcher" executable.
 
 ## Known issues
 - Overlays may not always show up when you are in a fullscreen application.
@@ -71,9 +71,13 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v1.98.0.0 (17-August-2023)
+- CtrlUI: Improved navigation by allowing horizontal looping in lists.
+- DirectXInput: Added DualSense rumble power mode setting.
+* Miscellaneous application improvements and fixes.
+
 v1.96.0.0 (12-May-2023)
 - DirectXInput: Holding the touchpad now starts video screen capture.
-* Miscellaneous application improvements and fixes.
 
 v1.95.0.0 (22-March-2023)
 - CtrlUI: Added 'Hide/minimize application' function.
