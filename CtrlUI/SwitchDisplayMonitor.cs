@@ -1,16 +1,21 @@
 ﻿using ArnoldVinkCode;
+using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -150,13 +155,23 @@ namespace CtrlUI
             {
                 if (dataBindApp.LaunchEnableHDR)
                 {
-                    await AllMonitorSwitchHDR(true, true);
+                    //Enable monitor HDR
+                    await AllMonitorSwitchHDR(true, false);
+
+                    //Enable Windows auto HDR feature
+                    await EnableWindowsAutoHDR();
+
+                    //Allow auto HDR for application
+                    await AllowApplicationAutoHDR(dataBindApp);
+
+                    //Wait for HDR initialization
+                    await Task.Delay(500);
                 }
             }
             catch { }
         }
 
-        //Enable or disable HDR
+        //Enable or disable monitor HDR
         async Task AllMonitorSwitchHDR(bool enableHDR, bool waitHDR)
         {
             try
@@ -189,6 +204,105 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Failed to switch monitor HDR.");
                 await Notification_Send_Status("MonitorHDR", "Failed switching HDR");
+            }
+        }
+
+        //Enable Windows auto HDR feature
+        async Task EnableWindowsAutoHDR()
+        {
+            try
+            {
+                //Open the Windows registry
+                using (RegistryKey regKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
+                {
+                    //Open Microsoft subkey
+                    using (RegistryKey microsoftSubKey = regKeyCurrentUser.OpenSubKey("Software\\Microsoft\\DirectX\\UserGpuPreferences", true))
+                    {
+                        //Get global settings value
+                        string globalSettingsString = microsoftSubKey.GetValue("DirectXUserGlobalSettings")?.ToString();
+
+                        //Set global settings value
+                        if (!string.IsNullOrEmpty(globalSettingsString))
+                        {
+                            if (globalSettingsString.Contains("AutoHDREnable=0"))
+                            {
+                                globalSettingsString = globalSettingsString.Replace("AutoHDREnable=0", "AutoHDREnable=1");
+                            }
+                            if (globalSettingsString.Contains("SwapEffectUpgradeEnable=0"))
+                            {
+                                globalSettingsString = globalSettingsString.Replace("SwapEffectUpgradeEnable=0", "SwapEffectUpgradeEnable=1");
+                            }
+
+                            if (!globalSettingsString.Contains("AutoHDREnable"))
+                            {
+                                globalSettingsString = "AutoHDREnable=1;" + globalSettingsString;
+                            }
+                            if (!globalSettingsString.Contains("SwapEffectUpgradeEnable"))
+                            {
+                                globalSettingsString = "SwapEffectUpgradeEnable=1;" + globalSettingsString;
+                            }
+                            microsoftSubKey.SetValue("DirectXUserGlobalSettings", globalSettingsString);
+                        }
+                        else
+                        {
+                            microsoftSubKey.SetValue("DirectXUserGlobalSettings", "AutoHDREnable=1;SwapEffectUpgradeEnable=1;");
+                        }
+                    }
+                }
+
+                Debug.WriteLine("Enabled Windows auto hdr feature.");
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to enable Windows auto HDR feature.");
+                await Notification_Send_Status("MonitorHDR", "Failed enabling Windows Auto HDR feature");
+            }
+        }
+
+        //Allow Auto HDR for unsupported application
+        async Task AllowApplicationAutoHDR(DataBindApp dataBindApp)
+        {
+            try
+            {
+                //Set application name
+                string d3DName = string.Empty;
+                string d3DBehaviors = "BufferUpgradeOverride=1;BufferUpgradeEnable10Bit=1;";
+                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                {
+                    //d3DName = dataBindApp.AppUserModelId;
+                    Debug.WriteLine("UWP and Win32Store applications do not support Windows auto hdr.");
+                    return;
+                }
+                else
+                {
+                    d3DName = Path.GetFileName(dataBindApp.PathExe);
+                }
+
+                //Open the Windows registry
+                using (RegistryKey regKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
+                {
+                    //Open Microsoft subkey
+                    using (RegistryKey microsoftSubKey = regKeyCurrentUser.OpenSubKey("Software\\Microsoft", true))
+                    {
+                        //Create Direct3D subkey
+                        using (RegistryKey direct3dSubKey = microsoftSubKey.CreateSubKey("Direct3D", true))
+                        {
+                            //Create application subkey
+                            using (RegistryKey applicationSubKey = direct3dSubKey.CreateSubKey(d3DName, true))
+                            {
+                                applicationSubKey.SetValue("Name", d3DName);
+                                applicationSubKey.SetValue("D3DBehaviors", d3DBehaviors);
+                            }
+                        }
+                    }
+                }
+
+                Debug.WriteLine("Enabled Windows auto HDR support for: " + d3DName + "/" + d3DBehaviors);
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to allow Windows auto HDR for application.");
+                await Notification_Send_Status("MonitorHDR", "Failed allowing application Auto HDR");
             }
         }
 
