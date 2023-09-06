@@ -108,15 +108,16 @@ namespace CtrlUI
                     if (launchArgument == "Cancel") { return; }
                 }
 
+                //Enable display and auto HDR
+                await EnableHDRDatabindAuto(dataBindApp);
+
                 //Launch the databind process
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
-                    await EnableHDRDatabindAuto(dataBindApp);
                     await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp, launchArgument, false, keyboardLaunch);
                 }
                 else
                 {
-                    await EnableHDRDatabindAuto(dataBindApp);
                     await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, keyboardLaunch);
                 }
             }

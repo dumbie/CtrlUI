@@ -153,18 +153,24 @@ namespace CtrlUI
         {
             try
             {
-                if (dataBindApp.LaunchEnableHDR)
+                if (dataBindApp.LaunchEnableDisplayHDR || dataBindApp.LaunchEnableAutoHDR)
                 {
                     //Enable monitor HDR
                     await AllMonitorSwitchHDR(true, false);
+                }
 
+                if (dataBindApp.LaunchEnableAutoHDR)
+                {
                     //Enable Windows auto HDR feature
                     await EnableWindowsAutoHDR();
 
                     //Allow auto HDR for application
                     await AllowApplicationAutoHDR(dataBindApp);
+                }
 
-                    //Wait for HDR initialization
+                //Wait for HDR initialization
+                if (dataBindApp.LaunchEnableDisplayHDR || dataBindApp.LaunchEnableAutoHDR)
+                {
                     await Task.Delay(500);
                 }
             }
@@ -216,7 +222,7 @@ namespace CtrlUI
                 using (RegistryKey regKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
                 {
                     //Open Microsoft subkey
-                    using (RegistryKey microsoftSubKey = regKeyCurrentUser.OpenSubKey("Software\\Microsoft\\DirectX\\UserGpuPreferences", true))
+                    using (RegistryKey microsoftSubKey = regKeyCurrentUser.CreateSubKey("Software\\Microsoft\\DirectX\\UserGpuPreferences", true))
                     {
                         //Get global settings value
                         string globalSettingsString = microsoftSubKey.GetValue("DirectXUserGlobalSettings")?.ToString();
@@ -281,19 +287,11 @@ namespace CtrlUI
                 //Open the Windows registry
                 using (RegistryKey regKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
                 {
-                    //Open Microsoft subkey
-                    using (RegistryKey microsoftSubKey = regKeyCurrentUser.OpenSubKey("Software\\Microsoft", true))
+                    //Create application subkey
+                    using (RegistryKey applicationSubKey = regKeyCurrentUser.CreateSubKey("Software\\Microsoft\\Direct3D\\" + d3DName, true))
                     {
-                        //Create Direct3D subkey
-                        using (RegistryKey direct3dSubKey = microsoftSubKey.CreateSubKey("Direct3D", true))
-                        {
-                            //Create application subkey
-                            using (RegistryKey applicationSubKey = direct3dSubKey.CreateSubKey(d3DName, true))
-                            {
-                                applicationSubKey.SetValue("Name", d3DName);
-                                applicationSubKey.SetValue("D3DBehaviors", d3DBehaviors);
-                            }
-                        }
+                        applicationSubKey.SetValue("Name", d3DName);
+                        applicationSubKey.SetValue("D3DBehaviors", d3DBehaviors);
                     }
                 }
 
