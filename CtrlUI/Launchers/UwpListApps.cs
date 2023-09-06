@@ -17,6 +17,9 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        //Arrays
+        private static string[] vUwpAppBlacklist = { "microsoft.windowsnotepad_8wekyb3d8bbwe", "windows.immersivecontrolpanel_cw5n1h2txyewy" };
+
         async Task UwpScanAddLibrary()
         {
             try
@@ -38,6 +41,13 @@ namespace CtrlUI
                         string appFamilyName = uwpGame.Properties.FirstOrDefault(x => x.Key == "PackageFamilyName").Value.ToString();
                         if (string.IsNullOrWhiteSpace(appFamilyName))
                         {
+                            continue;
+                        }
+
+                        //Check if application is in blacklist
+                        if (vUwpAppBlacklist.Contains(appFamilyName.ToLower()))
+                        {
+                            Debug.WriteLine("UWP app is blacklisted: " + appFamilyName);
                             continue;
                         }
 
