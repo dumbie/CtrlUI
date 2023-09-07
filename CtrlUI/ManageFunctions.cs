@@ -786,6 +786,7 @@ namespace CtrlUI
                 checkbox_AddLaunchKeyboard.IsChecked = false;
                 checkbox_AddLaunchSkipRom.IsChecked = false;
                 checkbox_AddLaunchEnableDisplayHDR.IsChecked = false;
+                checkbox_AddLaunchEnableAutoHDR.IsChecked = false;
 
                 //Show the manage popup
                 await Popup_Show(grid_Popup_Manage, btn_AddAppPathExe);
