@@ -623,31 +623,29 @@ namespace CtrlUI
                     }
                 }
 
+                //Hide and show default settings
+                sp_AddAppExePath.Visibility = Visibility.Visible;
+                sp_AddAppPathLaunch.Visibility = Visibility.Visible;
+                sp_AddAppArgument.Visibility = Visibility.Visible;
+                sp_AddAppNameExe.Visibility = Visibility.Visible;
+                checkbox_AddLaunchAsAdmin.Visibility = Visibility.Visible;
+                checkbox_AddLaunchEnableAutoHDR.Visibility = Visibility.Visible;
+
                 //Hide and show category based settings
                 if (appCategory == AppCategory.Emulator)
                 {
                     textblock_AddAppName.Text = "Platform name:";
-                    sp_AddAppExePath.Visibility = Visibility.Visible;
-                    sp_AddAppPathLaunch.Visibility = Visibility.Visible;
                     sp_AddEmulatorPathRoms.Visibility = Visibility.Visible;
                     sp_AddEmulatorName.Visibility = Visibility.Visible;
                     sp_AddEmulatorCategory.Visibility = Visibility.Visible;
-                    sp_AddAppArgument.Visibility = Visibility.Visible;
-                    sp_AddAppNameExe.Visibility = Visibility.Visible;
-                    checkbox_AddLaunchAsAdmin.Visibility = Visibility.Visible;
                     checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
                     textblock_AddAppName.Text = "Application name:";
-                    sp_AddAppExePath.Visibility = Visibility.Visible;
-                    sp_AddAppPathLaunch.Visibility = Visibility.Visible;
                     sp_AddEmulatorPathRoms.Visibility = Visibility.Collapsed;
                     sp_AddEmulatorName.Visibility = Visibility.Collapsed;
                     sp_AddEmulatorCategory.Visibility = Visibility.Collapsed;
-                    sp_AddAppArgument.Visibility = Visibility.Visible;
-                    sp_AddAppNameExe.Visibility = Visibility.Visible;
-                    checkbox_AddLaunchAsAdmin.Visibility = Visibility.Visible;
                     checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible;
                 }
 
@@ -658,6 +656,7 @@ namespace CtrlUI
                     sp_AddAppPathLaunch.Visibility = Visibility.Collapsed;
                     sp_AddAppNameExe.Visibility = Visibility.Collapsed;
                     checkbox_AddLaunchAsAdmin.Visibility = Visibility.Collapsed;
+                    checkbox_AddLaunchEnableAutoHDR.Visibility = Visibility.Collapsed;
                 }
             }
             catch (Exception ex)
