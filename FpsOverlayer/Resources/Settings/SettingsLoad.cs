@@ -56,6 +56,7 @@ namespace FpsOverlayer
                 checkbox_GpuShowPercentage.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowPercentage", typeof(bool));
                 checkbox_GpuShowMemoryUsed.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowMemoryUsed", typeof(bool));
                 checkbox_GpuShowTemperature.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowTemperature", typeof(bool));
+                checkbox_GpuShowTemperatureHotspot.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowTemperatureHotspot", typeof(bool));
                 checkbox_GpuShowCoreFrequency.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowCoreFrequency", typeof(bool));
                 checkbox_GpuShowFanSpeed.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowFanSpeed", typeof(bool));
                 checkbox_GpuShowPowerWatt.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "GpuShowPowerWatt", typeof(bool));

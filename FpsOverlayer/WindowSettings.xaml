@@ -477,8 +477,11 @@
                         <CheckBox Name="checkbox_GpuShowPercentage" Content="Show load in percentage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the videocards load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                        <CheckBox Name="checkbox_GpuShowTemperature" Content="Show the temperature" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this will show the videocards current temperature." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <CheckBox Name="checkbox_GpuShowTemperature" Content="Show core temperature" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the videocards current core temperature." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_GpuShowTemperatureHotspot" Content="Show hotspot temperature" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the videocards current hotspot temperature." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <CheckBox Name="checkbox_GpuShowCoreFrequency" Content="Show the core frequency" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the videocards current core frequency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
