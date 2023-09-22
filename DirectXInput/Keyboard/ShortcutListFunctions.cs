@@ -201,6 +201,11 @@ namespace DirectXInput.KeyboardCode
                     shortcutXboxGameBar.Object1 = "ShowXboxGameBar";
                     vDirectKeyboardShortcutList.Add(shortcutXboxGameBar);
 
+                    ProfileShared shortcutResetGpuDriver = new ProfileShared();
+                    shortcutResetGpuDriver.String1 = "Reset GPU driver";
+                    shortcutResetGpuDriver.Object1 = new KeysHidAction { Modifiers = KeysModifierHid.CtrlLeft | KeysModifierHid.WindowsLeft | KeysModifierHid.ShiftLeft, Key0 = KeysHid.B };
+                    vDirectKeyboardShortcutList.Add(shortcutResetGpuDriver);
+
                     ProfileShared shortcutPrintScreen = new ProfileShared();
                     shortcutPrintScreen.String1 = "Print Screen";
                     shortcutPrintScreen.Object1 = new KeysHidAction { Key0 = KeysHid.PrintScreen };

@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,7 +14,6 @@ using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
