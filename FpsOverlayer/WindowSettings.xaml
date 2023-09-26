@@ -486,6 +486,9 @@
                         <CheckBox Name="checkbox_GpuShowCoreFrequency" Content="Show the core frequency" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the videocards current core frequency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
+                        <CheckBox Name="checkbox_GpuShowMemorySpeed" Content="Show the memory speed" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the videocards current memory speed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                         <CheckBox Name="checkbox_GpuShowMemoryUsed" Margin="0,10,0,0" Content="Show the used memory" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the videocards used memory in bytes." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 

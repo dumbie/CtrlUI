@@ -400,11 +400,12 @@ namespace FpsOverlayer
                 bool showTemperatureCore = SettingLoad(vConfigurationFpsOverlayer, "GpuShowTemperature", typeof(bool));
                 bool showTemperatureHotspot = SettingLoad(vConfigurationFpsOverlayer, "GpuShowTemperatureHotspot", typeof(bool));
                 bool showMemoryUsed = SettingLoad(vConfigurationFpsOverlayer, "GpuShowMemoryUsed", typeof(bool));
+                bool showMemorySpeed = SettingLoad(vConfigurationFpsOverlayer, "GpuShowMemorySpeed", typeof(bool));
                 bool showCoreFrequency = SettingLoad(vConfigurationFpsOverlayer, "GpuShowCoreFrequency", typeof(bool));
                 bool showFanSpeed = SettingLoad(vConfigurationFpsOverlayer, "GpuShowFanSpeed", typeof(bool));
                 bool showPowerWatt = SettingLoad(vConfigurationFpsOverlayer, "GpuShowPowerWatt", typeof(bool));
                 bool showPowerVolt = SettingLoad(vConfigurationFpsOverlayer, "GpuShowPowerVolt", typeof(bool));
-                if (!showName && !showPercentage && !showTemperatureCore && !showTemperatureHotspot && !showMemoryUsed && !showCoreFrequency && !showFanSpeed && !showPowerWatt && !showPowerVolt)
+                if (!showName && !showPercentage && !showTemperatureCore && !showTemperatureHotspot && !showMemoryUsed && !showMemorySpeed && !showCoreFrequency && !showFanSpeed && !showPowerWatt && !showPowerVolt)
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
@@ -420,7 +421,8 @@ namespace FpsOverlayer
                     string GpuPercentage = string.Empty;
                     string GpuTemperatureCore = string.Empty;
                     string GpuTemperatureHotspot = string.Empty;
-                    string GpuMemory = string.Empty;
+                    string GpuMemoryUsed = string.Empty;
+                    string GpuMemorySpeed = string.Empty;
                     string GpuFrequency = string.Empty;
                     string GpuFanSpeed = string.Empty;
                     string GpuPowerWattage = string.Empty;
@@ -464,20 +466,24 @@ namespace FpsOverlayer
                                     float RawMemoryUsage = (float)sensor.Value;
                                     if (RawMemoryUsage < 1000)
                                     {
-                                        GpuMemory = " " + RawMemoryUsage.ToString("0") + "MB";
+                                        GpuMemoryUsed = " " + RawMemoryUsage.ToString("0") + "MB";
                                     }
                                     else
                                     {
-                                        GpuMemory = " " + (RawMemoryUsage / 1000).ToString("0.0") + "GB";
+                                        GpuMemoryUsed = " " + (RawMemoryUsage / 1000).ToString("0.0") + "GB";
                                     }
                                 }
                             }
-                            else if (showCoreFrequency && sensor.SensorType == SensorType.Clock)
+                            else if ((showCoreFrequency || showMemorySpeed) && sensor.SensorType == SensorType.Clock)
                             {
                                 //Debug.WriteLine("GPU Frequency: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
-                                if (sensor.Name == "GPU Core")
+                                if (showCoreFrequency && sensor.Name == "GPU Core")
                                 {
                                     GpuFrequency = " " + ((float)sensor.Value).ToString("0") + "MHz";
+                                }
+                                else if (showMemorySpeed && sensor.Name == "GPU Memory")
+                                {
+                                    GpuMemorySpeed = " " + ((float)sensor.Value).ToString("0") + "MTs";
                                 }
                             }
                             else if (showFanSpeed && (sensor.SensorType == SensorType.Fan || sensor.SensorType == SensorType.Control))
@@ -518,10 +524,10 @@ namespace FpsOverlayer
                     }
 
                     bool gpuNameNullOrWhiteSpace = string.IsNullOrWhiteSpace(GpuName);
-                    if (!gpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(GpuPercentage) || !string.IsNullOrWhiteSpace(GpuTemperatureCore) || !string.IsNullOrWhiteSpace(GpuTemperatureHotspot) || !string.IsNullOrWhiteSpace(GpuFrequency) || !string.IsNullOrWhiteSpace(GpuMemory) || !string.IsNullOrWhiteSpace(GpuFanSpeed) || !string.IsNullOrWhiteSpace(GpuPowerWattage) || !string.IsNullOrWhiteSpace(GpuPowerVoltage))
+                    if (!gpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(GpuPercentage) || !string.IsNullOrWhiteSpace(GpuTemperatureCore) || !string.IsNullOrWhiteSpace(GpuTemperatureHotspot) || !string.IsNullOrWhiteSpace(GpuFrequency) || !string.IsNullOrWhiteSpace(GpuMemorySpeed) || !string.IsNullOrWhiteSpace(GpuMemoryUsed) || !string.IsNullOrWhiteSpace(GpuFanSpeed) || !string.IsNullOrWhiteSpace(GpuPowerWattage) || !string.IsNullOrWhiteSpace(GpuPowerVoltage))
                     {
                         string stringDisplay = string.Empty;
-                        string stringStats = AVFunctions.StringRemoveStart(vTitleGPU + GpuPercentage + GpuTemperatureCore + GpuTemperatureHotspot + GpuFrequency + GpuMemory + GpuFanSpeed + GpuPowerWattage + GpuPowerVoltage, " ");
+                        string stringStats = AVFunctions.StringRemoveStart(vTitleGPU + GpuPercentage + GpuTemperatureCore + GpuTemperatureHotspot + GpuFrequency + GpuMemorySpeed + GpuMemoryUsed + GpuFanSpeed + GpuPowerWattage + GpuPowerVoltage, " ");
                         if (string.IsNullOrWhiteSpace(stringStats))
                         {
                             stringDisplay = GpuName;

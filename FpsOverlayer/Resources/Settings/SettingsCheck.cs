@@ -51,6 +51,7 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowMemoryUsed")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowMemoryUsed", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowTemperature")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowTemperature", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowTemperatureHotspot")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowTemperatureHotspot", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowMemorySpeed")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowMemorySpeed", "False"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowCoreFrequency")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowCoreFrequency", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowFanSpeed")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowFanSpeed", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowPowerWatt")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowPowerWatt", "True"); }
