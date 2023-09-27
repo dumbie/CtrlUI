@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
@@ -370,16 +368,8 @@ namespace CtrlUI
                         return;
                     }
 
-                    //Rename application logo based on name and reload it
-                    string imageFileNameOldSafe = AVFiles.FileNameReplaceInvalidChars(vEditAppDataBind.Name, string.Empty);
-                    string imageFileNameNewSafe = AVFiles.FileNameReplaceInvalidChars(tb_AddAppName.Text, string.Empty);
-                    string imageFilePathOld = "Assets/User/Apps/" + imageFileNameOldSafe + ".png";
-                    string imageFilePathNew = "Assets/User/Apps/" + imageFileNameNewSafe + ".png";
-                    if (vEditAppDataBind.Name != tb_AddAppName.Text && File.Exists(imageFilePathOld))
-                    {
-                        Debug.WriteLine("App name changed and application logo file exists.");
-                        File_Move(imageFilePathOld, imageFilePathNew, true);
-                    }
+                    //Rename application image and info files
+                    Image_Application_Rename(vEditAppDataBind, tb_AddAppName.Text);
 
                     //Edit application in the list
                     vEditAppDataBind.Category = selectedAppCategory;

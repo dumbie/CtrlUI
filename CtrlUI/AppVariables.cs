@@ -50,35 +50,41 @@ namespace CtrlUI
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
 
         //Search Variables
-        public static SearchSource[] vImageSourceFolders =
+        public static SearchSource[] vImageSourceFoldersEmulatorsCombined =
+        {
+            new SearchSource() { SearchPath = "Assets/User/Emulators", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
+            new SearchSource() { SearchPath = "Assets/Default/Emulators", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories }
+        };
+        public static SearchSource[] vImageSourceFoldersEmulatorsUser =
+        {
+            new SearchSource() { SearchPath = "Assets/User/Emulators", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories }
+        };
+        public static SearchSource[] vImageSourceFoldersAppsCombined =
         {
             new SearchSource() { SearchPath = "Assets/User/Apps", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
             new SearchSource() { SearchPath = "Assets/Default/Apps", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
             new SearchSource() { SearchPath = "Assets/User/Games", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
-            new SearchSource() { SearchPath = "Assets/Default/Games", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
-            new SearchSource() { SearchPath = "Assets/User/Emulators", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
-            new SearchSource() { SearchPath = "Assets/Default/Emulators", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories }
+            new SearchSource() { SearchPath = "Assets/Default/Games", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories }
         };
-        public static SearchSource[] vImageSourceFoldersUser =
+        public static SearchSource[] vImageSourceFoldersAppsUser =
         {
             new SearchSource() { SearchPath = "Assets/User/Apps", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
-            new SearchSource() { SearchPath = "Assets/User/Games", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
-            new SearchSource() { SearchPath = "Assets/User/Emulators", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
+            new SearchSource() { SearchPath = "Assets/User/Games", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories }
         };
 
         //Image Variables
         public static int vImageLoadSize = 180;
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
-        public static BitmapImage vImagePreloadSteam = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadUbisoft = FileToBitmapImage(new string[] { "Ubisoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadEADesktop = FileToBitmapImage(new string[] { "EA Desktop" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadGoG = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadEpic = FileToBitmapImage(new string[] { "Epic" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadBattleNet = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadRockstar = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadDiscord = FileToBitmapImage(new string[] { "Discord" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadMicrosoft = FileToBitmapImage(new string[] { "Microsoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadAmazon = FileToBitmapImage(new string[] { "Amazon" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadSteam = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadUbisoft = FileToBitmapImage(new string[] { "Ubisoft" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadEADesktop = FileToBitmapImage(new string[] { "EA Desktop" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadGoG = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadEpic = FileToBitmapImage(new string[] { "Epic" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadBattleNet = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadRockstar = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadDiscord = FileToBitmapImage(new string[] { "Discord" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadMicrosoft = FileToBitmapImage(new string[] { "Microsoft" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadAmazon = FileToBitmapImage(new string[] { "Amazon" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
         public static BitmapImage vImagePreloadConsole = FileToBitmapImage(new string[] { "Assets/Default/Icons/Console.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
         public static BitmapImage vImagePreloadHandheld = FileToBitmapImage(new string[] { "Assets/Default/Icons/Handheld.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
         public static BitmapImage vImagePreloadComputer = FileToBitmapImage(new string[] { "Assets/Default/Icons/Computer.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);

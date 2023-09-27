@@ -195,7 +195,7 @@ namespace CtrlUI
                 }
 
                 //Update description and image
-                listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "_Rom" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 210, 0);
+                listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "_Rom" }, vImageSourceFoldersEmulatorsCombined, vImageBackupSource, IntPtr.Zero, 210, 0);
                 string jsonFile = FileToString(new string[] { romPathDescription, subPathDescription });
                 if (jsonFile.Contains("platform_logo"))
                 {

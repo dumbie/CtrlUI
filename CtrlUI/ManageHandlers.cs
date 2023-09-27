@@ -68,6 +68,17 @@ namespace CtrlUI
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
 
+                //Check application category
+                string appAssetFolder = string.Empty;
+                if (selectedAppCategory == AppCategory.Emulator)
+                {
+                    appAssetFolder = "Assets/User/Emulators/";
+                }
+                else
+                {
+                    appAssetFolder = "Assets/User/Apps/";
+                }
+
                 //Update the new application image
                 if (vEditAppDataBind != null)
                 {
@@ -75,7 +86,7 @@ namespace CtrlUI
                     string saveFileName = AVFiles.FileNameReplaceInvalidChars(vEditAppDataBind.Name, string.Empty);
 
                     //Copy the new application image
-                    File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + saveFileName + ".png", true);
+                    File_Copy(vFilePickerResult.PathFile, appAssetFolder + saveFileName + ".png", true);
 
                     //Load the new application image
                     BitmapImage applicationImage = Image_Application_Load(vEditAppDataBind, vImageLoadSize);
@@ -90,7 +101,7 @@ namespace CtrlUI
                     string saveFileName = AVFiles.FileNameReplaceInvalidChars(tb_AddAppName.Text, string.Empty);
 
                     //Copy the new application image
-                    File_Copy(vFilePickerResult.PathFile, "Assets/User/Apps/" + saveFileName + ".png", true);
+                    File_Copy(vFilePickerResult.PathFile, appAssetFolder + saveFileName + ".png", true);
 
                     //Load the new application image
                     BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
@@ -122,20 +133,25 @@ namespace CtrlUI
                 //Set fullpath to exe path textbox
                 tb_AddAppPathExe.Text = vFilePickerResult.PathFile;
 
-                //Set application name to textbox
+                //Check application category
                 if (selectedAppCategory == AppCategory.Emulator)
                 {
+                    //Set application name to textbox
                     tb_AddAppName.Text = string.Empty;
                     tb_AddAppEmulatorName.Text = vFilePickerResult.Name.Replace(".exe", "");
+
+                    //Set application image to image preview
+                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppEmulatorName.Text, vFilePickerResult.PathFile }, vImageSourceFoldersEmulatorsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
                 }
                 else
                 {
+                    //Set application name to textbox
                     tb_AddAppName.Text = vFilePickerResult.Name.Replace(".exe", "");
                     tb_AddAppEmulatorName.Text = string.Empty;
-                }
 
-                //Set application image to image preview
-                img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppName.Text, vFilePickerResult.PathFile }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                    //Set application image to image preview
+                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppName.Text, vFilePickerResult.PathFile }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                }
 
                 //Enable manage interface
                 ManageInterface_Enable();

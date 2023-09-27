@@ -110,7 +110,7 @@ namespace CtrlUI
                 }
 
                 //Load the application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath, "Microsoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath, "Microsoft" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()

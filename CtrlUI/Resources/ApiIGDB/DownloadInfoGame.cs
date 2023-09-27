@@ -36,8 +36,8 @@ namespace CtrlUI
                 }
                 else
                 {
-                    userSaveDirectory = "Assets/User/Games/";
-                    defaultDirectory = "Assets/Default/Games/";
+                    userSaveDirectory = "Assets/User/Apps/";
+                    defaultDirectory = "Assets/Default/Apps/";
                 }
 
                 //Load and return cached
@@ -59,7 +59,7 @@ namespace CtrlUI
                     }
 
                     //Load bitmap image
-                    cacheInfo.ImageBitmap = FileToBitmapImage(new string[] { userSaveDirectory + "Platform.png", defaultDirectory + "Platform.png" }, null, null, IntPtr.Zero, imageWidth, 0);
+                    cacheInfo.ImageBitmap = FileToBitmapImage(new string[] { userSaveDirectory + nameGameSave + ".png", defaultDirectory + nameGameSave + ".png" }, null, null, IntPtr.Zero, imageWidth, 0);
 
                     //Return the information
                     return cacheInfo;

@@ -128,7 +128,7 @@ namespace CtrlUI
                             appImage = Path.Combine(gogGamePath, playtaskIcon.icon);
                             //Debug.WriteLine("Set GoG image to: " + appImage);
                         }
-                        BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appImage, icoFilePath, "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                        BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appImage, icoFilePath, "GoG" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
 
                         //Check the application category
                         Visibility categoryLauncher = gameTask.category == GoGAppCategory.launcher ? Visibility.Visible : Visibility.Collapsed;

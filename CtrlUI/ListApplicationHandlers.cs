@@ -50,7 +50,7 @@ namespace CtrlUI
                 if (dataBindApp.Category == AppCategory.App || dataBindApp.Category == AppCategory.Game || dataBindApp.Category == AppCategory.Emulator)
                 {
                     AnswerAddExe.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddExe.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    AnswerAddExe.Name = "Add executable application to list";
+                    AnswerAddExe.Name = "Add new executable application to list";
                     Answers.Add(AnswerAddExe);
                 }
 

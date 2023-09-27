@@ -12,6 +12,7 @@ using static ArnoldVinkCode.AVSearch;
 using static ArnoldVinkCode.AVUwpAppx;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -23,6 +24,17 @@ namespace CtrlUI
             BitmapImage applicationImage = null;
             try
             {
+                //Check application category
+                SearchSource[] imageSourceFolders = null;
+                if (dataBindApp.Category == AppCategory.Emulator)
+                {
+                    imageSourceFolders = vImageSourceFoldersEmulatorsCombined;
+                }
+                else
+                {
+                    imageSourceFolders = vImageSourceFoldersAppsCombined;
+                }
+
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
                     string imageFileName = AVFiles.FileNameReplaceInvalidChars(dataBindApp.Name, string.Empty);
@@ -42,7 +54,7 @@ namespace CtrlUI
                     catch { }
 
                     //Set application bitmap image
-                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageSquareLargestLogoPath, imageWideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, imageSize, 0);
+                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageSquareLargestLogoPath, imageWideLargestLogoPath }, imageSourceFolders, vImageBackupSource, IntPtr.Zero, imageSize, 0);
                 }
                 else
                 {
@@ -52,7 +64,7 @@ namespace CtrlUI
                     string imageFileExePath = dataBindApp.PathExe;
 
                     //Set application bitmap image
-                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, imageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
                 }
 
                 Debug.WriteLine("Loaded application image: " + applicationImage);
@@ -70,12 +82,23 @@ namespace CtrlUI
         {
             try
             {
+                //Check application category
+                SearchSource[] imageSourceFolders = null;
+                if (dataBindApp.Category == AppCategory.Emulator)
+                {
+                    imageSourceFolders = vImageSourceFoldersEmulatorsUser;
+                }
+                else
+                {
+                    imageSourceFolders = vImageSourceFoldersAppsUser;
+                }
+
                 //Set application and executable name
                 string imageFileName = AVFiles.FileNameReplaceInvalidChars(dataBindApp.Name, string.Empty);
                 string imageFileExeName = Path.GetFileNameWithoutExtension(dataBindApp.PathExe);
 
                 //Search application image files
-                string[] foundImages = Search_Files(new string[] { imageFileName, imageFileExeName }, vImageSourceFoldersUser, false);
+                string[] foundImages = Search_Files(new string[] { imageFileName, imageFileExeName }, imageSourceFolders, false);
 
                 //Remove application image files
                 foreach (string foundImage in foundImages)
@@ -96,6 +119,20 @@ namespace CtrlUI
         {
             try
             {
+                //Check application category
+                SearchSource[] imageSourceFoldersUser = null;
+                SearchSource[] imageSourceFoldersCombined = null;
+                if (dataBindApp.Category == AppCategory.Emulator)
+                {
+                    imageSourceFoldersUser = vImageSourceFoldersEmulatorsUser;
+                    imageSourceFoldersCombined = vImageSourceFoldersEmulatorsCombined;
+                }
+                else
+                {
+                    imageSourceFoldersUser = vImageSourceFoldersAppsUser;
+                    imageSourceFoldersCombined = vImageSourceFoldersAppsCombined;
+                }
+
                 //Set application and executable name
                 string imageFileName = string.Empty;
                 string imageFileExeName = string.Empty;
@@ -114,7 +151,7 @@ namespace CtrlUI
                 }
 
                 //Search application image files
-                string[] foundImages = Search_Files(new string[] { imageFileName, imageFileExeName }, vImageSourceFoldersUser, false);
+                string[] foundImages = Search_Files(new string[] { imageFileName, imageFileExeName }, imageSourceFoldersUser, false);
 
                 //Remove application image files
                 foreach (string foundImage in foundImages)
@@ -126,13 +163,13 @@ namespace CtrlUI
                 BitmapImage applicationImage = null;
                 if (dataBindApp != null)
                 {
-                    applicationImage = dataBindApp.ImageBitmap = Image_Application_Load(dataBindApp, vImageLoadSize);
+                    applicationImage = Image_Application_Load(dataBindApp, vImageLoadSize);
+                    dataBindApp.ImageBitmap = applicationImage;
                 }
                 else
                 {
-                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, imageSourceFoldersCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
                 }
-                dataBindApp.ImageBitmap = applicationImage;
                 img_AddAppLogo.Source = applicationImage;
 
                 await Notification_Send_Status("Restart", "Application image reset");
@@ -141,6 +178,50 @@ namespace CtrlUI
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to reset application image: " + ex.Message);
+            }
+        }
+
+        //Rename application image and info files
+        void Image_Application_Rename(DataBindApp dataBindApp, string newAppName)
+        {
+            try
+            {
+                //Check application category
+                string appAssetFolder = string.Empty;
+                if (dataBindApp.Category == AppCategory.Emulator)
+                {
+                    appAssetFolder = "Assets/User/Emulators/";
+                }
+                else
+                {
+                    appAssetFolder = "Assets/User/Apps/";
+                }
+
+                //Filter file name
+                string imageFileNameOldSafe = AVFiles.FileNameReplaceInvalidChars(dataBindApp.Name, string.Empty);
+                string imageFileNameNewSafe = AVFiles.FileNameReplaceInvalidChars(newAppName, string.Empty);
+
+                //Rename image file
+                string imageFilePathOld = appAssetFolder + imageFileNameOldSafe + ".png";
+                string imageFilePathNew = appAssetFolder + imageFileNameNewSafe + ".png";
+                if (dataBindApp.Name != newAppName && File.Exists(imageFilePathOld))
+                {
+                    File_Move(imageFilePathOld, imageFilePathNew, true);
+                }
+
+                //Rename info file
+                string jsonFilePathOld = appAssetFolder + imageFileNameOldSafe + ".json";
+                string jsonFilePathNew = appAssetFolder + imageFileNameNewSafe + ".json";
+                if (dataBindApp.Name != newAppName && File.Exists(jsonFilePathOld))
+                {
+                    File_Move(jsonFilePathOld, jsonFilePathNew, true);
+                }
+
+                Debug.WriteLine("Renamed application image and info: " + imageFileNameOldSafe + "/" + imageFileNameNewSafe);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed renaming application image and info: " + ex.Message);
             }
         }
     }

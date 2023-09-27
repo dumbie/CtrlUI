@@ -174,7 +174,7 @@ namespace CtrlUI
                         }
 
                         //Load the application image
-                        BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processMulti.WindowTitleMain, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExe }, vImageSourceFolders, vImageBackupSource, windowHandleMain, vImageLoadSize, 0);
+                        BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processMulti.WindowTitleMain, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExe }, vImageSourceFoldersAppsCombined, vImageBackupSource, windowHandleMain, vImageLoadSize, 0);
 
                         //Create new ProcessMulti list
                         List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();

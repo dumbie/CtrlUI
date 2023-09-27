@@ -151,7 +151,7 @@ namespace CtrlUI
                                 //Save bytes to image file
                                 File.WriteAllBytes(userSaveDirectory + "Platform.png", imageBytes);
 
-                                Debug.WriteLine("Saved image: " + imageBytes.Length + "bytes/" + imageUri);
+                                Debug.WriteLine("Saved platform image: " + imageBytes.Length + "bytes/" + imageUri);
                             }
                             catch { }
                         }
