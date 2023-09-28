@@ -293,7 +293,16 @@ namespace CtrlUI
         {
             try
             {
-                int totalFileCount = List_FilePicker.Count - 1; //Filter out GoUp
+                int totalFileCount = 0;
+                if (vFilePickerSettings.ShowEmulatorInterface)
+                {
+                    totalFileCount = List_FilePicker.Count - 3; //Filter out emulator items
+                }
+                else
+                {
+                    totalFileCount = List_FilePicker.Count - 1; //Filter out go up item
+                }
+
                 if (totalFileCount > 0)
                 {
                     //Enable or disable file and folder availability

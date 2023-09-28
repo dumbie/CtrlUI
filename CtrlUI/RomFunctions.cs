@@ -36,8 +36,13 @@ namespace CtrlUI
                 nameFile = Regex.Replace(nameFile, @"\{(.*?)\}+", string.Empty);
                 nameFile = Regex.Replace(nameFile, @"\[(.*?)\]+", string.Empty);
 
+                //Remove version and number
+                nameFile = Regex.Replace(nameFile, @"v(\d+\.\d+)\s?", string.Empty);
+                nameFile = Regex.Replace(nameFile, @"ver(\d+\.\d+)\s?", string.Empty);
+                nameFile = Regex.Replace(nameFile, @"version(\d+\.\d+)\s?", string.Empty);
+
                 //Replace all characters
-                nameFile = Regex.Replace(nameFile, @"[^a-zA-Z0-9 ]", " ");
+                nameFile = Regex.Replace(nameFile, @"[^a-zA-Z0-9]", " ");
 
                 //Remove disc and number
                 nameFile = Regex.Replace(nameFile, @"disc\s?\d+", string.Empty);
@@ -46,12 +51,13 @@ namespace CtrlUI
                 nameFile = Regex.Replace(nameFile, @"multi\s?\d+", string.Empty);
 
                 //Remove whole words
-                string[] nameFilterRemove = { "usa", "eur", "pal", "ntsc", "repack", "proper", "ps2dvd", "psn", "nsw" };
+                string[] nameFilterRemove = { "usa", "eur", "pal", "ntsc", "repack", "proper", "ps2dvd", "psn", "nsw", "decrypted" };
                 foreach (string replaceString in nameFilterRemove)
                 {
                     nameFile = Regex.Replace(nameFile, @"\b" + replaceString + @"\b", string.Empty);
                 }
 
+                //Remove platform names
                 if (removePlatform)
                 {
                     IEnumerable<string> consoleSlugNames = vApiIGDBPlatforms.Select(x => x.slug).Where(x => !string.IsNullOrWhiteSpace(x));

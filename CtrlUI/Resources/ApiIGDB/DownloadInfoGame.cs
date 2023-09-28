@@ -209,6 +209,9 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Downloading games for: " + searchName);
 
+                //Replace spaces with asterisk
+                string igdbSearchName = searchName.Replace(" ", "*");
+
                 //Authenticate with Twitch
                 string authAccessToken = await ApiTwitch_Authenticate();
                 if (string.IsNullOrWhiteSpace(authAccessToken))
@@ -226,7 +229,7 @@ namespace CtrlUI
                 Uri requestUri = new Uri("https://api.igdb.com/v4/games");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 100; search \"" + searchName + "\";";
+                string requestBodyString = "fields *; limit 100; search \"" + igdbSearchName + "\";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
                 //Download available games
