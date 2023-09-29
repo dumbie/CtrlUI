@@ -42,40 +42,44 @@ namespace FpsOverlayer
 
         void UpdateFpsVisibility()
         {
-            //Check the total available frames and last added frame time
-            if (!vListFrameTimes.Any() || (GetSystemTicksMs() - vLastFrameTimeUpdate) >= 1000)
+            try
             {
-                AVActions.DispatcherInvoke(delegate
+                //Check the total available frames and last added frame time
+                if (!vListFrameTimes.Any() || (GetSystemTicksMs() - vLastFrameTimeUpdate) >= 1000)
                 {
-                    stackpanel_CurrentFrametime.Visibility = Visibility.Collapsed;
-                    stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
-                });
-            }
-            else
-            {
-                AVActions.DispatcherInvoke(delegate
-                {
-                    bool showFrametime = SettingLoad(vConfigurationFpsOverlayer, "FrametimeGraphShow", typeof(bool));
-                    if (showFrametime)
-                    {
-                        stackpanel_CurrentFrametime.Visibility = Visibility.Visible;
-                    }
-                    else
+                    AVActions.DispatcherInvoke(delegate
                     {
                         stackpanel_CurrentFrametime.Visibility = Visibility.Collapsed;
-                    }
-
-                    bool stringEmpty = string.IsNullOrWhiteSpace(textblock_CurrentFps.Text) || textblock_CurrentFps.Text == vTitleFPS;
-                    if (!stringEmpty)
-                    {
-                        stackpanel_CurrentFps.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
                         stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
-                    }
-                });
+                    });
+                }
+                else
+                {
+                    bool showFrametime = SettingLoad(vConfigurationFpsOverlayer, "FrametimeGraphShow", typeof(bool));
+                    AVActions.DispatcherInvoke(delegate
+                    {
+                        if (showFrametime)
+                        {
+                            stackpanel_CurrentFrametime.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            stackpanel_CurrentFrametime.Visibility = Visibility.Collapsed;
+                        }
+
+                        bool stringEmpty = string.IsNullOrWhiteSpace(textblock_CurrentFps.Text) || textblock_CurrentFps.Text == vTitleFPS;
+                        if (!stringEmpty)
+                        {
+                            stackpanel_CurrentFps.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
+                        }
+                    });
+                }
             }
+            catch { }
         }
 
         async Task UpdateStatsFps()

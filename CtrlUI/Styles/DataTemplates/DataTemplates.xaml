@@ -131,8 +131,8 @@
                 <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Check.png" Visibility="{Binding Checked}" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="30" Opacity="0.90"/>
             </StackPanel>
 
-            <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="40" Grid.Column="1" Style="{StaticResource ScrollViewerHidden}">
-                <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="30" Grid.Column="1" Style="{StaticResource ScrollViewerHidden}" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBlock>
                     <Run Text="{Binding Name}" Style="{StaticResource RunWhiteLight}" FontSize="{StaticResource TextSizeHuge}"/>
                     <Run Text="{Binding NameSub}" Style="{StaticResource RunGrayLight}" FontSize="{StaticResource TextSizeHuge}"/>
                 </TextBlock>
@@ -152,13 +152,18 @@
         <Grid Margin="5,10,5,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="{Binding ImageBitmap}" Height="50" Width="50"/>
-            <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="15,0,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-            <TextBlock Grid.Column="2" Text="{Binding NameSub}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+            <Image Grid.Column="0" Source="{Binding ImageBitmap}" Height="50" Width="50" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+            <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="30" Grid.Column="1" Style="{StaticResource ScrollViewerHidden}" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBlock>
+                    <Run Text="{Binding Name}" Style="{StaticResource RunWhiteLight}" FontSize="{StaticResource TextSizeHuge}"/>
+                    <Run Text="{Binding NameSub}" Style="{StaticResource RunGrayLight}" FontSize="{StaticResource TextSizeHuge}"/>
+                </TextBlock>
+            </styles:ScrollViewerLoopHorizontal>
+
             <TextBlock Grid.Column="3" Text="{Binding NameDetail}" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" Margin="10,0,5,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
         </Grid>
     </DataTemplate>
@@ -173,7 +178,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="40" Grid.Column="0" Margin="0,0,20,0" MinWidth="350" MaxWidth="700" Style="{StaticResource ScrollViewerHidden}">
+            <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="30" Grid.Column="0" Margin="0,0,20,0" MinWidth="350" MaxWidth="700" Style="{StaticResource ScrollViewerHidden}">
                 <TextBlock Text="{Binding Data1}" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}"/>
             </styles:ScrollViewerLoopHorizontal>
             <TextBlock Grid.Column="1" Margin="0,0,20,0" Text="{Binding Data2}" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeLarge}"/>

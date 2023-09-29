@@ -32,7 +32,7 @@
                 <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>
             <Grid>
-                <AVStyles:ScrollViewerLoopHorizontal ScrollLoopSpeed="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,20,0" Style="{StaticResource ScrollViewerHidden}">
+                <AVStyles:ScrollViewerLoopHorizontal ScrollLoopSpeed="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,20,0" Style="{StaticResource ScrollViewerHidden}">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Name="sp_ControllerHelpLeft" Orientation="Horizontal" Margin="5,5,10,5" Visibility="Collapsed">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="25" Opacity="0.80"/>
@@ -132,7 +132,7 @@
                     </StackPanel>
 
                     <!-- Header - Icons -->
-                    <AVStyles:ScrollViewerLoopHorizontal Grid.Column="1" ScrollLoopSpeed="40" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,10,0" Style="{StaticResource ScrollViewerHidden}">
+                    <AVStyles:ScrollViewerLoopHorizontal Grid.Column="1" ScrollLoopSpeed="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,10,0" Style="{StaticResource ScrollViewerHidden}">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel Name="stackpanel_Menu_Controller0" Opacity="0.40">
                                 <Image Name="img_Menu_Controller0" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Accent.png"/>
@@ -211,7 +211,7 @@
                                 <Image Name="image_Category_LB" Visibility="Collapsed" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="25" Opacity="0.80" Margin="0,0,10,0"/>
                             </StackPanel>
 
-                            <AVStyles:ScrollViewerLoopHorizontal Grid.Column="1" ScrollLoopSpeed="40" VerticalAlignment="Center" IsHitTestVisible="True" Style="{StaticResource ScrollViewerHidden}">
+                            <AVStyles:ScrollViewerLoopHorizontal Grid.Column="1" ScrollLoopSpeed="30" VerticalAlignment="Center" IsHitTestVisible="True" Style="{StaticResource ScrollViewerHidden}">
                                 <StackPanel Orientation="Horizontal">
                                     <Button Name="button_Category_Menu_Apps" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
                                         <TextBlock Name="textblock_Category_Menu_Apps" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Apps"/>
