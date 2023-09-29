@@ -71,9 +71,12 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v1.99.2.0 (29-September-2023)
+- FpsOverlayer: Added setting to show GPU memory speed and hotspot temperature.
+* Miscellaneous application improvements and fixes.
+
 v1.99.0.0 (6-September-2023)
 - CtrlUI: Added Auto HDR launch option to enable and allow unsupported applications.
-* Miscellaneous application improvements and fixes.
 
 v1.98.0.0 (17-August-2023)
 - CtrlUI: Improved navigation by allowing horizontal looping in lists.
