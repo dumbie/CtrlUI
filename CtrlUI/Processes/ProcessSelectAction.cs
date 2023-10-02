@@ -59,15 +59,19 @@ namespace CtrlUI
                 //Set messagebox answers
                 List<DataBindString> Answers = new List<DataBindString>();
 
+                //Check window handle main
                 DataBindString AnswerShow = new DataBindString();
-                AnswerShow.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerShow.Name = "Show application";
-                Answers.Add(AnswerShow);
-
                 DataBindString AnswerHide = new DataBindString();
-                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMinimize.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerHide.Name = "Hide application";
-                Answers.Add(AnswerHide);
+                if (processMulti.WindowHandleMain != IntPtr.Zero)
+                {
+                    AnswerShow.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerShow.Name = "Show application";
+                    Answers.Add(AnswerShow);
+
+                    AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMinimize.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerHide.Name = "Hide application";
+                    Answers.Add(AnswerHide);
+                }
 
                 DataBindString AnswerClose = new DataBindString();
                 if (!processIsExplorer)

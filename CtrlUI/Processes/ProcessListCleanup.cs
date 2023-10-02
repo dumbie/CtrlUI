@@ -23,15 +23,14 @@ namespace CtrlUI
                         Predicate<ProcessMulti> filterProcessApp = x => !processIdentifiers.Any(y => y == x.Identifier);
                         dataBindApp.ProcessMulti.RemoveAll(filterProcessApp);
 
-                        //Check process running count
-                        int processCount = dataBindApp.ProcessMulti.Count();
-
-                        //Remove invalid processes
-                        if (processCount > 1)
+                        //Remove invalid window processes
+                        if (dataBindApp.ProcessMulti.Any(x => x.WindowHandleMain != IntPtr.Zero))
                         {
                             dataBindApp.ProcessMulti.RemoveAll(x => x.WindowHandleMain == IntPtr.Zero);
-                            processCount = dataBindApp.ProcessMulti.Count();
                         }
+
+                        //Check process running count
+                        int processCount = dataBindApp.ProcessMulti.Count();
 
                         //Update the running count text
                         if (processCount > 1)
