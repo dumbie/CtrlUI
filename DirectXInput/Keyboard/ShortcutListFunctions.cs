@@ -7,7 +7,6 @@ using System.Windows.Input;
 using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static DirectXInput.AppVariables;
-using static DirectXInput.XboxGameDVR;
 using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
 
@@ -153,7 +152,7 @@ namespace DirectXInput.KeyboardCode
                     //Show Xbox Game Bar
                     if (selectedItem.Object1.ToString() == "ShowXboxGameBar")
                     {
-                        ShowXboxGameBar();
+                        ProcessLaunch.LaunchXboxGameBar();
                     }
                     else
                     {

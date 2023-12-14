@@ -195,7 +195,7 @@ namespace DirectXInput
                         if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImage", typeof(bool)))
                         {
                             Debug.WriteLine("Button Global - Image capture");
-                            XboxGameDVR.CaptureImage();
+                            await ToolFunctions.ScreenCaptureToolCaptureImage();
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
@@ -207,7 +207,7 @@ namespace DirectXInput
                         if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideo", typeof(bool)))
                         {
                             Debug.WriteLine("Button Global - Video capture");
-                            XboxGameDVR.CaptureVideo();
+                            await ToolFunctions.ScreenCaptureToolCaptureVideo();
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;

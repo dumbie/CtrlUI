@@ -65,9 +65,7 @@ namespace DirectXInput
 
                 //Load capture settings
                 cb_SettingsShortcutCaptureImage.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImage", typeof(bool));
-                cb_SettingsShortcutCaptureImageKeyboard.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImageKeyboard", typeof(bool));
                 cb_SettingsShortcutCaptureVideo.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideo", typeof(bool));
-                cb_SettingsShortcutCaptureVideoKeyboard.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideoKeyboard", typeof(bool));
 
                 //Load keyboard settings
                 cb_SettingsKeyboardCloseNoController.IsChecked = SettingLoad(vConfigurationDirectXInput, "KeyboardCloseNoController", typeof(bool));

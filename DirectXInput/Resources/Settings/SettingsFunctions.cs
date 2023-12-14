@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
-using static ArnoldVinkCode.AVShellInfo;
-using static DirectXInput.XboxGameDVR;
+﻿using System.Windows;
 
 namespace DirectXInput
 {
@@ -13,47 +10,6 @@ namespace DirectXInput
             try
             {
                 await Message_UpdateDrivers();
-            }
-            catch { }
-        }
-
-        //Open Xbox game bar overlay
-        void Btn_Settings_OpenXboxGameBarOverlay_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ShowXboxGameBar();
-            }
-            catch { }
-        }
-
-        //Open Xbox game bar settings
-        void Btn_Settings_OpenXboxGameBarSettings_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Process.Start("ms-settings:gaming-gamebar");
-            }
-            catch { }
-        }
-
-        //Open Xbox capture settings
-        void Btn_Settings_OpenXboxCapture_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Process.Start("ms-settings:gaming-gamedvr");
-            }
-            catch { }
-        }
-
-        //Open Xbox capture folder
-        void Btn_Settings_OpenCaptureFolder_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                string capturesPath = ShellPath_KnownFolder(KnownFolder.AppCaptures);
-                Process.Start(capturesPath);
             }
             catch { }
         }

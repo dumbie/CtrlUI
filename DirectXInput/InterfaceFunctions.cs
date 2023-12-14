@@ -485,12 +485,6 @@ namespace DirectXInput
                 btn_Settings_KeypadProcessProfile_Remove.Click += Btn_Settings_KeypadProcessProfile_Remove_Click;
                 combobox_KeypadProcessProfile.SelectionChanged += Combobox_KeypadProcessProfile_SelectionChanged;
 
-                //Capture functions
-                btn_Settings_OpenXboxGameBarOverlay.Click += Btn_Settings_OpenXboxGameBarOverlay_Click;
-                btn_Settings_OpenXboxGameBarSettings.Click += Btn_Settings_OpenXboxGameBarSettings_Click;
-                btn_Settings_OpenXboxCapture.Click += Btn_Settings_OpenXboxCapture_Click;
-                btn_Settings_OpenCaptureFolder.Click += Btn_Settings_OpenCaptureFolder_Click;
-
                 //Settings functions
                 btn_Settings_InstallDrivers.Click += btn_Settings_InstallDrivers_Click;
 

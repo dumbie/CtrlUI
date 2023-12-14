@@ -33,26 +33,6 @@ namespace DirectXInput
                             shortcutDelay = true;
                         }
                     }
-                    else if (altPressed && keysPressed.Contains(KeysVirtual.F12))
-                    {
-                        //Signal to capture image
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImageKeyboard", typeof(bool)))
-                        {
-                            Debug.WriteLine("Button Global - Image capture");
-                            XboxGameDVR.CaptureImage();
-                            shortcutDelay = true;
-                        }
-                    }
-                    else if (ctrlPressed && keysPressed.Contains(KeysVirtual.F12))
-                    {
-                        //Signal to capture video
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideoKeyboard", typeof(bool)))
-                        {
-                            Debug.WriteLine("Button Global - Video capture");
-                            XboxGameDVR.CaptureVideo();
-                            shortcutDelay = true;
-                        }
-                    }
 
                     //Update shortcut delay
                     if (shortcutDelay)

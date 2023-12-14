@@ -521,48 +521,13 @@
 
                                 <CheckBox Margin="0,10,0,0" Name="cb_SettingsShortcutMuteInput" Content="Mute audio input by holding the Media button" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to mute your input audio with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Grid>
-                </Grid>
-            </Grid>
 
-            <!-- Grid Capture -->
-            <Grid Name="grid_Capture" Grid.Column="1" Background="{DynamicResource ApplicationWhiteBrush}" Visibility="Collapsed">
-                <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
-                        <StackPanel>
-                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Capture"/>
-                            <Border Margin="0,30,0,0" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
-                        </StackPanel>
-                    </Grid>
-
-                    <Grid Grid.Row="1">
-                        <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
-                            <StackPanel>
-                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Capture Shortcuts"/>
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Capture Shortcuts"/>
                                 <CheckBox Name="cb_SettingsShortcutCaptureImage" Content="Capture image by pressing the Touchpad button" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to take a screenshot with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                                <CheckBox Name="cb_SettingsShortcutCaptureImageKeyboard" Margin="0,10,0,0" Content="Capture image by pressing Alt and F12 combined" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will allow you to take a screenshot with your keyboard." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
                                 <CheckBox Name="cb_SettingsShortcutCaptureVideo" Margin="0,10,0,0" Content="Capture video by holding the Touchpad button" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to capture video with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <CheckBox Name="cb_SettingsShortcutCaptureVideoKeyboard" Margin="0,10,0,0" Content="Capture image by pressing Ctrl and F12 combined" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will allow you to take a screenshot with your keyboard." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Other Settings"/>
-                                <Button Name="btn_Settings_OpenCaptureFolder" Content="Open image and video capture folder" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
-                                <Button Name="btn_Settings_OpenXboxGameBarOverlay" Margin="0,10,0,0" Content="Open Xbox Game Bar overlay" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
-                                <Button Name="btn_Settings_OpenXboxGameBarSettings" Margin="0,10,0,0" Content="Open Xbox Game Bar settings" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
-                                <Button Name="btn_Settings_OpenXboxCapture" Margin="0,10,0,0" Content="Open Xbox Capture settings" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>

@@ -1,7 +1,9 @@
 ﻿using ArnoldVinkCode;
 using System.Diagnostics;
 using static ArnoldVinkCode.AVProcess;
+using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput
 {
@@ -22,7 +24,7 @@ namespace DirectXInput
                     notificationDetails.Text = "Launching CtrlUI";
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                    //Launch CtrlUI
+                    //Launch application
                     AVProcess.Launch_ShellExecute("CtrlUI-Launcher.exe", "", "", true);
                 }
             }
@@ -44,9 +46,48 @@ namespace DirectXInput
                     notificationDetails.Text = "Launching Fps Overlayer";
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                    //Launch Fps Overlayer
+                    //Launch application
                     AVProcess.Launch_ShellExecute("FpsOverlayer-Launcher.exe", "", "", true);
                 }
+            }
+            catch { }
+        }
+
+        //Launch Screen Capture Tool
+        public static void LaunchScreenCaptureTool(bool forceLaunch, bool skipNotification)
+        {
+            try
+            {
+                if (forceLaunch || !Check_RunningProcessByName("ScreenCaptureTool", true))
+                {
+                    Debug.WriteLine("Launching Screen Capture Tool");
+
+                    //Show notification
+                    if (!skipNotification)
+                    {
+                        NotificationDetails notificationDetails = new NotificationDetails();
+                        notificationDetails.Icon = "Screenshot";
+                        notificationDetails.Text = "Launching Screen Capture Tool";
+                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    }
+
+                    //Launch application
+                    AVProcess.Launch_ShellExecute("ScreenCaptureTool.exe", "", "", true);
+                }
+            }
+            catch { }
+        }
+
+        //Launch Xbox Game Bar
+        public static void LaunchXboxGameBar()
+        {
+            try
+            {
+                //Play interface sound
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, true);
+
+                //Launch Xbox Game Bar app
+                Launch_UwpApplication("Microsoft.XboxGamingOverlay_8wekyb3d8bbwe!App", string.Empty);
             }
             catch { }
         }

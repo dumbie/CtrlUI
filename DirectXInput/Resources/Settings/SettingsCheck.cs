@@ -25,9 +25,7 @@ namespace DirectXInput
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutMuteOutput")) { SettingSave(vConfigurationDirectXInput, "ShortcutMuteOutput", "True"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutMuteInput")) { SettingSave(vConfigurationDirectXInput, "ShortcutMuteInput", "True"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "ShortcutCaptureImage")) { SettingSave(vConfigurationDirectXInput, "ShortcutCaptureImage", "True"); } //Shared
-                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutCaptureImageKeyboard")) { SettingSave(vConfigurationDirectXInput, "ShortcutCaptureImageKeyboard", "True"); }
-                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutCaptureVideo")) { SettingSave(vConfigurationDirectXInput, "ShortcutCaptureVideo", "True"); }
-                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutCaptureVideoKeyboard")) { SettingSave(vConfigurationDirectXInput, "ShortcutCaptureVideoKeyboard", "True"); }
+                if (!SettingCheck(vConfigurationDirectXInput, "ShortcutCaptureVideo")) { SettingSave(vConfigurationDirectXInput, "ShortcutCaptureVideo", "True"); } //Shared
 
                 //Battery settings
                 if (!SettingCheck(vConfigurationDirectXInput, "BatteryLowLevel")) { SettingSave(vConfigurationDirectXInput, "BatteryLowLevel", "20"); }
@@ -50,7 +48,12 @@ namespace DirectXInput
                 if (!SettingCheck(vConfigurationDirectXInput, "KeyboardCloseNoController")) { SettingSave(vConfigurationDirectXInput, "KeyboardCloseNoController", "True"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity")) { SettingSave(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", "7,50"); }
                 if (!SettingCheck(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2")) { SettingSave(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", "2"); }
+
+                //Media settings
                 if (!SettingCheck(vConfigurationDirectXInput, "MediaVolumeStep")) { SettingSave(vConfigurationDirectXInput, "MediaVolumeStep", "2"); }
+
+                //Socket settings
+                if (!SettingCheck(vConfigurationDirectXInput, "ServerPortScreenCaptureTool")) { SettingSave(vConfigurationDirectXInput, "ServerPortScreenCaptureTool", "1040"); }
             }
             catch (Exception ex)
             {

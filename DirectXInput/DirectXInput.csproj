@@ -190,9 +190,6 @@
     <Compile Include="ConnectionFunctions.cs" />
     <Compile Include="Resources\Settings\SettingsFunctions.cs" />
     <Compile Include="SocketHandlers.cs" />
-    <Compile Include="Resources\XboxGameDVR\XboxDvrKeys.cs" />
-    <Compile Include="Resources\XboxGameDVR\XboxDvrStatus.cs" />
-    <Compile Include="Resources\XboxGameDVR\XboxDvrFunctions.cs" />
     <Page Include="Keypad\WindowKeypad.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

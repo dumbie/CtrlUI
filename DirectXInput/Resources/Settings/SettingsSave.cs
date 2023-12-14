@@ -205,20 +205,10 @@ namespace DirectXInput
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
-                cb_SettingsShortcutCaptureImageKeyboard.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutCaptureImageKeyboard", cb_SettingsShortcutCaptureImageKeyboard.IsChecked.ToString());
-                };
-
                 cb_SettingsShortcutCaptureVideo.Click += async (sender, e) =>
                 {
                     SettingSave(vConfigurationDirectXInput, "ShortcutCaptureVideo", cb_SettingsShortcutCaptureVideo.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
-                };
-
-                cb_SettingsShortcutCaptureVideoKeyboard.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutCaptureVideoKeyboard", cb_SettingsShortcutCaptureVideoKeyboard.IsChecked.ToString());
                 };
 
                 //Keyboard settings
