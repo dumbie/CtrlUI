@@ -32,6 +32,7 @@ namespace FpsOverlayer
 
                 checkbox_CheckTaskbarVisible.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "CheckTaskbarVisible", typeof(bool));
                 checkbox_StatsFlipBottom.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "StatsFlipBottom", typeof(bool));
+                checkbox_HideScreenCapture.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "HideScreenCapture", typeof(bool));
 
                 //Select the current font name
                 try

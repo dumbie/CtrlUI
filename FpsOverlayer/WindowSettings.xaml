@@ -238,6 +238,9 @@
 
                         <CheckBox Margin="0,10,0,0" Name="checkbox_StatsFlipBottom" Content="Flip stats order when positioned on bottom" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Flip stats order when the stats overlay is positioned on the bottom of the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_HideScreenCapture" Content="Hide stats from screen capture" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Prevent the stats from been screen captured when using the Screen Capture Tool and others using WGC." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Crosshair" Visibility="Collapsed">

@@ -65,6 +65,12 @@ namespace FpsOverlayer
                     vWindowMain.UpdateFpsOverlayStyle();
                 };
 
+                checkbox_HideScreenCapture.Click += (sender, e) =>
+                {
+                    SettingSave(vConfigurationFpsOverlayer, "HideScreenCapture", checkbox_HideScreenCapture.IsChecked.ToString());
+                    vWindowMain.UpdateWindowAffinity();
+                };
+
                 combobox_InterfaceFontStyleName.SelectionChanged += (sender, e) =>
                 {
                     SettingSave(vConfigurationFpsOverlayer, "InterfaceFontStyleName", combobox_InterfaceFontStyleName.SelectedItem.ToString());

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
@@ -47,6 +48,9 @@ namespace FpsOverlayer
 
                 //Check application settings
                 vWindowSettings.Settings_Check();
+
+                //Update window display affinity
+                UpdateWindowAffinity();
 
                 //Change application accent color
                 string colorLightHex = SettingLoad(vConfigurationCtrlUI, "ColorAccentLight", typeof(string));
@@ -145,9 +149,9 @@ namespace FpsOverlayer
         {
             try
             {
-                int SocketServerPort = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(int)) + 2;
+                int socketServerPort = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(int)) + 2;
 
-                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, false, true);
+                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", socketServerPort, false, true);
                 vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
                 await vArnoldVinkSockets.SocketServerEnable();
@@ -168,6 +172,23 @@ namespace FpsOverlayer
 
                 //Update window position
                 UpdateWindowPosition();
+            }
+            catch { }
+        }
+
+        //Update window display affinity
+        public void UpdateWindowAffinity()
+        {
+            try
+            {
+                if (SettingLoad(vConfigurationFpsOverlayer, "HideScreenCapture", typeof(bool)))
+                {
+                    SetWindowDisplayAffinity(vInteropWindowHandle, DisplayAffinityFlags.WDA_EXCLUDEFROMCAPTURE);
+                }
+                else
+                {
+                    SetWindowDisplayAffinity(vInteropWindowHandle, DisplayAffinityFlags.WDA_NONE);
+                }
             }
             catch { }
         }
