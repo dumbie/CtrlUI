@@ -20,7 +20,8 @@ namespace FpsOverlayer
         //Application Variables
         public static Configuration vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
         public static Configuration vConfigurationFpsOverlayer = SettingLoadConfig("FpsOverlayer.exe.csettings");
-        public static bool vManualHidden = false;
+        public static bool vManualHiddenFpsOverlay = false;
+        public static bool vManualHiddenCrosshairOverlay = false;
         public const int vTotalStatsCount = 10;
 
         //Application Windows

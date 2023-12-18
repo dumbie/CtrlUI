@@ -3,26 +3,20 @@ using System.Windows;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppVariables;
+using static LibraryShared.Enums;
 
 namespace FpsOverlayer
 {
     public partial class WindowMain
     {
-        //Switch the crosshair visibility
-        public void SwitchCrosshairVisibility()
+        //Hide the crosshair visibility
+        public void HideCrosshairVisibility()
         {
             try
             {
                 AVActions.DispatcherInvoke(delegate
                 {
-                    if (grid_CrosshairOverlayer.Visibility == Visibility.Visible)
-                    {
-                        grid_CrosshairOverlayer.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        grid_CrosshairOverlayer.Visibility = Visibility.Visible;
-                    }
+                    grid_CrosshairOverlayer.Visibility = Visibility.Collapsed;
                 });
             }
             catch { }
@@ -33,12 +27,64 @@ namespace FpsOverlayer
         {
             try
             {
-                grid_CrosshairOverlayer.Visibility = Visibility.Visible;
+                AVActions.DispatcherInvoke(delegate
+                {
+                    grid_CrosshairOverlayer.Visibility = Visibility.Visible;
+                });
             }
             catch { }
         }
 
-        //Update the crosshair overlay style
+        //Switch the crosshair visibility
+        public void SwitchCrosshairVisibility()
+        {
+            try
+            {
+                AVActions.DispatcherInvoke(delegate
+                {
+                    if (grid_CrosshairOverlayer.Visibility == Visibility.Visible)
+                    {
+                        vManualHiddenCrosshairOverlay = true;
+                        UpdateCrosshairOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
+                    }
+                    else
+                    {
+                        vManualHiddenCrosshairOverlay = false;
+                        UpdateCrosshairOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
+                    }
+                });
+            }
+            catch { }
+        }
+
+        //Update window position and visibility
+        public void UpdateCrosshairOverlayPositionVisibility(string processName)
+        {
+            try
+            {
+                //Get target overlay position
+                OverlayPosition targetOverlayPosition = GetFpsOverlayPosition(processName);
+
+                //Hide or show the crosshair overlay
+                if (vManualHiddenCrosshairOverlay || targetOverlayPosition == OverlayPosition.Hidden)
+                {
+                    HideCrosshairVisibility();
+                    return;
+                }
+                else
+                {
+                    ShowCrosshairVisibility();
+                }
+
+                //Change the crosshair position
+                int crosshairVerticalPosition = SettingLoad(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", typeof(int));
+                int crosshairHorizontalPosition = SettingLoad(vConfigurationFpsOverlayer, "CrosshairHorizontalPosition", typeof(int));
+                grid_CrosshairOverlayer.Margin = new Thickness(crosshairHorizontalPosition, 0, 0, crosshairVerticalPosition);
+            }
+            catch { }
+        }
+
+        //Update crosshair overlay style
         public void UpdateCrosshairOverlayStyle()
         {
             try
@@ -130,13 +176,11 @@ namespace FpsOverlayer
                 crosshair_LineHorizontal.Width = crosshairSize;
                 crosshair_LineHorizontal.Height = crosshairThickness;
 
-                //Change the crosshair opacity
+                //Change crosshair opacity
                 grid_CrosshairOverlayer.Opacity = SettingLoad(vConfigurationFpsOverlayer, "CrosshairOpacity", typeof(double));
 
-                //Change the crosshair position
-                int crosshairVerticalPosition = SettingLoad(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", typeof(int));
-                int crosshairHorizontalPosition = SettingLoad(vConfigurationFpsOverlayer, "CrosshairHorizontalPosition", typeof(int));
-                grid_CrosshairOverlayer.Margin = new Thickness(crosshairHorizontalPosition, 0, 0, crosshairVerticalPosition);
+                //Update crosshair position and visibility
+                UpdateCrosshairOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
             }
             catch { }
         }

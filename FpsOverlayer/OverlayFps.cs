@@ -49,15 +49,13 @@ namespace FpsOverlayer
                 {
                     if (grid_FpsOverlayer.Visibility == Visibility.Visible)
                     {
-                        vManualHidden = true;
-                        //Update the fps overlay position
-                        UpdateFpsOverlayPosition(vTargetProcess.ExeNameNoExt);
+                        vManualHiddenFpsOverlay = true;
+                        UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
                     }
                     else
                     {
-                        vManualHidden = false;
-                        //Update the fps overlay position
-                        UpdateFpsOverlayPosition(vTargetProcess.ExeNameNoExt);
+                        vManualHiddenFpsOverlay = false;
+                        UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
                     }
                 });
             }
@@ -109,8 +107,8 @@ namespace FpsOverlayer
             return OverlayPosition.TopLeft;
         }
 
-        //Update window position
-        public void UpdateFpsOverlayPosition(string processName)
+        //Update window position and visibility
+        public void UpdateFpsOverlayPositionVisibility(string processName)
         {
             try
             {
@@ -118,7 +116,7 @@ namespace FpsOverlayer
                 OverlayPosition targetOverlayPosition = GetFpsOverlayPosition(processName);
 
                 //Hide or show the fps overlayer
-                if (vManualHidden || targetOverlayPosition == OverlayPosition.Hidden)
+                if (vManualHiddenFpsOverlay || targetOverlayPosition == OverlayPosition.Hidden)
                 {
                     HideFpsOverlayVisibility();
                     return;
@@ -324,7 +322,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update the fps overlay style
+        //Update fps overlay style
         public void UpdateFpsOverlayStyle()
         {
             try
@@ -499,9 +497,6 @@ namespace FpsOverlayer
                 stackpanel_CurrentMon.Background = brushBackground;
                 stackpanel_CurrentBat.Background = brushBackground;
 
-                //Update the stats opacity
-                grid_FpsOverlayer.Opacity = SettingLoad(vConfigurationFpsOverlayer, "DisplayOpacity", typeof(double));
-
                 //Adjust the application font family
                 UpdateAppFontStyle();
 
@@ -585,8 +580,11 @@ namespace FpsOverlayer
                 stackpanel_CurrentFrametime.Height = SettingLoad(vConfigurationFpsOverlayer, "FrametimeHeight", typeof(double));
                 stackpanel_CurrentFrametime.Width = SettingLoad(vConfigurationFpsOverlayer, "FrametimeWidth", typeof(double));
 
-                //Update the fps overlay position
-                UpdateFpsOverlayPosition(vTargetProcess.ExeNameNoExt);
+                //Update fps overlay opacity
+                grid_FpsOverlayer.Opacity = SettingLoad(vConfigurationFpsOverlayer, "DisplayOpacity", typeof(double));
+
+                //Update fps overlay position and visibility
+                UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
             }
             catch { }
         }

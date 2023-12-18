@@ -91,8 +91,8 @@ namespace FpsOverlayer
                         //Set the window keypad margin
                         vKeypadAdjustMargin = receivedKeypadSize.Height;
 
-                        //Update the fps overlay position
-                        UpdateFpsOverlayPosition(vTargetProcess.ExeNameNoExt);
+                        //Update fps overlay position and visibility
+                        UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
                     }
                 }
             }
