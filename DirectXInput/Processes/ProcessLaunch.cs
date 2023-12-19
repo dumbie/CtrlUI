@@ -72,7 +72,7 @@ namespace DirectXInput
                     }
 
                     //Launch application
-                    AVProcess.Launch_ShellExecute("ScreenCaptureTool.exe", "", "", true);
+                    AVProcess.Launch_ShellExecute("ScreenCaptureTool-Launcher.exe", "", "", true);
                 }
             }
             catch { }
@@ -86,8 +86,8 @@ namespace DirectXInput
                 //Play interface sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, true);
 
-                //Launch Xbox Game Bar app
-                Launch_UwpApplication("Microsoft.XboxGamingOverlay_8wekyb3d8bbwe!App", string.Empty);
+                //Launch application
+                AVProcess.Launch_UwpApplication("Microsoft.XboxGamingOverlay_8wekyb3d8bbwe!App", string.Empty);
             }
             catch { }
         }
