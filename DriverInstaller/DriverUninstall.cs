@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVDevices.Enumerate;
+using static ArnoldVinkCode.AVDevices.Interop;
 using static DriverInstaller.AppVariables;
-using static LibraryUsb.DeviceManager;
-using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_Guid;
-using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace DriverInstaller
 {
@@ -90,7 +89,7 @@ namespace DriverInstaller
         {
             try
             {
-                List<FileInfo> infPaths = EnumerateDevicesStore("FakerInput.inf");
+                List<FileInfo> infPaths = EnumerateDevicesDriverStore("FakerInput.inf", false);
                 foreach (FileInfo infPath in infPaths)
                 {
                     try
@@ -114,7 +113,7 @@ namespace DriverInstaller
         {
             try
             {
-                List<FileInfo> infPaths = EnumerateDevicesStore("ViGEmBus.inf");
+                List<FileInfo> infPaths = EnumerateDevicesDriverStore("ViGEmBus.inf", false);
                 foreach (FileInfo infPath in infPaths)
                 {
                     try
@@ -131,7 +130,7 @@ namespace DriverInstaller
                     catch { }
                 }
 
-                infPaths = EnumerateDevicesStore("ScpVBus.inf");
+                infPaths = EnumerateDevicesDriverStore("ScpVBus.inf", false);
                 foreach (FileInfo infPath in infPaths)
                 {
                     try
@@ -155,7 +154,7 @@ namespace DriverInstaller
         {
             try
             {
-                List<FileInfo> infPaths = EnumerateDevicesStore("Ds3Controller.inf");
+                List<FileInfo> infPaths = EnumerateDevicesDriverStore("Ds3Controller.inf", false);
                 foreach (FileInfo infPath in infPaths)
                 {
                     try
@@ -179,7 +178,7 @@ namespace DriverInstaller
         {
             try
             {
-                List<FileInfo> infPaths = EnumerateDevicesStore("HidGuardian.inf");
+                List<FileInfo> infPaths = EnumerateDevicesDriverStore("HidGuardian.inf", false);
                 foreach (FileInfo infPath in infPaths)
                 {
                     try
@@ -205,7 +204,7 @@ namespace DriverInstaller
         {
             try
             {
-                List<FileInfo> infPaths = EnumerateDevicesStore("HidHide.inf");
+                List<FileInfo> infPaths = EnumerateDevicesDriverStore("HidHide.inf", false);
                 foreach (FileInfo infPath in infPaths)
                 {
                     try

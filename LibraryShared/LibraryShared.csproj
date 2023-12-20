@@ -154,7 +154,6 @@
     <Compile Include="UsbCode\NativeMethods_Guid.cs" />
     <Compile Include="UsbCode\NativeMethods_Hid.cs" />
     <Compile Include="UsbCode\NativeMethods_IoControl.cs" />
-    <Compile Include="UsbCode\NativeMethods_SetupApi.cs" />
     <Compile Include="UsbCode\NativeMethods_WinUsb.cs" />
     <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice.cs" />
     <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice_Class.cs" />
@@ -165,9 +164,6 @@
     <Compile Include="UsbCode\TetherScriptDevice\TetherScriptDevice_ReadWrite.cs" />
     <Compile Include="UsbCode\TetherScriptDevice\TetherScriptDevice_Keyboard.cs" />
     <Compile Include="UsbCode\TetherScriptDevice\TetherScriptDevice_MouseRel.cs" />
-    <Compile Include="UsbCode\UsbLibrary_DeviceManager.cs" />
-    <Compile Include="UsbCode\UsbLibrary_Enumerate.cs" />
-    <Compile Include="UsbCode\UsbLibrary_Extensions.cs" />
     <Compile Include="UsbCode\VigemBusDevice\VigemBusDevice_Control.cs" />
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice.cs" />
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_Information.cs" />

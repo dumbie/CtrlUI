@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using static LibraryUsb.DeviceManager;
+using static ArnoldVinkCode.AVDevices.Enumerate;
+using static ArnoldVinkCode.AVDevices.Interop;
 using static LibraryUsb.NativeMethods_Guid;
-using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace LibraryUsb
 {

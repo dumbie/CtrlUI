@@ -42,8 +42,8 @@
                 <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="pack://siteoforigin:,,,/Assets/Default/Apps/Microsoft.png" Opacity="0.90" Visibility="{Binding StatusStore}"/>
                 <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Browser.png" Opacity="0.90" Visibility="{Binding StatusUrlBrowser}"/>
                 <Polygon VerticalAlignment="Center" Margin="2,0,2,0" Fill="#1EB955" Points="0,0 12,6, 0,12" Opacity="0.90" Visibility="{Binding StatusUrlProtocol}"/>
-                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncherImage}" Opacity="0.90" Visibility="{Binding StatusLauncherImage, Converter={styles:CheckVisibility}}"/>
-                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusEmulatorCategoryImage}" Opacity="0.90" Visibility="{Binding StatusEmulatorCategoryImage, Converter={styles:CheckVisibility}}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncherImage}" Opacity="0.90" Visibility="{Binding StatusLauncherImage, Converter={styles:NullCheckVisibility}}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusEmulatorCategoryImage}" Opacity="0.90" Visibility="{Binding StatusEmulatorCategoryImage, Converter={styles:NullCheckVisibility}}"/>
                 <TextBlock VerticalAlignment="Center" Margin="2,0,2,0" Text="{Binding StatusProcessCount}" FontSize="{DynamicResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
             </StackPanel>
 
@@ -77,9 +77,9 @@
                 <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="pack://siteoforigin:,,,/Assets/Default/Apps/Microsoft.png" Opacity="0.90" Visibility="{Binding StatusStore}"/>
                 <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Browser.png" Opacity="0.90" Visibility="{Binding StatusUrlBrowser}"/>
                 <Polygon VerticalAlignment="Center" Margin="2,0,2,0" Fill="#1EB955" Points="0,0 12,6, 0,12" Opacity="0.90" Visibility="{Binding StatusUrlProtocol}"/>
-                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncherImage}" Opacity="0.90" Visibility="{Binding StatusLauncherImage, Converter={styles:CheckVisibility}}"/>
-                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusEmulatorCategoryImage}" Opacity="0.90" Visibility="{Binding StatusEmulatorCategoryImage, Converter={styles:CheckVisibility}}"/>
-                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusSearchCategoryImage}" Opacity="0.90" Visibility="{Binding StatusSearchCategoryImage, Converter={styles:CheckVisibility}}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncherImage}" Opacity="0.90" Visibility="{Binding StatusLauncherImage, Converter={styles:NullCheckVisibility}}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusEmulatorCategoryImage}" Opacity="0.90" Visibility="{Binding StatusEmulatorCategoryImage, Converter={styles:NullCheckVisibility}}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusSearchCategoryImage}" Opacity="0.90" Visibility="{Binding StatusSearchCategoryImage, Converter={styles:NullCheckVisibility}}"/>
                 <TextBlock VerticalAlignment="Center" Margin="2,0,2,0" Text="{Binding StatusProcessCount}" FontSize="{DynamicResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
             </StackPanel>
 

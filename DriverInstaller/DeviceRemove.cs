@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using static LibraryUsb.DeviceManager;
-using static LibraryUsb.Enumerate;
+using static ArnoldVinkCode.AVDevices.Enumerate;
+using static ArnoldVinkCode.AVDevices.Interop;
 using static LibraryUsb.NativeMethods_Guid;
 
 namespace DriverInstaller
@@ -13,7 +13,7 @@ namespace DriverInstaller
         {
             try
             {
-                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(GuidClassScpVirtualBus, false);
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesSetupApi(GuidClassScpVirtualBus, false);
                 if (enumerateInfoList.Any())
                 {
                     foreach (EnumerateInfo device in enumerateInfoList)
@@ -38,7 +38,7 @@ namespace DriverInstaller
         {
             try
             {
-                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(GuidClassVigemVirtualBus, false);
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesSetupApi(GuidClassVigemVirtualBus, false);
                 if (enumerateInfoList.Any())
                 {
                     foreach (EnumerateInfo device in enumerateInfoList)
@@ -63,7 +63,7 @@ namespace DriverInstaller
         {
             try
             {
-                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(GuidClassX360Controller, false);
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesSetupApi(GuidClassX360Controller, false);
                 if (enumerateInfoList.Any())
                 {
                     foreach (EnumerateInfo device in enumerateInfoList)
@@ -88,7 +88,7 @@ namespace DriverInstaller
         {
             try
             {
-                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(GuidClassScpDS3Driver, false);
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesSetupApi(GuidClassScpDS3Driver, false);
                 if (enumerateInfoList.Any())
                 {
                     foreach (EnumerateInfo device in enumerateInfoList)
@@ -113,7 +113,7 @@ namespace DriverInstaller
         {
             try
             {
-                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(GuidClassFakerInputDevice, false);
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesSetupApi(GuidClassFakerInputDevice, false);
                 if (enumerateInfoList.Any())
                 {
                     foreach (EnumerateInfo device in enumerateInfoList)

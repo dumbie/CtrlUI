@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static ArnoldVinkCode.AVDevices.Extensions;
 using static LibraryUsb.HidDeviceAttributes;
 using static LibraryUsb.HidDeviceButtonValues;
 using static LibraryUsb.HidDeviceCapabilities;

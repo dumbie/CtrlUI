@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVDevices.Enumerate;
+using static ArnoldVinkCode.AVDevices.Interop;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_Guid;
 using static LibraryUsb.NativeMethods_Hid;
 
@@ -24,7 +25,7 @@ namespace DirectXInput
             try
             {
                 //Add Win Usb Devices
-                IEnumerable<EnumerateInfo> SelectedWinDevice = EnumerateDevicesDi(GuidClassScpDS3Driver, true);
+                IEnumerable<EnumerateInfo> SelectedWinDevice = EnumerateDevicesSetupApi(GuidClassScpDS3Driver, true);
                 foreach (EnumerateInfo EnumDevice in SelectedWinDevice)
                 {
                     try
@@ -79,7 +80,7 @@ namespace DirectXInput
                 }
 
                 //Add Hid Usb Devices
-                IEnumerable<EnumerateInfo> SelectedHidDevice = EnumerateDevicesDi(GuidClassHidDevice, true);
+                IEnumerable<EnumerateInfo> SelectedHidDevice = EnumerateDevicesSetupApi(GuidClassHidDevice, true);
                 foreach (EnumerateInfo EnumDevice in SelectedHidDevice)
                 {
                     try

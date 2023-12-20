@@ -2,7 +2,8 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using static LibraryUsb.Enumerate;
+using static ArnoldVinkCode.AVDevices.Enumerate;
+using static ArnoldVinkCode.AVDevices.Interop;
 using static LibraryUsb.NativeMethods_File;
 using static LibraryUsb.NativeMethods_WinUsb;
 
@@ -25,7 +26,7 @@ namespace LibraryUsb
         {
             try
             {
-                EnumerateInfo enumerateInfo = EnumerateDevicesDi(deviceGuid, true).FirstOrDefault();
+                EnumerateInfo enumerateInfo = EnumerateDevicesSetupApi(deviceGuid, true).FirstOrDefault();
                 if (enumerateInfo != null)
                 {
                     DevicePath = enumerateInfo.DevicePath.ToLower();
