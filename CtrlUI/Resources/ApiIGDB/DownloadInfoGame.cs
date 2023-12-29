@@ -210,7 +210,15 @@ namespace CtrlUI
                 Debug.WriteLine("Downloading games for: " + searchName);
 
                 //Replace spaces with asterisk
-                string igdbSearchName = searchName.Replace(" ", "*");
+                string igdbSearchName = string.Empty;
+                if (searchName.Count(char.IsWhiteSpace) > 1)
+                {
+                    igdbSearchName = searchName.Replace(" ", "*");
+                }
+                else
+                {
+                    igdbSearchName = searchName;
+                }
 
                 //Authenticate with Twitch
                 string authAccessToken = await ApiTwitch_Authenticate();
