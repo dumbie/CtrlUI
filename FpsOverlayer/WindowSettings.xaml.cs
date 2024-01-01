@@ -129,7 +129,7 @@ namespace FpsOverlayer
         {
             try
             {
-                vWindowMain.SwitchCrosshairVisibility();
+                vWindowMain.SwitchCrosshairVisibility(true);
             }
             catch { }
         }

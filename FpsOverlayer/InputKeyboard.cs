@@ -27,7 +27,7 @@ namespace FpsOverlayer
                     if (SettingLoad(vConfigurationFpsOverlayer, "ShortcutShowHideCrosshair", typeof(bool)))
                     {
                         Debug.WriteLine("Button Global - Alt + F9");
-                        SwitchCrosshairVisibility();
+                        SwitchCrosshairVisibility(true);
                     }
                 }
                 else if (altPressed && keysPressed.Contains(KeysVirtual.F10))

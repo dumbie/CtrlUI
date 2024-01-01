@@ -90,7 +90,7 @@ namespace FpsOverlayer
                 //Show crosshair when enabled
                 if (SettingLoad(vConfigurationFpsOverlayer, "CrosshairLaunch", typeof(bool)))
                 {
-                    ShowCrosshairVisibility();
+                    SwitchCrosshairVisibility(true);
                 }
 
                 //Show browser when enabled

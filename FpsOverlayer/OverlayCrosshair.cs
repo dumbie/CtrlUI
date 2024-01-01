@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVSettings;
@@ -29,6 +30,7 @@ namespace FpsOverlayer
             {
                 AVActions.DispatcherInvoke(delegate
                 {
+                    vManualShownCrosshairOverlay = true;
                     grid_CrosshairOverlayer.Visibility = Visibility.Visible;
                 });
             }
@@ -36,7 +38,7 @@ namespace FpsOverlayer
         }
 
         //Switch the crosshair visibility
-        public void SwitchCrosshairVisibility()
+        public void SwitchCrosshairVisibility(bool forceShow)
         {
             try
             {
@@ -45,12 +47,12 @@ namespace FpsOverlayer
                     if (grid_CrosshairOverlayer.Visibility == Visibility.Visible)
                     {
                         vManualHiddenCrosshairOverlay = true;
-                        UpdateCrosshairOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
+                        UpdateCrosshairOverlayPositionVisibility(vTargetProcess.ExeNameNoExt, forceShow);
                     }
                     else
                     {
                         vManualHiddenCrosshairOverlay = false;
-                        UpdateCrosshairOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
+                        UpdateCrosshairOverlayPositionVisibility(vTargetProcess.ExeNameNoExt, forceShow);
                     }
                 });
             }
@@ -58,7 +60,7 @@ namespace FpsOverlayer
         }
 
         //Update window position and visibility
-        public void UpdateCrosshairOverlayPositionVisibility(string processName)
+        public void UpdateCrosshairOverlayPositionVisibility(string processName, bool forceShow)
         {
             try
             {
@@ -71,7 +73,7 @@ namespace FpsOverlayer
                     HideCrosshairVisibility();
                     return;
                 }
-                else
+                else if (forceShow || vManualShownCrosshairOverlay)
                 {
                     ShowCrosshairVisibility();
                 }
@@ -180,7 +182,7 @@ namespace FpsOverlayer
                 grid_CrosshairOverlayer.Opacity = SettingLoad(vConfigurationFpsOverlayer, "CrosshairOpacity", typeof(double));
 
                 //Update crosshair position and visibility
-                UpdateCrosshairOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
+                UpdateCrosshairOverlayPositionVisibility(vTargetProcess.ExeNameNoExt, false);
             }
             catch { }
         }

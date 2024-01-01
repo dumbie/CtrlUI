@@ -22,6 +22,7 @@ namespace FpsOverlayer
         public static Configuration vConfigurationFpsOverlayer = SettingLoadConfig("FpsOverlayer.exe.csettings");
         public static bool vManualHiddenFpsOverlay = false;
         public static bool vManualHiddenCrosshairOverlay = false;
+        public static bool vManualShownCrosshairOverlay = false;
         public const int vTotalStatsCount = 10;
 
         //Application Windows

@@ -77,7 +77,7 @@ namespace FpsOverlayer
 
                         //Update fps and crosshair overlay position and visibility
                         UpdateFpsOverlayPositionVisibility(foregroundProcess.ExeNameNoExt);
-                        UpdateCrosshairOverlayPositionVisibility(foregroundProcess.ExeNameNoExt);
+                        UpdateCrosshairOverlayPositionVisibility(foregroundProcess.ExeNameNoExt, false);
 
                         //Check if the foreground window is fps overlayer
                         if (vProcessCurrent.Identifier == foregroundProcess.Identifier)

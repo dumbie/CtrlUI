@@ -66,7 +66,7 @@ namespace FpsOverlayer
                         }
                         else if (receivedString == "SwitchCrosshairOverlayVisibility")
                         {
-                            SwitchCrosshairVisibility();
+                            SwitchCrosshairVisibility(true);
                         }
                         else if (receivedString == "ChangeFpsOverlayPosition")
                         {
