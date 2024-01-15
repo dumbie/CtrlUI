@@ -292,103 +292,32 @@ namespace CtrlUI
                 bool runningGog = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "galaxyclient");
                 bool runningUbisoft = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "ubisoftconnect" || x.ExeNameNoExt.ToLower() == "upc");
                 bool runningEpic = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "epicgameslauncher");
-                bool runningBlizzard = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "battle.net");
+                bool runningBattleNet = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "battle.net");
                 bool runningRockstar = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "rockstarservice");
+                bool runningAmazon = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "amazon games");
+                bool runningIndieGala = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "igclient");
+                bool runningItchIO = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "itch");
                 bool runningDiscord = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "discord");
                 bool runningDirectXInput = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "directxinput");
+                bool runningScreenCaptureTool = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "screencapturetool");
                 bool runningFpsOverlayer = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "fpsoverlayer");
 
                 AVActions.DispatcherInvoke(delegate
                 {
-                    if (runningSteam)
-                    {
-                        img_Menu_SteamStatus.Opacity = 1.00;
-                    }
-                    else
-                    {
-                        img_Menu_SteamStatus.Opacity = 0.40;
-                    }
-
-                    if (runningEADesktop)
-                    {
-                        img_Menu_EADesktopStatus.Opacity = 1.00;
-                    }
-                    else
-                    {
-                        img_Menu_EADesktopStatus.Opacity = 0.40;
-                    }
-
-                    if (runningGog)
-                    {
-                        img_Menu_GoGStatus.Opacity = 1.00;
-                    }
-                    else
-                    {
-                        img_Menu_GoGStatus.Opacity = 0.40;
-                    }
-
-                    if (runningUbisoft)
-                    {
-                        img_Menu_UbisoftStatus.Opacity = 1.00;
-                    }
-                    else
-                    {
-                        img_Menu_UbisoftStatus.Opacity = 0.40;
-                    }
-
-                    if (runningEpic)
-                    {
-                        img_Menu_EpicStatus.Opacity = 1.00;
-                    }
-                    else
-                    {
-                        img_Menu_EpicStatus.Opacity = 0.40;
-                    }
-
-                    if (runningBlizzard)
-                    {
-                        img_Menu_BattleNetStatus.Opacity = 1.00;
-                    }
-                    else
-                    {
-                        img_Menu_BattleNetStatus.Opacity = 0.40;
-                    }
-
-                    if (runningRockstar)
-                    {
-                        img_Menu_RockstarStatus.Opacity = 1.00;
-                    }
-                    else
-                    {
-                        img_Menu_RockstarStatus.Opacity = 0.40;
-                    }
-
-                    if (runningDiscord)
-                    {
-                        img_Menu_DiscordStatus.Opacity = 1.00;
-                    }
-                    else
-                    {
-                        img_Menu_DiscordStatus.Opacity = 0.40;
-                    }
-
-                    if (runningDirectXInput)
-                    {
-                        img_Menu_DirectXInputStatus.Opacity = 1.00;
-                    }
-                    else
-                    {
-                        img_Menu_DirectXInputStatus.Opacity = 0.40;
-                    }
-
-                    if (runningFpsOverlayer)
-                    {
-                        img_Menu_FpsOverlayerStatus.Opacity = 1.00;
-                    }
-                    else
-                    {
-                        img_Menu_FpsOverlayerStatus.Opacity = 0.40;
-                    }
+                    img_Menu_SteamStatus.Opacity = runningSteam ? 1.00 : 0.40;
+                    img_Menu_EADesktopStatus.Opacity = runningEADesktop ? 1.00 : 0.40;
+                    img_Menu_GoGStatus.Opacity = runningGog ? 1.00 : 0.40;
+                    img_Menu_UbisoftStatus.Opacity = runningUbisoft ? 1.00 : 0.40;
+                    img_Menu_EpicStatus.Opacity = runningEpic ? 1.00 : 0.40;
+                    img_Menu_BattleNetStatus.Opacity = runningBattleNet ? 1.00 : 0.40;
+                    img_Menu_RockstarStatus.Opacity = runningRockstar ? 1.00 : 0.40;
+                    img_Menu_AmazonStatus.Opacity = runningAmazon ? 1.00 : 0.40;
+                    img_Menu_IndieGalaStatus.Opacity = runningIndieGala ? 1.00 : 0.40;
+                    img_Menu_ItchIOStatus.Opacity = runningItchIO ? 1.00 : 0.40;
+                    img_Menu_DiscordStatus.Opacity = runningDiscord ? 1.00 : 0.40;
+                    img_Menu_DirectXInputStatus.Opacity = runningDirectXInput ? 1.00 : 0.40;
+                    img_Menu_ScreenCaptureToolStatus.Opacity = runningScreenCaptureTool ? 1.00 : 0.40;
+                    img_Menu_FpsOverlayerStatus.Opacity = runningFpsOverlayer ? 1.00 : 0.40;
                 });
             }
             catch { }
@@ -456,9 +385,13 @@ namespace CtrlUI
                 img_Menu_EpicStatus.Source = vImagePreloadEpic;
                 img_Menu_BattleNetStatus.Source = vImagePreloadBattleNet;
                 img_Menu_RockstarStatus.Source = vImagePreloadRockstar;
+                img_Menu_AmazonStatus.Source = vImagePreloadAmazon;
+                img_Menu_IndieGalaStatus.Source = vImagePreloadIndieGala;
+                img_Menu_ItchIOStatus.Source = vImagePreloadItchIO;
                 img_Menu_DiscordStatus.Source = vImagePreloadDiscord;
                 img_Menu_DirectXInputStatus.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
                 img_Menu_FpsOverlayerStatus.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                img_Menu_ScreenCaptureToolStatus.Source = FileToBitmapImage(new string[] { "ScreenCaptureTool" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
 
                 //Check if the first launch logo's need to be loaded
                 if (SettingLoad(vConfigurationCtrlUI, "AppFirstLaunch", typeof(bool)))

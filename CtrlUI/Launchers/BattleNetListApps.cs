@@ -18,7 +18,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Classes
-        private class LaunchIdConvert
+        private class BattleNetLaunchIdConvert
         {
             public string UID { get; set; }
             public string LaunchID { get; set; }
@@ -27,31 +27,31 @@ namespace CtrlUI
         //Arrays
         private static string[] vBattleNetUidBlacklist = { "agent", "agent_beta", "bna", "battle.net" };
         private static string[] vBattleNetBranchReplace = { "retail" };
-        private static LaunchIdConvert[] vBattleNetLaunchIdentifiers =
+        private static BattleNetLaunchIdConvert[] vBattleNetLaunchIdentifiers =
         {
             //Test LaunchId with battlenet://LaunchId
-            new LaunchIdConvert { UID = "wlby", LaunchID = "WLBY" }, //Crash Bandicoot 4: It's About Time
-            new LaunchIdConvert { UID = "rtro", LaunchID = "RTRO" }, //Blizzard Arcade Collection
-            new LaunchIdConvert { UID = "heroes", LaunchID = "Hero" }, //Heroes of the Storm
-            new LaunchIdConvert { UID = "prometheus", LaunchID = "Pro" }, //Overwatch
-            new LaunchIdConvert { UID = "s1", LaunchID = "S1" }, //StarCraft: Remastered
-            new LaunchIdConvert { UID = "s2", LaunchID = "S2" }, //StarCraft II
-            new LaunchIdConvert { UID = "hs_beta", LaunchID = "WTCG" }, //Hearthstone
-            new LaunchIdConvert { UID = "w3", LaunchID = "W3" }, //Warcraft III: Reforged
-            new LaunchIdConvert { UID = "wow", LaunchID = "WoW" }, //World of Warcraft
+            new BattleNetLaunchIdConvert { UID = "wlby", LaunchID = "WLBY" }, //Crash Bandicoot 4: It's About Time
+            new BattleNetLaunchIdConvert { UID = "rtro", LaunchID = "RTRO" }, //Blizzard Arcade Collection
+            new BattleNetLaunchIdConvert { UID = "heroes", LaunchID = "Hero" }, //Heroes of the Storm
+            new BattleNetLaunchIdConvert { UID = "prometheus", LaunchID = "Pro" }, //Overwatch
+            new BattleNetLaunchIdConvert { UID = "s1", LaunchID = "S1" }, //StarCraft: Remastered
+            new BattleNetLaunchIdConvert { UID = "s2", LaunchID = "S2" }, //StarCraft II
+            new BattleNetLaunchIdConvert { UID = "hs_beta", LaunchID = "WTCG" }, //Hearthstone
+            new BattleNetLaunchIdConvert { UID = "w3", LaunchID = "W3" }, //Warcraft III: Reforged
+            new BattleNetLaunchIdConvert { UID = "wow", LaunchID = "WoW" }, //World of Warcraft
             //new LaunchIdConvert { UID = "wow_classic", LaunchID = "WoWC" }, //World of Warcraft Classic Expansion
             //new LaunchIdConvert { UID = "wow_classic_era", LaunchID = "WoWC" }, //World of Warcraft Classic Basegame
-            new LaunchIdConvert { UID = "anbs", LaunchID = "ANBS" }, //Diablo: Immortal
-            new LaunchIdConvert { UID = "osi", LaunchID = "OSI" }, //Diablo II: Resurrected
-            new LaunchIdConvert { UID = "d3cn", LaunchID = "D3CN" }, //Diablo III China
-            new LaunchIdConvert { UID = "diablo3", LaunchID = "D3" }, //Diablo III
-            new LaunchIdConvert { UID = "fenris", LaunchID = "Fen" }, //Diablo IV
-            new LaunchIdConvert { UID = "fore", LaunchID = "FORE" }, //Call of Duty: Vanguard
-            new LaunchIdConvert { UID = "auks", LaunchID = "AUKS" }, //Call of Duty: Modern Warfare II
-            new LaunchIdConvert { UID = "lazarus", LaunchID = "LAZR" }, //Call of Duty: Modern Warfare II Campaign
-            new LaunchIdConvert { UID = "odin", LaunchID = "ODIN" }, //Call of Duty: Modern Warfare
-            new LaunchIdConvert { UID = "zeus", LaunchID = "ZEUS" }, //Call of Duty: Black Ops Cold War
-            new LaunchIdConvert { UID = "viper", LaunchID = "VIPR" }, //Call of Duty: Black Ops 4
+            new BattleNetLaunchIdConvert { UID = "anbs", LaunchID = "ANBS" }, //Diablo: Immortal
+            new BattleNetLaunchIdConvert { UID = "osi", LaunchID = "OSI" }, //Diablo II: Resurrected
+            new BattleNetLaunchIdConvert { UID = "d3cn", LaunchID = "D3CN" }, //Diablo III China
+            new BattleNetLaunchIdConvert { UID = "diablo3", LaunchID = "D3" }, //Diablo III
+            new BattleNetLaunchIdConvert { UID = "fenris", LaunchID = "Fen" }, //Diablo IV
+            new BattleNetLaunchIdConvert { UID = "fore", LaunchID = "FORE" }, //Call of Duty: Vanguard
+            new BattleNetLaunchIdConvert { UID = "auks", LaunchID = "AUKS" }, //Call of Duty: Modern Warfare II
+            new BattleNetLaunchIdConvert { UID = "lazarus", LaunchID = "LAZR" }, //Call of Duty: Modern Warfare II Campaign
+            new BattleNetLaunchIdConvert { UID = "odin", LaunchID = "ODIN" }, //Call of Duty: Modern Warfare
+            new BattleNetLaunchIdConvert { UID = "zeus", LaunchID = "ZEUS" }, //Call of Duty: Black Ops Cold War
+            new BattleNetLaunchIdConvert { UID = "viper", LaunchID = "VIPR" }, //Call of Duty: Black Ops 4
         };
 
         string BattleNetLauncherExePath()
@@ -134,7 +134,7 @@ namespace CtrlUI
                 //Improve find way to automatically load LaunchID
                 bool launchKeyboard = false;
                 string launchArgument = string.Empty;
-                LaunchIdConvert launchIdConvert = vBattleNetLaunchIdentifiers.Where(x => x.UID == appUid).FirstOrDefault();
+                BattleNetLaunchIdConvert launchIdConvert = vBattleNetLaunchIdentifiers.Where(x => x.UID == appUid).FirstOrDefault();
                 if (launchIdConvert != null)
                 {
                     launchArgument = "--exec=\"launch " + launchIdConvert.LaunchID + "\"";

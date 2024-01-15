@@ -14,7 +14,9 @@
             BattleNet = 6,
             Rockstar = 7,
             UWP = 8,
-            Amazon = 9
+            Amazon = 9,
+            ItchIO = 10,
+            IndieGala = 11
         }
     }
 }

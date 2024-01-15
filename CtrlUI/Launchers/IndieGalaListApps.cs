@@ -173,7 +173,7 @@ namespace CtrlUI
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = executablePath,
-                    StatusLauncherImage = vImagePreloadBattleNet
+                    StatusLauncherImage = vImagePreloadIndieGala
                 };
 
                 //Check launch arguments

@@ -93,6 +93,18 @@ namespace CtrlUI
                     await UwpScanAddLibrary();
                 }
 
+                //Scan and add library from IndieGala games
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryIndieGala", typeof(bool)))
+                {
+                    await IndieGalaScanAddLibrary();
+                }
+
+                //Scan and add library from Itch.io games
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryItchIO", typeof(bool)))
+                {
+                    await ItchIOScanAddLibrary();
+                }
+
                 //Remove deleted launcher applications
                 Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && !vLauncherAppAvailableCheck.Any(y => y == x.PathExe || y == x.AppUserModelId);
                 await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);

@@ -158,9 +158,13 @@
                             <Image Name="img_Menu_EpicStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                             <Image Name="img_Menu_BattleNetStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                             <Image Name="img_Menu_RockstarStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_AmazonStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_IndieGalaStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_ItchIOStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                             <Image Name="img_Menu_DiscordStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
 
                             <Image Name="img_Menu_FpsOverlayerStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
+                            <Image Name="img_Menu_ScreenCaptureToolStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                             <Image Name="img_Menu_DirectXInputStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         </StackPanel>
                     </AVStyles:ScrollViewerLoopHorizontal>
@@ -610,6 +614,12 @@
 
                                     <CheckBox Name="cb_SettingsShowLibraryAmazon" Content="Shows games from Amazon library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will show all the installed games from your Amazon library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                                    <CheckBox Name="cb_SettingsShowLibraryIndieGala" Content="Shows games from IndieGala library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                    <TextBlock Text="Enabling this will show all the installed games from your IndieGala library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                                    <CheckBox Name="cb_SettingsShowLibraryItchIO" Content="Shows games from Itch.io library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                    <TextBlock Text="Enabling this will show all the installed games from your Itch.io library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                                     <CheckBox Name="cb_SettingsShowLibraryUwp" Content="Shows games from Microsoft Store" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will show all the installed games from the Microsoft Store." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>

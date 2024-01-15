@@ -96,6 +96,20 @@ namespace CtrlUI
                     await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 };
 
+                cb_SettingsShowLibraryIndieGala.Click += async (sender, e) =>
+                {
+                    SettingSave(vConfigurationCtrlUI, "ShowLibraryIndieGala", cb_SettingsShowLibraryIndieGala.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.IndieGala;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
+                cb_SettingsShowLibraryItchIO.Click += async (sender, e) =>
+                {
+                    SettingSave(vConfigurationCtrlUI, "ShowLibraryItchIO", cb_SettingsShowLibraryItchIO.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.ItchIO;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
                 cb_SettingsHideBatteryLevel.Click += (sender, e) =>
                 {
                     SettingSave(vConfigurationCtrlUI, "HideBatteryLevel", cb_SettingsHideBatteryLevel.IsChecked.ToString());
