@@ -52,7 +52,7 @@ namespace CtrlUI
             try
             {
                 //Combine apps
-                var JsonFilterList = CombineAppLists(true, true, true, false, false, false).Select(x => new { x.Number, x.Category, x.Type, x.Name, x.AppUserModelId, x.NameExe, x.PathExe, x.PathLaunch, x.PathRoms, x.Argument, x.QuickLaunch, x.LaunchFilePicker, x.LaunchSkipRom, x.LaunchKeyboard, x.LaunchEnableDisplayHDR, x.LaunchEnableAutoHDR, x.LastLaunch, x.RunningTime, x.EmulatorName, x.EmulatorCategory });
+                var JsonFilterList = CombineAppLists(true, true, true, false, false, false).Select(x => new { x.Number, x.Category, x.Type, x.Name, x.AppUserModelId, x.NameExe, x.PathExe, x.PathLaunch, x.PathRoms, x.Argument, x.QuickLaunch, x.LaunchAsAdmin, x.LaunchFilePicker, x.LaunchSkipRom, x.LaunchKeyboard, x.LaunchEnableDisplayHDR, x.LaunchEnableAutoHDR, x.LastLaunch, x.RunningTime, x.EmulatorName, x.EmulatorCategory });
 
                 //Json settings
                 JsonSerializerSettings jsonSettings = new JsonSerializerSettings();
