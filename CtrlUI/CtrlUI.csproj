@@ -1273,7 +1273,29 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Release ($(SolutionDir)SignToolExe.exe)</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Release (
+$(SolutionDir)SignToolExe.exe
+move /y $(TargetDir)\*.dll $(TargetDir)\Resources\
+move /y $(TargetDir)\x64\*.dll $(TargetDir)\Resources\
+move /y $(TargetDir)\runtimes\win-x64\native\*.dll $(TargetDir)\Resources\
+del /q *.xml
+del /q *.pdb
+del /q $(TargetDir)\Resources\*.xml
+del /q $(TargetDir)\Resources\*.pdb
+rd /s /q amd64
+rd /s /q arm64
+rd /s /q de
+rd /s /q es
+rd /s /q fr
+rd /s /q it
+rd /s /q pl
+rd /s /q ru
+rd /s /q runtimes
+rd /s /q x64
+rd /s /q x86
+rd /s /q zh-CN
+rd /s /q zh-Hant
+)</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
