@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVAssembly;
 using static ArnoldVinkCode.AVFirewall;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
@@ -20,6 +22,9 @@ namespace CtrlUI
         {
             try
             {
+                //Resolve missing assembly dll files
+                AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveFile;
+
                 //Application restart delay
                 await Application_RestartDelay(e);
 

@@ -11,7 +11,7 @@ namespace FpsOverlayer
     {
         //Tray Menu Variables
         public static NotifyIcon TrayNotifyIcon = new NotifyIcon();
-        public static ContextMenu TrayContextMenu = new ContextMenu();
+        public static ContextMenuStrip TrayContextMenu = new ContextMenuStrip();
 
         //Create the application tray menu
         void Application_CreateTrayMenu()
@@ -21,14 +21,14 @@ namespace FpsOverlayer
                 Debug.WriteLine("Creating application tray menu.");
 
                 //Create a context menu for systray.
-                TrayContextMenu.MenuItems.Add("Show or hide stats", NotifyIcon_ShowHide_Stats);
-                TrayContextMenu.MenuItems.Add("Show or hide crosshair", NotifyIcon_ShowHide_Crosshair);
-                TrayContextMenu.MenuItems.Add("Show or hide browser", NotifyIcon_ShowHide_Browser);
-                TrayContextMenu.MenuItems.Add("Change stats position", NotifyIcon_Position_Stats);
-                TrayContextMenu.MenuItems.Add("-");
-                TrayContextMenu.MenuItems.Add("Settings", NotifyIcon_Settings);
-                TrayContextMenu.MenuItems.Add("Website", NotifyIcon_Website);
-                TrayContextMenu.MenuItems.Add("Exit", NotifyIcon_Exit);
+                TrayContextMenu.Items.Add("Show or hide stats", null, NotifyIcon_ShowHide_Stats);
+                TrayContextMenu.Items.Add("Show or hide crosshair", null, NotifyIcon_ShowHide_Crosshair);
+                TrayContextMenu.Items.Add("Show or hide browser", null, NotifyIcon_ShowHide_Browser);
+                TrayContextMenu.Items.Add("Change stats position", null, NotifyIcon_Position_Stats);
+                TrayContextMenu.Items.Add("-");
+                TrayContextMenu.Items.Add("Settings", null, NotifyIcon_Settings);
+                TrayContextMenu.Items.Add("Website", null, NotifyIcon_Website);
+                TrayContextMenu.Items.Add("Exit", null, NotifyIcon_Exit);
 
                 //Initialize the tray notify icon. 
                 TrayNotifyIcon.Text = "Fps Overlayer";
@@ -38,7 +38,7 @@ namespace FpsOverlayer
                 TrayNotifyIcon.MouseUp += NotifyIcon_MouseUp;
 
                 //Add menu to tray icon and show it.  
-                TrayNotifyIcon.ContextMenu = TrayContextMenu;
+                TrayNotifyIcon.ContextMenuStrip = TrayContextMenu;
                 TrayNotifyIcon.Visible = true;
             }
             catch { }

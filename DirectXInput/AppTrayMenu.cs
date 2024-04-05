@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
+using static ArnoldVinkCode.AVFunctions;
 
 namespace DirectXInput
 {
@@ -11,7 +12,7 @@ namespace DirectXInput
     {
         //Tray Menu Variables
         public static NotifyIcon TrayNotifyIcon = new NotifyIcon();
-        public static ContextMenu TrayContextMenu = new ContextMenu();
+        public static ContextMenuStrip TrayContextMenu = new ContextMenuStrip();
 
         //Create the application tray menu
         void Application_CreateTrayMenu()
@@ -21,17 +22,17 @@ namespace DirectXInput
                 Debug.WriteLine("Creating application tray menu.");
 
                 //Create a context menu for systray.
-                TrayContextMenu.MenuItems.Add("Show Keyboard", NotifyIcon_Keyboard);
-                TrayContextMenu.MenuItems.Add("-");
-                TrayContextMenu.MenuItems.Add("Launch CtrlUI", NotifyIcon_CtrlUI);
-                TrayContextMenu.MenuItems.Add("Launch Fps Overlayer", NotifyIcon_FpsOverlayer);
-                TrayContextMenu.MenuItems.Add("Launch Screen Capture Tool", NotifyIcon_ScreenCaptureTool);
-                TrayContextMenu.MenuItems.Add("-");
-                TrayContextMenu.MenuItems.Add("Re/disconnect all controllers", NotifyIcon_DisconnectAll);
-                TrayContextMenu.MenuItems.Add("-");
-                TrayContextMenu.MenuItems.Add("Settings", NotifyIcon_Settings);
-                TrayContextMenu.MenuItems.Add("Website", NotifyIcon_Website);
-                TrayContextMenu.MenuItems.Add("Exit", NotifyIcon_Exit);
+                TrayContextMenu.Items.Add("Show Keyboard", null, NotifyIcon_Keyboard);
+                TrayContextMenu.Items.Add("-");
+                TrayContextMenu.Items.Add("Launch CtrlUI", null, NotifyIcon_CtrlUI);
+                TrayContextMenu.Items.Add("Launch Fps Overlayer", null, NotifyIcon_FpsOverlayer);
+                TrayContextMenu.Items.Add("Launch Screen Capture Tool", null, NotifyIcon_ScreenCaptureTool);
+                TrayContextMenu.Items.Add("-");
+                TrayContextMenu.Items.Add("Re/disconnect all controllers", null, NotifyIcon_DisconnectAll);
+                TrayContextMenu.Items.Add("-");
+                TrayContextMenu.Items.Add("Settings", null, NotifyIcon_Settings);
+                TrayContextMenu.Items.Add("Website", null, NotifyIcon_Website);
+                TrayContextMenu.Items.Add("Exit", null, NotifyIcon_Exit);
 
                 //Initialize the tray notify icon. 
                 TrayNotifyIcon.Text = "DirectXInput";
@@ -44,7 +45,7 @@ namespace DirectXInput
                 TrayNotifyIcon.DoubleClick += NotifyIcon_DoubleClick;
 
                 //Add menu to tray icon and show it.  
-                TrayNotifyIcon.ContextMenu = TrayContextMenu;
+                TrayNotifyIcon.ContextMenuStrip = TrayContextMenu;
                 TrayNotifyIcon.Visible = true;
             }
             catch { }
@@ -144,7 +145,7 @@ namespace DirectXInput
         {
             try
             {
-                Process.Start("https://projects.arnoldvink.com");
+                OpenWebsiteBrowser("https://projects.arnoldvink.com");
             }
             catch { }
         }

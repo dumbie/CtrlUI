@@ -1,195 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{318363B3-3252-438D-8F71-7A271A276DA6}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LibraryShared</RootNamespace>
-    <AssemblyName>LibraryShared</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\CtrlUI\bin\Debug\Resources\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\CtrlUI\bin\Release\Resources\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="protobuf-net.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>..\packages\protobuf-net.Core.3.2.26\lib\net462\protobuf-net.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Collections.Immutable, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.7.0.0\lib\net462\System.Collections.Immutable.dll</HintPath>
-    </Reference>
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Primitives, Version=4.10.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ServiceModel.Primitives.4.10.2\lib\net461\System.ServiceModel.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Windows">
-      <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
-      <Link>Properties\AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="AppUpdate.cs" />
-    <Compile Include="AppCheck.cs" />
-    <Compile Include="Classes\ApiHltb.cs" />
-    <Compile Include="Classes\ApiIGDB.cs" />
-    <Compile Include="Classes\FilePickerSettings.cs" />
-    <Compile Include="Classes\ApiTwitch.cs" />
-    <Compile Include="Classes\ControllerIgnored.cs" />
-    <Compile Include="Classes\PickerNavigation.cs" />
-    <Compile Include="Classes\SortFunction.cs" />
-    <Compile Include="Classes\ControllerBattery.cs" />
-    <Compile Include="Classes\ControllerButtonDetails.cs" />
-    <Compile Include="Classes\ControllerDetails.cs" />
-    <Compile Include="Classes\ControllerInput.cs" />
-    <Compile Include="Classes\ControllerProfile.cs" />
-    <Compile Include="Classes\ControllerStatus.cs" />
-    <Compile Include="Classes\ControllerStatusDetails.cs" />
-    <Compile Include="Classes\ControllerSupported.cs" />
-    <Compile Include="Classes\DataBindApp.cs" />
-    <Compile Include="Classes\DataBindFile.cs" />
-    <Compile Include="Classes\DataBindString.cs" />
-    <Compile Include="Classes\KeypadMapping.cs" />
-    <Compile Include="Classes\KeypadSize.cs" />
-    <Compile Include="Classes\LauncherBattleNet.cs" />
-    <Compile Include="Classes\LauncherEpic.cs" />
-    <Compile Include="Classes\LauncherGoG.cs" />
-    <Compile Include="Classes\NotificationDetails.cs" />
-    <Compile Include="Classes\ProfileShared.cs" />
-    <Compile Include="Classes\RomInformation.cs" />
-    <Compile Include="Classes\ShortcutDetails.cs" />
-    <Compile Include="ControllerTimings.cs" />
-    <Compile Include="Cryptography\CRC32.cs" />
-    <Compile Include="Classes\ProcessWindowAction.cs" />
-    <Compile Include="Enums\AppCategory.cs" />
-    <Compile Include="Enums\AppLauncher.cs" />
-    <Compile Include="Enums\KeyboardMode.cs" />
-    <Compile Include="Enums\ControllerType.cs" />
-    <Compile Include="Enums\BatteryStatus.cs" />
-    <Compile Include="Enums\ClipboardType.cs" />
-    <Compile Include="Enums\SortingType.cs" />
-    <Compile Include="Enums\FileType.cs" />
-    <Compile Include="Enums\MappingStatus.cs" />
-    <Compile Include="Enums\OverlayPosition.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SoundPlayer.cs" />
-    <Compile Include="SteamKit2\Types\KeyValue.cs" />
-    <Compile Include="SteamKit2\Util\StreamHelpers.cs" />
-    <Compile Include="UsbCode\BthDevice\BthDevice_Connection.cs" />
-    <Compile Include="UsbCode\BthDevice\BthDevice_Information.cs" />
-    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice_Multimedia.cs" />
-    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice_ReadWrite.cs" />
-    <Compile Include="UsbCode\HidDevice\HidDevice.cs" />
-    <Compile Include="UsbCode\HidDevice\HidDevice_Connection.cs" />
-    <Compile Include="UsbCode\HidDevice\HidDevice_DeviceAttributes.cs" />
-    <Compile Include="UsbCode\HidDevice\HidDevice_DeviceButtonValues.cs" />
-    <Compile Include="UsbCode\HidDevice\HidDevice_DeviceCapabilities.cs" />
-    <Compile Include="UsbCode\HidDevice\HidDevice_Information.cs" />
-    <Compile Include="UsbCode\HidDevice\HidDevice_ReadWrite.cs" />
-    <Compile Include="UsbCode\HidHideDevice\HidHideDevice_String.cs" />
-    <Compile Include="UsbCode\HidHideDevice\HidHideDevice_Control.cs" />
-    <Compile Include="UsbCode\HidHideDevice\HidHideDevice.cs" />
-    <Compile Include="UsbCode\NativeMethods_Bth.cs" />
-    <Compile Include="UsbCode\NativeMethods_File.cs" />
-    <Compile Include="UsbCode\NativeMethods_Guid.cs" />
-    <Compile Include="UsbCode\NativeMethods_Hid.cs" />
-    <Compile Include="UsbCode\NativeMethods_IoControl.cs" />
-    <Compile Include="UsbCode\NativeMethods_WinUsb.cs" />
-    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice.cs" />
-    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice_Class.cs" />
-    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice_Keyboard.cs" />
-    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice_Mouse.cs" />
-    <Compile Include="UsbCode\TetherScriptDevice\TetherScriptDevice.cs" />
-    <Compile Include="UsbCode\TetherScriptDevice\TetherScriptDevice_Class.cs" />
-    <Compile Include="UsbCode\TetherScriptDevice\TetherScriptDevice_ReadWrite.cs" />
-    <Compile Include="UsbCode\TetherScriptDevice\TetherScriptDevice_Keyboard.cs" />
-    <Compile Include="UsbCode\TetherScriptDevice\TetherScriptDevice_MouseRel.cs" />
-    <Compile Include="UsbCode\VigemBusDevice\VigemBusDevice_Control.cs" />
-    <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice.cs" />
-    <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_Information.cs" />
-    <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_ReadWrite.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="NetFwTypeLib">
-      <Guid>{58FBCF7C-E7A9-467C-80B3-FC65E8FCCA08}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\ArnoldVinkCode\Desktop\ArnoldVinkCode.csproj">
-      <Project>{478ed5d3-38af-47fc-ae14-b67976ab952c}</Project>
-      <Name>ArnoldVinkCode</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<OutputType>Library</OutputType>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<UseWindowsForms>true</UseWindowsForms>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<Optimize>True</Optimize>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>none</DebugType>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<Optimize>True</Optimize>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
+			<Link>Properties\AssemblyVersion.cs</Link>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="protobuf-net.Core" Version="3.2.26" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\ArnoldVinkCode\Desktop\ArnoldVinkCode.csproj" />
+	</ItemGroup>
 </Project>

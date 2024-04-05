@@ -1,5 +1,7 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Windows;
+using static ArnoldVinkCode.AVAssembly;
 using static ArnoldVinkCode.AVFirewall;
 using static ArnoldVinkCode.AVInteropDll;
 using static FpsOverlayer.AppVariables;
@@ -15,6 +17,9 @@ namespace FpsOverlayer
         {
             try
             {
+                //Resolve missing assembly dll files
+                AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveFile;
+
                 //Application startup checks
                 await StartupCheck("Fps Overlayer", ProcessPriority.High);
 

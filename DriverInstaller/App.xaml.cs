@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using static ArnoldVinkCode.AVAssembly;
 using static ArnoldVinkCode.AVInteropDll;
 using static LibraryShared.AppCheck;
 using static LibraryShared.AppUpdate;
@@ -15,6 +17,9 @@ namespace DriverInstaller
         {
             try
             {
+                //Resolve missing assembly dll files
+                AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveFile;
+
                 //Application startup checks
                 await StartupCheck("Driver Installer", ProcessPriority.Normal);
 

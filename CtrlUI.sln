@@ -1,32 +1,24 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlUI", "CtrlUI\CtrlUI.csproj", "{85D51D84-9E14-4AB1-B86E-03816D901042}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CtrlUI", "CtrlUI\CtrlUI.csproj", "{85D51D84-9E14-4AB1-B86E-03816D901042}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2CB2F760-B0FB-41A4-BCD5-F60D244222C7} = {2CB2F760-B0FB-41A4-BCD5-F60D244222C7}
 		{318363B3-3252-438D-8F71-7A271A276DA6} = {318363B3-3252-438D-8F71-7A271A276DA6}
-		{478ED5D3-38AF-47FC-AE14-B67976AB952C} = {478ED5D3-38AF-47FC-AE14-B67976AB952C}
 		{5A3A03C7-095D-46E6-A588-BFB9A1A2C547} = {5A3A03C7-095D-46E6-A588-BFB9A1A2C547}
 		{C63B431C-B707-4F98-9465-448B1AA35D70} = {C63B431C-B707-4F98-9465-448B1AA35D70}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectXInput", "DirectXInput\DirectXInput.csproj", "{2CB2F760-B0FB-41A4-BCD5-F60D244222C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DirectXInput", "DirectXInput\DirectXInput.csproj", "{2CB2F760-B0FB-41A4-BCD5-F60D244222C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FpsOverlayer", "FpsOverlayer\FpsOverlayer.csproj", "{5A3A03C7-095D-46E6-A588-BFB9A1A2C547}"
-	ProjectSection(ProjectDependencies) = postProject
-		{478ED5D3-38AF-47FC-AE14-B67976AB952C} = {478ED5D3-38AF-47FC-AE14-B67976AB952C}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FpsOverlayer", "FpsOverlayer\FpsOverlayer.csproj", "{5A3A03C7-095D-46E6-A588-BFB9A1A2C547}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverInstaller", "DriverInstaller\DriverInstaller.csproj", "{C63B431C-B707-4F98-9465-448B1AA35D70}"
-	ProjectSection(ProjectDependencies) = postProject
-		{478ED5D3-38AF-47FC-AE14-B67976AB952C} = {478ED5D3-38AF-47FC-AE14-B67976AB952C}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DriverInstaller", "DriverInstaller\DriverInstaller.csproj", "{C63B431C-B707-4F98-9465-448B1AA35D70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryShared", "LibraryShared\LibraryShared.csproj", "{318363B3-3252-438D-8F71-7A271A276DA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryShared", "LibraryShared\LibraryShared.csproj", "{318363B3-3252-438D-8F71-7A271A276DA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArnoldVinkCode", "..\ArnoldVinkCode\Desktop\ArnoldVinkCode.csproj", "{478ED5D3-38AF-47FC-AE14-B67976AB952C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArnoldVinkCode", "..\ArnoldVinkCode\Desktop\ArnoldVinkCode.csproj", "{7958A167-08A0-4F0F-812C-D9EA2904887B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,10 +46,10 @@ Global
 		{318363B3-3252-438D-8F71-7A271A276DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{318363B3-3252-438D-8F71-7A271A276DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{318363B3-3252-438D-8F71-7A271A276DA6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{478ED5D3-38AF-47FC-AE14-B67976AB952C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{478ED5D3-38AF-47FC-AE14-B67976AB952C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{478ED5D3-38AF-47FC-AE14-B67976AB952C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{478ED5D3-38AF-47FC-AE14-B67976AB952C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7958A167-08A0-4F0F-812C-D9EA2904887B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7958A167-08A0-4F0F-812C-D9EA2904887B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7958A167-08A0-4F0F-812C-D9EA2904887B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7958A167-08A0-4F0F-812C-D9EA2904887B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

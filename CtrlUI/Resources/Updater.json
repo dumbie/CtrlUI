@@ -4,7 +4,7 @@
   "FileName": "CtrlUI.zip",
   "ExtractName": "CtrlUI",
   "ProcessLaunch": [
-    "DirectXInput-Launcher"
+    "DirectXInput-Launcher.exe"
   ],
   "ProcessClose": [
     "CtrlUI",
