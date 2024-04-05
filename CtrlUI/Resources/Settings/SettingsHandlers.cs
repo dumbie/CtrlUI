@@ -137,7 +137,10 @@ namespace CtrlUI
                 {
                     if (messageResult == AnswerManage)
                     {
-                        Process.Start("joy.cpl");
+                        Process process = new Process();
+                        process.StartInfo.FileName = "joy.cpl";
+                        process.StartInfo.UseShellExecute = true;
+                        process.Start();
                     }
                 }
             }

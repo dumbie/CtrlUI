@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
+using static ArnoldVinkCode.AVFunctions;
 using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
@@ -76,7 +77,7 @@ namespace FpsOverlayer
         void NotifyIcon_ShowHide_Browser(object sender, EventArgs args) { vWindowBrowser.Browser_Switch_Visibility(); }
         void NotifyIcon_Position_Stats(object sender, EventArgs args) { ChangeFpsOverlayPosition(); }
         void NotifyIcon_Settings(object sender, EventArgs args) { Application_ShowHideSettings(); }
-        void NotifyIcon_Website(object sender, EventArgs args) { Process.Start("https://projects.arnoldvink.com"); }
+        void NotifyIcon_Website(object sender, EventArgs args) { OpenWebsiteBrowser("https://projects.arnoldvink.com"); }
         async void NotifyIcon_Exit(object sender, EventArgs args) { await Application_Exit(); }
     }
 }

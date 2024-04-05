@@ -1,8 +1,8 @@
 ﻿using ArnoldVinkCode;
-using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 
@@ -288,7 +288,13 @@ namespace CtrlUI
             catch { }
         }
 
-        void Button_Help_ProjectWebsite_Click(object sender, RoutedEventArgs e) { Process.Start("https://projects.arnoldvink.com"); }
-        void Button_Help_OpenDonation_Click(object sender, RoutedEventArgs e) { Process.Start("https://donation.arnoldvink.com"); }
+        void Button_Help_ProjectWebsite_Click(object sender, RoutedEventArgs e)
+        {
+            OpenWebsiteBrowser("https://projects.arnoldvink.com");
+        }
+        void Button_Help_OpenDonation_Click(object sender, RoutedEventArgs e)
+        {
+            OpenWebsiteBrowser("https://donation.arnoldvink.com");
+        }
     }
 }

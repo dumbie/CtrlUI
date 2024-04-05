@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVSettings;

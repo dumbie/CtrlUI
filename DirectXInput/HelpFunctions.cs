@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVFunctions;
 
 namespace DirectXInput
 {
@@ -42,7 +42,13 @@ namespace DirectXInput
             }
         }
 
-        void btn_Help_ProjectWebsite_Click(object sender, RoutedEventArgs e) { Process.Start("https://projects.arnoldvink.com"); }
-        void btn_Help_OpenDonation_Click(object sender, RoutedEventArgs e) { Process.Start("https://donation.arnoldvink.com"); }
+        void btn_Help_ProjectWebsite_Click(object sender, RoutedEventArgs e)
+        {
+            OpenWebsiteBrowser("https://projects.arnoldvink.com");
+        }
+        void btn_Help_OpenDonation_Click(object sender, RoutedEventArgs e)
+        {
+            OpenWebsiteBrowser("https://donation.arnoldvink.com");
+        }
     }
 }

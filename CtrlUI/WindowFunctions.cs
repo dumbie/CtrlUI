@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFocus;
-using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;

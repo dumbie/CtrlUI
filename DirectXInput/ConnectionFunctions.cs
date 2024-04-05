@@ -94,7 +94,10 @@ namespace DirectXInput
         {
             try
             {
-                Process.Start("joy.cpl");
+                Process process = new Process();
+                process.StartInfo.FileName = "joy.cpl";
+                process.StartInfo.UseShellExecute = true;
+                process.Start();
             }
             catch { }
         }
@@ -104,7 +107,10 @@ namespace DirectXInput
         {
             try
             {
-                Process.Start("devmgmt.msc");
+                Process process = new Process();
+                process.StartInfo.FileName = "devmgmt.msc";
+                process.StartInfo.UseShellExecute = true;
+                process.Start();
             }
             catch { }
         }

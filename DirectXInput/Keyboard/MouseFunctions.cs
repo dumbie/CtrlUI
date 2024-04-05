@@ -1,8 +1,8 @@
 ﻿using static ArnoldVinkCode.AVDisplayMonitor;
-using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInputOutputInterop;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static DirectXInput.AppVariables;
 
 namespace DirectXInput.KeyboardCode
