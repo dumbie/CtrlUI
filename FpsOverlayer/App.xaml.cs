@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Reflection;
 using System.Windows;
 using static ArnoldVinkCode.AVAssembly;
-using static ArnoldVinkCode.AVFirewall;
 using static ArnoldVinkCode.AVInteropDll;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.AppCheck;
@@ -25,10 +23,6 @@ namespace FpsOverlayer
 
                 //Application update checks
                 await UpdateCheck();
-
-                //Allow application in firewall
-                string appFilePath = Assembly.GetEntryAssembly().Location;
-                Firewall_ExecutableAllow("Fps Overlayer", appFilePath, true);
 
                 //Open the application window
                 vWindowMain.Show();

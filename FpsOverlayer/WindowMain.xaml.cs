@@ -258,8 +258,8 @@ namespace FpsOverlayer
                 }
                 else
                 {
-                    string fontPathUser = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/User/Fonts/" + interfaceFontStyleName + ".ttf";
-                    string fontPathDefault = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/Default/Fonts/" + interfaceFontStyleName + ".ttf";
+                    string fontPathUser = AVFunctions.ApplicationPathRoot() + "/Assets/User/Fonts/" + interfaceFontStyleName + ".ttf";
+                    string fontPathDefault = AVFunctions.ApplicationPathRoot() + "/Assets/Default/Fonts/" + interfaceFontStyleName + ".ttf";
                     if (File.Exists(fontPathUser))
                     {
                         ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPathUser);

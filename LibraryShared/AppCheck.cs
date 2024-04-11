@@ -31,11 +31,7 @@ namespace LibraryShared
                 }
 
                 //Set the working directory to executable directory
-                try
-                {
-                    Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
-                }
-                catch { }
+                AVFunctions.ApplicationUpdateWorkingPath();
 
                 //Set the application priority level
                 try

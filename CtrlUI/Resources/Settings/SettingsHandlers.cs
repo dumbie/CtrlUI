@@ -367,14 +367,14 @@ namespace CtrlUI
             catch { }
         }
 
-        //Create ctrlui geforce experience shortcut
-        async void Button_Settings_AddGeforceExperience_Click(object sender, RoutedEventArgs args)
+        //Create CtrlUI GeForce experience shortcut
+        async void Button_Settings_AddGeForceExperience_Click(object sender, RoutedEventArgs args)
         {
             try
             {
                 //Set application shortcut paths
-                string TargetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Launcher.exe").Replace("file:///", string.Empty);
-                string TargetName = Assembly.GetEntryAssembly().GetName().Name;
+                string TargetName = AVFunctions.ApplicationName();
+                string TargetFilePath = AVFunctions.ApplicationPathExecutable().Replace(".exe", "-Launcher.exe");
                 string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/" + TargetName + ".url";
                 string TargetFileBoxArtFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/Default/" + TargetName + "/box-art.png";
                 string TargetFileBoxArtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/Default/" + TargetName;

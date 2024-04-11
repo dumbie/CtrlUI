@@ -2,10 +2,8 @@
 using DirectXInput.KeypadCode;
 using DirectXInput.OverlayCode;
 using System;
-using System.Reflection;
 using System.Windows;
 using static ArnoldVinkCode.AVAssembly;
-using static ArnoldVinkCode.AVFirewall;
 using static ArnoldVinkCode.AVInteropDll;
 using static LibraryShared.AppCheck;
 using static LibraryShared.AppUpdate;
@@ -33,10 +31,6 @@ namespace DirectXInput
 
                 //Application update checks
                 await UpdateCheck();
-
-                //Allow application in firewall
-                string appFilePath = Assembly.GetEntryAssembly().Location;
-                Firewall_ExecutableAllow("DirectXInput", appFilePath, true);
 
                 //Run application startup code
                 await vWindowMain.Startup();

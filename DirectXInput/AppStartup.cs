@@ -97,7 +97,7 @@ namespace DirectXInput
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
 
-                //Load combobox values
+                //Load combo box values
                 ComboBox_MapKeypad_Load();
 
                 //Load application close tools
@@ -138,8 +138,7 @@ namespace DirectXInput
                 vHidHideDevice.ListApplicationReset();
 
                 //Allow DirectXInput in HidHide
-                string appFilePath = Assembly.GetEntryAssembly().Location;
-                vHidHideDevice.ListApplicationAdd(appFilePath);
+                vHidHideDevice.ListApplicationAdd(AVFunctions.ApplicationPathExecutable());
 
                 //Enable HidHide device
                 vHidHideDevice.DeviceHideToggle(true);

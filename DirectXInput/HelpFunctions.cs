@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using ArnoldVinkCode;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using static ArnoldVinkCode.AVFunctions;
@@ -38,7 +39,7 @@ namespace DirectXInput
 
                 //Set the version text
                 sp_Help.Children.Add(new TextBlock() { Text = "\r\nApplication made by Arnold Vink", Style = (Style)Application.Current.Resources["TextBlockBlack"] });
-                sp_Help.Children.Add(new TextBlock() { Text = "Version: v" + Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0], Style = (Style)Application.Current.Resources["TextBlockGray"], TextWrapping = TextWrapping.Wrap });
+                sp_Help.Children.Add(new TextBlock() { Text = "Version: v" + AVFunctions.ApplicationVersion(), Style = (Style)Application.Current.Resources["TextBlockGray"], TextWrapping = TextWrapping.Wrap });
             }
         }
 

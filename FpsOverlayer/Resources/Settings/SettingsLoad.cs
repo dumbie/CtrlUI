@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -207,7 +208,7 @@ namespace FpsOverlayer
                 UpdateStatsPositionText();
 
                 //Set the application name to string to check shortcuts
-                string targetName = Assembly.GetEntryAssembly().GetName().Name;
+                string targetName = AVFunctions.ApplicationName();
 
                 //Check if application is set to launch on Windows startup
                 string targetFileStartup = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), targetName + ".url");

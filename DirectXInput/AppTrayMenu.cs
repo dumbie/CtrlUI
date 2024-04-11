@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
@@ -36,7 +37,7 @@ namespace DirectXInput
 
                 //Initialize the tray notify icon. 
                 TrayNotifyIcon.Text = "DirectXInput";
-                TrayNotifyIcon.Icon = new Icon(Assembly.GetEntryAssembly().GetManifestResourceStream("DirectXInput.Assets.AppIcon.ico"));
+                TrayNotifyIcon.Icon = new Icon(AVEmbedded.EmbeddedResourceToStream(null, "DirectXInput.Assets.AppIcon.ico"));
 
                 //Handle Middle Click event
                 TrayNotifyIcon.MouseUp += NotifyIcon_MouseUp;

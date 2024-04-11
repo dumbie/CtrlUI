@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
@@ -33,7 +34,7 @@ namespace FpsOverlayer
 
                 //Initialize the tray notify icon. 
                 TrayNotifyIcon.Text = "Fps Overlayer";
-                TrayNotifyIcon.Icon = new Icon(Assembly.GetEntryAssembly().GetManifestResourceStream("FpsOverlayer.Assets.AppIcon.ico"));
+                TrayNotifyIcon.Icon = new Icon(AVEmbedded.EmbeddedResourceToStream(null, "FpsOverlayer.Assets.AppIcon.ico"));
 
                 //Handle Single Click event
                 TrayNotifyIcon.MouseUp += NotifyIcon_MouseUp;

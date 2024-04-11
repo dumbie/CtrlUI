@@ -32,6 +32,7 @@ namespace DriverInstaller
                 RemoveServiceTask("ArnoldVink_CtrlUI");
                 RemoveServiceTask("ArnoldVink_DirectXInput");
                 RemoveServiceTask("ArnoldVink_FpsOverlayer");
+                RemoveServiceTask("ArnoldVink_ScreenCaptureTool");
 
                 //Remove application firewall rule
                 ProgressBarUpdate(60, false);
@@ -39,6 +40,7 @@ namespace DriverInstaller
                 Firewall_ExecutableRemove("CtrlUI.exe");
                 Firewall_ExecutableRemove("DirectXInput.exe");
                 Firewall_ExecutableRemove("FpsOverlayer.exe");
+                Firewall_ExecutableRemove("ScreenCaptureTool.exe");
 
                 //Remove application certificate
                 ProgressBarUpdate(70, false);
@@ -51,6 +53,7 @@ namespace DriverInstaller
                 RemoveStartupShortcut("CtrlUI.url");
                 RemoveStartupShortcut("DirectXInput.url");
                 RemoveStartupShortcut("FpsOverlayer.url");
+                RemoveStartupShortcut("ScreenCaptureTool.url");
 
                 //Reset progessbar
                 ProgressBarUpdate(100, true);

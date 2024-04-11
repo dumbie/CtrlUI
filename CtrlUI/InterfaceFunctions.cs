@@ -143,7 +143,7 @@ namespace CtrlUI
                 btn_Settings_LaunchDirectXInput.Click += Button_LaunchDirectXInput_Click;
                 btn_Settings_CheckControllers.Click += Button_Settings_CheckControllers_Click;
                 btn_Settings_CheckForUpdate.Click += Button_Settings_CheckForUpdate_Click;
-                btn_Settings_AddGeforceExperience.Click += Button_Settings_AddGeforceExperience_Click;
+                btn_Settings_AddGeforceExperience.Click += Button_Settings_AddGeForceExperience_Click;
                 btn_Settings_AddRemoteDesktop.Click += Button_Settings_AddRemoteDesktop_Click;
                 btn_Settings_ColorPickerAccent.Click += Button_Settings_ColorPickerAccent;
                 btn_Settings_InterfaceSoundPackName.Click += Button_Settings_InterfaceSoundPackName;
@@ -184,8 +184,8 @@ namespace CtrlUI
                 }
                 else
                 {
-                    string fontPathUser = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/User/Fonts/" + interfaceFontStyleName + ".ttf";
-                    string fontPathDefault = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/Default/Fonts/" + interfaceFontStyleName + ".ttf";
+                    string fontPathUser = AVFunctions.ApplicationPathRoot() + "/Assets/User/Fonts/" + interfaceFontStyleName + ".ttf";
+                    string fontPathDefault = AVFunctions.ApplicationPathRoot() + "/Assets/Default/Fonts/" + interfaceFontStyleName + ".ttf";
                     if (File.Exists(fontPathUser))
                     {
                         ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPathUser);

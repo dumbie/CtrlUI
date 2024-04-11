@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVAssembly;
-using static ArnoldVinkCode.AVFirewall;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
 using static LibraryShared.AppCheck;
@@ -33,10 +31,6 @@ namespace CtrlUI
 
                 //Application update checks
                 await UpdateCheck();
-
-                //Allow application in firewall
-                string appFilePath = Assembly.GetEntryAssembly().Location;
-                Firewall_ExecutableAllow("CtrlUI", appFilePath, true);
 
                 //Open the application window
                 vWindowMain.Show();

@@ -1,19 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
 		<OutputType>WinExe</OutputType>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
 		<UseWindowsForms>true</UseWindowsForms>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<Optimize>True</Optimize>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<NoWarn>CA1416;</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<DebugType>none</DebugType>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<Optimize>True</Optimize>
+		<NoWarn>CA1416;</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup>
 		<ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
@@ -994,6 +997,9 @@
 		<Content Include="Resources\Updater.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Drivers\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Assets\AppIcon.ico" />
@@ -1020,6 +1026,6 @@
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.118.0" />
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="if $(Configuration) == Release (&#xD;&#xA;move /y $(TargetDir)\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\runtimes\win\lib\net6.0\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\runtimes\win-x64\native\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\Resources\CtrlUI.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\DirectXInput.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\DriverInstaller.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\FpsOverlayer.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\LibraryShared.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\ArnoldVinkCode.dll $(TargetDir)&#xD;&#xA;rd /s /q $(TargetDir)\amd64&#xD;&#xA;rd /s /q $(TargetDir)\arm64&#xD;&#xA;rd /s /q $(TargetDir)\de&#xD;&#xA;rd /s /q $(TargetDir)\es&#xD;&#xA;rd /s /q $(TargetDir)\fr&#xD;&#xA;rd /s /q $(TargetDir)\it&#xD;&#xA;rd /s /q $(TargetDir)\pl&#xD;&#xA;rd /s /q $(TargetDir)\ru&#xD;&#xA;rd /s /q $(TargetDir)\runtimes&#xD;&#xA;rd /s /q $(TargetDir)\x86&#xD;&#xA;rd /s /q $(TargetDir)\zh-CN&#xD;&#xA;rd /s /q $(TargetDir)\zh-Hant&#xD;&#xA;del /q $(TargetDir)\*.deps.json&#xD;&#xA;)" />
+		<Exec Command="if $(Configuration) == Release (&#xD;&#xA;$(SolutionDir)SignToolExe.exe&#xD;&#xA;move /y $(TargetDir)\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\runtimes\win\lib\net8.0\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\runtimes\win-x64\native\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\Resources\CtrlUI.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\DirectXInput.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\DriverInstaller.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\FpsOverlayer.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\LibraryShared.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\ArnoldVinkCode.dll $(TargetDir)&#xD;&#xA;rd /s /q $(TargetDir)\amd64&#xD;&#xA;rd /s /q $(TargetDir)\arm64&#xD;&#xA;rd /s /q $(TargetDir)\de&#xD;&#xA;rd /s /q $(TargetDir)\es&#xD;&#xA;rd /s /q $(TargetDir)\fr&#xD;&#xA;rd /s /q $(TargetDir)\it&#xD;&#xA;rd /s /q $(TargetDir)\pl&#xD;&#xA;rd /s /q $(TargetDir)\ru&#xD;&#xA;rd /s /q $(TargetDir)\runtimes&#xD;&#xA;rd /s /q $(TargetDir)\x86&#xD;&#xA;rd /s /q $(TargetDir)\zh-CN&#xD;&#xA;rd /s /q $(TargetDir)\zh-Hant&#xD;&#xA;del /q $(TargetDir)\*.deps.json&#xD;&#xA;)" />
 	</Target>
 </Project>

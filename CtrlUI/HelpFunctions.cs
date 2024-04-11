@@ -282,7 +282,7 @@ namespace CtrlUI
 
                     //Set the version text
                     sp_Help.Children.Add(new TextBlock() { Text = "\r\nApplication made by Arnold Vink", Style = (Style)Application.Current.Resources["TextBlockWhite"], FontSize = (double)Application.Current.Resources["TextSizeLarge"] });
-                    sp_Help.Children.Add(new TextBlock() { Text = "Version: v" + Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0], Style = (Style)Application.Current.Resources["TextBlockGray"], FontSize = (double)Application.Current.Resources["TextSizeMedium"], TextWrapping = TextWrapping.Wrap });
+                    sp_Help.Children.Add(new TextBlock() { Text = "Version: v" + AVFunctions.ApplicationVersion(), Style = (Style)Application.Current.Resources["TextBlockGray"], FontSize = (double)Application.Current.Resources["TextSizeMedium"], TextWrapping = TextWrapping.Wrap });
                 }
             }
             catch { }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -75,7 +76,7 @@ namespace CtrlUI
                 slider_SettingsSoundVolume.Value = SettingLoad(vConfigurationCtrlUI, "InterfaceSoundVolume", typeof(double));
 
                 //Set the application name to string to check shortcuts
-                string targetName = Assembly.GetEntryAssembly().GetName().Name;
+                string targetName = AVFunctions.ApplicationName();
 
                 //Check if application is set to launch on Windows startup
                 string targetFileStartup = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), targetName + ".url");
@@ -84,16 +85,16 @@ namespace CtrlUI
                     cb_SettingsWindowsStartup.IsChecked = true;
                 }
 
-                //Check if ctrlui is added to GeForce Experience
-                string targetFileGeforceCtrlUI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/", targetName + ".url");
-                if (File.Exists(targetFileGeforceCtrlUI))
+                //Check if CtrlUI is added to GeForce Experience
+                string targetFileGeForceCtrlUI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/", targetName + ".url");
+                if (File.Exists(targetFileGeForceCtrlUI))
                 {
                     btn_Settings_AddGeforceExperience_TextBlock.Text = "Remove CtrlUI from GeForce Experience";
                 }
 
                 //Check if remote desktop is added to GeForce Experience
-                string targetFileGeforceRemote = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/", "Remote Desktop.url");
-                if (File.Exists(targetFileGeforceRemote))
+                string targetFileGeForceRemote = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/", "Remote Desktop.url");
+                if (File.Exists(targetFileGeForceRemote))
                 {
                     btn_Settings_AddRemoteDesktop_TextBlock.Text = "Remove Remote Desktop from GeForce Experience";
                 }
