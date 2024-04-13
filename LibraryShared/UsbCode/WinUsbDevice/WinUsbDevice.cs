@@ -15,7 +15,7 @@ namespace LibraryUsb
         public bool Initialized;
         public string DevicePath;
         public string DeviceInstanceId;
-        private SafeFileHandle FileHandle;
+        public SafeFileHandle FileHandle;
         private IntPtr WinUsbHandle;
         public byte IntIn = 0xFF;
         public byte IntOut = 0xFF;

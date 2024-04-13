@@ -35,7 +35,7 @@ namespace LibraryUsb
                 bool bluetoothDisconnected = false;
                 while (!bluetoothDisconnected)
                 {
-                    bluetoothDisconnected = DeviceIoControl(bluetoothHandle, IoControlCodes.IOCTL_BTH_DISCONNECT_DEVICE, macAddressBytes, macAddressBytes.Length, null, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
+                    bluetoothDisconnected = DeviceIoControl(bluetoothHandle, (uint)IoControlCodes.IOCTL_BTH_DISCONNECT_DEVICE, macAddressBytes, macAddressBytes.Length, null, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
                     if (!bluetoothDisconnected)
                     {
                         if (!BluetoothFindNextRadio(radioHandle, out bluetoothHandle))
