@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.Reflection;
 using System.Windows.Forms;
 using static ArnoldVinkCode.AVFunctions;
 using static FpsOverlayer.AppVariables;

@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVSettings;
