@@ -82,12 +82,21 @@ namespace DirectXInput
                     Controller.SupportedCurrent = new ControllerSupported();
                 }
 
+                //Initialize controller
+                ControllerInitialize(Controller);
+
+                //Controller update led color
+                ControllerLedColor(Controller);
+
+                //Send default output to controller
+                ControllerOutputSend(Controller);
+
                 //Start controller input task loop
                 async Task TaskActionInput()
                 {
                     try
                     {
-                        await LoopInputDirectInput(Controller, Controller.Details.Type);
+                        await LoopInputController(Controller);
                     }
                     catch { }
                 }
@@ -482,8 +491,8 @@ namespace DirectXInput
                     else
                     {
                         //Set default controller variables
-                        Controller.InputReport = new byte[Controller.WinUsbDevice.IntIn];
-                        Controller.OutputReport = new byte[Controller.WinUsbDevice.IntOut];
+                        Controller.ControllerDataInput = new byte[Controller.WinUsbDevice.IntIn];
+                        Controller.ControllerDataOutput = new byte[Controller.WinUsbDevice.IntOut];
 
                         Debug.WriteLine("Opened the winusb controller: " + Controller.Details.DisplayName);
                         return true;
@@ -501,8 +510,8 @@ namespace DirectXInput
                     else
                     {
                         //Set default controller variables
-                        Controller.InputReport = new byte[Controller.HidDevice.Capabilities.InputReportByteLength];
-                        Controller.OutputReport = new byte[Controller.HidDevice.Capabilities.OutputReportByteLength];
+                        Controller.ControllerDataInput = new byte[Controller.HidDevice.Capabilities.InputReportByteLength];
+                        Controller.ControllerDataOutput = new byte[Controller.HidDevice.Capabilities.OutputReportByteLength];
 
                         Debug.WriteLine("Opened the hid controller: " + Controller.Details.DisplayName + ", exclusive: " + Controller.HidDevice.Exclusive);
                         return true;

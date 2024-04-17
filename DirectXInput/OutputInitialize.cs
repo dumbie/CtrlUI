@@ -7,7 +7,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Initialize controller
-        private void ControllerOutputInitialize(ControllerStatus Controller)
+        private void ControllerInitialize(ControllerStatus Controller)
         {
             try
             {

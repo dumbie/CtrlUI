@@ -13,12 +13,11 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Receive and translate DirectInput
-        async Task LoopInputDirectInput(ControllerStatus controller, ControllerType controllerType)
+        async Task LoopInputController(ControllerStatus controller)
         {
             try
             {
-                Debug.WriteLine("Receive and translate " + controllerType + " DirectInput for: " + controller.Details.DisplayName);
+                Debug.WriteLine("Receive and translate " + controller.Details.Type + " DirectInput for: " + controller.Details.DisplayName);
 
                 //Receive input from the selected controller
                 while (TaskCheckLoop(controller.InputControllerTask) && controller.Connected())
@@ -26,9 +25,9 @@ namespace DirectXInput
                     try
                     {
                         //Read data from the controller
-                        if (controllerType == ControllerType.HidDevice)
+                        if (controller.Details.Type == ControllerType.HidDevice)
                         {
-                            if (!controller.HidDevice.ReadBytesFile(controller.InputReport))
+                            if (!controller.HidDevice.ReadBytesFile(controller.ControllerDataInput))
                             {
                                 Debug.WriteLine("Failed to read input data from hid controller: " + controller.NumberId);
                                 AVHighResDelay.Delay(1);
@@ -37,7 +36,7 @@ namespace DirectXInput
                         }
                         else
                         {
-                            if (!controller.WinUsbDevice.ReadBytesIntPipe(controller.InputReport))
+                            if (!controller.WinUsbDevice.ReadBytesIntPipe(controller.ControllerDataInput))
                             {
                                 Debug.WriteLine("Failed to read input data from win controller: " + controller.NumberId);
                                 AVHighResDelay.Delay(1);
@@ -61,8 +60,8 @@ namespace DirectXInput
                         int ThumbLeftY = 0;
                         if (controller.SupportedCurrent.OffsetHeader.ThumbLeftX != null && controller.SupportedCurrent.OffsetHeader.ThumbLeftY != null)
                         {
-                            ThumbLeftX = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbLeftX];
-                            ThumbLeftY = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbLeftY];
+                            ThumbLeftX = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbLeftX];
+                            ThumbLeftY = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbLeftY];
                             ThumbLeftX = (ThumbLeftX * 257) - (int)32767.5;
                             ThumbLeftY = (int)32767.5 - (ThumbLeftY * 257);
                         }
@@ -72,8 +71,8 @@ namespace DirectXInput
                         int ThumbRightY = 0;
                         if (controller.SupportedCurrent.OffsetHeader.ThumbRightX != null && controller.SupportedCurrent.OffsetHeader.ThumbRightY != null)
                         {
-                            ThumbRightX = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbRightX];
-                            ThumbRightY = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbRightY];
+                            ThumbRightX = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbRightX];
+                            ThumbRightY = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbRightY];
                             ThumbRightX = (ThumbRightX * 257) - (int)32767.5;
                             ThumbRightY = (int)32767.5 - (ThumbRightY * 257);
                         }
@@ -240,7 +239,7 @@ namespace DirectXInput
                         {
                             if (controller.SupportedCurrent.OffsetHeader.TriggerLeft != null)
                             {
-                                int triggerLeftBytes = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerLeft];
+                                int triggerLeftBytes = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerLeft];
 
                                 //Check the triggers deadzone
                                 if (controller.Details.Profile.DeadzoneTriggerLeft != 0)
@@ -264,7 +263,7 @@ namespace DirectXInput
 
                             if (controller.SupportedCurrent.OffsetHeader.TriggerRight != null)
                             {
-                                int triggerRightBytes = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerRight];
+                                int triggerRightBytes = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerRight];
 
                                 //Check the triggers deadzone
                                 if (controller.Details.Profile.DeadzoneTriggerRight != 0)
@@ -303,10 +302,10 @@ namespace DirectXInput
                         {
                             //Get DPad state
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.DPadLeft.Group, controller.SupportedCurrent);
-                            bool DPadStateLeft = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadLeft.Offset)) != 0;
-                            bool DPadStateRight = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadRight.Offset)) != 0;
-                            bool DPadStateUp = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadUp.Offset)) != 0;
-                            bool DPadStateDown = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadDown.Offset)) != 0;
+                            bool DPadStateLeft = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadLeft.Offset)) != 0;
+                            bool DPadStateRight = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadRight.Offset)) != 0;
+                            bool DPadStateUp = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadUp.Offset)) != 0;
+                            bool DPadStateDown = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadDown.Offset)) != 0;
                             int DPadStateAll = (DPadStateLeft ? 1 : 0) << 0 | (DPadStateRight ? 1 : 0) << 1 | (DPadStateUp ? 1 : 0) << 2 | (DPadStateDown ? 1 : 0) << 3;
 
                             //Check DPad type
@@ -374,71 +373,71 @@ namespace DirectXInput
                         if (controller.SupportedCurrent.OffsetButton.A != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.A.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[0] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.A.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[0] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.A.Offset)) != 0;
                         }
                         if (controller.SupportedCurrent.OffsetButton.B != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.B.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[1] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.B.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[1] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.B.Offset)) != 0;
                         }
                         if (controller.SupportedCurrent.OffsetButton.X != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.X.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[2] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.X.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[2] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.X.Offset)) != 0;
                         }
                         if (controller.SupportedCurrent.OffsetButton.Y != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Y.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[3] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Y.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[3] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Y.Offset)) != 0;
                         }
 
                         //Raw Buttons (Shoulders, Triggers, Thumbs, Back, Start)
                         if (controller.SupportedCurrent.OffsetButton.ShoulderLeft != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.ShoulderLeft.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[100] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ShoulderLeft.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[100] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ShoulderLeft.Offset)) != 0;
                         }
                         if (controller.SupportedCurrent.OffsetButton.ShoulderRight != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.ShoulderRight.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[101] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ShoulderRight.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[101] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ShoulderRight.Offset)) != 0;
                         }
                         if (controller.SupportedCurrent.OffsetButton.TriggerLeft != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.TriggerLeft.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[102] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.TriggerLeft.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[102] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.TriggerLeft.Offset)) != 0;
                         }
                         if (controller.SupportedCurrent.OffsetButton.TriggerRight != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.TriggerRight.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[103] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.TriggerRight.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[103] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.TriggerRight.Offset)) != 0;
                         }
                         if (controller.SupportedCurrent.OffsetButton.ThumbLeft != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.ThumbLeft.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[104] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ThumbLeft.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[104] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ThumbLeft.Offset)) != 0;
                         }
                         if (controller.SupportedCurrent.OffsetButton.ThumbRight != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.ThumbRight.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[105] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ThumbRight.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[105] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ThumbRight.Offset)) != 0;
                         }
                         if (controller.SupportedCurrent.OffsetButton.Back != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Back.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[106] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Back.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[106] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Back.Offset)) != 0;
                         }
                         if (controller.SupportedCurrent.OffsetButton.Start != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Start.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[107] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Start.Offset)) != 0;
+                            controller.InputCurrent.ButtonPressStatus[107] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Start.Offset)) != 0;
                         }
 
                         //Raw Buttons (Touchpad, Guide, Media)
                         if (controller.SupportedCurrent.OffsetButton.Touchpad != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Touchpad.Group, controller.SupportedCurrent);
-                            byte ButtonInputByte = controller.InputReport[HeaderOffset + ButtonGroupOffset];
+                            byte ButtonInputByte = controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset];
                             if (ButtonInputByte < 10)
                             {
                                 controller.InputCurrent.ButtonPressStatus[200] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Touchpad.Offset)) != 0;
@@ -447,7 +446,7 @@ namespace DirectXInput
                         if (controller.SupportedCurrent.OffsetButton.Guide != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Guide.Group, controller.SupportedCurrent);
-                            byte ButtonInputByte = controller.InputReport[HeaderOffset + ButtonGroupOffset];
+                            byte ButtonInputByte = controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset];
                             if (ButtonInputByte < 10)
                             {
                                 controller.InputCurrent.ButtonPressStatus[201] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Guide.Offset)) != 0;
@@ -456,7 +455,7 @@ namespace DirectXInput
                         if (controller.SupportedCurrent.OffsetButton.Media != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Media.Group, controller.SupportedCurrent);
-                            byte ButtonInputByte = controller.InputReport[HeaderOffset + ButtonGroupOffset];
+                            byte ButtonInputByte = controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset];
                             if (ButtonInputByte < 10)
                             {
                                 controller.InputCurrent.ButtonPressStatus[202] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Media.Offset)) != 0;
@@ -466,10 +465,10 @@ namespace DirectXInput
                         //Raw Touchpad
                         if (controller.SupportedCurrent.OffsetHeader.Touchpad != null)
                         {
-                            byte touchByte0 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Touchpad];
-                            byte touchByte1 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Touchpad + 1];
-                            byte touchByte2 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Touchpad + 2];
-                            byte touchByte3 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Touchpad + 3];
+                            byte touchByte0 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Touchpad];
+                            byte touchByte1 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Touchpad + 1];
+                            byte touchByte2 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Touchpad + 2];
+                            byte touchByte3 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Touchpad + 3];
 
                             if ((touchByte0 & 0x80) == 0)
                             {
@@ -488,12 +487,12 @@ namespace DirectXInput
                         //Raw Gyroscope
                         if (controller.SupportedCurrent.OffsetHeader.Gyroscope != null)
                         {
-                            byte gyroByte0 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope];
-                            byte gyroByte1 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 1];
-                            byte gyroByte2 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 2];
-                            byte gyroByte3 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 3];
-                            byte gyroByte4 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 4];
-                            byte gyroByte5 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 5];
+                            byte gyroByte0 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope];
+                            byte gyroByte1 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 1];
+                            byte gyroByte2 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 2];
+                            byte gyroByte3 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 3];
+                            byte gyroByte4 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 4];
+                            byte gyroByte5 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 5];
 
                             short gyroPitch = (short)((ushort)(gyroByte1 << 8) | gyroByte0);
                             short gyroYaw = (short)((ushort)(gyroByte3 << 8) | gyroByte2);
@@ -507,12 +506,12 @@ namespace DirectXInput
                         //Raw Accelerometer
                         if (controller.SupportedCurrent.OffsetHeader.Accelerometer != null)
                         {
-                            byte accelByte0 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer];
-                            byte accelByte1 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 1];
-                            byte accelByte2 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 2];
-                            byte accelByte3 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 3];
-                            byte accelByte4 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 4];
-                            byte accelByte5 = controller.InputReport[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 5];
+                            byte accelByte0 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer];
+                            byte accelByte1 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 1];
+                            byte accelByte2 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 2];
+                            byte accelByte3 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 3];
+                            byte accelByte4 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 4];
+                            byte accelByte5 = controller.ControllerDataInput[HeaderOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 5];
 
                             short accelX = (short)((ushort)(accelByte1 << 8) | accelByte0);
                             short accelY = (short)((ushort)(accelByte3 << 8) | accelByte2);
@@ -616,7 +615,7 @@ namespace DirectXInput
                     }
                     catch
                     {
-                        Debug.WriteLine("Direct input " + controllerType + " data report is out of range or empty, skipping.");
+                        Debug.WriteLine("Direct input " + controller.Details.Type + " data report is out of range or empty, skipping.");
                     }
                 }
             }

@@ -6,7 +6,6 @@ using System.Windows.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInteropDll;
-using static LibraryUsb.WinUsbDevice;
 
 namespace LibraryShared
 {
@@ -22,10 +21,10 @@ namespace LibraryShared
             public Color? Color = null;
             public bool ColorLedBlink = false;
             public byte ColorLedCurrentR = 0;
-            public byte ColorLedPreviousR = 0;
             public byte ColorLedCurrentG = 0;
-            public byte ColorLedPreviousG = 0;
             public byte ColorLedCurrentB = 0;
+            public byte ColorLedPreviousR = 0;
+            public byte ColorLedPreviousG = 0;
             public byte ColorLedPreviousB = 0;
 
             //Battery Status
@@ -73,19 +72,19 @@ namespace LibraryShared
             public uint GyroDsuClientPacketNumber = 0;
             public UdpEndPointDetails GyroDsuClientEndPoint = null;
 
-            //Device In and Output
-            public byte[] InputReport = null;
-            public byte[] OutputReport = null;
-            public XUSB_INPUT_REPORT XInputData = new XUSB_INPUT_REPORT();
-            public XUSB_OUTPUT_REPORT XOutputData = new XUSB_OUTPUT_REPORT();
-            public byte XOutputCurrentRumbleHeavy = 0;
-            public byte XOutputCurrentRumbleLight = 0;
-            public byte XOutputPreviousRumbleHeavy = 0;
-            public byte XOutputPreviousRumbleLight = 0;
+            //Input and Output data
+            public byte[] ControllerDataInput = null;
+            public byte[] ControllerDataOutput = null;
+            public byte[] VirtualDataInput = new byte[(int)VigemBusDevice.ByteArraySizes.Input];
+            public byte[] VirtualDataOutput = new byte[(int)VigemBusDevice.ByteArraySizes.Output];
+            public byte RumbleCurrentHeavy = 0;
+            public byte RumbleCurrentLight = 0;
+            public byte RumblePreviousHeavy = 0;
+            public byte RumblePreviousLight = 0;
 
             //Controller Input
-            public long Delay_CtrlUIOutput = GetSystemTicksMs();
-            public long Delay_ControllerShortcut = GetSystemTicksMs();
+            public long Delay_CtrlUIOutput = 0;
+            public long Delay_ControllerShortcut = 0;
             public ControllerInput InputCurrent = new ControllerInput();
             public ControllerSupported SupportedCurrent = new ControllerSupported();
 
@@ -104,6 +103,15 @@ namespace LibraryShared
 
                     //Controller Status
                     Activated = false;
+
+                    //Color Status
+                    ColorLedBlink = false;
+                    ColorLedCurrentR = 0;
+                    ColorLedCurrentG = 0;
+                    ColorLedCurrentB = 0;
+                    ColorLedPreviousR = 0;
+                    ColorLedPreviousG = 0;
+                    ColorLedPreviousB = 0;
 
                     //Battery Status
                     BatteryCurrent = new ControllerBattery();
@@ -138,16 +146,18 @@ namespace LibraryShared
                     GyroDsuClientEndPoint = null;
 
                     //Device In and Output
-                    InputReport = null;
-                    OutputReport = null;
-                    XInputData = new XUSB_INPUT_REPORT();
-                    XOutputData = new XUSB_OUTPUT_REPORT();
-                    XOutputCurrentRumbleHeavy = 0;
-                    XOutputCurrentRumbleLight = 0;
-                    XOutputPreviousRumbleHeavy = 0;
-                    XOutputPreviousRumbleLight = 0;
+                    ControllerDataInput = null;
+                    ControllerDataOutput = null;
+                    VirtualDataInput = new byte[(int)VigemBusDevice.ByteArraySizes.Input];
+                    VirtualDataOutput = new byte[(int)VigemBusDevice.ByteArraySizes.Output];
+                    RumbleCurrentHeavy = 0;
+                    RumbleCurrentLight = 0;
+                    RumblePreviousHeavy = 0;
+                    RumblePreviousLight = 0;
 
                     //Controller Input
+                    Delay_CtrlUIOutput = 0;
+                    Delay_ControllerShortcut = 0;
                     InputCurrent = new ControllerInput();
                     SupportedCurrent = new ControllerSupported();
                 }

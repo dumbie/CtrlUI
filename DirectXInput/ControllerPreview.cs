@@ -23,10 +23,11 @@ namespace DirectXInput
                         //Update controller information
                         UpdateControllerInformation(activeController);
 
-                        //Update controller button preview
+                        //Update controller preview information
                         if (vShowControllerPreview)
                         {
-                            UpdateControllerPreviewButtons(activeController);
+                            UpdateControllerPreviewInformation(activeController);
+                            UpdateControllerPreviewRumble(activeController);
                         }
 
                         //Update controller debug information
@@ -41,13 +42,13 @@ namespace DirectXInput
         }
 
         //Update interface controller rumble preview
-        void UpdateControllerPreviewRumble(bool rumbleEnabled)
+        void UpdateControllerPreviewRumble(ControllerStatus Controller)
         {
             try
             {
                 AVActions.DispatcherInvoke(delegate
                 {
-                    if (rumbleEnabled)
+                    if (Controller.RumbleCurrentHeavy > 0 || Controller.RumbleCurrentLight > 0)
                     {
                         img_ControllerPreview_ControllerRumble.Visibility = Visibility.Visible;
 
@@ -96,7 +97,7 @@ namespace DirectXInput
         }
 
         //Update interface controller buttons preview
-        void UpdateControllerPreviewButtons(ControllerStatus Controller)
+        void UpdateControllerPreviewInformation(ControllerStatus Controller)
         {
             try
             {

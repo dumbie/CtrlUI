@@ -27,7 +27,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected() && Controller.InputReport != null && Controller.TicksActiveLast != 0)
+                if (Controller.Connected() && Controller.ControllerDataInput != null && Controller.TicksActiveLast != 0)
                 {
                     if (Controller.Details.Wireless && Controller.BatteryCurrent.BatteryStatus != BatteryStatus.Charging)
                     {

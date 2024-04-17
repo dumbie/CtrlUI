@@ -21,7 +21,7 @@ namespace DirectXInput
 
                     //Set controller input
                     listbox_LiveDebugInput.Visibility = Visibility.Visible;
-                    byte[] controllerRawInput = Controller.InputReport;
+                    byte[] controllerRawInput = Controller.ControllerDataInput;
                     if (controllerRawInput.Length > 180) { controllerRawInput = controllerRawInput.Take(180).ToArray(); }
                     for (int packetId = 0; packetId < controllerRawInput.Length; packetId++)
                     {
@@ -58,7 +58,7 @@ namespace DirectXInput
             try
             {
                 ControllerStatus activeController = vActiveController();
-                if (activeController != null && activeController.InputReport != null)
+                if (activeController != null && activeController.ControllerDataInput != null)
                 {
                     Clipboard.SetText(GenerateControllerDebugString(true));
 
@@ -86,9 +86,9 @@ namespace DirectXInput
             try
             {
                 ControllerStatus activeController = vActiveController();
-                if (activeController != null && activeController.InputReport != null)
+                if (activeController != null && activeController.ControllerDataInput != null && activeController.ControllerDataOutput != null)
                 {
-                    string rawPackets = "(Out" + activeController.OutputReport.Length + "/In" + activeController.InputReport.Length + ")";
+                    string rawPackets = "(Out" + activeController.ControllerDataOutput.Length + "/In" + activeController.ControllerDataInput.Length + ")";
                     if (activeController.Details.Wireless)
                     {
                         rawPackets += "(OffHdWs" + activeController.SupportedCurrent.OffsetWireless + ")";
@@ -103,7 +103,10 @@ namespace DirectXInput
                     if (includeRawData)
                     {
                         rawPackets += "\n";
-                        for (int Packet = 0; Packet < activeController.InputReport.Length; Packet++) { rawPackets = rawPackets + " " + activeController.InputReport[Packet]; }
+                        for (int Packet = 0; Packet < activeController.ControllerDataInput.Length; Packet++)
+                        {
+                            rawPackets = rawPackets + " " + activeController.ControllerDataInput[Packet];
+                        }
                     }
 
                     return rawPackets;

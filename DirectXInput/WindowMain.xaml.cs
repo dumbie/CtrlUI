@@ -81,18 +81,30 @@ namespace DirectXInput
                         vControllerRumbleTest = true;
                         Button SendButton = sender as Button;
 
-                        UpdateControllerPreviewRumble(true);
+                        //Enable rumble
                         if (SendButton.Name == "btn_RumbleTestLight")
                         {
-                            ControllerOutput(activeController, true, false);
+                            //Update controller rumble status
+                            activeController.RumbleCurrentHeavy = 0;
+                            activeController.RumbleCurrentLight = 255;
+                            ControllerOutputSend(activeController);
                         }
                         else
                         {
-                            ControllerOutput(activeController, false, true);
+                            //Update controller rumble status
+                            activeController.RumbleCurrentHeavy = 255;
+                            activeController.RumbleCurrentLight = 0;
+                            ControllerOutputSend(activeController);
                         }
+
+                        //Wait rumble
                         await Task.Delay(1000);
-                        UpdateControllerPreviewRumble(false);
-                        ControllerOutput(activeController, false, false);
+
+                        //Disable rumble
+                        //Update controller rumble status
+                        activeController.RumbleCurrentHeavy = 0;
+                        activeController.RumbleCurrentLight = 0;
+                        ControllerOutputSend(activeController);
 
                         vControllerRumbleTest = false;
                     }

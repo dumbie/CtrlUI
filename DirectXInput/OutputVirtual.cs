@@ -1,9 +1,7 @@
 ﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryUsb.WinUsbDevice;
 
 namespace DirectXInput
 {
@@ -16,15 +14,16 @@ namespace DirectXInput
             {
                 Debug.WriteLine("Receive rumble for: " + Controller.Details.DisplayName);
 
-                //Set receive structure
-                Controller.XOutputData = new XUSB_OUTPUT_REPORT();
-                Controller.XOutputData.Size = Marshal.SizeOf(Controller.XOutputData);
-                Controller.XOutputData.SerialNo = Controller.NumberId + 1;
-
                 //Receive output from the virtual bus
                 while (TaskCheckLoop(Controller.OutputVirtualTask) && Controller.Connected())
                 {
-                    vVirtualBusDevice.VirtualOutput(ref Controller);
+                    try
+                    {
+                        vVirtualBusDevice.VirtualOutput(ref Controller);
+                        Controller.RumbleCurrentHeavy = Controller.VirtualDataOutput[8];
+                        Controller.RumbleCurrentLight = Controller.VirtualDataOutput[9];
+                    }
+                    catch { }
                 }
             }
             catch { }

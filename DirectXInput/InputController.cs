@@ -1,7 +1,7 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using LibraryUsb;
+using System;
 using static LibraryShared.Classes;
-using static LibraryUsb.WinUsbDevice;
+using static LibraryUsb.VigemBusDevice;
 
 namespace DirectXInput
 {
@@ -29,73 +29,70 @@ namespace DirectXInput
         }
 
         //Update and prepare XInput byte data
-        void PrepareXInputDataEmpty(ControllerStatus Controller)
+        void PrepareXInputDataEmpty(ControllerStatus controller)
         {
             try
             {
-                //Set report structure
-                XUSB_REPORT usbReport = new XUSB_REPORT();
-
-                //Set submit structure
-                Controller.XInputData = new XUSB_INPUT_REPORT();
-                Controller.XInputData.Size = Marshal.SizeOf(Controller.XInputData);
-                Controller.XInputData.SerialNo = Controller.NumberId + 1;
-                Controller.XInputData.Report = usbReport;
+                //Set byte array
+                controller.VirtualDataInput = new byte[(int)ByteArraySizes.Input];
+                controller.VirtualDataInput[0] = (byte)ByteArraySizes.Input; //Size
+                controller.VirtualDataInput[4] = (byte)(controller.NumberId + 1); //SerialNo
             }
             catch { }
         }
 
         //Update and prepare XInput byte data
-        void PrepareXInputDataCurrent(ControllerStatus Controller)
+        void PrepareXInputDataCurrent(ControllerStatus controller)
         {
             try
             {
-                //Set report structure
-                XUSB_REPORT usbReport = new XUSB_REPORT();
+                //Set byte array
+                controller.VirtualDataInput = new byte[(int)ByteArraySizes.Input];
+                controller.VirtualDataInput[0] = (byte)ByteArraySizes.Input; //Size
+                controller.VirtualDataInput[4] = (byte)(controller.NumberId + 1); //SerialNo
 
-                //Set current input
-                //Thumbs
-                usbReport.sThumbLX = (short)Controller.InputCurrent.ThumbLeftX;
-                usbReport.sThumbLY = (short)Controller.InputCurrent.ThumbLeftY;
-                usbReport.sThumbRX = (short)Controller.InputCurrent.ThumbRightX;
-                usbReport.sThumbRY = (short)Controller.InputCurrent.ThumbRightY;
+                //Thumb Left
+                controller.VirtualDataInput[12] = TranslateByte_0xFF(0, controller.InputCurrent.ThumbLeftX);
+                controller.VirtualDataInput[13] = TranslateByte_0xFF(8, controller.InputCurrent.ThumbLeftX);
+                controller.VirtualDataInput[14] = TranslateByte_0xFF(0, controller.InputCurrent.ThumbLeftY);
+                controller.VirtualDataInput[15] = TranslateByte_0xFF(8, controller.InputCurrent.ThumbLeftY);
+
+                //Thumb Right
+                controller.VirtualDataInput[16] = TranslateByte_0xFF(0, controller.InputCurrent.ThumbRightX);
+                controller.VirtualDataInput[17] = TranslateByte_0xFF(8, controller.InputCurrent.ThumbRightX);
+                controller.VirtualDataInput[18] = TranslateByte_0xFF(0, controller.InputCurrent.ThumbRightY);
+                controller.VirtualDataInput[19] = TranslateByte_0xFF(8, controller.InputCurrent.ThumbRightY);
 
                 //Triggers
-                if (!Controller.Details.Profile.UseButtonTriggers)
+                if (!controller.Details.Profile.UseButtonTriggers)
                 {
-                    usbReport.bLeftTrigger = Controller.InputCurrent.TriggerLeft;
-                    usbReport.bRightTrigger = Controller.InputCurrent.TriggerRight;
+                    controller.VirtualDataInput[10] = controller.InputCurrent.TriggerLeft;
+                    controller.VirtualDataInput[11] = controller.InputCurrent.TriggerRight;
                 }
                 else
                 {
-                    if (Controller.InputCurrent.ButtonTriggerLeft.PressedRaw) { usbReport.bLeftTrigger = 255; }
-                    if (Controller.InputCurrent.ButtonTriggerRight.PressedRaw) { usbReport.bRightTrigger = 255; }
+                    if (controller.InputCurrent.ButtonTriggerLeft.PressedRaw) { controller.VirtualDataInput[10] = 255; }
+                    if (controller.InputCurrent.ButtonTriggerRight.PressedRaw) { controller.VirtualDataInput[11] = 255; }
                 }
 
                 //DPad
-                if (Controller.InputCurrent.DPadLeft.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_DPAD_LEFT; }
-                if (Controller.InputCurrent.DPadUp.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_DPAD_UP; }
-                if (Controller.InputCurrent.DPadRight.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_DPAD_RIGHT; }
-                if (Controller.InputCurrent.DPadDown.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_DPAD_DOWN; }
+                if (controller.InputCurrent.DPadLeft.PressedRaw) { controller.VirtualDataInput[8] |= (1 << 2); }
+                if (controller.InputCurrent.DPadUp.PressedRaw) { controller.VirtualDataInput[8] |= (1 << 0); }
+                if (controller.InputCurrent.DPadRight.PressedRaw) { controller.VirtualDataInput[8] |= (1 << 3); }
+                if (controller.InputCurrent.DPadDown.PressedRaw) { controller.VirtualDataInput[8] |= (1 << 1); }
 
                 //Buttons
-                if (Controller.InputCurrent.ButtonA.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_A; }
-                if (Controller.InputCurrent.ButtonB.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_B; }
-                if (Controller.InputCurrent.ButtonX.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_X; }
-                if (Controller.InputCurrent.ButtonY.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_Y; }
-                if (Controller.InputCurrent.ButtonBack.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_BACK; }
-                if (Controller.InputCurrent.ButtonStart.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_START; }
-                if (Controller.InputCurrent.ButtonGuide.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_GUIDE; }
-                if (Controller.InputCurrent.ButtonShoulderLeft.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_LEFT_SHOULDER; }
-                if (Controller.InputCurrent.ButtonShoulderRight.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_SHOULDER; }
-                if (Controller.InputCurrent.ButtonThumbLeft.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_LEFT_THUMB; }
-                if (Controller.InputCurrent.ButtonThumbRight.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_THUMB; }
-
-                //Set submit structure
-                Controller.XInputData = new XUSB_INPUT_REPORT();
-                Controller.XInputData.Size = Marshal.SizeOf(Controller.XInputData);
-                Controller.XInputData.SerialNo = Controller.NumberId + 1;
-                Controller.XInputData.Report = usbReport;
+                if (controller.InputCurrent.ButtonBack.PressedRaw) { controller.VirtualDataInput[8] |= (1 << 5); }
+                if (controller.InputCurrent.ButtonStart.PressedRaw) { controller.VirtualDataInput[8] |= (1 << 4); }
+                if (controller.InputCurrent.ButtonThumbLeft.PressedRaw) { controller.VirtualDataInput[8] |= (1 << 6); }
+                if (controller.InputCurrent.ButtonThumbRight.PressedRaw) { controller.VirtualDataInput[8] |= (1 << 7); }
+                if (controller.InputCurrent.ButtonShoulderLeft.PressedRaw) { controller.VirtualDataInput[9] |= (1 << 0); }
+                if (controller.InputCurrent.ButtonShoulderRight.PressedRaw) { controller.VirtualDataInput[9] |= (1 << 1); }
+                if (controller.InputCurrent.ButtonGuide.PressedRaw) { controller.VirtualDataInput[9] |= (1 << 2); }
+                if (controller.InputCurrent.ButtonA.PressedRaw) { controller.VirtualDataInput[9] |= (1 << 4); }
+                if (controller.InputCurrent.ButtonB.PressedRaw) { controller.VirtualDataInput[9] |= (1 << 5); }
+                if (controller.InputCurrent.ButtonX.PressedRaw) { controller.VirtualDataInput[9] |= (1 << 6); }
+                if (controller.InputCurrent.ButtonY.PressedRaw) { controller.VirtualDataInput[9] |= (1 << 7); }
             }
             catch { }
         }

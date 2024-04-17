@@ -15,15 +15,6 @@ namespace DirectXInput
             {
                 Debug.WriteLine("Send rumble for: " + Controller.Details.DisplayName);
 
-                //Initialize controller
-                ControllerOutputInitialize(Controller);
-
-                //Controller update led color
-                ControllerLedColor(Controller);
-
-                //Send default output to controller
-                ControllerOutput(Controller, false, false);
-
                 //Receive output from the virtual bus
                 while (TaskCheckLoop(Controller.OutputControllerTask) && Controller.Connected())
                 {
@@ -34,8 +25,8 @@ namespace DirectXInput
                         bool ledGChanged = Controller.ColorLedCurrentG == Controller.ColorLedPreviousG;
                         bool ledBChanged = Controller.ColorLedCurrentB == Controller.ColorLedPreviousB;
                         bool ledMuteChanged = vControllerMuteLedCurrent == vControllerMuteLedPrevious;
-                        bool heavyRumbleChanged = Controller.XOutputCurrentRumbleHeavy == Controller.XOutputPreviousRumbleHeavy;
-                        bool lightRumbleChanged = Controller.XOutputCurrentRumbleLight == Controller.XOutputPreviousRumbleLight;
+                        bool heavyRumbleChanged = Controller.RumbleCurrentHeavy == Controller.RumblePreviousHeavy;
+                        bool lightRumbleChanged = Controller.RumbleCurrentLight == Controller.RumblePreviousLight;
                         if (ledRChanged && ledGChanged && ledBChanged && ledMuteChanged && heavyRumbleChanged && lightRumbleChanged)
                         {
                             //Delay task to prevent high cpu usage
@@ -48,11 +39,11 @@ namespace DirectXInput
                         Controller.ColorLedPreviousG = Controller.ColorLedCurrentG;
                         Controller.ColorLedPreviousB = Controller.ColorLedCurrentB;
                         vControllerMuteLedPrevious = vControllerMuteLedCurrent;
-                        Controller.XOutputPreviousRumbleHeavy = Controller.XOutputCurrentRumbleHeavy;
-                        Controller.XOutputPreviousRumbleLight = Controller.XOutputCurrentRumbleLight;
+                        Controller.RumblePreviousHeavy = Controller.RumbleCurrentHeavy;
+                        Controller.RumblePreviousLight = Controller.RumbleCurrentLight;
 
                         //Send received output to controller
-                        ControllerOutput(Controller, false, false);
+                        ControllerOutputSend(Controller);
                     }
                     catch { }
                 }
@@ -60,35 +51,22 @@ namespace DirectXInput
             catch { }
         }
 
-        //Send output to controller
-        public void ControllerOutput(ControllerStatus Controller, bool testLight, bool testHeavy)
+        //Send controller output
+        public void ControllerOutputSend(ControllerStatus Controller)
         {
             try
             {
                 //Check if the controller is connected
                 if (Controller == null || !Controller.Connected())
                 {
-                    //Debug.WriteLine("Rumble send controller is not connected.");
+                    //Debug.WriteLine("Rumble controller is not connected.");
                     return;
                 }
 
                 //Read the rumble strength
                 byte controllerRumbleMode = 0;
-                byte controllerRumbleHeavy = 0;
-                byte controllerRumbleLight = 0;
-                if (testHeavy)
-                {
-                    controllerRumbleHeavy = 255;
-                }
-                else if (testLight)
-                {
-                    controllerRumbleLight = 255;
-                }
-                else
-                {
-                    controllerRumbleHeavy = Controller.XOutputCurrentRumbleHeavy;
-                    controllerRumbleLight = Controller.XOutputCurrentRumbleLight;
-                }
+                byte controllerRumbleHeavy = Controller.RumbleCurrentHeavy;
+                byte controllerRumbleLight = Controller.RumbleCurrentLight;
 
                 //Adjust the trigger rumble strength
                 byte triggerRumbleMinimum = 5;
@@ -218,7 +196,7 @@ namespace DirectXInput
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && !Controller.Details.Wireless)
                 {
                     //Wired USB Output - DualSense 5
-                    byte[] outputReport = new byte[Controller.OutputReport.Length];
+                    byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x02;
                     outputReport[1] = 0xFF;
                     outputReport[2] = 0xF7;
@@ -278,7 +256,7 @@ namespace DirectXInput
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS4DualShock" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - DualShock 4
-                    byte[] outputReport = new byte[Controller.OutputReport.Length];
+                    byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x11;
                     outputReport[1] = 0x80;
                     outputReport[3] = 0xFF;
@@ -297,7 +275,7 @@ namespace DirectXInput
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS4DualShock" && !Controller.Details.Wireless)
                 {
                     //Wired USB Output - DualShock 4
-                    byte[] outputReport = new byte[Controller.OutputReport.Length];
+                    byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x05;
                     outputReport[1] = 0xFF;
                     outputReport[4] = controllerRumbleLight;
@@ -353,7 +331,7 @@ namespace DirectXInput
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS12DualShock")
                 {
                     //Wired USB Output - DualShock 1 and 2
-                    byte[] outputReport = new byte[Controller.OutputReport.Length];
+                    byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x01;
                     outputReport[3] = (byte)(controllerRumbleHeavy / 2); //Between 0 and 127.5
                     outputReport[4] = (byte)(controllerRumbleLight > 0 ? 0x01 : 0x00); //On or Off
@@ -361,16 +339,6 @@ namespace DirectXInput
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(outputReport);
                     Debug.WriteLine("UsbRumb DS1 and 2: " + bytesWritten);
-                }
-                else if (testHeavy || testLight)
-                {
-                    //Show unsupported controller notification
-                    NotificationDetails notificationDetails = new NotificationDetails();
-                    notificationDetails.Icon = "Controller";
-                    notificationDetails.Text = "Unsupported rumble controller";
-                    notificationDetails.Color = Controller.Color;
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-                    Debug.WriteLine("Unsupported rumble controller.");
                 }
             }
             catch (Exception ex)

@@ -25,7 +25,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected() && Controller.InputReport != null && Controller.TicksInputLast != 0 && Controller.TicksInputPrev != 0)
+                if (Controller.Connected() && Controller.ControllerDataInput != null && Controller.TicksInputLast != 0 && Controller.TicksInputPrev != 0)
                 {
                     if (!Controller.TimeoutIgnore)
                     {

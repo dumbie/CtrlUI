@@ -82,7 +82,7 @@ namespace DirectXInput
         {
             try
             {
-                vVirtualBusDevice = new WinUsbDevice(GuidClassVigemVirtualBus, false, false);
+                vVirtualBusDevice = new VigemBusDevice(GuidClassVigemVirtualBus, false, false);
                 if (vVirtualBusDevice.Connected)
                 {
                     Debug.WriteLine("Virtual bus driver is installed.");

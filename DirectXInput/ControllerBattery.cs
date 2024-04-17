@@ -29,9 +29,9 @@ namespace DirectXInput
                 {
                     //Bluetooth - DualSense 5
                     int batteryLevelOffset = Controller.SupportedCurrent.OffsetWireless + (int)Controller.SupportedCurrent.OffsetHeader.BatteryLevel;
-                    byte batteryLevelReport = Controller.InputReport[batteryLevelOffset];
+                    byte batteryLevelReport = Controller.ControllerDataInput[batteryLevelOffset];
                     int batteryStatusOffset = Controller.SupportedCurrent.OffsetWireless + (int)Controller.SupportedCurrent.OffsetHeader.BatteryStatus;
-                    byte batteryStatusReport = Controller.InputReport[batteryStatusOffset];
+                    byte batteryStatusReport = Controller.ControllerDataInput[batteryStatusOffset];
 
                     bool batteryCharging = batteryStatusReport != 0;
                     if (batteryCharging)
@@ -56,7 +56,7 @@ namespace DirectXInput
                 {
                     //Bluetooth - DualShock 4
                     int batteryOffset = Controller.SupportedCurrent.OffsetWireless + (int)Controller.SupportedCurrent.OffsetHeader.BatteryLevel;
-                    byte batteryReport = Controller.InputReport[batteryOffset];
+                    byte batteryReport = Controller.ControllerDataInput[batteryOffset];
 
                     bool batteryCharging = TranslateByte_0x10(0, batteryReport) != 0;
                     if (batteryCharging)

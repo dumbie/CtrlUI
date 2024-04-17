@@ -14,68 +14,44 @@ namespace LibraryUsb
 
         public bool VirtualPlugin(int controllerNumber)
         {
-            IntPtr controlIntPtr = IntPtr.Zero;
             try
             {
                 if (!Connected) { return false; }
 
-                //Set marshal structure
-                BUSENUM_PLUGIN_HARDWARE busenumPlugin = new BUSENUM_PLUGIN_HARDWARE();
-                busenumPlugin.Size = Marshal.SizeOf(busenumPlugin);
-                busenumPlugin.SerialNo = controllerNumber + 1;
-                busenumPlugin.TargetType = VIGEM_TARGET_TYPE.Xbox360Wired;
+                //Set buffer header
+                byte[] writeBuffer = new byte[(int)ByteArraySizes.Plugin];
+                writeBuffer[0] = (byte)ByteArraySizes.Plugin; //Size
+                writeBuffer[4] = (byte)(controllerNumber + 1); //SerialNo
+                writeBuffer[8] = (byte)VIGEM_TARGET_TYPE.Xbox360Wired; //TargetType
 
-                //Prepare marshal structure
-                controlIntPtr = Marshal.AllocHGlobal(busenumPlugin.Size);
-                Marshal.StructureToPtr(busenumPlugin, controlIntPtr, false);
-
-                //Get device control code
-                uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_BUSENUM_PLUGIN_HARDWARE, IO_METHOD.METHOD_BUFFERED);
-
-                //Send marshal structure
-                return DeviceIoControl(FileHandle, controlCode, controlIntPtr, busenumPlugin.Size, IntPtr.Zero, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
+                //Send device control code
+                return DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_PLUGIN, writeBuffer, writeBuffer.Length, null, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to plugin device: " + ex.Message);
                 return false;
             }
-            finally
-            {
-                SafeCloseMarshal(controlIntPtr);
-            }
         }
 
         public bool VirtualUnplug(int controllerNumber)
         {
-            IntPtr controlIntPtr = IntPtr.Zero;
             try
             {
                 if (!Connected) { return false; }
 
-                //Set marshal structure
-                BUSENUM_UNPLUG_HARDWARE busenumUnplug = new BUSENUM_UNPLUG_HARDWARE();
-                busenumUnplug.Size = Marshal.SizeOf(busenumUnplug);
-                busenumUnplug.SerialNo = controllerNumber + 1;
+                //Set buffer header
+                byte[] writeBuffer = new byte[(int)ByteArraySizes.Unplug];
+                writeBuffer[0] = (byte)ByteArraySizes.Unplug; //Size
+                writeBuffer[4] = (byte)(controllerNumber + 1); //SerialNo
 
-                //Prepare marshal structure
-                controlIntPtr = Marshal.AllocHGlobal(busenumUnplug.Size);
-                Marshal.StructureToPtr(busenumUnplug, controlIntPtr, false);
-
-                //Get device control code
-                uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_BUSENUM_UNPLUG_HARDWARE, IO_METHOD.METHOD_BUFFERED);
-
-                //Send marshal structure
-                return DeviceIoControl(FileHandle, controlCode, controlIntPtr, busenumUnplug.Size, IntPtr.Zero, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
+                //Send device control code
+                return DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_UNPLUG, writeBuffer, writeBuffer.Length, null, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to unplug device: " + ex.Message);
                 return false;
-            }
-            finally
-            {
-                SafeCloseMarshal(controlIntPtr);
             }
         }
 
@@ -96,29 +72,23 @@ namespace LibraryUsb
             }
         }
 
-        public bool VirtualInput(ref ControllerStatus controller)
+        public bool VirtualInput(ControllerStatus controller)
         {
-            IntPtr controlIntPtr = IntPtr.Zero;
             try
             {
                 if (!Connected) { return false; }
 
-                ////Prepare marshal structure
-                //controlIntPtr = Marshal.AllocHGlobal(controller.XInputData.Size);
-                //Marshal.StructureToPtr(controller.XInputData, controlIntPtr, false);
+                //Send device control code
+                bool iocontrol = DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_INPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, null, 0, out int bytesWritten, controller.InputVirtualOverlapped);
 
-                ////Get device control code
-                //uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_XUSB_SUBMIT_REPORT, IO_METHOD.METHOD_BUFFERED);
-
-                ////Send marshal structure
-                //bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, controller.XInputData.Size, controlIntPtr, controller.XInputData.Size, out int bytesWritten, controller.InputVirtualOverlapped);
-
-                ////Get overlapped result
-                //if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
-                //{
-                //    WaitForSingleObject(controller.InputVirtualOverlapped.EventHandle, INFINITE);
-                //    return GetOverlappedResult(FileHandle, ref controller.InputVirtualOverlapped, out int bytesTransferred, false);
-                //}
+                //Get overlapped result
+                if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
+                {
+                    if (WaitForSingleObject(controller.InputVirtualOverlapped.EventHandle, INFINITE) == WaitObjectResult.WAIT_OBJECT_0)
+                    {
+                        return GetOverlappedResult(FileHandle, ref controller.InputVirtualOverlapped, out int bytesTransferred, false);
+                    }
+                }
                 return false;
             }
             catch (Exception ex)
@@ -126,52 +96,32 @@ namespace LibraryUsb
                 Debug.WriteLine("Failed to send virtual bus input: " + ex.Message);
                 return false;
             }
-            finally
-            {
-                SafeCloseMarshal(controlIntPtr);
-            }
         }
 
         public bool VirtualOutput(ref ControllerStatus controller)
         {
-            IntPtr controlIntPtr = IntPtr.Zero;
             try
             {
                 if (!Connected) { return false; }
 
-                ////Prepare marshal structure
-                //controlIntPtr = Marshal.AllocHGlobal(controller.XOutputData.Size);
-                //Marshal.StructureToPtr(controller.XOutputData, controlIntPtr, false);
+                //Send device control code
+                bool iocontrol = DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_OUTPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, controller.VirtualDataOutput, controller.VirtualDataOutput.Length, out int bytesWritten, controller.OutputVirtualOverlapped);
 
-                ////Get device control code
-                //uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_READ_DATA | FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_XUSB_REQUEST_NOTIFICATION, IO_METHOD.METHOD_BUFFERED);
-
-                ////Send marshal structure
-                //bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, controller.XOutputData.Size, controlIntPtr, controller.XOutputData.Size, out int bytesWritten, controller.OutputVirtualOverlapped);
-
-                ////Get overlapped result
-                //if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
-                //{
-                //    WaitForSingleObject(controller.OutputVirtualOverlapped.EventHandle, INFINITE); //NET8 crash
-                //    if (GetOverlappedResult(FileHandle, ref controller.OutputVirtualOverlapped, out int bytesTransferred, false))
-                //    {
-                //        //Set marshal structure
-                //        controller.XOutputData = Marshal.PtrToStructure<XUSB_OUTPUT_REPORT>(controlIntPtr);
-                //        controller.RumbleCurrentHeavy = controller.XOutputData.RumbleHeavy;
-                //        controller.RumbleCurrentLight = controller.XOutputData.RumbleLight;
-                //        return true;
-                //    }
-                //}
+                //Get overlapped result
+                if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
+                {
+                    //.NET8 crashes here with ExecutionEngineException
+                    if (WaitForSingleObject(controller.OutputVirtualOverlapped.EventHandle, INFINITE) == WaitObjectResult.WAIT_OBJECT_0)
+                    {
+                        return GetOverlappedResult(FileHandle, ref controller.OutputVirtualOverlapped, out int bytesTransferred, false);
+                    }
+                }
                 return false;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to read virtual bus output: " + ex.Message);
                 return false;
-            }
-            finally
-            {
-                SafeCloseMarshal(controlIntPtr);
             }
         }
     }

@@ -19,13 +19,15 @@ namespace DirectXInput
                 {
                     try
                     {
-                        //Delay task to prevent high cpu usage
-                        AVHighResDelay.Delay(1);
-
                         //Send gyro motion to the dsu client
                         await SendGyroMotionController(Controller);
                     }
                     catch { }
+                    finally
+                    {
+                        //Delay task to prevent high cpu usage
+                        AVHighResDelay.Delay(1);
+                    }
                 }
             }
             catch { }
