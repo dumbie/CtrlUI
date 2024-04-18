@@ -148,13 +148,19 @@ namespace DirectXInput.KeyboardCode
                     catch { }
                     return null;
                 }
-                vSmtcSessionManager = await TaskStartTimeout(TaskAction, 2000);
+                vSmtcSessionManager = await TaskStartReturn(TaskAction).WaitAsync(TimeSpan.FromMilliseconds(2000));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to request SMTC access: " + ex.Message);
+            }
+            finally
+            {
                 if (vSmtcSessionManager == null)
                 {
                     HideMediaInformation();
                 }
             }
-            catch { }
         }
 
         //Update currently playing media information
