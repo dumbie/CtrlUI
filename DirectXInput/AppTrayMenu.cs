@@ -154,7 +154,7 @@ namespace DirectXInput
         {
             try
             {
-                await StopAllControllers(false);
+                await StopAllControllers();
             }
             catch { }
         }
@@ -165,7 +165,7 @@ namespace DirectXInput
             {
                 if (args.Button == MouseButtons.Middle)
                 {
-                    await StopAllControllers(false);
+                    await StopAllControllers();
                 }
             }
             catch { }

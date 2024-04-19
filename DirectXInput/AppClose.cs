@@ -53,8 +53,16 @@ namespace DirectXInput
                 //Stop the background tasks
                 await TasksBackgroundStop();
 
-                //Disconnect all the controllers
-                await StopAllControllers(true);
+                //Disconnect all controllers
+                await StopAllControllers();
+
+                //Check if VirtualBus is connected
+                if (vVirtualBusDevice != null)
+                {
+                    //Close VirtualBus device
+                    vVirtualBusDevice.CloseDevice();
+                    vVirtualBusDevice = null;
+                }
 
                 //Check if HidHide is connected
                 if (vHidHideDevice != null)
