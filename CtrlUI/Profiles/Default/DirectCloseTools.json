@@ -9,6 +9,9 @@
     "String1": "ScpServer"
   },
   {
+    "String1": "ScpService"
+  },
+  {
     "String1": "DS4Windows"
   },
   {
@@ -97,5 +100,8 @@
   },
   {
     "String1": "DSX"
+  },
+  {
+    "String1": "UCR"
   }
 ]
