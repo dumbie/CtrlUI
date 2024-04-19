@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -8,49 +7,6 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Send rumble
-        void LoopOutputController(ControllerStatus Controller)
-        {
-            try
-            {
-                Debug.WriteLine("Send rumble for: " + Controller.Details.DisplayName);
-
-                //Receive output from the virtual bus
-                while (TaskCheckLoop(Controller.OutputControllerTask) && Controller.Connected())
-                {
-                    try
-                    {
-                        //Check if output values have changed
-                        bool ledRChanged = Controller.ColorLedCurrentR == Controller.ColorLedPreviousR;
-                        bool ledGChanged = Controller.ColorLedCurrentG == Controller.ColorLedPreviousG;
-                        bool ledBChanged = Controller.ColorLedCurrentB == Controller.ColorLedPreviousB;
-                        bool ledMuteChanged = vControllerMuteLedCurrent == vControllerMuteLedPrevious;
-                        bool heavyRumbleChanged = Controller.RumbleCurrentHeavy == Controller.RumblePreviousHeavy;
-                        bool lightRumbleChanged = Controller.RumbleCurrentLight == Controller.RumblePreviousLight;
-                        if (ledRChanged && ledGChanged && ledBChanged && ledMuteChanged && heavyRumbleChanged && lightRumbleChanged)
-                        {
-                            //Delay task to prevent high cpu usage
-                            AVHighResDelay.Delay(1);
-                            continue;
-                        }
-
-                        //Update the previous output values
-                        Controller.ColorLedPreviousR = Controller.ColorLedCurrentR;
-                        Controller.ColorLedPreviousG = Controller.ColorLedCurrentG;
-                        Controller.ColorLedPreviousB = Controller.ColorLedCurrentB;
-                        vControllerMuteLedPrevious = vControllerMuteLedCurrent;
-                        Controller.RumblePreviousHeavy = Controller.RumbleCurrentHeavy;
-                        Controller.RumblePreviousLight = Controller.RumbleCurrentLight;
-
-                        //Send received output to controller
-                        ControllerOutputSend(Controller);
-                    }
-                    catch { }
-                }
-            }
-            catch { }
-        }
-
         //Send controller output
         public void ControllerOutputSend(ControllerStatus Controller)
         {

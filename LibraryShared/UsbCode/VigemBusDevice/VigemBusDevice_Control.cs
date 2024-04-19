@@ -78,17 +78,17 @@ namespace LibraryUsb
             {
                 if (!Connected) { return false; }
 
-                //Send device control code
-                bool iocontrol = DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_INPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, null, 0, out int bytesWritten, controller.InputVirtualOverlapped);
+                ////Send device control code
+                //bool iocontrol = DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_INPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, null, 0, out int bytesWritten, controller.InputVirtualOverlapped);
 
-                //Get overlapped result
-                if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
-                {
-                    if (WaitForSingleObject(controller.InputVirtualOverlapped.EventHandle, INFINITE) == WaitObjectResult.WAIT_OBJECT_0)
-                    {
-                        return GetOverlappedResult(FileHandle, ref controller.InputVirtualOverlapped, out int bytesTransferred, false);
-                    }
-                }
+                ////Get overlapped result
+                //if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
+                //{
+                //    if (WaitForSingleObject(controller.InputVirtualOverlapped.EventHandle, INFINITE) == WaitObjectResult.WAIT_OBJECT_0)
+                //    {
+                //        return GetOverlappedResult(FileHandle, ref controller.InputVirtualOverlapped, out int bytesTransferred, false);
+                //    }
+                //}
                 return false;
             }
             catch (Exception ex)
@@ -104,18 +104,18 @@ namespace LibraryUsb
             {
                 if (!Connected) { return false; }
 
-                //Send device control code
-                bool iocontrol = DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_OUTPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, controller.VirtualDataOutput, controller.VirtualDataOutput.Length, out int bytesWritten, controller.OutputVirtualOverlapped);
+                ////Send device control code
+                //bool iocontrol = DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_OUTPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, controller.VirtualDataOutput, controller.VirtualDataOutput.Length, out int bytesWritten, controller.OutputVirtualOverlapped);
 
-                //Get overlapped result
-                if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
-                {
-                    //.NET8 crashes here with ExecutionEngineException
-                    if (WaitForSingleObject(controller.OutputVirtualOverlapped.EventHandle, INFINITE) == WaitObjectResult.WAIT_OBJECT_0)
-                    {
-                        return GetOverlappedResult(FileHandle, ref controller.OutputVirtualOverlapped, out int bytesTransferred, false);
-                    }
-                }
+                ////Get overlapped result
+                //if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
+                //{
+                //    //.NET8 crashes here with ExecutionEngineException
+                //    if (WaitForSingleObject(controller.OutputVirtualOverlapped.EventHandle, INFINITE) == WaitObjectResult.WAIT_OBJECT_0)
+                //    {
+                //        return GetOverlappedResult(FileHandle, ref controller.OutputVirtualOverlapped, out int bytesTransferred, false);
+                //    }
+                //}
                 return false;
             }
             catch (Exception ex)

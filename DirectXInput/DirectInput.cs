@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
-using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -16,7 +15,7 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Start Monitoring Direct Input Controllers
+        //Start Monitoring DirectInput Controllers
         async Task<bool> StartControllerDirectInput(ControllerStatus Controller)
         {
             try
@@ -24,11 +23,11 @@ namespace DirectXInput
                 //Check if controller is connected
                 if (!Controller.Connected())
                 {
-                    Debug.WriteLine("Direct input controller is not connected: " + Controller.Details.DisplayName);
+                    Debug.WriteLine("DirectInput controller is not connected: " + Controller.Details.DisplayName);
                     return false;
                 }
 
-                Debug.WriteLine("Initializing direct input for: " + Controller.Details.DisplayName);
+                Debug.WriteLine("Initializing DirectInput for: " + Controller.Details.DisplayName);
 
                 //Allow controller in HidHide
                 if (Controller.Details.Type == ControllerType.HidDevice)
@@ -42,15 +41,14 @@ namespace DirectXInput
                 //Open the selected controller
                 if (!OpenController(Controller))
                 {
-                    Debug.WriteLine("Failed to initialize direct input for: " + Controller.Details.DisplayName);
+                    Debug.WriteLine("Failed to initialize DirectInput for: " + Controller.Details.DisplayName);
                     await StopController(Controller, "failed", "Controller " + controllerNumberDisplay + " is no longer connected or failed.");
                     return false;
                 }
 
                 //Unplug and plugin the virtual device
-                vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
-                await Task.Delay(500);
-                vVirtualBusDevice.VirtualPlugin(Controller.NumberId);
+                await vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
+                await vVirtualBusDevice.VirtualPlugin(Controller.NumberId);
 
                 NotificationDetails notificationDetailsConnected = new NotificationDetails();
                 notificationDetailsConnected.Icon = "Controller";
@@ -88,11 +86,8 @@ namespace DirectXInput
                 //Controller update led color
                 ControllerLedColor(Controller);
 
-                //Send default output to controller
-                ControllerOutputSend(Controller);
-
-                //Start controller input task loop
-                async Task TaskActionInput()
+                //Start input controller task loop
+                async Task TaskActionInputController()
                 {
                     try
                     {
@@ -100,20 +95,9 @@ namespace DirectXInput
                     }
                     catch { }
                 }
-                AVActions.TaskStartLoop(TaskActionInput, Controller.InputControllerTask);
+                AVActions.TaskStartLoop(TaskActionInputController, Controller.InputControllerTask);
 
-                //Start virtual output task loop
-                void TaskActionOutputVirtual()
-                {
-                    try
-                    {
-                        LoopOutputVirtual(Controller);
-                    }
-                    catch { }
-                }
-                AVActions.TaskStartLoop(TaskActionOutputVirtual, Controller.OutputVirtualTask);
-
-                //Start controller output task loop
+                //Start output controller task loop
                 void TaskActionOutputController()
                 {
                     try
@@ -124,7 +108,7 @@ namespace DirectXInput
                 }
                 AVActions.TaskStartLoop(TaskActionOutputController, Controller.OutputControllerTask);
 
-                //Start gyroscope task loop
+                //Start output gyroscope task loop
                 if (Controller.SupportedCurrent.HasGyroscope)
                 {
                     async Task TaskActionOutputGyro()
@@ -135,14 +119,14 @@ namespace DirectXInput
                         }
                         catch { }
                     }
-                    AVActions.TaskStartLoop(TaskActionOutputGyro, Controller.OutputGyroTask);
+                    AVActions.TaskStartLoop(TaskActionOutputGyro, Controller.OutputGyroscopeTask);
                 }
 
                 return true;
             }
             catch
             {
-                Debug.WriteLine("Failed initializing direct input for: " + Controller.Details.DisplayName);
+                Debug.WriteLine("Failed initializing DirectInput for: " + Controller.Details.DisplayName);
                 return false;
             }
         }
@@ -260,30 +244,30 @@ namespace DirectXInput
         }
 
         //Stop the desired controller
-        private async Task<bool> StopController(ControllerStatus Controller, string disconnectInfo, string controllerInfo)
+        private async Task<bool> StopController(ControllerStatus controller, string disconnectInfo, string controllerInfo)
         {
             try
             {
                 //Check if the controller is connected
-                if (Controller == null || !Controller.Connected())
+                if (controller == null || !controller.Connected())
                 {
-                    Debug.WriteLine("Controller " + Controller.NumberId + " is already disconnected.");
+                    Debug.WriteLine("Controller " + controller.NumberId + " is already disconnected.");
                     return false;
                 }
 
                 //Check if the controller is disconnecting
-                if (Controller.Disconnecting)
+                if (controller.Disconnecting)
                 {
-                    Debug.WriteLine("Controller " + Controller.NumberId + " is currently disconnecting.");
+                    Debug.WriteLine("Controller " + controller.NumberId + " is currently disconnecting.");
                     return false;
                 }
 
                 //Update controller disconnecting status
-                Controller.Disconnecting = true;
+                controller.Disconnecting = true;
 
                 //Get controller display number
-                Debug.WriteLine("Disconnecting the controller " + Controller.NumberId + ": " + Controller.Details.DisplayName);
-                string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
+                Debug.WriteLine("Disconnecting the controller " + controller.NumberId + ": " + controller.Details.DisplayName);
+                string controllerNumberDisplay = (controller.NumberId + 1).ToString();
 
                 //Show controller disconnect notification
                 NotificationDetails notificationDetails = new NotificationDetails();
@@ -296,7 +280,7 @@ namespace DirectXInput
                 {
                     notificationDetails.Text = "Disconnected " + disconnectInfo + " (" + controllerNumberDisplay + ")";
                 }
-                notificationDetails.Color = Controller.Color;
+                notificationDetails.Color = controller.Color;
                 App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Update user interface controller status
@@ -304,35 +288,35 @@ namespace DirectXInput
                 {
                     if (string.IsNullOrWhiteSpace(controllerInfo))
                     {
-                        txt_Controller_Information.Text = "Disconnected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
+                        txt_Controller_Information.Text = "Disconnected controller " + controllerNumberDisplay + ": " + controller.Details.DisplayName;
                     }
                     else
                     {
                         txt_Controller_Information.Text = controllerInfo;
                     }
 
-                    if (Controller.NumberId == 0)
+                    if (controller.NumberId == 0)
                     {
                         image_Controller0.Source = vImagePreloadIconControllerDark;
                         textblock_Controller0.Text = "No controller connected";
                         textblock_Controller0CodeName.Text = string.Empty;
                         ResetControllerDebugInformation();
                     }
-                    else if (Controller.NumberId == 1)
+                    else if (controller.NumberId == 1)
                     {
                         image_Controller1.Source = vImagePreloadIconControllerDark;
                         textblock_Controller1.Text = "No controller connected";
                         textblock_Controller1CodeName.Text = string.Empty;
                         ResetControllerDebugInformation();
                     }
-                    else if (Controller.NumberId == 2)
+                    else if (controller.NumberId == 2)
                     {
                         image_Controller2.Source = vImagePreloadIconControllerDark;
                         textblock_Controller2.Text = "No controller connected";
                         textblock_Controller2CodeName.Text = string.Empty;
                         ResetControllerDebugInformation();
                     }
-                    else if (Controller.NumberId == 3)
+                    else if (controller.NumberId == 3)
                     {
                         image_Controller3.Source = vImagePreloadIconControllerDark;
                         textblock_Controller3.Text = "No controller connected";
@@ -341,59 +325,46 @@ namespace DirectXInput
                     }
                 });
 
-                //Disconnect gyro dsu
-                if (Controller.SupportedCurrent.HasGyroscope)
+                //Disconnect gyroscope dsu
+                if (controller.SupportedCurrent.HasGyroscope)
                 {
-                    //Stop gyro controller loop task
-                    await TaskStopLoop(Controller.OutputGyroTask, 1000);
-
-                    //Send empty input to gyro dsu
-                    await SendGyroMotionEmpty(Controller);
+                    //Stop gyroscope loop tasks
+                    await TaskStopLoop(controller.OutputGyroscopeTask, 1000);
                 }
 
                 //Disconnect virtual controller
                 if (vVirtualBusDevice != null)
                 {
-                    //Stop virtual controller loop task
-                    await TaskStopLoop(Controller.OutputVirtualTask, 1000);
-
-                    //Send empty input to virtual device
-                    SendInputVirtualEmpty(Controller);
-
-                    //Close the controller virtual events
-                    SafeCloseEvent(Controller.InputVirtualOverlapped.EventHandle);
-                    SafeCloseEvent(Controller.OutputVirtualOverlapped.EventHandle);
-
                     //Disconnect the virtual controller
-                    vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
+                    await vVirtualBusDevice.VirtualUnplug(controller.NumberId);
                 }
 
-                //Disconnect Hid or WinUsb Device
-                if (Controller.WinUsbDevice != null)
+                //Disconnect Hid or WinUsb device
+                if (controller.WinUsbDevice != null)
                 {
                     //Stop controller device loop tasks
-                    await TaskStopLoop(Controller.InputControllerTask, 1000);
-                    await TaskStopLoop(Controller.OutputControllerTask, 1000);
+                    await TaskStopLoop(controller.InputControllerTask, 1000);
+                    await TaskStopLoop(controller.OutputControllerTask, 1000);
 
                     //Dispose and stop connection with the controller
                     try
                     {
-                        Controller.WinUsbDevice.CloseDevice();
+                        controller.WinUsbDevice.CloseDevice();
                     }
                     catch { }
                 }
-                else if (Controller.HidDevice != null)
+                else if (controller.HidDevice != null)
                 {
                     //Stop controller device loop tasks
-                    await TaskStopLoop(Controller.InputControllerTask, 1000);
-                    await TaskStopLoop(Controller.OutputControllerTask, 1000);
+                    await TaskStopLoop(controller.InputControllerTask, 1000);
+                    await TaskStopLoop(controller.OutputControllerTask, 1000);
 
                     //Disconnect controller from bluetooth
-                    if (Controller.Details.Wireless)
+                    if (controller.Details.Wireless)
                     {
                         try
                         {
-                            Controller.HidDevice.BluetoothDisconnect();
+                            controller.HidDevice.BluetoothDisconnect();
                         }
                         catch
                         {
@@ -402,12 +373,12 @@ namespace DirectXInput
                     }
 
                     //Signal Windows disconnection to prevent ghost controller
-                    if (Controller.Details.Wireless)
+                    if (controller.Details.Wireless)
                     {
                         try
                         {
-                            Controller.HidDevice.GetFeature(0x02);
-                            Controller.HidDevice.GetFeature(0x05);
+                            controller.HidDevice.GetFeature(0x02);
+                            controller.HidDevice.GetFeature(0x05);
                         }
                         catch
                         {
@@ -418,7 +389,7 @@ namespace DirectXInput
                     //Dispose and stop connection with the controller
                     try
                     {
-                        Controller.HidDevice.CloseDevice();
+                        controller.HidDevice.CloseDevice();
                     }
                     catch
                     {
@@ -427,7 +398,7 @@ namespace DirectXInput
                 }
 
                 //Reset the controller status
-                Controller.ResetControllerStatus();
+                controller.ResetControllerStatus();
 
                 //Check if any controller is connected
                 if (!vControllerAnyConnected())
@@ -440,18 +411,18 @@ namespace DirectXInput
                     }
                 }
 
-                Debug.WriteLine("Successfully stopped direct input controller " + Controller.NumberId);
+                Debug.WriteLine("Successfully stopped DirectInput controller " + controller.NumberId);
                 return true;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed stopping the controller direct input " + Controller.NumberId + ": " + ex.Message);
+                Debug.WriteLine("Failed stopping the controller DirectInput " + controller.NumberId + ": " + ex.Message);
                 return false;
             }
         }
 
         //Stop all the controllers
-        async Task StopAllControllers(bool disconnectVirtualBus)
+        async Task StopAllControllers()
         {
             try
             {
@@ -459,18 +430,11 @@ namespace DirectXInput
                 await StopController(vController1, "all", "Disconnected all controllers.");
                 await StopController(vController2, "all", "Disconnected all controllers.");
                 await StopController(vController3, "all", "Disconnected all controllers.");
-
-                if (disconnectVirtualBus)
-                {
-                    vVirtualBusDevice.CloseDevice();
-                    vVirtualBusDevice = null;
-                }
-
-                Debug.WriteLine("Stopped all the controllers direct input.");
+                Debug.WriteLine("Stopped all the controllers DirectInput.");
             }
             catch
             {
-                Debug.WriteLine("Failed stopping all controller direct input.");
+                Debug.WriteLine("Failed stopping all controller DirectInput.");
             }
         }
 

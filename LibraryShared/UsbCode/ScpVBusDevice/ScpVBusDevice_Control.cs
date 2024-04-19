@@ -18,8 +18,8 @@ namespace LibraryUsb
                 if (!Connected) { return false; }
 
                 //Set buffer header
-                byte[] writeBuffer = new byte[16];
-                writeBuffer[0] = 0x10; //Size
+                byte[] writeBuffer = new byte[(int)ByteArraySizes.Plugin];
+                writeBuffer[0] = (byte)ByteArraySizes.Plugin; //Size
                 writeBuffer[4] = (byte)(controllerNumber + 1); //SerialNo
 
                 //Send device control code
@@ -43,8 +43,8 @@ namespace LibraryUsb
                 if (!Connected) { return false; }
 
                 //Set buffer header
-                byte[] writeBuffer = new byte[16];
-                writeBuffer[0] = 0x10; //Size
+                byte[] writeBuffer = new byte[(int)ByteArraySizes.Unplug];
+                writeBuffer[0] = (byte)ByteArraySizes.Unplug; //Size
                 writeBuffer[4] = (byte)(controllerNumber + 1); //SerialNo
                 writeBuffer[8] = 0x0001; //FlagForce
 
@@ -87,19 +87,14 @@ namespace LibraryUsb
             }
         }
 
-        public bool VirtualReadWrite(ref ControllerStatus Controller)
+        public bool VirtualReadWrite(ref ControllerStatus controller)
         {
             try
             {
                 if (!Connected) { return false; }
 
-                //Set buffer header
-                Controller.VirtualDataInput[0] = 0x1C; //Size
-                Controller.VirtualDataInput[4] = (byte)(Controller.NumberId + 1); //SerialNo
-                Controller.VirtualDataInput[9] = 0x14; //SizeReport
-
                 //Send device control code
-                return DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.SCP_REPORT, Controller.VirtualDataInput, Controller.VirtualDataInput.Length, Controller.VirtualDataOutput, Controller.VirtualDataOutput.Length, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
+                return DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.SCP_REPORT, controller.VirtualDataInput, controller.VirtualDataInput.Length, controller.VirtualDataOutput, controller.VirtualDataOutput.Length, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
             }
             catch (Exception ex)
             {

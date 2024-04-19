@@ -1,11 +1,8 @@
 ﻿using LibraryUsb;
-using System;
 using System.Diagnostics;
-using System.Threading;
 using System.Windows.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVActions;
-using static ArnoldVinkCode.AVInteropDll;
 
 namespace LibraryShared
 {
@@ -55,12 +52,9 @@ namespace LibraryShared
             }
 
             //Controller Tasks
-            public NativeOverlapped InputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
-            public NativeOverlapped OutputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
             public AVTaskDetails InputControllerTask = new AVTaskDetails("InputControllerTask");
             public AVTaskDetails OutputControllerTask = new AVTaskDetails("OutputControllerTask");
-            public AVTaskDetails OutputVirtualTask = new AVTaskDetails("OutputVirtualTask");
-            public AVTaskDetails OutputGyroTask = new AVTaskDetails("OutputGyroTask");
+            public AVTaskDetails OutputGyroscopeTask = new AVTaskDetails("OutputGyroscopeTask");
 
             //WinUsb Device Variables
             public WinUsbDevice WinUsbDevice = null;
@@ -75,8 +69,8 @@ namespace LibraryShared
             //Input and Output data
             public byte[] ControllerDataInput = null;
             public byte[] ControllerDataOutput = null;
-            public byte[] VirtualDataInput = new byte[(int)VigemBusDevice.ByteArraySizes.Input];
-            public byte[] VirtualDataOutput = new byte[(int)VigemBusDevice.ByteArraySizes.Output];
+            public byte[] VirtualDataInput = new byte[(int)ScpVBusDevice.ByteArraySizes.Input];
+            public byte[] VirtualDataOutput = new byte[(int)ScpVBusDevice.ByteArraySizes.Output];
             public byte RumbleCurrentHeavy = 0;
             public byte RumbleCurrentLight = 0;
             public byte RumblePreviousHeavy = 0;
@@ -128,12 +122,9 @@ namespace LibraryShared
                     Disconnecting = false;
 
                     //Controller Tasks
-                    InputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
-                    OutputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
                     InputControllerTask = new AVTaskDetails("InputControllerTask");
                     OutputControllerTask = new AVTaskDetails("OutputControllerTask");
-                    OutputVirtualTask = new AVTaskDetails("OutputVirtualTask");
-                    OutputGyroTask = new AVTaskDetails("OutputGyroTask");
+                    OutputGyroscopeTask = new AVTaskDetails("OutputGyroscopeTask");
 
                     //WinUsb Device Variables
                     WinUsbDevice = null;
@@ -148,8 +139,8 @@ namespace LibraryShared
                     //Device In and Output
                     ControllerDataInput = null;
                     ControllerDataOutput = null;
-                    VirtualDataInput = new byte[(int)VigemBusDevice.ByteArraySizes.Input];
-                    VirtualDataOutput = new byte[(int)VigemBusDevice.ByteArraySizes.Output];
+                    VirtualDataInput = new byte[(int)ScpVBusDevice.ByteArraySizes.Input];
+                    VirtualDataOutput = new byte[(int)ScpVBusDevice.ByteArraySizes.Output];
                     RumbleCurrentHeavy = 0;
                     RumbleCurrentLight = 0;
                     RumblePreviousHeavy = 0;

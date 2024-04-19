@@ -114,7 +114,7 @@ namespace DirectXInput
 
         //Controller Variables
         public static HidHideDevice vHidHideDevice = null;
-        public static VigemBusDevice vVirtualBusDevice = null;
+        public static ScpVBusDevice vVirtualBusDevice = null;
         public static bool vControllerBusy = false;
         public static bool vControllerMuteLedCurrent = false;
         public static bool vControllerMuteLedPrevious = false;

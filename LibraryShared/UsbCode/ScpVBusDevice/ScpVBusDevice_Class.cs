@@ -17,5 +17,13 @@ namespace LibraryUsb
         //    SCP_UNPLUG = 0x2AA008,
         //    SCP_REPORT = 0x2AE010
         //}
+
+        public enum ByteArraySizes : int
+        {
+            Plugin = 16,
+            Unplug = 16,
+            Input = 28,
+            Output = 10
+        }
     }
 }
