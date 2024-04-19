@@ -17,7 +17,7 @@ namespace DirectXInput
         {
             try
             {
-                bool virtualBusDriver = EnumerateDevicesDriverStore("ViGEmBus.inf", false).Any();
+                bool virtualBusDriver = EnumerateDevicesDriverStore("ScpVBus.inf", false).Any();
                 bool hidHideDriver = EnumerateDevicesDriverStore("HidHide.inf", false).Any();
                 bool ds3ControllerDriver = EnumerateDevicesDriverStore("Ds3Controller.inf", false).Any();
                 bool fakerInputDriver = EnumerateDevicesDriverStore("FakerInput.inf", false).Any();
@@ -30,16 +30,51 @@ namespace DirectXInput
             }
         }
 
-        //Check driver version
+        //Check drivers double
+        bool CheckDriversDouble()
+        {
+            try
+            {
+                if (EnumerateDevicesDriverStore("ScpVBus.inf", false).Count() > 1)
+                {
+                    return false;
+                }
+
+                if (EnumerateDevicesDriverStore("HidHide.inf", false).Count() > 1)
+                {
+                    return false;
+                }
+
+                if (EnumerateDevicesDriverStore("Ds3Controller.inf", false).Count() > 1)
+                {
+                    return false;
+                }
+
+                if (EnumerateDevicesDriverStore("FakerInput.inf", false).Count() > 1)
+                {
+                    return false;
+                }
+
+                Debug.WriteLine("No double drivers found.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to check double drivers: " + ex.Message);
+                return true;
+            }
+        }
+
+        //Check drivers version and doubles
         bool CheckDriversVersion()
         {
             try
             {
-                foreach (FileInfo infNames in EnumerateDevicesDriverStore("ViGEmBus.inf", false))
+                foreach (FileInfo infNames in EnumerateDevicesDriverStore("ScpVBus.inf", false))
                 {
-                    string availableVersion = File.ReadAllLines(@"Drivers\ViGEmBus\x64\ViGEmBus.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string availableVersion = File.ReadAllLines(@"Drivers\ScpVBus\x64\ScpVBus.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
                     string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
-                    //Debug.WriteLine("ViGEmBus: " + installedVersion + " / " + availableVersion);
+                    //Debug.WriteLine("ScpVBus: " + installedVersion + " / " + availableVersion);
                     if (availableVersion != installedVersion) { return false; } else { break; }
                 }
 
@@ -72,7 +107,7 @@ namespace DirectXInput
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to check driver version: " + ex.Message);
+                Debug.WriteLine("Failed to check drivers version: " + ex.Message);
                 return true;
             }
         }
@@ -82,12 +117,11 @@ namespace DirectXInput
         {
             try
             {
-                vVirtualBusDevice = new VigemBusDevice(GuidClassVigemVirtualBus, false, false);
+                vVirtualBusDevice = new ScpVBusDevice(GuidClassScpVirtualBus, false, false);
                 if (vVirtualBusDevice.Connected)
                 {
                     Debug.WriteLine("Virtual bus driver is installed.");
-                    vVirtualBusDevice.VirtualUnplugAll();
-                    await Task.Delay(500);
+                    await vVirtualBusDevice.VirtualUnplugAll();
                     return true;
                 }
                 else

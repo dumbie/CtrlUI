@@ -52,6 +52,14 @@ namespace DirectXInput
                     return;
                 }
 
+                //Check installed driver double
+                if (!CheckDriversDouble())
+                {
+                    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
+                    await Message_DoubleDrivers();
+                    return;
+                }
+
                 //Check installed driver versions
                 if (!CheckDriversVersion())
                 {

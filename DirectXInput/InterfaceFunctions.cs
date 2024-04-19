@@ -593,7 +593,7 @@ namespace DirectXInput
             catch { }
         }
 
-        //Install the required drivers message popup
+        //Install drivers message popup
         async Task Message_InstallDrivers()
         {
             try
@@ -619,7 +619,33 @@ namespace DirectXInput
             catch { }
         }
 
-        //Update the required drivers message popup
+        //Double drivers message popup
+        async Task Message_DoubleDrivers()
+        {
+            try
+            {
+                List<string> messageAnswers = new List<string>();
+                messageAnswers.Add("Reinstall the drivers");
+                messageAnswers.Add("Close application");
+
+                string messageResult = await new AVMessageBox().Popup(this, "Double drivers", "It seems like some of the required drivers are installed double, please reinstall the required drivers.\n\nDirectXInput will be closed during the installation of the required drivers.", messageAnswers);
+                if (messageResult == "Reinstall the drivers")
+                {
+                    if (!Check_RunningProcessByName("DriverInstaller", true))
+                    {
+                        AVProcess.Launch_ShellExecute("DriverInstaller.exe", "", "", true);
+                        await Application_Exit();
+                    }
+                }
+                else
+                {
+                    await Application_Exit();
+                }
+            }
+            catch { }
+        }
+
+        //Update drivers message popup
         async Task Message_UpdateDrivers()
         {
             try
@@ -628,7 +654,7 @@ namespace DirectXInput
                 messageAnswers.Add("Update the drivers");
                 messageAnswers.Add("Close application");
 
-                string messageResult = await new AVMessageBox().Popup(this, "Update drivers", "There seem to be newer drivers available to install, DirectXInput will be closed during the installation of the required drivers.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", messageAnswers);
+                string messageResult = await new AVMessageBox().Popup(this, "Update drivers", "There seem to be newer drivers available to install.\n\nDirectXInput will be closed during the installation of the required drivers.", messageAnswers);
                 if (messageResult == "Update the drivers")
                 {
                     if (!Check_RunningProcessByName("DriverInstaller", true))
