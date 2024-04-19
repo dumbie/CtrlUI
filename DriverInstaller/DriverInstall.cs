@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
@@ -64,9 +63,13 @@ namespace DriverInstaller
                 ProgressBarUpdate(40, false);
                 InstallFakerInput();
 
+                //Uninstall Virtual Bus Driver
+                ProgressBarUpdate(50, false);
+                UninstallVigemVirtualBus();
+
                 //Install Virtual Bus Driver
-                ProgressBarUpdate(55, false);
-                InstallVirtualBus();
+                ProgressBarUpdate(60, false);
+                InstallScpVirtualBus();
 
                 //Install HidHide Driver
                 ProgressBarUpdate(70, false);
@@ -107,23 +110,43 @@ namespace DriverInstaller
             catch { }
         }
 
-        void InstallVirtualBus()
+        void InstallVigemVirtualBus()
         {
             try
             {
                 if (DeviceCreateNode("System", GuidClassSystem, @"Nefarius\ViGEmBus\Gen1"))
                 {
-                    TextBoxAppend("Virtual Bus Node created.");
+                    TextBoxAppend("ViGEm Virtual Bus Node created.");
                 }
 
-                string osSystem = Environment.Is64BitOperatingSystem ? "x64" : "x86";
-                if (DriverInstallInf(@"Drivers\ViGEmBus\" + osSystem + @"\ViGEmBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstallInf(@"Drivers\ViGEmBus\x64\ViGEmBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
-                    TextBoxAppend("Virtual Bus Driver installed.");
+                    TextBoxAppend("ViGEm Virtual Bus Driver installed.");
                 }
                 else
                 {
-                    TextBoxAppend("Virtual Bus Driver not installed.");
+                    TextBoxAppend("ViGEm Virtual Bus Driver not installed.");
+                }
+            }
+            catch { }
+        }
+
+        void InstallScpVirtualBus()
+        {
+            try
+            {
+                if (DeviceCreateNode("System", GuidClassSystem, @"Root\ScpVBus"))
+                {
+                    TextBoxAppend("Scp Virtual Bus Node created.");
+                }
+
+                if (DriverInstallInf(@"Drivers\ScpVBus\x64\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                {
+                    TextBoxAppend("Scp Virtual Bus Driver installed.");
+                }
+                else
+                {
+                    TextBoxAppend("Scp Virtual Bus Driver not installed.");
                 }
             }
             catch { }

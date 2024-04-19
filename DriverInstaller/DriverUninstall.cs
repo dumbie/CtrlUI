@@ -65,7 +65,8 @@ namespace DriverInstaller
 
                 //Uninstall Virtual Bus Driver
                 ProgressBarUpdate(55, false);
-                UninstallVirtualBus();
+                UninstallVigemVirtualBus();
+                UninstallScpVirtualBus();
 
                 //Uninstall HidHide Driver
                 ProgressBarUpdate(70, false);
@@ -109,7 +110,7 @@ namespace DriverInstaller
             catch { }
         }
 
-        void UninstallVirtualBus()
+        void UninstallVigemVirtualBus()
         {
             try
             {
@@ -120,28 +121,35 @@ namespace DriverInstaller
                     {
                         if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                         {
-                            TextBoxAppend("Virtual ViGEm Bus Driver uninstalled.");
+                            TextBoxAppend("ViGEm Virtual Bus Driver uninstalled.");
                         }
                         else
                         {
-                            TextBoxAppend("Virtual ViGEm Bus Driver not uninstalled.");
+                            TextBoxAppend("ViGEm Virtual Bus Driver not uninstalled.");
                         }
                     }
                     catch { }
                 }
+            }
+            catch { }
+        }
 
-                infPaths = EnumerateDevicesDriverStore("ScpVBus.inf", false);
+        void UninstallScpVirtualBus()
+        {
+            try
+            {
+                List<FileInfo> infPaths = EnumerateDevicesDriverStore("ScpVBus.inf", false);
                 foreach (FileInfo infPath in infPaths)
                 {
                     try
                     {
                         if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                         {
-                            TextBoxAppend("Virtual ScpVBus Bus Driver uninstalled.");
+                            TextBoxAppend("Scp Virtual Bus Driver uninstalled.");
                         }
                         else
                         {
-                            TextBoxAppend("Virtual ScpVBus Bus Driver not uninstalled.");
+                            TextBoxAppend("Scp Virtual Bus Driver not uninstalled.");
                         }
                     }
                     catch { }
