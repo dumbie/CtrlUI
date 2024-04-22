@@ -366,11 +366,13 @@ namespace DirectXInput
                         {
                             slider_TriggerRumbleStrengthLeft.IsEnabled = true;
                             slider_TriggerRumbleStrengthRight.IsEnabled = true;
+                            slider_TriggerRumbleLimit.IsEnabled = true;
                         }
                         else
                         {
                             slider_TriggerRumbleStrengthLeft.IsEnabled = false;
                             slider_TriggerRumbleStrengthRight.IsEnabled = false;
+                            slider_TriggerRumbleLimit.IsEnabled = false;
                         }
                     }
                 };
