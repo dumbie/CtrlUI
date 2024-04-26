@@ -8,16 +8,14 @@
   ],
   "ProcessClose": [
     "CtrlUI",
-    "CtrlUI-Admin",
     "CtrlUI-Launcher",
     "DirectXInput",
-    "DirectXInput-Admin",
     "DirectXInput-Launcher",
     "FpsOverlayer",
-    "FpsOverlayer-Admin",
     "FpsOverlayer-Launcher",
-    "DriverInstaller",
-    "ScreenCaptureTool"
+    "ScreenCaptureTool",
+    "ScreenCaptureTool-Launcher",
+    "DriverInstaller"
   ],
   "FilesIgnore": [
     ".csettings"
@@ -47,6 +45,7 @@
     "Profiles/User"
   ],
   "FoldersDelete": [
-    "Drivers"
+    "Drivers",
+    "Resources"
   ]
 }

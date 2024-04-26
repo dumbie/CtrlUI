@@ -32,7 +32,7 @@
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Browser.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Browser" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Name="menuButtonShortcuts" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage browser settings">
+                <StackPanel Name="menuButtonShortcuts" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage shortcut settings">
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shortcut.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Shortcuts" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>

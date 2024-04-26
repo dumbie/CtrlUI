@@ -1,31 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+		<NoWarn>CA1416</NoWarn>
 		<OutputType>WinExe</OutputType>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
-		<UseWindowsForms>true</UseWindowsForms>
-		<UseWPF>true</UseWPF>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<Optimize>True</Optimize>
-		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<NoWarn>CA1416;</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<DebugType>none</DebugType>
-		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<Optimize>True</Optimize>
-		<NoWarn>CA1416;</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup>
 		<ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
-	</PropertyGroup>
-	<PropertyGroup>
+		<ApplicationManifest>Properties\App.manifest</ApplicationManifest>
 		<StartupObject>CtrlUI.App</StartupObject>
 	</PropertyGroup>
 	<PropertyGroup>
-		<ApplicationManifest>Properties\App.manifest</ApplicationManifest>
+		<UseWPF>True</UseWPF>
+		<UseWindowsForms>True</UseWindowsForms>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+		<OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<Optimize>True</Optimize>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<Optimize>True</Optimize>
+		<DebugType>none</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Include="Assets\Default\Apps\ScreenCaptureTool.png">

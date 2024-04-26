@@ -1,33 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+		<NoWarn>CA1416</NoWarn>
 		<OutputType>WinExe</OutputType>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
-		<UseWindowsForms>true</UseWindowsForms>
-		<UseWPF>true</UseWPF>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<Optimize>True</Optimize>
-		<OutputPath>..\CtrlUI\bin\Debug\</OutputPath>
-		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<NoWarn>CA1416;</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<DebugType>none</DebugType>
-		<OutputPath>..\CtrlUI\bin\Release\</OutputPath>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<Optimize>True</Optimize>
-		<NoWarn>CA1416;</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup>
+		<ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
+		<ApplicationManifest>Properties\App.manifest</ApplicationManifest>
 		<StartupObject>FpsOverlayer.App</StartupObject>
 	</PropertyGroup>
 	<PropertyGroup>
-		<ApplicationManifest>Properties\App.manifest</ApplicationManifest>
+		<UseWPF>True</UseWPF>
+		<UseWindowsForms>True</UseWindowsForms>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+		<OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
 	</PropertyGroup>
-	<PropertyGroup>
-		<ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<Optimize>True</Optimize>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<Optimize>True</Optimize>
+		<DebugType>none</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
 		<Reference Include="LibreHardwareMonitorLib, Version=0.8.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -48,9 +43,6 @@
 		<Content Include="FpsOverlayer.exe.csettings">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<None Update="Properties\App.manifest">
-			<SubType>Designer</SubType>
-		</None>
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Assets\AppIcon.ico" />
