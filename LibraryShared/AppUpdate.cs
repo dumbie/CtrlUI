@@ -20,7 +20,7 @@ namespace LibraryShared
                 }
 
                 //Check if the updater has been updated
-                File_Move("Resources/UpdaterReplace.exe", "Updater.exe", true);
+                File_Move("Updater/UpdaterReplace.exe", "Updater.exe", true);
             }
             catch { }
         }
