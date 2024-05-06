@@ -1,0 +1,22 @@
+﻿<Application x:Class="ScreenCapture.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ScreenCapture">
+    <!--Application Resources-->
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/MainColors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/Button.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/CheckBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/ComboBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/ListBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/Scrollbar.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/Thumb.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/Slider.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/TextBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/MainStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
