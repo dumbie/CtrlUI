@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ScreenCaptureTool": {
-      "commandName": "Project",
-      "nativeDebugging": true
-    }
-  }
-}
