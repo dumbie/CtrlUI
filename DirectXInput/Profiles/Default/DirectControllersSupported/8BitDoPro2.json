@@ -2,11 +2,6 @@
   "CodeName": "8BitDoPro2",
   "ProductIDs": [ "0x6006" ],
   "VendorID": "0x2dc8",
-  "HasTouchpad": false,
-  "HasGyroscope": false,
-  "HasAccelerometer": false,
-  "HasRumbleMode": false,
-  "HasRumbleTrigger": false,
   "OffsetWired": 1,
   "OffsetWireless": 1,
   "OffsetHeader": {

@@ -901,48 +901,6 @@
 		<Content Include="Profiles\Default\CtrlCloseLaunchers.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Profiles\Default\DirectCloseTools.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectControllersSupported\SonyPS12DualShock.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectControllersSupported\SonyPS3DualShock.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectControllersSupported\SonyPS3MoveNavigation.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectControllersSupported\SonyPS4DualShock.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectControllersSupported\SonyPS5DualSense.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectKeyboardEmojiListActivity.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectKeyboardEmojiListFood.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectKeyboardEmojiListNature.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectKeyboardEmojiListOther.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectKeyboardEmojiListPeople.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectKeyboardEmojiListSmiley.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectKeyboardEmojiListSymbol.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\Default\DirectKeyboardEmojiListTravel.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 		<Content Include="Profiles\Default\Profiles in this folder will get overwritten when updating">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -970,25 +928,10 @@
 		<Content Include="Profiles\User\CtrlLocationsShortcut.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Profiles\User\DirectControllersIgnored.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\User\DirectKeyboardTextList.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\User\DirectKeypadMapping\Default.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\User\FpsPositionProcessName.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 		<Content Include="Profiles\User\Profiles in this folder will not get overwritten when updating">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Backups\Profile backups will be placed here">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Profiles\User\FpsBrowserLinks.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Updater\Updater.json">
@@ -1014,9 +957,6 @@
 			<Isolated>False</Isolated>
 			<EmbedInteropTypes>True</EmbedInteropTypes>
 		</COMReference>
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Profiles\User\DirectControllersProfile\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="protobuf-net" Version="3.2.26" />
