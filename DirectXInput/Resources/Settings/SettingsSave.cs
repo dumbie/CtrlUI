@@ -160,11 +160,6 @@ namespace DirectXInput
                     SettingSave(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", cb_SettingsShortcutLaunchCtrlUI.IsChecked.ToString());
                 };
 
-                cb_SettingsShortcutLaunchCtrlUIKeyboard.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard", cb_SettingsShortcutLaunchCtrlUIKeyboard.IsChecked.ToString());
-                };
-
                 cb_SettingsShortcutKeyboardPopup.Click += async (sender, e) =>
                 {
                     SettingSave(vConfigurationDirectXInput, "ShortcutKeyboardPopup", cb_SettingsShortcutKeyboardPopup.IsChecked.ToString());

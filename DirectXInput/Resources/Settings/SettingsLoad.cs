@@ -55,7 +55,6 @@ namespace DirectXInput
 
                 //Load shortcut settings
                 cb_SettingsShortcutLaunchCtrlUI.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", typeof(bool));
-                cb_SettingsShortcutLaunchCtrlUIKeyboard.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard", typeof(bool));
                 cb_SettingsShortcutKeyboardPopup.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutKeyboardPopup", typeof(bool));
                 cb_SettingsShortcutAltEnter.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutAltEnter", typeof(bool));
                 cb_SettingsShortcutAltTab.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutAltTab", typeof(bool));
