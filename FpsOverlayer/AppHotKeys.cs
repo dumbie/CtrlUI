@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputHotkey;
 using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppVariables;
 
@@ -8,43 +9,56 @@ namespace FpsOverlayer
 {
     public partial class WindowMain
     {
-        private void EventHotKeyPressed(List<KeysVirtual> keysPressed)
+        private void EventHotkeyPressed(List<KeysVirtual> keysPressed)
         {
             try
             {
-                bool altPressed = keysPressed.Contains(KeysVirtual.AltLeft);
+                //Check hotkeys
+                List<KeysVirtual> usedKeysShowHideBrowser = new List<KeysVirtual>
+                {
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey0ShowHideBrowser", typeof(byte)),
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey1ShowHideBrowser", typeof(byte)),
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey2ShowHideBrowser", typeof(byte))
+                };
+                List<KeysVirtual> usedKeysShowHideCrosshair = new List<KeysVirtual>
+                {
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey0ShowHideCrosshair", typeof(byte)),
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey1ShowHideCrosshair", typeof(byte)),
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey2ShowHideCrosshair", typeof(byte))
+                };
+                List<KeysVirtual> usedKeysShowHideFpsStats = new List<KeysVirtual>
+                {
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey0ShowHideFpsStats", typeof(byte)),
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey1ShowHideFpsStats", typeof(byte)),
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey2ShowHideFpsStats", typeof(byte))
+                };
+                List<KeysVirtual> usedKeysPositionFpsStats = new List<KeysVirtual>
+                {
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey0PositionFpsStats", typeof(byte)),
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey1PositionFpsStats", typeof(byte)),
+                    (KeysVirtual)SettingLoad(vConfigurationFpsOverlayer, "Hotkey2PositionFpsStats", typeof(byte))
+                };
 
-                if (altPressed && keysPressed.Contains(KeysVirtual.F8))
+                //Check presses
+                if (CheckHotkeyPress(keysPressed, usedKeysShowHideBrowser))
                 {
-                    if (SettingLoad(vConfigurationFpsOverlayer, "ShortcutShowHideBrowser", typeof(bool)))
-                    {
-                        Debug.WriteLine("Button Global - Alt + F8");
-                        vWindowBrowser.Browser_Switch_Visibility();
-                    }
+                    Debug.WriteLine("Button Global - ShowHideBrowser");
+                    vWindowBrowser.Browser_Switch_Visibility();
                 }
-                else if (altPressed && keysPressed.Contains(KeysVirtual.F9))
+                else if (CheckHotkeyPress(keysPressed, usedKeysShowHideCrosshair))
                 {
-                    if (SettingLoad(vConfigurationFpsOverlayer, "ShortcutShowHideCrosshair", typeof(bool)))
-                    {
-                        Debug.WriteLine("Button Global - Alt + F9");
-                        SwitchCrosshairVisibility(true);
-                    }
+                    Debug.WriteLine("Button Global - ShowHideCrosshair");
+                    SwitchCrosshairVisibility(true);
                 }
-                else if (altPressed && keysPressed.Contains(KeysVirtual.F10))
+                else if (CheckHotkeyPress(keysPressed, usedKeysShowHideFpsStats))
                 {
-                    if (SettingLoad(vConfigurationFpsOverlayer, "ShortcutShowHideFpsStats", typeof(bool)))
-                    {
-                        Debug.WriteLine("Button Global - Alt + F10");
-                        SwitchFpsOverlayVisibility();
-                    }
+                    Debug.WriteLine("Button Global - ShowHideFpsStats");
+                    SwitchFpsOverlayVisibility();
                 }
-                else if (altPressed && keysPressed.Contains(KeysVirtual.F11))
+                else if (CheckHotkeyPress(keysPressed, usedKeysPositionFpsStats))
                 {
-                    if (SettingLoad(vConfigurationFpsOverlayer, "ShortcutPositionFpsStats", typeof(bool)))
-                    {
-                        Debug.WriteLine("Button Global - Alt + F11");
-                        ChangeFpsOverlayPosition();
-                    }
+                    Debug.WriteLine("Button Global - PositionFpsStats");
+                    ChangeFpsOverlayPosition();
                 }
             }
             catch { }

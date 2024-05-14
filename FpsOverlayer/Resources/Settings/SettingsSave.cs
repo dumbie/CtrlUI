@@ -507,24 +507,6 @@ namespace FpsOverlayer
                     SettingSave(vConfigurationFpsOverlayer, "BrowserOpacity", slider_BrowserOpacity.Value);
                     await vWindowBrowser.Browser_Update_Opacity();
                 };
-
-                //Shortcuts
-                cb_SettingsShortcutShowHideBrowser.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationFpsOverlayer, "ShortcutShowHideBrowser", cb_SettingsShortcutShowHideBrowser.IsChecked.ToString());
-                };
-                cb_SettingsShortcutShowHideCrosshair.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationFpsOverlayer, "ShortcutShowHideCrosshair", cb_SettingsShortcutShowHideCrosshair.IsChecked.ToString());
-                };
-                cb_SettingsShortcutShowHideFpsStats.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationFpsOverlayer, "ShortcutShowHideFpsStats", cb_SettingsShortcutShowHideFpsStats.IsChecked.ToString());
-                };
-                cb_SettingsShortcutPositionFpsStats.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationFpsOverlayer, "ShortcutPositionFpsStats", cb_SettingsShortcutPositionFpsStats.IsChecked.ToString());
-                };
             }
             catch (Exception ex)
             {

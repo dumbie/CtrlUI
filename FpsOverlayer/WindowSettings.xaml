@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FpsOverlayer"
+        xmlns:AVHotkeyPicker="clr-namespace:ArnoldVinkHotkeyPicker;assembly=ArnoldVinkCode"
         xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=ArnoldVinkCode"
         RenderOptions.BitmapScalingMode="HighQuality"
         SnapsToDevicePixels="True"
@@ -11,8 +12,8 @@
         Title="Fps Overlayer"
         MinHeight="620"
         Height="620"
-        MinWidth="585"
-        MaxWidth="585"
+        MinWidth="670"
+        MaxWidth="670"
         Background="{DynamicResource ApplicationWhiteBrush}">
 
     <Grid>
@@ -292,7 +293,7 @@
                     <StackPanel Name="stackpanel_Browser" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Browser Settings"/>
 
-                        <CheckBox Name="checkbox_BrowserShowStartup" Content="Show browser on app startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <CheckBox Name="checkbox_BrowserShowStartup" Content="Show browser on app startup" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will open the browser on application startup." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <CheckBox Name="checkbox_BrowserUnload" Content="Unload website on close" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
@@ -317,19 +318,19 @@
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Shortcuts" Visibility="Collapsed">
-                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcuts Settings"/>
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcut Settings"/>
 
-                        <CheckBox Name="cb_SettingsShortcutShowHideBrowser" Content="Show, hide or unpin the browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this allows you to show, hide or unpin the browser by pressing Alt+F8" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Text="Show, hide or unpin browser by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <AVHotkeyPicker:HotkeyPicker Name="hotkey_ShowHideBrowser" HotkeyName="ShowHideBrowser"/>
 
-                        <CheckBox Name="cb_SettingsShortcutShowHideCrosshair" Content="Show or hide the crosshair" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this allows you to show or hide the crosshair by pressing Alt+F9" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Margin="0,10,0,0" Text="Show or hide crosshair by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <AVHotkeyPicker:HotkeyPicker Name="hotkey_ShowHideCrosshair" HotkeyName="ShowHideCrosshair"/>
 
-                        <CheckBox Name="cb_SettingsShortcutShowHideFpsStats" Content="Show or hide the fps stats" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this allows you to show or hide the fps stats by pressing Alt+F10" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Margin="0,10,0,0" Text="Show or hide fps stats by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <AVHotkeyPicker:HotkeyPicker Name="hotkey_ShowHideFpsStats" HotkeyName="ShowHideFpsStats"/>
 
-                        <CheckBox Name="cb_SettingsShortcutPositionFpsStats" Content="Change fps stats position" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this allows you to change the fps stats position by pressing Alt+F11" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Margin="0,10,0,0" Text="Change fps stats position by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <AVHotkeyPicker:HotkeyPicker Name="hotkey_PositionFpsStats" HotkeyName="PositionFpsStats"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Fps" Visibility="Collapsed">
