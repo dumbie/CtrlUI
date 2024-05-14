@@ -5,7 +5,6 @@
   "HasTouchpad": true,
   "HasGyroscope": true,
   "HasAccelerometer": true,
-  "HasRumbleTrigger": false,
   "OffsetWired": 1,
   "OffsetWireless": 3,
   "OffsetHeader": {
@@ -15,9 +14,6 @@
     "ThumbRightY": 3,
     "TriggerLeft": 7,
     "TriggerRight": 8,
-    "ButtonsGroup1": 4,
-    "ButtonsGroup2": 5,
-    "ButtonsGroup3": 6,
     "Touchpad": 34,
     "Gyroscope": 12,
     "Accelerometer": 18,
@@ -26,75 +22,75 @@
   },
   "OffsetButton": {
     "A": {
-      "Group": 1,
+      "Group": 4,
       "Offset": 5
     },
     "B": {
-      "Group": 1,
+      "Group": 4,
       "Offset": 6
     },
     "X": {
-      "Group": 1,
+      "Group": 4,
       "Offset": 4
     },
     "Y": {
-      "Group": 1,
+      "Group": 4,
       "Offset": 7
     },
     "DPadLeft": {
-      "Group": 1,
+      "Group": 4,
       "Offset": 0
     },
     "DPadRight": {
-      "Group": 1,
+      "Group": 4,
       "Offset": 1
     },
     "DPadUp": {
-      "Group": 1,
+      "Group": 4,
       "Offset": 2
     },
     "DPadDown": {
-      "Group": 1,
+      "Group": 4,
       "Offset": 3
     },
     "ShoulderLeft": {
-      "Group": 2,
+      "Group": 5,
       "Offset": 0
     },
     "ShoulderRight": {
-      "Group": 2,
+      "Group": 5,
       "Offset": 1
     },
     "TriggerLeft": {
-      "Group": 2,
+      "Group": 5,
       "Offset": 2
     },
     "TriggerRight": {
-      "Group": 2,
+      "Group": 5,
       "Offset": 3
     },
     "ThumbLeft": {
-      "Group": 2,
+      "Group": 5,
       "Offset": 6
     },
     "ThumbRight": {
-      "Group": 2,
+      "Group": 5,
       "Offset": 7
     },
     "Start": {
-      "Group": 2,
+      "Group": 5,
       "Offset": 5
     },
     "Back": {
-      "Group": 2,
+      "Group": 5,
       "Offset": 4
     },
     "Touchpad": {
-      "Group": 3,
+      "Group": 6,
       "Offset": 1
     },
     "Guide": {
-      "Group": 3,
+      "Group": 6,
       "Offset": 0
     }
   }

@@ -11,22 +11,6 @@ namespace DirectXInput
         byte TranslateByte_0x0F(int rawOffset, int rawState) { return Convert.ToByte((rawState >> rawOffset) & 0x0F); }
         byte TranslateByte_0x10(int rawOffset, int rawState) { return Convert.ToByte((rawState >> rawOffset) & 0x10); }
 
-        //Lookup button group offset
-        int LookupButtonGroupOffset(int targetGroup, ControllerSupported controllerSupported)
-        {
-            try
-            {
-                switch (targetGroup)
-                {
-                    case 1: return (int)controllerSupported.OffsetHeader.ButtonsGroup1;
-                    case 2: return (int)controllerSupported.OffsetHeader.ButtonsGroup2;
-                    case 3: return (int)controllerSupported.OffsetHeader.ButtonsGroup3;
-                }
-            }
-            catch { }
-            return 0;
-        }
-
         //Update and prepare virtual input data
         void PrepareVirtualInputDataEmpty(ControllerStatus controller)
         {

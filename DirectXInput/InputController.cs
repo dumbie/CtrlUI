@@ -296,15 +296,14 @@ namespace DirectXInput
                 if (controller.SupportedCurrent.OffsetButton.DPadLeft != null)
                 {
                     //Get DPad state
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.DPadLeft.Group, controller.SupportedCurrent);
-                    bool DPadStateLeft = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadLeft.Offset)) != 0;
-                    bool DPadStateRight = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadRight.Offset)) != 0;
-                    bool DPadStateUp = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadUp.Offset)) != 0;
-                    bool DPadStateDown = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.DPadDown.Offset)) != 0;
+                    bool DPadStateLeft = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.DPadLeft.Group] & (1 << controller.SupportedCurrent.OffsetButton.DPadLeft.Offset)) != 0;
+                    bool DPadStateRight = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.DPadRight.Group] & (1 << controller.SupportedCurrent.OffsetButton.DPadRight.Offset)) != 0;
+                    bool DPadStateUp = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.DPadUp.Group] & (1 << controller.SupportedCurrent.OffsetButton.DPadUp.Offset)) != 0;
+                    bool DPadStateDown = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.DPadDown.Group] & (1 << controller.SupportedCurrent.OffsetButton.DPadDown.Offset)) != 0;
                     int DPadStateAll = (DPadStateLeft ? 1 : 0) << 0 | (DPadStateRight ? 1 : 0) << 1 | (DPadStateUp ? 1 : 0) << 2 | (DPadStateDown ? 1 : 0) << 3;
 
                     //Check DPad type
-                    if (controller.SupportedCurrent.OffsetButton.DPadDirect)
+                    if (controller.SupportedCurrent.HasDirectDPad)
                     {
                         if (controller.Details.Profile.DPadFourWayMovement)
                         {
@@ -367,85 +366,67 @@ namespace DirectXInput
                 //Raw Buttons (A, B, X, Y)
                 if (controller.SupportedCurrent.OffsetButton.A != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.A.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[0] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.A.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[0] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.A.Group] & (1 << controller.SupportedCurrent.OffsetButton.A.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.B != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.B.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[1] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.B.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[1] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.B.Group] & (1 << controller.SupportedCurrent.OffsetButton.B.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.X != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.X.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[2] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.X.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[2] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.X.Group] & (1 << controller.SupportedCurrent.OffsetButton.X.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.Y != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Y.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[3] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Y.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[3] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.Y.Group] & (1 << controller.SupportedCurrent.OffsetButton.Y.Offset)) != 0;
                 }
 
                 //Raw Buttons (Shoulders, Triggers, Thumbs, Back, Start)
                 if (controller.SupportedCurrent.OffsetButton.ShoulderLeft != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.ShoulderLeft.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[100] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ShoulderLeft.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[100] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.ShoulderLeft.Group] & (1 << controller.SupportedCurrent.OffsetButton.ShoulderLeft.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.ShoulderRight != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.ShoulderRight.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[101] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ShoulderRight.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[101] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.ShoulderRight.Group] & (1 << controller.SupportedCurrent.OffsetButton.ShoulderRight.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.TriggerLeft != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.TriggerLeft.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[102] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.TriggerLeft.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[102] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.TriggerLeft.Group] & (1 << controller.SupportedCurrent.OffsetButton.TriggerLeft.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.TriggerRight != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.TriggerRight.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[103] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.TriggerRight.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[103] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.TriggerRight.Group] & (1 << controller.SupportedCurrent.OffsetButton.TriggerRight.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.ThumbLeft != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.ThumbLeft.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[104] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ThumbLeft.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[104] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.ThumbLeft.Group] & (1 << controller.SupportedCurrent.OffsetButton.ThumbLeft.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.ThumbRight != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.ThumbRight.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[105] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.ThumbRight.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[105] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.ThumbRight.Group] & (1 << controller.SupportedCurrent.OffsetButton.ThumbRight.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.Back != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Back.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[106] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Back.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[106] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.Back.Group] & (1 << controller.SupportedCurrent.OffsetButton.Back.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.Start != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Start.Group, controller.SupportedCurrent);
-                    controller.InputCurrent.ButtonPressStatus[107] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Start.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[107] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.Start.Group] & (1 << controller.SupportedCurrent.OffsetButton.Start.Offset)) != 0;
                 }
 
                 //Raw Buttons (Guide and others)
                 if (controller.SupportedCurrent.OffsetButton.Guide != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Guide.Group, controller.SupportedCurrent);
-                    byte ButtonInputByte = controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset];
-                    controller.InputCurrent.ButtonPressStatus[200] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Guide.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[200] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.Guide.Group] & (1 << controller.SupportedCurrent.OffsetButton.Guide.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.Touchpad != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Touchpad.Group, controller.SupportedCurrent);
-                    byte ButtonInputByte = controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset];
-                    controller.InputCurrent.ButtonPressStatus[201] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Touchpad.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[201] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.Touchpad.Group] & (1 << controller.SupportedCurrent.OffsetButton.Touchpad.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.Media != null)
                 {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Media.Group, controller.SupportedCurrent);
-                    byte ButtonInputByte = controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset];
-                    controller.InputCurrent.ButtonPressStatus[202] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Media.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[202] = (controller.ControllerDataInput[HeaderOffset + controller.SupportedCurrent.OffsetButton.Media.Group] & (1 << controller.SupportedCurrent.OffsetButton.Media.Offset)) != 0;
                 }
 
                 //Raw Touchpad
