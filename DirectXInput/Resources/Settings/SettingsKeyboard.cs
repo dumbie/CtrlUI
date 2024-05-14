@@ -61,7 +61,7 @@ namespace DirectXInput
                 JsonSaveObject(vDirectKeyboardTextList, @"Profiles\User\DirectKeyboardTextList.json");
 
                 //Hide keyboard no text set
-                App.vWindowKeyboard.textblock_TextListNoTextSet.Visibility = Visibility.Collapsed;
+                vWindowKeyboard.textblock_TextListNoTextSet.Visibility = Visibility.Collapsed;
             }
             catch { }
         }
@@ -86,7 +86,7 @@ namespace DirectXInput
                 //Check if texts are set
                 if (!vDirectKeyboardTextList.Any())
                 {
-                    App.vWindowKeyboard.textblock_TextListNoTextSet.Visibility = Visibility.Visible;
+                    vWindowKeyboard.textblock_TextListNoTextSet.Visibility = Visibility.Visible;
                 }
             }
             catch { }

@@ -54,7 +54,7 @@ namespace DirectXInput
                 notificationDetailsConnected.Icon = "Controller";
                 notificationDetailsConnected.Text = "Connected (" + controllerNumberDisplay + ")";
                 notificationDetailsConnected.Color = Controller.Color;
-                App.vWindowOverlay.Notification_Show_Status(notificationDetailsConnected);
+                vWindowOverlay.Notification_Show_Status(notificationDetailsConnected);
 
                 AVActions.DispatcherInvoke(delegate
                 {
@@ -281,7 +281,7 @@ namespace DirectXInput
                     notificationDetails.Text = "Disconnected " + disconnectInfo + " (" + controllerNumberDisplay + ")";
                 }
                 notificationDetails.Color = controller.Color;
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Update user interface controller status
                 AVActions.DispatcherInvoke(delegate

@@ -222,7 +222,7 @@ namespace DirectXInput
                         notificationDetails.Icon = "Controller";
                         notificationDetails.Text = "Activated (" + controllerNumberDisplay + ")";
                         notificationDetails.Color = Controller.Color;
-                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                        vWindowOverlay.Notification_Show_Status(notificationDetails);
                     }
 
                     //Activate current controller

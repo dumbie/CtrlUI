@@ -105,12 +105,12 @@ namespace DirectXInput.KeypadCode
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Keypad";
                     notificationDetails.Text = "No controller connected";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    vWindowOverlay.Notification_Show_Status(notificationDetails);
                     return;
                 }
 
                 //Close other popups
-                await App.vWindowKeyboard.Hide();
+                await vWindowKeyboard.Hide();
 
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
@@ -238,7 +238,7 @@ namespace DirectXInput.KeypadCode
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Keypad";
                     notificationDetails.Text = "Profile set to " + keypadMappingProfile.Name;
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
 
                 //Update the keypad mapping profile

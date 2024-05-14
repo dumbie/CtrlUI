@@ -101,7 +101,7 @@ namespace DirectXInput.KeyboardCode
                 }
                 else if (senderButton == key_Tool_Keypad)
                 {
-                    await App.vWindowMain.KeypadPopupHideShow(true);
+                    await vWindowMain.KeypadPopupHideShow(true);
                 }
                 else if (senderButton == key_Tool_CtrlUILaunch)
                 {

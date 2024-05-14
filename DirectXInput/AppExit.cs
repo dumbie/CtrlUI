@@ -17,7 +17,7 @@ namespace DirectXInput
                 messageAnswers.Add("Exit application");
                 messageAnswers.Add("Cancel");
 
-                string messageResult = await new AVMessageBox().Popup(App.vWindowMain, "Do you really want to exit DirectXInput?", "This will disconnect all your currently connected controllers.", messageAnswers);
+                string messageResult = await new AVMessageBox().Popup(vWindowMain, "Do you really want to exit DirectXInput?", "This will disconnect all your currently connected controllers.", messageAnswers);
                 if (messageResult == "Exit application")
                 {
                     await Application_Exit();
@@ -33,7 +33,7 @@ namespace DirectXInput
                 Debug.WriteLine("Exiting application.");
 
                 //Disable application window
-                App.vWindowMain.AppWindowDisable("Closing DirectXInput, please wait.");
+                vWindowMain.AppWindowDisable("Closing DirectXInput, please wait.");
 
                 //Stop the background tasks
                 await TasksBackgroundStop();

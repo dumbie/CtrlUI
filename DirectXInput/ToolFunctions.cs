@@ -47,7 +47,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "AppLaunch";
                 notificationDetails.Text = "Showing or hiding CtrlUI";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
@@ -98,7 +98,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Fps";
                 notificationDetails.Text = "Show or hiding Fps Overlayer";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
@@ -126,7 +126,7 @@ namespace DirectXInput
                     NotificationDetails notificationFps = new NotificationDetails();
                     notificationFps.Icon = "Fps";
                     notificationFps.Text = "Fps Overlayer is not running";
-                    App.vWindowOverlay.Notification_Show_Status(notificationFps);
+                    vWindowOverlay.Notification_Show_Status(notificationFps);
                     Debug.WriteLine("Fps overlayer is not running.");
                     return;
                 }
@@ -144,7 +144,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Fps";
                 notificationDetails.Text = "Changing Fps Overlayer position";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
@@ -172,7 +172,7 @@ namespace DirectXInput
                     NotificationDetails notificationFps = new NotificationDetails();
                     notificationFps.Icon = "Fps";
                     notificationFps.Text = "Fps Overlayer is not running";
-                    App.vWindowOverlay.Notification_Show_Status(notificationFps);
+                    vWindowOverlay.Notification_Show_Status(notificationFps);
                     Debug.WriteLine("Fps overlayer is not running.");
                     return;
                 }
@@ -190,7 +190,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Browser";
                 notificationDetails.Text = "Show or hiding browser overlay";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
@@ -218,7 +218,7 @@ namespace DirectXInput
                     NotificationDetails notificationFps = new NotificationDetails();
                     notificationFps.Icon = "Fps";
                     notificationFps.Text = "Fps Overlayer is not running";
-                    App.vWindowOverlay.Notification_Show_Status(notificationFps);
+                    vWindowOverlay.Notification_Show_Status(notificationFps);
                     Debug.WriteLine("Fps overlayer is not running.");
                     return;
                 }
@@ -236,7 +236,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Crosshair";
                 notificationDetails.Text = "Show or hiding crosshair overlay";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();

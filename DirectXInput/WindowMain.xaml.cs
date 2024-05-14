@@ -115,7 +115,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "No controller connected";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }

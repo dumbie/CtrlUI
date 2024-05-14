@@ -220,7 +220,7 @@ namespace DirectXInput
                 combobox_KeyboardLayout.SelectionChanged += (sender, e) =>
                 {
                     SettingSave(vConfigurationDirectXInput, "KeyboardLayout", combobox_KeyboardLayout.SelectedIndex.ToString());
-                    App.vWindowKeyboard.UpdateKeyboardLayout();
+                    vWindowKeyboard.UpdateKeyboardLayout();
                 };
 
                 slider_SettingsKeyboardMouseMoveSensitivity.ValueChanged += (sender, e) =>
@@ -245,7 +245,7 @@ namespace DirectXInput
                     JsonSaveObject(selectedProfile, GenerateJsonNameKeypadMapping(selectedProfile));
 
                     textblock_KeypadOpacity.Text = textblock_KeypadOpacity.Tag + ": " + slider_KeypadOpacity.Value.ToString("0.00") + "%";
-                    App.vWindowKeypad.UpdatePopupOpacity();
+                    vWindowKeypad.UpdatePopupOpacity();
                 };
 
                 combobox_KeypadDisplayStyle.SelectionChanged += (sender, e) =>
@@ -256,7 +256,7 @@ namespace DirectXInput
                     //Save changes to Json file
                     JsonSaveObject(selectedProfile, GenerateJsonNameKeypadMapping(selectedProfile));
 
-                    App.vWindowKeypad.UpdateKeypadStyle();
+                    vWindowKeypad.UpdateKeypadStyle();
                 };
 
                 slider_KeypadDisplaySize.ValueChanged += async (sender, e) =>
@@ -270,7 +270,7 @@ namespace DirectXInput
                     textblock_KeypadDisplaySize.Text = textblock_KeypadDisplaySize.Tag + ": " + selectedProfile.KeypadDisplaySize + "%";
 
                     //Update the keypad size
-                    double keypadHeight = App.vWindowKeypad.UpdateKeypadSize();
+                    double keypadHeight = vWindowKeypad.UpdateKeypadSize();
 
                     //Notify - Fps Overlayer keypad size changed
                     await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(keypadHeight));
@@ -285,7 +285,7 @@ namespace DirectXInput
                     JsonSaveObject(selectedProfile, GenerateJsonNameKeypadMapping(selectedProfile));
 
                     //Update all keypad key names
-                    App.vWindowKeypad.UpdateKeypadNames();
+                    vWindowKeypad.UpdateKeypadNames();
                 };
 
                 slider_SettingsKeypadMouseMoveSensitivity.ValueChanged += (sender, e) =>

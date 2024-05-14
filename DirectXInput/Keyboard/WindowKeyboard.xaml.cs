@@ -115,7 +115,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 //Close other popups
-                await App.vWindowKeypad.Hide();
+                await vWindowKeypad.Hide();
 
                 //Delay keyboard input
                 vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayTicks250;

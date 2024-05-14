@@ -62,7 +62,7 @@ namespace DirectXInput
                     if (deserializedBytes.Object is NotificationDetails)
                     {
                         NotificationDetails receivedNotificationDetails = (NotificationDetails)deserializedBytes.Object;
-                        App.vWindowOverlay.Notification_Show_Status(receivedNotificationDetails);
+                        vWindowOverlay.Notification_Show_Status(receivedNotificationDetails);
                     }
                     else if (deserializedBytes.Object is string)
                     {
@@ -84,14 +84,14 @@ namespace DirectXInput
                         else if (receivedString == "SettingChangedInterfaceClockStyleName")
                         {
                             vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
-                            App.vWindowKeyboard.UpdateClockStyle();
+                            vWindowKeyboard.UpdateClockStyle();
                         }
                         else if (receivedString == "SettingChangedDisplayMonitor")
                         {
                             vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
-                            App.vWindowOverlay.UpdateWindowPosition();
-                            App.vWindowKeyboard.UpdateWindowPosition();
-                            App.vWindowKeypad.UpdateWindowPosition();
+                            vWindowOverlay.UpdateWindowPosition();
+                            vWindowKeyboard.UpdateWindowPosition();
+                            vWindowKeypad.UpdateWindowPosition();
                         }
                         else if (receivedString == "ControllerStatusSummaryList")
                         {

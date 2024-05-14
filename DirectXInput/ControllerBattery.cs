@@ -130,7 +130,7 @@ namespace DirectXInput
                             notificationDetails.Icon = "Battery/BatteryVerDis20";
                             notificationDetails.Text = "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryCurrent.BatteryPercentage + "%";
                             notificationDetails.Color = Controller.Color;
-                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            vWindowOverlay.Notification_Show_Status(notificationDetails);
                         }
 
                         //Battery level sound

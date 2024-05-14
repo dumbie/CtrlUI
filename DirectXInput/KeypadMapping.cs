@@ -353,7 +353,7 @@ namespace DirectXInput
                 JsonSaveObject(keypadMappingProfile, GenerateJsonNameKeypadMapping(keypadMappingProfile));
 
                 //Update the keypad names
-                App.vWindowKeypad.UpdateKeypadNames();
+                vWindowKeypad.UpdateKeypadNames();
 
                 //Update the keypad tooltips
                 UpdateKeypadToolTips();
@@ -540,7 +540,7 @@ namespace DirectXInput
                 JsonSaveObject(keypadMappingProfile, GenerateJsonNameKeypadMapping(keypadMappingProfile));
 
                 //Update the keypad names
-                App.vWindowKeypad.UpdateKeypadNames();
+                vWindowKeypad.UpdateKeypadNames();
 
                 //Update the keypad tooltips
                 UpdateKeypadToolTips();

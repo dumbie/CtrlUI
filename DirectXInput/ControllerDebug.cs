@@ -84,7 +84,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Paste";
                     notificationDetails.Text = "Debug information copied";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "No controller connected";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }

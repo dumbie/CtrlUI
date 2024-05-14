@@ -22,7 +22,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "Launching CtrlUI";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Launch application
                     AVProcess.Launch_ShellExecute("CtrlUI-Launcher.exe", "", "", true);
@@ -44,7 +44,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Fps";
                     notificationDetails.Text = "Launching Fps Overlayer";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Launch application
                     AVProcess.Launch_ShellExecute("FpsOverlayer-Launcher.exe", "", "", true);
@@ -68,7 +68,7 @@ namespace DirectXInput
                         NotificationDetails notificationDetails = new NotificationDetails();
                         notificationDetails.Icon = "Screenshot";
                         notificationDetails.Text = "Launching Screen Capture Tool";
-                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                        vWindowOverlay.Notification_Show_Status(notificationDetails);
                     }
 
                     //Launch application

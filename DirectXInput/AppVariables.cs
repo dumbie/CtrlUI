@@ -1,4 +1,7 @@
 ﻿using ArnoldVinkCode;
+using DirectXInput.KeyboardCode;
+using DirectXInput.KeypadCode;
+using DirectXInput.OverlayCode;
 using LibraryUsb;
 using System;
 using System.Collections.Generic;
@@ -22,6 +25,12 @@ namespace DirectXInput
 {
     public class AppVariables
     {
+        //Application Windows
+        public static WindowMain vWindowMain = new WindowMain();
+        public static WindowOverlay vWindowOverlay = new WindowOverlay();
+        public static WindowKeyboard vWindowKeyboard = new WindowKeyboard();
+        public static WindowKeypad vWindowKeypad = new WindowKeypad();
+
         //Application Variables
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static Configuration vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");

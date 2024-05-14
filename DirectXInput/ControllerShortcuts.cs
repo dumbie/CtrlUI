@@ -38,7 +38,7 @@ namespace DirectXInput
                     }
 
                     //Hide popups with guide button
-                    if (Controller.InputCurrent.ButtonGuide.PressedShort && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible))
+                    if (Controller.InputCurrent.ButtonGuide.PressedShort && (vWindowKeyboard.vWindowVisible || vWindowKeypad.vWindowVisible))
                     {
                         await HideOpenPopups();
 
@@ -60,7 +60,7 @@ namespace DirectXInput
                     //Show the keyboard or keypad
                     else if (Controller.InputCurrent.ButtonGuide.PressedLong)
                     {
-                        if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
+                        if (!vWindowKeyboard.vWindowVisible && !vWindowKeypad.vWindowVisible)
                         {
                             if (vKeyboardKeypadLastActive == "Keyboard")
                             {
@@ -86,11 +86,11 @@ namespace DirectXInput
                         {
                             if (AudioMuteSwitch(false))
                             {
-                                App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume muted");
+                                vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume muted");
                             }
                             else
                             {
-                                App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume unmuted");
+                                vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume unmuted");
                             }
 
                             ControllerUsed = true;
@@ -103,11 +103,11 @@ namespace DirectXInput
                         {
                             if (AudioMuteSwitch(true))
                             {
-                                App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume muted");
+                                vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume muted");
                             }
                             else
                             {
-                                App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume unmuted");
+                                vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume unmuted");
                             }
 
                             ControllerUsed = true;
@@ -124,7 +124,7 @@ namespace DirectXInput
                             NotificationDetails notificationDetails = new NotificationDetails();
                             notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Pressing Alt+Enter";
-                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                             KeysHidAction KeysHidAction = new KeysHidAction()
                             {
@@ -147,7 +147,7 @@ namespace DirectXInput
                             NotificationDetails notificationDetails = new NotificationDetails();
                             notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Pressing Alt+Tab";
-                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                             //Press and hold Alt+Tab
                             KeysHidAction keyboardAltTab = new KeysHidAction()
@@ -179,7 +179,7 @@ namespace DirectXInput
                             NotificationDetails notificationDetails = new NotificationDetails();
                             notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Releasing Alt+Tab";
-                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                             //Release all key presses
                             vFakerInputDevice.KeyboardReset();
@@ -274,15 +274,15 @@ namespace DirectXInput
                 Debug.WriteLine("Switching between keyboard and keypad");
                 await AVActions.DispatcherInvoke(async delegate
                 {
-                    if (App.vWindowKeyboard.vWindowVisible)
+                    if (vWindowKeyboard.vWindowVisible)
                     {
-                        await App.vWindowKeyboard.Hide();
-                        await App.vWindowKeypad.Show();
+                        await vWindowKeyboard.Hide();
+                        await vWindowKeypad.Show();
                     }
                     else
                     {
-                        await App.vWindowKeypad.Hide();
-                        await App.vWindowKeyboard.Show(false, false);
+                        await vWindowKeypad.Hide();
+                        await vWindowKeyboard.Show(false, false);
                     }
                 });
             }
@@ -297,22 +297,22 @@ namespace DirectXInput
                 Debug.WriteLine("Shortcut keypad has been pressed.");
                 await AVActions.DispatcherInvoke(async delegate
                 {
-                    if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
+                    if (!vWindowKeyboard.vWindowVisible && !vWindowKeypad.vWindowVisible)
                     {
                         if (forceShow || SettingLoad(vConfigurationDirectXInput, "ShortcutKeyboardPopup", typeof(bool)))
                         {
-                            await App.vWindowKeypad.Show();
+                            await vWindowKeypad.Show();
                         }
                     }
                     else if (!forceShow)
                     {
-                        await App.vWindowKeyboard.Hide();
-                        await App.vWindowKeypad.Hide();
+                        await vWindowKeyboard.Hide();
+                        await vWindowKeypad.Hide();
                     }
                     else if (forceShow)
                     {
-                        await App.vWindowKeyboard.Hide();
-                        await App.vWindowKeypad.Show();
+                        await vWindowKeyboard.Hide();
+                        await vWindowKeypad.Show();
                     }
                 });
             }
@@ -327,26 +327,26 @@ namespace DirectXInput
                 Debug.WriteLine("Shortcut keyboard has been pressed.");
                 await AVActions.DispatcherInvoke(async delegate
                 {
-                    if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
+                    if (!vWindowKeyboard.vWindowVisible && !vWindowKeypad.vWindowVisible)
                     {
                         if (forceShow || SettingLoad(vConfigurationDirectXInput, "ShortcutKeyboardPopup", typeof(bool)))
                         {
-                            await App.vWindowKeyboard.Show(forceKeyboardMode, forceKeyboardMode);
+                            await vWindowKeyboard.Show(forceKeyboardMode, forceKeyboardMode);
                         }
                     }
                     else if (!forceShow)
                     {
-                        await App.vWindowKeyboard.Hide();
-                        await App.vWindowKeypad.Hide();
+                        await vWindowKeyboard.Hide();
+                        await vWindowKeypad.Hide();
                     }
                     else if (forceShow)
                     {
-                        await App.vWindowKeypad.Hide();
-                        await App.vWindowKeyboard.Show(forceKeyboardMode, forceKeyboardMode);
+                        await vWindowKeypad.Hide();
+                        await vWindowKeyboard.Show(forceKeyboardMode, forceKeyboardMode);
                     }
                     else if (forceKeyboardMode)
                     {
-                        await App.vWindowKeyboard.SetModeKeyboard();
+                        await vWindowKeyboard.SetModeKeyboard();
                     }
                 });
             }
@@ -360,8 +360,8 @@ namespace DirectXInput
             {
                 await AVActions.DispatcherInvoke(async delegate
                 {
-                    await App.vWindowKeyboard.Hide();
-                    await App.vWindowKeypad.Hide();
+                    await vWindowKeyboard.Hide();
+                    await vWindowKeypad.Hide();
                 });
             }
             catch { }

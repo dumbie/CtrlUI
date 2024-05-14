@@ -112,7 +112,7 @@ namespace DirectXInput.KeyboardCode
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Keyboard";
                     notificationDetails.Text = "Switched to keyboard mode";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Update variables
                     vKeyboardCurrentMode = KeyboardMode.Keyboard;
@@ -186,7 +186,7 @@ namespace DirectXInput.KeyboardCode
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Keyboard";
                     notificationDetails.Text = "Switched to media mode";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Update variables
                     vKeyboardCurrentMode = KeyboardMode.Media;

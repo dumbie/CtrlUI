@@ -19,6 +19,8 @@ namespace DirectXInput
         {
             try
             {
+                Debug.WriteLine("Welcome to application.");
+
                 //Setup application defaults
                 AVStartup.SetupDefaults(ProcessPriority.High, true);
 

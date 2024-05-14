@@ -28,7 +28,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetailsNameSet = new NotificationDetails();
                     notificationDetailsNameSet.Icon = "Close";
                     notificationDetailsNameSet.Text = "No application name set";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetailsNameSet);
+                    vWindowOverlay.Notification_Show_Status(notificationDetailsNameSet);
                     return;
                 }
 
@@ -38,7 +38,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetailsExists = new NotificationDetails();
                     notificationDetailsExists.Icon = "Close";
                     notificationDetailsExists.Text = "Keypad profile already exists";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetailsExists);
+                    vWindowOverlay.Notification_Show_Status(notificationDetailsExists);
                     return;
                 }
 
@@ -56,7 +56,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Plus";
                 notificationDetails.Text = "Added keypad profile";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                vWindowOverlay.Notification_Show_Status(notificationDetails);
                 Debug.WriteLine("Added keypad profile.");
             }
             catch { }
@@ -83,7 +83,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "RemoveCross";
                     notificationDetails.Text = "Removed keypad profile";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    vWindowOverlay.Notification_Show_Status(notificationDetails);
                     Debug.WriteLine("Removed the keypad profile.");
                 }
                 else
@@ -91,7 +91,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Close";
                     notificationDetails.Text = "Cannot remove default profile";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    vWindowOverlay.Notification_Show_Status(notificationDetails);
                     Debug.WriteLine("Default profile cannot be removed.");
                 }
             }

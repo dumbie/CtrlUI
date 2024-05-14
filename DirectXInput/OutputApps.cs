@@ -20,17 +20,17 @@ namespace DirectXInput
                 if (Controller.Activated && !Controller.Disconnecting)
                 {
                     //Check if a popup is visible
-                    if (App.vWindowKeyboard.vWindowVisible)
+                    if (vWindowKeyboard.vWindowVisible)
                     {
-                        App.vWindowKeyboard.ControllerInteractionMouse(Controller.InputCurrent);
-                        await App.vWindowKeyboard.ControllerInteractionKeyboard(Controller.InputCurrent);
+                        vWindowKeyboard.ControllerInteractionMouse(Controller.InputCurrent);
+                        await vWindowKeyboard.ControllerInteractionKeyboard(Controller.InputCurrent);
                         return true;
                     }
-                    else if (App.vWindowKeypad.vWindowVisible)
+                    else if (vWindowKeypad.vWindowVisible)
                     {
-                        App.vWindowKeypad.ControllerInteractionKeypadPreview(Controller.InputCurrent);
-                        App.vWindowKeypad.ControllerInteractionMouse(Controller.InputCurrent);
-                        App.vWindowKeypad.ControllerInteractionKeyboard(Controller.InputCurrent);
+                        vWindowKeypad.ControllerInteractionKeypadPreview(Controller.InputCurrent);
+                        vWindowKeypad.ControllerInteractionMouse(Controller.InputCurrent);
+                        vWindowKeypad.ControllerInteractionKeyboard(Controller.InputCurrent);
                         return true;
                     }
                     else if (vProcessCtrlUI != null && vProcessCtrlUIActivated)

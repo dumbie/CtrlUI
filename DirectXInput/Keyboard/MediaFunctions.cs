@@ -25,7 +25,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
+                vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 vFakerInputDevice.MultimediaPressRelease(KeysMediaHid.PlayPause);
             }
@@ -37,7 +37,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
+                vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 vFakerInputDevice.MultimediaPressRelease(KeysMediaHid.Next);
             }
@@ -49,7 +49,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
+                vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 vFakerInputDevice.MultimediaPressRelease(KeysMediaHid.Previous);
             }
@@ -61,7 +61,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
+                vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 KeysHidAction keyboardAction = new KeysHidAction()
                 {
@@ -80,11 +80,11 @@ namespace DirectXInput.KeyboardCode
             {
                 if (AudioMuteSwitch(false))
                 {
-                    App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume muted");
+                    vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume muted");
                 }
                 else
                 {
-                    App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume unmuted");
+                    vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume unmuted");
                 }
             }
             catch { }
@@ -97,11 +97,11 @@ namespace DirectXInput.KeyboardCode
             {
                 if (AudioMuteSwitch(true))
                 {
-                    App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume muted");
+                    vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume muted");
                 }
                 else
                 {
-                    App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume unmuted");
+                    vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume unmuted");
                 }
             }
             catch { }
@@ -114,7 +114,7 @@ namespace DirectXInput.KeyboardCode
             {
                 int volumeStep = SettingLoad(vConfigurationDirectXInput, "MediaVolumeStep", typeof(int));
                 int newVolume = AudioVolumeDown(volumeStep, false);
-                App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreased volume to " + newVolume);
+                vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreased volume to " + newVolume);
             }
             catch { }
         }
@@ -126,7 +126,7 @@ namespace DirectXInput.KeyboardCode
             {
                 int volumeStep = SettingLoad(vConfigurationDirectXInput, "MediaVolumeStep", typeof(int));
                 int newVolume = AudioVolumeUp(volumeStep, false);
-                App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
+                vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
             }
             catch { }
         }
