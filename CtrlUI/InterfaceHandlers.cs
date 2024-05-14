@@ -42,7 +42,7 @@ namespace CtrlUI
         {
             try
             {
-                await Application_Exit_Prompt();
+                await AppExit.Exit_Prompt();
             }
             catch { }
         }

@@ -244,16 +244,5 @@ namespace CtrlUI
             }
             catch { }
         }
-
-        //Restart the application
-        public async Task Application_Restart()
-        {
-            try
-            {
-                AVProcess.Launch_ShellExecute("CtrlUI.exe", "", "-restart", true);
-                await Application_Exit();
-            }
-            catch { }
-        }
     }
 }

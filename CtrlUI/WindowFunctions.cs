@@ -153,7 +153,7 @@ namespace CtrlUI
         }
 
         //Enable application window
-        void AppWindowEnable()
+        public void AppWindowEnable()
         {
             try
             {
@@ -174,7 +174,7 @@ namespace CtrlUI
         }
 
         //Disable application window
-        void AppWindowDisable(string windowText)
+        public void AppWindowDisable(string windowText)
         {
             try
             {

@@ -22,6 +22,9 @@ namespace CtrlUI
 {
     public class AppVariables
     {
+        //Application Windows
+        public static WindowMain vWindowMain = new WindowMain();
+
         //Application Variables
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static CultureInfo vAppCultureInfo = CultureInfo.InvariantCulture;

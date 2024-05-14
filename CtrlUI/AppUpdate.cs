@@ -109,7 +109,7 @@ namespace CtrlUI
             try
             {
                 AVProcess.Launch_ShellExecute("Updater.exe", "", "", true);
-                await Application_Exit();
+                await AppExit.Exit();
             }
             catch { }
         }

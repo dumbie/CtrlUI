@@ -26,9 +26,9 @@ namespace CtrlUI
                 //Check pressed key modifier
                 KeysVirtual? usedModifierKey = null;
                 System.Windows.Forms.Keys keysData = (System.Windows.Forms.Keys)(int)usedVirtualKey | System.Windows.Forms.Control.ModifierKeys;
-                if (keysData.HasFlag(System.Windows.Forms.Keys.Control)) { usedModifierKey = KeysVirtual.Control; }
-                else if (keysData.HasFlag(System.Windows.Forms.Keys.Alt)) { usedModifierKey = KeysVirtual.Alt; }
-                else if (keysData.HasFlag(System.Windows.Forms.Keys.Shift)) { usedModifierKey = KeysVirtual.Shift; }
+                if (keysData.HasFlag(System.Windows.Forms.Keys.Control)) { usedModifierKey = KeysVirtual.CtrlLeft; }
+                else if (keysData.HasFlag(System.Windows.Forms.Keys.Alt)) { usedModifierKey = KeysVirtual.AltLeft; }
+                else if (keysData.HasFlag(System.Windows.Forms.Keys.Shift)) { usedModifierKey = KeysVirtual.ShiftLeft; }
 
                 //Check if a textbox is focused
                 bool focusedTextBox = false;
@@ -39,7 +39,7 @@ namespace CtrlUI
                 }
 
                 //Check the pressed key
-                if (usedVirtualKey == KeysVirtual.Tab && usedModifierKey == KeysVirtual.Shift)
+                if (usedVirtualKey == KeysVirtual.Tab && usedModifierKey == KeysVirtual.ShiftLeft)
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                 }
@@ -172,7 +172,7 @@ namespace CtrlUI
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
                     if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
                     {
-                        KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
+                        KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);
                         Handled = true;
                         return;
                     }
@@ -180,7 +180,7 @@ namespace CtrlUI
                     {
                         if (parentListbox.SelectedIndex == 0)
                         {
-                            KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
+                            KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);
                             Handled = true;
                             return;
                         }
@@ -189,7 +189,7 @@ namespace CtrlUI
                     {
                         if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, true))
                         {
-                            KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
+                            KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);
                             Handled = true;
                             return;
                         }
@@ -197,7 +197,7 @@ namespace CtrlUI
                 }
                 else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button) || (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider) || frameworkElement.GetType() == typeof(SliderDelay)))
                 {
-                    KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
+                    KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);
                     Handled = true;
                     return;
                 }
