@@ -4,20 +4,27 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
 using static DirectXInput.AppVariables;
+using static LibraryShared.AppUpdate;
 
 namespace DirectXInput
 {
-    public partial class WindowMain : Window
+    public partial class WindowMain
     {
-        //Run application startup code
-        public async Task Startup()
+        public async Task Application_Startup()
         {
             try
             {
+                //Setup application defaults
+                AVStartup.SetupDefaults(ProcessPriority.High, true);
+
+                //Application update checks
+                await UpdateCheck();
+
                 //Initialize Settings
                 Settings_Check();
                 await Settings_Load();
@@ -154,8 +161,8 @@ namespace DirectXInput
                 TasksBackgroundStart();
 
                 //Register keyboard hotkeys
-                AVInputOutputHotKey.Start();
-                AVInputOutputHotKey.EventHotKeyPressed += EventHotKeyPressed;
+                AVInputOutputHotkey.Start();
+                AVInputOutputHotkey.EventHotkeyPressed += EventHotkeyPressed;
 
                 //Set application first launch to false
                 SettingSave(vConfigurationDirectXInput, "AppFirstLaunch", "False");

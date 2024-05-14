@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -144,6 +145,17 @@ namespace DirectXInput
             try
             {
                 if (WindowState == WindowState.Minimized) { Application_ShowHideWindow(); }
+            }
+            catch { }
+        }
+
+        //Application Close Handler
+        protected async override void OnClosing(CancelEventArgs e)
+        {
+            try
+            {
+                e.Cancel = true;
+                await Application_Exit_Prompt();
             }
             catch { }
         }

@@ -1,28 +1,14 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
 using static DirectXInput.AppVariables;
 
 namespace DirectXInput
 {
-    public partial class WindowMain : Window
+    public partial class WindowMain
     {
-        //Application Close Handler
-        protected async override void OnClosing(CancelEventArgs e)
-        {
-            try
-            {
-                e.Cancel = true;
-                await Application_Exit_Prompt();
-            }
-            catch { }
-        }
-
-        //Application close prompt
         public async Task Application_Exit_Prompt()
         {
             try
@@ -31,7 +17,7 @@ namespace DirectXInput
                 messageAnswers.Add("Exit application");
                 messageAnswers.Add("Cancel");
 
-                string messageResult = await new AVMessageBox().Popup(this, "Do you really want to exit DirectXInput?", "This will disconnect all your currently connected controllers.", messageAnswers);
+                string messageResult = await new AVMessageBox().Popup(App.vWindowMain, "Do you really want to exit DirectXInput?", "This will disconnect all your currently connected controllers.", messageAnswers);
                 if (messageResult == "Exit application")
                 {
                     await Application_Exit();
@@ -40,7 +26,6 @@ namespace DirectXInput
             catch { }
         }
 
-        //Close the application
         public async Task Application_Exit()
         {
             try
@@ -48,7 +33,7 @@ namespace DirectXInput
                 Debug.WriteLine("Exiting application.");
 
                 //Disable application window
-                AppWindowDisable("Closing DirectXInput, please wait.");
+                App.vWindowMain.AppWindowDisable("Closing DirectXInput, please wait.");
 
                 //Stop the background tasks
                 await TasksBackgroundStop();

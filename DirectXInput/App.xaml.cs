@@ -1,12 +1,7 @@
 ﻿using DirectXInput.KeyboardCode;
 using DirectXInput.KeypadCode;
 using DirectXInput.OverlayCode;
-using System;
 using System.Windows;
-using static ArnoldVinkCode.AVAssembly;
-using static ArnoldVinkCode.AVInteropDll;
-using static LibraryShared.AppCheck;
-using static LibraryShared.AppUpdate;
 
 namespace DirectXInput
 {
@@ -23,17 +18,7 @@ namespace DirectXInput
         {
             try
             {
-                //Resolve missing assembly dll files
-                AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveFile;
-
-                //Application startup checks
-                await StartupCheck("DirectXInput", ProcessPriority.High);
-
-                //Application update checks
-                await UpdateCheck();
-
-                //Run application startup code
-                await vWindowMain.Startup();
+                await vWindowMain.Application_Startup();
             }
             catch { }
         }
