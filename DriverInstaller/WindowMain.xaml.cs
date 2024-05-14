@@ -194,13 +194,13 @@ namespace DriverInstaller
                     AVProcess.Launch_ShellExecute("DirectXInput-Launcher.exe", "", "", true);
                 }
 
-                //Set the exit reason text message
+                //Set exit reason text message
                 TextBoxAppend(exitMessage);
                 ProgressBarUpdate(100, false);
 
-                //Close the application after x seconds
+                //Close application after x seconds
                 await Task.Delay(3000);
-                Environment.Exit(0);
+                AppExit.Exit();
             }
             catch { }
         }
