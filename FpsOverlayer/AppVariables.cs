@@ -29,6 +29,7 @@ namespace FpsOverlayer
         public static WindowMain vWindowMain = new WindowMain();
         public static WindowSettings vWindowSettings = new WindowSettings();
         public static WindowBrowser vWindowBrowser = new WindowBrowser();
+        public static AppTray vAppTray = new AppTray();
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;

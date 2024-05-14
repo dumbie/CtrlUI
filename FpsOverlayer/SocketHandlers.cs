@@ -54,7 +54,7 @@ namespace FpsOverlayer
                         Debug.WriteLine("Received socket string: " + receivedString);
                         if (receivedString == "ApplicationExit")
                         {
-                            await Application_Exit();
+                            await AppExit.Exit();
                         }
                         else if (receivedString == "SwitchFpsOverlayVisibility")
                         {

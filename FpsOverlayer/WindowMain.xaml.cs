@@ -15,7 +15,6 @@ using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static ArnoldVinkCode.Styles.MainColors;
-using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
@@ -64,9 +63,6 @@ namespace FpsOverlayer
                 //Update the crosshair overlay style
                 UpdateCrosshairOverlayStyle();
 
-                //Create tray icon
-                Application_CreateTrayMenu();
-
                 //Load Json profiles
                 JsonLoadFile(ref vFpsPositionProcessName, @"Profiles\User\FpsPositionProcessName.json");
                 JsonLoadFile(ref vFpsBrowserLinks, @"Profiles\User\FpsBrowserLinks.json");
@@ -99,8 +95,8 @@ namespace FpsOverlayer
                 }
 
                 //Register keyboard hotkeys
-                AVInputOutputHotKey.Start();
-                AVInputOutputHotKey.EventHotKeyPressed += EventHotKeyPressed;
+                AVInputOutputHotkey.Start();
+                AVInputOutputHotkey.EventHotkeyPressed += EventHotkeyPressed;
 
                 //Enable the socket server
                 await EnableSocketServer();
@@ -283,40 +279,7 @@ namespace FpsOverlayer
             try
             {
                 e.Cancel = true;
-                await Application_Exit();
-            }
-            catch { }
-        }
-
-        //Close the application
-        public async Task Application_Exit()
-        {
-            try
-            {
-                Debug.WriteLine("Exiting application.");
-                AVActions.DispatcherInvoke(delegate
-                {
-                    this.Opacity = 0.80;
-                    this.IsEnabled = false;
-                });
-
-                //Stop monitoring the hardware
-                vHardwareComputer.Close();
-
-                //Stop the background tasks
-                await TasksBackgroundStop();
-
-                //Disable the socket server
-                if (vArnoldVinkSockets != null)
-                {
-                    await vArnoldVinkSockets.SocketServerDisable();
-                }
-
-                //Hide the visible tray icon
-                TrayNotifyIcon.Visible = false;
-
-                //Close the application
-                Environment.Exit(0);
+                await AppExit.Exit();
             }
             catch { }
         }

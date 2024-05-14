@@ -63,7 +63,7 @@ namespace FpsOverlayer
                     else if (SelStackPanel.Name == "menuButtonApplications") { ShowGridPage(stackpanel_Applications); }
                     else if (SelStackPanel.Name == "menuButtonSettings") { ShowGridPage(stackpanel_Settings); }
                     else if (SelStackPanel.Name == "menuButtonClose") { this.Close(); }
-                    else if (SelStackPanel.Name == "menuButtonExit") { await vWindowMain.Application_Exit(); }
+                    else if (SelStackPanel.Name == "menuButtonExit") { await AppExit.Exit(); }
                 }
             }
             catch { }

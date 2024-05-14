@@ -8,14 +8,13 @@ using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
 {
-    public partial class WindowMain
+    public partial class AppTray
     {
         //Tray Menu Variables
-        public static NotifyIcon TrayNotifyIcon = new NotifyIcon();
-        public static ContextMenuStrip TrayContextMenu = new ContextMenuStrip();
+        public NotifyIcon TrayNotifyIcon = new NotifyIcon();
+        public ContextMenuStrip TrayContextMenu = new ContextMenuStrip();
 
-        //Create the application tray menu
-        void Application_CreateTrayMenu()
+        public AppTray()
         {
             try
             {
@@ -61,23 +60,23 @@ namespace FpsOverlayer
             {
                 if (args.Button == MouseButtons.Left)
                 {
-                    SwitchFpsOverlayVisibility();
+                    vWindowMain.SwitchFpsOverlayVisibility();
                 }
                 else if (args.Button == MouseButtons.Middle)
                 {
-                    ChangeFpsOverlayPosition();
+                    vWindowMain.ChangeFpsOverlayPosition();
                 }
             }
             catch { }
         }
 
         void NotifyIcon_MouseUp(object sender, MouseEventArgs args) { Mouse_Single_Click(args); }
-        void NotifyIcon_ShowHide_Stats(object sender, EventArgs args) { SwitchFpsOverlayVisibility(); }
-        void NotifyIcon_ShowHide_Crosshair(object sender, EventArgs args) { SwitchCrosshairVisibility(true); }
+        void NotifyIcon_ShowHide_Stats(object sender, EventArgs args) { vWindowMain.SwitchFpsOverlayVisibility(); }
+        void NotifyIcon_ShowHide_Crosshair(object sender, EventArgs args) { vWindowMain.SwitchCrosshairVisibility(true); }
         void NotifyIcon_ShowHide_Browser(object sender, EventArgs args) { vWindowBrowser.Browser_Switch_Visibility(); }
-        void NotifyIcon_Position_Stats(object sender, EventArgs args) { ChangeFpsOverlayPosition(); }
+        void NotifyIcon_Position_Stats(object sender, EventArgs args) { vWindowMain.ChangeFpsOverlayPosition(); }
         void NotifyIcon_Settings(object sender, EventArgs args) { Application_ShowHideSettings(); }
         void NotifyIcon_Website(object sender, EventArgs args) { OpenWebsiteBrowser("https://projects.arnoldvink.com"); }
-        async void NotifyIcon_Exit(object sender, EventArgs args) { await Application_Exit(); }
+        async void NotifyIcon_Exit(object sender, EventArgs args) { await AppExit.Exit(); }
     }
 }
