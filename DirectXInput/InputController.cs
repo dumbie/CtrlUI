@@ -283,7 +283,7 @@ namespace DirectXInput
                 else if (!controller.Details.Profile.UseButtonTriggers)
                 {
                     Debug.WriteLine("Controller without triggers detected.");
-                    App.vWindowOverlay.Notification_Show_Status("Controller", "Controller has no triggers");
+                    vWindowOverlay.Notification_Show_Status("Controller", "Controller has no triggers");
 
                     AVActions.DispatcherInvoke(delegate { cb_ControllerUseButtonTriggers.IsChecked = true; });
                     controller.Details.Profile.UseButtonTriggers = true;
@@ -428,33 +428,24 @@ namespace DirectXInput
                     controller.InputCurrent.ButtonPressStatus[107] = (controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Start.Offset)) != 0;
                 }
 
-                //Raw Buttons (Touchpad, Guide, Media)
-                if (controller.SupportedCurrent.OffsetButton.Touchpad != null)
-                {
-                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Touchpad.Group, controller.SupportedCurrent);
-                    byte ButtonInputByte = controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset];
-                    if (ButtonInputByte < 10)
-                    {
-                        controller.InputCurrent.ButtonPressStatus[200] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Touchpad.Offset)) != 0;
-                    }
-                }
+                //Raw Buttons (Guide and others)
                 if (controller.SupportedCurrent.OffsetButton.Guide != null)
                 {
                     int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Guide.Group, controller.SupportedCurrent);
                     byte ButtonInputByte = controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset];
-                    if (ButtonInputByte < 10)
-                    {
-                        controller.InputCurrent.ButtonPressStatus[201] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Guide.Offset)) != 0;
-                    }
+                    controller.InputCurrent.ButtonPressStatus[200] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Guide.Offset)) != 0;
+                }
+                if (controller.SupportedCurrent.OffsetButton.Touchpad != null)
+                {
+                    int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Touchpad.Group, controller.SupportedCurrent);
+                    byte ButtonInputByte = controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset];
+                    controller.InputCurrent.ButtonPressStatus[201] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Touchpad.Offset)) != 0;
                 }
                 if (controller.SupportedCurrent.OffsetButton.Media != null)
                 {
                     int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Media.Group, controller.SupportedCurrent);
                     byte ButtonInputByte = controller.ControllerDataInput[HeaderOffset + ButtonGroupOffset];
-                    if (ButtonInputByte < 10)
-                    {
-                        controller.InputCurrent.ButtonPressStatus[202] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Media.Offset)) != 0;
-                    }
+                    controller.InputCurrent.ButtonPressStatus[202] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Media.Offset)) != 0;
                 }
 
                 //Raw Touchpad
@@ -562,12 +553,12 @@ namespace DirectXInput
                 if (controller.Details.Profile.ButtonStart == null) { controller.InputCurrent.ButtonStart.PressedRaw = controller.InputCurrent.ButtonPressStatus[107]; }
                 else if (controller.Details.Profile.ButtonStart != -1) { controller.InputCurrent.ButtonStart.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonStart.Value]; }
 
-                //Raw Buttons (Touchpad, Guide, Media)
-                if (controller.Details.Profile.ButtonTouchpad == null) { controller.InputCurrent.ButtonTouchpad.PressedRaw = controller.InputCurrent.ButtonPressStatus[200]; }
-                else if (controller.Details.Profile.ButtonTouchpad != -1) { controller.InputCurrent.ButtonTouchpad.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonTouchpad.Value]; }
-
-                if (controller.Details.Profile.ButtonGuide == null) { controller.InputCurrent.ButtonGuide.PressedRaw = controller.InputCurrent.ButtonPressStatus[201]; }
+                //Raw Buttons (Guide and others)
+                if (controller.Details.Profile.ButtonGuide == null) { controller.InputCurrent.ButtonGuide.PressedRaw = controller.InputCurrent.ButtonPressStatus[200]; }
                 else if (controller.Details.Profile.ButtonGuide != -1) { controller.InputCurrent.ButtonGuide.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonGuide.Value]; }
+
+                if (controller.Details.Profile.ButtonTouchpad == null) { controller.InputCurrent.ButtonTouchpad.PressedRaw = controller.InputCurrent.ButtonPressStatus[201]; }
+                else if (controller.Details.Profile.ButtonTouchpad != -1) { controller.InputCurrent.ButtonTouchpad.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonTouchpad.Value]; }
 
                 if (controller.Details.Profile.ButtonMedia == null) { controller.InputCurrent.ButtonMedia.PressedRaw = controller.InputCurrent.ButtonPressStatus[202]; }
                 else if (controller.Details.Profile.ButtonMedia != -1) { controller.InputCurrent.ButtonMedia.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonMedia.Value]; }
