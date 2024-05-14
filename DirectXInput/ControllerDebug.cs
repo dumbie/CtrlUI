@@ -19,6 +19,17 @@ namespace DirectXInput
                     //Set basic information
                     textblock_LiveDebugInformation.Text = GenerateControllerDebugString(false);
 
+                    //Check controller header
+                    int controllerOffset = 0;
+                    if (Controller.Details.Wireless)
+                    {
+                        controllerOffset = Controller.SupportedCurrent.OffsetWireless;
+                    }
+                    else
+                    {
+                        controllerOffset = Controller.SupportedCurrent.OffsetWired;
+                    }
+
                     //Set controller input
                     listbox_LiveDebugInput.Visibility = Visibility.Visible;
                     byte[] controllerRawInput = Controller.ControllerDataInput;
@@ -26,7 +37,14 @@ namespace DirectXInput
                     for (int packetId = 0; packetId < controllerRawInput.Length; packetId++)
                     {
                         ProfileShared profileShared = new ProfileShared();
-                        profileShared.String1 = packetId.ToString();
+                        if (packetId < controllerOffset)
+                        {
+                            profileShared.String1 = "H";
+                        }
+                        else
+                        {
+                            profileShared.String1 = (packetId - controllerOffset).ToString();
+                        }
                         profileShared.String2 = controllerRawInput[packetId].ToString();
                         vControllerDebugInput[packetId] = profileShared;
                     }

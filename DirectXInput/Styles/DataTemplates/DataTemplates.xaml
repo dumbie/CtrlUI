@@ -7,7 +7,7 @@
 
     <!-- ListboxItemDebugBox -->
     <DataTemplate x:Key="ListboxItemDebugBox">
-        <Grid Width="30" Height="40" Margin="0,0,2,2">
+        <Grid Width="40" Height="40" Margin="0,0,2,2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
