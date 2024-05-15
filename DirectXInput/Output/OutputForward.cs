@@ -13,7 +13,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Check if controller output needs to be forwarded
-        async Task<bool> ControllerOutputApps(ControllerStatus Controller)
+        async Task<bool> ControllerOutputForward(ControllerStatus Controller)
         {
             try
             {
