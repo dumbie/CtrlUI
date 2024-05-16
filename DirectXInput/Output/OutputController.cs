@@ -85,7 +85,7 @@ namespace DirectXInput
                 //Check which controller is connected
                 if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && Controller.Details.Wireless)
                 {
-                    //Bluetooth Output - DualSense 5
+                    //Bluetooth Output - SonyPS5DualSense
                     byte[] outputReport = new byte[75];
                     outputReport[0] = 0xA2;
                     outputReport[1] = 0x31;
@@ -151,7 +151,7 @@ namespace DirectXInput
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && !Controller.Details.Wireless)
                 {
-                    //Wired Output - DualSense 5
+                    //Wired Output - SonyPS5DualSense
                     byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x02;
                     outputReport[1] = 0xFF;
@@ -211,7 +211,7 @@ namespace DirectXInput
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS4DualShock" && Controller.Details.Wireless)
                 {
-                    //Bluetooth Output - DualShock 4
+                    //Bluetooth Output - SonyPS4DualShock
                     byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x11;
                     outputReport[1] = 0x80;
@@ -230,7 +230,7 @@ namespace DirectXInput
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS4DualShock" && !Controller.Details.Wireless)
                 {
-                    //Wired Output - DualShock 4
+                    //Wired Output - SonyPS4DualShock
                     byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x05;
                     outputReport[1] = 0xFF;
@@ -248,7 +248,7 @@ namespace DirectXInput
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS3DualShock")
                 {
-                    //Wired Output - DualShock 3
+                    //Wired Output - SonyPS3DualShock
                     byte[] outputReport = new byte[30];
                     outputReport[1] = 0xFF;
                     outputReport[2] = (byte)(controllerRumbleLight > 0 ? 0x01 : 0x00); //On or Off
@@ -286,7 +286,7 @@ namespace DirectXInput
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS12DualShock")
                 {
-                    //Wired Output - DualShock 1 and 2
+                    //Wired Output - SonyPS12DualShock
                     byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x01;
                     outputReport[3] = (byte)(controllerRumbleHeavy / 2); //Between 0 and 127.5
@@ -298,7 +298,7 @@ namespace DirectXInput
                 }
                 else if (Controller.SupportedCurrent.CodeName == "8BitDoPro2" && !Controller.Details.Wireless)
                 {
-                    //Wired Output - 8BitDo Pro 2
+                    //Wired Output - 8BitDoPro2
                     byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x05;
                     outputReport[1] = controllerRumbleHeavy;
@@ -317,7 +317,7 @@ namespace DirectXInput
                 }
                 else if (Controller.SupportedCurrent.CodeName == "8BitDoPro2" && Controller.Details.Wireless)
                 {
-                    //Bluetooth Output - 8BitDo Pro 2
+                    //Bluetooth Output - 8BitDoPro2
                     byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x05;
                     outputReport[1] = controllerRumbleHeavy;
