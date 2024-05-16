@@ -31,7 +31,7 @@
     },
     "DPadLeft": {
       "Group": 0,
-      "Offset": 4
+      "Offset": 7
     },
     "DPadRight": {
       "Group": 0,
@@ -39,11 +39,11 @@
     },
     "DPadUp": {
       "Group": 0,
-      "Offset": 6
+      "Offset": 4
     },
     "DPadDown": {
       "Group": 0,
-      "Offset": 7
+      "Offset": 6
     },
     "ShoulderLeft": {
       "Group": 1,

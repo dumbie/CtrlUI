@@ -29,10 +29,10 @@ namespace DirectXInput
                         {
                             switch (DPadStateAll)
                             {
-                                case 1: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
+                                case 1: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
                                 case 2: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = true; break;
-                                case 4: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
-                                case 8: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
+                                case 4: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
+                                case 8: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
                                 default: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
                             }
                         }
@@ -40,14 +40,14 @@ namespace DirectXInput
                         {
                             switch (DPadStateAll)
                             {
-                                case 1: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
+                                case 1: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
                                 case 2: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = true; break;
-                                case 3: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = true; break;
-                                case 4: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
-                                case 6: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = true; break;
-                                case 8: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
-                                case 9: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
-                                case 12: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
+                                case 4: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
+                                case 8: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
+                                case 5: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
+                                case 6: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = true; break;
+                                case 9: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
+                                case 10: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = true; break;
                                 default: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
                             }
                         }
@@ -70,12 +70,12 @@ namespace DirectXInput
                             switch (DPadStateAll)
                             {
                                 case 0: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
-                                case 1: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = true; break;
                                 case 2: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = true; break;
-                                case 3: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = true; break;
                                 case 4: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
-                                case 5: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
                                 case 6: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
+                                case 1: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = true; break;
+                                case 3: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = true; break;
+                                case 5: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = true; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
                                 case 7: controller.InputCurrent.DPadUp.PressedRaw = true; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = true; controller.InputCurrent.DPadRight.PressedRaw = false; break;
                                 default: controller.InputCurrent.DPadUp.PressedRaw = false; controller.InputCurrent.DPadDown.PressedRaw = false; controller.InputCurrent.DPadLeft.PressedRaw = false; controller.InputCurrent.DPadRight.PressedRaw = false; break;
                             }
