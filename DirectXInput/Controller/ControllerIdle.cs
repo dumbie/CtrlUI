@@ -84,19 +84,9 @@ namespace DirectXInput
                 }
 
                 //Triggers
-                if (!controllerStatus.Details.Profile.UseButtonTriggers)
+                if (controllerStatus.InputCurrent.TriggerLeft >= 50 || controllerStatus.InputCurrent.TriggerRight >= 50)
                 {
-                    if (controllerStatus.InputCurrent.TriggerLeft >= 50 || controllerStatus.InputCurrent.TriggerRight >= 50)
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    if (controllerStatus.InputCurrent.ButtonTriggerLeft.PressedRaw || controllerStatus.InputCurrent.ButtonTriggerRight.PressedRaw)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
 
                 //Left stick movement

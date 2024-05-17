@@ -46,14 +46,14 @@ namespace DirectXInput
                 //Update Thumbsticks
                 InputUpdateThumbsticks(controller);
 
-                //Update Triggers
-                InputUpdateTriggers(controller);
-
                 //Update DPad
                 InputUpdateDirectionalPad(controller);
 
                 //Update Buttons
                 InputUpdateButtons(controller);
+
+                //Update Triggers
+                InputUpdateTriggers(controller);
 
                 //Update Touchpad
                 InputUpdateTouchpad(controller);

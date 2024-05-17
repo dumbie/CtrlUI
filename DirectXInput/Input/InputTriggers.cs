@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace DirectXInput
 {
@@ -13,7 +14,8 @@ namespace DirectXInput
                 //Set controller header offset
                 int headerOffset = controller.Details.Wireless ? controller.SupportedCurrent.OffsetWireless : controller.SupportedCurrent.OffsetWired;
 
-                if (controller.SupportedCurrent.OffsetHeader.TriggerLeft != null)
+                //Read analog triggers
+                if (!controller.Details.Profile.UseButtonTriggers && controller.SupportedCurrent.OffsetHeader.TriggerLeft != null)
                 {
                     int triggerLeftBytes = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerLeft];
 
@@ -37,7 +39,7 @@ namespace DirectXInput
                     controller.InputCurrent.TriggerLeft = Convert.ToByte(triggerLeftBytes);
                 }
 
-                if (controller.SupportedCurrent.OffsetHeader.TriggerRight != null)
+                if (!controller.Details.Profile.UseButtonTriggers && controller.SupportedCurrent.OffsetHeader.TriggerRight != null)
                 {
                     int triggerRightBytes = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerRight];
 
@@ -59,6 +61,17 @@ namespace DirectXInput
 
                     //Store the triggers
                     controller.InputCurrent.TriggerRight = Convert.ToByte(triggerRightBytes);
+                }
+
+                //Read digital triggers
+                if (controller.Details.Profile.UseButtonTriggers || controller.InputCurrent.TriggerLeft == 0)
+                {
+                    if (controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.TriggerLeft]) { controller.InputCurrent.TriggerLeft = 255; } else { controller.InputCurrent.TriggerLeft = 0; }
+                }
+
+                if (controller.Details.Profile.UseButtonTriggers || controller.InputCurrent.TriggerRight == 0)
+                {
+                    if (controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.TriggerRight]) { controller.InputCurrent.TriggerRight = 255; } else { controller.InputCurrent.TriggerRight = 0; }
                 }
 
                 return true;

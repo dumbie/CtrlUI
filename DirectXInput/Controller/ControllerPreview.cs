@@ -133,36 +133,10 @@ namespace DirectXInput
                     if (Controller.InputCurrent.ButtonThumbRight.PressedRaw) { img_ControllerPreview_ButtonThumbRight.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonThumbRight.Visibility = Visibility.Collapsed; }
 
                     //Triggers
-                    if (!Controller.Details.Profile.UseButtonTriggers)
-                    {
-                        textblock_Trigger_Left.Text = Controller.InputCurrent.TriggerLeft.ToString();
-                        textblock_Trigger_Right.Text = Controller.InputCurrent.TriggerRight.ToString();
-                        img_ControllerPreview_TriggerLeft.Opacity = (double)(Controller.InputCurrent.TriggerLeft * 257) / 65535;
-                        img_ControllerPreview_TriggerRight.Opacity = (double)(Controller.InputCurrent.TriggerRight * 257) / 65535;
-                    }
-                    else
-                    {
-                        if (Controller.InputCurrent.ButtonTriggerLeft.PressedRaw)
-                        {
-                            textblock_Trigger_Left.Text = "255";
-                            img_ControllerPreview_TriggerLeft.Opacity = 1.00;
-                        }
-                        else
-                        {
-                            textblock_Trigger_Left.Text = "0";
-                            img_ControllerPreview_TriggerLeft.Opacity = 0.00;
-                        }
-                        if (Controller.InputCurrent.ButtonTriggerRight.PressedRaw)
-                        {
-                            textblock_Trigger_Right.Text = "255";
-                            img_ControllerPreview_TriggerRight.Opacity = 1.00;
-                        }
-                        else
-                        {
-                            textblock_Trigger_Right.Text = "0";
-                            img_ControllerPreview_TriggerRight.Opacity = 0.00;
-                        }
-                    }
+                    textblock_Trigger_Left.Text = Controller.InputCurrent.TriggerLeft.ToString();
+                    textblock_Trigger_Right.Text = Controller.InputCurrent.TriggerRight.ToString();
+                    img_ControllerPreview_TriggerLeft.Opacity = (double)(Controller.InputCurrent.TriggerLeft * 257) / 65535;
+                    img_ControllerPreview_TriggerRight.Opacity = (double)(Controller.InputCurrent.TriggerRight * 257) / 65535;
 
                     //Thumb Left and Right Image
                     int LeftX = Controller.InputCurrent.ThumbLeftX / 1000;
