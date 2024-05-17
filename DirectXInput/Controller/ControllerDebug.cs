@@ -106,6 +106,7 @@ namespace DirectXInput
                 ControllerStatus activeController = vActiveController();
                 if (activeController != null && activeController.ControllerDataInput != null && activeController.ControllerDataOutput != null)
                 {
+                    //Controller input details
                     string rawPackets = "(Out" + activeController.ControllerDataOutput.Length + "/In" + activeController.ControllerDataInput.Length + ")";
                     if (activeController.Details.Wireless)
                     {
@@ -117,13 +118,30 @@ namespace DirectXInput
                     }
                     rawPackets += "(ProductId" + activeController.Details.Profile.ProductID + "/VendorId" + activeController.Details.Profile.VendorID + ")";
 
-                    //Controller raw input
+                    //Controller input raw
                     if (includeRawData)
                     {
-                        rawPackets += "\n";
-                        for (int Packet = 0; Packet < activeController.ControllerDataInput.Length; Packet++)
+                        int controllerOffset = 0;
+                        if (activeController.Details.Wireless)
                         {
-                            rawPackets = rawPackets + " " + activeController.ControllerDataInput[Packet];
+                            controllerOffset = activeController.SupportedCurrent.OffsetWireless;
+                        }
+                        else
+                        {
+                            controllerOffset = activeController.SupportedCurrent.OffsetWired;
+                        }
+
+                        rawPackets += "\n";
+                        for (int packetId = 0; packetId < activeController.ControllerDataInput.Length; packetId++)
+                        {
+                            if (packetId < controllerOffset)
+                            {
+                                rawPackets = rawPackets + "H/" + activeController.ControllerDataInput[packetId] + " ";
+                            }
+                            else
+                            {
+                                rawPackets = rawPackets + (packetId - controllerOffset) + "/" + activeController.ControllerDataInput[packetId] + " ";
+                            }
                         }
                     }
 
