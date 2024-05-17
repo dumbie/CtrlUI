@@ -246,29 +246,85 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonTouchpad;
-            public int? ButtonTouchpad
+            private int? PrivButtonOne;
+            public int? ButtonOne
             {
-                get { return this.PrivButtonTouchpad; }
+                get { return this.PrivButtonOne; }
                 set
                 {
-                    if (this.PrivButtonTouchpad != value)
+                    if (this.PrivButtonOne != value)
                     {
-                        this.PrivButtonTouchpad = value;
+                        this.PrivButtonOne = value;
                         NotifyPropertyChanged();
                     }
                 }
             }
 
-            private int? PrivButtonMedia;
-            public int? ButtonMedia
+            private int? PrivButtonTwo;
+            public int? ButtonTwo
             {
-                get { return this.PrivButtonMedia; }
+                get { return this.PrivButtonTwo; }
                 set
                 {
-                    if (this.PrivButtonMedia != value)
+                    if (this.PrivButtonTwo != value)
                     {
-                        this.PrivButtonMedia = value;
+                        this.PrivButtonTwo = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private int? PrivButtonThree;
+            public int? ButtonThree
+            {
+                get { return this.PrivButtonThree; }
+                set
+                {
+                    if (this.PrivButtonThree != value)
+                    {
+                        this.PrivButtonThree = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private int? PrivButtonFour;
+            public int? ButtonFour
+            {
+                get { return this.PrivButtonFour; }
+                set
+                {
+                    if (this.PrivButtonFour != value)
+                    {
+                        this.PrivButtonFour = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private int? PrivButtonFive;
+            public int? ButtonFive
+            {
+                get { return this.PrivButtonFive; }
+                set
+                {
+                    if (this.PrivButtonFive != value)
+                    {
+                        this.PrivButtonFive = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private int? PrivButtonSix;
+            public int? ButtonSix
+            {
+                get { return this.PrivButtonSix; }
+                set
+                {
+                    if (this.PrivButtonSix != value)
+                    {
+                        this.PrivButtonSix = value;
                         NotifyPropertyChanged();
                     }
                 }
@@ -345,29 +401,29 @@ namespace LibraryShared
                 }
             }
 
-            private bool PrivFakeMediaButton;
-            public bool FakeMediaButton
+            private bool PrivFakeOneButton;
+            public bool FakeOneButton
             {
-                get { return this.PrivFakeMediaButton; }
+                get { return this.PrivFakeOneButton; }
                 set
                 {
-                    if (this.PrivFakeMediaButton != value)
+                    if (this.PrivFakeOneButton != value)
                     {
-                        this.PrivFakeMediaButton = value;
+                        this.PrivFakeOneButton = value;
                         NotifyPropertyChanged();
                     }
                 }
             }
 
-            private bool PrivFakeTouchpadButton;
-            public bool FakeTouchpadButton
+            private bool PrivFakeTwoButton;
+            public bool FakeTwoButton
             {
-                get { return this.PrivFakeTouchpadButton; }
+                get { return this.PrivFakeTwoButton; }
                 set
                 {
-                    if (this.PrivFakeTouchpadButton != value)
+                    if (this.PrivFakeTwoButton != value)
                     {
-                        this.PrivFakeTouchpadButton = value;
+                        this.PrivFakeTwoButton = value;
                         NotifyPropertyChanged();
                     }
                 }

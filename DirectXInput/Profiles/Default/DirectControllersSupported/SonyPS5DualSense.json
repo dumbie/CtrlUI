@@ -88,15 +88,15 @@
       "Group": 8,
       "Offset": 4
     },
-    "Touchpad": {
-      "Group": 9,
-      "Offset": 1
-    },
     "Guide": {
       "Group": 9,
       "Offset": 0
     },
-    "Media": {
+    "One": {
+      "Group": 9,
+      "Offset": 1
+    },
+    "Two": {
       "Group": 9,
       "Offset": 2
     }

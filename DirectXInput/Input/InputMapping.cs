@@ -58,11 +58,23 @@ namespace DirectXInput
                 if (controller.Details.Profile.ButtonGuide == null) { controller.InputCurrent.ButtonGuide.PressedRaw = controller.InputCurrent.ButtonPressStatus[200]; }
                 else if (controller.Details.Profile.ButtonGuide != -1) { controller.InputCurrent.ButtonGuide.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonGuide.Value]; }
 
-                if (controller.Details.Profile.ButtonTouchpad == null) { controller.InputCurrent.ButtonTouchpad.PressedRaw = controller.InputCurrent.ButtonPressStatus[201]; }
-                else if (controller.Details.Profile.ButtonTouchpad != -1) { controller.InputCurrent.ButtonTouchpad.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonTouchpad.Value]; }
+                if (controller.Details.Profile.ButtonOne == null) { controller.InputCurrent.ButtonOne.PressedRaw = controller.InputCurrent.ButtonPressStatus[201]; }
+                else if (controller.Details.Profile.ButtonOne != -1) { controller.InputCurrent.ButtonOne.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonOne.Value]; }
 
-                if (controller.Details.Profile.ButtonMedia == null) { controller.InputCurrent.ButtonMedia.PressedRaw = controller.InputCurrent.ButtonPressStatus[202]; }
-                else if (controller.Details.Profile.ButtonMedia != -1) { controller.InputCurrent.ButtonMedia.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonMedia.Value]; }
+                if (controller.Details.Profile.ButtonTwo == null) { controller.InputCurrent.ButtonTwo.PressedRaw = controller.InputCurrent.ButtonPressStatus[202]; }
+                else if (controller.Details.Profile.ButtonTwo != -1) { controller.InputCurrent.ButtonTwo.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonTwo.Value]; }
+
+                if (controller.Details.Profile.ButtonThree == null) { controller.InputCurrent.ButtonThree.PressedRaw = controller.InputCurrent.ButtonPressStatus[203]; }
+                else if (controller.Details.Profile.ButtonThree != -1) { controller.InputCurrent.ButtonThree.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonThree.Value]; }
+
+                if (controller.Details.Profile.ButtonFour == null) { controller.InputCurrent.ButtonFour.PressedRaw = controller.InputCurrent.ButtonPressStatus[204]; }
+                else if (controller.Details.Profile.ButtonFour != -1) { controller.InputCurrent.ButtonFour.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonFour.Value]; }
+
+                if (controller.Details.Profile.ButtonFive == null) { controller.InputCurrent.ButtonFive.PressedRaw = controller.InputCurrent.ButtonPressStatus[205]; }
+                else if (controller.Details.Profile.ButtonFive != -1) { controller.InputCurrent.ButtonFive.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonFive.Value]; }
+
+                if (controller.Details.Profile.ButtonSix == null) { controller.InputCurrent.ButtonSix.PressedRaw = controller.InputCurrent.ButtonPressStatus[206]; }
+                else if (controller.Details.Profile.ButtonSix != -1) { controller.InputCurrent.ButtonSix.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonSix.Value]; }
 
                 return true;
             }
@@ -104,8 +116,12 @@ namespace DirectXInput
                                 else if (vMappingControllerButton == btn_SetThumbRight) { Controller.Details.Profile.ButtonThumbRight = buttonMapId; }
                                 else if (vMappingControllerButton == btn_SetTriggerLeft) { Controller.Details.Profile.ButtonTriggerLeft = buttonMapId; }
                                 else if (vMappingControllerButton == btn_SetTriggerRight) { Controller.Details.Profile.ButtonTriggerRight = buttonMapId; }
-                                else if (vMappingControllerButton == btn_SetTouchpad) { Controller.Details.Profile.ButtonTouchpad = buttonMapId; }
-                                else if (vMappingControllerButton == btn_SetMedia) { Controller.Details.Profile.ButtonMedia = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetOne) { Controller.Details.Profile.ButtonOne = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetTwo) { Controller.Details.Profile.ButtonTwo = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetThree) { Controller.Details.Profile.ButtonThree = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetFour) { Controller.Details.Profile.ButtonFour = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetFive) { Controller.Details.Profile.ButtonFive = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetSix) { Controller.Details.Profile.ButtonSix = buttonMapId; }
                             }
                             catch { }
                         });

@@ -186,12 +186,16 @@
                                 <Image Name="img_ControllerPreview_ButtonX" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="346,85,130,145"/>
                                 <Image Name="img_ControllerPreview_ButtonY" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,60,105,168"/>
 
-                                <Image Name="img_ControllerPreview_ButtonBack" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="197,57,278,173"/>
-                                <Image Name="img_ControllerPreview_ButtonStart" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="278,57,196,173"/>
-                                <Image Name="img_ControllerPreview_ButtonGuide" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,56,235,169"/>
+                                <Image Name="img_ControllerPreview_ButtonBack" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="197,0,278,70"/>
+                                <Image Name="img_ControllerPreview_ButtonStart" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="278,0,196,70"/>
+                                <Image Name="img_ControllerPreview_ButtonGuide" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="235,0,235,75"/>
 
-                                <Image Name="img_ControllerPreview_ButtonTouchpad" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,0,235,195"/>
-                                <Image Name="img_ControllerPreview_ButtonMedia" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,0,235,35"/>
+                                <Image Name="img_ControllerPreview_ButtonOne" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="-177,0,0,188"/>
+                                <Image Name="img_ControllerPreview_ButtonTwo" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="-107,0,0,188"/>
+                                <Image Name="img_ControllerPreview_ButtonThree" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="-37,0,0,188"/>
+                                <Image Name="img_ControllerPreview_ButtonFour" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="33,0,0,188"/>
+                                <Image Name="img_ControllerPreview_ButtonFive" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="103,0,0,188"/>
+                                <Image Name="img_ControllerPreview_ButtonSix" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="173,0,0,188"/>
 
                                 <Image Name="img_ControllerPreview_ButtonThumbLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="42" Height="42" Margin="178,117,280,96"/>
                                 <Image Name="img_ControllerPreview_ButtonThumbRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="42" Height="42" Margin="282,117,176,96"/>
@@ -228,12 +232,16 @@
                                 <Button Name="btn_SetTriggerLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="3,39,457,176" Height="40" Width="40" ToolTipService.ToolTip="Left Trigger"/>
                                 <Button Name="btn_SetTriggerRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="457,39,3,176" Height="40" Width="40" ToolTipService.ToolTip="Right Trigger"/>
 
-                                <Button Name="btn_SetBack" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="195,60,275,175" Width="30" Height="20" ToolTipService.ToolTip="Button Back"/>
-                                <Button Name="btn_SetGuide" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="235,55,235,170" Height="30" Width="30" ToolTipService.ToolTip="Button Guide"/>
-                                <Button Name="btn_SetStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="275,60,195,175" Width="30" Height="20" ToolTipService.ToolTip="Button Start"/>
+                                <Button Name="btn_SetBack" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="195,0,275,70" Width="30" Height="20" ToolTipService.ToolTip="Button Back"/>
+                                <Button Name="btn_SetGuide" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="235,0,235,75" Height="30" Width="30" ToolTipService.ToolTip="Button Guide"/>
+                                <Button Name="btn_SetStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="275,0,195,70" Width="30" Height="20" ToolTipService.ToolTip="Button Start"/>
 
-                                <Button Name="btn_SetTouchpad" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,0,200" Width="120" Height="20" ToolTipService.ToolTip="Button Touchpad"/>
-                                <Button Name="btn_SetMedia" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="230,0,230,30" Height="20" Width="40" ToolTipService.ToolTip="Button Media"/>
+                                <Button Name="btn_SetOne" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="-177,0,0,188" Width="30" Height="30" ToolTipService.ToolTip="Button One"/>
+                                <Button Name="btn_SetTwo" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="-107,0,0,188" Width="30" Height="30" ToolTipService.ToolTip="Button Two"/>
+                                <Button Name="btn_SetThree" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="-37,0,0,188" Width="30" Height="30" ToolTipService.ToolTip="Button Three"/>
+                                <Button Name="btn_SetFour" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="33,0,0,188" Width="30" Height="30" ToolTipService.ToolTip="Button Four"/>
+                                <Button Name="btn_SetFive" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="103,0,0,188" Width="30" Height="30" ToolTipService.ToolTip="Button Five"/>
+                                <Button Name="btn_SetSix" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="173,0,0,188" Width="30" Height="30" ToolTipService.ToolTip="Button Six"/>
 
                                 <!-- Trigger Details -->
                                 <TextBlock Name="textblock_Trigger_Left" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-455,-163,0,0"/>
@@ -401,13 +409,13 @@
 
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Button Settings"/>
                             <CheckBox Name="cb_ControllerFakeGuideButton" Style="{StaticResource CheckBoxBlack}" Content="Fake LB and Back combined press as Guide button"/>
-                            <TextBlock Text="Enabling this will fake the LB and Back button combined as Guide button on a controller without the Guide button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <TextBlock Text="Enabling this will fake the LB and Back button combined as Guide button on a controller without the button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                            <CheckBox Margin="0,10,0,0" Name="cb_ControllerFakeMediaButton" Style="{StaticResource CheckBoxBlack}" Content="Fake LB and Back combined press as Media button"/>
-                            <TextBlock Text="Enabling this will fake the LB and Back button combined as Media button on a controller without the Media button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <CheckBox Margin="0,10,0,0" Name="cb_ControllerFakeOneButton" Style="{StaticResource CheckBoxBlack}" Content="Fake LB and Back combined press as button One"/>
+                            <TextBlock Text="Enabling this will fake the LB and Back button combined as button One on a controller without the button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                            <CheckBox Margin="0,10,0,0" Name="cb_ControllerFakeTouchpadButton" Style="{StaticResource CheckBoxBlack}" Content="Fake RB and Back combined press as Touchpad button"/>
-                            <TextBlock Text="Enabling this will fake the RB and Back button combined as Touchpad button on a controller without the Touchpad available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <CheckBox Margin="0,10,0,0" Name="cb_ControllerFakeTwoButton" Style="{StaticResource CheckBoxBlack}" Content="Fake RB and Back combined press as button Two"/>
+                            <TextBlock Text="Enabling this will fake the RB and Back button combined as button Two on a controller without the button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                             <CheckBox Margin="0,10,0,0" Name="cb_SettingsExclusiveGuide" Content="Make the Guide button exclusive for CtrlUI apps usage" Style="{StaticResource CheckBoxBlack}"/>
                             <TextBlock Text="Enabling this will block the Guide button for all other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
@@ -521,10 +529,10 @@
                                 <TextBlock Text="Enabling this will allow you to mute your input audio with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Capture Shortcuts"/>
-                                <CheckBox Name="cb_SettingsShortcutCaptureImage" Content="Capture image by pressing the Touchpad button" Style="{StaticResource CheckBoxBlack}"/>
+                                <CheckBox Name="cb_SettingsShortcutCaptureImage" Content="Capture image by pressing the Other 1 button" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to take a screenshot with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                                <CheckBox Name="cb_SettingsShortcutCaptureVideo" Margin="0,10,0,0" Content="Capture video by holding the Touchpad button" Style="{StaticResource CheckBoxBlack}"/>
+                                <CheckBox Name="cb_SettingsShortcutCaptureVideo" Margin="0,10,0,0" Content="Capture video by holding the Other 1 button" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to capture video with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keyboard Shortcuts"/>

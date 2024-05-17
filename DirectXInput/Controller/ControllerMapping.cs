@@ -72,8 +72,12 @@ namespace DirectXInput
                 else if (vMappingControllerButton == btn_SetThumbRight) { activeController.Details.Profile.ButtonThumbRight = -1; }
                 else if (vMappingControllerButton == btn_SetTriggerLeft) { activeController.Details.Profile.ButtonTriggerLeft = -1; }
                 else if (vMappingControllerButton == btn_SetTriggerRight) { activeController.Details.Profile.ButtonTriggerRight = -1; }
-                else if (vMappingControllerButton == btn_SetTouchpad) { activeController.Details.Profile.ButtonTouchpad = -1; }
-                else if (vMappingControllerButton == btn_SetMedia) { activeController.Details.Profile.ButtonMedia = -1; }
+                else if (vMappingControllerButton == btn_SetOne) { activeController.Details.Profile.ButtonOne = -1; }
+                else if (vMappingControllerButton == btn_SetTwo) { activeController.Details.Profile.ButtonTwo = -1; }
+                else if (vMappingControllerButton == btn_SetThree) { activeController.Details.Profile.ButtonThree = -1; }
+                else if (vMappingControllerButton == btn_SetFour) { activeController.Details.Profile.ButtonFour = -1; }
+                else if (vMappingControllerButton == btn_SetFive) { activeController.Details.Profile.ButtonFive = -1; }
+                else if (vMappingControllerButton == btn_SetSix) { activeController.Details.Profile.ButtonSix = -1; }
 
                 //Save changes to Json file
                 JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));

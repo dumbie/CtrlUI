@@ -58,8 +58,8 @@ namespace DirectXInput
                         activeController.Details.Profile.FakeGuideButton = cb_ControllerFakeGuideButton.IsChecked.Value;
                         if (cb_ControllerFakeGuideButton.IsChecked.Value)
                         {
-                            cb_ControllerFakeMediaButton.IsChecked = false;
-                            activeController.Details.Profile.FakeMediaButton = false;
+                            cb_ControllerFakeOneButton.IsChecked = false;
+                            activeController.Details.Profile.FakeOneButton = false;
                         }
 
                         //Save changes to Json file
@@ -67,13 +67,13 @@ namespace DirectXInput
                     }
                 };
 
-                cb_ControllerFakeMediaButton.Click += (sender, e) =>
+                cb_ControllerFakeOneButton.Click += (sender, e) =>
                 {
                     ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
-                        activeController.Details.Profile.FakeMediaButton = cb_ControllerFakeMediaButton.IsChecked.Value;
-                        if (cb_ControllerFakeMediaButton.IsChecked.Value)
+                        activeController.Details.Profile.FakeOneButton = cb_ControllerFakeOneButton.IsChecked.Value;
+                        if (cb_ControllerFakeOneButton.IsChecked.Value)
                         {
                             cb_ControllerFakeGuideButton.IsChecked = false;
                             activeController.Details.Profile.FakeGuideButton = false;
@@ -84,12 +84,12 @@ namespace DirectXInput
                     }
                 };
 
-                cb_ControllerFakeTouchpadButton.Click += (sender, e) =>
+                cb_ControllerFakeTwoButton.Click += (sender, e) =>
                 {
                     ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
-                        activeController.Details.Profile.FakeTouchpadButton = cb_ControllerFakeTouchpadButton.IsChecked.Value;
+                        activeController.Details.Profile.FakeTwoButton = cb_ControllerFakeTwoButton.IsChecked.Value;
 
                         //Save changes to Json file
                         JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
@@ -446,8 +446,8 @@ namespace DirectXInput
                 btn_SetStart.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
                 btn_SetTriggerLeft.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
                 btn_SetTriggerRight.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
-                btn_SetTouchpad.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
-                btn_SetMedia.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetOne.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetTwo.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
                 button_SetController_Map.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Map;
                 button_SetController_Unmap.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Unmap;
                 button_SetController_Cancel.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Cancel;

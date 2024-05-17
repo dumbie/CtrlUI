@@ -12,8 +12,8 @@ namespace DirectXInput
             try
             {
                 CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonGuide);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonTouchpad);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonMedia);
+                CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonOne);
+                CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonTwo);
                 CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonThumbLeftLeft);
                 CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonThumbLeftUp);
                 CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonThumbLeftRight);

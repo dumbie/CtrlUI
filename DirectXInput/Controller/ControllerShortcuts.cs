@@ -80,7 +80,7 @@ namespace DirectXInput
                         ControllerDelay750 = true;
                     }
                     //Mute or unmute the input/microphone
-                    else if (Controller.InputCurrent.ButtonMedia.PressedShort)
+                    else if (Controller.InputCurrent.ButtonTwo.PressedShort)
                     {
                         if (SettingLoad(vConfigurationDirectXInput, "ShortcutMuteOutput", typeof(bool)))
                         {
@@ -97,7 +97,7 @@ namespace DirectXInput
                             ControllerDelay750 = true;
                         }
                     }
-                    else if (Controller.InputCurrent.ButtonMedia.PressedLong)
+                    else if (Controller.InputCurrent.ButtonTwo.PressedLong)
                     {
                         if (SettingLoad(vConfigurationDirectXInput, "ShortcutMuteInput", typeof(bool)))
                         {
@@ -190,7 +190,7 @@ namespace DirectXInput
                         }
                     }
                     //Signal to capture image
-                    else if (Controller.InputCurrent.ButtonTouchpad.PressedShort)
+                    else if (Controller.InputCurrent.ButtonOne.PressedShort)
                     {
                         if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImage", typeof(bool)))
                         {
@@ -202,7 +202,7 @@ namespace DirectXInput
                         }
                     }
                     //Signal to capture video
-                    else if (Controller.InputCurrent.ButtonTouchpad.PressedLong)
+                    else if (Controller.InputCurrent.ButtonOne.PressedLong)
                     {
                         if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideo", typeof(bool)))
                         {

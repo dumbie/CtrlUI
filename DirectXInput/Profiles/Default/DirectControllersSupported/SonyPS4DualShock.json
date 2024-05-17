@@ -85,13 +85,13 @@
       "Group": 5,
       "Offset": 4
     },
-    "Touchpad": {
-      "Group": 6,
-      "Offset": 1
-    },
     "Guide": {
       "Group": 6,
       "Offset": 0
+    },
+    "One": {
+      "Group": 6,
+      "Offset": 1
     }
   }
 }

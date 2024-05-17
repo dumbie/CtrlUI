@@ -70,13 +70,29 @@ namespace DirectXInput
                 {
                     controller.InputCurrent.ButtonPressStatus[200] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Guide.Group] & (1 << controller.SupportedCurrent.OffsetButton.Guide.Offset)) != 0;
                 }
-                if (controller.SupportedCurrent.OffsetButton.Touchpad != null)
+                if (controller.SupportedCurrent.OffsetButton.One != null)
                 {
-                    controller.InputCurrent.ButtonPressStatus[201] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Touchpad.Group] & (1 << controller.SupportedCurrent.OffsetButton.Touchpad.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[201] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.One.Group] & (1 << controller.SupportedCurrent.OffsetButton.One.Offset)) != 0;
                 }
-                if (controller.SupportedCurrent.OffsetButton.Media != null)
+                if (controller.SupportedCurrent.OffsetButton.Two != null)
                 {
-                    controller.InputCurrent.ButtonPressStatus[202] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Media.Group] & (1 << controller.SupportedCurrent.OffsetButton.Media.Offset)) != 0;
+                    controller.InputCurrent.ButtonPressStatus[202] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Two.Group] & (1 << controller.SupportedCurrent.OffsetButton.Two.Offset)) != 0;
+                }
+                if (controller.SupportedCurrent.OffsetButton.Three != null)
+                {
+                    controller.InputCurrent.ButtonPressStatus[203] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Three.Group] & (1 << controller.SupportedCurrent.OffsetButton.Three.Offset)) != 0;
+                }
+                if (controller.SupportedCurrent.OffsetButton.Four != null)
+                {
+                    controller.InputCurrent.ButtonPressStatus[204] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Four.Group] & (1 << controller.SupportedCurrent.OffsetButton.Four.Offset)) != 0;
+                }
+                if (controller.SupportedCurrent.OffsetButton.Five != null)
+                {
+                    controller.InputCurrent.ButtonPressStatus[205] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Five.Group] & (1 << controller.SupportedCurrent.OffsetButton.Five.Offset)) != 0;
+                }
+                if (controller.SupportedCurrent.OffsetButton.Six != null)
+                {
+                    controller.InputCurrent.ButtonPressStatus[206] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Six.Group] & (1 << controller.SupportedCurrent.OffsetButton.Six.Offset)) != 0;
                 }
 
                 return true;

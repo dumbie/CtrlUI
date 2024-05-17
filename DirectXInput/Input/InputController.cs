@@ -81,19 +81,19 @@ namespace DirectXInput
                     controller.InputCurrent.ButtonBack.PressedRaw = false;
                     controller.InputCurrent.ButtonGuide.PressedRaw = true;
                 }
-                else if (controller.Details.Profile.FakeMediaButton && controller.InputCurrent.ButtonShoulderLeft.PressedRaw && controller.InputCurrent.ButtonBack.PressedRaw)
+                else if (controller.Details.Profile.FakeOneButton && controller.InputCurrent.ButtonShoulderLeft.PressedRaw && controller.InputCurrent.ButtonBack.PressedRaw)
                 {
                     controller.InputCurrent.ButtonShoulderLeft.PressedRaw = false;
                     controller.InputCurrent.ButtonBack.PressedRaw = false;
-                    controller.InputCurrent.ButtonMedia.PressedRaw = true;
+                    controller.InputCurrent.ButtonTwo.PressedRaw = true;
                 }
 
                 //Fake Touchpad button press with RB and Back
-                if (controller.Details.Profile.FakeTouchpadButton && controller.InputCurrent.ButtonShoulderRight.PressedRaw && controller.InputCurrent.ButtonBack.PressedRaw)
+                if (controller.Details.Profile.FakeTwoButton && controller.InputCurrent.ButtonShoulderRight.PressedRaw && controller.InputCurrent.ButtonBack.PressedRaw)
                 {
                     controller.InputCurrent.ButtonShoulderRight.PressedRaw = false;
                     controller.InputCurrent.ButtonBack.PressedRaw = false;
-                    controller.InputCurrent.ButtonTouchpad.PressedRaw = true;
+                    controller.InputCurrent.ButtonOne.PressedRaw = true;
                 }
 
                 //Check if alt tab is active and buttons need to be blocked

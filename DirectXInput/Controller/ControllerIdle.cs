@@ -68,7 +68,7 @@ namespace DirectXInput
                     return false;
                 }
 
-                if (controllerStatus.InputCurrent.ButtonTouchpad.PressedRaw || controllerStatus.InputCurrent.ButtonMedia.PressedRaw)
+                if (controllerStatus.InputCurrent.ButtonOne.PressedRaw || controllerStatus.InputCurrent.ButtonTwo.PressedRaw || controllerStatus.InputCurrent.ButtonThree.PressedRaw || controllerStatus.InputCurrent.ButtonFour.PressedRaw || controllerStatus.InputCurrent.ButtonFive.PressedRaw || controllerStatus.InputCurrent.ButtonSix.PressedRaw)
                 {
                     return false;
                 }

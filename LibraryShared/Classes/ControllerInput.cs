@@ -47,8 +47,12 @@ namespace LibraryShared
             public ControllerButtonDetails ButtonBack = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonStart = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonGuide = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonTouchpad = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonMedia = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonOne = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonTwo = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonThree = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonFour = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonFive = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonSix = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonShoulderLeft = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonShoulderRight = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonThumbLeft = new ControllerButtonDetails();
