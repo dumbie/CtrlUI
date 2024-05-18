@@ -53,8 +53,8 @@
                 public ClassButtonDetails TriggerRight { get; set; }
                 public ClassButtonDetails ThumbLeft { get; set; }
                 public ClassButtonDetails ThumbRight { get; set; }
-                public ClassButtonDetails Start { get; set; }
                 public ClassButtonDetails Back { get; set; }
+                public ClassButtonDetails Start { get; set; }
                 public ClassButtonDetails Guide { get; set; }
                 public ClassButtonDetails One { get; set; }
                 public ClassButtonDetails Two { get; set; }

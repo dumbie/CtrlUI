@@ -377,6 +377,7 @@ namespace DirectXInput
                     {
                         try
                         {
+                            //Fix might lock code because no timeout
                             controller.HidDevice.GetFeature(0x02);
                             controller.HidDevice.GetFeature(0x05);
                         }

@@ -67,6 +67,7 @@ namespace LibraryShared
             public UdpEndPointDetails GyroDsuClientEndPoint = null;
 
             //Input and Output data
+            public bool ControllerDataRead = false;
             public byte[] ControllerDataInput = null;
             public byte[] ControllerDataOutput = null;
             public byte[] VirtualDataInput = new byte[(int)ScpVBusDevice.ByteArraySizes.Input];
@@ -137,6 +138,7 @@ namespace LibraryShared
                     GyroDsuClientEndPoint = null;
 
                     //Device In and Output
+                    ControllerDataRead = false;
                     ControllerDataInput = null;
                     ControllerDataOutput = null;
                     VirtualDataInput = new byte[(int)ScpVBusDevice.ByteArraySizes.Input];

@@ -43,6 +43,9 @@ namespace DirectXInput
                     return;
                 }
 
+                //Update read status
+                controller.ControllerDataRead = true;
+
                 //Update Thumbsticks
                 InputUpdateThumbsticks(controller);
 

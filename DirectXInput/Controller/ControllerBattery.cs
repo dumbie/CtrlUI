@@ -24,6 +24,14 @@ namespace DirectXInput
                     return;
                 }
 
+                //Check if controller has data
+                if (!Controller.ControllerDataRead)
+                {
+                    Debug.WriteLine("Controller has no data skipping battery level check: " + Controller.NumberId);
+                    Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Unknown;
+                    return;
+                }
+
                 //Check which controller is connected
                 if (!Controller.Details.Wireless)
                 {

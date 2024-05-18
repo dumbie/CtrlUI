@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -25,17 +26,15 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected() && Controller.ControllerDataInput != null && Controller.TicksInputLast != 0 && Controller.TicksInputPrev != 0)
+                //Check if controller is connected and has data
+                if (Controller.Connected() && !Controller.TimeoutIgnore && Controller.ControllerDataInput != null && Controller.TicksInputLast != 0 && Controller.TicksInputPrev != 0)
                 {
-                    if (!Controller.TimeoutIgnore)
+                    long lastMs = GetSystemTicksMs() - Controller.TicksInputLast;
+                    if (lastMs > Controller.TicksTargetTimeout)
                     {
-                        long lastMs = GetSystemTicksMs() - Controller.TicksInputLast;
-                        //Debug.WriteLine("Controller " + Controller.NumberId + " time out check: " + lastMs + "/" + Controller.TicksTargetTimeout + "ms.");
-                        if (lastMs > Controller.TicksTargetTimeout)
-                        {
-                            await StopController(Controller, "timeout", "Disconnected timed out controller " + Controller.NumberId);
-                            return true;
-                        }
+                        Debug.WriteLine("Controller " + Controller.NumberId + " has timed out: " + lastMs + "/" + Controller.TicksTargetTimeout + "ms.");
+                        await StopController(Controller, "timeout", "Disconnected timed out controller " + Controller.NumberId);
+                        return true;
                     }
                 }
             }
