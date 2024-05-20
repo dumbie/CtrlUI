@@ -24,10 +24,10 @@ namespace DirectXInput
                     return;
                 }
 
-                //Check if controller has data
+                //Check if controller has read data
                 if (!Controller.ControllerDataRead)
                 {
-                    Debug.WriteLine("Controller has no data skipping battery level check: " + Controller.NumberId);
+                    //Debug.WriteLine("Controller has no data skipping battery level check: " + Controller.NumberId);
                     Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Unknown;
                     return;
                 }

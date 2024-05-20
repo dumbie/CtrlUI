@@ -49,16 +49,8 @@ namespace DirectXInput
                 controller.VirtualDataInput[21] = TranslateByte_0xFF(8, controller.InputCurrent.ThumbRightY);
 
                 //Triggers
-                if (!controller.Details.Profile.UseButtonTriggers)
-                {
-                    controller.VirtualDataInput[12] = controller.InputCurrent.TriggerLeft;
-                    controller.VirtualDataInput[13] = controller.InputCurrent.TriggerRight;
-                }
-                else
-                {
-                    if (controller.InputCurrent.ButtonTriggerLeft.PressedRaw) { controller.VirtualDataInput[12] = 255; }
-                    if (controller.InputCurrent.ButtonTriggerRight.PressedRaw) { controller.VirtualDataInput[13] = 255; }
-                }
+                controller.VirtualDataInput[12] = controller.InputCurrent.TriggerLeft;
+                controller.VirtualDataInput[13] = controller.InputCurrent.TriggerRight;
 
                 //DPad
                 if (controller.InputCurrent.DPadLeft.PressedRaw) { controller.VirtualDataInput[10] |= (1 << 2); }

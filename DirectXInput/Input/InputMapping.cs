@@ -17,63 +17,63 @@ namespace DirectXInput
             try
             {
                 //Buttons (A, B, X, Y)
-                if (controller.Details.Profile.ButtonA == null) { controller.InputCurrent.ButtonA.PressedRaw = controller.InputCurrent.ButtonPressStatus[0]; }
+                if (controller.Details.Profile.ButtonA == null) { controller.InputCurrent.ButtonA.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.A]; }
                 else if (controller.Details.Profile.ButtonA != -1) { controller.InputCurrent.ButtonA.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonA.Value]; }
 
-                if (controller.Details.Profile.ButtonB == null) { controller.InputCurrent.ButtonB.PressedRaw = controller.InputCurrent.ButtonPressStatus[1]; }
+                if (controller.Details.Profile.ButtonB == null) { controller.InputCurrent.ButtonB.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.B]; }
                 else if (controller.Details.Profile.ButtonB != -1) { controller.InputCurrent.ButtonB.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonB.Value]; }
 
-                if (controller.Details.Profile.ButtonX == null) { controller.InputCurrent.ButtonX.PressedRaw = controller.InputCurrent.ButtonPressStatus[2]; }
+                if (controller.Details.Profile.ButtonX == null) { controller.InputCurrent.ButtonX.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.X]; }
                 else if (controller.Details.Profile.ButtonX != -1) { controller.InputCurrent.ButtonX.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonX.Value]; }
 
-                if (controller.Details.Profile.ButtonY == null) { controller.InputCurrent.ButtonY.PressedRaw = controller.InputCurrent.ButtonPressStatus[3]; }
+                if (controller.Details.Profile.ButtonY == null) { controller.InputCurrent.ButtonY.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Y]; }
                 else if (controller.Details.Profile.ButtonY != -1) { controller.InputCurrent.ButtonY.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonY.Value]; }
 
                 //Buttons (Shoulders, Triggers, Thumbs, Back, Start)
-                if (controller.Details.Profile.ButtonShoulderLeft == null) { controller.InputCurrent.ButtonShoulderLeft.PressedRaw = controller.InputCurrent.ButtonPressStatus[100]; }
+                if (controller.Details.Profile.ButtonShoulderLeft == null) { controller.InputCurrent.ButtonShoulderLeft.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.ShoulderLeft]; }
                 else if (controller.Details.Profile.ButtonShoulderLeft != -1) { controller.InputCurrent.ButtonShoulderLeft.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonShoulderLeft.Value]; }
 
-                if (controller.Details.Profile.ButtonShoulderRight == null) { controller.InputCurrent.ButtonShoulderRight.PressedRaw = controller.InputCurrent.ButtonPressStatus[101]; }
+                if (controller.Details.Profile.ButtonShoulderRight == null) { controller.InputCurrent.ButtonShoulderRight.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.ShoulderRight]; }
                 else if (controller.Details.Profile.ButtonShoulderRight != -1) { controller.InputCurrent.ButtonShoulderRight.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonShoulderRight.Value]; }
 
-                if (controller.Details.Profile.ButtonTriggerLeft == null) { controller.InputCurrent.ButtonTriggerLeft.PressedRaw = controller.InputCurrent.ButtonPressStatus[102]; }
+                if (controller.Details.Profile.ButtonTriggerLeft == null) { controller.InputCurrent.ButtonTriggerLeft.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.TriggerLeft]; }
                 else if (controller.Details.Profile.ButtonTriggerLeft != -1) { controller.InputCurrent.ButtonTriggerLeft.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonTriggerLeft.Value]; }
 
-                if (controller.Details.Profile.ButtonTriggerRight == null) { controller.InputCurrent.ButtonTriggerRight.PressedRaw = controller.InputCurrent.ButtonPressStatus[103]; }
+                if (controller.Details.Profile.ButtonTriggerRight == null) { controller.InputCurrent.ButtonTriggerRight.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.TriggerRight]; }
                 else if (controller.Details.Profile.ButtonTriggerRight != -1) { controller.InputCurrent.ButtonTriggerRight.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonTriggerRight.Value]; }
 
-                if (controller.Details.Profile.ButtonThumbLeft == null) { controller.InputCurrent.ButtonThumbLeft.PressedRaw = controller.InputCurrent.ButtonPressStatus[104]; }
+                if (controller.Details.Profile.ButtonThumbLeft == null) { controller.InputCurrent.ButtonThumbLeft.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.ThumbLeft]; }
                 else if (controller.Details.Profile.ButtonThumbLeft != -1) { controller.InputCurrent.ButtonThumbLeft.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonThumbLeft.Value]; }
 
-                if (controller.Details.Profile.ButtonThumbRight == null) { controller.InputCurrent.ButtonThumbRight.PressedRaw = controller.InputCurrent.ButtonPressStatus[105]; }
+                if (controller.Details.Profile.ButtonThumbRight == null) { controller.InputCurrent.ButtonThumbRight.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.ThumbRight]; }
                 else if (controller.Details.Profile.ButtonThumbRight != -1) { controller.InputCurrent.ButtonThumbRight.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonThumbRight.Value]; }
 
-                if (controller.Details.Profile.ButtonBack == null) { controller.InputCurrent.ButtonBack.PressedRaw = controller.InputCurrent.ButtonPressStatus[106]; }
+                if (controller.Details.Profile.ButtonBack == null) { controller.InputCurrent.ButtonBack.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Back]; }
                 else if (controller.Details.Profile.ButtonBack != -1) { controller.InputCurrent.ButtonBack.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonBack.Value]; }
 
-                if (controller.Details.Profile.ButtonStart == null) { controller.InputCurrent.ButtonStart.PressedRaw = controller.InputCurrent.ButtonPressStatus[107]; }
+                if (controller.Details.Profile.ButtonStart == null) { controller.InputCurrent.ButtonStart.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Start]; }
                 else if (controller.Details.Profile.ButtonStart != -1) { controller.InputCurrent.ButtonStart.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonStart.Value]; }
 
                 //Buttons (Guide and others)
-                if (controller.Details.Profile.ButtonGuide == null) { controller.InputCurrent.ButtonGuide.PressedRaw = controller.InputCurrent.ButtonPressStatus[200]; }
+                if (controller.Details.Profile.ButtonGuide == null) { controller.InputCurrent.ButtonGuide.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Guide]; }
                 else if (controller.Details.Profile.ButtonGuide != -1) { controller.InputCurrent.ButtonGuide.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonGuide.Value]; }
 
-                if (controller.Details.Profile.ButtonOne == null) { controller.InputCurrent.ButtonOne.PressedRaw = controller.InputCurrent.ButtonPressStatus[201]; }
+                if (controller.Details.Profile.ButtonOne == null) { controller.InputCurrent.ButtonOne.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.One]; }
                 else if (controller.Details.Profile.ButtonOne != -1) { controller.InputCurrent.ButtonOne.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonOne.Value]; }
 
-                if (controller.Details.Profile.ButtonTwo == null) { controller.InputCurrent.ButtonTwo.PressedRaw = controller.InputCurrent.ButtonPressStatus[202]; }
+                if (controller.Details.Profile.ButtonTwo == null) { controller.InputCurrent.ButtonTwo.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Two]; }
                 else if (controller.Details.Profile.ButtonTwo != -1) { controller.InputCurrent.ButtonTwo.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonTwo.Value]; }
 
-                if (controller.Details.Profile.ButtonThree == null) { controller.InputCurrent.ButtonThree.PressedRaw = controller.InputCurrent.ButtonPressStatus[203]; }
+                if (controller.Details.Profile.ButtonThree == null) { controller.InputCurrent.ButtonThree.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Three]; }
                 else if (controller.Details.Profile.ButtonThree != -1) { controller.InputCurrent.ButtonThree.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonThree.Value]; }
 
-                if (controller.Details.Profile.ButtonFour == null) { controller.InputCurrent.ButtonFour.PressedRaw = controller.InputCurrent.ButtonPressStatus[204]; }
+                if (controller.Details.Profile.ButtonFour == null) { controller.InputCurrent.ButtonFour.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Four]; }
                 else if (controller.Details.Profile.ButtonFour != -1) { controller.InputCurrent.ButtonFour.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonFour.Value]; }
 
-                if (controller.Details.Profile.ButtonFive == null) { controller.InputCurrent.ButtonFive.PressedRaw = controller.InputCurrent.ButtonPressStatus[205]; }
+                if (controller.Details.Profile.ButtonFive == null) { controller.InputCurrent.ButtonFive.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Five]; }
                 else if (controller.Details.Profile.ButtonFive != -1) { controller.InputCurrent.ButtonFive.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonFive.Value]; }
 
-                if (controller.Details.Profile.ButtonSix == null) { controller.InputCurrent.ButtonSix.PressedRaw = controller.InputCurrent.ButtonPressStatus[206]; }
+                if (controller.Details.Profile.ButtonSix == null) { controller.InputCurrent.ButtonSix.PressedRaw = controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Six]; }
                 else if (controller.Details.Profile.ButtonSix != -1) { controller.InputCurrent.ButtonSix.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonSix.Value]; }
 
                 return true;
