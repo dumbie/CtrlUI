@@ -14,26 +14,60 @@ namespace DirectXInput
                 //Set controller header offset
                 int headerOffset = controller.Details.Wireless ? controller.SupportedCurrent.OffsetWireless : controller.SupportedCurrent.OffsetWired;
 
-                //Raw left thumbs
+                //Check thumb type
                 int ThumbLeftX = 0;
                 int ThumbLeftY = 0;
-                if (controller.SupportedCurrent.OffsetHeader.ThumbLeftX != null && controller.SupportedCurrent.OffsetHeader.ThumbLeftY != null)
-                {
-                    ThumbLeftX = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbLeftX];
-                    ThumbLeftY = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbLeftY];
-                    ThumbLeftX = (ThumbLeftX * 257) - (int)32767.5;
-                    ThumbLeftY = (int)32767.5 - (ThumbLeftY * 257);
-                }
-
-                //Raw right thumbs
                 int ThumbRightX = 0;
                 int ThumbRightY = 0;
-                if (controller.SupportedCurrent.OffsetHeader.ThumbRightX != null && controller.SupportedCurrent.OffsetHeader.ThumbRightY != null)
+                if (controller.SupportedCurrent.OffsetHeader.ThumbLeftZ != null)
                 {
-                    ThumbRightX = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbRightX];
-                    ThumbRightY = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbRightY];
-                    ThumbRightX = (ThumbRightX * 257) - (int)32767.5;
-                    ThumbRightY = (int)32767.5 - (ThumbRightY * 257);
+                    //Raw left thumbs
+                    if (controller.SupportedCurrent.OffsetHeader.ThumbLeftX != null)
+                    {
+                        int readLeftX = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbLeftX];
+                        int readLeftY = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbLeftY];
+                        int readLeftZ = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbLeftZ];
+                        ThumbLeftX = readLeftX | ((readLeftY & 0x0F) << 8);
+                        ThumbLeftY = (readLeftY >> 4) | (readLeftZ << 4);
+                        ThumbLeftX -= 2048;
+                        ThumbLeftX *= 16;
+                        ThumbLeftY -= 2048;
+                        ThumbLeftY *= 16;
+                    }
+
+                    //Raw right thumbs
+                    if (controller.SupportedCurrent.OffsetHeader.ThumbRightX != null)
+                    {
+                        int readRightX = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbRightX];
+                        int readRightY = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbRightY];
+                        int readRightZ = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbRightZ];
+                        ThumbRightX = readRightX | ((readRightY & 0x0F) << 8);
+                        ThumbRightY = (readRightY >> 4) | (readRightZ << 4);
+                        ThumbRightX -= 2048;
+                        ThumbRightX *= 16;
+                        ThumbRightY -= 2048;
+                        ThumbRightY *= 16;
+                    }
+                }
+                else
+                {
+                    //Raw left thumbs
+                    if (controller.SupportedCurrent.OffsetHeader.ThumbLeftX != null)
+                    {
+                        ThumbLeftX = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbLeftX];
+                        ThumbLeftY = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbLeftY];
+                        ThumbLeftX = (ThumbLeftX * 257) - (int)32767.5;
+                        ThumbLeftY = (int)32767.5 - (ThumbLeftY * 257);
+                    }
+
+                    //Raw right thumbs
+                    if (controller.SupportedCurrent.OffsetHeader.ThumbRightX != null)
+                    {
+                        ThumbRightX = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbRightX];
+                        ThumbRightY = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.ThumbRightY];
+                        ThumbRightX = (ThumbRightX * 257) - (int)32767.5;
+                        ThumbRightY = (int)32767.5 - (ThumbRightY * 257);
+                    }
                 }
 
                 //Flip thumb movement
