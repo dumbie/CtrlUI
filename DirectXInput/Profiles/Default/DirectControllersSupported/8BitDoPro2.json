@@ -10,7 +10,8 @@
     "ThumbRightX": 3,
     "ThumbRightY": 4,
     "TriggerLeft": 6,
-    "TriggerRight": 5
+    "TriggerRight": 5,
+    "BatteryLevel": 9
   },
   "OffsetButton": {
     "A": {
@@ -80,6 +81,14 @@
     "Guide": {
       "Group": 8,
       "Offset": 4
+    },
+    "One": {
+      "Group": 7,
+      "Offset": 5
+    },
+    "Two": {
+      "Group": 7,
+      "Offset": 2
     }
   }
 }

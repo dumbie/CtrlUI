@@ -1,0 +1,93 @@
+{
+  "CodeName": "NintendoSwitchPro",
+  "ProductIDs": [ "0x2009" ],
+  "VendorID": "0x057e",
+  "HasDirectDPad": true,
+  "OffsetWired": 1,
+  "OffsetWireless": 1,
+  "OffsetHeader": {
+    "ThumbLeftX": 5,
+    "ThumbLeftY": 6,
+    "ThumbLeftZ": 7,
+    "ThumbRightX": 8,
+    "ThumbRightY": 9,
+    "ThumbRightZ": 10,
+    "TriggerLeft": 54,
+    "TriggerRight": 58,
+    "BatteryLevel": 1
+  },
+  "OffsetButton": {
+    "A": {
+      "Group": 2,
+      "Offset": 2
+    },
+    "B": {
+      "Group": 2,
+      "Offset": 3
+    },
+    "X": {
+      "Group": 2,
+      "Offset": 0
+    },
+    "Y": {
+      "Group": 2,
+      "Offset": 1
+    },
+    "DPadLeft": {
+      "Group": 4,
+      "Offset": 3
+    },
+    "DPadRight": {
+      "Group": 4,
+      "Offset": 2
+    },
+    "DPadUp": {
+      "Group": 4,
+      "Offset": 1
+    },
+    "DPadDown": {
+      "Group": 4,
+      "Offset": 0
+    },
+    "ShoulderLeft": {
+      "Group": 4,
+      "Offset": 6
+    },
+    "ShoulderRight": {
+      "Group": 2,
+      "Offset": 6
+    },
+    "TriggerLeft": {
+      "Group": 4,
+      "Offset": 7
+    },
+    "TriggerRight": {
+      "Group": 2,
+      "Offset": 7
+    },
+    "ThumbLeft": {
+      "Group": 3,
+      "Offset": 3
+    },
+    "ThumbRight": {
+      "Group": 3,
+      "Offset": 2
+    },
+    "Start": {
+      "Group": 3,
+      "Offset": 1
+    },
+    "Back": {
+      "Group": 3,
+      "Offset": 0
+    },
+    "Guide": {
+      "Group": 3,
+      "Offset": 4
+    },
+    "One": {
+      "Group": 3,
+      "Offset": 5
+    }
+  }
+}
