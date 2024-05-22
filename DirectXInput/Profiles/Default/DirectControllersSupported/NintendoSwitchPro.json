@@ -14,6 +14,8 @@
     "ThumbRightZ": 10,
     "TriggerLeft": 54,
     "TriggerRight": 58,
+    "Gyroscope": 18,
+    "Accelerometer": 12,
     "BatteryLevel": 1
   },
   "OffsetButton": {

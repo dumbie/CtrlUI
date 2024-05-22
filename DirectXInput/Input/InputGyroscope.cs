@@ -22,13 +22,24 @@ namespace DirectXInput
                     byte gyroByte4 = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 4];
                     byte gyroByte5 = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 5];
 
-                    short gyroPitch = (short)((ushort)(gyroByte1 << 8) | gyroByte0);
-                    short gyroYaw = (short)((ushort)(gyroByte3 << 8) | gyroByte2);
-                    short gyroRoll = (short)((ushort)(gyroByte5 << 8) | gyroByte4);
+                    short gyroGroup1 = (short)((ushort)(gyroByte1 << 8) | gyroByte0);
+                    short gyroGroup2 = (short)((ushort)(gyroByte3 << 8) | gyroByte2);
+                    short gyroGroup3 = (short)((ushort)(gyroByte5 << 8) | gyroByte4);
 
-                    controller.InputCurrent.GyroPitch = gyroPitch / (float)16;
-                    controller.InputCurrent.GyroYaw = -gyroYaw / (float)16;
-                    controller.InputCurrent.GyroRoll = -gyroRoll / (float)16;
+                    if (controller.SupportedCurrent.CodeName == "NintendoSwitchPro")
+                    {
+                        controller.InputCurrent.GyroPitch = -gyroGroup2 / (float)16;
+                        controller.InputCurrent.GyroYaw = -gyroGroup3 / (float)16;
+                        controller.InputCurrent.GyroRoll = gyroGroup1 / (float)16;
+                    }
+                    else
+                    {
+                        controller.InputCurrent.GyroPitch = gyroGroup1 / (float)16;
+                        controller.InputCurrent.GyroYaw = -gyroGroup2 / (float)16;
+                        controller.InputCurrent.GyroRoll = -gyroGroup3 / (float)16;
+                    }
+
+                    //Debug.WriteLine("Gyroscope Pitch" + controller.InputCurrent.GyroPitch + " Yaw" + controller.InputCurrent.GyroYaw + " Roll" + controller.InputCurrent.GyroRoll);
                 }
 
                 return true;

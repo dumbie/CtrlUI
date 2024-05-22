@@ -22,13 +22,24 @@ namespace DirectXInput
                     byte accelByte4 = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 4];
                     byte accelByte5 = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 5];
 
-                    short accelX = (short)((ushort)(accelByte1 << 8) | accelByte0);
-                    short accelY = (short)((ushort)(accelByte3 << 8) | accelByte2);
-                    short accelZ = (short)((ushort)(accelByte5 << 8) | accelByte4);
+                    short accelGroup1 = (short)((ushort)(accelByte1 << 8) | accelByte0);
+                    short accelGroup2 = (short)((ushort)(accelByte3 << 8) | accelByte2);
+                    short accelGroup3 = (short)((ushort)(accelByte5 << 8) | accelByte4);
 
-                    controller.InputCurrent.AccelX = -accelX / (float)8192;
-                    controller.InputCurrent.AccelY = -accelY / (float)8192;
-                    controller.InputCurrent.AccelZ = -accelZ / (float)8192;
+                    if (controller.SupportedCurrent.CodeName == "NintendoSwitchPro")
+                    {
+                        controller.InputCurrent.AccelX = -accelGroup2 / (float)8192;
+                        controller.InputCurrent.AccelY = -accelGroup3 / (float)8192;
+                        controller.InputCurrent.AccelZ = -accelGroup1 / (float)8192;
+                    }
+                    else
+                    {
+                        controller.InputCurrent.AccelX = -accelGroup1 / (float)8192;
+                        controller.InputCurrent.AccelY = -accelGroup2 / (float)8192;
+                        controller.InputCurrent.AccelZ = -accelGroup3 / (float)8192;
+                    }
+
+                    //Debug.WriteLine("Accelerometer X" + controller.InputCurrent.AccelX + " Y" + controller.InputCurrent.AccelY + " Z" + controller.InputCurrent.AccelZ);
                 }
 
                 return true;
