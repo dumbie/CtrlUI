@@ -36,11 +36,11 @@ namespace DirectXInput
 
                     triggerRumbleLeft = Convert.ToByte(Math.Max(controllerRumbleLight, controllerRumbleHeavy) * triggerRumbleStrengthLeft);
                     if (triggerRumbleLeft > triggerRumbleLimit) { triggerRumbleLeft = triggerRumbleLimit; }
-                    Debug.WriteLine("Trigger rumble left: " + triggerRumbleLeft + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
+                    Debug.WriteLine("Trigger rumble Left: " + triggerRumbleLeft + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
 
                     triggerRumbleRight = Convert.ToByte(Math.Max(controllerRumbleLight, controllerRumbleHeavy) * triggerRumbleStrengthRight);
                     if (triggerRumbleRight > triggerRumbleLimit) { triggerRumbleRight = triggerRumbleLimit; }
-                    Debug.WriteLine("Trigger rumble right: " + triggerRumbleRight + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
+                    Debug.WriteLine("Trigger rumble Right: " + triggerRumbleRight + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
                 }
 
                 //Adjust the controller rumble strength
@@ -51,11 +51,9 @@ namespace DirectXInput
 
                     controllerRumbleHeavy = Convert.ToByte(controllerRumbleHeavy * controllerRumbleStrength);
                     if (controllerRumbleHeavy > controllerRumbleLimit) { controllerRumbleHeavy = controllerRumbleLimit; }
-                    Debug.WriteLine("Controller rumble Heavy: " + controllerRumbleHeavy + " / Limit: " + controllerRumbleLimit);
 
                     controllerRumbleLight = Convert.ToByte(controllerRumbleLight * controllerRumbleStrength);
                     if (controllerRumbleLight > controllerRumbleLimit) { controllerRumbleLight = controllerRumbleLimit; }
-                    Debug.WriteLine("Controller rumble Light: " + controllerRumbleLight + " / Limit: " + controllerRumbleLimit);
 
                     if (Controller.Details.Profile.ControllerRumbleMode == 1)
                     {
@@ -74,7 +72,7 @@ namespace DirectXInput
                         controllerRumbleMode = 0x04; //60%
                     }
 
-                    Debug.WriteLine("Controller rumble Mode: " + controllerRumbleMode);
+                    Debug.WriteLine("Controller rumble Light: " + controllerRumbleLight + " / Heavy: " + controllerRumbleHeavy + " / Limit: " + controllerRumbleLimit + " / Mode: " + controllerRumbleMode);
                 }
                 else
                 {
@@ -296,13 +294,38 @@ namespace DirectXInput
                     bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(outputReport);
                     Debug.WriteLine("UsbRumb SonyPS12DualShock: " + bytesWritten);
                 }
+                else if (Controller.SupportedCurrent.CodeName == "NintendoSwitchPro")
+                {
+                    //Fix test real controller 8BitDo only supports rumble on or off in switch mode
+
+                    //Enable vibration
+                    byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
+                    outputReport[0] = 0x10;
+                    outputReport[1] = 0xFF;
+
+                    //Heavy rumble
+                    outputReport[2] = 0x74;
+                    outputReport[3] = Math.Min(controllerRumbleHeavy, (byte)200);
+                    outputReport[4] = 0x40;
+                    outputReport[5] = 0x40;
+
+                    //Light rumble
+                    outputReport[6] = 0x74;
+                    outputReport[7] = Math.Min(controllerRumbleLight, (byte)200);
+                    outputReport[8] = 0x40;
+                    outputReport[9] = 0x40;
+
+                    //Send data to the controller
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
+                    Debug.WriteLine("Rumble NintendoSwitchPro: " + bytesWritten);
+                }
                 else if (Controller.SupportedCurrent.CodeName == "8BitDoPro2" && !Controller.Details.Wireless)
                 {
                     //Wired Output - 8BitDoPro2
                     byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x05;
-                    outputReport[1] = controllerRumbleHeavy;
-                    outputReport[2] = controllerRumbleLight;
+                    outputReport[1] = (byte)(controllerRumbleHeavy / 2);
+                    outputReport[2] = (byte)(controllerRumbleLight / 2);
 
                     ////Request debug information
                     //outputReport[0] = 0x81;
@@ -320,8 +343,8 @@ namespace DirectXInput
                     //Bluetooth Output - 8BitDoPro2
                     byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0x05;
-                    outputReport[1] = controllerRumbleHeavy;
-                    outputReport[2] = controllerRumbleLight;
+                    outputReport[1] = (byte)(controllerRumbleHeavy / 2);
+                    outputReport[2] = (byte)(controllerRumbleLight / 2);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
