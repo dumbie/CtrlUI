@@ -66,7 +66,7 @@ namespace FpsOverlayer
                 //Get target overlay position
                 OverlayPosition targetOverlayPosition = GetFpsOverlayPosition(processName);
 
-                //Hide or show the crosshair overlay
+                //Hide or show crosshair overlay
                 if (vManualHiddenCrosshairOverlay || targetOverlayPosition == OverlayPosition.Hidden)
                 {
                     HideCrosshairVisibility();
@@ -77,10 +77,13 @@ namespace FpsOverlayer
                     ShowCrosshairVisibility();
                 }
 
-                //Change the crosshair position
+                //Change crosshair position
                 int crosshairVerticalPosition = SettingLoad(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", typeof(int));
                 int crosshairHorizontalPosition = SettingLoad(vConfigurationFpsOverlayer, "CrosshairHorizontalPosition", typeof(int));
-                grid_CrosshairOverlayer.Margin = new Thickness(crosshairHorizontalPosition, 0, 0, crosshairVerticalPosition);
+                AVActions.DispatcherInvoke(delegate
+                {
+                    grid_CrosshairOverlayer.Margin = new Thickness(crosshairHorizontalPosition, 0, 0, crosshairVerticalPosition);
+                });
             }
             catch { }
         }
