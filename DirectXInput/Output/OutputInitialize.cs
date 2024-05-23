@@ -38,6 +38,55 @@ namespace DirectXInput
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReportCRC32);
                     Debug.WriteLine("Initialized Bluetooth controller: SonyPS5DualSense: " + bytesWritten);
                 }
+                else if (Controller.SupportedCurrent.CodeName == "NintendoSwitchPro")
+                {
+                    bool bytesWritten = false;
+                    byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
+                    outputReport[0] = 0x01;
+                    outputReport[1] = 0xFF;
+                    outputReport[2] = 0x00;
+                    outputReport[3] = 0x01;
+                    outputReport[4] = 0x40;
+                    outputReport[5] = 0x40;
+                    outputReport[6] = 0x00;
+                    outputReport[7] = 0x01;
+                    outputReport[8] = 0x40;
+                    outputReport[9] = 0x40;
+
+                    //Set full report mode
+                    outputReport[10] = 0x03;
+                    outputReport[11] = 0x30;
+                    //Send data to the controller
+                    bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
+                    Debug.WriteLine("Initialized controller report mode: NintendoSwitchPro: " + bytesWritten);
+
+                    //Set player led position
+                    outputReport[10] = 0x30;
+                    switch (Controller.NumberId)
+                    {
+                        case 0: { outputReport[11] = 0x01; break; }
+                        case 1: { outputReport[11] = 0x02; break; }
+                        case 2: { outputReport[11] = 0x04; break; }
+                        case 3: { outputReport[11] = 0x08; break; }
+                    }
+                    //Send data to the controller
+                    bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
+                    Debug.WriteLine("Initialized controller player led: NintendoSwitchPro: " + bytesWritten);
+
+                    //Enable motion
+                    outputReport[10] = 0x40;
+                    outputReport[11] = 0x01;
+                    //Send data to the controller
+                    bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
+                    Debug.WriteLine("Initialized controller motion enable: NintendoSwitchPro: " + bytesWritten);
+
+                    //Enable rumble
+                    outputReport[10] = 0x48;
+                    outputReport[11] = 0x01;
+                    //Send data to the controller
+                    bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
+                    Debug.WriteLine("Initialized controller vibration: NintendoSwitchPro: " + bytesWritten);
+                }
             }
             catch (Exception ex)
             {
