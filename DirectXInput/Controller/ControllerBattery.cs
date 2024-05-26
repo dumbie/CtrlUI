@@ -79,6 +79,26 @@ namespace DirectXInput
                         Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Normal;
                     }
                 }
+                else if (Controller.SupportedCurrent.CodeName == "NintendoSwitchPro")
+                {
+                    //Bluetooth - NintendoSwitchPro
+                    int batteryOffset = Controller.SupportedCurrent.OffsetWireless + (int)Controller.SupportedCurrent.OffsetHeader.BatteryLevel;
+                    byte batteryReport = Controller.ControllerDataInput[batteryOffset];
+
+                    bool batteryCharging = TranslateByte_0x10(0, batteryReport) != 0;
+                    if (batteryCharging)
+                    {
+                        Controller.BatteryCurrent.BatteryPercentage = -1;
+                        Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Charging;
+                    }
+                    else
+                    {
+                        int batteryPercentage = ((batteryReport) >> 4) * 10;
+                        if (batteryPercentage > 100) { batteryPercentage = 100; }
+                        Controller.BatteryCurrent.BatteryPercentage = batteryPercentage;
+                        Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Normal;
+                    }
+                }
                 else if (Controller.SupportedCurrent.CodeName == "8BitDoPro2")
                 {
                     //Bluetooth - 8BitDoPro2
