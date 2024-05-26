@@ -45,7 +45,15 @@ namespace DirectXInput
                         {
                             profileShared.String1 = (packetId - controllerOffset).ToString();
                         }
-                        profileShared.String2 = controllerRawInput[packetId].ToString();
+
+                        if ((bool)cb_DebugShowHex.IsChecked)
+                        {
+                            profileShared.String2 = controllerRawInput[packetId].ToString("X2");
+                        }
+                        else
+                        {
+                            profileShared.String2 = controllerRawInput[packetId].ToString();
+                        }
                         vControllerDebugInput[packetId] = profileShared;
                     }
                 });
@@ -134,13 +142,23 @@ namespace DirectXInput
                         rawPackets += "\n";
                         for (int packetId = 0; packetId < activeController.ControllerDataInput.Length; packetId++)
                         {
-                            if (packetId < controllerOffset)
+                            string packetString = string.Empty;
+                            if ((bool)cb_DebugShowHex.IsChecked)
                             {
-                                rawPackets = rawPackets + "H/" + activeController.ControllerDataInput[packetId] + " ";
+                                packetString = activeController.ControllerDataInput[packetId].ToString("X2");
                             }
                             else
                             {
-                                rawPackets = rawPackets + (packetId - controllerOffset) + "/" + activeController.ControllerDataInput[packetId] + " ";
+                                packetString = activeController.ControllerDataInput[packetId].ToString();
+                            }
+
+                            if (packetId < controllerOffset)
+                            {
+                                rawPackets = rawPackets + "H/" + packetString + " ";
+                            }
+                            else
+                            {
+                                rawPackets = rawPackets + (packetId - controllerOffset) + "/" + packetString + " ";
                             }
                         }
                     }
