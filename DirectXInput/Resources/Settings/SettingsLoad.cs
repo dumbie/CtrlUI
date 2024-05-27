@@ -16,7 +16,6 @@ namespace DirectXInput
         {
             try
             {
-                cb_SettingsShortcutDisconnectBluetooth.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth", typeof(bool));
                 cb_SettingsExclusiveGuide.IsChecked = SettingLoad(vConfigurationDirectXInput, "ExclusiveGuide", typeof(bool));
 
                 //Load battery settings
@@ -52,19 +51,6 @@ namespace DirectXInput
                 SolidColorBrush ControllerColor3Brush = new BrushConverter().ConvertFrom(ControllerColor3) as SolidColorBrush;
                 colorpicker_Controller3.Background = ControllerColor3Brush;
                 vController3.Color = ControllerColor3Brush.Color;
-
-                //Load shortcut settings
-                cb_SettingsShortcutLaunchCtrlUI.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", typeof(bool));
-                cb_SettingsShortcutKeyboardPopup.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutKeyboardPopup", typeof(bool));
-                cb_SettingsShortcutAltEnter.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutAltEnter", typeof(bool));
-                cb_SettingsShortcutAltTab.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutAltTab", typeof(bool));
-                cb_SettingsShortcutCtrlAltDelete.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", typeof(bool));
-                cb_SettingsShortcutMuteOutput.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutMuteOutput", typeof(bool));
-                cb_SettingsShortcutMuteInput.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutMuteInput", typeof(bool));
-
-                //Load capture settings
-                cb_SettingsShortcutCaptureImage.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImage", typeof(bool));
-                cb_SettingsShortcutCaptureVideo.IsChecked = SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideo", typeof(bool));
 
                 //Load keyboard settings
                 cb_SettingsKeyboardCloseNoController.IsChecked = SettingLoad(vConfigurationDirectXInput, "KeyboardCloseNoController", typeof(bool));

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
 using static DirectXInput.AppVariables;
@@ -27,10 +26,15 @@ namespace DirectXInput
                 //Application update checks
                 await UpdateCheck();
 
-                //Initialize Settings
+                //Application initialize settings
                 Settings_Check();
                 await Settings_Load();
                 Settings_Save();
+
+                //Application initialize shortcuts
+                Shortcuts_Check();
+                Shortcuts_Load();
+                Shortcuts_Save();
 
                 //Change application accent color
                 string colorLightHex = SettingLoad(vConfigurationCtrlUI, "ColorAccentLight", typeof(string));
@@ -104,7 +108,7 @@ namespace DirectXInput
                 //Check settings if Screen Capture Tool launches on start
                 if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImage", typeof(bool)) || SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideo", typeof(bool)))
                 {
-                    ProcessLaunch.LaunchScreenCaptureTool(true, true);
+                    //ProcessLaunch.LaunchScreenCaptureTool(true, true);
                 }
 
                 //Load the help text
@@ -116,36 +120,11 @@ namespace DirectXInput
                 //Load combo box values
                 ComboBox_MapKeypad_Load();
 
-                //Load application close tools
-                JsonLoadFile(ref vDirectCloseTools, @"Profiles\Default\DirectCloseTools.json");
-
                 //Close running controller tools
                 CloseControllerTools();
 
-                //Load keyboard emoji and text list
-                JsonLoadFile(ref vDirectKeyboardEmojiListActivity, @"Profiles\Default\DirectKeyboardEmojiListActivity.json");
-                JsonLoadFile(ref vDirectKeyboardEmojiListNature, @"Profiles\Default\DirectKeyboardEmojiListNature.json");
-                JsonLoadFile(ref vDirectKeyboardEmojiListFood, @"Profiles\Default\DirectKeyboardEmojiListFood.json");
-                JsonLoadFile(ref vDirectKeyboardEmojiListOther, @"Profiles\Default\DirectKeyboardEmojiListOther.json");
-                JsonLoadFile(ref vDirectKeyboardEmojiListPeople, @"Profiles\Default\DirectKeyboardEmojiListPeople.json");
-                JsonLoadFile(ref vDirectKeyboardEmojiListSmiley, @"Profiles\Default\DirectKeyboardEmojiListSmiley.json");
-                JsonLoadFile(ref vDirectKeyboardEmojiListSymbol, @"Profiles\Default\DirectKeyboardEmojiListSymbol.json");
-                JsonLoadFile(ref vDirectKeyboardEmojiListTravel, @"Profiles\Default\DirectKeyboardEmojiListTravel.json");
-                JsonLoadFile(ref vDirectKeyboardTextList, @"Profiles\User\DirectKeyboardTextList.json");
-
-                //Load keypad mapping
-                JsonLoadMulti(vDirectKeypadMapping, @"Profiles\User\DirectKeypadMapping", true);
+                //Update keypad interface
                 UpdateKeypadInterface();
-
-                //Load controllers supported
-                JsonLoadMulti(vDirectControllersSupported, @"Profiles\Default\DirectControllersSupported", true);
-
-                //Load controllers profile
-                JsonLoadMulti(vDirectControllersProfile, @"Profiles\User\DirectControllersProfile", true);
-
-                //Load controllers ignored
-                JsonLoadFile(ref vDirectControllersIgnored, @"Profiles\User\DirectControllersIgnored.json");
-
                 //Bind all the lists to ListBox
                 ListBoxBindLists();
 

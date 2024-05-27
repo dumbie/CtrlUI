@@ -14,8 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Windows.Media.Control;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
 using static LibraryShared.Classes;
@@ -163,21 +165,25 @@ namespace DirectXInput
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
-        public static List<ProfileShared> vDirectCloseTools = new List<ProfileShared>();
-        public static List<ControllerSupported> vDirectControllersSupported = new List<ControllerSupported>();
-        public static List<ControllerIgnored> vDirectControllersIgnored = new List<ControllerIgnored>();
-        public static List<ProfileShared> vDirectKeyboardEmojiListActivity = new List<ProfileShared>();
-        public static List<ProfileShared> vDirectKeyboardEmojiListNature = new List<ProfileShared>();
-        public static List<ProfileShared> vDirectKeyboardEmojiListFood = new List<ProfileShared>();
-        public static List<ProfileShared> vDirectKeyboardEmojiListOther = new List<ProfileShared>();
-        public static List<ProfileShared> vDirectKeyboardEmojiListPeople = new List<ProfileShared>();
-        public static List<ProfileShared> vDirectKeyboardEmojiListSmiley = new List<ProfileShared>();
-        public static List<ProfileShared> vDirectKeyboardEmojiListSymbol = new List<ProfileShared>();
-        public static List<ProfileShared> vDirectKeyboardEmojiListTravel = new List<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vDirectKeyboardTextList = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vDirectKeyboardShortcutList = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<KeypadMapping> vDirectKeypadMapping = new ObservableCollection<KeypadMapping>();
-        public static ObservableCollection<ControllerProfile> vDirectControllersProfile = new ObservableCollection<ControllerProfile>();
+        public static List<ShortcutTriggerKeyboard> vShortcutsKeyboard = JsonLoadFile<List<ShortcutTriggerKeyboard>>(@"Profiles\User\DirectShortcutsKeyboard.json");
+        public static List<ShortcutTriggerController> vShortcutsController = JsonLoadFile<List<ShortcutTriggerController>>(@"Profiles\User\DirectShortcutsController.json");
+        public static List<ProfileShared> vDirectCloseTools = JsonLoadFile<List<ProfileShared>>(@"Profiles\Default\DirectCloseTools.json");
+        public static List<ControllerSupported> vDirectControllersSupported = JsonLoadDirectory<List<ControllerSupported>, ControllerSupported>(@"Profiles\Default\DirectControllersSupported");
+        public static List<ControllerIgnored> vDirectControllersIgnored = JsonLoadFile<List<ControllerIgnored>>(@"Profiles\User\DirectControllersIgnored.json");
+        public static ObservableCollection<ControllerProfile> vDirectControllersProfile = JsonLoadDirectory<ObservableCollection<ControllerProfile>, ControllerProfile>(@"Profiles\User\DirectControllersProfile");
         public static ObservableCollection<ProfileShared> vControllerDebugInput = new ObservableCollection<ProfileShared>(new ProfileShared[180]);
+
+        //Keyboard Lists
+        public static ObservableCollection<ProfileShared> vDirectKeyboardShortcutList = new ObservableCollection<ProfileShared>();
+        public static List<ProfileShared> vDirectKeyboardEmojiListActivity = JsonLoadFile<List<ProfileShared>>(@"Profiles\Default\DirectKeyboardEmojiListActivity.json");
+        public static List<ProfileShared> vDirectKeyboardEmojiListNature = JsonLoadFile<List<ProfileShared>>(@"Profiles\Default\DirectKeyboardEmojiListNature.json");
+        public static List<ProfileShared> vDirectKeyboardEmojiListFood = JsonLoadFile<List<ProfileShared>>(@"Profiles\Default\DirectKeyboardEmojiListFood.json");
+        public static List<ProfileShared> vDirectKeyboardEmojiListOther = JsonLoadFile<List<ProfileShared>>(@"Profiles\Default\DirectKeyboardEmojiListOther.json");
+        public static List<ProfileShared> vDirectKeyboardEmojiListPeople = JsonLoadFile<List<ProfileShared>>(@"Profiles\Default\DirectKeyboardEmojiListPeople.json");
+        public static List<ProfileShared> vDirectKeyboardEmojiListSmiley = JsonLoadFile<List<ProfileShared>>(@"Profiles\Default\DirectKeyboardEmojiListSmiley.json");
+        public static List<ProfileShared> vDirectKeyboardEmojiListSymbol = JsonLoadFile<List<ProfileShared>>(@"Profiles\Default\DirectKeyboardEmojiListSymbol.json");
+        public static List<ProfileShared> vDirectKeyboardEmojiListTravel = JsonLoadFile<List<ProfileShared>>(@"Profiles\Default\DirectKeyboardEmojiListTravel.json");
+        public static ObservableCollection<ProfileShared> vDirectKeyboardTextList = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\DirectKeyboardTextList.json");
+        public static ObservableCollection<KeypadMapping> vDirectKeypadMapping = JsonLoadDirectory<ObservableCollection<KeypadMapping>, KeypadMapping>(@"Profiles\User\DirectKeypadMapping");
     }
 }

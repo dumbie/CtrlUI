@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkCode.Styles;
 using System;
 using System.Diagnostics;
 using System.Windows.Media;
@@ -18,11 +19,6 @@ namespace DirectXInput
         {
             try
             {
-                cb_SettingsShortcutDisconnectBluetooth.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth", cb_SettingsShortcutDisconnectBluetooth.IsChecked.ToString());
-                };
-
                 cb_SettingsExclusiveGuide.Click += (sender, e) =>
                 {
                     SettingSave(vConfigurationDirectXInput, "ExclusiveGuide", cb_SettingsExclusiveGuide.IsChecked.ToString());
@@ -76,7 +72,7 @@ namespace DirectXInput
 
                 colorpicker_Controller0.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -96,7 +92,7 @@ namespace DirectXInput
 
                 colorpicker_Controller1.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -116,7 +112,7 @@ namespace DirectXInput
 
                 colorpicker_Controller2.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -136,7 +132,7 @@ namespace DirectXInput
 
                 colorpicker_Controller3.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -152,58 +148,6 @@ namespace DirectXInput
                         ControllerLedColor(vController3);
                         await NotifyCtrlUISettingChanged("ControllerColor");
                     }
-                };
-
-                //Shortcut settings
-                cb_SettingsShortcutLaunchCtrlUI.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", cb_SettingsShortcutLaunchCtrlUI.IsChecked.ToString());
-                };
-
-                cb_SettingsShortcutKeyboardPopup.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutKeyboardPopup", cb_SettingsShortcutKeyboardPopup.IsChecked.ToString());
-                    await NotifyCtrlUISettingChanged("Shortcut");
-                };
-
-                cb_SettingsShortcutAltEnter.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutAltEnter", cb_SettingsShortcutAltEnter.IsChecked.ToString());
-                    await NotifyCtrlUISettingChanged("Shortcut");
-                };
-
-                cb_SettingsShortcutCtrlAltDelete.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", cb_SettingsShortcutCtrlAltDelete.IsChecked.ToString());
-                };
-
-                cb_SettingsShortcutMuteOutput.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutMuteOutput", cb_SettingsShortcutMuteOutput.IsChecked.ToString());
-                };
-
-                cb_SettingsShortcutMuteInput.Click += (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutMuteInput", cb_SettingsShortcutMuteInput.IsChecked.ToString());
-                };
-
-                cb_SettingsShortcutAltTab.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutAltTab", cb_SettingsShortcutAltTab.IsChecked.ToString());
-                    await NotifyCtrlUISettingChanged("Shortcut");
-                };
-
-                //Capture settings
-                cb_SettingsShortcutCaptureImage.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutCaptureImage", cb_SettingsShortcutCaptureImage.IsChecked.ToString());
-                    await NotifyCtrlUISettingChanged("Shortcut");
-                };
-
-                cb_SettingsShortcutCaptureVideo.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationDirectXInput, "ShortcutCaptureVideo", cb_SettingsShortcutCaptureVideo.IsChecked.ToString());
-                    await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
                 //Keyboard settings
