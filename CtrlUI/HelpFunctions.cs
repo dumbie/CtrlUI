@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using static ArnoldVinkCode.AVFunctions;
@@ -14,10 +15,6 @@ namespace CtrlUI
         {
             try
             {
-                //Check if tools are running
-                bool processDirectXInputRunning = vProcessDirectXInput != null;
-                //Debug.WriteLine("DirectXInput running: " + processDirectXInputRunning);
-
                 AVActions.DispatcherInvoke(delegate
                 {
                     //Check if there is any controller connected
@@ -82,7 +79,7 @@ namespace CtrlUI
                         gif_FilePicker_Loading.Width = 75;
                     }
 
-                    //Check if the help setting is enabled or disabled
+                    //Check if help setting is enabled or disabled
                     if (SettingLoad(vConfigurationCtrlUI, "HideControllerHelp", typeof(bool)))
                     {
                         grid_ControllerHelp.Visibility = Visibility.Collapsed;
@@ -92,50 +89,8 @@ namespace CtrlUI
                         grid_ControllerHelp.Visibility = Visibility.Visible;
                     }
 
-                    //Check DirectXInput settings
-                    bool ShortcutKeyboardPopup = SettingLoad(vConfigurationDirectXInput, "ShortcutKeyboardPopup", typeof(bool));
-                    if (processDirectXInputRunning && ShortcutKeyboardPopup)
-                    {
-                        sp_ControllerHelpGuideHold.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        sp_ControllerHelpGuideHold.Visibility = Visibility.Collapsed;
-                    }
-
-                    bool ShortcutCaptureImage = SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImage", typeof(bool));
-                    bool ShortcutCaptureVideo = SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideo", typeof(bool));
-                    if (ShortcutCaptureImage || ShortcutCaptureVideo)
-                    {
-                        sp_ControllerHelpScreenshot.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        sp_ControllerHelpScreenshot.Visibility = Visibility.Collapsed;
-                    }
-
-                    bool ShortcutAltEnter = SettingLoad(vConfigurationDirectXInput, "ShortcutAltEnter", typeof(bool));
-                    if (processDirectXInputRunning && ShortcutAltEnter)
-                    {
-                        sp_ControllerHelpAltEnter.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        sp_ControllerHelpAltEnter.Visibility = Visibility.Collapsed;
-                    }
-
-                    bool ShortcutAltTab = SettingLoad(vConfigurationDirectXInput, "ShortcutAltTab", typeof(bool));
-                    if (processDirectXInputRunning && ShortcutAltTab)
-                    {
-                        sp_ControllerHelpAltTab.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        sp_ControllerHelpAltTab.Visibility = Visibility.Collapsed;
-                    }
-
                     //Update controller help text
-                    UpdateControllerHelpText("Quick launch", "Sort", string.Empty, "Interact", "Hide", "Search", "Menu", string.Empty, string.Empty);
+                    UpdateControllerHelpText("Quick launch", "Sort", string.Empty, "Interact", string.Empty, "Search", "Menu", string.Empty, string.Empty);
                 });
             }
             catch { }
