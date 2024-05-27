@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSearch;
 using static ArnoldVinkCode.AVSettings;
@@ -208,10 +209,6 @@ namespace CtrlUI
         //Sockets Variables
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
-        //Json Lists
-        public static List<ApiIGDBGenres> vApiIGDBGenres = new List<ApiIGDBGenres>();
-        public static List<ApiIGDBPlatforms> vApiIGDBPlatforms = new List<ApiIGDBPlatforms>();
-
         //Load Status
         public static bool vListLoadedApplications = false;
         public static bool vListLoadedLaunchers = false;
@@ -222,16 +219,20 @@ namespace CtrlUI
             return vListLoadedApplications && vListLoadedLaunchers && vListLoadedShortcuts && vListLoadedProcesses;
         }
 
+        //Json Lists
+        public static List<ApiIGDBGenres> vApiIGDBGenres = JsonLoadFile<List<ApiIGDBGenres>>(@"Resources\ApiIGDB\Genres.json");
+        public static List<ApiIGDBPlatforms> vApiIGDBPlatforms = JsonLoadFile<List<ApiIGDBPlatforms>>(@"Resources\ApiIGDB\Platforms.json");
+
         //Application Lists
-        public static ObservableCollection<ProfileShared> vCtrlIgnoreProcessName = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vCtrlIgnoreLauncherName = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutName = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vCtrlKeyboardExtensionName = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vCtrlKeyboardProcessName = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vCtrlChromiumBrowsers = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vCtrlCloseLaunchers = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vCtrlLocationsFile = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vCtrlLocationsShortcut = new ObservableCollection<ProfileShared>();
+        public static ObservableCollection<ProfileShared> vCtrlIgnoreProcessName = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\Default\CtrlIgnoreProcessName.json");
+        public static ObservableCollection<ProfileShared> vCtrlIgnoreLauncherName = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\CtrlIgnoreLauncherName.json");
+        public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutName = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\CtrlIgnoreShortcutName.json");
+        public static ObservableCollection<ProfileShared> vCtrlKeyboardExtensionName = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\CtrlKeyboardExtensionName.json");
+        public static ObservableCollection<ProfileShared> vCtrlKeyboardProcessName = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\CtrlKeyboardProcessName.json");
+        public static ObservableCollection<ProfileShared> vCtrlChromiumBrowsers = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\Default\CtrlChromiumBrowsers.json");
+        public static ObservableCollection<ProfileShared> vCtrlCloseLaunchers = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\Default\CtrlCloseLaunchers.json");
+        public static ObservableCollection<ProfileShared> vCtrlLocationsFile = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\CtrlLocationsFile.json");
+        public static ObservableCollection<ProfileShared> vCtrlLocationsShortcut = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\CtrlLocationsShortcut.json");
         public static ObservableCollection<DataBindApp> List_Games = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Launchers = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Apps = new ObservableCollection<DataBindApp>();

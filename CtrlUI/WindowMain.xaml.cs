@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
 using static CtrlUI.AppVariables;
@@ -116,23 +115,6 @@ namespace CtrlUI
 
                 //Load Json stored apps
                 await JsonLoadList_Applications();
-
-                //Load Json default profiles
-                JsonLoadFile(ref vCtrlChromiumBrowsers, @"Profiles\Default\CtrlChromiumBrowsers.json");
-                JsonLoadFile(ref vCtrlCloseLaunchers, @"Profiles\Default\CtrlCloseLaunchers.json");
-                JsonLoadFile(ref vCtrlIgnoreProcessName, @"Profiles\Default\CtrlIgnoreProcessName.json");
-
-                //Load Json user profiles
-                JsonLoadFile(ref vCtrlIgnoreLauncherName, @"Profiles\User\CtrlIgnoreLauncherName.json");
-                JsonLoadFile(ref vCtrlIgnoreShortcutName, @"Profiles\User\CtrlIgnoreShortcutName.json");
-                JsonLoadFile(ref vCtrlKeyboardExtensionName, @"Profiles\User\CtrlKeyboardExtensionName.json");
-                JsonLoadFile(ref vCtrlKeyboardProcessName, @"Profiles\User\CtrlKeyboardProcessName.json");
-                JsonLoadFile(ref vCtrlLocationsFile, @"Profiles\User\CtrlLocationsFile.json");
-                JsonLoadFile(ref vCtrlLocationsShortcut, @"Profiles\User\CtrlLocationsShortcut.json");
-
-                //Load Json lists
-                JsonLoadFile(ref vApiIGDBGenres, @"Resources\ApiIGDB\Genres.json");
-                JsonLoadFile(ref vApiIGDBPlatforms, @"Resources\ApiIGDB\Platforms.json");
 
                 //Start the background tasks
                 TasksBackgroundStart();

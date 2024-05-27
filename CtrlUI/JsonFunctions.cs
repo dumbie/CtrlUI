@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -47,23 +48,15 @@ namespace CtrlUI
         }
 
         //Save to Json file (Serialize)
-        void JsonSaveApplications()
+        void JsonSaveList_Applications()
         {
             try
             {
-                //Combine apps
+                //Combine applications
                 var JsonFilterList = CombineAppLists(true, true, true, false, false, false).Select(x => new { x.Number, x.Category, x.Type, x.Name, x.AppUserModelId, x.NameExe, x.PathExe, x.PathLaunch, x.PathRoms, x.Argument, x.QuickLaunch, x.LaunchAsAdmin, x.LaunchFilePicker, x.LaunchSkipRom, x.LaunchKeyboard, x.LaunchEnableDisplayHDR, x.LaunchEnableAutoHDR, x.LastLaunch, x.RunningTime, x.EmulatorName, x.EmulatorCategory });
 
-                //Json settings
-                JsonSerializerSettings jsonSettings = new JsonSerializerSettings();
-                jsonSettings.NullValueHandling = NullValueHandling.Ignore;
-
-                //Json serialize
-                string serializedList = JsonConvert.SerializeObject(JsonFilterList, jsonSettings);
-
-                //Save to file
-                File.WriteAllText(@"Profiles\User\CtrlApplications.json", serializedList);
-                Debug.WriteLine("Saving Json apps completed.");
+                //Save object to json
+                JsonSaveObject(JsonFilterList, @"Profiles\User\CtrlApplications.json");
             }
             catch (Exception ex)
             {

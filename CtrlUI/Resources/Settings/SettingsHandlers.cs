@@ -181,7 +181,7 @@ namespace CtrlUI
                     await Notification_Send_Status("AppLaunch", "Quick launch app changed");
 
                     //Save changes to Json file
-                    JsonSaveApplications();
+                    JsonSaveList_Applications();
                 }
             }
             catch { }
