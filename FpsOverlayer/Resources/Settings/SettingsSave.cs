@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkCode.Styles;
 using System;
 using System.Diagnostics;
 using System.Windows.Controls;
@@ -248,7 +249,7 @@ namespace FpsOverlayer
                 //Colors
                 colorpicker_ColorSingle.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -260,7 +261,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorBackground.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -272,7 +273,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorGpu.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -284,7 +285,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorCpu.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -296,7 +297,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorMem.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -308,7 +309,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorNet.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -320,7 +321,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorApp.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -332,7 +333,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorBat.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -344,7 +345,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorTime.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -356,7 +357,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorCustomText.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -368,7 +369,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorMon.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -380,7 +381,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorFps.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -392,7 +393,7 @@ namespace FpsOverlayer
 
                 colorpicker_ColorFrametime.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
@@ -437,7 +438,7 @@ namespace FpsOverlayer
 
                 colorpicker_CrosshairColor.Click += async (sender, e) =>
                 {
-                    Color? newColor = await new AVColorPicker().Popup(null);
+                    Color? newColor = await new ColorPickerPreset().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);

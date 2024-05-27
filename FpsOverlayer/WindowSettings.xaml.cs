@@ -29,9 +29,13 @@ namespace FpsOverlayer
                 //Load available fonts
                 LoadAvailableFonts();
 
-                //Check application settings
+                //Load and save settings
                 await Settings_Load();
                 Settings_Save();
+
+                //Load and save shortcuts
+                Shortcuts_Load();
+                Shortcuts_Save();
 
                 //Bind the lists to the listbox elements
                 ListBoxBindLists();

@@ -11,7 +11,6 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static ArnoldVinkCode.Styles.MainColors;
@@ -47,6 +46,9 @@ namespace FpsOverlayer
                 //Check application settings
                 vWindowSettings.Settings_Check();
 
+                //Check application shortcuts
+                vWindowSettings.Shortcuts_Check();
+
                 //Update window display affinity
                 UpdateWindowAffinity();
 
@@ -62,10 +64,6 @@ namespace FpsOverlayer
 
                 //Update the crosshair overlay style
                 UpdateCrosshairOverlayStyle();
-
-                //Load Json profiles
-                JsonLoadFile(ref vFpsPositionProcessName, @"Profiles\User\FpsPositionProcessName.json");
-                JsonLoadFile(ref vFpsBrowserLinks, @"Profiles\User\FpsBrowserLinks.json");
 
                 //Bind all the lists to ListBox
                 ListBoxBindLists();

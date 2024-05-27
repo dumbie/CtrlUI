@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FpsOverlayer"
-        xmlns:AVHotkeyPicker="clr-namespace:ArnoldVinkHotkeyPicker;assembly=ArnoldVinkCode"
         xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=ArnoldVinkCode"
         RenderOptions.BitmapScalingMode="HighQuality"
         SnapsToDevicePixels="True"
@@ -321,16 +320,16 @@
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcut Settings"/>
 
                         <TextBlock Text="Show, hide or unpin browser by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <AVHotkeyPicker:HotkeyPicker Name="hotkey_ShowHideBrowser" HotkeyName="ShowHideBrowser"/>
+                        <styles:ShortcutKeyboard Name="keyboard_ShowHideBrowser" TriggerName="ShowHideBrowser"/>
 
                         <TextBlock Margin="0,10,0,0" Text="Show or hide crosshair by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <AVHotkeyPicker:HotkeyPicker Name="hotkey_ShowHideCrosshair" HotkeyName="ShowHideCrosshair"/>
+                        <styles:ShortcutKeyboard Name="keyboard_ShowHideCrosshair" TriggerName="ShowHideCrosshair"/>
 
                         <TextBlock Margin="0,10,0,0" Text="Show or hide fps stats by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <AVHotkeyPicker:HotkeyPicker Name="hotkey_ShowHideFpsStats" HotkeyName="ShowHideFpsStats"/>
+                        <styles:ShortcutKeyboard Name="keyboard_ShowHideFpsStats" TriggerName="ShowHideFpsStats"/>
 
                         <TextBlock Margin="0,10,0,0" Text="Change fps stats position by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <AVHotkeyPicker:HotkeyPicker Name="hotkey_PositionFpsStats" HotkeyName="PositionFpsStats"/>
+                        <styles:ShortcutKeyboard Name="keyboard_PositionFpsStats"  TriggerName="PositionFpsStats"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Fps" Visibility="Collapsed">

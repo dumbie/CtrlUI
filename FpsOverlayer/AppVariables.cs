@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVClasses;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVTaskbarInformation;
@@ -85,7 +87,8 @@ namespace FpsOverlayer
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
-        public static ObservableCollection<ProfileShared> vFpsBrowserLinks = new ObservableCollection<ProfileShared>();
-        public static ObservableCollection<ProfileShared> vFpsPositionProcessName = new ObservableCollection<ProfileShared>();
+        public static List<ShortcutTriggerKeyboard> vShortcutTriggers = JsonLoadFile<List<ShortcutTriggerKeyboard>>(@"Profiles\User\FpsShortcutsKeyboard.json");
+        public static ObservableCollection<ProfileShared> vFpsBrowserLinks = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\FpsBrowserLinks.json");
+        public static ObservableCollection<ProfileShared> vFpsPositionProcessName = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\FpsPositionProcessName.json");
     }
 }

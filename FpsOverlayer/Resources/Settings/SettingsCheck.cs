@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppVariables;
 
@@ -134,29 +133,6 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairSize")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairSize", "10"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairStyle")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairStyle", "0"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairThickness")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairThickness", "1"); }
-
-                //Check hotkey settings
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey0ShowHideBrowser")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey0ShowHideBrowser", (byte)KeysVirtual.CtrlLeft); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey1ShowHideBrowser")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey1ShowHideBrowser", (byte)KeysVirtual.F8); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey2ShowHideBrowser")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey2ShowHideBrowser", (byte)KeysVirtual.None); }
-
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey0ShowHideCrosshair")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey0ShowHideCrosshair", (byte)KeysVirtual.CtrlLeft); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey1ShowHideCrosshair")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey1ShowHideCrosshair", (byte)KeysVirtual.F9); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey2ShowHideCrosshair")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey2ShowHideCrosshair", (byte)KeysVirtual.None); }
-
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey0ShowHideFpsStats")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey0ShowHideFpsStats", (byte)KeysVirtual.CtrlLeft); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey1ShowHideFpsStats")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey1ShowHideFpsStats", (byte)KeysVirtual.F10); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey2ShowHideFpsStats")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey2ShowHideFpsStats", (byte)KeysVirtual.None); }
-
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey0PositionFpsStats")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey0PositionFpsStats", (byte)KeysVirtual.CtrlLeft); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey1PositionFpsStats")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey1PositionFpsStats", (byte)KeysVirtual.F11); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "Hotkey2PositionFpsStats")) { SettingSave(vConfigurationFpsOverlayer, "Hotkey2PositionFpsStats", (byte)KeysVirtual.None); }
-
-                //Set hotkey settings
-                hotkey_ShowHideBrowser.Configuration = vConfigurationFpsOverlayer;
-                hotkey_ShowHideCrosshair.Configuration = vConfigurationFpsOverlayer;
-                hotkey_ShowHideFpsStats.Configuration = vConfigurationFpsOverlayer;
-                hotkey_PositionFpsStats.Configuration = vConfigurationFpsOverlayer;
 
                 Debug.WriteLine("Checked the application settings.");
             }
