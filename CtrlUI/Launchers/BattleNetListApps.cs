@@ -134,7 +134,7 @@ namespace CtrlUI
                 //Improve find way to automatically load LaunchID
                 bool launchKeyboard = false;
                 string launchArgument = string.Empty;
-                BattleNetLaunchIdConvert launchIdConvert = vBattleNetLaunchIdentifiers.Where(x => x.UID == appUid).FirstOrDefault();
+                BattleNetLaunchIdConvert launchIdConvert = vBattleNetLaunchIdentifiers.FirstOrDefault(x => x.UID == appUid);
                 if (launchIdConvert != null)
                 {
                     launchArgument = "--exec=\"launch " + launchIdConvert.LaunchID + "\"";
@@ -149,7 +149,7 @@ namespace CtrlUI
                 vLauncherAppAvailableCheck.Add(launcherExePath);
 
                 //Check if application is already added
-                DataBindApp launcherExistCheck = List_Launchers.Where(x => !string.IsNullOrWhiteSpace(x.Argument) && x.Argument.ToLower() == launchArgument.ToLower()).FirstOrDefault();
+                DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.Argument) && x.Argument.ToLower() == launchArgument.ToLower());
                 if (launcherExistCheck != null)
                 {
                     //Debug.WriteLine("BattleNet app already in list: " + appUid);

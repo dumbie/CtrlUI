@@ -46,7 +46,7 @@ namespace CtrlUI
                 {
                     dataBindApp.LastLaunch = DateTime.Now.ToString(vAppCultureInfo);
                     //Debug.WriteLine("Updated last launch date: " + dataBindApp.LastLaunch);
-                    JsonSaveApplications();
+                    JsonSaveList_Applications();
                 }
             }
             catch { }

@@ -78,7 +78,7 @@ namespace CtrlUI
 
                 //Check if application is already added
                 vLauncherAppAvailableCheck.Add(appExe);
-                DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == appExe.ToLower()).FirstOrDefault();
+                DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == appExe.ToLower());
                 if (launcherExistCheck != null)
                 {
                     //Debug.WriteLine("Rockstar app already in list: " + appId);

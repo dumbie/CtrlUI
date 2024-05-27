@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -164,15 +165,8 @@ namespace CtrlUI
                     }
                 }
 
-                //Json settings
-                JsonSerializerSettings jsonSettings = new JsonSerializerSettings();
-                jsonSettings.NullValueHandling = NullValueHandling.Ignore;
-
-                //Json serialize
-                string serializedObject = JsonConvert.SerializeObject(targetPlatformVersions, jsonSettings);
-
-                //Save json information
-                File.WriteAllText(userSaveDirectory + "Platform.json", serializedObject);
+                //Save object to json
+                JsonSaveObject(targetPlatformVersions, userSaveDirectory + "Platform.json");
 
                 await Notification_Send_Status("Download", "Downloaded information");
                 Debug.WriteLine("Downloaded and saved information for: " + namePlatform);

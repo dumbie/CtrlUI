@@ -451,7 +451,7 @@ namespace CtrlUI
                 if (grid_Popup_FilePicker_button_ControllerUp.Visibility == Visibility.Visible)
                 {
                     //Read the root path
-                    DataBindFile dataBindFile = List_FilePicker.Where(x => x.FileType == FileType.GoUpPre).FirstOrDefault();
+                    DataBindFile dataBindFile = List_FilePicker.FirstOrDefault(x => x.FileType == FileType.GoUpPre);
                     if (dataBindFile != null)
                     {
                         Debug.WriteLine("Folder up: " + dataBindFile.PathFile);

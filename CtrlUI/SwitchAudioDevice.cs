@@ -40,7 +40,7 @@ namespace CtrlUI
                 if (messageResult != null)
                 {
                     //Change the default device
-                    AudioDeviceSummary changeDevice = devicesList.Where(x => x.Name.ToLower() == messageResult.Name.ToLower()).FirstOrDefault();
+                    AudioDeviceSummary changeDevice = devicesList.FirstOrDefault(x => x.Name.ToLower() == messageResult.Name.ToLower());
                     if (changeDevice != null)
                     {
                         if (SetDefaultDevice(changeDevice.Identifier))

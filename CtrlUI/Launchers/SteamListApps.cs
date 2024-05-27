@@ -133,7 +133,7 @@ namespace CtrlUI
                 vLauncherAppAvailableCheck.Add(runCommand);
 
                 //Check if application is already added
-                DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == runCommand.ToLower()).FirstOrDefault();
+                DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == runCommand.ToLower());
                 if (launcherExistCheck != null)
                 {
                     //Debug.WriteLine("Steam app already in list: " + appId);

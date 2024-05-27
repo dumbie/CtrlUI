@@ -68,14 +68,14 @@ namespace CtrlUI
                 }
 
                 //Get application manifest
-                EpicInstalledManifest appManifest = installedManifests.Where(x => x.AppName.ToLower() == appNameId.ToLower()).FirstOrDefault();
+                EpicInstalledManifest appManifest = installedManifests.FirstOrDefault(x => x.AppName.ToLower() == appNameId.ToLower());
 
                 //Get launch argument
                 string runCommand = "com.epicgames.launcher://apps/" + appNameId + "?action=launch&silent=true";
                 vLauncherAppAvailableCheck.Add(runCommand);
 
                 //Check if application is already added
-                DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == runCommand.ToLower()).FirstOrDefault();
+                DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == runCommand.ToLower());
                 if (launcherExistCheck != null)
                 {
                     //Debug.WriteLine("Epic app already in list: " + appIds);

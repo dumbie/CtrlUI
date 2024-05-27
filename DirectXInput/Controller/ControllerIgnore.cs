@@ -76,7 +76,7 @@ namespace DirectXInput
                         string lowerProductId = activeController.Details.Profile.ProductID.ToLower();
 
                         //Update json profile
-                        ControllerIgnored existingVendor = vDirectControllersIgnored.Where(x => x.VendorID.ToLower() == lowerVendorId).FirstOrDefault();
+                        ControllerIgnored existingVendor = vDirectControllersIgnored.FirstOrDefault(x => x.VendorID.ToLower() == lowerVendorId);
                         if (existingVendor != null)
                         {
                             List<string> existingProducts = existingVendor.ProductIDs.ToList();

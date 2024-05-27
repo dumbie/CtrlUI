@@ -126,7 +126,7 @@ namespace CtrlUI
 
                                 //Check the copy cut type
                                 ClipboardType clipboardType = ClipboardType.None;
-                                DataBindFile clipboardFile = vClipboardFiles.Where(x => x.PathFile == listFolder.FullName).FirstOrDefault();
+                                DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault(x => x.PathFile == listFolder.FullName);
                                 if (clipboardFile != null)
                                 {
                                     clipboardType = clipboardFile.ClipboardType;
@@ -188,7 +188,7 @@ namespace CtrlUI
 
                                 //Check the copy cut type
                                 ClipboardType clipboardType = ClipboardType.None;
-                                DataBindFile clipboardFile = vClipboardFiles.Where(x => x.PathFile == listFile.FullName).FirstOrDefault();
+                                DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault(x => x.PathFile == listFile.FullName);
                                 if (clipboardFile != null)
                                 {
                                     clipboardType = clipboardFile.ClipboardType;

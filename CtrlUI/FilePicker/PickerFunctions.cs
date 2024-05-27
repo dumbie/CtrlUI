@@ -171,7 +171,7 @@ namespace CtrlUI
                 //Check the navigation index
                 if (targetIndex == -1 && !string.IsNullOrWhiteSpace(vFilePickerSourcePath))
                 {
-                    DataBindFile sourceFileItem = List_FilePicker.Where(x => x.PathFile == vFilePickerSourcePath).FirstOrDefault();
+                    DataBindFile sourceFileItem = List_FilePicker.FirstOrDefault(x => x.PathFile == vFilePickerSourcePath);
                     if (sourceFileItem != null)
                     {
                         Debug.WriteLine("Source file path found: " + vFilePickerSourcePath);
@@ -249,7 +249,7 @@ namespace CtrlUI
         {
             try
             {
-                PickerNavigation navigateHistory = vFilePickerNavigationHistory.Where(x => x.Path.ToLower() == targetPath.ToLower()).FirstOrDefault();
+                PickerNavigation navigateHistory = vFilePickerNavigationHistory.FirstOrDefault(x => x.Path.ToLower() == targetPath.ToLower());
                 if (navigateHistory != null)
                 {
                     //Update navigation history
@@ -278,7 +278,7 @@ namespace CtrlUI
             try
             {
                 Debug.WriteLine("Looking for navigation index: " + targetPath);
-                PickerNavigation navigateHistory = vFilePickerNavigationHistory.Where(x => x.Path.ToLower() == targetPath.ToLower()).FirstOrDefault();
+                PickerNavigation navigateHistory = vFilePickerNavigationHistory.FirstOrDefault(x => x.Path.ToLower() == targetPath.ToLower());
                 if (navigateHistory != null)
                 {
                     return navigateHistory.Index;

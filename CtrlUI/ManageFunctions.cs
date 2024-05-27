@@ -96,7 +96,7 @@ namespace CtrlUI
                 //Save changes to Json file
                 if (generateAppNumber)
                 {
-                    JsonSaveApplications();
+                    JsonSaveList_Applications();
                 }
             }
             catch { }
@@ -157,7 +157,7 @@ namespace CtrlUI
                 //Save changes to Json file
                 if (saveJson)
                 {
-                    JsonSaveApplications();
+                    JsonSaveList_Applications();
                 }
 
                 //Remove application image files
@@ -410,7 +410,7 @@ namespace CtrlUI
                     Debug.WriteLine("Editing application: " + vEditAppDataBind.Name + " in the list.");
 
                     //Save changes to Json file
-                    JsonSaveApplications();
+                    JsonSaveList_Applications();
 
                     //Close the open popup
                     await Popup_Close_Top(true);

@@ -41,7 +41,7 @@ namespace CtrlUI
                 int shFileResult = SHFileOperation(ref shFileOpstruct);
 
                 //Check if the removed item is clipboard and reset it
-                DataBindFile clipboardFile = vClipboardFiles.Where(x => x.PathFile == dataBindFile.PathFile).FirstOrDefault();
+                DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault(x => x.PathFile == dataBindFile.PathFile);
                 if (clipboardFile != null)
                 {
                     //Remove the clipboard item

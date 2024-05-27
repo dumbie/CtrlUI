@@ -73,7 +73,7 @@ namespace DirectXInput
                 Controller.TicksActiveLast = ticksSystem;
 
                 //Set the controller supported profile
-                Controller.SupportedCurrent = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower())).FirstOrDefault();
+                Controller.SupportedCurrent = vDirectControllersSupported.FirstOrDefault(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
                 if (Controller.SupportedCurrent == null)
                 {
                     Debug.WriteLine("Unsupported controller detected, using default profile.");
@@ -109,7 +109,7 @@ namespace DirectXInput
                 AVActions.TaskStartLoop(TaskActionOutputController, Controller.OutputControllerTask);
 
                 //Start output gyroscope task loop
-                if (Controller.SupportedCurrent.HasGyroscope)
+                if (Controller.SupportedCurrent.OffsetHeader.Gyroscope != null)
                 {
                     async Task TaskActionOutputGyro()
                     {
@@ -157,10 +157,6 @@ namespace DirectXInput
                     {
                         stackpanel_TriggerRumbleSettings.Visibility = Visibility.Collapsed;
                     }
-
-                    cb_ControllerFakeGuideButton.IsChecked = Controller.Details.Profile.FakeGuideButton;
-                    cb_ControllerFakeOneButton.IsChecked = Controller.Details.Profile.FakeOneButton;
-                    cb_ControllerFakeTwoButton.IsChecked = Controller.Details.Profile.FakeTwoButton;
 
                     cb_ControllerUseButtonTriggers.IsChecked = Controller.Details.Profile.UseButtonTriggers;
                     textblock_ControllerDeadzoneTriggerLeft.Text = textblock_ControllerDeadzoneTriggerLeft.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.DeadzoneTriggerLeft) + "%";
@@ -326,7 +322,7 @@ namespace DirectXInput
                 });
 
                 //Disconnect gyroscope dsu
-                if (controller.SupportedCurrent.HasGyroscope)
+                if (controller.SupportedCurrent.OffsetHeader.Gyroscope != null)
                 {
                     //Stop gyroscope loop tasks
                     await TaskStopLoop(controller.OutputGyroscopeTask, 1000);

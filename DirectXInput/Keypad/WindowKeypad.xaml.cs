@@ -226,10 +226,10 @@ namespace DirectXInput.KeypadCode
             {
                 string processNameLower = vProcessForeground.ExeNameNoExt.ToLower();
                 string processTitleLower = vProcessForeground.WindowTitleMain.ToLower().Replace(" ", string.Empty);
-                KeypadMapping keypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == processNameLower || processTitleLower.Contains(x.Name.ToLower().Replace(" ", string.Empty))).FirstOrDefault();
+                KeypadMapping keypadMappingProfile = vDirectKeypadMapping.FirstOrDefault(x => x.Name.ToLower() == processNameLower || processTitleLower.Contains(x.Name.ToLower().Replace(" ", string.Empty)));
                 if (keypadMappingProfile == null)
                 {
-                    keypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();
+                    keypadMappingProfile = vDirectKeypadMapping.FirstOrDefault(x => x.Name == "Default");
                 }
 
                 //Show keypad mapping profile notification

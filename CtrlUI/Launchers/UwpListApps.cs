@@ -102,7 +102,7 @@ namespace CtrlUI
                 vLauncherAppAvailableCheck.Add(appUserModelId);
 
                 //Check if application is already added
-                DataBindApp launcherExistCheck = List_Launchers.Where(x => x.AppUserModelId.ToLower() == appUserModelId.ToLower()).FirstOrDefault();
+                DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.AppUserModelId.ToLower() == appUserModelId.ToLower());
                 if (launcherExistCheck != null)
                 {
                     //Debug.WriteLine("UWP app already in list: " + appIds);

@@ -27,7 +27,7 @@ namespace CtrlUI
                 {
                     foreach (int genreId in infoGames.genres)
                     {
-                        ApiIGDBGenres apiIGDBGenres = vApiIGDBGenres.Where(x => x.id == genreId).FirstOrDefault();
+                        ApiIGDBGenres apiIGDBGenres = vApiIGDBGenres.FirstOrDefault(x => x.id == genreId);
                         gameGenres = AVFunctions.StringAdd(gameGenres, apiIGDBGenres.name, ",");
                     }
                     if (!string.IsNullOrWhiteSpace(gameGenres))
@@ -79,7 +79,7 @@ namespace CtrlUI
             {
                 foreach (int platformId in infoGames.platforms)
                 {
-                    ApiIGDBPlatforms apiIGDBPlatforms = vApiIGDBPlatforms.Where(x => x.id == platformId).FirstOrDefault();
+                    ApiIGDBPlatforms apiIGDBPlatforms = vApiIGDBPlatforms.FirstOrDefault(x => x.id == platformId);
                     if (apiIGDBPlatforms != null)
                     {
                         gamePlatforms = AVFunctions.StringAdd(gamePlatforms, apiIGDBPlatforms.name, ",");

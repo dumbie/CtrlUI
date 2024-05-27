@@ -90,7 +90,7 @@ namespace CtrlUI
                         {
                             try
                             {
-                                ItchIOApp itchIOApp = listApps.Where(x => x.Identifier == (long)executeReader["id"]).FirstOrDefault();
+                                ItchIOApp itchIOApp = listApps.FirstOrDefault(x => x.Identifier == (long)executeReader["id"]);
                                 if (itchIOApp != null)
                                 {
                                     itchIOApp.Title = (string)executeReader["title"];
@@ -141,7 +141,7 @@ namespace CtrlUI
                 vLauncherAppAvailableCheck.Add(itchIOApp.ExecutablePath);
 
                 //Check if application is already added
-                DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == itchIOApp.ExecutablePath.ToLower()).FirstOrDefault();
+                DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == itchIOApp.ExecutablePath.ToLower());
                 if (launcherExistCheck != null)
                 {
                     //Debug.WriteLine("ItchIO app already in list: " + itchIOApp.Title);

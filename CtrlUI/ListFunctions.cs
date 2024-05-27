@@ -172,7 +172,7 @@ namespace CtrlUI
                 //Save changes to Json file
                 if (applicationUpdated)
                 {
-                    JsonSaveApplications();
+                    JsonSaveList_Applications();
                 }
             }
             catch { }

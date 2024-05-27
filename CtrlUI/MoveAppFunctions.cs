@@ -35,7 +35,7 @@ namespace CtrlUI
 
                 //Get the target application
                 IEnumerable<DataBindApp> combinedApps = CombineAppLists(true, true, true, false, false, false).Where(x => x.Category == vMoveAppDataBind.Category);
-                DataBindApp targetAppDataBind = combinedApps.OrderByDescending(x => x.Number).Where(x => x.Number < vMoveAppDataBind.Number).FirstOrDefault();
+                DataBindApp targetAppDataBind = combinedApps.OrderByDescending(x => x.Number).FirstOrDefault(x => x.Number < vMoveAppDataBind.Number);
                 int selectedNumber = vMoveAppDataBind.Number;
                 int targetNumber = targetAppDataBind.Number;
                 Debug.WriteLine("Current number: " + selectedNumber + " / New number: " + targetNumber);
@@ -49,7 +49,7 @@ namespace CtrlUI
                 await Notification_Send_Status("Sorting", "Moving app left");
 
                 //Save json applist
-                JsonSaveApplications();
+                JsonSaveList_Applications();
             }
             catch { }
         }
@@ -63,7 +63,7 @@ namespace CtrlUI
 
                 //Get the target application
                 IEnumerable<DataBindApp> combinedApps = CombineAppLists(true, true, true, false, false, false).Where(x => x.Category == vMoveAppDataBind.Category);
-                DataBindApp targetAppDataBind = combinedApps.OrderBy(x => x.Number).Where(x => x.Number > vMoveAppDataBind.Number).FirstOrDefault();
+                DataBindApp targetAppDataBind = combinedApps.OrderBy(x => x.Number).FirstOrDefault(x => x.Number > vMoveAppDataBind.Number);
                 int selectedNumber = vMoveAppDataBind.Number;
                 int targetNumber = targetAppDataBind.Number;
                 Debug.WriteLine("Current number: " + selectedNumber + " / New number: " + targetNumber);
@@ -77,7 +77,7 @@ namespace CtrlUI
                 await Notification_Send_Status("Sorting", "Moving app right");
 
                 //Save json applist
-                JsonSaveApplications();
+                JsonSaveList_Applications();
             }
             catch { }
         }

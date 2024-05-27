@@ -5,6 +5,8 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
+using static ArnoldVinkCode.AVClasses;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;

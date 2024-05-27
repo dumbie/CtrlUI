@@ -222,7 +222,7 @@ namespace CtrlUI
                         }
 
                         //Check if shortcut is already in the shortcut list
-                        DataBindApp shortcutExistCheck = List_Shortcuts.Where(duplicateCheckShortcut).FirstOrDefault();
+                        DataBindApp shortcutExistCheck = List_Shortcuts.FirstOrDefault(duplicateCheckShortcut);
                         if (shortcutExistCheck != null)
                         {
                             //Debug.WriteLine("Shortcut is already in list, updating: " + targetPathLower);

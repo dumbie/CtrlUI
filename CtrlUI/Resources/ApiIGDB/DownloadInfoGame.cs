@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -174,15 +175,8 @@ namespace CtrlUI
                     }
                 }
 
-                //Json settings
-                JsonSerializerSettings jsonSettings = new JsonSerializerSettings();
-                jsonSettings.NullValueHandling = NullValueHandling.Ignore;
-
-                //Json serialize
-                string serializedObject = JsonConvert.SerializeObject(selectedGame, jsonSettings);
-
-                //Save json information
-                File.WriteAllText(userSaveDirectory + nameGameSave + ".json", serializedObject);
+                //Save object to json
+                JsonSaveObject(selectedGame, userSaveDirectory + nameGameSave + ".json");
 
                 await Notification_Send_Status("Download", "Downloaded information");
                 Debug.WriteLine("Downloaded and saved information for: " + nameGame);

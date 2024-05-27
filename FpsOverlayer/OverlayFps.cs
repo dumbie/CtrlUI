@@ -93,7 +93,7 @@ namespace FpsOverlayer
                 OverlayPosition targetTextPosition = (OverlayPosition)SettingLoad(vConfigurationFpsOverlayer, "TextPosition", typeof(int));
                 if (!string.IsNullOrWhiteSpace(processName))
                 {
-                    ProfileShared FpsPositionProcessName = vFpsPositionProcessName.Where(x => x.String1.ToLower() == processName.ToLower()).FirstOrDefault();
+                    ProfileShared FpsPositionProcessName = vFpsPositionProcessName.FirstOrDefault(x => x.String1.ToLower() == processName.ToLower());
                     if (FpsPositionProcessName != null)
                     {
                         Debug.WriteLine("Found fps position for: " + FpsPositionProcessName.String1 + " / " + FpsPositionProcessName.Int1);

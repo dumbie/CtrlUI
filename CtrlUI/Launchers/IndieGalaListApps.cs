@@ -147,7 +147,7 @@ namespace CtrlUI
                 vLauncherAppAvailableCheck.Add(executablePath);
 
                 //Check if application is already added
-                DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == executablePath.ToLower()).FirstOrDefault();
+                DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == executablePath.ToLower());
                 if (launcherExistCheck != null)
                 {
                     //Debug.WriteLine("IndieGala app already in list: " + appName);

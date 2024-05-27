@@ -85,7 +85,7 @@ namespace CtrlUI
                         vLauncherAppAvailableCheck.Add(runCommand);
 
                         //Check if application is already added
-                        DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == runCommand.ToLower()).FirstOrDefault();
+                        DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == runCommand.ToLower());
                         if (launcherExistCheck != null)
                         {
                             //Debug.WriteLine("GoG app already in list: " + appIds);
@@ -122,7 +122,7 @@ namespace CtrlUI
 
                         //Get application image
                         string appImage = string.Empty;
-                        GoGPlayTasks playtaskIcon = gogGameInfo.playTasks.Where(x => !string.IsNullOrWhiteSpace(x.icon)).FirstOrDefault();
+                        GoGPlayTasks playtaskIcon = gogGameInfo.playTasks.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.icon));
                         if (playtaskIcon != null)
                         {
                             appImage = Path.Combine(gogGamePath, playtaskIcon.icon);
