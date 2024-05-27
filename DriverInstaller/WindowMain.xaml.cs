@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVProcess;
 using static DriverInstaller.AppVariables;
 using static LibraryShared.Classes;
@@ -30,10 +29,6 @@ namespace DriverInstaller
 
                 //Check if DirectXInput is running
                 vDirectXInputRunning = Check_RunningProcessByName("DirectXInput", true);
-
-                //Load Json profiles
-                JsonLoadFile(ref vCtrlCloseLaunchers, @"Profiles\Default\CtrlCloseLaunchers.json");
-                JsonLoadFile(ref vDirectCloseTools, @"Profiles\Default\DirectCloseTools.json");
             }
             catch { }
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static LibraryShared.Classes;
 
 namespace DriverInstaller
@@ -13,7 +14,7 @@ namespace DriverInstaller
         public static bool vDirectXInputRunning = false;
 
         //Application Lists
-        public static List<ProfileShared> vCtrlCloseLaunchers = new List<ProfileShared>();
-        public static List<ProfileShared> vDirectCloseTools = new List<ProfileShared>();
+        public static List<ProfileShared> vCtrlCloseLaunchers = JsonLoadFile<List<ProfileShared>>(@"Profiles\Default\CtrlCloseLaunchers.json");
+        public static List<ProfileShared> vDirectCloseTools = JsonLoadFile<List<ProfileShared>>(@"Profiles\Default\DirectCloseTools.json");
     }
 }
