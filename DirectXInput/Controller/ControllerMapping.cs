@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
@@ -56,28 +57,72 @@ namespace DirectXInput
 
                 string mapNameString = vMappingControllerButton.ToolTip.ToString();
                 Debug.WriteLine("Unmapped button: " + mapNameString);
-                txt_ControllerMap_Status.Text = "Unmapped '" + mapNameString + "' from the controller profile.";
+                txt_ControllerMap_Status.Text = "Unmapped '" + mapNameString + "' from controller profile.";
 
                 //Store new button mapping in Json controller
-                if (vMappingControllerButton == btn_SetA) { activeController.Details.Profile.ButtonA = -1; }
-                else if (vMappingControllerButton == btn_SetB) { activeController.Details.Profile.ButtonB = -1; }
-                else if (vMappingControllerButton == btn_SetX) { activeController.Details.Profile.ButtonX = -1; }
-                else if (vMappingControllerButton == btn_SetY) { activeController.Details.Profile.ButtonY = -1; }
-                else if (vMappingControllerButton == btn_SetShoulderLeft) { activeController.Details.Profile.ButtonShoulderLeft = -1; }
-                else if (vMappingControllerButton == btn_SetShoulderRight) { activeController.Details.Profile.ButtonShoulderRight = -1; }
-                else if (vMappingControllerButton == btn_SetBack) { activeController.Details.Profile.ButtonBack = -1; }
-                else if (vMappingControllerButton == btn_SetStart) { activeController.Details.Profile.ButtonStart = -1; }
-                else if (vMappingControllerButton == btn_SetGuide) { activeController.Details.Profile.ButtonGuide = -1; }
-                else if (vMappingControllerButton == btn_SetThumbLeft) { activeController.Details.Profile.ButtonThumbLeft = -1; }
-                else if (vMappingControllerButton == btn_SetThumbRight) { activeController.Details.Profile.ButtonThumbRight = -1; }
-                else if (vMappingControllerButton == btn_SetTriggerLeft) { activeController.Details.Profile.ButtonTriggerLeft = -1; }
-                else if (vMappingControllerButton == btn_SetTriggerRight) { activeController.Details.Profile.ButtonTriggerRight = -1; }
-                else if (vMappingControllerButton == btn_SetOne) { activeController.Details.Profile.ButtonOne = -1; }
-                else if (vMappingControllerButton == btn_SetTwo) { activeController.Details.Profile.ButtonTwo = -1; }
-                else if (vMappingControllerButton == btn_SetThree) { activeController.Details.Profile.ButtonThree = -1; }
-                else if (vMappingControllerButton == btn_SetFour) { activeController.Details.Profile.ButtonFour = -1; }
-                else if (vMappingControllerButton == btn_SetFive) { activeController.Details.Profile.ButtonFive = -1; }
-                else if (vMappingControllerButton == btn_SetSix) { activeController.Details.Profile.ButtonSix = -1; }
+                if (vMappingControllerButton == btn_SetA) { activeController.Details.Profile.ButtonA = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetB) { activeController.Details.Profile.ButtonB = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetX) { activeController.Details.Profile.ButtonX = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetY) { activeController.Details.Profile.ButtonY = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetShoulderLeft) { activeController.Details.Profile.ButtonShoulderLeft = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetShoulderRight) { activeController.Details.Profile.ButtonShoulderRight = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetBack) { activeController.Details.Profile.ButtonBack = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetStart) { activeController.Details.Profile.ButtonStart = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetGuide) { activeController.Details.Profile.ButtonGuide = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetThumbLeft) { activeController.Details.Profile.ButtonThumbLeft = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetThumbRight) { activeController.Details.Profile.ButtonThumbRight = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetTriggerLeft) { activeController.Details.Profile.ButtonTriggerLeft = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetTriggerRight) { activeController.Details.Profile.ButtonTriggerRight = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetOne) { activeController.Details.Profile.ButtonOne = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetTwo) { activeController.Details.Profile.ButtonTwo = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetThree) { activeController.Details.Profile.ButtonThree = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetFour) { activeController.Details.Profile.ButtonFour = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetFive) { activeController.Details.Profile.ButtonFive = ControllerButtons.None; }
+                else if (vMappingControllerButton == btn_SetSix) { activeController.Details.Profile.ButtonSix = ControllerButtons.None; }
+
+                //Save changes to Json file
+                JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
+            }
+            catch { }
+        }
+
+        //Default controller button
+        void Btn_MapController_Mouse_Default(object sender, RoutedEventArgs args)
+        {
+            try
+            {
+                //Check if controller is connected
+                ControllerStatus activeController = vActiveController();
+                if (activeController == null)
+                {
+                    txt_ControllerMap_Status.Text = "Please connect a controller to default buttons.";
+                    return;
+                }
+
+                string mapNameString = vMappingControllerButton.ToolTip.ToString();
+                Debug.WriteLine("Default button: " + mapNameString);
+                txt_ControllerMap_Status.Text = "Default '" + mapNameString + "' restored for controller profile.";
+
+                //Store new button mapping in Json controller
+                if (vMappingControllerButton == btn_SetA) { activeController.Details.Profile.ButtonA = null; }
+                else if (vMappingControllerButton == btn_SetB) { activeController.Details.Profile.ButtonB = null; }
+                else if (vMappingControllerButton == btn_SetX) { activeController.Details.Profile.ButtonX = null; }
+                else if (vMappingControllerButton == btn_SetY) { activeController.Details.Profile.ButtonY = null; }
+                else if (vMappingControllerButton == btn_SetShoulderLeft) { activeController.Details.Profile.ButtonShoulderLeft = null; }
+                else if (vMappingControllerButton == btn_SetShoulderRight) { activeController.Details.Profile.ButtonShoulderRight = null; }
+                else if (vMappingControllerButton == btn_SetBack) { activeController.Details.Profile.ButtonBack = null; }
+                else if (vMappingControllerButton == btn_SetStart) { activeController.Details.Profile.ButtonStart = null; }
+                else if (vMappingControllerButton == btn_SetGuide) { activeController.Details.Profile.ButtonGuide = null; }
+                else if (vMappingControllerButton == btn_SetThumbLeft) { activeController.Details.Profile.ButtonThumbLeft = null; }
+                else if (vMappingControllerButton == btn_SetThumbRight) { activeController.Details.Profile.ButtonThumbRight = null; }
+                else if (vMappingControllerButton == btn_SetTriggerLeft) { activeController.Details.Profile.ButtonTriggerLeft = null; }
+                else if (vMappingControllerButton == btn_SetTriggerRight) { activeController.Details.Profile.ButtonTriggerRight = null; }
+                else if (vMappingControllerButton == btn_SetOne) { activeController.Details.Profile.ButtonOne = null; }
+                else if (vMappingControllerButton == btn_SetTwo) { activeController.Details.Profile.ButtonTwo = null; }
+                else if (vMappingControllerButton == btn_SetThree) { activeController.Details.Profile.ButtonThree = null; }
+                else if (vMappingControllerButton == btn_SetFour) { activeController.Details.Profile.ButtonFour = null; }
+                else if (vMappingControllerButton == btn_SetFive) { activeController.Details.Profile.ButtonFive = null; }
+                else if (vMappingControllerButton == btn_SetSix) { activeController.Details.Profile.ButtonSix = null; }
 
                 //Save changes to Json file
                 JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
@@ -109,6 +154,7 @@ namespace DirectXInput
                 grid_ControllerPreview.Opacity = 0.50;
                 button_SetController_Map.IsEnabled = false;
                 button_SetController_Unmap.IsEnabled = false;
+                button_SetController_Default.IsEnabled = false;
                 button_SetController_Cancel.IsEnabled = true;
 
                 //Start mapping timer
@@ -152,6 +198,7 @@ namespace DirectXInput
                 grid_ControllerPreview.Opacity = 1.00;
                 button_SetController_Map.IsEnabled = true;
                 button_SetController_Unmap.IsEnabled = true;
+                button_SetController_Default.IsEnabled = true;
                 button_SetController_Cancel.IsEnabled = false;
             }
             catch { }

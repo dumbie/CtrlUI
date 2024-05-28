@@ -49,53 +49,6 @@ namespace DirectXInput
                 btn_RumbleTestLight.Click += Btn_TestRumble_Click;
                 btn_RumbleTestHeavy.Click += Btn_TestRumble_Click;
 
-                //Save button settings
-                cb_ControllerFakeGuideButton.Click += (sender, e) =>
-                {
-                    ControllerStatus activeController = vActiveController();
-                    if (activeController != null)
-                    {
-                        activeController.Details.Profile.FakeGuideButton = cb_ControllerFakeGuideButton.IsChecked.Value;
-                        if (cb_ControllerFakeGuideButton.IsChecked.Value)
-                        {
-                            cb_ControllerFakeOneButton.IsChecked = false;
-                            activeController.Details.Profile.FakeOneButton = false;
-                        }
-
-                        //Save changes to Json file
-                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
-                    }
-                };
-
-                cb_ControllerFakeOneButton.Click += (sender, e) =>
-                {
-                    ControllerStatus activeController = vActiveController();
-                    if (activeController != null)
-                    {
-                        activeController.Details.Profile.FakeOneButton = cb_ControllerFakeOneButton.IsChecked.Value;
-                        if (cb_ControllerFakeOneButton.IsChecked.Value)
-                        {
-                            cb_ControllerFakeGuideButton.IsChecked = false;
-                            activeController.Details.Profile.FakeGuideButton = false;
-                        }
-
-                        //Save changes to Json file
-                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
-                    }
-                };
-
-                cb_ControllerFakeTwoButton.Click += (sender, e) =>
-                {
-                    ControllerStatus activeController = vActiveController();
-                    if (activeController != null)
-                    {
-                        activeController.Details.Profile.FakeTwoButton = cb_ControllerFakeTwoButton.IsChecked.Value;
-
-                        //Save changes to Json file
-                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
-                    }
-                };
-
                 //Controller Trigger
                 cb_ControllerUseButtonTriggers.Click += (sender, e) =>
                 {
@@ -450,6 +403,7 @@ namespace DirectXInput
                 btn_SetTwo.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
                 button_SetController_Map.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Map;
                 button_SetController_Unmap.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Unmap;
+                button_SetController_Default.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Default;
                 button_SetController_Cancel.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Cancel;
 
                 //Keypad button mapping functions

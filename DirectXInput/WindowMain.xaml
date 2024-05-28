@@ -170,6 +170,7 @@
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                                 <Button Name="button_SetController_Map" Content="Map" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                                 <Button Name="button_SetController_Unmap" Margin="10,0,0,0" Content="Unmap" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                <Button Name="button_SetController_Default" Margin="10,0,0,0" Content="Default" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                                 <Button Name="button_SetController_Cancel" Margin="10,0,0,0" Content="Cancel" IsEnabled="False" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                                 <TextBlock Name="textblock_SetController_Name" Text="Select a button" Margin="10,0,0,0" Style="{StaticResource TextBlockBlackLight}" FontSize="{StaticResource TextSizeLarge}"/>
                             </StackPanel>
@@ -490,21 +491,18 @@
                                 <CheckBox Name="cb_SettingsExclusiveGuide" Content="Make Guide button exclusive for CtrlUI apps usage" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will block the Guide button for all other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                                <TextBlock Margin="0,10,0,0" Text="Fake Guide button press by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                                <styles:ShortcutController Name="controller_FakeGuideButton" TriggerName="FakeGuideButton"/>
-
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Connection Shortcuts"/>
                                 <TextBlock Text="Disconnect controller by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <styles:ShortcutController Name="controller_DisconnectController" TriggerName="DisconnectController"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Shortcuts"/>
-                                <TextBlock Text="Show or hide CtrlUI by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Text="Show or hide CtrlUI or switch keyboard mode by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <styles:ShortcutController Name="controller_LaunchCtrlUI" TriggerName="LaunchCtrlUI"/>
                                 <styles:ShortcutKeyboard Margin="0,10,0,0" Name="keyboard_LaunchCtrlUI" TriggerName="LaunchCtrlUI"/>
 
                                 <TextBlock Margin="0,10,0,0" Text="Show or hide keyboard or keypad pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <styles:ShortcutController Name="controller_KeyboardPopup" TriggerName="KeyboardPopup"/>
-                                
+
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Windows Shortcuts"/>
                                 <TextBlock Text="Press Alt + Tab by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <styles:ShortcutController Name="controller_AltTab" TriggerName="AltTab"/>
