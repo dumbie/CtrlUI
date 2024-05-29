@@ -1,4 +1,5 @@
 ﻿using System;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static LibraryShared.Classes;
 using static LibraryUsb.ScpVBusDevice;
 
@@ -53,23 +54,23 @@ namespace DirectXInput
                 controller.VirtualDataInput[13] = controller.InputCurrent.TriggerRight;
 
                 //DPad
-                if (controller.InputCurrent.DPadLeft.PressedRaw) { controller.VirtualDataInput[10] |= (1 << 2); }
-                if (controller.InputCurrent.DPadUp.PressedRaw) { controller.VirtualDataInput[10] |= (1 << 0); }
-                if (controller.InputCurrent.DPadRight.PressedRaw) { controller.VirtualDataInput[10] |= (1 << 3); }
-                if (controller.InputCurrent.DPadDown.PressedRaw) { controller.VirtualDataInput[10] |= (1 << 1); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw) { controller.VirtualDataInput[10] |= (1 << 2); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw) { controller.VirtualDataInput[10] |= (1 << 0); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw) { controller.VirtualDataInput[10] |= (1 << 3); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw) { controller.VirtualDataInput[10] |= (1 << 1); }
 
                 //Buttons
-                if (controller.InputCurrent.ButtonA.PressedRaw) { controller.VirtualDataInput[11] |= (1 << 4); }
-                if (controller.InputCurrent.ButtonB.PressedRaw) { controller.VirtualDataInput[11] |= (1 << 5); }
-                if (controller.InputCurrent.ButtonX.PressedRaw) { controller.VirtualDataInput[11] |= (1 << 6); }
-                if (controller.InputCurrent.ButtonY.PressedRaw) { controller.VirtualDataInput[11] |= (1 << 7); }
-                if (controller.InputCurrent.ButtonBack.PressedRaw) { controller.VirtualDataInput[10] |= (1 << 5); }
-                if (controller.InputCurrent.ButtonStart.PressedRaw) { controller.VirtualDataInput[10] |= (1 << 4); }
-                if (controller.InputCurrent.ButtonGuide.PressedRaw) { controller.VirtualDataInput[11] |= (1 << 2); }
-                if (controller.InputCurrent.ButtonShoulderLeft.PressedRaw) { controller.VirtualDataInput[11] |= (1 << 0); }
-                if (controller.InputCurrent.ButtonShoulderRight.PressedRaw) { controller.VirtualDataInput[11] |= (1 << 1); }
-                if (controller.InputCurrent.ButtonThumbLeft.PressedRaw) { controller.VirtualDataInput[10] |= (1 << 6); }
-                if (controller.InputCurrent.ButtonThumbRight.PressedRaw) { controller.VirtualDataInput[10] |= (1 << 7); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.A].PressedRaw) { controller.VirtualDataInput[11] |= (1 << 4); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.B].PressedRaw) { controller.VirtualDataInput[11] |= (1 << 5); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.X].PressedRaw) { controller.VirtualDataInput[11] |= (1 << 6); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.Y].PressedRaw) { controller.VirtualDataInput[11] |= (1 << 7); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.Back].PressedRaw) { controller.VirtualDataInput[10] |= (1 << 5); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.Start].PressedRaw) { controller.VirtualDataInput[10] |= (1 << 4); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.Guide].PressedRaw) { controller.VirtualDataInput[11] |= (1 << 2); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.ShoulderLeft].PressedRaw) { controller.VirtualDataInput[11] |= (1 << 0); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.ShoulderRight].PressedRaw) { controller.VirtualDataInput[11] |= (1 << 1); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.ThumbLeft].PressedRaw) { controller.VirtualDataInput[10] |= (1 << 6); }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.ThumbRight].PressedRaw) { controller.VirtualDataInput[10] |= (1 << 7); }
             }
             catch { }
         }

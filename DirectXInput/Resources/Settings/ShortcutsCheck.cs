@@ -32,15 +32,7 @@ namespace DirectXInput
                     ShortcutTriggerController shortcutTrigger = new ShortcutTriggerController();
                     shortcutTrigger.Name = "LaunchCtrlUI";
                     shortcutTrigger.Trigger = [ControllerButtons.Guide];
-                    vShortcutsController.Add(shortcutTrigger);
-                    AVJsonFunctions.JsonSaveObject(vShortcutsController, @"Profiles\User\DirectShortcutsController.json");
-                }
-
-                if (!vShortcutsController.Any(x => x.Name == "FakeGuideButton"))
-                {
-                    ShortcutTriggerController shortcutTrigger = new ShortcutTriggerController();
-                    shortcutTrigger.Name = "FakeGuideButton";
-                    shortcutTrigger.Trigger = [ControllerButtons.ShoulderLeft, ControllerButtons.Back];
+                    shortcutTrigger.Hold = true;
                     vShortcutsController.Add(shortcutTrigger);
                     AVJsonFunctions.JsonSaveObject(vShortcutsController, @"Profiles\User\DirectShortcutsController.json");
                 }
@@ -51,7 +43,6 @@ namespace DirectXInput
                     ShortcutTriggerController shortcutTrigger = new ShortcutTriggerController();
                     shortcutTrigger.Name = "KeyboardPopup";
                     shortcutTrigger.Trigger = [ControllerButtons.Guide];
-                    shortcutTrigger.Hold = true;
                     vShortcutsController.Add(shortcutTrigger);
                     AVJsonFunctions.JsonSaveObject(vShortcutsController, @"Profiles\User\DirectShortcutsController.json");
                 }

@@ -13,29 +13,29 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Check if controller output needs to be forwarded
-        async Task<bool> ControllerOutputForward(ControllerStatus Controller)
+        async Task<bool> ControllerOutputForward(ControllerStatus controller)
         {
             try
             {
-                if (Controller.Activated && !Controller.Disconnecting)
+                if (controller.Activated && !controller.Disconnecting)
                 {
                     //Check if a popup is visible
                     if (vWindowKeyboard.vWindowVisible)
                     {
-                        vWindowKeyboard.ControllerInteractionMouse(Controller.InputCurrent);
-                        await vWindowKeyboard.ControllerInteractionKeyboard(Controller.InputCurrent);
+                        vWindowKeyboard.ControllerInteractionMouse(controller.InputCurrent);
+                        await vWindowKeyboard.ControllerInteractionKeyboard(controller.InputCurrent);
                         return true;
                     }
                     else if (vWindowKeypad.vWindowVisible)
                     {
-                        vWindowKeypad.ControllerInteractionKeypadPreview(Controller.InputCurrent);
-                        vWindowKeypad.ControllerInteractionMouse(Controller.InputCurrent);
-                        vWindowKeypad.ControllerInteractionKeyboard(Controller.InputCurrent);
+                        vWindowKeypad.ControllerInteractionKeypadPreview(controller.InputCurrent);
+                        vWindowKeypad.ControllerInteractionMouse(controller.InputCurrent);
+                        vWindowKeypad.ControllerInteractionKeyboard(controller.InputCurrent);
                         return true;
                     }
                     else if (vProcessCtrlUI != null && vProcessCtrlUIActivated)
                     {
-                        await OutputAppCtrlUI(Controller);
+                        await OutputAppCtrlUI(controller);
                         return true;
                     }
                 }
@@ -45,11 +45,11 @@ namespace DirectXInput
         }
 
         //Send controller output to CtrlUI
-        async Task OutputAppCtrlUI(ControllerStatus Controller)
+        async Task OutputAppCtrlUI(ControllerStatus controller)
         {
             try
             {
-                if (GetSystemTicksMs() >= Controller.Delay_CtrlUIOutput)
+                if (GetSystemTicksMs() >= controller.Delay_CtrlUIOutput)
                 {
                     //Check if socket server is running
                     if (vArnoldVinkSockets == null)
@@ -62,7 +62,7 @@ namespace DirectXInput
                     SocketSendContainer socketSend = new SocketSendContainer();
                     socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
                     socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
-                    socketSend.Object = Controller.InputCurrent;
+                    socketSend.Object = controller.InputCurrent;
                     byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                     //Send socket data
@@ -70,7 +70,7 @@ namespace DirectXInput
                     await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
 
                     //Update delay time
-                    Controller.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayTicks10;
+                    controller.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayTicks10;
                 }
             }
             catch { }

@@ -1,9 +1,11 @@
 ﻿using ArnoldVinkCode;
-using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
+using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
@@ -14,8 +16,54 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
+        //Check controller shortcut button press
+        public static bool CheckShortcutButton(ControllerButtonDetails[] keysPressed, ShortcutTriggerController keysHotkey, bool checkAny)
+        {
+            try
+            {
+                List<bool> shortcutPressed = new List<bool>();
+                foreach (ControllerButtons button in keysHotkey.Trigger)
+                {
+                    if (button != ControllerButtons.None)
+                    {
+                        bool shortcutPress = false;
+                        if (keysHotkey.Trigger.Count() == 1)
+                        {
+                            if (keysHotkey.Hold)
+                            {
+                                shortcutPress = keysPressed[(byte)button].PressedLong;
+                            }
+                            else
+                            {
+                                shortcutPress = keysPressed[(byte)button].PressedShort;
+                            }
+                        }
+                        else
+                        {
+                            //Fix holding two buttons
+                            shortcutPress = keysPressed[(byte)button].PressedRaw;
+                        }
+                        shortcutPressed.Add(shortcutPress);
+                    }
+                }
+
+                if (checkAny)
+                {
+                    return shortcutPressed.Any(x => x);
+                }
+                else
+                {
+                    return shortcutPressed.All(x => x);
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         //Check if controller shortcut is pressed
-        async Task<bool> ControllerShortcut(ControllerStatus Controller)
+        async Task<bool> ControllerShortcut(ControllerStatus controller)
         {
             bool ControllerUsed = false;
             bool ControllerDelay125 = false;
@@ -23,66 +71,78 @@ namespace DirectXInput
             bool ControllerDelay750 = false;
             try
             {
-                if (GetSystemTicksMs() >= Controller.Delay_ControllerShortcut)
+                if (GetSystemTicksMs() >= controller.Delay_ControllerShortcut)
                 {
-                    //Activate the controller
-                    if (Controller.InputCurrent.ButtonGuide.PressedShort)
+                    //Activate controller
+                    if (controller.InputCurrent.Buttons[(byte)ControllerButtons.Guide].PressedShort)
                     {
                         Debug.WriteLine("Shortcut activate controller has been pressed.");
-                        bool controllerActivated = ControllerActivate(Controller);
-
-                        ControllerUsed = true;
-                        ControllerDelay125 = true;
-
-                        if (controllerActivated) { return ControllerUsed; }
-                    }
-
-                    //Hide popups with guide button
-                    if (Controller.InputCurrent.ButtonGuide.PressedShort && (vWindowKeyboard.vWindowVisible || vWindowKeypad.vWindowVisible))
-                    {
-                        await HideOpenPopups();
-
-                        ControllerUsed = true;
-                        ControllerDelay750 = true;
-                    }
-                    //Show or launch CtrlUI application
-                    else if (Controller.InputCurrent.ButtonGuide.PressedShort)
-                    {
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", typeof(bool)))
+                        if (ControllerActivate(controller))
                         {
-                            Debug.WriteLine("Shortcut show or hide CtrlUI has been pressed.");
-                            await ToolFunctions.CtrlUI_LaunchShow();
-
                             ControllerUsed = true;
-                            ControllerDelay750 = true;
+                            ControllerDelay125 = true;
+                            return ControllerUsed;
                         }
                     }
-                    //Show the keyboard or keypad
-                    else if (Controller.InputCurrent.ButtonGuide.PressedLong)
+
+                    //Fix sort shortcuts by used buttons, execute 2 buttons first.
+
+                    //Launch CtrlUI application or switch keyboard mode
+                    ShortcutTriggerController shortcutTrigger = vShortcutsController.FirstOrDefault(x => x.Name == "LaunchCtrlUI");
+                    if (shortcutTrigger != null)
                     {
-                        if (!vWindowKeyboard.vWindowVisible && !vWindowKeypad.vWindowVisible)
+                        if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                         {
-                            if (vKeyboardKeypadLastActive == "Keyboard")
+                            Debug.WriteLine("Shortcut show or hide CtrlUI has been pressed.");
+                            if (vWindowKeyboard.vWindowVisible || vWindowKeypad.vWindowVisible)
                             {
-                                await KeyboardPopupHideShow(false, false);
+                                await KeyboardKeypadPopupSwitch();
                             }
                             else
                             {
-                                await KeypadPopupHideShow(false);
+                                await ToolFunctions.CtrlUI_LaunchShow();
+
+                                ControllerUsed = true;
+                                ControllerDelay750 = true;
+                                return ControllerUsed;
                             }
                         }
-                        else
-                        {
-                            await KeyboardKeypadPopupSwitch();
-                        }
-
-                        ControllerUsed = true;
-                        ControllerDelay750 = true;
                     }
-                    //Mute or unmute the input/microphone
-                    else if (Controller.InputCurrent.ButtonTwo.PressedShort)
+
+                    //Show or hide keyboard or keypad
+                    shortcutTrigger = vShortcutsController.FirstOrDefault(x => x.Name == "KeyboardPopup");
+                    if (shortcutTrigger != null)
                     {
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutMuteOutput", typeof(bool)))
+                        if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
+                        {
+                            Debug.WriteLine("Shortcut show or hide keyboard has been pressed.");
+                            if (vWindowKeyboard.vWindowVisible || vWindowKeypad.vWindowVisible)
+                            {
+                                await HideOpenPopups();
+                            }
+                            else
+                            {
+                                if (vKeyboardKeypadLastActive == "Keyboard")
+                                {
+                                    await KeyboardPopupHideShow(false, false);
+                                }
+                                else
+                                {
+                                    await KeypadPopupHideShow(false);
+                                }
+                            }
+
+                            ControllerUsed = true;
+                            ControllerDelay750 = true;
+                            return ControllerUsed;
+                        }
+                    }
+
+                    //Mute or unmute audio output
+                    shortcutTrigger = vShortcutsController.FirstOrDefault(x => x.Name == "MuteOutput");
+                    if (shortcutTrigger != null)
+                    {
+                        if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                         {
                             if (AudioMuteSwitch(false))
                             {
@@ -95,11 +155,15 @@ namespace DirectXInput
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
+                            return ControllerUsed;
                         }
                     }
-                    else if (Controller.InputCurrent.ButtonTwo.PressedLong)
+
+                    //Mute or unmute audio input
+                    shortcutTrigger = vShortcutsController.FirstOrDefault(x => x.Name == "MuteInput");
+                    if (shortcutTrigger != null)
                     {
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutMuteInput", typeof(bool)))
+                        if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                         {
                             if (AudioMuteSwitch(true))
                             {
@@ -112,19 +176,18 @@ namespace DirectXInput
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
+                            return ControllerUsed;
                         }
                     }
-                    //Press Alt+Enter
-                    else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderRight.PressedRaw)
-                    {
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutAltEnter", typeof(bool)))
-                        {
-                            Debug.WriteLine("Button Global - Alt+Enter");
 
-                            NotificationDetails notificationDetails = new NotificationDetails();
-                            notificationDetails.Icon = "AppMiniMaxi";
-                            notificationDetails.Text = "Pressing Alt+Enter";
-                            vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    //Press Alt+Enter
+                    shortcutTrigger = vShortcutsController.FirstOrDefault(x => x.Name == "AltEnter");
+                    if (shortcutTrigger != null)
+                    {
+                        if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
+                        {
+                            Debug.WriteLine("Button Global - Press Alt+Enter");
+                            vWindowOverlay.Notification_Show_Status("AppMiniMaxi", "Pressing Alt+Enter");
 
                             KeysHidAction KeysHidAction = new KeysHidAction()
                             {
@@ -135,19 +198,40 @@ namespace DirectXInput
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
+                            return ControllerUsed;
                         }
                     }
-                    //Press Alt+Tab
-                    else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderLeft.PressedRaw)
+
+                    //Press Ctrl+Alt+Delete
+                    shortcutTrigger = vShortcutsController.FirstOrDefault(x => x.Name == "CtrlAltDelete");
+                    if (shortcutTrigger != null)
                     {
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutAltTab", typeof(bool)))
+                        if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
+                        {
+                            Debug.WriteLine("Button Global - Press Ctrl+Alt+Delete");
+                            vWindowOverlay.Notification_Show_Status("Applications", "Pressing Ctrl+Alt+Delete");
+
+                            KeysHidAction KeysHidAction = new KeysHidAction()
+                            {
+                                Modifiers = KeysModifierHid.CtrlLeft | KeysModifierHid.AltLeft,
+                                Key0 = KeysHid.Delete
+                            };
+                            vFakerInputDevice.KeyboardPressRelease(KeysHidAction);
+
+                            ControllerUsed = true;
+                            ControllerDelay750 = true;
+                            return ControllerUsed;
+                        }
+                    }
+
+                    //Press Alt+Tab
+                    shortcutTrigger = vShortcutsController.FirstOrDefault(x => x.Name == "AltTab");
+                    if (shortcutTrigger != null)
+                    {
+                        if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                         {
                             Debug.WriteLine("Button Global - Press Alt+Tab");
-
-                            NotificationDetails notificationDetails = new NotificationDetails();
-                            notificationDetails.Icon = "AppMiniMaxi";
-                            notificationDetails.Text = "Pressing Alt+Tab";
-                            vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            vWindowOverlay.Notification_Show_Status("AppMiniMaxi", "Pressing Alt+Tab");
 
                             //Press and hold Alt+Tab
                             KeysHidAction keyboardAltTab = new KeysHidAction()
@@ -167,19 +251,12 @@ namespace DirectXInput
                             vAltTabDownStatus = true;
                             ControllerUsed = true;
                             ControllerDelay250 = true;
+                            return ControllerUsed;
                         }
-                    }
-                    //Release Alt+Tab
-                    else if (vAltTabDownStatus && !Controller.InputCurrent.ButtonStart.PressedRaw)
-                    {
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutAltTab", typeof(bool)))
+                        else if (vAltTabDownStatus && !CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, true))
                         {
                             Debug.WriteLine("Button Global - Release Alt+Tab");
-
-                            NotificationDetails notificationDetails = new NotificationDetails();
-                            notificationDetails.Icon = "AppMiniMaxi";
-                            notificationDetails.Text = "Releasing Alt+Tab";
-                            vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            vWindowOverlay.Notification_Show_Status("AppMiniMaxi", "Releasing Alt+Tab");
 
                             //Release all key presses
                             vFakerInputDevice.KeyboardReset();
@@ -187,82 +264,72 @@ namespace DirectXInput
                             vAltTabDownStatus = false;
                             ControllerUsed = true;
                             ControllerDelay250 = true;
+                            return ControllerUsed;
                         }
                     }
-                    //Signal to capture image
-                    else if (Controller.InputCurrent.ButtonOne.PressedShort)
+
+                    //Signal to capture screen image
+                    shortcutTrigger = vShortcutsController.FirstOrDefault(x => x.Name == "CaptureImage");
+                    if (shortcutTrigger != null)
                     {
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureImage", typeof(bool)))
+                        if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                         {
-                            Debug.WriteLine("Button Global - Image capture");
+                            Debug.WriteLine("Button Global - Capture screen image");
                             await ToolFunctions.ScreenCaptureToolCaptureImage();
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
+                            return ControllerUsed;
                         }
                     }
-                    //Signal to capture video
-                    else if (Controller.InputCurrent.ButtonOne.PressedLong)
+
+                    //Signal to capture screen video
+                    shortcutTrigger = vShortcutsController.FirstOrDefault(x => x.Name == "CaptureVideo");
+                    if (shortcutTrigger != null)
                     {
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutCaptureVideo", typeof(bool)))
+                        if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                         {
-                            Debug.WriteLine("Button Global - Video capture");
+                            Debug.WriteLine("Button Global - Capture screen video");
                             await ToolFunctions.ScreenCaptureToolCaptureVideo();
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
+                            return ControllerUsed;
                         }
                     }
+
                     //Disconnect controller from Bluetooth
-                    else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonGuide.PressedRaw && Controller.Details.Wireless)
+                    shortcutTrigger = vShortcutsController.FirstOrDefault(x => x.Name == "DisconnectController");
+                    if (shortcutTrigger != null)
                     {
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth", typeof(bool)))
+                        if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                         {
                             Debug.WriteLine("Shortcut disconnect Bluetooth has been pressed.");
-                            await StopController(Controller, "manually", string.Empty);
+                            await StopController(controller, "manually", string.Empty);
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
+                            return ControllerUsed;
                         }
-                    }
-                    //Press ctrl + alt + delete
-                    else if (Controller.InputCurrent.ButtonBack.PressedRaw && Controller.InputCurrent.ButtonGuide.PressedRaw)
-                    {
-                        if (SettingLoad(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", typeof(bool)))
-                        {
-                            Debug.WriteLine("Shortcut ctrl + alt + delete pressed.");
-
-                            //Press ctrl + alt + delete
-                            KeysHidAction KeysHidAction = new KeysHidAction()
-                            {
-                                Modifiers = KeysModifierHid.CtrlLeft | KeysModifierHid.AltLeft,
-                                Key0 = KeysHid.Delete
-                            };
-                            vFakerInputDevice.KeyboardPressRelease(KeysHidAction);
-
-                            //Show the keyboard
-                            await KeyboardPopupHideShow(true, true);
-
-                            ControllerUsed = true;
-                            ControllerDelay750 = true;
-                        }
-                    }
-
-                    if (ControllerDelay125)
-                    {
-                        Controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayTicks125;
-                    }
-                    else if (ControllerDelay250)
-                    {
-                        Controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayTicks250;
-                    }
-                    else if (ControllerDelay750)
-                    {
-                        Controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayTicks750;
                     }
                 }
             }
             catch { }
+            finally
+            {
+                if (ControllerDelay125)
+                {
+                    controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayTicks125;
+                }
+                else if (ControllerDelay250)
+                {
+                    controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayTicks250;
+                }
+                else if (ControllerDelay750)
+                {
+                    controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayTicks750;
+                }
+            }
             return ControllerUsed;
         }
 

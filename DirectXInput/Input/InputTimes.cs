@@ -11,17 +11,10 @@ namespace DirectXInput
         {
             try
             {
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonGuide);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonOne);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonTwo);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonThumbLeftLeft);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonThumbLeftUp);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonThumbLeftRight);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.ButtonThumbLeftDown);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.DPadLeft);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.DPadUp);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.DPadRight);
-                CheckControllerButtonPressTime(controllerStatus.InputCurrent.DPadDown);
+                foreach (ControllerButtonDetails buttonDetails in controllerStatus.InputCurrent.Buttons)
+                {
+                    CheckControllerButtonPressTime(buttonDetails);
+                }
             }
             catch { }
         }

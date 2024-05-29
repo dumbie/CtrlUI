@@ -17,7 +17,6 @@ namespace DirectXInput
                 keyboard_LaunchCtrlUI.Set(vShortcutsKeyboard.FirstOrDefault(x => x.Name == keyboard_LaunchCtrlUI.TriggerName));
 
                 //Controller
-                controller_FakeGuideButton.Set(vShortcutsController.FirstOrDefault(x => x.Name == controller_FakeGuideButton.TriggerName));
                 controller_DisconnectController.Set(vShortcutsController.FirstOrDefault(x => x.Name == controller_DisconnectController.TriggerName));
                 controller_LaunchCtrlUI.Set(vShortcutsController.FirstOrDefault(x => x.Name == controller_LaunchCtrlUI.TriggerName));
                 controller_KeyboardPopup.Set(vShortcutsController.FirstOrDefault(x => x.Name == controller_KeyboardPopup.TriggerName));

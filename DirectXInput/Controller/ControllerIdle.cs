@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -52,33 +53,33 @@ namespace DirectXInput
             try
             {
                 //DPad
-                if (controllerStatus.InputCurrent.DPadLeft.PressedRaw || controllerStatus.InputCurrent.DPadUp.PressedRaw || controllerStatus.InputCurrent.DPadRight.PressedRaw || controllerStatus.InputCurrent.DPadDown.PressedRaw)
+                if (controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw)
                 {
                     return false;
                 }
 
                 //Buttons
-                if (controllerStatus.InputCurrent.ButtonA.PressedRaw || controllerStatus.InputCurrent.ButtonB.PressedRaw || controllerStatus.InputCurrent.ButtonX.PressedRaw || controllerStatus.InputCurrent.ButtonY.PressedRaw)
+                if (controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.A].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.B].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.X].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.Y].PressedRaw)
                 {
                     return false;
                 }
 
-                if (controllerStatus.InputCurrent.ButtonBack.PressedRaw || controllerStatus.InputCurrent.ButtonStart.PressedRaw || controllerStatus.InputCurrent.ButtonGuide.PressedRaw)
+                if (controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.Back].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.Start].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.Guide].PressedRaw)
                 {
                     return false;
                 }
 
-                if (controllerStatus.InputCurrent.ButtonOne.PressedRaw || controllerStatus.InputCurrent.ButtonTwo.PressedRaw || controllerStatus.InputCurrent.ButtonThree.PressedRaw || controllerStatus.InputCurrent.ButtonFour.PressedRaw || controllerStatus.InputCurrent.ButtonFive.PressedRaw || controllerStatus.InputCurrent.ButtonSix.PressedRaw)
+                if (controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.One].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.Two].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.Three].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.Four].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.Five].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.Six].PressedRaw)
                 {
                     return false;
                 }
 
-                if (controllerStatus.InputCurrent.ButtonShoulderLeft.PressedRaw || controllerStatus.InputCurrent.ButtonShoulderRight.PressedRaw)
+                if (controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ShoulderLeft].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ShoulderRight].PressedRaw)
                 {
                     return false;
                 }
 
-                if (controllerStatus.InputCurrent.ButtonThumbLeft.PressedRaw || controllerStatus.InputCurrent.ButtonThumbRight.PressedRaw)
+                if (controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ThumbLeft].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ThumbRight].PressedRaw)
                 {
                     return false;
                 }
@@ -90,13 +91,13 @@ namespace DirectXInput
                 }
 
                 //Left stick movement
-                if (controllerStatus.InputCurrent.ButtonThumbLeftLeft.PressedRaw || controllerStatus.InputCurrent.ButtonThumbLeftUp.PressedRaw || controllerStatus.InputCurrent.ButtonThumbLeftRight.PressedRaw || controllerStatus.InputCurrent.ButtonThumbLeftDown.PressedRaw)
+                if (controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ThumbLeftLeft].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ThumbLeftUp].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ThumbLeftRight].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ThumbLeftDown].PressedRaw)
                 {
                     return false;
                 }
 
                 //Right stick movement
-                if (controllerStatus.InputCurrent.ButtonThumbRightLeft.PressedRaw || controllerStatus.InputCurrent.ButtonThumbRightUp.PressedRaw || controllerStatus.InputCurrent.ButtonThumbRightRight.PressedRaw || controllerStatus.InputCurrent.ButtonThumbRightDown.PressedRaw)
+                if (controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ThumbRightLeft].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ThumbRightUp].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ThumbRightRight].PressedRaw || controllerStatus.InputCurrent.Buttons[(byte)ControllerButtons.ThumbRightDown].PressedRaw)
                 {
                     return false;
                 }

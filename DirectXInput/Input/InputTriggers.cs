@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static LibraryShared.Classes;
-using static LibraryShared.Enums;
 
 namespace DirectXInput
 {
@@ -66,12 +66,12 @@ namespace DirectXInput
                 //Read digital triggers
                 if (controller.Details.Profile.UseButtonTriggers || controller.InputCurrent.TriggerLeft == 0)
                 {
-                    if (controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.TriggerLeft]) { controller.InputCurrent.TriggerLeft = 255; } else { controller.InputCurrent.TriggerLeft = 0; }
+                    if (controller.InputCurrent.Buttons[(int)ControllerButtons.TriggerLeft].PressedRaw) { controller.InputCurrent.TriggerLeft = 255; } else { controller.InputCurrent.TriggerLeft = 0; }
                 }
 
                 if (controller.Details.Profile.UseButtonTriggers || controller.InputCurrent.TriggerRight == 0)
                 {
-                    if (controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.TriggerRight]) { controller.InputCurrent.TriggerRight = 255; } else { controller.InputCurrent.TriggerRight = 0; }
+                    if (controller.InputCurrent.Buttons[(int)ControllerButtons.TriggerRight].PressedRaw) { controller.InputCurrent.TriggerRight = 255; } else { controller.InputCurrent.TriggerRight = 0; }
                 }
 
                 return true;

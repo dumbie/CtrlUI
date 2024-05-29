@@ -58,16 +58,16 @@ namespace DirectXInput.KeyboardCode
                     }
 
                     //Emulate mouse button press
-                    if (ControllerInput.ButtonShoulderLeft.PressedRaw && ControllerInput.ButtonShoulderRight.PressedRaw)
+                    if (ControllerInput.Buttons[(byte)ControllerButtons.ShoulderLeft].PressedRaw && ControllerInput.Buttons[(byte)ControllerButtons.ShoulderRight].PressedRaw)
                     {
                         buttonPress = MouseHidButtons.MiddleButton;
                         ControllerDelay500 = true;
                     }
-                    else if (ControllerInput.ButtonShoulderLeft.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.ShoulderLeft].PressedRaw)
                     {
                         buttonPress = MouseHidButtons.LeftButton;
                     }
-                    else if (ControllerInput.ButtonShoulderRight.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.ShoulderRight].PressedRaw)
                     {
                         buttonPress = MouseHidButtons.RightButton;
                     }
@@ -117,7 +117,7 @@ namespace DirectXInput.KeyboardCode
                 if (GetSystemTicksMs() >= vControllerDelay_Keyboard)
                 {
                     //Send internal arrow left key
-                    if (ControllerInput.DPadLeft.PressedRaw)
+                    if (ControllerInput.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw)
                     {
                         if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
@@ -148,7 +148,7 @@ namespace DirectXInput.KeyboardCode
                                 KeySendSingle(KeysVirtual.ArrowLeft, vInteropWindowHandle);
 
                                 //Check navigation delay
-                                if (ControllerInput.DPadLeft.PressTimeCurrent > vControllerButtonPressTap)
+                                if (ControllerInput.Buttons[(byte)ControllerButtons.DPadLeft].PressTimeCurrent > vControllerButtonPressTap)
                                 {
                                     ControllerDelay30 = true;
                                 }
@@ -160,7 +160,7 @@ namespace DirectXInput.KeyboardCode
                         }
                     }
                     //Send internal arrow right key
-                    else if (ControllerInput.DPadRight.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw)
                     {
                         if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
@@ -191,7 +191,7 @@ namespace DirectXInput.KeyboardCode
                                 KeySendSingle(KeysVirtual.ArrowRight, vInteropWindowHandle);
 
                                 //Check navigation delay
-                                if (ControllerInput.DPadRight.PressTimeCurrent > vControllerButtonPressTap)
+                                if (ControllerInput.Buttons[(byte)ControllerButtons.DPadRight].PressTimeCurrent > vControllerButtonPressTap)
                                 {
                                     ControllerDelay30 = true;
                                 }
@@ -203,7 +203,7 @@ namespace DirectXInput.KeyboardCode
                         }
                     }
                     //Send internal arrow up key
-                    else if (ControllerInput.DPadUp.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw)
                     {
                         if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
@@ -234,7 +234,7 @@ namespace DirectXInput.KeyboardCode
                                 KeySendSingle(KeysVirtual.ArrowUp, vInteropWindowHandle);
 
                                 //Check navigation delay
-                                if (ControllerInput.DPadUp.PressTimeCurrent > vControllerButtonPressTap)
+                                if (ControllerInput.Buttons[(byte)ControllerButtons.DPadUp].PressTimeCurrent > vControllerButtonPressTap)
                                 {
                                     ControllerDelay30 = true;
                                 }
@@ -246,7 +246,7 @@ namespace DirectXInput.KeyboardCode
                         }
                     }
                     //Send internal arrow down key
-                    else if (ControllerInput.DPadDown.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw)
                     {
                         if (vKeyboardCurrentMode == KeyboardMode.Media)
                         {
@@ -277,7 +277,7 @@ namespace DirectXInput.KeyboardCode
                                 KeySendSingle(KeysVirtual.ArrowDown, vInteropWindowHandle);
 
                                 //Check navigation delay
-                                if (ControllerInput.DPadDown.PressTimeCurrent > vControllerButtonPressTap)
+                                if (ControllerInput.Buttons[(byte)ControllerButtons.DPadDown].PressTimeCurrent > vControllerButtonPressTap)
                                 {
                                     ControllerDelay30 = true;
                                 }
@@ -290,7 +290,7 @@ namespace DirectXInput.KeyboardCode
                     }
 
                     //Send internal space key
-                    else if (ControllerInput.ButtonA.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.A].PressedRaw)
                     {
                         //Check the foreground window
                         if (vInteropWindowHandle != vProcessForeground.WindowHandleMain)
@@ -318,7 +318,7 @@ namespace DirectXInput.KeyboardCode
                         }
                     }
                     //Send external enter key
-                    else if (ControllerInput.ButtonB.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.B].PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
@@ -343,7 +343,7 @@ namespace DirectXInput.KeyboardCode
                         }
                     }
                     //Send external space key
-                    else if (ControllerInput.ButtonY.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.Y].PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
@@ -363,7 +363,7 @@ namespace DirectXInput.KeyboardCode
                         }
                     }
                     //Send external backspace or delete key
-                    else if (ControllerInput.ButtonX.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.X].PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
@@ -393,7 +393,7 @@ namespace DirectXInput.KeyboardCode
                     }
 
                     //Send external arrow left key
-                    else if (ControllerInput.ButtonThumbLeft.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.ThumbLeft].PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
@@ -413,7 +413,7 @@ namespace DirectXInput.KeyboardCode
                         }
                     }
                     //Send external arrow right key
-                    else if (ControllerInput.ButtonThumbRight.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.ThumbRight].PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
@@ -504,7 +504,7 @@ namespace DirectXInput.KeyboardCode
                     }
 
                     //Show hide text emoji popup
-                    else if (ControllerInput.ButtonBack.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.Back].PressedRaw)
                     {
                         Debug.WriteLine("Button: BackPressed / Show hide text emoji popup");
 
@@ -534,7 +534,7 @@ namespace DirectXInput.KeyboardCode
                         ControllerDelay250 = true;
                     }
                     //Switch keyboard mode
-                    else if (ControllerInput.ButtonStart.PressedRaw)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.Start].PressedRaw)
                     {
                         Debug.WriteLine("Button: StartPressed / Switch keyboard mode");
                         await SwitchKeyboardMode();

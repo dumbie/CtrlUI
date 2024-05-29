@@ -20,7 +20,6 @@ namespace DirectXInput
                 keyboard_LaunchCtrlUI.TriggerChanged += Shortcut_Keyboard_TriggerChanged;
 
                 //Controller
-                controller_FakeGuideButton.TriggerChanged += Shortcut_Controller_TriggerChanged;
                 controller_DisconnectController.TriggerChanged += Shortcut_Controller_TriggerChanged;
                 controller_LaunchCtrlUI.TriggerChanged += Shortcut_Controller_TriggerChanged;
                 controller_KeyboardPopup.TriggerChanged += Shortcut_Controller_TriggerChanged;

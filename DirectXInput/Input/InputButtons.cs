@@ -1,100 +1,134 @@
 ﻿using System;
 using System.Diagnostics;
+using static ArnoldVinkCode.AVInputOutputClass;
+using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Classes.ControllerSupported;
 using static LibraryShared.Enums;
 
 namespace DirectXInput
 {
     public partial class WindowMain
     {
+        //Read controller button data switch
+        private static bool ReadButtonDataSwitch(ControllerStatus controller, ControllerButtons controllerButton)
+        {
+            try
+            {
+                switch (controllerButton)
+                {
+                    //Buttons (A, B, X, Y)
+                    case ControllerButtons.A:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.A);
+                    case ControllerButtons.B:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.B);
+                    case ControllerButtons.X:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.X);
+                    case ControllerButtons.Y:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Y);
+                    //Buttons (Shoulders, Triggers, Thumbs)
+                    case ControllerButtons.ShoulderLeft:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.ShoulderLeft);
+                    case ControllerButtons.ShoulderRight:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.ShoulderRight);
+                    case ControllerButtons.TriggerLeft:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.TriggerLeft);
+                    case ControllerButtons.TriggerRight:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.TriggerRight);
+                    case ControllerButtons.ThumbLeft:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.ThumbLeft);
+                    case ControllerButtons.ThumbRight:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.ThumbRight);
+                    //Buttons (Back, Start, Guide and others)
+                    case ControllerButtons.Back:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Back);
+                    case ControllerButtons.Start:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Start);
+                    case ControllerButtons.Guide:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Guide);
+                    case ControllerButtons.One:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.One);
+                    case ControllerButtons.Two:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Two);
+                    case ControllerButtons.Three:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Three);
+                    case ControllerButtons.Four:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Four);
+                    case ControllerButtons.Five:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Five);
+                    case ControllerButtons.Six:
+                        return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Six);
+                }
+            }
+            catch { }
+            return false;
+        }
+
+        //Read controller button data raw
+        private static bool ReadButtonDataRaw(ControllerStatus controller, ClassButtonDetails button)
+        {
+            try
+            {
+                if (button != null)
+                {
+                    //Set controller header offset
+                    int headerOffset = controller.Details.Wireless ? controller.SupportedCurrent.OffsetWireless : controller.SupportedCurrent.OffsetWired;
+
+                    //Check if controller button is pressed
+                    return (controller.ControllerDataInput[headerOffset + button.Group] & (1 << button.Offset)) != 0;
+                }
+            }
+            catch { }
+            return false;
+        }
+
+        private static bool UpdateButtonData(ControllerStatus controller, ControllerButtons controllerButton, ControllerButtons? controllerMapping)
+        {
+            try
+            {
+                //Check controller mapping status
+                if (vMappingControllerStatus == MappingStatus.Mapping || controllerMapping == null)
+                {
+                    controller.InputCurrent.Buttons[(byte)controllerButton].PressedRaw = ReadButtonDataSwitch(controller, controllerButton);
+                }
+                else
+                {
+                    controller.InputCurrent.Buttons[(byte)controllerButton].PressedRaw = ReadButtonDataSwitch(controller, (ControllerButtons)controllerMapping);
+                }
+                return true;
+            }
+            catch { }
+            return false;
+        }
+
         private static bool InputUpdateButtons(ControllerStatus controller)
         {
             try
             {
-                //Set controller header offset
-                int headerOffset = controller.Details.Wireless ? controller.SupportedCurrent.OffsetWireless : controller.SupportedCurrent.OffsetWired;
-
                 //Buttons (A, B, X, Y)
-                if (controller.SupportedCurrent.OffsetButton.A != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.A] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.A.Group] & (1 << controller.SupportedCurrent.OffsetButton.A.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.B != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.B] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.B.Group] & (1 << controller.SupportedCurrent.OffsetButton.B.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.X != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.X] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.X.Group] & (1 << controller.SupportedCurrent.OffsetButton.X.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.Y != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Y] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Y.Group] & (1 << controller.SupportedCurrent.OffsetButton.Y.Offset)) != 0;
-                }
+                UpdateButtonData(controller, ControllerButtons.A, controller.Details.Profile.ButtonA);
+                UpdateButtonData(controller, ControllerButtons.B, controller.Details.Profile.ButtonB);
+                UpdateButtonData(controller, ControllerButtons.X, controller.Details.Profile.ButtonX);
+                UpdateButtonData(controller, ControllerButtons.Y, controller.Details.Profile.ButtonY);
 
-                //Buttons (Shoulders, Triggers, Thumbs, Back, Start)
-                if (controller.SupportedCurrent.OffsetButton.ShoulderLeft != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.ShoulderLeft] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.ShoulderLeft.Group] & (1 << controller.SupportedCurrent.OffsetButton.ShoulderLeft.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.ShoulderRight != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.ShoulderRight] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.ShoulderRight.Group] & (1 << controller.SupportedCurrent.OffsetButton.ShoulderRight.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.TriggerLeft != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.TriggerLeft] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.TriggerLeft.Group] & (1 << controller.SupportedCurrent.OffsetButton.TriggerLeft.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.TriggerRight != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.TriggerRight] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.TriggerRight.Group] & (1 << controller.SupportedCurrent.OffsetButton.TriggerRight.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.ThumbLeft != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.ThumbLeft] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.ThumbLeft.Group] & (1 << controller.SupportedCurrent.OffsetButton.ThumbLeft.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.ThumbRight != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.ThumbRight] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.ThumbRight.Group] & (1 << controller.SupportedCurrent.OffsetButton.ThumbRight.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.Back != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Back] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Back.Group] & (1 << controller.SupportedCurrent.OffsetButton.Back.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.Start != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Start] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Start.Group] & (1 << controller.SupportedCurrent.OffsetButton.Start.Offset)) != 0;
-                }
+                //Buttons (Shoulders, Triggers, Thumbs)
+                UpdateButtonData(controller, ControllerButtons.ShoulderLeft, controller.Details.Profile.ButtonShoulderLeft);
+                UpdateButtonData(controller, ControllerButtons.ShoulderRight, controller.Details.Profile.ButtonShoulderRight);
+                UpdateButtonData(controller, ControllerButtons.TriggerLeft, controller.Details.Profile.ButtonTriggerLeft);
+                UpdateButtonData(controller, ControllerButtons.TriggerRight, controller.Details.Profile.ButtonTriggerRight);
+                UpdateButtonData(controller, ControllerButtons.ThumbLeft, controller.Details.Profile.ButtonThumbLeft);
+                UpdateButtonData(controller, ControllerButtons.ThumbRight, controller.Details.Profile.ButtonThumbRight);
 
-                //Buttons (Guide and others)
-                if (controller.SupportedCurrent.OffsetButton.Guide != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Guide] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Guide.Group] & (1 << controller.SupportedCurrent.OffsetButton.Guide.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.One != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.One] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.One.Group] & (1 << controller.SupportedCurrent.OffsetButton.One.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.Two != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Two] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Two.Group] & (1 << controller.SupportedCurrent.OffsetButton.Two.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.Three != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Three] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Three.Group] & (1 << controller.SupportedCurrent.OffsetButton.Three.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.Four != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Four] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Four.Group] & (1 << controller.SupportedCurrent.OffsetButton.Four.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.Five != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Five] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Five.Group] & (1 << controller.SupportedCurrent.OffsetButton.Five.Offset)) != 0;
-                }
-                if (controller.SupportedCurrent.OffsetButton.Six != null)
-                {
-                    controller.InputCurrent.ButtonPressStatus[(int)ControllerButtonIds.Six] = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.Six.Group] & (1 << controller.SupportedCurrent.OffsetButton.Six.Offset)) != 0;
-                }
+                //Buttons (Back, Start, Guide and others)
+                UpdateButtonData(controller, ControllerButtons.Back, controller.Details.Profile.ButtonBack);
+                UpdateButtonData(controller, ControllerButtons.Start, controller.Details.Profile.ButtonStart);
+                UpdateButtonData(controller, ControllerButtons.Guide, controller.Details.Profile.ButtonGuide);
+                UpdateButtonData(controller, ControllerButtons.One, controller.Details.Profile.ButtonOne);
+                UpdateButtonData(controller, ControllerButtons.Two, controller.Details.Profile.ButtonTwo);
+                UpdateButtonData(controller, ControllerButtons.Three, controller.Details.Profile.ButtonThree);
+                UpdateButtonData(controller, ControllerButtons.Four, controller.Details.Profile.ButtonFour);
+                UpdateButtonData(controller, ControllerButtons.Five, controller.Details.Profile.ButtonFive);
+                UpdateButtonData(controller, ControllerButtons.Six, controller.Details.Profile.ButtonSix);
 
                 return true;
             }

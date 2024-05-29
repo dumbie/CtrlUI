@@ -39,6 +39,9 @@
 		<Content Include="Profiles\Default\DirectControllersSupported\8BitDoPro2.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Profiles\Default\DirectControllersSupported\NintendoSwitchPro.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Profiles\Default\DirectControllersSupported\SonyPS12DualShock.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -82,6 +85,12 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Profiles\User\DirectKeyboardTextList.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Profiles\User\DirectShortcutsController.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Profiles\User\DirectShortcutsKeyboard.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Profiles\User\DirectKeypadMapping\Default.json">
@@ -92,12 +101,12 @@
 		<EmbeddedResource Include="Assets\AppIcon.ico" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Profiles\User\DirectControllersProfile\" />
-	</ItemGroup>
-	<ItemGroup>
 		<ProjectReference Include="..\LibraryShared\LibraryShared.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Emoji.Wpf" Version="0.3.4" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Profiles\User\DirectControllersProfile\" />
 	</ItemGroup>
 </Project>
