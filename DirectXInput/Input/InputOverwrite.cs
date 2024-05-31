@@ -23,8 +23,6 @@ namespace DirectXInput
                         foreach (ControllerButtons button in shortcutTrigger.Trigger)
                         {
                             controller.InputCurrent.Buttons[(byte)button].PressedRaw = false;
-                            controller.InputCurrent.Buttons[(byte)button].PressedShort = false;
-                            controller.InputCurrent.Buttons[(byte)button].PressedLong = false;
                         }
                     }
                 }
@@ -33,8 +31,6 @@ namespace DirectXInput
                 if (controller.InputCurrent.Buttons[(byte)ControllerButtons.Guide].PressedRaw && SettingLoad(vConfigurationDirectXInput, "ExclusiveGuide", typeof(bool)))
                 {
                     controller.InputCurrent.Buttons[(byte)ControllerButtons.Guide].PressedRaw = false;
-                    controller.InputCurrent.Buttons[(byte)ControllerButtons.Guide].PressedShort = false;
-                    controller.InputCurrent.Buttons[(byte)ControllerButtons.Guide].PressedLong = false;
                 }
             }
             catch { }
