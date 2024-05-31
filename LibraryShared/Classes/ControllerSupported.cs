@@ -8,12 +8,8 @@
             public string[] ProductIDs { get; set; }
             public string VendorID { get; set; }
             public bool HasDirectDPad { get; set; }
-            public bool HasTouchpad { get; set; }
-            public bool HasGyroscope { get; set; }
-            public bool HasAccelerometer { get; set; }
             public bool HasRumbleMode { get; set; }
             public bool HasRumbleTrigger { get; set; }
-            public bool HasButtonTrigger { get; set; }
             public int OffsetWired { get; set; }
             public int OffsetWireless { get; set; }
             public ClassOffsetHeader OffsetHeader { get; set; } = new ClassOffsetHeader();
