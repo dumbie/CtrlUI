@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using static ArnoldVinkCode.AVInputOutputClass;
 
 namespace LibraryShared
 {
@@ -62,8 +63,8 @@ namespace LibraryShared
             }
 
             //Controller Mapping Thumb Stick
-            private int? PrivButtonThumbLeft;
-            public int? ButtonThumbLeft
+            private ControllerButtons? PrivButtonThumbLeft;
+            public ControllerButtons? ButtonThumbLeft
             {
                 get { return this.PrivButtonThumbLeft; }
                 set
@@ -76,8 +77,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonThumbRight;
-            public int? ButtonThumbRight
+            private ControllerButtons? PrivButtonThumbRight;
+            public ControllerButtons? ButtonThumbRight
             {
                 get { return this.PrivButtonThumbRight; }
                 set
@@ -91,8 +92,8 @@ namespace LibraryShared
             }
 
             //Controller Mapping DPad
-            private int? PrivDPadLeft;
-            public int? DPadLeft
+            private ControllerButtons? PrivDPadLeft;
+            public ControllerButtons? DPadLeft
             {
                 get { return this.PrivDPadLeft; }
                 set
@@ -105,8 +106,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivDPadUp;
-            public int? DPadUp
+            private ControllerButtons? PrivDPadUp;
+            public ControllerButtons? DPadUp
             {
                 get { return this.PrivDPadUp; }
                 set
@@ -119,8 +120,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivDPadRight;
-            public int? DPadRight
+            private ControllerButtons? PrivDPadRight;
+            public ControllerButtons? DPadRight
             {
                 get { return this.PrivDPadRight; }
                 set
@@ -133,8 +134,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivDPadDown;
-            public int? DPadDown
+            private ControllerButtons? PrivDPadDown;
+            public ControllerButtons? DPadDown
             {
                 get { return this.PrivDPadDown; }
                 set
@@ -148,8 +149,8 @@ namespace LibraryShared
             }
 
             //Controller Mapping Buttons
-            private int? PrivButtonA;
-            public int? ButtonA
+            private ControllerButtons? PrivButtonA;
+            public ControllerButtons? ButtonA
             {
                 get { return this.PrivButtonA; }
                 set
@@ -162,8 +163,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonB;
-            public int? ButtonB
+            private ControllerButtons? PrivButtonB;
+            public ControllerButtons? ButtonB
             {
                 get { return this.PrivButtonB; }
                 set
@@ -176,8 +177,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonX;
-            public int? ButtonX
+            private ControllerButtons? PrivButtonX;
+            public ControllerButtons? ButtonX
             {
                 get { return this.PrivButtonX; }
                 set
@@ -190,8 +191,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonY;
-            public int? ButtonY
+            private ControllerButtons? PrivButtonY;
+            public ControllerButtons? ButtonY
             {
                 get { return this.PrivButtonY; }
                 set
@@ -204,8 +205,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonBack;
-            public int? ButtonBack
+            private ControllerButtons? PrivButtonBack;
+            public ControllerButtons? ButtonBack
             {
                 get { return this.PrivButtonBack; }
                 set
@@ -218,8 +219,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonStart;
-            public int? ButtonStart
+            private ControllerButtons? PrivButtonStart;
+            public ControllerButtons? ButtonStart
             {
                 get { return this.PrivButtonStart; }
                 set
@@ -232,8 +233,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonGuide;
-            public int? ButtonGuide
+            private ControllerButtons? PrivButtonGuide;
+            public ControllerButtons? ButtonGuide
             {
                 get { return this.PrivButtonGuide; }
                 set
@@ -246,8 +247,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonOne;
-            public int? ButtonOne
+            private ControllerButtons? PrivButtonOne;
+            public ControllerButtons? ButtonOne
             {
                 get { return this.PrivButtonOne; }
                 set
@@ -260,8 +261,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonTwo;
-            public int? ButtonTwo
+            private ControllerButtons? PrivButtonTwo;
+            public ControllerButtons? ButtonTwo
             {
                 get { return this.PrivButtonTwo; }
                 set
@@ -274,8 +275,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonThree;
-            public int? ButtonThree
+            private ControllerButtons? PrivButtonThree;
+            public ControllerButtons? ButtonThree
             {
                 get { return this.PrivButtonThree; }
                 set
@@ -288,8 +289,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonFour;
-            public int? ButtonFour
+            private ControllerButtons? PrivButtonFour;
+            public ControllerButtons? ButtonFour
             {
                 get { return this.PrivButtonFour; }
                 set
@@ -302,8 +303,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonFive;
-            public int? ButtonFive
+            private ControllerButtons? PrivButtonFive;
+            public ControllerButtons? ButtonFive
             {
                 get { return this.PrivButtonFive; }
                 set
@@ -316,8 +317,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonSix;
-            public int? ButtonSix
+            private ControllerButtons? PrivButtonSix;
+            public ControllerButtons? ButtonSix
             {
                 get { return this.PrivButtonSix; }
                 set
@@ -330,8 +331,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonShoulderLeft;
-            public int? ButtonShoulderLeft
+            private ControllerButtons? PrivButtonShoulderLeft;
+            public ControllerButtons? ButtonShoulderLeft
             {
                 get { return this.PrivButtonShoulderLeft; }
                 set
@@ -344,8 +345,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonShoulderRight;
-            public int? ButtonShoulderRight
+            private ControllerButtons? PrivButtonShoulderRight;
+            public ControllerButtons? ButtonShoulderRight
             {
                 get { return this.PrivButtonShoulderRight; }
                 set
@@ -358,8 +359,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonTriggerLeft;
-            public int? ButtonTriggerLeft
+            private ControllerButtons? PrivButtonTriggerLeft;
+            public ControllerButtons? ButtonTriggerLeft
             {
                 get { return this.PrivButtonTriggerLeft; }
                 set
@@ -372,8 +373,8 @@ namespace LibraryShared
                 }
             }
 
-            private int? PrivButtonTriggerRight;
-            public int? ButtonTriggerRight
+            private ControllerButtons? PrivButtonTriggerRight;
+            public ControllerButtons? ButtonTriggerRight
             {
                 get { return this.PrivButtonTriggerRight; }
                 set
@@ -381,49 +382,6 @@ namespace LibraryShared
                     if (this.PrivButtonTriggerRight != value)
                     {
                         this.PrivButtonTriggerRight = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            //Controller Button
-            private bool PrivFakeGuideButton;
-            public bool FakeGuideButton
-            {
-                get { return this.PrivFakeGuideButton; }
-                set
-                {
-                    if (this.PrivFakeGuideButton != value)
-                    {
-                        this.PrivFakeGuideButton = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private bool PrivFakeOneButton;
-            public bool FakeOneButton
-            {
-                get { return this.PrivFakeOneButton; }
-                set
-                {
-                    if (this.PrivFakeOneButton != value)
-                    {
-                        this.PrivFakeOneButton = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private bool PrivFakeTwoButton;
-            public bool FakeTwoButton
-            {
-                get { return this.PrivFakeTwoButton; }
-                set
-                {
-                    if (this.PrivFakeTwoButton != value)
-                    {
-                        this.PrivFakeTwoButton = value;
                         NotifyPropertyChanged();
                     }
                 }

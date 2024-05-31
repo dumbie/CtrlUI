@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using static ArnoldVinkCode.AVInputOutputClass;
 
 namespace LibraryShared
 {
@@ -33,41 +35,8 @@ namespace LibraryShared
             public float AccelY = 0;
             public float AccelZ = 0;
 
-            //Raw DPad
-            public ControllerButtonDetails DPadUp = new ControllerButtonDetails();
-            public ControllerButtonDetails DPadDown = new ControllerButtonDetails();
-            public ControllerButtonDetails DPadLeft = new ControllerButtonDetails();
-            public ControllerButtonDetails DPadRight = new ControllerButtonDetails();
-
             //Raw Buttons
-            public ControllerButtonDetails ButtonA = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonB = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonX = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonY = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonBack = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonStart = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonGuide = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonOne = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonTwo = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonThree = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonFour = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonFive = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonSix = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonShoulderLeft = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonShoulderRight = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonThumbLeft = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonThumbLeftLeft = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonThumbLeftUp = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonThumbLeftRight = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonThumbLeftDown = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonThumbRight = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonThumbRightLeft = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonThumbRightUp = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonThumbRightRight = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonThumbRightDown = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonTriggerLeft = new ControllerButtonDetails();
-            public ControllerButtonDetails ButtonTriggerRight = new ControllerButtonDetails();
-            public bool[] ButtonPressStatus = new bool[300];
+            public ControllerButtonDetails[] Buttons = Enumerable.Range(0, Enum.GetNames(typeof(ControllerButtons)).Length).Select(x => new ControllerButtonDetails()).ToArray();
         }
     }
 }
