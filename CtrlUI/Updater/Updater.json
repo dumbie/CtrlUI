@@ -21,11 +21,15 @@
     ".csettings"
   ],
   "FilesDelete": [
+    "CtrlUI.exe.config",
     "CtrlUI-Admin.exe",
     "CtrlUI-Admin.exe.config",
+    "DirectXInput.exe.config",
     "DirectXInput-Admin.exe",
     "DirectXInput-Admin.exe.config",
     "DirectXInput-Launcher.exe.config",
+    "DriverInstaller.exe.config",
+    "FpsOverlayer.exe.config",
     "FpsOverlayer-Admin.exe",
     "FpsOverlayer-Admin.exe.config",
     "FpsOverlayer-Launcher.exe.config",
