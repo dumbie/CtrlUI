@@ -401,6 +401,10 @@ namespace DirectXInput
                 btn_SetTriggerRight.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
                 btn_SetOne.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
                 btn_SetTwo.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetThree.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetFour.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetFive.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetSix.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
                 button_SetController_Map.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Map;
                 button_SetController_Unmap.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Unmap;
                 button_SetController_Default.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Default;
@@ -440,6 +444,12 @@ namespace DirectXInput
                 btn_Settings_KeypadProcessProfile_Add.Click += Btn_Settings_KeypadProcessProfile_Add_Click;
                 btn_Settings_KeypadProcessProfile_Remove.Click += Btn_Settings_KeypadProcessProfile_Remove_Click;
                 combobox_KeypadProcessProfile.SelectionChanged += Combobox_KeypadProcessProfile_SelectionChanged;
+
+                //Capture functions
+                btn_Settings_OpenXboxGameBarOverlay.Click += Btn_Settings_OpenXboxGameBarOverlay_Click;
+                btn_Settings_OpenXboxGameBarSettings.Click += Btn_Settings_OpenXboxGameBarSettings_Click;
+                btn_Settings_OpenXboxCapture.Click += Btn_Settings_OpenXboxCapture_Click;
+                btn_Settings_OpenCaptureFolder.Click += Btn_Settings_OpenCaptureFolder_Click;
 
                 //Settings functions
                 btn_Settings_InstallDrivers.Click += btn_Settings_InstallDrivers_Click;

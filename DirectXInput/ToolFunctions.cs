@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVProcess;
-using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -23,14 +22,14 @@ namespace DirectXInput
                 }
                 else
                 {
-                    await ShowCtrlUI();
+                    await CtrlUI_Show();
                 }
             }
             catch { }
         }
 
         //Show CtrlUI
-        private static async Task ShowCtrlUI()
+        private static async Task CtrlUI_Show()
         {
             try
             {
@@ -74,14 +73,14 @@ namespace DirectXInput
                 }
                 else
                 {
-                    await ShowHideFpsOverlayer();
+                    await FpsOverlayer_ShowHide();
                 }
             }
             catch { }
         }
 
         //Show or hide Fps Overlayer
-        private static async Task ShowHideFpsOverlayer()
+        private static async Task FpsOverlayer_ShowHide()
         {
             try
             {
@@ -247,58 +246,6 @@ namespace DirectXInput
 
                 //Send socket data
                 IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), vArnoldVinkSockets.vSocketServerPort + 1);
-                await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
-            }
-            catch { }
-        }
-
-        //Screen Capture Tool capture image
-        public static async Task ScreenCaptureToolCaptureImage()
-        {
-            try
-            {
-                //Check if socket server is running
-                if (vArnoldVinkSockets == null)
-                {
-                    Debug.WriteLine("The socket server is not running.");
-                    return;
-                }
-
-                Debug.WriteLine("Signal screen capture tool to capture image.");
-
-                //Prepare socket data
-                string socketSend = "CaptureImage";
-                byte[] SerializedData = SerializeObjectToBytes(socketSend);
-
-                //Send socket data
-                int socketServerPort = SettingLoad(vConfigurationDirectXInput, "ServerPortScreenCaptureTool", typeof(int));
-                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), socketServerPort);
-                await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
-            }
-            catch { }
-        }
-
-        //Screen Capture Tool capture video
-        public static async Task ScreenCaptureToolCaptureVideo()
-        {
-            try
-            {
-                //Check if socket server is running
-                if (vArnoldVinkSockets == null)
-                {
-                    Debug.WriteLine("The socket server is not running.");
-                    return;
-                }
-
-                Debug.WriteLine("Signal screen capture tool to capture video.");
-
-                //Prepare socket data
-                string socketSend = "CaptureVideo";
-                byte[] SerializedData = SerializeObjectToBytes(socketSend);
-
-                //Send socket data
-                int socketServerPort = SettingLoad(vConfigurationDirectXInput, "ServerPortScreenCaptureTool", typeof(int));
-                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), socketServerPort);
                 await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
             }
             catch { }

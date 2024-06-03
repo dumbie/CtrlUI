@@ -40,7 +40,7 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Profiles\Default\DirectControllersSupported\NintendoSwitchPro.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Profiles\Default\DirectControllersSupported\SonyPS12DualShock.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -85,10 +85,10 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Profiles\User\DirectKeyboardTextList.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Profiles\User\DirectShortcutsController.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Profiles\User\DirectShortcutsKeyboard.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -107,6 +107,6 @@
 		<PackageReference Include="Emoji.Wpf" Version="0.3.4" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Profiles\User\DirectControllersProfile\" />
+		<Folder Include="Profiles\User\DirectControllersProfile\" />
 	</ItemGroup>
 </Project>
