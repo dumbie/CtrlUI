@@ -6,7 +6,7 @@
 
     <!-- ListBoxItemLink -->
     <DataTemplate x:Key="ListBoxItemLink">
-        <TextBlock Text="{Binding String1}" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+        <TextBlock Text="{Binding String1}" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}"/>
     </DataTemplate>
 
     <!-- ListBoxItemAppPosition -->

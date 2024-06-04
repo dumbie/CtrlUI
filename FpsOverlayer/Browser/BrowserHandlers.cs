@@ -1,9 +1,12 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVFunctions;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
 
@@ -65,8 +68,8 @@ namespace FpsOverlayer.OverlayCode
             catch { }
         }
 
-        //Refresh the page
-        private void button_Refresh_Click(object sender, RoutedEventArgs e)
+        //Refresh the current link
+        private void button_LinkRefresh_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -93,14 +96,81 @@ namespace FpsOverlayer.OverlayCode
         }
 
         //Open link from list
-        private void listbox_Link_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void listbox_Link_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
                 ListBox listboxSender = (ListBox)sender;
                 ProfileShared selectedItem = (ProfileShared)listboxSender.SelectedItem;
-                Debug.WriteLine("Clicked on link: " + selectedItem.String1);
                 Browser_Open_Link(selectedItem.String1, true);
+                Debug.WriteLine("Left clicked on link: " + selectedItem.String1);
+            }
+            catch { }
+        }
+
+        //Remove link from list
+        private void listbox_Link_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                ListBox listboxSender = (ListBox)sender;
+                ProfileShared selectedItem = (ProfileShared)listboxSender.SelectedItem;
+                vFpsBrowserLinks.Remove(selectedItem);
+                JsonSaveObject(vFpsBrowserLinks, @"Profiles\User\FpsBrowserLinks.json");
+                Debug.WriteLine("Right clicked on link: " + selectedItem.String1);
+            }
+            catch { }
+        }
+
+        //Check link changes
+        private void textbox_Link_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                string textBoxLink = textbox_Link.Text;
+                string currentBrowserLink = vBrowserWebView.Source.ToString();
+                if (textBoxLink != currentBrowserLink)
+                {
+                    button_LinkOpen.Visibility = Visibility.Visible;
+                    button_LinkRefresh.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    button_LinkOpen.Visibility = Visibility.Collapsed;
+                    button_LinkRefresh.Visibility = Visibility.Visible;
+                }
+            }
+            catch { }
+        }
+
+        //Open link from textbox
+        private void textbox_Link_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Enter)
+                {
+                    TextBox textboxSender = (TextBox)sender;
+                    Browser_Open_Link(textboxSender.Text, true);
+                    Debug.WriteLine("Entered link: " + textboxSender.Text);
+                }
+            }
+            catch { }
+        }
+
+        //Open link from textbox icon
+        private async void button_LinkOpen_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(textbox_Link.Text))
+                {
+                    await vWindowMain.Notification_Send_Status("Browser", "Please enter a link");
+                    return;
+                }
+
+                Browser_Open_Link(textbox_Link.Text, true);
+                Debug.WriteLine("Entered link: " + textbox_Link.Text);
             }
             catch { }
         }
@@ -110,19 +180,56 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                textblock_Link.Text = vBrowserWebView.Source.ToString();
+                textbox_Link.Text = vBrowserWebView.Source.ToString();
             }
             catch { }
         }
 
         //Copy current link to clipboard
-        private void button_CopyLink_Click(object sender, RoutedEventArgs e)
+        private async void button_CopyLink_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (textblock_Link.Text != "Current website link")
+                string websiteLink = textbox_Link.Text;
+                if (!string.IsNullOrWhiteSpace(websiteLink))
                 {
-                    Clipboard.SetText(textblock_Link.Text);
+                    Clipboard.SetText(websiteLink);
+                    await vWindowMain.Notification_Send_Status("Paste", "Link copied to clipboard");
+                    Debug.WriteLine("Link copied to clipboard: " + websiteLink);
+                }
+            }
+            catch { }
+        }
+
+        //Add current link to link menu
+        private async void button_AddLink_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string websiteLink = textbox_Link.Text;
+                if (!string.IsNullOrWhiteSpace(websiteLink))
+                {
+                    //Check if string is valid link
+                    websiteLink = StringLinkCleanup(websiteLink);
+                    if (!StringLinkValidate(websiteLink))
+                    {
+                        await vWindowMain.Notification_Send_Status("Browser", "Invalid link entered");
+                        return;
+                    }
+
+                    //Check if link already exists
+                    if (vFpsBrowserLinks.Any(x => x.String1.ToLower().Replace("/", "") == websiteLink.ToLower().Replace("/", "")))
+                    {
+                        await vWindowMain.Notification_Send_Status("Browser", "Link already exists");
+                        return;
+                    }
+
+                    //Add text string to the list
+                    ProfileShared profileShared = new ProfileShared();
+                    profileShared.String1 = websiteLink;
+                    vFpsBrowserLinks.Add(profileShared);
+                    JsonSaveObject(vFpsBrowserLinks, @"Profiles\User\FpsBrowserLinks.json");
+                    Debug.WriteLine("Link added to menu: " + websiteLink);
                 }
             }
             catch { }

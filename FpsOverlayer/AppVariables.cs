@@ -65,7 +65,7 @@ namespace FpsOverlayer
 
         //Browser Variables
         public static WebView2 vBrowserWebView = null;
-        public static bool vBrowserWindowClickThrough = false;
+        public static bool vBrowserWindowBlockInteract = false;
 
         //Hardware
         public static Computer vHardwareComputer = null;

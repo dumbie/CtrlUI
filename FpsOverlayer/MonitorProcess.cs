@@ -96,7 +96,7 @@ namespace FpsOverlayer
                             WindowUpdateStyle(vInteropWindowHandle, true, true, true);
 
                             //Update browser window style
-                            WindowUpdateStyle(vWindowBrowser.vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
+                            WindowUpdateStyle(vWindowBrowser.vInteropWindowHandle, true, vBrowserWindowBlockInteract, vBrowserWindowBlockInteract);
                         }
 
                         //Update the current target process

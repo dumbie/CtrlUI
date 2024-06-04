@@ -102,14 +102,14 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                if (forceVisible || vBrowserWindowClickThrough)
+                if (forceVisible || vBrowserWindowBlockInteract)
                 {
                     //Show menu bar
                     grid_Menu.Visibility = Visibility.Visible;
 
                     //Update window style
-                    vBrowserWindowClickThrough = false;
-                    WindowUpdateStyle(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
+                    vBrowserWindowBlockInteract = false;
+                    WindowUpdateStyle(vInteropWindowHandle, true, vBrowserWindowBlockInteract, vBrowserWindowBlockInteract);
                 }
                 else
                 {
@@ -118,8 +118,8 @@ namespace FpsOverlayer.OverlayCode
                     grid_Link.Visibility = Visibility.Collapsed;
 
                     //Update window style
-                    vBrowserWindowClickThrough = true;
-                    WindowUpdateStyle(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
+                    vBrowserWindowBlockInteract = true;
+                    WindowUpdateStyle(vInteropWindowHandle, true, vBrowserWindowBlockInteract, vBrowserWindowBlockInteract);
                 }
             }
             catch { }
@@ -132,7 +132,7 @@ namespace FpsOverlayer.OverlayCode
             {
                 AVActions.DispatcherInvoke(delegate
                 {
-                    if (vWindowVisible && vBrowserWindowClickThrough)
+                    if (vWindowVisible && vBrowserWindowBlockInteract)
                     {
                         Browser_Switch_Clickthrough(false);
                     }
@@ -190,7 +190,7 @@ namespace FpsOverlayer.OverlayCode
                 grid_Link_Hint.Visibility = Visibility.Visible;
 
                 //Reset current link
-                textblock_Link.Text = "Current website link";
+                textbox_Link.Text = string.Empty;
 
                 //Set error text
                 textblock_Browser_Error.Text = browserError;

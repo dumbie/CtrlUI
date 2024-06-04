@@ -84,7 +84,7 @@ namespace FpsOverlayer.OverlayCode
                         WindowUpdateVisibility(vInteropWindowHandle, true);
 
                         //Update window style
-                        WindowUpdateStyle(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
+                        WindowUpdateStyle(vInteropWindowHandle, true, vBrowserWindowBlockInteract, vBrowserWindowBlockInteract);
 
                         this.Title = "FpsOverlayer Browser (Visible)";
                         vWindowVisible = true;
@@ -116,7 +116,7 @@ namespace FpsOverlayer.OverlayCode
                 await Task.Delay(2000);
 
                 //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
+                WindowUpdateStyle(vInteropWindowHandle, true, vBrowserWindowBlockInteract, vBrowserWindowBlockInteract);
 
                 //Check if window is out of screen
                 WindowCheckScreenBounds(null, vInteropWindowHandle, 10);
