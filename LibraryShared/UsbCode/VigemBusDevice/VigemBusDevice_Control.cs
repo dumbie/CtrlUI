@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+using static ArnoldVinkCode.AVInteropDll;
 using static LibraryShared.Classes;
 using static LibraryUsb.NativeMethods_IoControl;
 
@@ -10,7 +13,7 @@ namespace LibraryUsb
         public VigemBusDevice(Guid deviceGuid, bool initialize, bool closeDevice) : base(deviceGuid, initialize, closeDevice) { }
         public VigemBusDevice(string devicePath, string deviceInstanceId, bool initialize, bool closeDevice) : base(devicePath, deviceInstanceId, initialize, closeDevice) { }
 
-        public bool VirtualPlugin(int controllerNumber)
+        public async Task<bool> VirtualPlugin(int controllerNumber)
         {
             try
             {
@@ -30,9 +33,13 @@ namespace LibraryUsb
                 Debug.WriteLine("Failed to plugin device: " + ex.Message);
                 return false;
             }
+            finally
+            {
+                await Task.Delay(250);
+            }
         }
 
-        public bool VirtualUnplug(int controllerNumber)
+        public async Task<bool> VirtualUnplug(int controllerNumber)
         {
             try
             {
@@ -51,16 +58,20 @@ namespace LibraryUsb
                 Debug.WriteLine("Failed to unplug device: " + ex.Message);
                 return false;
             }
+            finally
+            {
+                await Task.Delay(250);
+            }
         }
 
-        public bool VirtualUnplugAll()
+        public async Task<bool> VirtualUnplugAll()
         {
             try
             {
-                bool unplug0 = VirtualUnplug(0);
-                bool unplug1 = VirtualUnplug(1);
-                bool unplug2 = VirtualUnplug(2);
-                bool unplug3 = VirtualUnplug(3);
+                bool unplug0 = await VirtualUnplug(0);
+                bool unplug1 = await VirtualUnplug(1);
+                bool unplug2 = await VirtualUnplug(2);
+                bool unplug3 = await VirtualUnplug(3);
                 return unplug0 && unplug1 && unplug2 && unplug3;
             }
             catch (Exception ex)
@@ -70,56 +81,55 @@ namespace LibraryUsb
             }
         }
 
-        public bool VirtualInput(ControllerStatus controller)
+        public bool VirtualInput(ref ControllerStatus controller)
         {
+            IntPtr createEvent = CreateEvent(IntPtr.Zero, true, false, null);
             try
             {
                 if (!Connected) { return false; }
 
-                ////Send device control code
-                //bool iocontrol = DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_INPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, null, 0, out int bytesWritten, controller.InputVirtualOverlapped);
+                //Create native overlapped
+                NativeOverlapped nativeOverlapped = new NativeOverlapped();
+                nativeOverlapped.EventHandle = createEvent;
 
-                ////Get overlapped result
-                //if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
-                //{
-                //    if (WaitForSingleObject(controller.InputVirtualOverlapped.EventHandle, INFINITE) == WaitObjectResult.WAIT_OBJECT_0)
-                //    {
-                //        return GetOverlappedResult(FileHandle, ref controller.InputVirtualOverlapped, out int bytesTransferred, false);
-                //    }
-                //}
-                return false;
+                //Send device control code
+                DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_INPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, null, 0, out int bytesControl, ref nativeOverlapped);
+                return GetOverlappedResult(FileHandle, ref nativeOverlapped, out int bytesOverlapped, true);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to send virtual bus input: " + ex.Message);
                 return false;
             }
+            finally
+            {
+                SafeCloseHandle(createEvent);
+            }
         }
 
         public bool VirtualOutput(ref ControllerStatus controller)
         {
+            IntPtr createEvent = CreateEvent(IntPtr.Zero, true, false, null);
             try
             {
                 if (!Connected) { return false; }
 
-                ////Send device control code
-                //bool iocontrol = DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_OUTPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, controller.VirtualDataOutput, controller.VirtualDataOutput.Length, out int bytesWritten, controller.OutputVirtualOverlapped);
+                //Create native overlapped
+                NativeOverlapped nativeOverlapped = new NativeOverlapped();
+                nativeOverlapped.EventHandle = createEvent;
 
-                ////Get overlapped result
-                //if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
-                //{
-                //    //.NET8 crashes here with ExecutionEngineException
-                //    if (WaitForSingleObject(controller.OutputVirtualOverlapped.EventHandle, INFINITE) == WaitObjectResult.WAIT_OBJECT_0)
-                //    {
-                //        return GetOverlappedResult(FileHandle, ref controller.OutputVirtualOverlapped, out int bytesTransferred, false);
-                //    }
-                //}
-                return false;
+                //Send device control code
+                DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_OUTPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, controller.VirtualDataOutput, controller.VirtualDataOutput.Length, out int bytesControl, ref nativeOverlapped);
+                return GetOverlappedResult(FileHandle, ref nativeOverlapped, out int bytesOverlapped, true);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to read virtual bus output: " + ex.Message);
                 return false;
+            }
+            finally
+            {
+                SafeCloseHandle(createEvent);
             }
         }
     }

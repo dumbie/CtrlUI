@@ -54,6 +54,7 @@ namespace LibraryShared
             //Controller Tasks
             public AVTaskDetails InputControllerTask = new AVTaskDetails("InputControllerTask");
             public AVTaskDetails OutputControllerTask = new AVTaskDetails("OutputControllerTask");
+            public AVTaskDetails OutputVirtualTask = new AVTaskDetails("OutputVirtualTask");
             public AVTaskDetails OutputGyroscopeTask = new AVTaskDetails("OutputGyroscopeTask");
 
             //WinUsb Device Variables
@@ -70,8 +71,8 @@ namespace LibraryShared
             public bool ControllerDataRead = false;
             public byte[] ControllerDataInput = null;
             public byte[] ControllerDataOutput = null;
-            public byte[] VirtualDataInput = new byte[(int)ScpVBusDevice.ByteArraySizes.Input];
-            public byte[] VirtualDataOutput = new byte[(int)ScpVBusDevice.ByteArraySizes.Output];
+            public byte[] VirtualDataInput = new byte[(int)VigemBusDevice.ByteArraySizes.Input];
+            public byte[] VirtualDataOutput = new byte[(int)VigemBusDevice.ByteArraySizes.Output];
             public byte RumbleCurrentHeavy = 0;
             public byte RumbleCurrentLight = 0;
             public byte RumblePreviousHeavy = 0;
@@ -125,6 +126,7 @@ namespace LibraryShared
                     //Controller Tasks
                     InputControllerTask = new AVTaskDetails("InputControllerTask");
                     OutputControllerTask = new AVTaskDetails("OutputControllerTask");
+                    OutputVirtualTask = new AVTaskDetails("OutputVirtualTask");
                     OutputGyroscopeTask = new AVTaskDetails("OutputGyroscopeTask");
 
                     //WinUsb Device Variables
@@ -141,8 +143,8 @@ namespace LibraryShared
                     ControllerDataRead = false;
                     ControllerDataInput = null;
                     ControllerDataOutput = null;
-                    VirtualDataInput = new byte[(int)ScpVBusDevice.ByteArraySizes.Input];
-                    VirtualDataOutput = new byte[(int)ScpVBusDevice.ByteArraySizes.Output];
+                    VirtualDataInput = new byte[(int)VigemBusDevice.ByteArraySizes.Input];
+                    VirtualDataOutput = new byte[(int)VigemBusDevice.ByteArraySizes.Output];
                     RumbleCurrentHeavy = 0;
                     RumbleCurrentLight = 0;
                     RumblePreviousHeavy = 0;

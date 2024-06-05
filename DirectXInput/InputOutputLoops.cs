@@ -71,6 +71,30 @@ namespace DirectXInput
             catch { }
         }
 
+        //Loop virtual output
+        void LoopOutputVirtual(ControllerStatus controller)
+        {
+            try
+            {
+                Debug.WriteLine("Handle virtual output data for: " + controller.Details.DisplayName);
+
+                while (TaskCheckLoop(controller.OutputVirtualTask) && controller.Connected())
+                {
+                    try
+                    {
+                        //Read output from virtual device
+                        if (vVirtualBusDevice.VirtualOutput(ref controller))
+                        {
+                            controller.RumbleCurrentHeavy = controller.VirtualDataOutput[8];
+                            controller.RumbleCurrentLight = controller.VirtualDataOutput[9];
+                        }
+                    }
+                    catch { }
+                }
+            }
+            catch { }
+        }
+
         //Loop gyroscope output
         async Task LoopOutputGyro(ControllerStatus controller)
         {

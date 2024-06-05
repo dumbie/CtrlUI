@@ -108,6 +108,17 @@ namespace DirectXInput
                 }
                 AVActions.TaskStartLoop(TaskActionOutputController, Controller.OutputControllerTask);
 
+                //Start output virtual task loop
+                void TaskActionOutputVirtual()
+                {
+                    try
+                    {
+                        LoopOutputVirtual(Controller);
+                    }
+                    catch { }
+                }
+                AVActions.TaskStartLoop(TaskActionOutputVirtual, Controller.OutputVirtualTask);
+
                 //Start output gyroscope task loop
                 if (Controller.SupportedCurrent.OffsetHeader.Gyroscope != null)
                 {
@@ -321,28 +332,23 @@ namespace DirectXInput
                     }
                 });
 
-                //Disconnect gyroscope dsu
-                if (controller.SupportedCurrent.OffsetHeader.Gyroscope != null)
-                {
-                    //Stop gyroscope loop tasks
-                    await TaskStopLoop(controller.OutputGyroscopeTask, 1000);
-                }
+                //Stop controller loop tasks
+                await TaskStopLoop(controller.InputControllerTask, 1000);
+                await TaskStopLoop(controller.OutputControllerTask, 1000);
+                await TaskStopLoop(controller.OutputVirtualTask, 1000);
+                await TaskStopLoop(controller.OutputGyroscopeTask, 1000);
 
                 //Disconnect virtual controller
                 if (vVirtualBusDevice != null)
                 {
-                    //Disconnect the virtual controller
+                    //Disconnect virtual controller
                     await vVirtualBusDevice.VirtualUnplug(controller.NumberId);
                 }
 
                 //Disconnect Hid or WinUsb device
                 if (controller.WinUsbDevice != null)
                 {
-                    //Stop controller device loop tasks
-                    await TaskStopLoop(controller.InputControllerTask, 1000);
-                    await TaskStopLoop(controller.OutputControllerTask, 1000);
-
-                    //Dispose and stop connection with the controller
+                    //Dispose and stop connection with controller
                     try
                     {
                         controller.WinUsbDevice.CloseDevice();
@@ -351,10 +357,6 @@ namespace DirectXInput
                 }
                 else if (controller.HidDevice != null)
                 {
-                    //Stop controller device loop tasks
-                    await TaskStopLoop(controller.InputControllerTask, 1000);
-                    await TaskStopLoop(controller.OutputControllerTask, 1000);
-
                     //Disconnect controller from bluetooth
                     if (controller.Details.Wireless)
                     {

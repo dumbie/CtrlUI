@@ -69,7 +69,7 @@ namespace DriverInstaller
 
                 //Install Virtual Bus Driver
                 ProgressBarUpdate(60, false);
-                InstallScpVirtualBus();
+                InstallVigemVirtualBus();
 
                 //Install HidHide Driver
                 ProgressBarUpdate(70, false);

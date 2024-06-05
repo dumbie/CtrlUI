@@ -117,7 +117,7 @@ namespace DirectXInput
         {
             try
             {
-                vVirtualBusDevice = new ScpVBusDevice(GuidClassScpVirtualBus, false, false);
+                vVirtualBusDevice = new VigemBusDevice(GuidClassVigemVirtualBus, false, false);
                 if (vVirtualBusDevice.Connected)
                 {
                     Debug.WriteLine("Virtual bus driver is installed.");

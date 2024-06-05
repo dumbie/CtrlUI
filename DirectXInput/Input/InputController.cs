@@ -105,14 +105,7 @@ namespace DirectXInput
                 }
 
                 //Send input to virtual device
-                vVirtualBusDevice.VirtualReadWrite(ref controller);
-
-                //Update controller rumble status
-                if (controller.VirtualDataOutput[1] == 0x08)
-                {
-                    controller.RumbleCurrentHeavy = controller.VirtualDataOutput[3];
-                    controller.RumbleCurrentLight = controller.VirtualDataOutput[4];
-                }
+                vVirtualBusDevice.VirtualInput(ref controller);
             }
             catch
             {
