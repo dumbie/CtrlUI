@@ -8,10 +8,12 @@
 CtrlUI (Controller User Interface) is a Windows application, game and emulator launcher for your game controller,
 this application allow you to run all your favorite applications from one location with lots of useful features.
 
-DirectXInput converts your game controller like a DualShock 1, 2, 3, 4 and DualSense 5 to a Xbox (XInput) controller,
-so that it can be used with almost every game and application released that has support for Xbox controllers.
+DirectXInput converts your connected game controller to a Xbox (XInput) controller,
+so that it can be used with every game and application released with XInput support.
 
-Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and memory information.
+Fps Overlayer is a tool that shows the frames per second and hardware information.
+
+Screen Capture Tool allows you to capture your screen to an image or video.
 
 ## CtrlUI Application Features
 - Add Windows UWP applications so you can easily launch them.
@@ -20,15 +22,31 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 
 ## DirectXInput Application Features
 - Easily customize the controller button layout.
-- Make and save a screenshot directly from your controller.
+- Make and save a screenshot directly with your controller.
 - Control your system volume and media with your controller.
 - Built-in on screen keyboard which can be used by your controller.
-- Supported controllers: PlayStation 1, 2, 3, 4, 5 and more.
-- Unsupported controllers: Xbox and XInput controllers.
 
 ## Fps Overlayer Application Features
-- Show the current frame rate of a running application.
-- Show the current time on your screen while gaming.
+- Show current frame rate of a running application.
+- Show processor, videocard and other hardware stats.
+- Show current time on your screen while gaming.
+- Browse the web in an overlay while gaming.
+
+## Screen Capture Tool Application Features
+- Capture your screen to an image or video.
+
+## Supported controllers 
+- Sony PlayStation 1 (Wired)
+- Sony PlayStation 2 (Wired)
+- Sony PlayStation 3 (Wired)
+- Sony PlayStation 4 DualShock
+- Sony PlayStation 5 DualSense
+- Nintendo Switch Pro
+- 8BitDo Pro 2
+
+## Unsupported controllers
+- Microsoft Xbox controllers.
+- XInput controllers.
 
 ## Installation Instructions
 1) Extract the CtrlUI folder to any directory you want on your device.
@@ -47,13 +65,14 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 * You can run it as administrator by using the "CtrlUI-Launcher" executable.
 
 ## Known issues
-- Overlays may not always show up when you are in a fullscreen application.
+- Overlays may not always show up when you are in an exclusive fullscreen application.
+- Clicking on browser overlay while in exclusive fullscreen application may minimize it.
 - Alt+Enter controller shortcut may not work for all Windows Store applications.
-- Keyboard cannot be used in the web browser overlay due to window issues.
 
 ## Requirements
+- Microsoft .NET Core Runtime installed.
 - Microsoft Visual C++ Redistributable installed.
-- Windows operating system 10 64-bit or higher is required.
+- Microsoft Windows 11 64-bit or higher is required.
 - Supported game controller connected through DirectXInput.
 
 ## Special thanks
@@ -71,9 +90,15 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v2.0.0.0 (7-June-2024)
+- CtrlUI: Added ItchIO and IndieGala launcher support.
+- DirectXInput: Added 8BitDo Pro 2 controller support.
+- DirectXInput: Added Nintendo Switch Pro controller support.
+- DirectXInput: You can now adjust controller shortcut buttons.
+- Ported application to .NET8 framework.
+
 v1.99.2.0 (29-September-2023)
 - FpsOverlayer: Added setting to show GPU memory speed and hotspot temperature.
-* Miscellaneous application improvements and fixes.
 
 v1.99.0.0 (6-September-2023)
 - CtrlUI: Added Auto HDR launch option to enable and allow unsupported applications.
@@ -95,7 +120,6 @@ v1.95.0.0 (22-March-2023)
 - FpsOverlayer: Added setting to show the current date.
 - FpsOverlayer: Added setting to change the average fps time span.
 - FpsOverlayer: Added setting to flip stats order when positioned on bottom.
-- Added Screen Capture Tool to take screenshots.
 
 v1.90.0.0 (21-February-2023)
 - FpsOverlayer: Added frametime graph.
