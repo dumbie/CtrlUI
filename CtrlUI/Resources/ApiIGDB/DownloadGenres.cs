@@ -1,11 +1,14 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static CtrlUI.AppVariables;
+using static LibraryShared.Classes;
 
 namespace CtrlUI
 {
@@ -47,7 +50,10 @@ namespace CtrlUI
                 }
 
                 //Save igdb genres
-                File.WriteAllText("Resources/ApiIGDB/Genres.json", resultSearch);
+                File.WriteAllText("Api/IGDB/Genres.json", resultSearch);
+
+                //Reload igdb genres
+                vApiIGDBGenres = JsonLoadFile<List<ApiIGDBGenres>>(@"Api\IGDB\Genres.json");
                 return true;
             }
             catch (Exception ex)

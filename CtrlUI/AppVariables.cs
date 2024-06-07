@@ -220,8 +220,8 @@ namespace CtrlUI
         }
 
         //Json Lists
-        public static List<ApiIGDBGenres> vApiIGDBGenres = JsonLoadFile<List<ApiIGDBGenres>>(@"Resources\ApiIGDB\Genres.json");
-        public static List<ApiIGDBPlatforms> vApiIGDBPlatforms = JsonLoadFile<List<ApiIGDBPlatforms>>(@"Resources\ApiIGDB\Platforms.json");
+        public static List<ApiIGDBGenres> vApiIGDBGenres = JsonLoadFile<List<ApiIGDBGenres>>(@"Api\IGDB\Genres.json");
+        public static List<ApiIGDBPlatforms> vApiIGDBPlatforms = JsonLoadFile<List<ApiIGDBPlatforms>>(@"Api\IGDB\Platforms.json");
 
         //Application Lists
         public static ObservableCollection<ProfileShared> vCtrlIgnoreProcessName = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\Default\CtrlIgnoreProcessName.json");
