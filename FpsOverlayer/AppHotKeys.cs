@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputHotkey;
@@ -14,47 +13,43 @@ namespace FpsOverlayer
         {
             try
             {
-                ShortcutTriggerKeyboard shortcutTrigger = vShortcutTriggers.FirstOrDefault(x => x.Name == "ShowHideBrowser");
-                if (shortcutTrigger != null)
+                foreach (ShortcutTriggerKeyboard shortcutTrigger in vShortcutTriggers)
                 {
-                    if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                    if (shortcutTrigger.Name == "ShowHideBrowser")
                     {
-                        Debug.WriteLine("Button Global - ShowHideBrowser");
-                        vWindowBrowser.Browser_Switch_Visibility();
-                        return;
+                        if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                        {
+                            Debug.WriteLine("Button Global - ShowHideBrowser");
+                            vWindowBrowser.Browser_Switch_Visibility();
+                            return;
+                        }
                     }
-                }
-
-                shortcutTrigger = vShortcutTriggers.FirstOrDefault(x => x.Name == "ShowHideCrosshair");
-                if (shortcutTrigger != null)
-                {
-                    if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                    else if (shortcutTrigger.Name == "ShowHideCrosshair")
                     {
-                        Debug.WriteLine("Button Global - ShowHideCrosshair");
-                        SwitchCrosshairVisibility(true);
-                        return;
+                        if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                        {
+                            Debug.WriteLine("Button Global - ShowHideCrosshair");
+                            SwitchCrosshairVisibility(true);
+                            return;
+                        }
                     }
-                }
-
-                shortcutTrigger = vShortcutTriggers.FirstOrDefault(x => x.Name == "ShowHideFpsStats");
-                if (shortcutTrigger != null)
-                {
-                    if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                    else if (shortcutTrigger.Name == "ShowHideFpsStats")
                     {
-                        Debug.WriteLine("Button Global - ShowHideFpsStats");
-                        SwitchFpsOverlayVisibility();
-                        return;
+                        if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                        {
+                            Debug.WriteLine("Button Global - ShowHideFpsStats");
+                            SwitchFpsOverlayVisibility();
+                            return;
+                        }
                     }
-                }
-
-                shortcutTrigger = vShortcutTriggers.FirstOrDefault(x => x.Name == "PositionFpsStats");
-                if (shortcutTrigger != null)
-                {
-                    if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                    else if (shortcutTrigger.Name == "PositionFpsStats")
                     {
-                        Debug.WriteLine("Button Global - PositionFpsStats");
-                        ChangeFpsOverlayPosition();
-                        return;
+                        if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                        {
+                            Debug.WriteLine("Button Global - PositionFpsStats");
+                            ChangeFpsOverlayPosition();
+                            return;
+                        }
                     }
                 }
             }
