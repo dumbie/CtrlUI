@@ -51,12 +51,11 @@ namespace DirectXInput
                 {
                     if (Controller.RumbleCurrentHeavy > 0 || Controller.RumbleCurrentLight > 0)
                     {
-                        img_ControllerPreview_ControllerRumble.Visibility = Visibility.Visible;
-
+                        img_ControllerPreview_Rumble.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        img_ControllerPreview_ControllerRumble.Visibility = Visibility.Collapsed;
+                        img_ControllerPreview_Rumble.Visibility = Visibility.Collapsed;
                     }
                 });
             }
