@@ -100,7 +100,6 @@ namespace DirectXInput
 
                     foreach (ShortcutTriggerController shortcutTrigger in vShortcutsController.OrderByDescending(x => x.Trigger.Count(x => x != ControllerButtons.None)).ThenByDescending(x => x.Hold))
                     {
-                        //Launch CtrlUI application or switch keyboard mode
                         if (shortcutTrigger.Name == "LaunchCtrlUI")
                         {
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
@@ -120,9 +119,7 @@ namespace DirectXInput
                                 }
                             }
                         }
-
-                        //Show or hide keyboard or keypad
-                        if (shortcutTrigger.Name == "KeyboardPopup")
+                        else if (shortcutTrigger.Name == "KeyboardPopup")
                         {
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                             {
@@ -148,9 +145,7 @@ namespace DirectXInput
                                 return ControllerUsed;
                             }
                         }
-
-                        //Mute or unmute audio output
-                        if (shortcutTrigger.Name == "MuteOutput")
+                        else if (shortcutTrigger.Name == "MuteOutput")
                         {
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                             {
@@ -168,9 +163,7 @@ namespace DirectXInput
                                 return ControllerUsed;
                             }
                         }
-
-                        //Mute or unmute audio input
-                        if (shortcutTrigger.Name == "MuteInput")
+                        else if (shortcutTrigger.Name == "MuteInput")
                         {
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                             {
@@ -188,9 +181,7 @@ namespace DirectXInput
                                 return ControllerUsed;
                             }
                         }
-
-                        //Press Alt+Enter
-                        if (shortcutTrigger.Name == "AltEnter")
+                        else if (shortcutTrigger.Name == "AltEnter")
                         {
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                             {
@@ -209,9 +200,7 @@ namespace DirectXInput
                                 return ControllerUsed;
                             }
                         }
-
-                        //Press Ctrl+Alt+Delete
-                        if (shortcutTrigger.Name == "CtrlAltDelete")
+                        else if (shortcutTrigger.Name == "CtrlAltDelete")
                         {
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                             {
@@ -230,9 +219,7 @@ namespace DirectXInput
                                 return ControllerUsed;
                             }
                         }
-
-                        //Press Alt+Tab
-                        if (shortcutTrigger.Name == "AltTab")
+                        else if (shortcutTrigger.Name == "AltTab")
                         {
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                             {
@@ -273,9 +260,7 @@ namespace DirectXInput
                                 return ControllerUsed;
                             }
                         }
-
-                        //Signal to capture screen image
-                        if (shortcutTrigger.Name == "CaptureImage")
+                        else if (shortcutTrigger.Name == "CaptureImage")
                         {
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                             {
@@ -287,9 +272,7 @@ namespace DirectXInput
                                 return ControllerUsed;
                             }
                         }
-
-                        //Signal to capture screen video
-                        if (shortcutTrigger.Name == "CaptureVideo")
+                        else if (shortcutTrigger.Name == "CaptureVideo")
                         {
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                             {
@@ -301,9 +284,7 @@ namespace DirectXInput
                                 return ControllerUsed;
                             }
                         }
-
-                        //Disconnect controller from Bluetooth
-                        if (shortcutTrigger.Name == "DisconnectController")
+                        else if (shortcutTrigger.Name == "DisconnectController")
                         {
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                             {
