@@ -17,7 +17,7 @@ namespace DirectXInput
         {
             try
             {
-                bool virtualBusDriver = EnumerateDevicesDriverStore("ScpVBus.inf", false).Any();
+                bool virtualBusDriver = EnumerateDevicesDriverStore("ViGEmBus.inf", false).Any();
                 bool hidHideDriver = EnumerateDevicesDriverStore("HidHide.inf", false).Any();
                 bool ds3ControllerDriver = EnumerateDevicesDriverStore("Ds3Controller.inf", false).Any();
                 bool fakerInputDriver = EnumerateDevicesDriverStore("FakerInput.inf", false).Any();
@@ -35,7 +35,7 @@ namespace DirectXInput
         {
             try
             {
-                if (EnumerateDevicesDriverStore("ScpVBus.inf", false).Count() > 1)
+                if (EnumerateDevicesDriverStore("ViGEmBus.inf", false).Count() > 1)
                 {
                     return false;
                 }
@@ -70,11 +70,11 @@ namespace DirectXInput
         {
             try
             {
-                foreach (FileInfo infNames in EnumerateDevicesDriverStore("ScpVBus.inf", false))
+                foreach (FileInfo infNames in EnumerateDevicesDriverStore("ViGEmBus.inf", false))
                 {
-                    string availableVersion = File.ReadAllLines(@"Drivers\ScpVBus\x64\ScpVBus.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string availableVersion = File.ReadAllLines(@"Drivers\ViGEmBus\x64\ViGEmBus.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
                     string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
-                    //Debug.WriteLine("ScpVBus: " + installedVersion + " / " + availableVersion);
+                    //Debug.WriteLine("ViGEmBus: " + installedVersion + " / " + availableVersion);
                     if (availableVersion != installedVersion) { return false; } else { break; }
                 }
 
