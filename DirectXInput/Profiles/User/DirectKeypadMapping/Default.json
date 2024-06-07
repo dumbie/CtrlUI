@@ -2,7 +2,7 @@
   "Name": "Default",
   "KeypadOpacity": 0.70,
   "KeypadDisplayStyle": 0,
-  "KeypadDisplaySize": 60,
+  "KeypadDisplaySize": 50,
   "KeypadMouseMoveEnabled": false,
   "KeypadMouseMoveSensitivity": 7.50,
   "ThumbLeftUpMod0": 0,
