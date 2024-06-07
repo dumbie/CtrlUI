@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputHotkey;
@@ -14,14 +13,16 @@ namespace DirectXInput
         {
             try
             {
-                ShortcutTriggerKeyboard shortcutTrigger = vShortcutsKeyboard.FirstOrDefault(x => x.Name == "LaunchCtrlUI");
-                if (shortcutTrigger != null)
+                foreach (ShortcutTriggerKeyboard shortcutTrigger in vShortcutsKeyboard)
                 {
-                    if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                    if (shortcutTrigger.Name == "LaunchCtrlUI")
                     {
-                        Debug.WriteLine("Button Global - Show or hide CtrlUI");
-                        await ToolFunctions.CtrlUI_LaunchShow();
-                        return;
+                        if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                        {
+                            Debug.WriteLine("Button Global - Show or hide CtrlUI");
+                            await ToolFunctions.CtrlUI_LaunchShow();
+                            return;
+                        }
                     }
                 }
             }
