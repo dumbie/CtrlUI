@@ -62,92 +62,6 @@ namespace LibraryShared
                 }
             }
 
-            //Controller Mapping Thumb Stick
-            private ControllerButtons? PrivButtonThumbLeft;
-            public ControllerButtons? ButtonThumbLeft
-            {
-                get { return this.PrivButtonThumbLeft; }
-                set
-                {
-                    if (this.PrivButtonThumbLeft != value)
-                    {
-                        this.PrivButtonThumbLeft = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private ControllerButtons? PrivButtonThumbRight;
-            public ControllerButtons? ButtonThumbRight
-            {
-                get { return this.PrivButtonThumbRight; }
-                set
-                {
-                    if (this.PrivButtonThumbRight != value)
-                    {
-                        this.PrivButtonThumbRight = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            //Controller Mapping DPad
-            private ControllerButtons? PrivDPadLeft;
-            public ControllerButtons? DPadLeft
-            {
-                get { return this.PrivDPadLeft; }
-                set
-                {
-                    if (this.PrivDPadLeft != value)
-                    {
-                        this.PrivDPadLeft = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private ControllerButtons? PrivDPadUp;
-            public ControllerButtons? DPadUp
-            {
-                get { return this.PrivDPadUp; }
-                set
-                {
-                    if (this.PrivDPadUp != value)
-                    {
-                        this.PrivDPadUp = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private ControllerButtons? PrivDPadRight;
-            public ControllerButtons? DPadRight
-            {
-                get { return this.PrivDPadRight; }
-                set
-                {
-                    if (this.PrivDPadRight != value)
-                    {
-                        this.PrivDPadRight = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private ControllerButtons? PrivDPadDown;
-            public ControllerButtons? DPadDown
-            {
-                get { return this.PrivDPadDown; }
-                set
-                {
-                    if (this.PrivDPadDown != value)
-                    {
-                        this.PrivDPadDown = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
             //Controller Mapping Buttons
             private ControllerButtons? PrivButtonA;
             public ControllerButtons? ButtonA
@@ -326,6 +240,34 @@ namespace LibraryShared
                     if (this.PrivButtonSix != value)
                     {
                         this.PrivButtonSix = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private ControllerButtons? PrivButtonThumbLeft;
+            public ControllerButtons? ButtonThumbLeft
+            {
+                get { return this.PrivButtonThumbLeft; }
+                set
+                {
+                    if (this.PrivButtonThumbLeft != value)
+                    {
+                        this.PrivButtonThumbLeft = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private ControllerButtons? PrivButtonThumbRight;
+            public ControllerButtons? ButtonThumbRight
+            {
+                get { return this.PrivButtonThumbRight; }
+                set
+                {
+                    if (this.PrivButtonThumbRight != value)
+                    {
+                        this.PrivButtonThumbRight = value;
                         NotifyPropertyChanged();
                     }
                 }
