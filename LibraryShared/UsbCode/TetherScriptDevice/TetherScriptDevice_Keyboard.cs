@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Threading;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInteropDll;
 
@@ -14,7 +14,7 @@ namespace LibraryUsb
             try
             {
                 KeysPress(0, (byte)keyPress, 0, 0, 0, 0, 0);
-                Thread.Sleep(50);
+                AVHighResDelay.Delay(50);
                 KeysRelease();
             }
             catch { }
@@ -25,7 +25,7 @@ namespace LibraryUsb
             try
             {
                 KeysPress((byte)keyMod, (byte)keyPress, 0, 0, 0, 0, 0);
-                Thread.Sleep(50);
+                AVHighResDelay.Delay(50);
                 KeysRelease();
             }
             catch { }
