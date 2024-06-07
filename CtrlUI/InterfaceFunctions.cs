@@ -172,7 +172,7 @@ namespace CtrlUI
         }
 
         //Adjust the application font family
-        void UpdateAppFontStyle()
+        void AdjustApplicationFontStyle()
         {
             try
             {

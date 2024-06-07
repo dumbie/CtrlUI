@@ -51,7 +51,7 @@ namespace CtrlUI
                 SetContentResourceXamlImages();
 
                 //Adjust the application font family
-                UpdateAppFontStyle();
+                AdjustApplicationFontStyle();
 
                 //Adjust the application font size
                 AdjustApplicationFontSize();

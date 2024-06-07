@@ -243,7 +243,7 @@ namespace CtrlUI
                     SettingSave(vConfigurationCtrlUI, "InterfaceFontStyleName", messageResult.Name);
 
                     //Adjust the application font family
-                    UpdateAppFontStyle();
+                    AdjustApplicationFontStyle();
                 }
             }
             catch { }
