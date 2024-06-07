@@ -65,7 +65,7 @@ namespace DriverInstaller
 
                 //Uninstall Virtual Bus Driver
                 ProgressBarUpdate(50, false);
-                UninstallVigemVirtualBus();
+                UninstallScpVirtualBus();
 
                 //Install Virtual Bus Driver
                 ProgressBarUpdate(60, false);
