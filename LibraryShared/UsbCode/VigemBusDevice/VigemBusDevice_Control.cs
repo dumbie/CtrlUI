@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVInteropDll;
@@ -93,8 +94,17 @@ namespace LibraryUsb
                 nativeOverlapped.EventHandle = createEvent;
 
                 //Send device control code
-                DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_INPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, null, 0, out int bytesControl, ref nativeOverlapped);
-                return GetOverlappedResult(FileHandle, ref nativeOverlapped, out int bytesOverlapped, true);
+                bool iocontrol = DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_INPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, null, 0, out int bytesWritten, ref nativeOverlapped);
+
+                //Get overlapped result
+                if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
+                {
+                    if (WaitForSingleObject(nativeOverlapped.EventHandle, INFINITE) == WaitObjectResult.WAIT_OBJECT_0)
+                    {
+                        return GetOverlappedResult(FileHandle, ref nativeOverlapped, out int bytesTransferred, false);
+                    }
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -119,8 +129,17 @@ namespace LibraryUsb
                 nativeOverlapped.EventHandle = createEvent;
 
                 //Send device control code
-                DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_OUTPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, controller.VirtualDataOutput, controller.VirtualDataOutput.Length, out int bytesControl, ref nativeOverlapped);
-                return GetOverlappedResult(FileHandle, ref nativeOverlapped, out int bytesOverlapped, true);
+                bool iocontrol = DeviceIoControl(FileHandle, (uint)IoControlCodesVirtual.VIGEM_OUTPUT, controller.VirtualDataInput, controller.VirtualDataInput.Length, controller.VirtualDataOutput, controller.VirtualDataOutput.Length, out int bytesWritten, ref nativeOverlapped);
+
+                //Get overlapped result
+                if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
+                {
+                    if (WaitForSingleObject(nativeOverlapped.EventHandle, INFINITE) == WaitObjectResult.WAIT_OBJECT_0)
+                    {
+                        return GetOverlappedResult(FileHandle, ref nativeOverlapped, out int bytesTransferred, false);
+                    }
+                }
+                return false;
             }
             catch (Exception ex)
             {
