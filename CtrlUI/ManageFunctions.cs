@@ -598,14 +598,12 @@ namespace CtrlUI
                 if (editApplication)
                 {
                     grid_Popup_Manage_txt_Title.Text = "Edit application";
-                    btn_Manage_SaveEditApp.Content = "Edit the application as filled in above";
                     grid_Popup_Manage_button_Save.ToolTip = new ToolTip() { Content = "Edit the application" };
                     ManageInterface_Enable();
                 }
                 else
                 {
                     grid_Popup_Manage_txt_Title.Text = "Add application";
-                    btn_Manage_SaveEditApp.Content = "Add the application as filled in above";
                     grid_Popup_Manage_button_Save.ToolTip = new ToolTip() { Content = "Save the application" };
                     if (disableInterface)
                     {
@@ -739,7 +737,7 @@ namespace CtrlUI
                 btn_AddAppPathRoms.IsEnabled = !dataBindApp.LaunchSkipRom;
 
                 //Show the manage popup
-                await Popup_Show(grid_Popup_Manage, btn_Manage_SaveEditApp);
+                await Popup_Show(grid_Popup_Manage, tb_AddAppName);
             }
             catch { }
         }

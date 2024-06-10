@@ -238,16 +238,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Add or edit application to list apps and Json file
-        async void Button_Manage_SaveEditApp_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await SaveEditManageApplication();
-            }
-            catch { }
-        }
-
         private void Checkbox_AddLaunchSkipRom_Click(object sender, RoutedEventArgs e)
         {
             try
