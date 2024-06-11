@@ -68,6 +68,10 @@
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Memory.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Memory" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
+                <StackPanel Name="menuButtonFan" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage fan settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Fan.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Fans" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
                 <StackPanel Name="menuButtonNetwork" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage network settings">
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Network.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Network" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -543,6 +547,34 @@
 
                         <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowPowerVolt" Content="Show the power voltage" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the memory configured power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Fan" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Fan Settings"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="button_FanUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_FanDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_FanPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                            <CheckBox Name="checkbox_FanShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBox Name="textbox_FanCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                        </StackPanel>
+                        <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_FanShowCpu" Content="Show processor fan speed" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show cpu fan speed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_FanShowGpu" Content="Show videocard fan speed" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show gpu fan speed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_FanShowSystem" Content="Show system fan speed" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show system fan speed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Network" Visibility="Collapsed">

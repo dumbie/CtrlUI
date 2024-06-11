@@ -246,6 +246,23 @@ namespace FpsOverlayer
                     SettingSave(vConfigurationFpsOverlayer, "FpsAverageSeconds", slider_FpsAverageSeconds.Value);
                 };
 
+                //Fan
+                textbox_FanCategoryTitle.TextChanged += (sender, e) =>
+                {
+                    TextBox senderTextbox = (TextBox)sender;
+                    SettingSave(vConfigurationFpsOverlayer, "FanCategoryTitle", senderTextbox.Text);
+                    vWindowMain.UpdateFpsOverlayStyle();
+                };
+                checkbox_FanShowCategoryTitle.Click += (sender, e) =>
+                {
+                    CheckBox senderCheckBox = (CheckBox)sender;
+                    SettingSave(vConfigurationFpsOverlayer, "FanShowCategoryTitle", senderCheckBox.IsChecked.ToString());
+                    vWindowMain.UpdateFpsOverlayStyle();
+                };
+                checkbox_FanShowCpu.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "FanShowCpu", checkbox_FanShowCpu.IsChecked.ToString()); };
+                checkbox_FanShowGpu.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "FanShowGpu", checkbox_FanShowGpu.IsChecked.ToString()); };
+                checkbox_FanShowSystem.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "FanShowSystem", checkbox_FanShowSystem.IsChecked.ToString()); };
+
                 //Colors
                 colorpicker_ColorSingle.Click += async (sender, e) =>
                 {

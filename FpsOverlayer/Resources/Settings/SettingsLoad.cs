@@ -115,6 +115,13 @@ namespace FpsOverlayer
                 textblock_FpsAverageSeconds.Text = textblock_FpsAverageSeconds.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "FpsAverageSeconds", typeof(string)) + " seconds";
                 slider_FpsAverageSeconds.Value = SettingLoad(vConfigurationFpsOverlayer, "FpsAverageSeconds", typeof(double));
 
+                //Fan
+                textbox_FanCategoryTitle.Text = SettingLoad(vConfigurationFpsOverlayer, "FanCategoryTitle", typeof(string));
+                checkbox_FanShowCategoryTitle.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FanShowCategoryTitle", typeof(bool));
+                checkbox_FanShowCpu.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FanShowCpu", typeof(bool));
+                checkbox_FanShowGpu.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FanShowGpu", typeof(bool));
+                checkbox_FanShowSystem.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "FanShowSystem", typeof(bool));
+
                 //Colors
                 string ColorBackground = SettingLoad(vConfigurationFpsOverlayer, "ColorBackground", typeof(string));
                 colorpicker_ColorBackground.Background = new BrushConverter().ConvertFrom(ColorBackground) as SolidColorBrush;

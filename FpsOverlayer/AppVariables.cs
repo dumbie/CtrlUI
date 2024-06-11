@@ -25,7 +25,7 @@ namespace FpsOverlayer
         public static bool vManualHiddenFpsOverlay = false;
         public static bool vManualHiddenCrosshairOverlay = false;
         public static bool vManualShownCrosshairOverlay = false;
-        public const int vTotalStatsCount = 10;
+        public const int vTotalStatsCount = 11;
 
         //Application Windows
         public static WindowMain vWindowMain = new WindowMain();
@@ -58,6 +58,7 @@ namespace FpsOverlayer
         public static string vTitleGPU = "GPU";
         public static string vTitleCPU = "CPU";
         public static string vTitleMEM = "MEM";
+        public static string vTitleFAN = "FAN";
         public static string vTitleNET = "NET";
         public static string vTitleMON = "MON";
         public static string vTitleFPS = "FPS";
@@ -73,6 +74,8 @@ namespace FpsOverlayer
         public static string vHardwareMemoryName = string.Empty;
         public static string vHardwareMemorySpeed = string.Empty;
         public static string vHardwareMemoryVoltage = string.Empty;
+        public static string vHardwareCpuFanSpeed = string.Empty;
+        public static string vHardwareGpuFanSpeed = string.Empty;
 
         //Trace Events
         public static TraceEventSession vTraceEventSession;

@@ -57,6 +57,7 @@ namespace FpsOverlayer
                     else if (SelStackPanel.Name == "menuButtonProcessor") { ShowGridPage(stackpanel_Processor); }
                     else if (SelStackPanel.Name == "menuButtonVideocard") { ShowGridPage(stackpanel_Videocard); }
                     else if (SelStackPanel.Name == "menuButtonMemory") { ShowGridPage(stackpanel_Memory); }
+                    else if (SelStackPanel.Name == "menuButtonFan") { ShowGridPage(stackpanel_Fan); }
                     else if (SelStackPanel.Name == "menuButtonNetwork") { ShowGridPage(stackpanel_Network); }
                     else if (SelStackPanel.Name == "menuButtonMonitor") { ShowGridPage(stackpanel_Monitor); }
                     else if (SelStackPanel.Name == "menuButtonBattery") { ShowGridPage(stackpanel_Battery); }
@@ -85,6 +86,7 @@ namespace FpsOverlayer
                 stackpanel_Processor.Visibility = Visibility.Collapsed;
                 stackpanel_Videocard.Visibility = Visibility.Collapsed;
                 stackpanel_Memory.Visibility = Visibility.Collapsed;
+                stackpanel_Fan.Visibility = Visibility.Collapsed;
                 stackpanel_Network.Visibility = Visibility.Collapsed;
                 stackpanel_Monitor.Visibility = Visibility.Collapsed;
                 stackpanel_Battery.Visibility = Visibility.Collapsed;

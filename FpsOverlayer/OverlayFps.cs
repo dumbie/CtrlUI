@@ -149,6 +149,7 @@ namespace FpsOverlayer
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Left;
+                        stackpanel_CurrentFan.HorizontalAlignment = HorizontalAlignment.Left;
                     });
                 }
                 else if (targetOverlayPosition == OverlayPosition.TopCenter)
@@ -172,6 +173,7 @@ namespace FpsOverlayer
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Center;
+                        stackpanel_CurrentFan.HorizontalAlignment = HorizontalAlignment.Center;
                     });
                 }
                 else if (targetOverlayPosition == OverlayPosition.TopRight)
@@ -196,6 +198,7 @@ namespace FpsOverlayer
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Right;
+                        stackpanel_CurrentFan.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
                 else if (targetOverlayPosition == OverlayPosition.MiddleRight)
@@ -219,6 +222,7 @@ namespace FpsOverlayer
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Right;
+                        stackpanel_CurrentFan.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
                 else if (targetOverlayPosition == OverlayPosition.BottomRight)
@@ -244,6 +248,7 @@ namespace FpsOverlayer
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Right;
+                        stackpanel_CurrentFan.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
                 else if (targetOverlayPosition == OverlayPosition.BottomCenter)
@@ -268,6 +273,7 @@ namespace FpsOverlayer
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Center;
+                        stackpanel_CurrentFan.HorizontalAlignment = HorizontalAlignment.Center;
                     });
                 }
                 else if (targetOverlayPosition == OverlayPosition.BottomLeft)
@@ -293,6 +299,7 @@ namespace FpsOverlayer
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Left;
+                        stackpanel_CurrentFan.HorizontalAlignment = HorizontalAlignment.Left;
                     });
                 }
                 else if (targetOverlayPosition == OverlayPosition.MiddleLeft)
@@ -316,6 +323,7 @@ namespace FpsOverlayer
                         stackpanel_CustomText.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentBat.HorizontalAlignment = HorizontalAlignment.Left;
+                        stackpanel_CurrentFan.HorizontalAlignment = HorizontalAlignment.Left;
                     });
                 }
             }
@@ -384,6 +392,14 @@ namespace FpsOverlayer
                 {
                     vTitleBAT = string.Empty;
                 }
+                if (SettingLoad(vConfigurationFpsOverlayer, "FanShowCategoryTitle", typeof(bool)))
+                {
+                    vTitleFAN = SettingLoad(vConfigurationFpsOverlayer, "FanCategoryTitle", typeof(string));
+                }
+                else
+                {
+                    vTitleFAN = string.Empty;
+                }
 
                 //Load stats order identifier
                 int TimeId = SettingLoad(vConfigurationFpsOverlayer, "TimeId", typeof(int));
@@ -397,6 +413,7 @@ namespace FpsOverlayer
                 int GpuId = SettingLoad(vConfigurationFpsOverlayer, "GpuId", typeof(int));
                 int MemId = SettingLoad(vConfigurationFpsOverlayer, "MemId", typeof(int));
                 int BatId = SettingLoad(vConfigurationFpsOverlayer, "BatId", typeof(int));
+                int FanId = SettingLoad(vConfigurationFpsOverlayer, "FanId", typeof(int));
 
                 //Update the stats text orientation and order
                 if (SettingLoad(vConfigurationFpsOverlayer, "TextDirection", typeof(int)) == 1)
@@ -418,6 +435,7 @@ namespace FpsOverlayer
                             GpuId = vTotalStatsCount - GpuId;
                             MemId = vTotalStatsCount - MemId;
                             BatId = vTotalStatsCount - BatId;
+                            FanId = vTotalStatsCount - FanId;
                         }
                     }
 
@@ -433,6 +451,7 @@ namespace FpsOverlayer
                     stackpanel_CurrentGpu.SetValue(Grid.RowProperty, GpuId);
                     stackpanel_CurrentMem.SetValue(Grid.RowProperty, MemId);
                     stackpanel_CurrentBat.SetValue(Grid.RowProperty, BatId);
+                    stackpanel_CurrentFan.SetValue(Grid.RowProperty, FanId);
 
                     stackpanel_CurrentMem.SetValue(Grid.ColumnProperty, 0);
                     stackpanel_CurrentGpu.SetValue(Grid.ColumnProperty, 0);
@@ -445,6 +464,7 @@ namespace FpsOverlayer
                     stackpanel_CustomText.SetValue(Grid.ColumnProperty, 0);
                     stackpanel_CurrentMon.SetValue(Grid.ColumnProperty, 0);
                     stackpanel_CurrentBat.SetValue(Grid.ColumnProperty, 0);
+                    stackpanel_CurrentFan.SetValue(Grid.ColumnProperty, 0);
                 }
                 else
                 {
@@ -460,6 +480,7 @@ namespace FpsOverlayer
                     stackpanel_CurrentGpu.SetValue(Grid.ColumnProperty, GpuId);
                     stackpanel_CurrentMem.SetValue(Grid.ColumnProperty, MemId);
                     stackpanel_CurrentBat.SetValue(Grid.ColumnProperty, BatId);
+                    stackpanel_CurrentFan.SetValue(Grid.ColumnProperty, FanId);
 
                     stackpanel_CurrentMem.SetValue(Grid.RowProperty, 0);
                     stackpanel_CurrentGpu.SetValue(Grid.RowProperty, 0);
@@ -472,6 +493,7 @@ namespace FpsOverlayer
                     stackpanel_CustomText.SetValue(Grid.RowProperty, 0);
                     stackpanel_CurrentMon.SetValue(Grid.RowProperty, 0);
                     stackpanel_CurrentBat.SetValue(Grid.RowProperty, 0);
+                    stackpanel_CurrentFan.SetValue(Grid.RowProperty, 0);
                 }
 
                 //Update the stats background
@@ -496,6 +518,7 @@ namespace FpsOverlayer
                 stackpanel_CustomText.Background = brushBackground;
                 stackpanel_CurrentMon.Background = brushBackground;
                 stackpanel_CurrentBat.Background = brushBackground;
+                stackpanel_CurrentFan.Background = brushBackground;
 
                 //Adjust the application font family
                 UpdateAppFontStyle();
@@ -532,6 +555,9 @@ namespace FpsOverlayer
                 textblock_CurrentBat.FontSize = targetTextSize;
                 textblock_CurrentBat.LineHeight = targetTextSize;
                 textblock_CurrentBat.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
+                textblock_CurrentFan.FontSize = targetTextSize;
+                textblock_CurrentFan.LineHeight = targetTextSize;
+                textblock_CurrentFan.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
 
                 //Update the stats colors
                 if (SettingLoad(vConfigurationFpsOverlayer, "TextColorSingle", typeof(bool)))
@@ -549,6 +575,7 @@ namespace FpsOverlayer
                     textblock_CustomText.Foreground = brushForeground;
                     textblock_CurrentMon.Foreground = brushForeground;
                     textblock_CurrentBat.Foreground = brushForeground;
+                    textblock_CurrentFan.Foreground = brushForeground;
                 }
                 else
                 {
@@ -563,6 +590,7 @@ namespace FpsOverlayer
                     string ColorCustomText = SettingLoad(vConfigurationFpsOverlayer, "ColorCustomText", typeof(string));
                     string ColorMon = SettingLoad(vConfigurationFpsOverlayer, "ColorMon", typeof(string));
                     string ColorBat = SettingLoad(vConfigurationFpsOverlayer, "ColorBat", typeof(string));
+                    string ColorFan = SettingLoad(vConfigurationFpsOverlayer, "ColorFan", typeof(string));
                     textblock_CurrentMem.Foreground = new BrushConverter().ConvertFrom(ColorMem) as SolidColorBrush;
                     textblock_CurrentGpu.Foreground = new BrushConverter().ConvertFrom(ColorGpu) as SolidColorBrush;
                     textblock_CurrentCpu.Foreground = new BrushConverter().ConvertFrom(ColorCpu) as SolidColorBrush;
@@ -574,6 +602,7 @@ namespace FpsOverlayer
                     textblock_CustomText.Foreground = new BrushConverter().ConvertFrom(ColorCustomText) as SolidColorBrush;
                     textblock_CurrentMon.Foreground = new BrushConverter().ConvertFrom(ColorMon) as SolidColorBrush;
                     textblock_CurrentBat.Foreground = new BrushConverter().ConvertFrom(ColorBat) as SolidColorBrush;
+                    textblock_CurrentFan.Foreground = new BrushConverter().ConvertFrom(ColorFan) as SolidColorBrush;
                 }
 
                 //Update frametime graph size
