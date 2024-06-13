@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Diagnostics.Tracing;
+using Microsoft.Diagnostics.Tracing.Parsers;
 using Microsoft.Diagnostics.Tracing.Session;
 using System;
 using System.Diagnostics;
@@ -20,6 +21,7 @@ namespace FpsOverlayer
             try
             {
                 vTraceEventSession = new TraceEventSession("FpsOverlayer");
+                vTraceEventSession.EnableKernelProvider(KernelTraceEventParser.Keywords.Process);
                 vTraceEventSession.EnableProvider(vProvider_DxgKrnl.ToString());
                 vTraceEventSession.Source.AllEvents += ProcessEvents;
 
@@ -175,18 +177,21 @@ namespace FpsOverlayer
         {
             try
             {
-                //Check the event id
+                //Check event identifier
                 if ((int)traceEvent.ID != vEventID_DxgKrnlPresent)
                 {
                     //Debug.WriteLine("DxgKrnl skipping invalid frame.");
                     return;
                 }
 
-                //Check the process id
+                //Check process identifier and name
                 if (traceEvent.ProcessID != vTargetProcess.Identifier)
                 {
-                    //Debug.WriteLine("Event process is not foreground window.");
-                    return;
+                    if (traceEvent.ProcessName != vTargetProcess.ExeNameNoExt)
+                    {
+                        //Debug.WriteLine("Event process is not foreground window or process.");
+                        return;
+                    }
                 }
 
                 //Calculate new frame time
