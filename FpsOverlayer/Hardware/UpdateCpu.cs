@@ -16,16 +16,15 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showCpuName = SettingLoad(vConfigurationFpsOverlayer, "CpuShowName", typeof(bool));
-                bool showBoardName = SettingLoad(vConfigurationFpsOverlayer, "BoardShowName", typeof(bool));
-                bool showPercentage = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPercentage", typeof(bool));
-                bool showTemperature = SettingLoad(vConfigurationFpsOverlayer, "CpuShowTemperature", typeof(bool));
-                bool showCoreFrequency = SettingLoad(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", typeof(bool));
-                bool showPowerWatt = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPowerWatt", typeof(bool));
-                bool showPowerVolt = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPowerVolt", typeof(bool));
-                bool showFanSpeed = SettingLoad(vConfigurationFpsOverlayer, "CpuShowFanSpeed", typeof(bool));
-                bool FanShowCpu = SettingLoad(vConfigurationFpsOverlayer, "FanShowCpu", typeof(bool));
-                if (!showCpuName && !showBoardName && !showPercentage && !showTemperature && !showCoreFrequency && !showPowerWatt && !showPowerVolt && !showFanSpeed)
+                bool CpuShowName = SettingLoad(vConfigurationFpsOverlayer, "CpuShowName", typeof(bool));
+                bool BoardShowName = SettingLoad(vConfigurationFpsOverlayer, "BoardShowName", typeof(bool));
+                bool CpuShowPercentage = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPercentage", typeof(bool));
+                bool CpuShowTemperature = SettingLoad(vConfigurationFpsOverlayer, "CpuShowTemperature", typeof(bool));
+                bool CpuShowCoreFrequency = SettingLoad(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", typeof(bool));
+                bool CpuShowPowerWatt = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPowerWatt", typeof(bool));
+                bool CpuShowPowerVolt = SettingLoad(vConfigurationFpsOverlayer, "CpuShowPowerVolt", typeof(bool));
+                bool CpuShowFanSpeed = SettingLoad(vConfigurationFpsOverlayer, "CpuShowFanSpeed", typeof(bool));
+                if (!CpuShowName && !BoardShowName && !CpuShowPercentage && !CpuShowTemperature && !CpuShowCoreFrequency && !CpuShowPowerWatt && !CpuShowPowerVolt && !CpuShowFanSpeed)
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
@@ -50,19 +49,19 @@ namespace FpsOverlayer
                 string CpuFanSpeed = string.Empty;
 
                 //Set the processor name
-                if (showCpuName)
+                if (CpuShowName)
                 {
                     CpuName = hardwareItem.Name;
                 }
 
                 //Set the motherboard name
-                if (showBoardName)
+                if (BoardShowName)
                 {
                     BoardName = vHardwareMotherboardName;
                 }
 
                 //Set the cpu fan speed
-                if (showFanSpeed)
+                if (CpuShowFanSpeed)
                 {
                     CpuFanSpeed = " " + vHardwareCpuFanSpeed;
                 }
@@ -71,7 +70,7 @@ namespace FpsOverlayer
                 {
                     try
                     {
-                        if (showPercentage && sensor.SensorType == SensorType.Load)
+                        if (CpuShowPercentage && sensor.SensorType == SensorType.Load)
                         {
                             //Debug.WriteLine("CPU Load: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
                             if (sensor.Name == "CPU Total" || sensor.Name == "CPU Core")
@@ -79,7 +78,7 @@ namespace FpsOverlayer
                                 CpuPercentage = " " + Convert.ToInt32(sensor.Value) + "%";
                             }
                         }
-                        else if (showTemperature && sensor.SensorType == SensorType.Temperature)
+                        else if (CpuShowTemperature && sensor.SensorType == SensorType.Temperature)
                         {
                             //Debug.WriteLine("CPU Temp: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
                             if (sensor.Name == "CPU Package" || sensor.Name == "CPU Cores")
@@ -88,7 +87,7 @@ namespace FpsOverlayer
                                 CpuTemperature = " " + RawCpuTemperature.ToString("0") + "°";
                             }
                         }
-                        else if (showCoreFrequency && sensor.SensorType == SensorType.Clock)
+                        else if (CpuShowCoreFrequency && sensor.SensorType == SensorType.Clock)
                         {
                             //Debug.WriteLine("CPU Frequency: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
                             if (sensor.Name == "CPU Core #1")
@@ -104,7 +103,7 @@ namespace FpsOverlayer
                                 }
                             }
                         }
-                        else if (showPowerWatt && sensor.SensorType == SensorType.Power)
+                        else if (CpuShowPowerWatt && sensor.SensorType == SensorType.Power)
                         {
                             //Debug.WriteLine("CPU Wattage: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
                             if (sensor.Identifier.ToString().EndsWith("power/0"))
@@ -112,7 +111,7 @@ namespace FpsOverlayer
                                 CpuPowerWattage = " " + Convert.ToInt32(sensor.Value) + "W";
                             }
                         }
-                        else if (showPowerVolt && sensor.SensorType == SensorType.Voltage)
+                        else if (CpuShowPowerVolt && sensor.SensorType == SensorType.Voltage)
                         {
                             //Debug.WriteLine("CPU Voltage: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
                             float RawPowerVoltage = (float)sensor.Value;
