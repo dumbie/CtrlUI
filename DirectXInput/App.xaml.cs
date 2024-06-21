@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVStartup;
 using static DirectXInput.AppVariables;
 
 namespace DirectXInput
@@ -9,6 +12,10 @@ namespace DirectXInput
         {
             try
             {
+                //Setup application defaults
+                SetupDefaults(ProcessPriority.High, true);
+
+                //Run application startup code
                 await vWindowMain.Application_Startup();
             }
             catch { }

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
 using static DirectXInput.AppVariables;
@@ -19,9 +18,6 @@ namespace DirectXInput
             try
             {
                 Debug.WriteLine("Welcome to application.");
-
-                //Setup application defaults
-                AVStartup.SetupDefaults(ProcessPriority.High, true);
 
                 //Application update checks
                 await UpdateCheck();
