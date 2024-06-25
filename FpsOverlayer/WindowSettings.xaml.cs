@@ -196,32 +196,30 @@ namespace FpsOverlayer
         {
             try
             {
-                int totalId = vTotalStatsCount + 1;
-                int AppId = SettingLoad(vConfigurationFpsOverlayer, "AppId", typeof(int)) + 1;
-                int FpsId = SettingLoad(vConfigurationFpsOverlayer, "FpsId", typeof(int)) + 1;
-                int FrametimeId = SettingLoad(vConfigurationFpsOverlayer, "FrametimeId", typeof(int)) + 1;
-                int NetId = SettingLoad(vConfigurationFpsOverlayer, "NetId", typeof(int)) + 1;
-                int CpuId = SettingLoad(vConfigurationFpsOverlayer, "CpuId", typeof(int)) + 1;
-                int GpuId = SettingLoad(vConfigurationFpsOverlayer, "GpuId", typeof(int)) + 1;
-                int MemId = SettingLoad(vConfigurationFpsOverlayer, "MemId", typeof(int)) + 1;
-                int TimeId = SettingLoad(vConfigurationFpsOverlayer, "TimeId", typeof(int)) + 1;
-                int CustomTextId = SettingLoad(vConfigurationFpsOverlayer, "CustomTextId", typeof(int)) + 1;
-                int MonId = SettingLoad(vConfigurationFpsOverlayer, "MonId", typeof(int)) + 1;
-                int BatId = SettingLoad(vConfigurationFpsOverlayer, "BatId", typeof(int)) + 1;
-                int FanId = SettingLoad(vConfigurationFpsOverlayer, "FanId", typeof(int)) + 1;
-
-                textblock_GpuPosition.Text = GpuId + "/" + totalId;
-                textblock_CpuPosition.Text = CpuId + "/" + totalId;
-                textblock_MemPosition.Text = MemId + "/" + totalId;
-                textblock_NetPosition.Text = NetId + "/" + totalId;
-                textblock_FpsPosition.Text = FpsId + "/" + totalId;
-                textblock_FrametimePosition.Text = FrametimeId + "/" + totalId;
-                textblock_AppPosition.Text = AppId + "/" + totalId;
-                textblock_TimePosition.Text = TimeId + "/" + totalId;
-                textblock_CustomTextPosition.Text = CustomTextId + "/" + totalId;
-                textblock_MonPosition.Text = MonId + "/" + totalId;
-                textblock_BatPosition.Text = BatId + "/" + totalId;
-                textblock_FanPosition.Text = FanId + "/" + totalId;
+                int AppId = SettingLoad(vConfigurationFpsOverlayer, "AppId", typeof(int));
+                int FpsId = SettingLoad(vConfigurationFpsOverlayer, "FpsId", typeof(int));
+                int FrametimeId = SettingLoad(vConfigurationFpsOverlayer, "FrametimeId", typeof(int));
+                int NetId = SettingLoad(vConfigurationFpsOverlayer, "NetId", typeof(int));
+                int CpuId = SettingLoad(vConfigurationFpsOverlayer, "CpuId", typeof(int));
+                int GpuId = SettingLoad(vConfigurationFpsOverlayer, "GpuId", typeof(int));
+                int MemId = SettingLoad(vConfigurationFpsOverlayer, "MemId", typeof(int));
+                int TimeId = SettingLoad(vConfigurationFpsOverlayer, "TimeId", typeof(int));
+                int CustomTextId = SettingLoad(vConfigurationFpsOverlayer, "CustomTextId", typeof(int));
+                int MonId = SettingLoad(vConfigurationFpsOverlayer, "MonId", typeof(int));
+                int BatId = SettingLoad(vConfigurationFpsOverlayer, "BatId", typeof(int));
+                int FanId = SettingLoad(vConfigurationFpsOverlayer, "FanId", typeof(int));
+                grid_GpuPosition.SetValue(Grid.RowProperty, GpuId);
+                grid_CpuPosition.SetValue(Grid.RowProperty, CpuId);
+                grid_MemPosition.SetValue(Grid.RowProperty, MemId);
+                grid_NetPosition.SetValue(Grid.RowProperty, NetId);
+                grid_FpsPosition.SetValue(Grid.RowProperty, FpsId);
+                grid_FrametimePosition.SetValue(Grid.RowProperty, FrametimeId);
+                grid_AppPosition.SetValue(Grid.RowProperty, AppId);
+                grid_TimePosition.SetValue(Grid.RowProperty, TimeId);
+                grid_CustomTextPosition.SetValue(Grid.RowProperty, CustomTextId);
+                grid_MonPosition.SetValue(Grid.RowProperty, MonId);
+                grid_BatPosition.SetValue(Grid.RowProperty, BatId);
+                grid_FanPosition.SetValue(Grid.RowProperty, FanId);
             }
             catch { }
         }

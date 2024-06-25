@@ -62,6 +62,7 @@ namespace FpsOverlayer
                     else if (SelStackPanel.Name == "menuButtonMonitor") { ShowGridPage(stackpanel_Monitor); }
                     else if (SelStackPanel.Name == "menuButtonBattery") { ShowGridPage(stackpanel_Battery); }
                     else if (SelStackPanel.Name == "menuButtonApplications") { ShowGridPage(stackpanel_Applications); }
+                    else if (SelStackPanel.Name == "menuButtonOrder") { ShowGridPage(stackpanel_Order); }
                     else if (SelStackPanel.Name == "menuButtonSettings") { ShowGridPage(stackpanel_Settings); }
                     else if (SelStackPanel.Name == "menuButtonClose") { this.Close(); }
                     else if (SelStackPanel.Name == "menuButtonExit") { await AppExit.Exit(); }
@@ -91,6 +92,7 @@ namespace FpsOverlayer
                 stackpanel_Monitor.Visibility = Visibility.Collapsed;
                 stackpanel_Battery.Visibility = Visibility.Collapsed;
                 stackpanel_Applications.Visibility = Visibility.Collapsed;
+                stackpanel_Order.Visibility = Visibility.Collapsed;
                 stackpanel_Settings.Visibility = Visibility.Collapsed;
                 elementTarget.Visibility = Visibility.Visible;
             }

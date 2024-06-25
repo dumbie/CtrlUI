@@ -88,6 +88,10 @@
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Applications.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Applications" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
+                <StackPanel Name="menuButtonOrder" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage stats order">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/List.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Order" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
                 <StackPanel Name="menuButtonSettings" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage general settings">
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Settings.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Settings" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -109,17 +113,7 @@
                 <StackPanel>
                     <StackPanel Name="stackpanel_Text" Visibility="Visible">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Text Settings"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Name="button_CustomTextUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_CustomTextDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_CustomTextPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <TextBlock Margin="0,10,0,0" Text="Custom text line" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Custom text line" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBox Name="textbox_CustomText" Width="440" HorizontalAlignment="Left" Style="{StaticResource TextBoxBlack}"/>
 
                         <TextBlock Name="textblock_TextSize" Tag="Text display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
@@ -240,9 +234,6 @@
                         <CheckBox Margin="0,10,0,0" Name="checkbox_CheckTaskbarVisible" Content="Adjust margin to taskbar visibility" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Automatically adjust the overlay margin to your taskbar visibility when you have taskbar auto hide enabled in Windows." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                        <CheckBox Margin="0,10,0,0" Name="checkbox_StatsFlipBottom" Content="Flip stats order when positioned on bottom" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Flip stats order when the stats overlay is positioned on the bottom of the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
                         <CheckBox Margin="0,10,0,0" Name="checkbox_HideScreenCapture" Content="Hide stats from screen capture" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Prevent the stats from been screen captured when using the Screen Capture Tool and others using WGC." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
@@ -339,16 +330,6 @@
                     <StackPanel Name="stackpanel_Fps" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Frames per second settings"/>
                         <StackPanel Orientation="Horizontal">
-                            <Button Name="button_FpsUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_FpsDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_FpsPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                             <CheckBox Name="checkbox_FpsShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
                             <TextBox Name="textbox_FpsCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                         </StackPanel>
@@ -368,17 +349,7 @@
                         <Slider Minimum="5" Maximum="15" HorizontalAlignment="Left" Width="440" Name="slider_FpsAverageSeconds" Style="{StaticResource SliderBlockWhite}"/>
 
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Frametime settings"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Name="button_FrametimeUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_FrametimeDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_FrametimePosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <CheckBox Margin="0,10,0,0" Name="checkbox_FrametimeGraphShow" Content="Show frametime graph in stats" Style="{StaticResource CheckBoxBlack}"/>
+                        <CheckBox Name="checkbox_FrametimeGraphShow" Content="Show frametime graph in stats" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show frametime graph in the stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <TextBlock Name="textblock_FrametimeAccuracy" Tag="Frametime frame width" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
@@ -396,17 +367,7 @@
 
                     <StackPanel Name="stackpanel_Time" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Time Settings"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Name="button_TimeUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_TimeDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_TimePosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <CheckBox Margin="0,10,0,0" Name="checkbox_TimeShowCurrentTime" Content="Show the current time" Style="{StaticResource CheckBoxBlack}"/>
+                        <CheckBox Name="checkbox_TimeShowCurrentTime" Content="Show the current time" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the current time." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <CheckBox Margin="0,10,0,0" Name="checkbox_TimeShowCurrentDate" Content="Show the current date" Style="{StaticResource CheckBoxBlack}"/>
@@ -415,17 +376,7 @@
 
                     <StackPanel Name="stackpanel_Processor" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Processor Settings"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Name="button_CpuUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_CpuDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_CpuPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <TextBlock Margin="0,10,0,0" Text="* Some settings below may not work with your hardware." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Text="* Some settings below may not work with your hardware." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                             <CheckBox Name="checkbox_CpuShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
@@ -460,17 +411,7 @@
 
                     <StackPanel Name="stackpanel_Videocard" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Videocard Settings"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Name="button_GpuUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_GpuDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_GpuPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <TextBlock Margin="0,10,0,0" Text="* Some settings below may not work with your hardware." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Text="* Some settings below may not work with your hardware." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                             <CheckBox Name="checkbox_GpuShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
@@ -512,16 +453,6 @@
                     <StackPanel Name="stackpanel_Memory" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Memory Settings"/>
                         <StackPanel Orientation="Horizontal">
-                            <Button Name="button_MemUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_MemDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_MemPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                             <CheckBox Name="checkbox_MemShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
                             <TextBox Name="textbox_MemCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                         </StackPanel>
@@ -552,16 +483,6 @@
                     <StackPanel Name="stackpanel_Fan" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Fan Settings"/>
                         <StackPanel Orientation="Horizontal">
-                            <Button Name="button_FanUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_FanDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_FanPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                             <CheckBox Name="checkbox_FanShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
                             <TextBox Name="textbox_FanCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                         </StackPanel>
@@ -579,17 +500,7 @@
 
                     <StackPanel Name="stackpanel_Network" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Network Settings"/>
-                        <StackPanel Orientation="Horizontal" >
-                            <Button Name="button_NetUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_NetDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_NetPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
                             <CheckBox Name="checkbox_NetShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
                             <TextBox Name="textbox_NetCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                         </StackPanel>
@@ -601,17 +512,7 @@
 
                     <StackPanel Name="stackpanel_Monitor" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Monitor Settings"/>
-                        <StackPanel Orientation="Horizontal" >
-                            <Button Name="button_MonUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_MonDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_MonPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
                             <CheckBox Name="checkbox_MonShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
                             <TextBox Name="textbox_MonCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                         </StackPanel>
@@ -626,6 +527,12 @@
                         <CheckBox Name="checkbox_MonShowColorBitDepth" Content="Show the current color bit depth" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the current monitor color bit depth." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
+                        <CheckBox Name="checkbox_MonShowColorFormat" Content="Show the current color format" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the current monitor color format." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_MonShowColorHdr" Content="Show the current hdr status" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the current monitor hdr status." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                         <CheckBox Name="checkbox_MonShowRefreshRate" Content="Show the current refresh rate" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the current monitor refresh rate." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
@@ -633,16 +540,6 @@
                     <StackPanel Name="stackpanel_Battery" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Battery Settings"/>
                         <StackPanel Orientation="Horizontal">
-                            <Button Name="button_BatUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_BatDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_BatPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                             <CheckBox Name="checkbox_BatShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
                             <TextBox Name="textbox_BatCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                         </StackPanel>
@@ -654,17 +551,7 @@
 
                     <StackPanel Name="stackpanel_Applications" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Settings"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Name="button_AppUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                            </Button>
-                            <Button Name="button_AppDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                            </Button>
-                            <TextBlock Name="textblock_AppPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                        </StackPanel>
-
-                        <CheckBox Margin="0,10,0,0" Name="checkbox_AppShowName" Content="Show focused application name" Style="{StaticResource CheckBoxBlack}"/>
+                        <CheckBox Name="checkbox_AppShowName" Content="Show focused application name" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the currently focused application name." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Styles"/>
@@ -674,6 +561,139 @@
                         </StackPanel>
 
                         <ListBox Name="listbox_Apps" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemBlack}" ItemTemplate="{StaticResource ListBoxItemAppPosition}" Style="{StaticResource ListBoxVerticalNoScroll}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Order" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Order settings"/>
+                        <CheckBox Name="checkbox_StatsFlipBottom" Content="Flip stats order when positioned on bottom" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Flip stats order when overlay is positioned on the bottom of the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Stats order"/>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Horizontal" Name="grid_TimePosition">
+                                <Button Name="button_TimeUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_TimeDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Time" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Name="grid_CustomTextPosition">
+                                <Button Name="button_CustomTextUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_CustomTextDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Custom text" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Name="grid_AppPosition">
+                                <Button Name="button_AppUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_AppDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Application" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Name="grid_BatPosition">
+                                <Button Name="button_BatUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_BatDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Battery" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Name="grid_MonPosition">
+                                <Button Name="button_MonUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_MonDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Monitor" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Name="grid_NetPosition">
+                                <Button Name="button_NetUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_NetDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Network" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Name="grid_FanPosition">
+                                <Button Name="button_FanUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_FanDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Fans" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Name="grid_MemPosition">
+                                <Button Name="button_MemUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_MemDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Memory" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Name="grid_GpuPosition">
+                                <Button Name="button_GpuUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_GpuDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Videocard" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Name="grid_CpuPosition">
+                                <Button Name="button_CpuUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_CpuDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Processor" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Name="grid_FrametimePosition">
+                                <Button Name="button_FrametimeUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_FrametimeDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Frame times" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Name="grid_FpsPosition">
+                                <Button Name="button_FpsUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                                </Button>
+                                <Button Name="button_FpsDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                                </Button>
+                                <TextBlock Margin="5,0,0,0" Text="Frames per second" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </StackPanel>
+                        </Grid>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Settings" Visibility="Collapsed">
