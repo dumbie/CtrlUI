@@ -13,11 +13,13 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showResolution = SettingLoad(vConfigurationFpsOverlayer, "MonShowResolution", typeof(bool));
-                bool showDpiResolution = SettingLoad(vConfigurationFpsOverlayer, "MonShowDpiResolution", typeof(bool));
-                bool showColorBitDepth = SettingLoad(vConfigurationFpsOverlayer, "MonShowColorBitDepth", typeof(bool));
-                bool showRefreshRate = SettingLoad(vConfigurationFpsOverlayer, "MonShowRefreshRate", typeof(bool));
-                if (!showResolution && !showColorBitDepth && !showRefreshRate)
+                bool MonShowResolution = SettingLoad(vConfigurationFpsOverlayer, "MonShowResolution", typeof(bool));
+                bool MonShowDpiResolution = SettingLoad(vConfigurationFpsOverlayer, "MonShowDpiResolution", typeof(bool));
+                bool MonShowColorBitDepth = SettingLoad(vConfigurationFpsOverlayer, "MonShowColorBitDepth", typeof(bool));
+                bool MonShowColorFormat = SettingLoad(vConfigurationFpsOverlayer, "MonShowColorFormat", typeof(bool));
+                bool MonShowColorHdr = SettingLoad(vConfigurationFpsOverlayer, "MonShowColorHdr", typeof(bool));
+                bool MonShowRefreshRate = SettingLoad(vConfigurationFpsOverlayer, "MonShowRefreshRate", typeof(bool));
+                if (!MonShowResolution && !MonShowColorBitDepth && !MonShowColorFormat && !MonShowColorHdr && !MonShowRefreshRate)
                 {
                     AVActions.DispatcherInvoke(delegate
                     {
@@ -26,15 +28,15 @@ namespace FpsOverlayer
                     return;
                 }
 
-                //Get the current active screen
+                //Get current active screen
                 int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
+                DisplayMonitor displayMonitorSettings = GetSingleMonitorDisplayConfig(monitorNumber - 1);
 
-                //Get the screen resolution
-                DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
+                //Get screen resolution
                 string screenResolutionString = string.Empty;
-                if (showResolution)
+                if (MonShowResolution)
                 {
-                    if (showDpiResolution)
+                    if (MonShowDpiResolution)
                     {
                         screenResolutionString = " " + displayMonitorSettings.WidthDpi + "x" + displayMonitorSettings.HeightDpi;
                     }
@@ -44,33 +46,40 @@ namespace FpsOverlayer
                     }
                 }
 
-                //Get the screen color bit depth
+                //Get screen color bit depth
                 string screenColorBitDepthString = string.Empty;
-                if (showColorBitDepth)
+                if (MonShowColorBitDepth)
                 {
-                    screenColorBitDepthString = " " + displayMonitorSettings.BitDepth + "Bits";
+                    screenColorBitDepthString = " " + displayMonitorSettings.BitDepth + "bit";
                 }
 
-                //Get the screen refresh rate
+                //Get screen hdr mode
+                string screenHdrModeString = string.Empty;
+                if (MonShowColorHdr)
+                {
+                    screenHdrModeString = " " + (displayMonitorSettings.HdrEnabled ? "HDR" : "SDR");
+                }
+
+                //Get screen color format
+                string screenColorFormatString = string.Empty;
+                if (MonShowColorFormat)
+                {
+                    screenColorFormatString = " " + displayMonitorSettings.ColorFormat;
+                }
+
+                //Get screen refresh rate
                 string screenRefreshRateString = string.Empty;
-                if (showRefreshRate)
+                if (MonShowRefreshRate)
                 {
                     int screenRefreshRateInt = displayMonitorSettings.RefreshRate;
                     if (screenRefreshRateInt > 0)
                     {
-                        if (showResolution || showColorBitDepth)
-                        {
-                            screenRefreshRateString = " @ " + screenRefreshRateInt + "Hz";
-                        }
-                        else
-                        {
-                            screenRefreshRateString = " " + screenRefreshRateInt + "Hz";
-                        }
+                        screenRefreshRateString = " " + screenRefreshRateInt + "Hz";
                     }
                 }
 
                 //Update the screen resolution
-                string stringDisplay = AVFunctions.StringRemoveStart(vTitleMON + screenResolutionString + screenColorBitDepthString + screenRefreshRateString, " ");
+                string stringDisplay = AVFunctions.StringRemoveStart(vTitleMON + screenResolutionString + screenColorBitDepthString + screenHdrModeString + screenColorFormatString + screenRefreshRateString, " ");
                 AVActions.DispatcherInvoke(delegate
                 {
                     textblock_CurrentMon.Text = stringDisplay;

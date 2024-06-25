@@ -221,6 +221,8 @@ namespace FpsOverlayer
                 checkbox_MonShowResolution.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MonShowResolution", checkbox_MonShowResolution.IsChecked.ToString()); };
                 checkbox_MonShowDpiResolution.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MonShowDpiResolution", checkbox_MonShowDpiResolution.IsChecked.ToString()); };
                 checkbox_MonShowColorBitDepth.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MonShowColorBitDepth", checkbox_MonShowColorBitDepth.IsChecked.ToString()); };
+                checkbox_MonShowColorFormat.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MonShowColorFormat", checkbox_MonShowColorFormat.IsChecked.ToString()); };
+                checkbox_MonShowColorHdr.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MonShowColorHdr", checkbox_MonShowColorHdr.IsChecked.ToString()); };
                 checkbox_MonShowRefreshRate.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MonShowRefreshRate", checkbox_MonShowRefreshRate.IsChecked.ToString()); };
 
                 //Frames

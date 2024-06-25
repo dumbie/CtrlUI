@@ -93,10 +93,12 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MonId")) { SettingSave(vConfigurationFpsOverlayer, "MonId", "7"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MonCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "MonCategoryTitle", "MON"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "MonShowCategoryTitle", "True"); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowResolution")) { SettingSave(vConfigurationFpsOverlayer, "MonShowResolution", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowResolution")) { SettingSave(vConfigurationFpsOverlayer, "MonShowResolution", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowDpiResolution")) { SettingSave(vConfigurationFpsOverlayer, "MonShowDpiResolution", "False"); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowColorBitDepth")) { SettingSave(vConfigurationFpsOverlayer, "MonShowColorBitDepth", "False"); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowRefreshRate")) { SettingSave(vConfigurationFpsOverlayer, "MonShowRefreshRate", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowColorBitDepth")) { SettingSave(vConfigurationFpsOverlayer, "MonShowColorBitDepth", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowColorFormat")) { SettingSave(vConfigurationFpsOverlayer, "MonShowColorFormat", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowColorHdr")) { SettingSave(vConfigurationFpsOverlayer, "MonShowColorHdr", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowRefreshRate")) { SettingSave(vConfigurationFpsOverlayer, "MonShowRefreshRate", "True"); }
 
                 if (!SettingCheck(vConfigurationFpsOverlayer, "BatId")) { SettingSave(vConfigurationFpsOverlayer, "BatId", "8"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "BatCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "BatCategoryTitle", "BAT"); }
@@ -130,8 +132,8 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FanId")) { SettingSave(vConfigurationFpsOverlayer, "FanId", "6"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FanCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "FanCategoryTitle", "FAN"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FanShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "FanShowCategoryTitle", "True"); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "FanShowCpu")) { SettingSave(vConfigurationFpsOverlayer, "FanShowCpu", "True"); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "FanShowGpu")) { SettingSave(vConfigurationFpsOverlayer, "FanShowGpu", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FanShowCpu")) { SettingSave(vConfigurationFpsOverlayer, "FanShowCpu", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "FanShowGpu")) { SettingSave(vConfigurationFpsOverlayer, "FanShowGpu", "False"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FanShowSystem")) { SettingSave(vConfigurationFpsOverlayer, "FanShowSystem", "True"); }
 
                 //Crosshair

@@ -103,6 +103,8 @@ namespace FpsOverlayer
                 checkbox_MonShowResolution.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowResolution", typeof(bool));
                 checkbox_MonShowDpiResolution.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowDpiResolution", typeof(bool));
                 checkbox_MonShowColorBitDepth.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowColorBitDepth", typeof(bool));
+                checkbox_MonShowColorFormat.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowColorFormat", typeof(bool));
+                checkbox_MonShowColorHdr.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowColorHdr", typeof(bool));
                 checkbox_MonShowRefreshRate.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "MonShowRefreshRate", typeof(bool));
 
                 //Frames
