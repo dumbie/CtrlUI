@@ -10,7 +10,7 @@ namespace DirectXInput
     partial class WindowMain
     {
         //Update controller debug information
-        void UpdateControllerDebugInformation(ControllerStatus Controller)
+        void UpdateControllerDebugInformation(ControllerStatus controller)
         {
             try
             {
@@ -21,18 +21,18 @@ namespace DirectXInput
 
                     //Check controller header
                     int controllerOffset = 0;
-                    if (Controller.Details.Wireless)
+                    if (controller.Details.Wireless)
                     {
-                        controllerOffset = Controller.SupportedCurrent.OffsetWireless;
+                        controllerOffset = controller.SupportedCurrent.OffsetWireless;
                     }
                     else
                     {
-                        controllerOffset = Controller.SupportedCurrent.OffsetWired;
+                        controllerOffset = controller.SupportedCurrent.OffsetWired;
                     }
 
                     //Set controller input
                     listbox_LiveDebugInput.Visibility = Visibility.Visible;
-                    byte[] controllerRawInput = Controller.ControllerDataInput;
+                    byte[] controllerRawInput = controller.ControllerDataInput;
                     if (controllerRawInput.Length > 180) { controllerRawInput = controllerRawInput.Take(180).ToArray(); }
                     for (int packetId = 0; packetId < controllerRawInput.Length; packetId++)
                     {
@@ -56,6 +56,18 @@ namespace DirectXInput
                         }
                         vControllerDebugInput[packetId] = profileShared;
                     }
+
+                    //Gyroscope
+                    stackpanel_DebugGyro.Visibility = Visibility.Visible;
+                    slider_DebugGyroPitch.Value = controller.InputCurrent.GyroPitch;
+                    slider_DebugGyroRoll.Value = controller.InputCurrent.GyroRoll;
+                    slider_DebugGyroYaw.Value = controller.InputCurrent.GyroYaw;
+
+                    //Accelerometer
+                    stackpanel_DebugAccel.Visibility = Visibility.Visible;
+                    slider_DebugAccelX.Value = controller.InputCurrent.AccelX;
+                    slider_DebugAccelY.Value = controller.InputCurrent.AccelY;
+                    slider_DebugAccelZ.Value = controller.InputCurrent.AccelZ;
                 });
             }
             catch { }
@@ -73,6 +85,10 @@ namespace DirectXInput
 
                     //Hide controller input
                     listbox_LiveDebugInput.Visibility = Visibility.Collapsed;
+
+                    //Hide gyro and accel
+                    stackpanel_DebugGyro.Visibility = Visibility.Collapsed;
+                    stackpanel_DebugAccel.Visibility = Visibility.Collapsed;
                 });
             }
             catch { }

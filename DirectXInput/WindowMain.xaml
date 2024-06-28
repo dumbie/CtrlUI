@@ -169,7 +169,6 @@
                         <Grid.Background>
                             <ImageBrush ImageSource="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerPreview.png"/>
                         </Grid.Background>
-                        
                         <!-- Preview -->
                         <Image Name="img_ControllerPreview_ButtonA" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,109,105,121"/>
                         <Image Name="img_ControllerPreview_ButtonB" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="394,85,81,145"/>
@@ -254,7 +253,7 @@
 
                     <ScrollViewer Grid.Row="2" Style="{StaticResource ScrollViewerVertical}">
                         <StackPanel>
-                             <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Button mapping"/>
+                            <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Button mapping"/>
                             <TextBlock Name="txt_ControllerMap_Status" Text="Click on a button above that you want to change on the controller." Style="{StaticResource TextBlockGray}"/>
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                                 <Button Name="button_SetController_Map" Content="Map" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
@@ -379,36 +378,41 @@
                                 </StackPanel>
                             </StackPanel>
 
-                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Led Settings"/>
-                            <TextBlock Name="textblock_ControllerLedBrightness" Style="{StaticResource TextBlockBlack}" Text="Led brightness" Tag="Led brightness: "/>
-                            <TextBlock Text="Changes the controller led brightness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerLedBrightness" Minimum="1" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
-
-                            <TextBlock Margin="0,10,0,0" Text="Media led condition" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <TextBlock Text="Change the condition when media led turns on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <ComboBox Name="combobox_ControllerLedCondition" HorizontalAlignment="Left" Width="400" Style="{StaticResource ComboBoxBlack}">
-                                <ComboBoxItem>Input volume muted</ComboBoxItem>
-                                <ComboBoxItem>Output volume muted</ComboBoxItem>
-                            </ComboBox>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <TextBlock Text="First controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                                <Button Name="colorpicker_Controller0" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Set first controller led color"/>
+                            <StackPanel Name="stackpanel_MediaLed">
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Media led"/>
+                                <TextBlock Text="Media led condition" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Text="Change the condition when media led turns on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <ComboBox Name="combobox_ControllerLedCondition" HorizontalAlignment="Left" Width="400" Style="{StaticResource ComboBoxBlack}">
+                                    <ComboBoxItem>Input volume muted</ComboBoxItem>
+                                    <ComboBoxItem>Output volume muted</ComboBoxItem>
+                                </ComboBox>
                             </StackPanel>
 
-                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                <TextBlock Text="Second controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                                <Button Name="colorpicker_Controller1" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Set second controller led color"/>
-                            </StackPanel>
+                            <StackPanel Name="stackpanel_StatusLed">
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Status led"/>
+                                <TextBlock Name="textblock_ControllerLedBrightness" Style="{StaticResource TextBlockBlack}" Text="Led brightness" Tag="Led brightness: "/>
+                                <TextBlock Text="Changes the controller led brightness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <Slider Name="slider_ControllerLedBrightness" Minimum="1" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
-                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                <TextBlock Text="Third controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                                <Button Name="colorpicker_Controller2" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Set third controller led color"/>
-                            </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBlock Text="First controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                    <Button Name="colorpicker_Controller0" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Set first controller led color"/>
+                                </StackPanel>
 
-                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                <TextBlock Text="Fourth controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                                <Button Name="colorpicker_Controller3" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Set fourth controller led color"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                    <TextBlock Text="Second controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                    <Button Name="colorpicker_Controller1" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Set second controller led color"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                    <TextBlock Text="Third controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                    <Button Name="colorpicker_Controller2" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Set third controller led color"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                    <TextBlock Text="Fourth controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                    <Button Name="colorpicker_Controller3" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Set fourth controller led color"/>
+                                </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </ScrollViewer>
@@ -790,6 +794,24 @@
                             <CheckBox Name="cb_DebugShowHex" Margin="10,0,0,0" Content="Show in hex" Style="{StaticResource CheckBoxBlack}"/>
                         </StackPanel>
                         <TextBlock Name="textblock_LiveDebugInformation" HorizontalAlignment="Left" Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}" Text="Connect a controller to show debug information." TextWrapping="Wrap"/>
+
+                        <StackPanel Name="stackpanel_DebugGyro" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                            <TextBlock Margin="0,0,5,0" Text="Gyro  P" Style="{StaticResource TextBlockBlack}"/>
+                            <Slider Name="slider_DebugGyroPitch" IsHitTestVisible="False" Minimum="-1000" Maximum="1000" Width="145" Style="{StaticResource SliderBlockWhite}"/>
+                            <TextBlock Margin="5,0,5,0" Text="R" Style="{StaticResource TextBlockBlack}"/>
+                            <Slider Name="slider_DebugGyroRoll" IsHitTestVisible="False" Minimum="-1000" Maximum="1000" Width="145" Style="{StaticResource SliderBlockWhite}"/>
+                            <TextBlock Margin="5,0,5,0" Text="Y" Style="{StaticResource TextBlockBlack}"/>
+                            <Slider Name="slider_DebugGyroYaw" IsHitTestVisible="False" Minimum="-1000" Maximum="1000" Width="145" Style="{StaticResource SliderBlockWhite}"/>
+                        </StackPanel>
+
+                        <StackPanel Name="stackpanel_DebugAccel" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                            <TextBlock Margin="0,0,5,0" Text="Accel X" Style="{StaticResource TextBlockBlack}"/>
+                            <Slider Name="slider_DebugAccelX" IsHitTestVisible="False" Minimum="-0.90" Maximum="0.90" Width="145" Style="{StaticResource SliderBlockWhite}"/>
+                            <TextBlock Margin="5,0,5,0" Text="Y" Style="{StaticResource TextBlockBlack}"/>
+                            <Slider Name="slider_DebugAccelY" IsHitTestVisible="False" Minimum="-0.90" Maximum="0.90" Width="145" Style="{StaticResource SliderBlockWhite}"/>
+                            <TextBlock Margin="5,0,5,0" Text="Z" Style="{StaticResource TextBlockBlack}"/>
+                            <Slider Name="slider_DebugAccelZ" IsHitTestVisible="False" Minimum="-0.90" Maximum="0.90" Width="145" Style="{StaticResource SliderBlockWhite}"/>
+                        </StackPanel>
                     </StackPanel>
 
                     <ListBox Grid.Row="2" Name="listbox_LiveDebugInput" Margin="0,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoneBlack}" ItemTemplate="{StaticResource ListboxItemDebugBox}" Style="{StaticResource ListBoxWrapPanelVertical}" Visibility="Collapsed"/>
