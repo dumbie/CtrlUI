@@ -28,9 +28,9 @@ namespace DirectXInput
 
                     if (controller.SupportedCurrent.CodeName == "NintendoSwitchPro")
                     {
-                        controller.InputCurrent.AccelX = -accelGroup2 / (float)8192;
-                        controller.InputCurrent.AccelY = -accelGroup3 / (float)8192;
-                        controller.InputCurrent.AccelZ = -accelGroup1 / (float)8192;
+                        controller.InputCurrent.AccelX = accelGroup2 / (float)4096;
+                        controller.InputCurrent.AccelY = -accelGroup3 / (float)4096;
+                        controller.InputCurrent.AccelZ = accelGroup1 / (float)4096;
                     }
                     else
                     {
