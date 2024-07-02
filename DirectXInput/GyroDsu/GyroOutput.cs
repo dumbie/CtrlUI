@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.CRC32;
@@ -17,7 +18,7 @@ namespace DirectXInput
             {
                 //Check if client endpoint is set
                 if (endPoint == null || !endPoint.Active) { return; }
-                //Debug.WriteLine("Sending controller " + numberId + " information to dsu client.");
+                //Debug.WriteLine("Sending controller " + controller.NumberId + " information to dsu client.");
 
                 //Set message header
                 byte[] sendBytes = new byte[32];
@@ -197,7 +198,7 @@ namespace DirectXInput
                 sendBytes[29] = (byte)controller.NumberId;
 
                 //Set battery status
-                sendBytes[30] = (byte)DsuBattery.None;
+                sendBytes[30] = (byte)DsuBattery.Full;
 
                 //Set packet number
                 byte[] packetNumberBytes = BitConverter.GetBytes(controller.GyroDsuClientPacketNumber);
@@ -213,6 +214,110 @@ namespace DirectXInput
                 {
                     controller.GyroDsuClientPacketNumber++;
                 }
+
+                //Set DPad
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw)
+                {
+                    sendBytes[36] |= 0x10;
+                    sendBytes[47] = 0xFF;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw)
+                {
+                    sendBytes[36] |= 0x40;
+                    sendBytes[45] = 0xFF;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw)
+                {
+                    sendBytes[36] |= 0x80;
+                    sendBytes[44] = 0xFF;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw)
+                {
+                    sendBytes[36] |= 0x20;
+                    sendBytes[46] = 0xFF;
+                }
+
+                //Set buttons (Start, Back and Thumb)
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.Back].PressedRaw)
+                {
+                    sendBytes[36] |= 0x01;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.Start].PressedRaw)
+                {
+                    sendBytes[36] |= 0x08;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.ThumbLeft].PressedRaw)
+                {
+                    sendBytes[36] |= 0x02;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.ThumbRight].PressedRaw)
+                {
+                    sendBytes[36] |= 0x04;
+                }
+
+                //Set buttons (ABXY, Shoulder, Trigger)
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.A].PressedRaw)
+                {
+                    sendBytes[37] |= 0x40;
+                    sendBytes[49] = 0xFF;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.B].PressedRaw)
+                {
+                    sendBytes[37] |= 0x20;
+                    sendBytes[50] = 0xFF;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.X].PressedRaw)
+                {
+                    sendBytes[37] |= 0x80;
+                    sendBytes[48] = 0xFF;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.Y].PressedRaw)
+                {
+                    sendBytes[37] |= 0x10;
+                    sendBytes[51] = 0xFF;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.ShoulderLeft].PressedRaw)
+                {
+                    sendBytes[37] |= 0x04;
+                    sendBytes[53] = 0xFF;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.ShoulderRight].PressedRaw)
+                {
+                    sendBytes[37] |= 0x08;
+                    sendBytes[52] = 0xFF;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.TriggerLeft].PressedRaw)
+                {
+                    sendBytes[37] |= 0x01;
+                }
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.TriggerRight].PressedRaw)
+                {
+                    sendBytes[37] |= 0x02;
+                }
+
+                //Set button Guide
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.Guide].PressedRaw)
+                {
+                    sendBytes[38] = 0xFF;
+                }
+
+                //Set button Touchpad
+                if (controller.InputCurrent.Buttons[(byte)ControllerButtons.One].PressedRaw)
+                {
+                    sendBytes[39] = 0xFF;
+                }
+
+                //Set left stick
+                sendBytes[40] = (byte)controller.InputCurrent.ThumbLeftX;
+                sendBytes[41] = (byte)controller.InputCurrent.ThumbLeftY;
+
+                //Set right stick
+                sendBytes[42] = (byte)controller.InputCurrent.ThumbRightX;
+                sendBytes[43] = (byte)controller.InputCurrent.ThumbRightY;
+
+                //Set triggers
+                sendBytes[54] = controller.InputCurrent.TriggerRight;
+                sendBytes[55] = controller.InputCurrent.TriggerLeft;
 
                 //Set touchpad
                 byte[] touchXBytes = BitConverter.GetBytes(controller.InputCurrent.TouchpadX);
