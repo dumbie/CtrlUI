@@ -22,21 +22,30 @@ namespace DirectXInput
                     byte gyroByte4 = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 4];
                     byte gyroByte5 = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.Gyroscope + 5];
 
-                    short gyroGroup1 = (short)((ushort)(gyroByte1 << 8) | gyroByte0);
-                    short gyroGroup2 = (short)((ushort)(gyroByte3 << 8) | gyroByte2);
-                    short gyroGroup3 = (short)((ushort)(gyroByte5 << 8) | gyroByte4);
-
                     if (controller.SupportedCurrent.CodeName == "NintendoSwitchPro")
                     {
-                        controller.InputCurrent.GyroPitch = -gyroGroup2 / (float)16;
-                        controller.InputCurrent.GyroYaw = -gyroGroup3 / (float)16;
-                        controller.InputCurrent.GyroRoll = gyroGroup1 / (float)16;
+                        short gyroGroup1 = (short)((ushort)(gyroByte1 << 8) | gyroByte0);
+                        short gyroGroup2 = (short)((ushort)(gyroByte3 << 8) | gyroByte2);
+                        short gyroGroup3 = (short)((ushort)(gyroByte5 << 8) | gyroByte4);
+                        controller.InputCurrent.GyroPitch = -(gyroGroup2 / 16.0f);
+                        controller.InputCurrent.GyroYaw = -(gyroGroup3 / 16.0f);
+                        controller.InputCurrent.GyroRoll = gyroGroup1 / 16.0f;
+                    }
+                    else if (controller.SupportedCurrent.CodeName == "SonyPS3DualShock")
+                    {
+                        short gyroGroup1 = (short)((ushort)(gyroByte0 << 8) | gyroByte1);
+                        controller.InputCurrent.GyroPitch = 0;
+                        controller.InputCurrent.GyroYaw = -(gyroGroup1 - 498.0F);
+                        controller.InputCurrent.GyroRoll = 0;
                     }
                     else
                     {
-                        controller.InputCurrent.GyroPitch = gyroGroup1 / (float)16;
-                        controller.InputCurrent.GyroYaw = -gyroGroup2 / (float)16;
-                        controller.InputCurrent.GyroRoll = -gyroGroup3 / (float)16;
+                        short gyroGroup1 = (short)((ushort)(gyroByte1 << 8) | gyroByte0);
+                        short gyroGroup2 = (short)((ushort)(gyroByte3 << 8) | gyroByte2);
+                        short gyroGroup3 = (short)((ushort)(gyroByte5 << 8) | gyroByte4);
+                        controller.InputCurrent.GyroPitch = gyroGroup1 / 16.0f;
+                        controller.InputCurrent.GyroYaw = -(gyroGroup2 / 16.0f);
+                        controller.InputCurrent.GyroRoll = -(gyroGroup3 / 16.0f);
                     }
 
                     //Debug.WriteLine("Gyroscope Pitch" + controller.InputCurrent.GyroPitch + " Yaw" + controller.InputCurrent.GyroYaw + " Roll" + controller.InputCurrent.GyroRoll);

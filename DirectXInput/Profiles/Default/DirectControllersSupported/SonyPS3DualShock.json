@@ -10,7 +10,9 @@
     "ThumbRightX": 6,
     "ThumbRightY": 7,
     "TriggerLeft": 16,
-    "TriggerRight": 17
+    "TriggerRight": 17,
+    "Gyroscope": 45,
+    "Accelerometer": 39
   },
   "OffsetButton": {
     "A": {

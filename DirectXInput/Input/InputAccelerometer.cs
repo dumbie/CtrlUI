@@ -22,21 +22,32 @@ namespace DirectXInput
                     byte accelByte4 = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 4];
                     byte accelByte5 = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.Accelerometer + 5];
 
-                    short accelGroup1 = (short)((ushort)(accelByte1 << 8) | accelByte0);
-                    short accelGroup2 = (short)((ushort)(accelByte3 << 8) | accelByte2);
-                    short accelGroup3 = (short)((ushort)(accelByte5 << 8) | accelByte4);
-
                     if (controller.SupportedCurrent.CodeName == "NintendoSwitchPro")
                     {
-                        controller.InputCurrent.AccelX = accelGroup2 / (float)4096;
-                        controller.InputCurrent.AccelY = -accelGroup3 / (float)4096;
-                        controller.InputCurrent.AccelZ = accelGroup1 / (float)4096;
+                        short accelGroup1 = (short)((ushort)(accelByte1 << 8) | accelByte0);
+                        short accelGroup2 = (short)((ushort)(accelByte3 << 8) | accelByte2);
+                        short accelGroup3 = (short)((ushort)(accelByte5 << 8) | accelByte4);
+                        controller.InputCurrent.AccelX = accelGroup2 / 4096.0f;
+                        controller.InputCurrent.AccelY = -(accelGroup3 / 4096.0f);
+                        controller.InputCurrent.AccelZ = accelGroup1 / 4096.0f;
+                    }
+                    else if (controller.SupportedCurrent.CodeName == "SonyPS3DualShock")
+                    {
+                        short accelGroup1 = (short)((ushort)(accelByte0 << 8) | accelByte1);
+                        short accelGroup2 = (short)((ushort)(accelByte2 << 8) | accelByte3);
+                        short accelGroup3 = (short)((ushort)(accelByte4 << 8) | accelByte5);
+                        controller.InputCurrent.AccelX = -((accelGroup1 - 511.5f) / 115.0f);
+                        controller.InputCurrent.AccelY = (accelGroup3 - 511.5f) / 115.0f;
+                        controller.InputCurrent.AccelZ = (accelGroup2 - 511.5f) / 115.0f;
                     }
                     else
                     {
-                        controller.InputCurrent.AccelX = -accelGroup1 / (float)8192;
-                        controller.InputCurrent.AccelY = -accelGroup2 / (float)8192;
-                        controller.InputCurrent.AccelZ = -accelGroup3 / (float)8192;
+                        short accelGroup1 = (short)((ushort)(accelByte1 << 8) | accelByte0);
+                        short accelGroup2 = (short)((ushort)(accelByte3 << 8) | accelByte2);
+                        short accelGroup3 = (short)((ushort)(accelByte5 << 8) | accelByte4);
+                        controller.InputCurrent.AccelX = -(accelGroup1 / 8192.0f);
+                        controller.InputCurrent.AccelY = -(accelGroup2 / 8192.0f);
+                        controller.InputCurrent.AccelZ = -(accelGroup3 / 8192.0f);
                     }
 
                     //Debug.WriteLine("Accelerometer X" + controller.InputCurrent.AccelX + " Y" + controller.InputCurrent.AccelY + " Z" + controller.InputCurrent.AccelZ);
