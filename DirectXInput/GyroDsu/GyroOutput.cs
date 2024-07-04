@@ -319,15 +319,25 @@ namespace DirectXInput
                 sendBytes[54] = controller.InputCurrent.TriggerRight;
                 sendBytes[55] = controller.InputCurrent.TriggerLeft;
 
-                //Set touchpad
-                byte[] touchXBytes = BitConverter.GetBytes(controller.InputCurrent.TouchpadX);
-                byte[] touchYBytes = BitConverter.GetBytes(controller.InputCurrent.TouchpadY);
-                sendBytes[56] = controller.InputCurrent.TouchpadActive;
-                sendBytes[57] = controller.InputCurrent.TouchpadId;
-                sendBytes[58] = touchXBytes[0];
-                sendBytes[59] = touchXBytes[1];
-                sendBytes[60] = touchYBytes[0];
-                sendBytes[61] = touchYBytes[1];
+                //Set touchpad 1
+                byte[] touch1XBytes = BitConverter.GetBytes(controller.InputCurrent.Touchpad1X);
+                byte[] touch1YBytes = BitConverter.GetBytes(controller.InputCurrent.Touchpad1Y);
+                sendBytes[56] = controller.InputCurrent.Touchpad1Active;
+                sendBytes[57] = controller.InputCurrent.Touchpad1Id;
+                sendBytes[58] = touch1XBytes[0];
+                sendBytes[59] = touch1XBytes[1];
+                sendBytes[60] = touch1YBytes[0];
+                sendBytes[61] = touch1YBytes[1];
+
+                //Set touchpad 2
+                byte[] touch2XBytes = BitConverter.GetBytes(controller.InputCurrent.Touchpad2X);
+                byte[] touch2YBytes = BitConverter.GetBytes(controller.InputCurrent.Touchpad2Y);
+                sendBytes[62] = controller.InputCurrent.Touchpad2Active;
+                sendBytes[63] = controller.InputCurrent.Touchpad2Id;
+                sendBytes[64] = touch2XBytes[0];
+                sendBytes[65] = touch2XBytes[1];
+                sendBytes[66] = touch2YBytes[0];
+                sendBytes[67] = touch2YBytes[1];
 
                 //Set timestamp
                 byte[] timeStampBytes = BitConverter.GetBytes(Stopwatch.GetTimestamp() / 10);
