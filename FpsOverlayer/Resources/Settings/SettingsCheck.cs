@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppVariables;
 
@@ -45,7 +47,6 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ColorCustomText")) { SettingSave(vConfigurationFpsOverlayer, "ColorCustomText", "#F1F1F1"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ColorMon")) { SettingSave(vConfigurationFpsOverlayer, "ColorMon", "#21A000"); }
 
-                if (!SettingCheck(vConfigurationFpsOverlayer, "GpuId")) { SettingSave(vConfigurationFpsOverlayer, "GpuId", "4"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "GpuCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "GpuCategoryTitle", "GPU"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowCategoryTitle", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowName")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowName", "False"); }
@@ -59,7 +60,6 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowPowerWatt")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowPowerWatt", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "GpuShowPowerVolt")) { SettingSave(vConfigurationFpsOverlayer, "GpuShowPowerVolt", "False"); }
 
-                if (!SettingCheck(vConfigurationFpsOverlayer, "CpuId")) { SettingSave(vConfigurationFpsOverlayer, "CpuId", "3"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CpuCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "CpuCategoryTitle", "CPU"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowCategoryTitle", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowName")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowName", "False"); }
@@ -71,7 +71,6 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowPowerVolt")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowPowerVolt", "False"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CpuShowFanSpeed")) { SettingSave(vConfigurationFpsOverlayer, "CpuShowFanSpeed", "True"); }
 
-                if (!SettingCheck(vConfigurationFpsOverlayer, "MemId")) { SettingSave(vConfigurationFpsOverlayer, "MemId", "5"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MemCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "MemCategoryTitle", "MEM"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "MemShowCategoryTitle", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowName")) { SettingSave(vConfigurationFpsOverlayer, "MemShowName", "False"); }
@@ -82,15 +81,12 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowFree")) { SettingSave(vConfigurationFpsOverlayer, "MemShowFree", "False"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MemShowTotal")) { SettingSave(vConfigurationFpsOverlayer, "MemShowTotal", "True"); }
 
-                if (!SettingCheck(vConfigurationFpsOverlayer, "NetId")) { SettingSave(vConfigurationFpsOverlayer, "NetId", "2"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "NetCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "NetCategoryTitle", "NET"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "NetShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "NetShowCategoryTitle", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "NetShowCurrentUsage")) { SettingSave(vConfigurationFpsOverlayer, "NetShowCurrentUsage", "False"); }
 
-                if (!SettingCheck(vConfigurationFpsOverlayer, "AppId")) { SettingSave(vConfigurationFpsOverlayer, "AppId", "0"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "AppShowName")) { SettingSave(vConfigurationFpsOverlayer, "AppShowName", "False"); }
 
-                if (!SettingCheck(vConfigurationFpsOverlayer, "MonId")) { SettingSave(vConfigurationFpsOverlayer, "MonId", "7"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MonCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "MonCategoryTitle", "MON"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "MonShowCategoryTitle", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowResolution")) { SettingSave(vConfigurationFpsOverlayer, "MonShowResolution", "True"); }
@@ -100,20 +96,16 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowColorHdr")) { SettingSave(vConfigurationFpsOverlayer, "MonShowColorHdr", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "MonShowRefreshRate")) { SettingSave(vConfigurationFpsOverlayer, "MonShowRefreshRate", "True"); }
 
-                if (!SettingCheck(vConfigurationFpsOverlayer, "BatId")) { SettingSave(vConfigurationFpsOverlayer, "BatId", "8"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "BatCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "BatCategoryTitle", "BAT"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "BatShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "BatShowCategoryTitle", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "BatShowPercentage")) { SettingSave(vConfigurationFpsOverlayer, "BatShowPercentage", "True"); }
 
-                if (!SettingCheck(vConfigurationFpsOverlayer, "TimeId")) { SettingSave(vConfigurationFpsOverlayer, "TimeId", "9"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "TimeShowCurrentTime")) { SettingSave(vConfigurationFpsOverlayer, "TimeShowCurrentTime", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "TimeShowCurrentDate")) { SettingSave(vConfigurationFpsOverlayer, "TimeShowCurrentDate", "True"); }
 
-                if (!SettingCheck(vConfigurationFpsOverlayer, "CustomTextId")) { SettingSave(vConfigurationFpsOverlayer, "CustomTextId", "10"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CustomTextString")) { SettingSave(vConfigurationFpsOverlayer, "CustomTextString", ""); }
 
                 //Frames per second
-                if (!SettingCheck(vConfigurationFpsOverlayer, "FpsId")) { SettingSave(vConfigurationFpsOverlayer, "FpsId", "1"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "FpsCategoryTitle", "FPS"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowCategoryTitle", "False"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsShowCurrentFps")) { SettingSave(vConfigurationFpsOverlayer, "FpsShowCurrentFps", "True"); }
@@ -122,14 +114,12 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FpsAverageSeconds")) { SettingSave(vConfigurationFpsOverlayer, "FpsAverageSeconds", "10"); }
 
                 //Frame times
-                if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeId")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeId", "11"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeGraphShow")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeGraphShow", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeAccuracy")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeAccuracy", "2"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeWidth")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeWidth", "400"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FrametimeHeight")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeHeight", "40"); }
 
                 //Fan
-                if (!SettingCheck(vConfigurationFpsOverlayer, "FanId")) { SettingSave(vConfigurationFpsOverlayer, "FanId", "6"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FanCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "FanCategoryTitle", "FAN"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FanShowCategoryTitle")) { SettingSave(vConfigurationFpsOverlayer, "FanShowCategoryTitle", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "FanShowCpu")) { SettingSave(vConfigurationFpsOverlayer, "FanShowCpu", "False"); }
@@ -146,11 +136,75 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairStyle")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairStyle", "0"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairThickness")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairThickness", "1"); }
 
+                //Check stats position
+                CheckStatsPositionExists(false);
+                CheckStatsPositionDouble();
+
                 Debug.WriteLine("Checked the application settings.");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to check the application settings: " + ex.Message);
+            }
+        }
+
+        void CheckStatsPositionExists(bool forceReset)
+        {
+            try
+            {
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "FpsId")) { SettingSave(vConfigurationFpsOverlayer, "FpsId", "0"); }
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "AppId")) { SettingSave(vConfigurationFpsOverlayer, "AppId", "1"); }
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "CpuId")) { SettingSave(vConfigurationFpsOverlayer, "CpuId", "2"); }
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "GpuId")) { SettingSave(vConfigurationFpsOverlayer, "GpuId", "3"); }
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "MemId")) { SettingSave(vConfigurationFpsOverlayer, "MemId", "4"); }
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "FanId")) { SettingSave(vConfigurationFpsOverlayer, "FanId", "5"); }
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "MonId")) { SettingSave(vConfigurationFpsOverlayer, "MonId", "6"); }
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "NetId")) { SettingSave(vConfigurationFpsOverlayer, "NetId", "7"); }
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "BatId")) { SettingSave(vConfigurationFpsOverlayer, "BatId", "8"); }
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "CustomTextId")) { SettingSave(vConfigurationFpsOverlayer, "CustomTextId", "9"); }
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "TimeId")) { SettingSave(vConfigurationFpsOverlayer, "TimeId", "10"); }
+                if (forceReset || !SettingCheck(vConfigurationFpsOverlayer, "FrametimeId")) { SettingSave(vConfigurationFpsOverlayer, "FrametimeId", "11"); }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to check existing stats position: " + ex.Message);
+            }
+        }
+
+        void CheckStatsPositionDouble()
+        {
+            try
+            {
+                //Load used stat positions
+                List<int> usedStatPositions = new List<int>()
+                {
+                    SettingLoad(vConfigurationFpsOverlayer, "AppId", typeof(int)),
+                    SettingLoad(vConfigurationFpsOverlayer, "FpsId", typeof(int)),
+                    SettingLoad(vConfigurationFpsOverlayer, "FrametimeId", typeof(int)),
+                    SettingLoad(vConfigurationFpsOverlayer, "NetId", typeof(int)),
+                    SettingLoad(vConfigurationFpsOverlayer, "CpuId", typeof(int)),
+                    SettingLoad(vConfigurationFpsOverlayer, "GpuId", typeof(int)),
+                    SettingLoad(vConfigurationFpsOverlayer, "MemId", typeof(int)),
+                    SettingLoad(vConfigurationFpsOverlayer, "TimeId", typeof(int)),
+                    SettingLoad(vConfigurationFpsOverlayer, "CustomTextId", typeof(int)),
+                    SettingLoad(vConfigurationFpsOverlayer, "MonId", typeof(int)),
+                    SettingLoad(vConfigurationFpsOverlayer, "BatId", typeof(int)),
+                    SettingLoad(vConfigurationFpsOverlayer, "FanId", typeof(int))
+                };
+
+                //Check if there are double positions
+                bool doublePositions = usedStatPositions.GroupBy(x => x).Any(x => x.Count() > 1);
+
+                //Reset stat positions when double found
+                if (doublePositions)
+                {
+                    Debug.WriteLine("Found double stat positions, resetting the order.");
+                    CheckStatsPositionExists(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to check double stats position: " + ex.Message);
             }
         }
     }

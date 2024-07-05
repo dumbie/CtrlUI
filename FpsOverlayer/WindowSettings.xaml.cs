@@ -326,8 +326,10 @@ namespace FpsOverlayer
                         SettingSave(vConfigurationFpsOverlayer, "FanId", currentId.ToString());
                     }
 
-                    //Save new id
+                    //Save new identifier
                     SettingSave(vConfigurationFpsOverlayer, targetName, newId.ToString());
+
+                    //Update stats overlay style
                     vWindowMain.UpdateFpsOverlayStyle();
 
                     //Update stats position text
