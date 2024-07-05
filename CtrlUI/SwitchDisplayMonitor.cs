@@ -270,7 +270,7 @@ namespace CtrlUI
             {
                 //Set application name
                 string d3DName = string.Empty;
-                string d3DBehaviors = "BufferUpgradeOverride=1;BufferUpgradeEnable10Bit=1;";
+                string d3DBehaviors = "DisableBufferUpgrade=0;BufferUpgradeOverride=1;BufferUpgradeEnable10Bit=1;";
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
                     //d3DName = dataBindApp.AppUserModelId;
