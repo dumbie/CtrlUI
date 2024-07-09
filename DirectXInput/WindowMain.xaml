@@ -728,7 +728,7 @@
                                 <Slider Name="slider_KeypadDisplaySize" Width="460" Minimum="30" Maximum="200" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlockWhite}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Mouse Settings"/>
-                                <CheckBox Name="cb_SettingsKeypadMouseMoveEnabled" Content="Move mouse with right thumb" Style="{StaticResource CheckBoxBlack}"/>
+                                <CheckBox Name="cb_SettingsKeypadMouseMoveEnabled" Content="Move mouse with right thumb stick" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to move the mouse with the right thumb stick, so for example you can look around in first person shooters." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Name="textblock_SettingsKeypadMouseMoveSensitivity" Text="Mouse movement sensitivity" Tag="Mouse movement sensitivity" Style="{StaticResource TextBlockBlack}"/>

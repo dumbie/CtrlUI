@@ -120,18 +120,15 @@ namespace DirectXInput
                 AVActions.TaskStartLoop(TaskActionOutputVirtual, Controller.OutputVirtualTask);
 
                 //Start output gyroscope task loop
-                if (Controller.SupportedCurrent.OffsetHeader.Gyroscope != null)
+                async Task TaskActionOutputGyro()
                 {
-                    async Task TaskActionOutputGyro()
+                    try
                     {
-                        try
-                        {
-                            await LoopOutputGyro(Controller);
-                        }
-                        catch { }
+                        await LoopOutputGyro(Controller);
                     }
-                    AVActions.TaskStartLoop(TaskActionOutputGyro, Controller.OutputGyroscopeTask);
+                    catch { }
                 }
+                AVActions.TaskStartLoop(TaskActionOutputGyro, Controller.OutputGyroscopeTask);
 
                 return true;
             }
@@ -149,6 +146,9 @@ namespace DirectXInput
             {
                 AVActions.DispatcherInvoke(delegate
                 {
+                    //Enable controller tab
+                    grid_Controller.IsEnabled = true;
+
                     //Check if controller supports rumble mode
                     if (Controller.SupportedCurrent.HasRumbleMode)
                     {
@@ -159,7 +159,7 @@ namespace DirectXInput
                         stackpanel_ControllerRumbleMode.Visibility = Visibility.Collapsed;
                     }
 
-                    //Check if controller supports trigger rumble
+                    //Check if controller supports rumble trigger
                     if (Controller.SupportedCurrent.HasRumbleTrigger)
                     {
                         stackpanel_TriggerRumbleSettings.Visibility = Visibility.Visible;
@@ -167,6 +167,26 @@ namespace DirectXInput
                     else
                     {
                         stackpanel_TriggerRumbleSettings.Visibility = Visibility.Collapsed;
+                    }
+
+                    //Check if controller supports led status
+                    if (Controller.SupportedCurrent.HasLedStatus)
+                    {
+                        stackpanel_StatusLed.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        stackpanel_StatusLed.Visibility = Visibility.Collapsed;
+                    }
+
+                    //Check if controller supports led media
+                    if (Controller.SupportedCurrent.HasLedMedia)
+                    {
+                        stackpanel_MediaLed.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        stackpanel_MediaLed.Visibility = Visibility.Collapsed;
                     }
 
                     cb_ControllerUseButtonTriggers.IsChecked = Controller.Details.Profile.UseButtonTriggers;

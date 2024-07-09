@@ -187,14 +187,17 @@ namespace DirectXInput
                 else if (vController3.Connected() && activeController == null) { ControllerActivate(vController3); }
                 else if (activeController == null)
                 {
-                    //Clear the current controller information
                     AVActions.DispatcherInvoke(delegate
                     {
+                        //Clear controller information
                         txt_ActiveControllerType.Text = "Type";
                         txt_ActiveControllerLatency.Text = "Latency";
                         txt_ActiveControllerBattery.Text = "Battery";
                         txt_ActiveControllerName.Text = "No controller";
                         txt_ActiveControllerName.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
+
+                        //Disable controller tab
+                        grid_Controller.IsEnabled = false;
                     });
                 }
             }

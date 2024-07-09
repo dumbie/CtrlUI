@@ -4,6 +4,8 @@
   "VendorID": "0x054c",
   "HasRumbleMode": true,
   "HasRumbleTrigger": true,
+  "HasLedStatus": true,
+  "HasLedMedia": true,
   "OffsetWired": 1,
   "OffsetWireless": 2,
   "OffsetHeader": {

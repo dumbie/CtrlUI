@@ -4,6 +4,7 @@
   "VendorID": "0x054c",
   "OffsetWired": 1,
   "OffsetWireless": 3,
+  "HasLedStatus": true,
   "OffsetHeader": {
     "ThumbLeftX": 0,
     "ThumbLeftY": 1,
