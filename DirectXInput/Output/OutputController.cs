@@ -129,9 +129,17 @@ namespace DirectXInput
                     {
                         outputReport[11] = 0x01;
                     }
-                    else
+
+                    //Set controller player led
+                    if (Controller.Details.Profile.PlayerLedEnabled)
                     {
-                        outputReport[11] = 0x00;
+                        switch (Controller.NumberId)
+                        {
+                            case 0: { outputReport[46] = 0x04; break; }
+                            case 1: { outputReport[46] = 0x02 | 0x08; break; }
+                            case 2: { outputReport[46] = 0x01 | 0x04 | 0x10; break; }
+                            case 3: { outputReport[46] = 0x01 | 0x02 | 0x08 | 0x10; break; }
+                        }
                     }
 
                     //Set controller led color
@@ -193,9 +201,17 @@ namespace DirectXInput
                     {
                         outputReport[9] = 0x01;
                     }
-                    else
+
+                    //Set controller player led
+                    if (Controller.Details.Profile.PlayerLedEnabled)
                     {
-                        outputReport[9] = 0x00;
+                        switch (Controller.NumberId)
+                        {
+                            case 0: { outputReport[44] = 0x04; break; }
+                            case 1: { outputReport[44] = 0x02 | 0x08; break; }
+                            case 2: { outputReport[44] = 0x01 | 0x04 | 0x10; break; }
+                            case 3: { outputReport[44] = 0x01 | 0x02 | 0x08 | 0x10; break; }
+                        }
                     }
 
                     //Set controller led color
@@ -269,13 +285,16 @@ namespace DirectXInput
                     outputReport[27] = 0x10;
                     outputReport[29] = 0x32;
 
-                    //Led Position 0x02, 0x04, 0x08, 0x10
-                    switch (Controller.NumberId)
+                    //Set controller player led
+                    if (Controller.Details.Profile.PlayerLedEnabled)
                     {
-                        case 0: { outputReport[9] = 0x02; break; }
-                        case 1: { outputReport[9] = 0x04; break; }
-                        case 2: { outputReport[9] = 0x08; break; }
-                        case 3: { outputReport[9] = 0x10; break; }
+                        switch (Controller.NumberId)
+                        {
+                            case 0: { outputReport[9] = 0x02; break; }
+                            case 1: { outputReport[9] = 0x04; break; }
+                            case 2: { outputReport[9] = 0x08; break; }
+                            case 3: { outputReport[9] = 0x10; break; }
+                        }
                     }
 
                     //Send data to the controller

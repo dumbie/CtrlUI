@@ -671,6 +671,20 @@ namespace LibraryShared
                 }
             }
 
+            private bool PrivPlayerLedEnabled = true;
+            public bool PlayerLedEnabled
+            {
+                get { return this.PrivPlayerLedEnabled; }
+                set
+                {
+                    if (this.PrivPlayerLedEnabled != value)
+                    {
+                        this.PrivPlayerLedEnabled = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             public event PropertyChangedEventHandler PropertyChanged;
             private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
             {

@@ -5,6 +5,7 @@
   "HasRumbleMode": true,
   "HasRumbleTrigger": true,
   "HasLedStatus": true,
+  "HasLedPlayer": true,
   "HasLedMedia": true,
   "OffsetWired": 1,
   "OffsetWireless": 2,

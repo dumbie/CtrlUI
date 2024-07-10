@@ -10,6 +10,9 @@
             public bool HasDirectDPad { get; set; }
             public bool HasRumbleMode { get; set; }
             public bool HasRumbleTrigger { get; set; }
+            public bool HasLedStatus { get; set; }
+            public bool HasLedPlayer { get; set; }
+            public bool HasLedMedia { get; set; }
             public int OffsetWired { get; set; }
             public int OffsetWireless { get; set; }
             public ClassOffsetHeader OffsetHeader { get; set; } = new ClassOffsetHeader();

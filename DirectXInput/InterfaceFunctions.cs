@@ -385,6 +385,21 @@ namespace DirectXInput
                     }
                 };
 
+                cb_PlayerLedEnabled.Click += (sender, e) =>
+                {
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
+                    {
+                        activeController.Details.Profile.PlayerLedEnabled = cb_PlayerLedEnabled.IsChecked.Value;
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
+
+                        //Controller update led color
+                        ControllerLedColor(activeController);
+                    }
+                };
+
                 //Controller button mapping functions
                 btn_SetA.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
                 btn_SetB.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;

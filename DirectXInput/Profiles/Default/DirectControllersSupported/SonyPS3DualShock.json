@@ -3,6 +3,7 @@
   "ProductIDs": [ "0x0268" ],
   "VendorID": "0x054c",
   "HasDirectDPad": true,
+  "HasLedPlayer": true,
   "OffsetWired": 2,
   "OffsetHeader": {
     "ThumbLeftX": 4,
