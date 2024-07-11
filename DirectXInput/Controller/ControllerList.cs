@@ -60,9 +60,6 @@ namespace DirectXInput
                         }
                         ControllerProfile profileController = profileList.FirstOrDefault();
 
-                        //Check if controller is wireless
-                        bool ConnectedWireless = EnumDevice.DevicePath.ToLower().Contains("00805f9b34fb");
-
                         ControllerDetails newController = new ControllerDetails()
                         {
                             Type = ControllerType.WinUsbDevice,
@@ -70,7 +67,7 @@ namespace DirectXInput
                             DisplayName = EnumDevice.Description,
                             DevicePath = EnumDevice.DevicePath,
                             DeviceInstanceId = EnumDevice.DeviceInstanceId,
-                            Wireless = ConnectedWireless
+                            Wireless = EnumDevice.IsWireless
                         };
 
                         //Connect with the controller
@@ -133,9 +130,6 @@ namespace DirectXInput
                         }
                         ControllerProfile profileController = profileList.FirstOrDefault();
 
-                        //Check if controller is wireless
-                        bool ConnectedWireless = foundHidDevice.DevicePath.ToLower().Contains("00805f9b34fb");
-
                         ControllerDetails newController = new ControllerDetails()
                         {
                             Type = ControllerType.HidDevice,
@@ -143,7 +137,7 @@ namespace DirectXInput
                             DisplayName = ProductNameString,
                             DevicePath = foundHidDevice.DevicePath,
                             DeviceInstanceId = foundHidDevice.DeviceInstanceId,
-                            Wireless = ConnectedWireless
+                            Wireless = EnumDevice.IsWireless
                         };
 
                         //Connect with the controller

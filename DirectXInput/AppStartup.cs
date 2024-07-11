@@ -133,7 +133,7 @@ namespace DirectXInput
 
                 //Register keyboard hotkeys
                 AVInputOutputHotkey.Start();
-                AVInputOutputHotkey.EventHotkeyPressed += EventHotkeyPressed;
+                AVInputOutputHotkey.EventHotkeyPressedList += EventHotkeyPressed;
 
                 //Set application first launch to false
                 SettingSave(vConfigurationDirectXInput, "AppFirstLaunch", "False");
