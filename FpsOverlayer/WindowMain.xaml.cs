@@ -94,7 +94,7 @@ namespace FpsOverlayer
 
                 //Register keyboard hotkeys
                 AVInputOutputHotkey.Start();
-                AVInputOutputHotkey.EventHotkeyPressed += EventHotkeyPressed;
+                AVInputOutputHotkey.EventHotkeyPressedList += EventHotkeyPressed;
 
                 //Enable the socket server
                 await EnableSocketServer();
@@ -152,19 +152,16 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update window position on resolution change
+        //Update windows on resolution change
         public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
             try
             {
-                //Wait for change to complete
+                //Wait for resolution change
                 await Task.Delay(2000);
 
-                //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, true, true);
-
-                //Update window position
-                UpdateWindowPosition();
+                //Update windows on change
+                UpdateWindowsOnChange();
             }
             catch { }
         }

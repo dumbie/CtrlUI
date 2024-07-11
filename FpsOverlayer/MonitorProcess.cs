@@ -89,14 +89,11 @@ namespace FpsOverlayer
                         }
                         else
                         {
-                            //Update the application name
+                            //Update application name
                             UpdateApplicationName(foregroundProcess.WindowTitleMain);
 
-                            //Update fps window style
-                            WindowUpdateStyle(vInteropWindowHandle, true, true, true);
-
-                            //Update browser window style
-                            WindowUpdateStyle(vWindowBrowser.vInteropWindowHandle, true, vBrowserWindowBlockInteract, vBrowserWindowBlockInteract);
+                            //Update windows on change
+                            UpdateWindowsOnChange();
                         }
 
                         //Update the current target process
@@ -109,6 +106,23 @@ namespace FpsOverlayer
                         await TaskDelay(1000, vTask_MonitorProcess);
                     }
                 }
+            }
+            catch { }
+        }
+
+        //Update windows on change
+        void UpdateWindowsOnChange()
+        {
+            try
+            {
+                //Update fps window style
+                WindowUpdateStyle(vInteropWindowHandle, true, true, true);
+
+                //Update browser window style
+                WindowUpdateStyle(vWindowBrowser.vInteropWindowHandle, true, vBrowserWindowBlockInteract, vBrowserWindowBlockInteract);
+
+                //Update window position
+                UpdateWindowPosition();
             }
             catch { }
         }

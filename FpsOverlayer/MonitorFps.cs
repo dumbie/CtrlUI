@@ -189,6 +189,7 @@ namespace FpsOverlayer
                 {
                     if (traceEvent.ProcessName != vTargetProcess.ExeNameNoExt)
                     {
+                        //Fix fps when two of the same process names are running
                         //Debug.WriteLine("Event process is not foreground window or process.");
                         return;
                     }
