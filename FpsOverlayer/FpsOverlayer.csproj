@@ -60,7 +60,7 @@
 		<ProjectReference Include="..\LibraryShared\LibraryShared.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.5" />
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2045.28" />
+		<PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.12" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2592.51" />
 	</ItemGroup>
 </Project>
