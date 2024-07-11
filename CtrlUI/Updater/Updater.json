@@ -49,7 +49,6 @@
     "Profiles/User"
   ],
   "FoldersDelete": [
-    "Drivers",
-    "Resources"
+    "Drivers"
   ]
 }
