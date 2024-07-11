@@ -32,7 +32,7 @@ namespace LibraryUsb
             }
             finally
             {
-                await Task.Delay(250);
+                await Task.Delay(100);
             }
         }
 
@@ -58,7 +58,7 @@ namespace LibraryUsb
             }
             finally
             {
-                await Task.Delay(250);
+                await Task.Delay(100);
             }
         }
 
@@ -83,7 +83,7 @@ namespace LibraryUsb
             }
             finally
             {
-                await Task.Delay(250);
+                await Task.Delay(100);
             }
         }
 
