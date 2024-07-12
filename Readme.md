@@ -32,9 +32,6 @@ Screen Capture Tool allows you to capture your screen to an image or video.
 - Show current time on your screen while gaming.
 - Browse the web in an overlay while gaming.
 
-## Screen Capture Tool Application Features
-- Capture your screen to an image or video.
-
 ## Supported controllers 
 - Sony PlayStation 1 (Wired)
 - Sony PlayStation 2 (Wired)
@@ -90,6 +87,11 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v2.1.0.0 (11-July-2024)
+- FpsOverlayer: Added fan speed information support.
+- FpsOverlayer: Added address bar to browser overlay.
+- DirectXInput: Added controller player led setting.
+
 v2.0.0.0 (7-June-2024)
 - CtrlUI: Added ItchIO and IndieGala launcher support.
 - DirectXInput: Added 8BitDo Pro 2 controller support.
