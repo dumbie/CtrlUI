@@ -96,6 +96,9 @@
 		<Content Include="Profiles\User\DirectKeypadMapping\Default.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Drivers\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Assets\AppIcon.ico" />
