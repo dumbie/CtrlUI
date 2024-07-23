@@ -23,83 +23,100 @@ namespace DirectXInput.KeyboardCode
         //Process controller input for mouse
         public void ControllerInteractionMouse(ControllerInput ControllerInput)
         {
-            bool ControllerDelay125 = false;
-            bool ControllerDelay500 = false;
             try
             {
-                if (GetSystemTicksMs() >= vControllerDelay_Mouse)
+                //Set mouse movement
+                long moveMouseDelay = 0;
+                int moveVerticalLeft = 0;
+                int moveVerticalRight = 0;
+                int moveHorizontalLeft = 0;
+                int moveHorizontalRight = 0;
+                if (GetSystemTicksMs() >= vControllerDelay_MouseMove)
                 {
-                    int scrollHorizontalRight = 0;
-                    int scrollVerticalRight = 0;
-                    MouseHidButtons buttonPress = MouseHidButtons.None;
+                    //Set default mouse delay
+                    moveMouseDelay = vControllerDelayTicks10;
 
-                    //Get the mouse move amount
+                    //Get mouse move sensitivity
                     double moveSensitivity = SettingLoad(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", typeof(double));
-                    GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY, true, out int moveHorizontalLeft, out int moveVerticalLeft);
 
-                    //Check the keyboard mode
+                    //Get mouse move amount
+                    GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY, true, out moveHorizontalLeft, out moveVerticalLeft);
+
+                    //Check keyboard mode
                     if (vKeyboardCurrentMode == KeyboardMode.Media)
                     {
-                        //Get the mouse move amount
-                        GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
+                        //Get window move amount
+                        GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out moveHorizontalRight, out moveVerticalRight);
 
-                        //Move the keyboard window
+                        //Move keyboard window
                         MoveKeyboardWindow(moveHorizontalRight, moveVerticalRight);
+                    } 
+
+                    //Delay input to prevent repeat
+                    vControllerDelay_MouseMove = GetSystemTicksMs() + moveMouseDelay;
+                }
+
+                //Set mouse button
+                long buttonMouseDelay = 0;
+                MouseHidButtons buttonPressed = MouseHidButtons.None;
+                if (GetSystemTicksMs() >= vControllerDelay_MouseButton)
+                {
+                    //Set default mouse delay
+                    buttonMouseDelay = vControllerDelayTicks10;
+
+                    //Check mouse button press
+                    if (ControllerInput.Buttons[(byte)ControllerButtons.ShoulderLeft].PressedRaw && ControllerInput.Buttons[(byte)ControllerButtons.ShoulderRight].PressedRaw)
+                    {
+                        buttonPressed = MouseHidButtons.MiddleButton;
+                        buttonMouseDelay = vControllerDelayTicks500;
                     }
-                    else if (vKeyboardCurrentMode == KeyboardMode.Keyboard)
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.ShoulderLeft].PressedRaw)
+                    {
+                        buttonPressed = MouseHidButtons.LeftButton;
+                    }
+                    else if (ControllerInput.Buttons[(byte)ControllerButtons.ShoulderRight].PressedRaw)
+                    {
+                        buttonPressed = MouseHidButtons.RightButton;
+                    }
+
+                    //Delay input to prevent repeat
+                    vControllerDelay_MouseButton = GetSystemTicksMs() + buttonMouseDelay;
+                }
+
+                //Set mouse scroll
+                long scrollMouseDelay = 0;
+                int scrollVerticalRight = 0;
+                int scrollHorizontalRight = 0;
+                if (GetSystemTicksMs() >= vControllerDelay_MouseScroll)
+                {
+                    //Check keyboard mode
+                    if (vKeyboardCurrentMode == KeyboardMode.Keyboard)
                     {
                         //Get the mouse scroll amount
                         int scrollSensitivity = SettingLoad(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", typeof(int));
                         GetMouseMovementAmountFromThumbScroll(scrollSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, false, out scrollHorizontalRight, out scrollVerticalRight);
                         if (scrollHorizontalRight != 0 || scrollVerticalRight != 0)
                         {
-                            ControllerDelay125 = true;
+                            scrollMouseDelay = 125;
                         }
-                    }
 
-                    //Emulate mouse button press
-                    if (ControllerInput.Buttons[(byte)ControllerButtons.ShoulderLeft].PressedRaw && ControllerInput.Buttons[(byte)ControllerButtons.ShoulderRight].PressedRaw)
-                    {
-                        buttonPress = MouseHidButtons.MiddleButton;
-                        ControllerDelay500 = true;
+                        //Delay input to prevent repeat
+                        vControllerDelay_MouseScroll = GetSystemTicksMs() + scrollMouseDelay;
                     }
-                    else if (ControllerInput.Buttons[(byte)ControllerButtons.ShoulderLeft].PressedRaw)
-                    {
-                        buttonPress = MouseHidButtons.LeftButton;
-                    }
-                    else if (ControllerInput.Buttons[(byte)ControllerButtons.ShoulderRight].PressedRaw)
-                    {
-                        buttonPress = MouseHidButtons.RightButton;
-                    }
-                    else
-                    {
-                        buttonPress = MouseHidButtons.None;
-                    }
+                }
 
-                    //Update current mouse input
+                //Update current mouse input
+                if (moveMouseDelay != 0 || buttonMouseDelay != 0 || scrollMouseDelay != 0)
+                {
                     MouseHidAction mouseAction = new MouseHidAction()
                     {
                         MoveHorizontal = moveHorizontalLeft,
                         MoveVertical = moveVerticalLeft,
                         ScrollHorizontal = scrollHorizontalRight,
                         ScrollVertical = scrollVerticalRight,
-                        Button = buttonPress
+                        Button = buttonPressed
                     };
                     vFakerInputDevice.MouseRelative(mouseAction);
-
-                    //Delay input to prevent repeat
-                    if (ControllerDelay125)
-                    {
-                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayTicks125;
-                    }
-                    else if (ControllerDelay500)
-                    {
-                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayTicks500;
-                    }
-                    else
-                    {
-                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayTicks10;
-                    }
                 }
             }
             catch { }

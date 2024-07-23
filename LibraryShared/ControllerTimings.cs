@@ -16,11 +16,14 @@
         public static int vControllerDelayTicks500 = 500;
         public static int vControllerDelayTicks750 = 750;
         public static int vControllerDelayTicks1000 = 1000;
-        public static long vControllerDelay_KeypadControl = 0;
+        public static long vControllerDelay_KeypadMouse = 0;
+        public static long vControllerDelay_KeypadKeyboard = 0;
         public static long vControllerDelay_KeypadPreview = 0;
         public static long vControllerDelay_Keyboard = 0;
         public static long vControllerDelay_Media = 0;
-        public static long vControllerDelay_Mouse = 0;
+        public static long vControllerDelay_MouseScroll = 0;
+        public static long vControllerDelay_MouseButton = 0;
+        public static long vControllerDelay_MouseMove = 0;
         public static long vControllerDelay_DPad = 0;
         public static long vControllerDelay_Stick = 0;
         public static long vControllerDelay_Trigger = 0;
