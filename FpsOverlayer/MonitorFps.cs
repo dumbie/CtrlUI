@@ -88,7 +88,7 @@ namespace FpsOverlayer
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateStatsFps))
+                while (await TaskCheckLoop(vTask_UpdateStatsFps, 1000))
                 {
                     try
                     {
@@ -123,11 +123,6 @@ namespace FpsOverlayer
                         });
                     }
                     catch { }
-                    finally
-                    {
-                        //Delay the loop task
-                        await TaskDelay(1000, vTask_UpdateStatsFps);
-                    }
                 }
             }
             catch { }

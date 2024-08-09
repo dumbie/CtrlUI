@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System.Windows;
 using static ArnoldVinkCode.AVAudioDevice;
+using static CtrlUI.AppVariables;
 
 namespace CtrlUI
 {
@@ -11,6 +12,12 @@ namespace CtrlUI
         {
             try
             {
+                //Check if application is activated
+                if (!vAppActivated)
+                {
+                    return;
+                }
+
                 //Check if volume is currently muted
                 bool currentOutputVolumeMuted = AudioMuteGetStatus(false);
                 bool currentInputVolumeMuted = AudioMuteGetStatus(true);

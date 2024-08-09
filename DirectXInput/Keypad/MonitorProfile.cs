@@ -9,13 +9,10 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                while (TaskCheckLoop(vTask_SwitchProfile))
+                while (await TaskCheckLoop(vTask_SwitchProfile, 1000))
                 {
                     //Switch keypad profile
                     await SwitchKeypadProfile();
-
-                    //Delay the loop task
-                    await TaskDelay(1000, vTask_SwitchProfile);
                 }
             }
             catch { }

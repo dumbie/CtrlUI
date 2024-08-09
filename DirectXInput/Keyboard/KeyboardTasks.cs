@@ -36,13 +36,10 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateMediaInformation))
+                while (await TaskCheckLoop(vTask_UpdateMediaInformation, 500))
                 {
                     UpdateCurrentVolumeInformation();
                     await UpdateCurrentMediaInformation();
-
-                    //Delay the loop task
-                    await TaskDelay(500, vTask_UpdateMediaInformation);
                 }
             }
             catch { }
@@ -52,14 +49,11 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateInterfaceInformation))
+                while (await TaskCheckLoop(vTask_UpdateInterfaceInformation, 1000))
                 {
                     UpdateClockTime();
                     UpdateBatteryStatus();
                     UpdateActiveController();
-
-                    //Delay the loop task
-                    await TaskDelay(1000, vTask_UpdateInterfaceInformation);
                 }
             }
             catch { }

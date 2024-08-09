@@ -36,11 +36,16 @@ namespace FpsOverlayer
         {
             try
             {
-                while (TaskCheckLoop(vTask_MonitorHardware))
+                int LoopDelayTime()
+                {
+                    return SettingLoad(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", typeof(int));
+                }
+
+                while (await TaskCheckLoop(vTask_MonitorHardware, LoopDelayTime()))
                 {
                     try
                     {
-                        //Update the monitor information
+                        //Update monitor information
                         UpdateMonitorInformation();
 
                         //Update hardware information
@@ -52,12 +57,6 @@ namespace FpsOverlayer
                         UpdateNetworkInformation(vHardwareComputer.Hardware);
                     }
                     catch { }
-                    finally
-                    {
-                        //Delay the loop task
-                        int hardwareUpdateRate = SettingLoad(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", typeof(int));
-                        await TaskDelay(hardwareUpdateRate, vTask_MonitorHardware);
-                    }
                 }
             }
             catch { }

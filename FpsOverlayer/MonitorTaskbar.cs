@@ -26,7 +26,7 @@ namespace FpsOverlayer
         {
             try
             {
-                while (TaskCheckLoop(vTask_MonitorTaskbar))
+                while (await TaskCheckLoop(vTask_MonitorTaskbar, 1000))
                 {
                     try
                     {
@@ -81,11 +81,6 @@ namespace FpsOverlayer
                         }
                     }
                     catch { }
-                    finally
-                    {
-                        //Delay the loop task
-                        await TaskDelay(1000, vTask_MonitorTaskbar);
-                    }
                 }
             }
             catch { }

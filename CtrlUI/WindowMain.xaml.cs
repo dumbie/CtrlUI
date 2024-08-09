@@ -140,9 +140,6 @@ namespace CtrlUI
                 //Update the controller help
                 UpdateControllerHelp();
 
-                //Update the controller connection status
-                await UpdateControllerConnected();
-
                 //Update the controller color
                 UpdateControllerColor();
 

@@ -15,7 +15,7 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                while (TaskCheckLoop(vTask_MonitorTaskbar))
+                while (await TaskCheckLoop(vTask_MonitorTaskbar, 1000))
                 {
                     try
                     {
@@ -58,11 +58,6 @@ namespace DirectXInput.KeypadCode
                         });
                     }
                     catch { }
-                    finally
-                    {
-                        //Delay the loop task
-                        await TaskDelay(1000, vTask_MonitorTaskbar);
-                    }
                 }
             }
             catch { }

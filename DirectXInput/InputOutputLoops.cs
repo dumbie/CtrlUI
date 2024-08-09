@@ -16,7 +16,7 @@ namespace DirectXInput
                 Debug.WriteLine("Handle controller input data " + controller.Details.Type + " for: " + controller.Details.DisplayName);
 
                 //Receive input from the selected controller
-                while (TaskCheckLoop(controller.InputControllerTask) && controller.Connected())
+                while (await TaskCheckLoop(controller.InputControllerTask, 0) && controller.Connected())
                 {
                     try
                     {
@@ -29,13 +29,13 @@ namespace DirectXInput
         }
 
         //Loop controller output
-        void LoopOutputController(ControllerStatus controller)
+        async Task LoopOutputController(ControllerStatus controller)
         {
             try
             {
                 Debug.WriteLine("Handle controller output data for: " + controller.Details.DisplayName);
 
-                while (TaskCheckLoop(controller.OutputControllerTask) && controller.Connected())
+                while (await TaskCheckLoop(controller.OutputControllerTask, 0) && controller.Connected())
                 {
                     try
                     {
@@ -72,13 +72,13 @@ namespace DirectXInput
         }
 
         //Loop virtual output
-        void LoopOutputVirtual(ControllerStatus controller)
+        async Task LoopOutputVirtual(ControllerStatus controller)
         {
             try
             {
                 Debug.WriteLine("Handle virtual output data for: " + controller.Details.DisplayName);
 
-                while (TaskCheckLoop(controller.OutputVirtualTask) && controller.Connected())
+                while (await TaskCheckLoop(controller.OutputVirtualTask, 0) && controller.Connected())
                 {
                     try
                     {
@@ -103,18 +103,13 @@ namespace DirectXInput
                 Debug.WriteLine("Handle controller gyroscope data for: " + controller.Details.DisplayName);
 
                 //Send gyro motion to dsu client
-                while (TaskCheckLoop(controller.OutputGyroscopeTask) && controller.Connected())
+                while (await TaskCheckLoop(controller.OutputGyroscopeTask, 0.1F) && controller.Connected())
                 {
                     try
                     {
                         await SendGyroMotionController(controller);
                     }
                     catch { }
-                    finally
-                    {
-                        //Delay task to prevent high cpu usage
-                        AVHighResDelay.Delay(0.1F);
-                    }
                 }
             }
             catch { }

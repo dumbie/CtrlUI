@@ -10,12 +10,9 @@ namespace DirectXInput
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateWindowStatus))
+                while (await TaskCheckLoop(vTask_UpdateWindowStatus, 500))
                 {
                     UpdateWindowStatus();
-
-                    //Delay the loop task
-                    await TaskDelay(500, vTask_UpdateWindowStatus);
                 }
             }
             catch { }
@@ -25,13 +22,10 @@ namespace DirectXInput
         {
             try
             {
-                while (TaskCheckLoop(vTask_ControllerMonitor))
+                while (await TaskCheckLoop(vTask_ControllerMonitor, 2000))
                 {
                     await MonitorController();
                     MonitorVolumeMute();
-
-                    //Delay the loop task
-                    await TaskDelay(2000, vTask_ControllerMonitor);
                 }
             }
             catch { }
@@ -41,13 +35,10 @@ namespace DirectXInput
         {
             try
             {
-                while (TaskCheckLoop(vTask_ControllerDisconnect))
+                while (await TaskCheckLoop(vTask_ControllerDisconnect, 1000))
                 {
                     await CheckAllControllersTimeout();
                     await CheckAllControllersIdle();
-
-                    //Delay the loop task
-                    await TaskDelay(1000, vTask_ControllerDisconnect);
                 }
             }
             catch { }
@@ -57,16 +48,13 @@ namespace DirectXInput
         {
             try
             {
-                while (TaskCheckLoop(vTask_ControllerLedColor))
+                while (await TaskCheckLoop(vTask_ControllerLedColor, 1000))
                 {
                     //Controller update led color
                     ControllerLedColor(vController0);
                     ControllerLedColor(vController1);
                     ControllerLedColor(vController2);
                     ControllerLedColor(vController3);
-
-                    //Delay the loop task
-                    await TaskDelay(1000, vTask_ControllerLedColor);
                 }
             }
             catch { }
@@ -76,7 +64,7 @@ namespace DirectXInput
         {
             try
             {
-                while (TaskCheckLoop(vTask_ControllerBattery))
+                while (await TaskCheckLoop(vTask_ControllerBattery, 2000))
                 {
                     //Read controller battery level
                     ControllerReadBatteryLevel(vController0);
@@ -86,9 +74,6 @@ namespace DirectXInput
 
                     //Check controller low battery level
                     CheckAllControllersLowBattery(false);
-
-                    //Delay the loop task
-                    await TaskDelay(2000, vTask_ControllerBattery);
                 }
             }
             catch { }
@@ -98,12 +83,9 @@ namespace DirectXInput
         {
             try
             {
-                while (TaskCheckLoop(vTask_ControllerInformation))
+                while (await TaskCheckLoop(vTask_ControllerInformation, 100))
                 {
                     UpdateControllerInformation();
-
-                    //Delay the loop task
-                    await TaskDelay(100, vTask_ControllerInformation);
                 }
             }
             catch { }

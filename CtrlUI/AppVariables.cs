@@ -106,6 +106,10 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadUnknownApp = FileToBitmapImage(new string[] { "Assets/Default/Apps/Unknown.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
         public static BitmapImage vImagePreloadHelp = FileToBitmapImage(new string[] { "Assets/Default/Icons/Help.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
 
+        //Update Variables
+        public static long vLastUpdateShortcuts = 0;
+        public static long vLastUpdateLaunchers = 0;
+
         //Busy Variables
         public static bool vBusyCheckingForUpdate = false;
         public static bool vBusyRefreshingProcesses = false;

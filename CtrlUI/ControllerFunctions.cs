@@ -24,6 +24,12 @@ namespace CtrlUI
         {
             try
             {
+                //Check if application is activated
+                if (!vAppActivated)
+                {
+                    return;
+                }
+
                 //Check if process DirectXInput is running
                 if (vProcessDirectXInput == null)
                 {

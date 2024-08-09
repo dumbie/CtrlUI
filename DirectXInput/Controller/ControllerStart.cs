@@ -96,22 +96,22 @@ namespace DirectXInput
                 AVActions.TaskStartLoop(TaskActionInputController, Controller.InputControllerTask);
 
                 //Start output controller task loop
-                void TaskActionOutputController()
+                async Task TaskActionOutputController()
                 {
                     try
                     {
-                        LoopOutputController(Controller);
+                        await LoopOutputController(Controller);
                     }
                     catch { }
                 }
                 AVActions.TaskStartLoop(TaskActionOutputController, Controller.OutputControllerTask);
 
                 //Start output virtual task loop
-                void TaskActionOutputVirtual()
+                async Task TaskActionOutputVirtual()
                 {
                     try
                     {
-                        LoopOutputVirtual(Controller);
+                        await LoopOutputVirtual(Controller);
                     }
                     catch { }
                 }

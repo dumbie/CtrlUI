@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVUwpAppx;
@@ -140,6 +141,12 @@ namespace CtrlUI
         {
             try
             {
+                //Check if application is activated
+                if (!vAppActivated)
+                {
+                    return;
+                }
+
                 //Check if already refreshing
                 if (vBusyRefreshingShortcuts)
                 {
@@ -147,7 +154,17 @@ namespace CtrlUI
                     return;
                 }
 
-                //Update the refreshing status
+                //Check last update time
+                long updateTime = GetSystemTicksMs();
+                long updateOffset = updateTime - vLastUpdateShortcuts;
+                if (updateOffset < 30000)
+                {
+                    //Debug.WriteLine("Shortcuts recently refreshed, cancelling.");
+                    return;
+                }
+
+                //Update refreshing status
+                vLastUpdateShortcuts = updateTime;
                 vBusyRefreshingShortcuts = true;
 
                 //Show the loading gif

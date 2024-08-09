@@ -50,7 +50,7 @@ namespace DirectXInput.KeyboardCode
 
                         //Move keyboard window
                         MoveKeyboardWindow(moveHorizontalRight, moveVerticalRight);
-                    } 
+                    }
 
                     //Delay input to prevent repeat
                     vControllerDelay_MouseMove = GetSystemTicksMs() + moveMouseDelay;

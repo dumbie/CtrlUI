@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -17,6 +18,12 @@ namespace CtrlUI
         {
             try
             {
+                //Check if application is activated
+                if (!vAppActivated)
+                {
+                    return;
+                }
+
                 //Check if already refreshing
                 if (vBusyRefreshingLaunchers)
                 {
@@ -24,7 +31,17 @@ namespace CtrlUI
                     return;
                 }
 
-                //Update the refreshing status
+                //Check last update time
+                long updateTime = GetSystemTicksMs();
+                long updateOffset = updateTime - vLastUpdateLaunchers;
+                if (updateOffset < 30000)
+                {
+                    //Debug.WriteLine("Launchers recently refreshed, cancelling.");
+                    return;
+                }
+
+                //Update refreshing status
+                vLastUpdateLaunchers = updateTime;
                 vBusyRefreshingLaunchers = true;
 
                 //Show the loading gif

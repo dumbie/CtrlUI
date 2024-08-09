@@ -38,6 +38,12 @@ namespace CtrlUI
         {
             try
             {
+                //Check if application is activated
+                if (!vAppActivated)
+                {
+                    return;
+                }
+
                 //Check if already refreshing
                 if (vBusyRefreshingProcesses)
                 {
@@ -76,6 +82,12 @@ namespace CtrlUI
         {
             try
             {
+                //Check if application is activated
+                if (!vAppActivated)
+                {
+                    return;
+                }
+
                 //Check if all categories loaded
                 if (!vAppsLoaded())
                 {

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
-using static CtrlUI.AppVariables;
 
 namespace CtrlUI
 {
@@ -10,12 +9,9 @@ namespace CtrlUI
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateClock))
+                while (await TaskCheckLoop(vTask_UpdateClock, 5000))
                 {
                     UpdateClockTime();
-
-                    //Delay the loop task
-                    await TaskDelay(5000, vTask_UpdateClock);
                 }
             }
             catch { }
@@ -25,12 +21,9 @@ namespace CtrlUI
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateWindowStatus))
+                while (await TaskCheckLoop(vTask_UpdateWindowStatus, 500))
                 {
                     await UpdateWindowStatus();
-
-                    //Delay the loop task
-                    await TaskDelay(500, vTask_UpdateWindowStatus);
                 }
             }
             catch { }
@@ -40,20 +33,9 @@ namespace CtrlUI
         {
             try
             {
-                while (TaskCheckLoop(vTask_ControllerConnected))
+                while (await TaskCheckLoop(vTask_ControllerConnected, 2000))
                 {
-                    if (vAppActivated)
-                    {
-                        await UpdateControllerConnected();
-
-                        //Delay the loop task
-                        await TaskDelay(2000, vTask_ControllerConnected);
-                    }
-                    else
-                    {
-                        //Delay the loop task
-                        await TaskDelay(1000, vTask_ControllerConnected);
-                    }
+                    await UpdateControllerConnected();
                 }
             }
             catch { }
@@ -63,12 +45,9 @@ namespace CtrlUI
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateAppRunningTime))
+                while (await TaskCheckLoop(vTask_UpdateAppRunningTime, 60000))
                 {
                     UpdateAppRunningTime();
-
-                    //Delay the loop task
-                    await TaskDelay(60000, vTask_UpdateAppRunningTime);
                 }
             }
             catch { }
@@ -78,20 +57,9 @@ namespace CtrlUI
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateMediaInformation))
+                while (await TaskCheckLoop(vTask_UpdateMediaInformation, 2000))
                 {
-                    if (vAppActivated)
-                    {
-                        UpdateCurrentVolumeInformation();
-
-                        //Delay the loop task
-                        await TaskDelay(2000, vTask_UpdateMediaInformation);
-                    }
-                    else
-                    {
-                        //Delay the loop task
-                        await TaskDelay(1000, vTask_UpdateMediaInformation);
-                    }
+                    UpdateCurrentVolumeInformation();
                 }
             }
             catch { }
@@ -101,20 +69,9 @@ namespace CtrlUI
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateProcesses))
+                while (await TaskCheckLoop(vTask_UpdateProcesses, 2000))
                 {
-                    if (vAppActivated)
-                    {
-                        await RefreshProcesses();
-
-                        //Delay the loop task
-                        await TaskDelay(3000, vTask_UpdateProcesses);
-                    }
-                    else
-                    {
-                        //Delay the loop task
-                        await TaskDelay(1000, vTask_UpdateProcesses);
-                    }
+                    await RefreshProcesses();
                 }
             }
             catch { }
@@ -124,20 +81,9 @@ namespace CtrlUI
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateLaunchers))
+                while (await TaskCheckLoop(vTask_UpdateLaunchers, 2000))
                 {
-                    if (vAppActivated)
-                    {
-                        await LoadListLaunchers();
-
-                        //Delay the loop task
-                        await TaskDelay(60000, vTask_UpdateLaunchers);
-                    }
-                    else
-                    {
-                        //Delay the loop task
-                        await TaskDelay(1000, vTask_UpdateLaunchers);
-                    }
+                    await LoadListLaunchers();
                 }
             }
             catch { }
@@ -147,20 +93,9 @@ namespace CtrlUI
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateShortcuts))
+                while (await TaskCheckLoop(vTask_UpdateShortcuts, 2000))
                 {
-                    if (vAppActivated)
-                    {
-                        await RefreshListShortcuts(false);
-
-                        //Delay the loop task
-                        await TaskDelay(30000, vTask_UpdateShortcuts);
-                    }
-                    else
-                    {
-                        //Delay the loop task
-                        await TaskDelay(1000, vTask_UpdateShortcuts);
-                    }
+                    await RefreshListShortcuts(false);
                 }
             }
             catch { }
@@ -170,20 +105,9 @@ namespace CtrlUI
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateListStatus))
+                while (await TaskCheckLoop(vTask_UpdateListStatus, 2000))
                 {
-                    if (vAppActivated)
-                    {
-                        await RefreshListStatus();
-
-                        //Delay the loop task
-                        await TaskDelay(2000, vTask_UpdateListStatus);
-                    }
-                    else
-                    {
-                        //Delay the loop task
-                        await TaskDelay(1000, vTask_UpdateListStatus);
-                    }
+                    await RefreshListStatus();
                 }
             }
             catch { }
