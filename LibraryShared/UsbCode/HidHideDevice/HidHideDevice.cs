@@ -31,7 +31,7 @@ namespace LibraryUsb
                 FileShareMode shareModeNormal = FileShareMode.FILE_SHARE_READ | FileShareMode.FILE_SHARE_WRITE;
                 FileDesiredAccess desiredAccess = FileDesiredAccess.GENERIC_READ | FileDesiredAccess.GENERIC_WRITE;
                 FileCreationDisposition creationDisposition = FileCreationDisposition.OPEN_EXISTING;
-                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_FLAG_NO_BUFFERING | FileFlagsAndAttributes.FILE_FLAG_WRITE_THROUGH;
+                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_FLAG_OVERLAPPED | FileFlagsAndAttributes.FILE_FLAG_NO_BUFFERING | FileFlagsAndAttributes.FILE_FLAG_WRITE_THROUGH;
 
                 //Try to open the device exclusively
                 FileHandle = CreateFile("\\\\.\\HidHide", desiredAccess, shareModeExclusive, IntPtr.Zero, creationDisposition, flagsAttributes, IntPtr.Zero);
@@ -48,13 +48,13 @@ namespace LibraryUsb
                 //Check if the device is opened
                 if (FileHandle == null || FileHandle.IsInvalid || FileHandle.IsClosed)
                 {
-                    //Debug.WriteLine("Failed to open hid hide device: " + DevicePath);
+                    //Debug.WriteLine("Failed to open hid hide device.");
                     Connected = false;
                     return false;
                 }
                 else
                 {
-                    //Debug.WriteLine("Opened hid hide device: " + DevicePath + ", exclusively: " + Exclusive);
+                    //Debug.WriteLine("Opened hid hide device: " + FileHandle.DangerousGetHandle() + ", exclusively: " + Exclusive);
                     Connected = true;
                     return true;
                 }
