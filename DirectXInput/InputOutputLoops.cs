@@ -16,7 +16,7 @@ namespace DirectXInput
                 Debug.WriteLine("Handle controller input data " + controller.Details.Type + " for: " + controller.Details.DisplayName);
 
                 //Receive input from the selected controller
-                while (await TaskCheckLoop(controller.InputControllerTask, 0) && controller.Connected())
+                while (await TaskCheckLoop(controller.InputControllerTask, 0))
                 {
                     try
                     {
@@ -35,7 +35,7 @@ namespace DirectXInput
             {
                 Debug.WriteLine("Handle controller output data for: " + controller.Details.DisplayName);
 
-                while (await TaskCheckLoop(controller.OutputControllerTask, 0) && controller.Connected())
+                while (await TaskCheckLoop(controller.OutputControllerTask, 0.1F))
                 {
                     try
                     {
@@ -61,11 +61,6 @@ namespace DirectXInput
                         }
                     }
                     catch { }
-                    finally
-                    {
-                        //Delay task to prevent high cpu usage
-                        AVHighResDelay.Delay(0.1F);
-                    }
                 }
             }
             catch { }
@@ -78,7 +73,7 @@ namespace DirectXInput
             {
                 Debug.WriteLine("Handle virtual output data for: " + controller.Details.DisplayName);
 
-                while (await TaskCheckLoop(controller.OutputVirtualTask, 0) && controller.Connected())
+                while (await TaskCheckLoop(controller.OutputVirtualTask, 0))
                 {
                     try
                     {
@@ -103,7 +98,7 @@ namespace DirectXInput
                 Debug.WriteLine("Handle controller gyroscope data for: " + controller.Details.DisplayName);
 
                 //Send gyro motion to dsu client
-                while (await TaskCheckLoop(controller.OutputGyroscopeTask, 0.1F) && controller.Connected())
+                while (await TaskCheckLoop(controller.OutputGyroscopeTask, 0.1F))
                 {
                     try
                     {

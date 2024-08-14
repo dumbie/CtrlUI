@@ -122,7 +122,19 @@ namespace LibraryUsb
             IntPtr createEvent = CreateEvent(IntPtr.Zero, true, false, null);
             try
             {
-                if (!Connected) { return false; }
+                //Check if controller is connected
+                if (!controller.Connected())
+                {
+                    Debug.WriteLine("Virtual output controller is not connected: " + controller.NumberId);
+                    return false;
+                }
+
+                //Check if virtual bus is connected
+                if (!Connected)
+                {
+                    Debug.WriteLine("Virtual output bus is not connected: " + controller.NumberId);
+                    return false;
+                }
 
                 //Create native overlapped
                 NativeOverlapped nativeOverlapped = new NativeOverlapped();

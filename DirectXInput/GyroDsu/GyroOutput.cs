@@ -148,6 +148,13 @@ namespace DirectXInput
         {
             try
             {
+                //Check if controller is connected
+                if (!controller.Connected())
+                {
+                    //Debug.WriteLine("Gyro motion controller is not connected: " + controller.NumberId);
+                    return false;
+                }
+
                 //Check if client endpoint is set
                 if (controller.GyroDsuClientEndPoint == null || !controller.GyroDsuClientEndPoint.Active)
                 {

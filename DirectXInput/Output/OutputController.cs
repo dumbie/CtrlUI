@@ -12,10 +12,10 @@ namespace DirectXInput
         {
             try
             {
-                //Check if the controller is connected
-                if (Controller == null || !Controller.Connected())
+                //Check if controller is connected
+                if (!Controller.Connected())
                 {
-                    //Debug.WriteLine("Rumble controller is not connected.");
+                    //Debug.WriteLine("Rumble controller is not connected: " + Controller.NumberId);
                     return;
                 }
 

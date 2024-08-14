@@ -16,8 +16,8 @@ namespace DirectXInput
         {
             try
             {
-                //Check if the controller is connected
-                if (controller == null || !controller.Connected())
+                //Check if controller is connected
+                if (!controller.Connected())
                 {
                     Debug.WriteLine("Controller " + controller.NumberId + " is already disconnected.");
                     return false;

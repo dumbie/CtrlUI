@@ -15,9 +15,10 @@ namespace DirectXInput
         {
             try
             {
-                //Check if the controller is connected
-                if (Controller == null || !Controller.Connected())
+                //Check if controller is connected
+                if (!Controller.Connected())
                 {
+                    //Debug.WriteLine("Led update controller is not connected: " + Controller.NumberId);
                     return;
                 }
 

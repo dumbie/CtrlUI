@@ -129,8 +129,8 @@ namespace DirectXInput
                 //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has a low battery level " + Controller.BatteryPercentageCurrent + "/" + Controller.BatteryPercentagePrevious);
                 string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
 
-                //Check if the controller is connected
-                if (Controller == null || !Controller.Connected())
+                //Check if controller is connected
+                if (!Controller.Connected())
                 {
                     return;
                 }

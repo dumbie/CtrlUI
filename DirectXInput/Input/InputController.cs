@@ -14,6 +14,14 @@ namespace DirectXInput
         {
             try
             {
+                //Check if controller is connected
+                if (!controller.Connected())
+                {
+                    Debug.WriteLine("Read input controller is not connected: " + controller.NumberId);
+                    AVHighResDelay.Delay(0.1F);
+                    return;
+                }
+
                 //Read data from the controller
                 if (controller.Details.Type == ControllerType.HidDevice)
                 {
