@@ -89,7 +89,7 @@ namespace FpsOverlayer
                 //Show browser when enabled
                 if (SettingLoad(vConfigurationFpsOverlayer, "BrowserShowStartup", typeof(bool)))
                 {
-                    vWindowBrowser.Show();
+                    vWindowTools.Show();
                 }
 
                 //Register keyboard hotkeys

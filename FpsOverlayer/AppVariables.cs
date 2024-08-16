@@ -1,5 +1,5 @@
 ﻿using ArnoldVinkCode;
-using FpsOverlayer.OverlayCode;
+using FpsOverlayer.ToolsOverlay;
 using LibreHardwareMonitor.Hardware;
 using Microsoft.Diagnostics.Tracing.Session;
 using Microsoft.Web.WebView2.Wpf;
@@ -30,7 +30,7 @@ namespace FpsOverlayer
         //Application Windows
         public static WindowMain vWindowMain = new WindowMain();
         public static WindowSettings vWindowSettings = new WindowSettings();
-        public static WindowBrowser vWindowBrowser = new WindowBrowser();
+        public static WindowTools vWindowTools = new WindowTools();
         public static AppTray vAppTray = new AppTray();
 
         //Interaction Variables
@@ -64,9 +64,10 @@ namespace FpsOverlayer
         public static string vTitleFPS = "FPS";
         public static string vTitleBAT = "BAT";
 
-        //Browser Variables
+        //Tools Variables
+        public static bool vToolsBlockInteract = false;
         public static WebView2 vBrowserWebView = null;
-        public static bool vBrowserWindowBlockInteract = false;
+        public static string vNotesCurrentFile = string.Empty;
 
         //Hardware
         public static Computer vHardwareComputer = null;
@@ -91,6 +92,7 @@ namespace FpsOverlayer
 
         //Application Lists
         public static List<ShortcutTriggerKeyboard> vShortcutTriggers = JsonLoadFile<List<ShortcutTriggerKeyboard>>(@"Profiles\User\FpsShortcutsKeyboard.json");
+        public static ObservableCollection<string> vNotesFiles = new ObservableCollection<string>();
         public static ObservableCollection<ProfileShared> vFpsBrowserLinks = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\FpsBrowserLinks.json");
         public static ObservableCollection<ProfileShared> vFpsPositionProcessName = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\FpsPositionProcessName.json");
     }

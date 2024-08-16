@@ -296,12 +296,12 @@
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Browser Links"/>
                         <StackPanel Orientation="Horizontal">
                             <ComboBox Name="combobox_LinkString" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="300" Style="{StaticResource ComboBoxBlack}"/>
-                            <Button Name="button_Link_Remove" Margin="10,0,0,0" Width="135" Content="Remove link" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                            <Button Name="button_Browser_Link_Remove" Margin="10,0,0,0" Width="135" Content="Remove link" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                            <TextBox Name="textbox_LinkString" HorizontalAlignment="Left" Width="300" Style="{StaticResource TextBoxBlack}" Text="Link..." styles:TextboxPlaceholder.Placeholder="Link..."/>
-                            <Button Name="button_Link_Add" Margin="10,0,0,0" Width="135" Content="Add link" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                            <TextBox Name="textbox_Browser_LinkString" HorizontalAlignment="Left" Width="300" Style="{StaticResource TextBoxBlack}" Text="Link..." styles:TextboxPlaceholder.Placeholder="Link..."/>
+                            <Button Name="button_Browser_Link_Add" Margin="10,0,0,0" Width="135" Content="Add link" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                         </StackPanel>
 
                         <TextBlock Name="textblock_BrowserOpacity" Text="Browser display transparency" Tag="Browser display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
@@ -315,7 +315,7 @@
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcut Settings"/>
 
                         <TextBlock Text="Show, hide or unpin browser by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <styles:ShortcutKeyboard Name="keyboard_ShowHideBrowser" TriggerName="ShowHideBrowser"/>
+                        <styles:ShortcutKeyboard Name="keyboard_ShowHideTools" TriggerName="ShowHideTools"/>
 
                         <TextBlock Margin="0,10,0,0" Text="Show or hide crosshair by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <styles:ShortcutKeyboard Name="keyboard_ShowHideCrosshair" TriggerName="ShowHideCrosshair"/>

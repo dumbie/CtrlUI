@@ -126,8 +126,8 @@ namespace FpsOverlayer
                 button_BrowserShowHide.Click += Button_BrowserShowHide_Click;
                 button_CrosshairShowHide.Click += Button_CrosshairShowHide_Click;
 
-                button_Link_Add.Click += Button_Link_Add_Click;
-                button_Link_Remove.Click += Button_Link_Remove_Click;
+                button_Browser_Link_Add.Click += button_Browser_Link_Add_Click;
+                button_Browser_Link_Remove.Click += button_Browser_Link_Remove_Click;
             }
             catch { }
         }
@@ -145,7 +145,7 @@ namespace FpsOverlayer
         {
             try
             {
-                vWindowBrowser.Browser_Switch_Visibility();
+                vWindowTools.SwitchToolsVisibility();
             }
             catch { }
         }
@@ -340,12 +340,12 @@ namespace FpsOverlayer
         }
 
         //Add link to list
-        void Button_Link_Add_Click(object sender, RoutedEventArgs e)
+        void button_Browser_Link_Add_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string textString = textbox_LinkString.Text;
-                string placeholderString = (string)textbox_LinkString.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                string textString = textbox_Browser_LinkString.Text;
+                string placeholderString = (string)textbox_Browser_LinkString.GetValue(TextboxPlaceholder.PlaceholderProperty);
                 Debug.WriteLine("Adding new link: " + textString);
 
                 //Color brushes
@@ -356,7 +356,7 @@ namespace FpsOverlayer
                 //Check if the text is empty
                 if (string.IsNullOrWhiteSpace(textString))
                 {
-                    textbox_LinkString.BorderBrush = BrushInvalid;
+                    textbox_Browser_LinkString.BorderBrush = BrushInvalid;
                     Debug.WriteLine("Please enter a link.");
                     return;
                 }
@@ -364,7 +364,7 @@ namespace FpsOverlayer
                 //Check if the text is place holder
                 if (textString == placeholderString)
                 {
-                    textbox_LinkString.BorderBrush = BrushInvalid;
+                    textbox_Browser_LinkString.BorderBrush = BrushInvalid;
                     Debug.WriteLine("Please enter a link.");
                     return;
                 }
@@ -373,7 +373,7 @@ namespace FpsOverlayer
                 textString = StringLinkCleanup(textString);
                 if (!StringLinkValidate(textString))
                 {
-                    textbox_LinkString.BorderBrush = BrushInvalid;
+                    textbox_Browser_LinkString.BorderBrush = BrushInvalid;
                     Debug.WriteLine("Please enter proper link.");
                     return;
                 }
@@ -381,14 +381,14 @@ namespace FpsOverlayer
                 //Check if text already exists
                 if (vFpsBrowserLinks.Any(x => x.String1.ToLower() == textString.ToLower()))
                 {
-                    textbox_LinkString.BorderBrush = BrushInvalid;
+                    textbox_Browser_LinkString.BorderBrush = BrushInvalid;
                     Debug.WriteLine("Link already exists.");
                     return;
                 }
 
                 //Clear text from the textbox
-                textbox_LinkString.Text = placeholderString;
-                textbox_LinkString.BorderBrush = BrushValid;
+                textbox_Browser_LinkString.Text = placeholderString;
+                textbox_Browser_LinkString.BorderBrush = BrushValid;
 
                 //Add text string to the list
                 ProfileShared profileShared = new ProfileShared();
@@ -401,7 +401,7 @@ namespace FpsOverlayer
         }
 
         //Remove link from list
-        void Button_Link_Remove_Click(object sender, RoutedEventArgs e)
+        void button_Browser_Link_Remove_Click(object sender, RoutedEventArgs e)
         {
             try
             {

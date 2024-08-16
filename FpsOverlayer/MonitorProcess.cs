@@ -29,7 +29,7 @@ namespace FpsOverlayer
         {
             try
             {
-                while (TaskCheckLoop(vTask_MonitorProcess))
+                while (await TaskCheckLoop(vTask_MonitorProcess, 1000))
                 {
                     try
                     {
@@ -100,11 +100,6 @@ namespace FpsOverlayer
                         vTargetProcess = foregroundProcess;
                     }
                     catch { }
-                    finally
-                    {
-                        //Delay the loop task
-                        await TaskDelay(1000, vTask_MonitorProcess);
-                    }
                 }
             }
             catch { }
@@ -119,7 +114,7 @@ namespace FpsOverlayer
                 WindowUpdateStyle(vInteropWindowHandle, true, true, true);
 
                 //Update browser window style
-                WindowUpdateStyle(vWindowBrowser.vInteropWindowHandle, true, vBrowserWindowBlockInteract, vBrowserWindowBlockInteract);
+                WindowUpdateStyle(vWindowTools.vInteropWindowHandle, true, vToolsBlockInteract, vToolsBlockInteract);
 
                 //Update window position
                 UpdateWindowPosition();
@@ -155,6 +150,11 @@ namespace FpsOverlayer
                 {
                     currentTimeString = DateTime.Now.ToShortTimeString();
                 }
+
+                AVActions.DispatcherInvoke(delegate
+                {
+                    vWindowTools.textblock_Time.Text = DateTime.Now.ToShortTimeString();
+                });
 
                 if (showDate)
                 {

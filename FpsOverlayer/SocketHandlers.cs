@@ -62,7 +62,7 @@ namespace FpsOverlayer
                         }
                         else if (receivedString == "SwitchBrowserOverlayVisibility")
                         {
-                            vWindowBrowser.Browser_Switch_Visibility();
+                            vWindowTools.SwitchToolsVisibility();
                         }
                         else if (receivedString == "SwitchCrosshairOverlayVisibility")
                         {

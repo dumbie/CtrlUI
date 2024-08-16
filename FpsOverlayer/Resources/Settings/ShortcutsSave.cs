@@ -15,7 +15,7 @@ namespace FpsOverlayer
             {
                 Debug.WriteLine("Saving application shortcuts...");
 
-                keyboard_ShowHideBrowser.TriggerChanged += Shortcut_Keyboard_TriggerChanged;
+                keyboard_ShowHideTools.TriggerChanged += Shortcut_Keyboard_TriggerChanged;
                 keyboard_ShowHideCrosshair.TriggerChanged += Shortcut_Keyboard_TriggerChanged;
                 keyboard_ShowHideFpsStats.TriggerChanged += Shortcut_Keyboard_TriggerChanged;
                 keyboard_PositionFpsStats.TriggerChanged += Shortcut_Keyboard_TriggerChanged;

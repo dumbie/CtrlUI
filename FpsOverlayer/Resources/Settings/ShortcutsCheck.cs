@@ -16,10 +16,10 @@ namespace FpsOverlayer
             {
                 Debug.WriteLine("Checking application shortcuts...");
 
-                if (!vShortcutTriggers.Any(x => x.Name == "ShowHideBrowser"))
+                if (!vShortcutTriggers.Any(x => x.Name == "ShowHideTools"))
                 {
                     ShortcutTriggerKeyboard shortcutTrigger = new ShortcutTriggerKeyboard();
-                    shortcutTrigger.Name = "ShowHideBrowser";
+                    shortcutTrigger.Name = "ShowHideTools";
                     shortcutTrigger.Trigger = [KeysVirtual.CtrlLeft, KeysVirtual.None, KeysVirtual.F9];
                     vShortcutTriggers.Add(shortcutTrigger);
                     AVJsonFunctions.JsonSaveObject(vShortcutTriggers, @"Profiles\User\FpsShortcutsKeyboard.json");

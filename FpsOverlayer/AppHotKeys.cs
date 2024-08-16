@@ -15,12 +15,12 @@ namespace FpsOverlayer
             {
                 foreach (ShortcutTriggerKeyboard shortcutTrigger in vShortcutTriggers)
                 {
-                    if (shortcutTrigger.Name == "ShowHideBrowser")
+                    if (shortcutTrigger.Name == "ShowHideTools")
                     {
                         if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
                         {
-                            Debug.WriteLine("Button Global - ShowHideBrowser");
-                            vWindowBrowser.Browser_Switch_Visibility();
+                            Debug.WriteLine("Button Global - ShowHideTools");
+                            vWindowTools.SwitchToolsVisibility();
                             return;
                         }
                     }
