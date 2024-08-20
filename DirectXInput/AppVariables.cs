@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Windows.Media.Control;
-using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
@@ -100,9 +99,6 @@ namespace DirectXInput
         //Color Variables
         public static SolidColorBrush vKeypadNormalBrush = null;
         public static SolidColorBrush vApplicationAccentLightBrush = null;
-
-        //Shortcut Variables
-        public static long vDelayKeyboardShortcut = GetSystemTicksMs();
 
         //Keyboard Variables
         public static GlobalSystemMediaTransportControlsSessionManager vSmtcSessionManager = null;
