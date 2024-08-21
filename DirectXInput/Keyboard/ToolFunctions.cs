@@ -41,9 +41,9 @@ namespace DirectXInput.KeyboardCode
                 {
                     textblock_Tool_Help.Text = "Change Fps Overlayer position";
                 }
-                else if (senderButton == key_Tool_FpsBrowser)
+                else if (senderButton == key_Tool_FpsTools)
                 {
-                    textblock_Tool_Help.Text = "Show or hide browser overlay";
+                    textblock_Tool_Help.Text = "Show or hide tools overlay";
                 }
                 else if (senderButton == key_Tool_FpsCrosshair)
                 {
@@ -115,9 +115,9 @@ namespace DirectXInput.KeyboardCode
                 {
                     await ToolFunctions.FpsOverlayer_ChangePosition();
                 }
-                else if (senderButton == key_Tool_FpsBrowser)
+                else if (senderButton == key_Tool_FpsTools)
                 {
-                    await ToolFunctions.FpsOverlayer_ShowHideBrowser();
+                    await ToolFunctions.FpsOverlayer_ShowHideTools();
                 }
                 else if (senderButton == key_Tool_FpsCrosshair)
                 {

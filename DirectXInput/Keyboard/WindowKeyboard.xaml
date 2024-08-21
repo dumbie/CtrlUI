@@ -184,8 +184,8 @@
                     <Button Name="key_Tool_FpsOverlayerPosition" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Move.png" Height="35"/>
                     </Button>
-                    <Button Name="key_Tool_FpsBrowser" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Browser.png" Height="35"/>
+                    <Button Name="key_Tool_FpsTools" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Tools.png" Height="35"/>
                     </Button>
                     <Button Name="key_Tool_FpsCrosshair" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentWhiteBorder}" MouseEnter="key_Tool_GotFocus" MouseLeave="key_Tool_LostFocus" GotFocus="key_Tool_GotFocus" LostFocus="key_Tool_LostFocus" PreviewKeyUp="key_Tool_PreviewKeyUp" PreviewMouseUp="key_Tool_PreviewMouseUp">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Crosshair.png" Height="35"/>

@@ -159,8 +159,8 @@ namespace DirectXInput
             catch { }
         }
 
-        //Show or hide Fps Browser
-        public static async Task FpsOverlayer_ShowHideBrowser()
+        //Show or hide Fps Tools
+        public static async Task FpsOverlayer_ShowHideTools()
         {
             try
             {
@@ -183,19 +183,19 @@ namespace DirectXInput
                     return;
                 }
 
-                Debug.WriteLine("Show or hiding browser overlay");
+                Debug.WriteLine("Show or hiding tools overlay");
 
                 //Show notification
                 NotificationDetails notificationDetails = new NotificationDetails();
-                notificationDetails.Icon = "Browser";
-                notificationDetails.Text = "Show or hiding browser overlay";
+                notificationDetails.Icon = "Tools";
+                notificationDetails.Text = "Show or hiding tools overlay";
                 vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
                 socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
                 socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
-                socketSend.Object = "SwitchBrowserOverlayVisibility";
+                socketSend.Object = "SwitchToolsOverlayVisibility";
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
@@ -229,7 +229,7 @@ namespace DirectXInput
                     return;
                 }
 
-                Debug.WriteLine("Show or hiding browser overlay");
+                Debug.WriteLine("Show or hiding crosshair overlay");
 
                 //Show notification
                 NotificationDetails notificationDetails = new NotificationDetails();
