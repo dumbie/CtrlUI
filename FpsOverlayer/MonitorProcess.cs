@@ -113,7 +113,7 @@ namespace FpsOverlayer
                 //Update fps window style
                 WindowUpdateStyle(vInteropWindowHandle, true, true, true);
 
-                //Update browser window style
+                //Update tools window style
                 WindowUpdateStyle(vWindowTools.vInteropWindowHandle, true, vToolsBlockInteract, vToolsBlockInteract);
 
                 //Update window position

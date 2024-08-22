@@ -86,8 +86,8 @@ namespace FpsOverlayer
                     SwitchCrosshairVisibility(true);
                 }
 
-                //Show browser when enabled
-                if (SettingLoad(vConfigurationFpsOverlayer, "BrowserShowStartup", typeof(bool)))
+                //Show tools when enabled
+                if (SettingLoad(vConfigurationFpsOverlayer, "ToolsShowStartup", typeof(bool)))
                 {
                     vWindowTools.Show();
                 }

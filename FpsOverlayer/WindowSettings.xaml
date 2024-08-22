@@ -28,9 +28,9 @@
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Crosshair.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Crosshair" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Name="menuButtonBrowser" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage browser settings">
-                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Browser.png" Width="55" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Browser" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                <StackPanel Name="menuButtonTools" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage tools settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Tools.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Tools" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Name="menuButtonShortcuts" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage shortcut settings">
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shortcut.png" Width="55" HorizontalAlignment="Center"/>
@@ -285,11 +285,11 @@
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Browser" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Tools Settings"/>
+                        <CheckBox Name="checkbox_ToolsShowStartup" Content="Show tools on app startup" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will open the tools overlay on application startup." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Browser Settings"/>
-
-                        <CheckBox Name="checkbox_BrowserShowStartup" Content="Show browser on app startup" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this will open the browser on application startup." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
                         <CheckBox Name="checkbox_BrowserUnload" Content="Unload website on close" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will unload the website to reduce memory usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 

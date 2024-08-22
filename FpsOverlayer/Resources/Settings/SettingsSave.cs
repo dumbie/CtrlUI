@@ -508,13 +508,14 @@ namespace FpsOverlayer
                     vWindowMain.UpdateCrosshairOverlayStyle();
                 };
 
-                //Browser
-                checkbox_BrowserShowStartup.Click += (sender, e) =>
+                //Tools
+                checkbox_ToolsShowStartup.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
-                    SettingSave(vConfigurationFpsOverlayer, "BrowserShowStartup", senderCheckBox.IsChecked.ToString());
+                    SettingSave(vConfigurationFpsOverlayer, "ToolsShowStartup", senderCheckBox.IsChecked.ToString());
                 };
 
+                //Browser
                 checkbox_BrowserUnload.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
@@ -525,7 +526,7 @@ namespace FpsOverlayer
                 {
                     textblock_BrowserOpacity.Text = textblock_BrowserOpacity.Tag + ": " + slider_BrowserOpacity.Value.ToString("0.00") + "%";
                     SettingSave(vConfigurationFpsOverlayer, "BrowserOpacity", slider_BrowserOpacity.Value);
-                    await vWindowBrowser.Browser_Update_Opacity();
+                    await vWindowTools.Browser_Update_Opacity();
                 };
             }
             catch (Exception ex)

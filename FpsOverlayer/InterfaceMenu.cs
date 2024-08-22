@@ -50,7 +50,7 @@ namespace FpsOverlayer
                     else if (SelStackPanel.Name == "menuButtonColors") { ShowGridPage(stackpanel_Colors); }
                     else if (SelStackPanel.Name == "menuButtonDisplay") { ShowGridPage(stackpanel_Display); }
                     else if (SelStackPanel.Name == "menuButtonCrosshair") { ShowGridPage(stackpanel_Crosshair); }
-                    else if (SelStackPanel.Name == "menuButtonBrowser") { ShowGridPage(stackpanel_Browser); }
+                    else if (SelStackPanel.Name == "menuButtonTools") { ShowGridPage(stackpanel_Browser); }
                     else if (SelStackPanel.Name == "menuButtonShortcuts") { ShowGridPage(stackpanel_Shortcuts); }
                     else if (SelStackPanel.Name == "menuButtonFps") { ShowGridPage(stackpanel_Fps); }
                     else if (SelStackPanel.Name == "menuButtonTime") { ShowGridPage(stackpanel_Time); }

@@ -27,10 +27,6 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "TextSize")) { SettingSave(vConfigurationFpsOverlayer, "TextSize", "18"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "HardwareUpdateRateMs")) { SettingSave(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", "1000"); }
 
-                if (!SettingCheck(vConfigurationFpsOverlayer, "BrowserShowStartup")) { SettingSave(vConfigurationFpsOverlayer, "BrowserShowStartup", "False"); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "BrowserUnload")) { SettingSave(vConfigurationFpsOverlayer, "BrowserUnload", "True"); }
-                if (!SettingCheck(vConfigurationFpsOverlayer, "BrowserOpacity")) { SettingSave(vConfigurationFpsOverlayer, "BrowserOpacity", "0,70"); }
-
                 if (!SettingCheck(vConfigurationFpsOverlayer, "TextColorSingle")) { SettingSave(vConfigurationFpsOverlayer, "TextColorSingle", "False"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ColorBackground")) { SettingSave(vConfigurationFpsOverlayer, "ColorBackground", "#1D1D1D"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ColorSingle")) { SettingSave(vConfigurationFpsOverlayer, "ColorSingle", "#F1F1F1"); }
@@ -135,6 +131,15 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairSize")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairSize", "10"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairStyle")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairStyle", "0"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairThickness")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairThickness", "1"); }
+
+                //Tools
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ToolsShowStartup")) { SettingSave(vConfigurationFpsOverlayer, "ToolsShowStartup", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ToolsShowBrowser")) { SettingSave(vConfigurationFpsOverlayer, "ToolsShowBrowser", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ToolsShowNotes")) { SettingSave(vConfigurationFpsOverlayer, "ToolsShowNotes", "True"); }
+
+                //Browser
+                if (!SettingCheck(vConfigurationFpsOverlayer, "BrowserUnload")) { SettingSave(vConfigurationFpsOverlayer, "BrowserUnload", "True"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "BrowserOpacity")) { SettingSave(vConfigurationFpsOverlayer, "BrowserOpacity", "0,70"); }
 
                 //Check stats position
                 CheckStatsPositionExists(false);

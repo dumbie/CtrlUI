@@ -60,7 +60,7 @@ namespace FpsOverlayer
                         {
                             SwitchFpsOverlayVisibility();
                         }
-                        else if (receivedString == "SwitchBrowserOverlayVisibility")
+                        else if (receivedString == "SwitchToolsOverlayVisibility")
                         {
                             vWindowTools.SwitchToolsVisibility();
                         }

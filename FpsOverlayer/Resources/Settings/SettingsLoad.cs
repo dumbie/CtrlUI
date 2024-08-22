@@ -199,8 +199,10 @@ namespace FpsOverlayer
 
                 combobox_CrosshairStyle.SelectedIndex = SettingLoad(vConfigurationFpsOverlayer, "CrosshairStyle", typeof(int));
 
+                //Tools
+                checkbox_ToolsShowStartup.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "ToolsShowStartup", typeof(bool));
+
                 //Browser
-                checkbox_BrowserShowStartup.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "BrowserShowStartup", typeof(bool));
                 checkbox_BrowserUnload.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "BrowserUnload", typeof(bool));
 
                 textblock_BrowserOpacity.Text = textblock_BrowserOpacity.Tag + ": " + SettingLoad(vConfigurationFpsOverlayer, "BrowserOpacity", typeof(string)) + "%";
