@@ -25,7 +25,7 @@
 		<DebugType>none</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Assets\Default\Icons\Fan.png" />
+	  <None Remove="Assets\Default\Icons\Tools.png" />
 	</ItemGroup>
 	<ItemGroup>
 		<Content Include="Api\IGDB\Genres.json">
@@ -122,6 +122,12 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\Default\Icons\Fan.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Default\Icons\Resize.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Default\Icons\Tools.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\Default\Icons\VirtualReality.png">
@@ -963,6 +969,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="protobuf-net" Version="3.2.30" />
+		<PackageReference Include="SteamKit2" Version="2.5.0" />
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.118.0" />
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
