@@ -123,7 +123,7 @@ namespace FpsOverlayer
                 button_FanUp.Click += Button_MoveUp_Click;
                 button_FanDown.Click += Button_MoveDown_Click;
 
-                button_BrowserShowHide.Click += Button_BrowserShowHide_Click;
+                button_ToolsShowHide.Click += button_ToolsShowHide_Click;
                 button_CrosshairShowHide.Click += Button_CrosshairShowHide_Click;
 
                 button_Browser_Link_Add.Click += button_Browser_Link_Add_Click;
@@ -141,7 +141,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        void Button_BrowserShowHide_Click(object sender, RoutedEventArgs e)
+        void button_ToolsShowHide_Click(object sender, RoutedEventArgs e)
         {
             try
             {

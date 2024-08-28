@@ -308,7 +308,7 @@
                         <TextBlock Text="Change the browser displayed transparency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="0.10" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Width="440" Name="slider_BrowserOpacity" Style="{StaticResource SliderBlockWhite}"/>
 
-                        <Button Name="button_BrowserShowHide" HorizontalAlignment="Left" Width="440" Margin="0,15,0,15" Content="Hide or show browser" Style="{StaticResource ButtonAccentBlack}"/>
+                        <Button Name="button_ToolsShowHide" HorizontalAlignment="Left" Width="440" Margin="0,15,0,15" Content="Hide or show tools" Style="{StaticResource ButtonAccentBlack}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Shortcuts" Visibility="Collapsed">
