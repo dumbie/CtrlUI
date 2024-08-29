@@ -1,6 +1,11 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer.ToolsOverlay
 {
@@ -100,12 +105,28 @@ namespace FpsOverlayer.ToolsOverlay
             catch { }
         }
 
+        //Load note
         private void combobox_Notes_Select_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
+                string noteName = combobox_Notes_Select.SelectedItem.ToString();
+                string filePath = "Notes\\" + noteName + ".txt";
+                string noteString = File.ReadAllText(filePath);
+
+                vNotesCurrentName = noteName;
+                textbox_Notes_Name.Text = noteName;
+                textbox_Notes_Text.Text = noteString;
+
+                //Update status
+                textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationValidBrush"];
+                Debug.WriteLine("Loaded note: " + filePath);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
+                Debug.WriteLine("Loading note failed: " + ex.Message);
+            }
         }
     }
 }
