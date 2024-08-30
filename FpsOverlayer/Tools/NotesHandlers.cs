@@ -74,8 +74,36 @@ namespace FpsOverlayer.ToolsOverlay
         {
             try
             {
+                string fileName = textbox_Notes_Name.Text;
+                string fileNameFilter = fileName.ToLower().Replace(" ", "");
+                string filePath = "Notes\\" + fileName + ".txt";
+
+                //Check file name
+                if (fileNameFilter == "default")
+                {
+                    Debug.WriteLine("Default note cannot be deleted.");
+                    textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
+                    return;
+                }
+
+                //Delete file
+                File.Delete(filePath);
+
+                //Clear textbox text
+                textbox_Notes_Text.Text = string.Empty;
+
+                //Reload combobox
+                LoadNotesList();
+
+                //Update status
+                textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationValidBrush"];
+                Debug.WriteLine("Removed note: " + filePath);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
+                Debug.WriteLine("Removing note failed: " + ex.Message);
+            }
         }
 
         //Add note
