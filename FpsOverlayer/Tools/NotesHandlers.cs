@@ -93,7 +93,7 @@ namespace FpsOverlayer.ToolsOverlay
                 textbox_Notes_Text.Text = string.Empty;
 
                 //Reload combobox
-                LoadNotesList();
+                LoadNotesList(string.Empty);
 
                 //Update status
                 textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationValidBrush"];
@@ -111,8 +111,35 @@ namespace FpsOverlayer.ToolsOverlay
         {
             try
             {
+                string fileName = textbox_Notes_Name.Text;
+                string filePath = "Notes\\" + fileName + ".txt";
+
+                //Check if note exists
+                if (File.Exists(filePath))
+                {
+                    Debug.WriteLine("Note already exists: " + fileName);
+                    textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
+                    return;
+                }
+
+                //Create note file
+                File.WriteAllText(filePath, string.Empty);
+
+                //Clear textbox text
+                textbox_Notes_Text.Text = string.Empty;
+
+                //Reload combobox
+                LoadNotesList(fileName);
+
+                //Update status
+                textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationValidBrush"];
+                Debug.WriteLine("Added note: " + filePath);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
+                Debug.WriteLine("Adding note failed: " + ex.Message);
+            }
         }
 
         //Save note

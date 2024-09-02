@@ -200,7 +200,7 @@ namespace FpsOverlayer.ToolsOverlay
                 listbox_Link.ItemsSource = vFpsBrowserLinks;
                 combobox_Notes_Select.ItemsSource = vNotesFiles;
 
-                LoadNotesList();
+                LoadNotesList(string.Empty);
 
                 Debug.WriteLine("Lists bound to interface.");
             }
@@ -208,7 +208,7 @@ namespace FpsOverlayer.ToolsOverlay
         }
 
         //Load all notes to list
-        private void LoadNotesList()
+        private void LoadNotesList(string selectNoteName)
         {
             try
             {
@@ -220,8 +220,15 @@ namespace FpsOverlayer.ToolsOverlay
                     vNotesFiles.Add(noteName);
                 }
 
-                //Select first index
-                combobox_Notes_Select.SelectedIndex = 0;
+                //Select note
+                if (string.IsNullOrWhiteSpace(selectNoteName))
+                {
+                    combobox_Notes_Select.SelectedIndex = 0;
+                }
+                else
+                {
+                    combobox_Notes_Select.SelectedItem = selectNoteName;
+                }
             }
             catch { }
         }
