@@ -147,8 +147,21 @@ namespace FpsOverlayer.ToolsOverlay
         {
             try
             {
+                string fileName = textbox_Notes_Name.Text;
+                string filePath = "Notes\\" + fileName + ".txt";
+
+                //Save text to file
+                File.WriteAllText(filePath, textbox_Notes_Text.Text);
+
+                //Update status
+                textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationValidBrush"];
+                Debug.WriteLine("Saved note: " + filePath);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
+                Debug.WriteLine("Saving note failed: " + ex.Message);
+            }
         }
 
         //Rename note
