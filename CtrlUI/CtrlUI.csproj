@@ -25,9 +25,6 @@
 		<DebugType>none</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Assets\Default\Icons\Tools.png" />
-	</ItemGroup>
-	<ItemGroup>
 		<Content Include="Api\IGDB\Genres.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -82,6 +79,9 @@
 		<Content Include="Assets\Default\Icons\Lock.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Assets\Default\Icons\Note.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Assets\Default\Icons\Pin.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -128,7 +128,7 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\Default\Icons\Tools.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\Default\Icons\VirtualReality.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
