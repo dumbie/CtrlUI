@@ -30,27 +30,40 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Name="textbox_Notes_Text" Text="Please select a note to load or create a new note" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" Style="{StaticResource TextBoxTransparentWhite}" TextChanged="textbox_Notes_Text_TextChanged"/>
-                <TextBox Grid.Row="1" Name="textbox_Notes_Name" Text="Notename" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeLarge}" TextChanged="textbox_Notes_Name_TextChanged"/>
+                <TextBox Grid.Row="0" Name="textbox_Notes_Text" Text="Select note to load or create a new note below." Margin="5" TextWrapping="Wrap" AcceptsReturn="True" Style="{StaticResource TextBoxTransparentWhite}" TextChanged="textbox_Notes_Text_TextChanged"/>
 
-                <Grid Grid.Row="2" Name="grid_Notes_Menu">
+                <StackPanel Grid.Row="1" Name="grid_Notes_Manage" Margin="5,0,5,5" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="button_Notes_Add" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Notes_Add_Click" ToolTip="Add new note">
+                            <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Plus.png"/>
+                        </Button>
+                        <Button Name="button_Notes_Rename" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Notes_Rename_Click" ToolTip="Rename selected note">
+                            <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Rename.png"/>
+                        </Button>
+                        <Button Name="button_Notes_Remove" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Notes_Remove_Click" ToolTip="Remove selected note">
+                            <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Remove.png"/>
+                        </Button>
+                    </StackPanel>
+
+                    <TextBox Name="textbox_Notes_Name" Text="Notename" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                    <ComboBox Name="combobox_Notes_Select" Margin="0,5,0,0" Style="{DynamicResource ComboBoxWhite}" SelectionChanged="combobox_Notes_Select_SelectionChanged"/>
+                </StackPanel>
+
+                <Grid Grid.Row="2" Name="grid_Notes_Menu"  Margin="5,0,5,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox Grid.Column="0" Name="combobox_Notes_Select" Style="{DynamicResource ComboBoxWhite}" HorizontalAlignment="Left" Margin="0,0,5,0" Width="200" SelectionChanged="combobox_Notes_Select_SelectionChanged"/>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
+                        <Button Name="button_Notes_Manage" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Notes_Manage_Click" ToolTip="Show or hide notes menu">
+                            <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Note.png"/>
+                        </Button>
+                    </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <Button Name="button_Notes_Add" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Notes_Add_Click" ToolTip="Add new note">
-                            <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Plus.png"/>
-                        </Button>
-                        <Button Name="button_Notes_Remove" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Notes_Remove_Click" ToolTip="Remove note">
-                            <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Remove.png"/>
-                        </Button>
                         <Button Name="button_Notes_MoveWindow" Cursor="SizeAll" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTip="Move window" PreviewMouseDown="button_Notes_PreviewMouseDown" PreviewMouseMove="button_NotesMove_PreviewMouseMove">
                             <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Move.png"/>
                         </Button>
@@ -90,7 +103,7 @@
                     <ProgressBar Name="progressbar_Browser" Height="5" Margin="0,0,0,5" IsIndeterminate="True" Style="{StaticResource ProgressBarAccent}" Visibility="Collapsed"/>
                 </Grid>
 
-                <Grid Grid.Row="2" Name="grid_Browser_Link" Margin="5,0,5,5" Visibility="Collapsed">
+                <Grid Grid.Row="2" Name="grid_Browser_Manage" Margin="5,0,5,5" Visibility="Collapsed">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
@@ -129,7 +142,7 @@
                         <Button Name="button_Browser_Back" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Browser_Back_Click" ToolTip="Go back to previous page">
                             <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MoveLeft.png"/>
                         </Button>
-                        <Button Name="button_Browser_Link" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Browser_Link_Click" ToolTip="Open browser link menu">
+                        <Button Name="button_Browser_Link" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Browser_Link_Click" ToolTip="Show or hide link menu">
                             <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Link.png"/>
                         </Button>
                     </StackPanel>
@@ -164,9 +177,9 @@
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Browser.png" Height="35"/>
                 </Button>
                 <Button Name="button_ShowHide_Notes" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_ShowHide_Notes_Click" ToolTip="Show or hide notes">
-                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Paste.png" Height="35"/>
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Note.png" Height="35"/>
                 </Button>
-                <Button Name="button_Pin" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Pin_Click" ToolTip="Overlay click through mode">
+                <Button Name="button_Pin" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Pin_Click" ToolTip="Click through mode">
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Pin.png" Height="35"/>
                 </Button>
                 <Button Name="button_Close" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Close_Click" ToolTip="Close tools overlay">

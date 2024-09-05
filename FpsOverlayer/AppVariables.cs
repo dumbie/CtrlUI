@@ -67,7 +67,6 @@ namespace FpsOverlayer
         //Tools Variables
         public static bool vToolsBlockInteract = false;
         public static WebView2 vBrowserWebView = null;
-        public static string vNotesCurrentName = string.Empty;
 
         //Hardware
         public static Computer vHardwareComputer = null;

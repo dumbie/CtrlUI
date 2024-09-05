@@ -212,7 +212,10 @@ namespace FpsOverlayer.ToolsOverlay
         {
             try
             {
+                //Clear notes
                 vNotesFiles.Clear();
+
+                //Load notes
                 List<string> noteFiles = AVFiles.GetFilesLevel("Notes", "*", 0);
                 foreach (string fileName in noteFiles)
                 {
@@ -265,7 +268,7 @@ namespace FpsOverlayer.ToolsOverlay
                     //Hide bars
                     border_Menu.Visibility = Visibility.Collapsed;
                     grid_Browser_Menu.Visibility = Visibility.Collapsed;
-                    grid_Browser_Link.Visibility = Visibility.Collapsed;
+                    grid_Browser_Manage.Visibility = Visibility.Collapsed;
                     grid_Notes_Menu.Visibility = Visibility.Collapsed;
                     textbox_Notes_Name.Visibility = Visibility.Collapsed;
 
