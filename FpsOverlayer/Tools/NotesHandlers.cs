@@ -30,23 +30,27 @@ namespace FpsOverlayer.ToolsOverlay
         //Handle resize window
         private void button_NotesResize_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            try
             {
-                Point mouseOffset = Mouse.GetPosition(null);
-                double differenceX = mouseOffset.X - vWindowMousePoint.X;
-                double differenceY = mouseOffset.Y - vWindowMousePoint.Y;
+                if (e.LeftButton == MouseButtonState.Pressed)
+                {
+                    Point mouseOffset = Mouse.GetPosition(null);
+                    double differenceX = mouseOffset.X - vWindowMousePoint.X;
+                    double differenceY = mouseOffset.Y - vWindowMousePoint.Y;
 
-                double newWidth = vWindowWidth + differenceX;
-                double newHeight = vWindowHeight + differenceY;
-                if (newWidth > border_Notes.MinWidth)
-                {
-                    border_Notes.Width = newWidth;
-                }
-                if (newHeight > border_Notes.MinHeight)
-                {
-                    border_Notes.Height = newHeight;
+                    double newWidth = vWindowWidth + differenceX;
+                    double newHeight = vWindowHeight + differenceY;
+                    if (newWidth > border_Notes.MinWidth)
+                    {
+                        border_Notes.Width = newWidth;
+                    }
+                    if (newHeight > border_Notes.MinHeight)
+                    {
+                        border_Notes.Height = newHeight;
+                    }
                 }
             }
+            catch { }
         }
 
         //Handle move window
@@ -64,6 +68,23 @@ namespace FpsOverlayer.ToolsOverlay
                     newMargin.Left += differenceX;
                     newMargin.Top += differenceY;
                     border_Notes.Margin = newMargin;
+                }
+            }
+            catch { }
+        }
+
+        //Show or hide manage menu
+        private void button_Notes_Manage_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (grid_Notes_Manage.Visibility == Visibility.Visible)
+                {
+                    grid_Notes_Manage.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    grid_Notes_Manage.Visibility = Visibility.Visible;
                 }
             }
             catch { }
@@ -88,9 +109,6 @@ namespace FpsOverlayer.ToolsOverlay
 
                 //Delete file
                 File.Delete(filePath);
-
-                //Clear textbox text
-                textbox_Notes_Text.Text = string.Empty;
 
                 //Reload combobox
                 LoadNotesList(string.Empty);
@@ -125,9 +143,6 @@ namespace FpsOverlayer.ToolsOverlay
                 //Create note file
                 File.WriteAllText(filePath, string.Empty);
 
-                //Clear textbox text
-                textbox_Notes_Text.Text = string.Empty;
-
                 //Reload combobox
                 LoadNotesList(fileName);
 
@@ -159,18 +174,51 @@ namespace FpsOverlayer.ToolsOverlay
             }
             catch (Exception ex)
             {
-                textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
+                try { textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"]; } catch { }
                 Debug.WriteLine("Saving note failed: " + ex.Message);
             }
         }
 
         //Rename note
-        private void textbox_Notes_Name_TextChanged(object sender, TextChangedEventArgs e)
+        private void button_Notes_Rename_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                string fileNameOld = combobox_Notes_Select.SelectedItem.ToString();
+                string fileNameNew = textbox_Notes_Name.Text;
+                string fileNameFilter = fileNameOld.ToLower().Replace(" ", "");
+
+                //Check file name
+                if (fileNameFilter == "default")
+                {
+                    Debug.WriteLine("Cannot rename default note.");
+                    textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
+                    return;
+                }
+                else if (fileNameOld == fileNameNew)
+                {
+                    Debug.WriteLine("Note name has not changed.");
+                    textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
+                    return;
+                }
+
+                //Rename file name
+                string filePathOld = "Notes\\" + fileNameOld + ".txt";
+                string filePathNew = "Notes\\" + fileNameNew + ".txt";
+                File.Move(filePathOld, filePathNew);
+
+                //Reload combobox
+                LoadNotesList(fileNameNew);
+
+                //Update status
+                textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationValidBrush"];
+                Debug.WriteLine("Renamed note: " + filePathOld + " to " + filePathNew);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
+                Debug.WriteLine("Renaming note failed: " + ex.Message);
+            }
         }
 
         //Load note
@@ -182,7 +230,7 @@ namespace FpsOverlayer.ToolsOverlay
                 string filePath = "Notes\\" + noteName + ".txt";
                 string noteString = File.ReadAllText(filePath);
 
-                vNotesCurrentName = noteName;
+                //Update textbox text
                 textbox_Notes_Name.Text = noteName;
                 textbox_Notes_Text.Text = noteString;
 
