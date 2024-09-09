@@ -110,9 +110,6 @@ namespace CtrlUI
                 //Update IGDB api files
                 await ApiIGDB_UpdateFiles();
 
-                //Backup Json profiles
-                ProfileMakeBackup();
-
                 //Load Json stored apps
                 await JsonLoadList_Applications();
 

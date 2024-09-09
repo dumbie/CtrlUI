@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
+using static CtrlUI.AppBackup;
 using static CtrlUI.AppVariables;
 using static LibraryShared.AppUpdate;
 
@@ -26,6 +27,9 @@ namespace CtrlUI
 
                 //Application update checks
                 await UpdateCheck();
+
+                //Backup Json profiles
+                BackupJsonProfiles();
 
                 //Open the application window
                 vWindowMain.Show();

@@ -115,6 +115,7 @@ namespace DirectXInput
 
                 //Update keypad interface
                 UpdateKeypadInterface();
+
                 //Bind all the lists to ListBox
                 ListBoxBindLists();
 

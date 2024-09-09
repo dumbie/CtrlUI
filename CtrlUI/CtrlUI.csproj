@@ -943,7 +943,7 @@
 		<Content Include="Profiles\User\Profiles in this folder will not get overwritten when updating">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Backups\Profile backups will be placed here">
+		<Content Include="Backups\Backups will be placed here">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Updater\Updater.json">
