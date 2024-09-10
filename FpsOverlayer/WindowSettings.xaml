@@ -149,12 +149,16 @@
                             <Button Name="colorpicker_ColorGpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the videocard text color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for processor text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorCpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the processor text color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for memory text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             <Button Name="colorpicker_ColorMem" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the memory text color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                            <TextBlock Text="Display color for processor text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorCpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the processor text color"/>
+                            <TextBlock Text="Display color for fan speed text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorFan" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the fan speed text color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for network text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
@@ -289,8 +293,8 @@
                         <CheckBox Name="checkbox_ToolsShowStartup" Content="Show tools on app startup" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will open the tools overlay on application startup." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Browser Settings"/>
-                        <CheckBox Name="checkbox_BrowserUnload" Content="Unload website on close" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Browser Settings"/>
+                        <CheckBox Name="checkbox_BrowserUnload" Content="Unload website on close" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will unload the website to reduce memory usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Browser Links"/>

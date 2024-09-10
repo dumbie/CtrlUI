@@ -140,6 +140,9 @@ namespace FpsOverlayer
                 string ColorMem = SettingLoad(vConfigurationFpsOverlayer, "ColorMem", typeof(string));
                 colorpicker_ColorMem.Background = new BrushConverter().ConvertFrom(ColorMem) as SolidColorBrush;
 
+                string ColorFan = SettingLoad(vConfigurationFpsOverlayer, "ColorFan", typeof(string));
+                colorpicker_ColorFan.Background = new BrushConverter().ConvertFrom(ColorFan) as SolidColorBrush;
+
                 string ColorNet = SettingLoad(vConfigurationFpsOverlayer, "ColorNet", typeof(string));
                 colorpicker_ColorNet.Background = new BrushConverter().ConvertFrom(ColorNet) as SolidColorBrush;
 
