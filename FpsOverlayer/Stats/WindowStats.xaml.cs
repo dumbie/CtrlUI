@@ -13,22 +13,21 @@ using System.Windows.Media;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
-using static ArnoldVinkCode.Styles.MainColors;
 using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
 {
-    public partial class WindowMain : Window
+    public partial class WindowStats : Window
     {
         //Window Initialize
-        public WindowMain() { InitializeComponent(); }
+        public WindowStats() { InitializeComponent(); }
 
         //Window Variables
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
 
         //Window Initialized
-        protected override async void OnSourceInitialized(EventArgs e)
+        protected override void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -43,27 +42,14 @@ namespace FpsOverlayer
                 //Update window style
                 WindowUpdateStyle(vInteropWindowHandle, true, true, true);
 
-                //Check application settings
-                vWindowSettings.Settings_Check();
-
-                //Check application shortcuts
-                vWindowSettings.Shortcuts_Check();
-
                 //Update window display affinity
                 UpdateWindowAffinity();
-
-                //Change application accent color
-                string colorLightHex = SettingLoad(vConfigurationCtrlUI, "ColorAccentLight", typeof(string));
-                ChangeApplicationAccentColor(colorLightHex);
 
                 //Update window position
                 UpdateWindowPosition();
 
                 //Update the fps overlay style
                 UpdateFpsOverlayStyle();
-
-                //Update the crosshair overlay style
-                UpdateCrosshairOverlayStyle();
 
                 //Bind all the lists to ListBox
                 ListBoxBindLists();
@@ -79,25 +65,6 @@ namespace FpsOverlayer
 
                 //Start hardware monitoring
                 StartMonitorHardware();
-
-                //Show crosshair when enabled
-                if (SettingLoad(vConfigurationFpsOverlayer, "CrosshairLaunch", typeof(bool)))
-                {
-                    SwitchCrosshairVisibility(true);
-                }
-
-                //Show tools when enabled
-                if (SettingLoad(vConfigurationFpsOverlayer, "ToolsShowStartup", typeof(bool)))
-                {
-                    vWindowTools.Show();
-                }
-
-                //Register keyboard hotkeys
-                AVInputOutputHotkey.Start();
-                AVInputOutputHotkey.EventHotkeyPressedList += EventHotkeyPressed;
-
-                //Enable the socket server
-                await EnableSocketServer();
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
@@ -137,20 +104,6 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Enable the socket server
-        private async Task EnableSocketServer()
-        {
-            try
-            {
-                int socketServerPort = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(int)) + 2;
-
-                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", socketServerPort, false, true);
-                vArnoldVinkSockets.vSocketTimeout = 250;
-                vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
-                await vArnoldVinkSockets.SocketServerEnable();
-            }
-            catch { }
-        }
 
         //Update windows on resolution change
         public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
@@ -201,7 +154,7 @@ namespace FpsOverlayer
                         //Update window style
                         WindowUpdateStyle(vInteropWindowHandle, true, true, true);
 
-                        this.Title = "Fps Overlayer (Visible)";
+                        this.Title = "Stats Overlayer (Visible)";
                         vWindowVisible = true;
                         Debug.WriteLine("Showing the window.");
                     }
@@ -213,7 +166,7 @@ namespace FpsOverlayer
                         //Update window visibility
                         WindowUpdateVisibility(vInteropWindowHandle, false);
 
-                        this.Title = "Fps Overlayer (Hidden)";
+                        this.Title = "Stats Overlayer (Hidden)";
                         vWindowVisible = false;
                         Debug.WriteLine("Hiding the window.");
                     }
@@ -236,8 +189,8 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Adjust the application font family
-        void UpdateAppFontStyle()
+        //Adjust window font family
+        void UpdateWindowFontFamily()
         {
             try
             {
@@ -264,7 +217,7 @@ namespace FpsOverlayer
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed setting application font: " + ex.Message);
+                Debug.WriteLine("Failed setting window font: " + ex.Message);
             }
         }
 

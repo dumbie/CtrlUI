@@ -13,7 +13,7 @@ using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
 {
-    public partial class WindowMain
+    public partial class WindowStats
     {
         void StartMonitorProcess()
         {
@@ -75,9 +75,9 @@ namespace FpsOverlayer
                         //Reset the fps counter
                         ResetFpsCounter();
 
-                        //Update fps and crosshair overlay position and visibility
+                        //Update overlays position and visibility
                         UpdateFpsOverlayPositionVisibility(foregroundProcess.ExeNameNoExt);
-                        UpdateCrosshairOverlayPositionVisibility(foregroundProcess.ExeNameNoExt, false);
+                        vWindowCrosshair.UpdateCrosshairOverlayPositionVisibility(foregroundProcess.ExeNameNoExt, false);
 
                         //Check if the foreground window is fps overlayer
                         if (vProcessCurrent.Identifier == foregroundProcess.Identifier)

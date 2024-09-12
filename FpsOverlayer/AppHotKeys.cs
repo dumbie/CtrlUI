@@ -7,9 +7,9 @@ using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
 {
-    public partial class WindowMain
+    public partial class AppHotkeys
     {
-        private void EventHotkeyPressed(List<KeysVirtual> keysPressed)
+        public static void EventHotkeyPressed(List<KeysVirtual> keysPressed)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace FpsOverlayer
                         if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
                         {
                             Debug.WriteLine("Button Global - ShowHideCrosshair");
-                            SwitchCrosshairVisibility(true);
+                            vWindowCrosshair.SwitchCrosshairVisibility(true);
                             return;
                         }
                     }
@@ -38,7 +38,7 @@ namespace FpsOverlayer
                         if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
                         {
                             Debug.WriteLine("Button Global - ShowHideFpsStats");
-                            SwitchFpsOverlayVisibility();
+                            vWindowStats.SwitchFpsOverlayVisibility();
                             return;
                         }
                     }
@@ -47,7 +47,7 @@ namespace FpsOverlayer
                         if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
                         {
                             Debug.WriteLine("Button Global - PositionFpsStats");
-                            ChangeFpsOverlayPosition();
+                            vWindowStats.ChangeFpsOverlayPosition();
                             return;
                         }
                     }

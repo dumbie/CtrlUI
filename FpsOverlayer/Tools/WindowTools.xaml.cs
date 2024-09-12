@@ -1,9 +1,6 @@
-﻿using ArnoldVinkCode;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
@@ -48,40 +45,16 @@ namespace FpsOverlayer.ToolsOverlay
                 //Reset browser interface to defaults
                 Browser_Reset_Interface(string.Empty);
 
-                //Show or hide tools
-                Show_Hide_Tools();
+                //Show or hide certain tools
+                ShowHide_Tools();
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-            }
-            catch { }
-        }
 
-        //Show or hide tools
-        private void Show_Hide_Tools()
-        {
-            try
-            {
-                bool showNotes = SettingLoad(vConfigurationFpsOverlayer, "ToolsShowNotes", typeof(bool));
-                bool showBrowser = SettingLoad(vConfigurationFpsOverlayer, "ToolsShowBrowser", typeof(bool));
-
-                //Switch visibility
-                if (showNotes)
+                //Show tools when enabled
+                if (SettingLoad(vConfigurationFpsOverlayer, "ToolsLaunch", typeof(bool)))
                 {
-                    border_Notes.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    border_Notes.Visibility = Visibility.Collapsed;
-                }
-
-                if (showBrowser)
-                {
-                    border_Browser.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    border_Browser.Visibility = Visibility.Collapsed;
+                    SwitchToolsVisibility();
                 }
             }
             catch { }
@@ -130,7 +103,7 @@ namespace FpsOverlayer.ToolsOverlay
                         //Update window style
                         WindowUpdateStyle(vInteropWindowHandle, true, vToolsBlockInteract, vToolsBlockInteract);
 
-                        this.Title = "ToolsOverlayer (Visible)";
+                        this.Title = "Tools Overlayer (Visible)";
                         vWindowVisible = true;
                         Debug.WriteLine("Showing the window.");
                     }
@@ -142,7 +115,7 @@ namespace FpsOverlayer.ToolsOverlay
                         //Update window visibility
                         WindowUpdateVisibility(vInteropWindowHandle, false);
 
-                        this.Title = "ToolsOverlayer (Hidden)";
+                        this.Title = "Tools Overlayer (Hidden)";
                         vWindowVisible = false;
                         Debug.WriteLine("Hiding the window.");
                     }
@@ -170,7 +143,7 @@ namespace FpsOverlayer.ToolsOverlay
         {
             try
             {
-                Hide();
+                SwitchToolsVisibility();
             }
             catch { }
         }
@@ -207,147 +180,12 @@ namespace FpsOverlayer.ToolsOverlay
             catch { }
         }
 
-        //Load all notes to list
-        private void LoadNotesList(string selectNoteName)
-        {
-            try
-            {
-                //Clear notes
-                vNotesFiles.Clear();
-
-                //Load notes
-                List<string> noteFiles = AVFiles.GetFilesLevel("Notes", "*", 0);
-                foreach (string fileName in noteFiles)
-                {
-                    string noteName = Path.GetFileNameWithoutExtension(fileName);
-                    vNotesFiles.Add(noteName);
-                }
-
-                //Select note
-                if (string.IsNullOrWhiteSpace(selectNoteName))
-                {
-                    combobox_Notes_Select.SelectedIndex = 0;
-                }
-                else
-                {
-                    combobox_Notes_Select.SelectedItem = selectNoteName;
-                }
-            }
-            catch { }
-        }
-
         //Switch clickthrough mode
         private void button_Pin_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 SwitchToolsClickthrough(false);
-            }
-            catch { }
-        }
-
-        //Switch clickthrough mode
-        public void SwitchToolsClickthrough(bool forceVisible)
-        {
-            try
-            {
-                if (forceVisible || vToolsBlockInteract)
-                {
-                    //Show bars
-                    border_Menu.Visibility = Visibility.Visible;
-                    grid_Browser_Menu.Visibility = Visibility.Visible;
-                    grid_Notes_Menu.Visibility = Visibility.Visible;
-                    textbox_Notes_Name.Visibility = Visibility.Visible;
-
-                    //Update window style
-                    vToolsBlockInteract = false;
-                    WindowUpdateStyle(vInteropWindowHandle, true, vToolsBlockInteract, vToolsBlockInteract);
-                }
-                else
-                {
-                    //Hide bars
-                    border_Menu.Visibility = Visibility.Collapsed;
-                    grid_Browser_Menu.Visibility = Visibility.Collapsed;
-                    grid_Browser_Manage.Visibility = Visibility.Collapsed;
-                    grid_Notes_Menu.Visibility = Visibility.Collapsed;
-                    textbox_Notes_Name.Visibility = Visibility.Collapsed;
-
-                    //Update window style
-                    vToolsBlockInteract = true;
-                    WindowUpdateStyle(vInteropWindowHandle, true, vToolsBlockInteract, vToolsBlockInteract);
-                }
-            }
-            catch { }
-        }
-
-        //Switch browser visibility
-        public void SwitchToolsVisibility()
-        {
-            try
-            {
-                AVActions.DispatcherInvoke(delegate
-                {
-                    if (vWindowVisible && vToolsBlockInteract)
-                    {
-                        SwitchToolsClickthrough(false);
-                    }
-                    else if (vWindowVisible)
-                    {
-                        Hide();
-                    }
-                    else
-                    {
-                        Show();
-                    }
-                });
-            }
-            catch { }
-        }
-
-        private void button_ShowHide_Browser_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (border_Browser.Visibility == Visibility.Visible)
-                {
-                    //Switch visibility
-                    border_Browser.Visibility = Visibility.Collapsed;
-
-                    //Update setting
-                    SettingSave(vConfigurationFpsOverlayer, "ToolsShowBrowser", "False");
-                }
-                else
-                {
-                    //Switch visibility
-                    border_Browser.Visibility = Visibility.Visible;
-
-                    //Update setting
-                    SettingSave(vConfigurationFpsOverlayer, "ToolsShowBrowser", "True");
-                }
-            }
-            catch { }
-        }
-
-        private void button_ShowHide_Notes_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (border_Notes.Visibility == Visibility.Visible)
-                {
-                    //Switch visibility
-                    border_Notes.Visibility = Visibility.Collapsed;
-
-                    //Update setting
-                    SettingSave(vConfigurationFpsOverlayer, "ToolsShowNotes", "False");
-                }
-                else
-                {
-                    //Switch visibility
-                    border_Notes.Visibility = Visibility.Visible;
-
-                    //Update setting
-                    SettingSave(vConfigurationFpsOverlayer, "ToolsShowNotes", "True");
-                }
             }
             catch { }
         }

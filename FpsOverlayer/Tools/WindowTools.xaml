@@ -18,7 +18,7 @@
         MinWidth="1024"
         MinHeight="768">
 
-    <Grid Name="grid_Window">
+    <Grid Name="grid_ToolsOverlayer" Visibility="Collapsed">
         <!-- Border Notes -->
         <Border Name="border_Notes" Margin="450,150,0,0" Height="500" MinHeight="200" MinWidth="360" CornerRadius="5" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Border.Background>
@@ -166,6 +166,7 @@
         </Border>
 
         <!-- Border Controller -->
+        <!-- Border Image -->
 
         <!-- Border Menu -->
         <Border Name="border_Menu" CornerRadius="5" Margin="50" HorizontalAlignment="Center" VerticalAlignment="Top">

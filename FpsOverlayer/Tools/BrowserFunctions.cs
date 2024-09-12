@@ -118,7 +118,7 @@ namespace FpsOverlayer.ToolsOverlay
 
                 if (closeLinkMenu)
                 {
-                    grid_Browser_Link.Visibility = Visibility.Collapsed;
+                    grid_Browser_Manage.Visibility = Visibility.Collapsed;
                 }
             }
             catch { }

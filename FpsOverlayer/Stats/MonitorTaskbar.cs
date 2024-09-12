@@ -10,7 +10,7 @@ using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
 {
-    public partial class WindowMain
+    public partial class WindowStats
     {
         void StartMonitorTaskbar()
         {
@@ -65,7 +65,7 @@ namespace FpsOverlayer
                                 vTaskBarAdjustMargin = taskbarSize;
 
                                 //Update fps overlay position and visibility
-                                UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
+                                vWindowStats.UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
                             }
                         }
                         else
@@ -76,7 +76,7 @@ namespace FpsOverlayer
                                 vTaskBarAdjustMargin = 0;
 
                                 //Update fps overlay position and visibility
-                                UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
+                                vWindowStats.UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
                             }
                         }
                     }

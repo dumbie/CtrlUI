@@ -61,21 +61,21 @@ namespace FpsOverlayer
             {
                 if (args.Button == MouseButtons.Left)
                 {
-                    vWindowMain.SwitchFpsOverlayVisibility();
+                    vWindowStats.SwitchFpsOverlayVisibility();
                 }
                 else if (args.Button == MouseButtons.Middle)
                 {
-                    vWindowMain.ChangeFpsOverlayPosition();
+                    vWindowStats.ChangeFpsOverlayPosition();
                 }
             }
             catch { }
         }
 
         void NotifyIcon_MouseUp(object sender, MouseEventArgs args) { Mouse_Single_Click(args); }
-        void NotifyIcon_ShowHide_Stats(object sender, EventArgs args) { vWindowMain.SwitchFpsOverlayVisibility(); }
-        void NotifyIcon_ShowHide_Crosshair(object sender, EventArgs args) { vWindowMain.SwitchCrosshairVisibility(true); }
+        void NotifyIcon_ShowHide_Stats(object sender, EventArgs args) { vWindowStats.SwitchFpsOverlayVisibility(); }
+        void NotifyIcon_ShowHide_Crosshair(object sender, EventArgs args) { vWindowCrosshair.SwitchCrosshairVisibility(true); }
         void NotifyIcon_ShowHide_Tools(object sender, EventArgs args) { vWindowTools.SwitchToolsVisibility(); }
-        void NotifyIcon_Position_Stats(object sender, EventArgs args) { vWindowMain.ChangeFpsOverlayPosition(); }
+        void NotifyIcon_Position_Stats(object sender, EventArgs args) { vWindowStats.ChangeFpsOverlayPosition(); }
         void NotifyIcon_Settings(object sender, EventArgs args) { Application_ShowHideSettings(); }
         void NotifyIcon_Website(object sender, EventArgs args) { OpenWebsiteBrowser("https://projects.arnoldvink.com"); }
         async void NotifyIcon_Exit(object sender, EventArgs args) { await AppExit.Exit(); }

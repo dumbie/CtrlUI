@@ -7,6 +7,7 @@ using System.Windows.Input;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static FpsOverlayer.AppVariables;
+using static FpsOverlayer.NotificationFunctions;
 using static LibraryShared.Classes;
 
 namespace FpsOverlayer.ToolsOverlay
@@ -32,23 +33,27 @@ namespace FpsOverlayer.ToolsOverlay
         //Handle resize window
         private void button_BrowserResize_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            try
             {
-                Point mouseOffset = Mouse.GetPosition(null);
-                double differenceX = mouseOffset.X - vWindowMousePoint.X;
-                double differenceY = mouseOffset.Y - vWindowMousePoint.Y;
+                if (e.LeftButton == MouseButtonState.Pressed)
+                {
+                    Point mouseOffset = Mouse.GetPosition(null);
+                    double differenceX = mouseOffset.X - vWindowMousePoint.X;
+                    double differenceY = mouseOffset.Y - vWindowMousePoint.Y;
 
-                double newWidth = vWindowWidth + differenceX;
-                double newHeight = vWindowHeight + differenceY;
-                if (newWidth > border_Browser.MinWidth)
-                {
-                    border_Browser.Width = newWidth;
-                }
-                if (newHeight > border_Browser.MinHeight)
-                {
-                    border_Browser.Height = newHeight;
+                    double newWidth = vWindowWidth + differenceX;
+                    double newHeight = vWindowHeight + differenceY;
+                    if (newWidth > border_Browser.MinWidth)
+                    {
+                        border_Browser.Width = newWidth;
+                    }
+                    if (newHeight > border_Browser.MinHeight)
+                    {
+                        border_Browser.Height = newHeight;
+                    }
                 }
             }
+            catch { }
         }
 
         //Handle move window
@@ -91,18 +96,18 @@ namespace FpsOverlayer.ToolsOverlay
             catch { }
         }
 
-        //Show or hide link menu
+        //Show or hide manage menu
         private void button_Browser_Link_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (grid_Browser_Link.Visibility == Visibility.Visible)
+                if (grid_Browser_Manage.Visibility == Visibility.Visible)
                 {
-                    grid_Browser_Link.Visibility = Visibility.Collapsed;
+                    grid_Browser_Manage.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    grid_Browser_Link.Visibility = Visibility.Visible;
+                    grid_Browser_Manage.Visibility = Visibility.Visible;
                 }
             }
             catch { }
@@ -178,7 +183,7 @@ namespace FpsOverlayer.ToolsOverlay
             {
                 if (string.IsNullOrWhiteSpace(textbox_Browser_Link.Text))
                 {
-                    await vWindowMain.Notification_Send_Status("Browser", "Please enter a link");
+                    await Notification_Send_Status("Browser", "Please enter a link");
                     return;
                 }
 
@@ -207,7 +212,7 @@ namespace FpsOverlayer.ToolsOverlay
                 if (!string.IsNullOrWhiteSpace(websiteLink))
                 {
                     Clipboard.SetText(websiteLink);
-                    await vWindowMain.Notification_Send_Status("Paste", "Link copied to clipboard");
+                    await Notification_Send_Status("Paste", "Link copied to clipboard");
                     Debug.WriteLine("Link copied to clipboard: " + websiteLink);
                 }
             }
@@ -226,14 +231,14 @@ namespace FpsOverlayer.ToolsOverlay
                     websiteLink = StringLinkCleanup(websiteLink);
                     if (!StringLinkValidate(websiteLink))
                     {
-                        await vWindowMain.Notification_Send_Status("Browser", "Invalid link entered");
+                        await Notification_Send_Status("Browser", "Invalid link entered");
                         return;
                     }
 
                     //Check if link already exists
                     if (vFpsBrowserLinks.Any(x => x.String1.ToLower().Replace("/", "") == websiteLink.ToLower().Replace("/", "")))
                     {
-                        await vWindowMain.Notification_Send_Status("Browser", "Link already exists");
+                        await Notification_Send_Status("Browser", "Link already exists");
                         return;
                     }
 

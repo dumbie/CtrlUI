@@ -203,7 +203,7 @@ namespace FpsOverlayer
                 combobox_CrosshairStyle.SelectedIndex = SettingLoad(vConfigurationFpsOverlayer, "CrosshairStyle", typeof(int));
 
                 //Tools
-                checkbox_ToolsShowStartup.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "ToolsShowStartup", typeof(bool));
+                checkbox_ToolsLaunch.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "ToolsLaunch", typeof(bool));
 
                 //Browser
                 checkbox_BrowserUnload.IsChecked = SettingLoad(vConfigurationFpsOverlayer, "BrowserUnload", typeof(bool));

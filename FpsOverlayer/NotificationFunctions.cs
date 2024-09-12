@@ -8,10 +8,10 @@ using static LibraryShared.Classes;
 
 namespace FpsOverlayer
 {
-    partial class WindowMain
+    partial class NotificationFunctions
     {
         //Send the notification status
-        public async Task Notification_Send_Status(string targetIcon, string targetText)
+        public static async Task Notification_Send_Status(string targetIcon, string targetText)
         {
             try
             {

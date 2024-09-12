@@ -11,10 +11,10 @@ using static LibraryShared.Classes;
 
 namespace FpsOverlayer
 {
-    partial class WindowMain
+    partial class SocketHandlers
     {
         //Handle received socket data
-        public void ReceivedSocketHandler(TcpClient tcpClient, UdpEndPointDetails endPoint, byte[] receivedBytes)
+        public static void ReceivedSocketHandler(TcpClient tcpClient, UdpEndPointDetails endPoint, byte[] receivedBytes)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        async Task ReceivedUdpSocketHandlerThread(UdpEndPointDetails endPoint, byte[] receivedBytes)
+        private static async Task ReceivedUdpSocketHandlerThread(UdpEndPointDetails endPoint, byte[] receivedBytes)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace FpsOverlayer
                         }
                         else if (receivedString == "SwitchFpsOverlayVisibility")
                         {
-                            SwitchFpsOverlayVisibility();
+                            vWindowStats.SwitchFpsOverlayVisibility();
                         }
                         else if (receivedString == "SwitchToolsOverlayVisibility")
                         {
@@ -66,11 +66,11 @@ namespace FpsOverlayer
                         }
                         else if (receivedString == "SwitchCrosshairOverlayVisibility")
                         {
-                            SwitchCrosshairVisibility(true);
+                            vWindowCrosshair.SwitchCrosshairVisibility(true);
                         }
                         else if (receivedString == "ChangeFpsOverlayPosition")
                         {
-                            ChangeFpsOverlayPosition();
+                            vWindowStats.ChangeFpsOverlayPosition();
                         }
                         else if (receivedString == "SettingChangedColorAccentLight")
                         {
@@ -81,7 +81,7 @@ namespace FpsOverlayer
                         else if (receivedString == "SettingChangedDisplayMonitor")
                         {
                             vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
-                            UpdateWindowPosition();
+                            vWindowStats.UpdateWindowPosition();
                         }
                     }
                     else if (deserializedBytes.Object is KeypadSize)
@@ -92,7 +92,7 @@ namespace FpsOverlayer
                         vKeypadAdjustMargin = receivedKeypadSize.Height;
 
                         //Update fps overlay position and visibility
-                        UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
+                        vWindowStats.UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
                     }
                 }
             }

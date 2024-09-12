@@ -133,7 +133,7 @@ namespace FpsOverlayer
                 if (!SettingCheck(vConfigurationFpsOverlayer, "CrosshairThickness")) { SettingSave(vConfigurationFpsOverlayer, "CrosshairThickness", "1"); }
 
                 //Tools
-                if (!SettingCheck(vConfigurationFpsOverlayer, "ToolsShowStartup")) { SettingSave(vConfigurationFpsOverlayer, "ToolsShowStartup", "False"); }
+                if (!SettingCheck(vConfigurationFpsOverlayer, "ToolsLaunch")) { SettingSave(vConfigurationFpsOverlayer, "ToolsLaunch", "False"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ToolsShowBrowser")) { SettingSave(vConfigurationFpsOverlayer, "ToolsShowBrowser", "True"); }
                 if (!SettingCheck(vConfigurationFpsOverlayer, "ToolsShowNotes")) { SettingSave(vConfigurationFpsOverlayer, "ToolsShowNotes", "True"); }
 

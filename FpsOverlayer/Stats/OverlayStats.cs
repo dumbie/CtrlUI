@@ -12,7 +12,7 @@ using static LibraryShared.Enums;
 
 namespace FpsOverlayer
 {
-    public partial class WindowMain
+    public partial class WindowStats
     {
         //Hide the stats visibility
         public void HideFpsOverlayVisibility()
@@ -21,7 +21,7 @@ namespace FpsOverlayer
             {
                 AVActions.DispatcherInvoke(delegate
                 {
-                    grid_FpsOverlayer.Visibility = Visibility.Collapsed;
+                    grid_StatsOverlayer.Visibility = Visibility.Collapsed;
                 });
             }
             catch { }
@@ -34,7 +34,7 @@ namespace FpsOverlayer
             {
                 AVActions.DispatcherInvoke(delegate
                 {
-                    grid_FpsOverlayer.Visibility = Visibility.Visible;
+                    grid_StatsOverlayer.Visibility = Visibility.Visible;
                 });
             }
             catch { }
@@ -47,7 +47,7 @@ namespace FpsOverlayer
             {
                 AVActions.DispatcherInvoke(delegate
                 {
-                    if (grid_FpsOverlayer.Visibility == Visibility.Visible)
+                    if (grid_StatsOverlayer.Visibility == Visibility.Visible)
                     {
                         vManualHiddenFpsOverlay = true;
                         UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);
@@ -135,9 +135,9 @@ namespace FpsOverlayer
                         double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_LEFT) { marginHorizontal += vTaskBarAdjustMargin; }
                         else if (vTaskBarPosition == AppBarPosition.ABE_TOP) { marginVertical += vTaskBarAdjustMargin; }
-                        grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
-                        grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
-                        grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
+                        grid_StatsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
+                        grid_StatsOverlayer.VerticalAlignment = VerticalAlignment.Top;
+                        grid_StatsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentGpu.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Left;
@@ -159,9 +159,9 @@ namespace FpsOverlayer
                         double marginHorizontal = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
                         double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_TOP) { marginVertical += vTaskBarAdjustMargin; }
-                        grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
-                        grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
-                        grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
+                        grid_StatsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
+                        grid_StatsOverlayer.VerticalAlignment = VerticalAlignment.Top;
+                        grid_StatsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentGpu.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Center;
@@ -184,9 +184,9 @@ namespace FpsOverlayer
                         double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_RIGHT) { marginHorizontal += vTaskBarAdjustMargin; }
                         else if (vTaskBarPosition == AppBarPosition.ABE_TOP) { marginVertical += vTaskBarAdjustMargin; }
-                        grid_FpsOverlayer.Margin = new Thickness(0, marginVertical, marginHorizontal, 0);
-                        grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
-                        grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
+                        grid_StatsOverlayer.Margin = new Thickness(0, marginVertical, marginHorizontal, 0);
+                        grid_StatsOverlayer.VerticalAlignment = VerticalAlignment.Top;
+                        grid_StatsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentGpu.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Right;
@@ -208,9 +208,9 @@ namespace FpsOverlayer
                         double marginHorizontal = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
                         double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_RIGHT) { marginHorizontal += vTaskBarAdjustMargin; }
-                        grid_FpsOverlayer.Margin = new Thickness(0, marginVertical, marginHorizontal, 0);
-                        grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Center;
-                        grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
+                        grid_StatsOverlayer.Margin = new Thickness(0, marginVertical, marginHorizontal, 0);
+                        grid_StatsOverlayer.VerticalAlignment = VerticalAlignment.Center;
+                        grid_StatsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentGpu.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Right;
@@ -234,9 +234,9 @@ namespace FpsOverlayer
                         if (vTaskBarPosition == AppBarPosition.ABE_RIGHT) { marginHorizontal += vTaskBarAdjustMargin; }
                         else if (vTaskBarPosition == AppBarPosition.ABE_BOTTOM) { marginVertical += vTaskBarAdjustMargin; }
                         marginVertical += vKeypadAdjustMargin;
-                        grid_FpsOverlayer.Margin = new Thickness(0, 0, marginHorizontal, marginVertical);
-                        grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
-                        grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
+                        grid_StatsOverlayer.Margin = new Thickness(0, 0, marginHorizontal, marginVertical);
+                        grid_StatsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
+                        grid_StatsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentGpu.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Right;
@@ -259,9 +259,9 @@ namespace FpsOverlayer
                         double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_BOTTOM) { marginVertical += vTaskBarAdjustMargin; }
                         marginVertical += vKeypadAdjustMargin;
-                        grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
-                        grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
-                        grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
+                        grid_StatsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
+                        grid_StatsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
+                        grid_StatsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentGpu.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Center;
@@ -285,9 +285,9 @@ namespace FpsOverlayer
                         if (vTaskBarPosition == AppBarPosition.ABE_LEFT) { marginHorizontal += vTaskBarAdjustMargin; }
                         else if (vTaskBarPosition == AppBarPosition.ABE_BOTTOM) { marginVertical += vTaskBarAdjustMargin; }
                         marginVertical += vKeypadAdjustMargin;
-                        grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
-                        grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
-                        grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
+                        grid_StatsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
+                        grid_StatsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
+                        grid_StatsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentGpu.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Left;
@@ -309,9 +309,9 @@ namespace FpsOverlayer
                         double marginHorizontal = SettingLoad(vConfigurationFpsOverlayer, "MarginHorizontal", typeof(double));
                         double marginVertical = SettingLoad(vConfigurationFpsOverlayer, "MarginVertical", typeof(double));
                         if (vTaskBarPosition == AppBarPosition.ABE_LEFT) { marginHorizontal += vTaskBarAdjustMargin; }
-                        grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
-                        grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Center;
-                        grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
+                        grid_StatsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
+                        grid_StatsOverlayer.VerticalAlignment = VerticalAlignment.Center;
+                        grid_StatsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentGpu.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentCpu.HorizontalAlignment = HorizontalAlignment.Left;
@@ -520,8 +520,8 @@ namespace FpsOverlayer
                 stackpanel_CurrentBat.Background = brushBackground;
                 stackpanel_CurrentFan.Background = brushBackground;
 
-                //Adjust the application font family
-                UpdateAppFontStyle();
+                //Adjust window font family
+                UpdateWindowFontFamily();
 
                 //Update the stats text size
                 double targetTextSize = SettingLoad(vConfigurationFpsOverlayer, "TextSize", typeof(double));
@@ -610,7 +610,7 @@ namespace FpsOverlayer
                 stackpanel_CurrentFrametime.Width = SettingLoad(vConfigurationFpsOverlayer, "FrametimeWidth", typeof(double));
 
                 //Update fps overlay opacity
-                grid_FpsOverlayer.Opacity = SettingLoad(vConfigurationFpsOverlayer, "DisplayOpacity", typeof(double));
+                grid_StatsOverlayer.Opacity = SettingLoad(vConfigurationFpsOverlayer, "DisplayOpacity", typeof(double));
 
                 //Update fps overlay position and visibility
                 UpdateFpsOverlayPositionVisibility(vTargetProcess.ExeNameNoExt);

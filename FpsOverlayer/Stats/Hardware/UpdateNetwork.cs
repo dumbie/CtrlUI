@@ -8,7 +8,7 @@ using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
 {
-    public partial class WindowMain
+    public partial class WindowStats
     {
         void UpdateNetworkInformation(IList<IHardware> hardwareItems)
         {

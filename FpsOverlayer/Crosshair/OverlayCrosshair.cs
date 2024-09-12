@@ -7,7 +7,7 @@ using static LibraryShared.Enums;
 
 namespace FpsOverlayer
 {
-    public partial class WindowMain
+    public partial class WindowCrosshair
     {
         //Hide the crosshair visibility
         public void HideCrosshairVisibility()
@@ -64,7 +64,7 @@ namespace FpsOverlayer
             try
             {
                 //Get target overlay position
-                OverlayPosition targetOverlayPosition = GetFpsOverlayPosition(processName);
+                OverlayPosition targetOverlayPosition = vWindowStats.GetFpsOverlayPosition(processName);
 
                 //Hide or show crosshair overlay
                 if (vManualHiddenCrosshairOverlay || targetOverlayPosition == OverlayPosition.Hidden)

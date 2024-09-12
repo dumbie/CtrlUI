@@ -24,14 +24,14 @@ namespace FpsOverlayer
                 checkbox_DisplayBackground.Click += (sender, e) =>
                 {
                     SettingSave(vConfigurationFpsOverlayer, "DisplayBackground", checkbox_DisplayBackground.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 slider_DisplayOpacity.ValueChanged += (sender, e) =>
                 {
                     textblock_DisplayOpacity.Text = textblock_DisplayOpacity.Tag + ": " + slider_DisplayOpacity.Value.ToString("0.00") + "%";
                     SettingSave(vConfigurationFpsOverlayer, "DisplayOpacity", slider_DisplayOpacity.Value);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 slider_HardwareUpdateRateMs.ValueChanged += (sender, e) =>
@@ -44,57 +44,58 @@ namespace FpsOverlayer
                 {
                     textblock_MarginHorizontal.Text = textblock_MarginHorizontal.Tag + ": " + slider_MarginHorizontal.Value.ToString("0") + "px";
                     SettingSave(vConfigurationFpsOverlayer, "MarginHorizontal", slider_MarginHorizontal.Value);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 slider_MarginVertical.ValueChanged += (sender, e) =>
                 {
                     textblock_MarginVertical.Text = textblock_MarginVertical.Tag + ": " + slider_MarginVertical.Value.ToString("0") + "px";
                     SettingSave(vConfigurationFpsOverlayer, "MarginVertical", slider_MarginVertical.Value);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 checkbox_CheckTaskbarVisible.Click += (sender, e) =>
                 {
                     SettingSave(vConfigurationFpsOverlayer, "CheckTaskbarVisible", checkbox_CheckTaskbarVisible.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 checkbox_StatsFlipBottom.Click += (sender, e) =>
                 {
                     SettingSave(vConfigurationFpsOverlayer, "StatsFlipBottom", checkbox_StatsFlipBottom.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 checkbox_HideScreenCapture.Click += (sender, e) =>
                 {
                     SettingSave(vConfigurationFpsOverlayer, "HideScreenCapture", checkbox_HideScreenCapture.IsChecked.ToString());
-                    vWindowMain.UpdateWindowAffinity();
+                    vWindowStats.UpdateWindowAffinity();
+                    vWindowCrosshair.UpdateWindowAffinity();
                 };
 
                 combobox_InterfaceFontStyleName.SelectionChanged += (sender, e) =>
                 {
                     SettingSave(vConfigurationFpsOverlayer, "InterfaceFontStyleName", combobox_InterfaceFontStyleName.SelectedItem.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 combobox_TextPosition.SelectionChanged += (sender, e) =>
                 {
                     SettingSave(vConfigurationFpsOverlayer, "TextPosition", combobox_TextPosition.SelectedIndex.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 combobox_TextDirection.SelectionChanged += (sender, e) =>
                 {
                     SettingSave(vConfigurationFpsOverlayer, "TextDirection", combobox_TextDirection.SelectedIndex.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 slider_TextSize.ValueChanged += (sender, e) =>
                 {
                     textblock_TextSize.Text = textblock_TextSize.Tag + ": " + slider_TextSize.Value.ToString("0") + "px";
                     SettingSave(vConfigurationFpsOverlayer, "TextSize", slider_TextSize.Value);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 textbox_CustomText.TextChanged += (sender, e) =>
@@ -106,20 +107,20 @@ namespace FpsOverlayer
                 checkbox_TextColorSingle.Click += (sender, e) =>
                 {
                     SettingSave(vConfigurationFpsOverlayer, "TextColorSingle", checkbox_TextColorSingle.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 textbox_GpuCategoryTitle.TextChanged += (sender, e) =>
                 {
                     TextBox senderTextbox = (TextBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "GpuCategoryTitle", senderTextbox.Text);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_GpuShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "GpuShowCategoryTitle", senderCheckBox.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_GpuShowName.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "GpuShowName", checkbox_GpuShowName.IsChecked.ToString()); };
                 checkbox_GpuShowPercentage.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "GpuShowPercentage", checkbox_GpuShowPercentage.IsChecked.ToString()); };
@@ -136,13 +137,13 @@ namespace FpsOverlayer
                 {
                     TextBox senderTextbox = (TextBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "CpuCategoryTitle", senderTextbox.Text);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_CpuShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "CpuShowCategoryTitle", senderCheckBox.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_CpuShowName.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "CpuShowName", checkbox_CpuShowName.IsChecked.ToString()); };
                 checkbox_BoardShowName.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "BoardShowName", checkbox_BoardShowName.IsChecked.ToString()); };
@@ -157,13 +158,13 @@ namespace FpsOverlayer
                 {
                     TextBox senderTextbox = (TextBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "MemCategoryTitle", senderTextbox.Text);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_MemShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "MemShowCategoryTitle", senderCheckBox.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_MemShowName.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MemShowName", checkbox_MemShowName.IsChecked.ToString()); };
                 checkbox_MemShowSpeed.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MemShowSpeed", checkbox_MemShowSpeed.IsChecked.ToString()); };
@@ -177,13 +178,13 @@ namespace FpsOverlayer
                 {
                     TextBox senderTextbox = (TextBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "NetCategoryTitle", senderTextbox.Text);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_NetShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "NetShowCategoryTitle", senderCheckBox.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_NetShowCurrentUsage.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "NetShowCurrentUsage", checkbox_NetShowCurrentUsage.IsChecked.ToString()); };
 
@@ -193,13 +194,13 @@ namespace FpsOverlayer
                 {
                     TextBox senderTextbox = (TextBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "BatCategoryTitle", senderTextbox.Text);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_BatShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "BatShowCategoryTitle", senderCheckBox.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_BatShowPercentage.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "BatShowPercentage", checkbox_BatShowPercentage.IsChecked.ToString()); };
 
@@ -210,13 +211,13 @@ namespace FpsOverlayer
                 {
                     TextBox senderTextbox = (TextBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "MonCategoryTitle", senderTextbox.Text);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_MonShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "MonShowCategoryTitle", senderCheckBox.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_MonShowResolution.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MonShowResolution", checkbox_MonShowResolution.IsChecked.ToString()); };
                 checkbox_MonShowDpiResolution.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "MonShowDpiResolution", checkbox_MonShowDpiResolution.IsChecked.ToString()); };
@@ -230,13 +231,13 @@ namespace FpsOverlayer
                 {
                     TextBox senderTextbox = (TextBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "FpsCategoryTitle", senderTextbox.Text);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_FpsShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "FpsShowCategoryTitle", senderCheckBox.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_FpsShowCurrentFps.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "FpsShowCurrentFps", checkbox_FpsShowCurrentFps.IsChecked.ToString()); };
                 checkbox_FpsShowCurrentLatency.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "FpsShowCurrentLatency", checkbox_FpsShowCurrentLatency.IsChecked.ToString()); };
@@ -253,13 +254,13 @@ namespace FpsOverlayer
                 {
                     TextBox senderTextbox = (TextBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "FanCategoryTitle", senderTextbox.Text);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_FanShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
                     SettingSave(vConfigurationFpsOverlayer, "FanShowCategoryTitle", senderCheckBox.IsChecked.ToString());
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
                 checkbox_FanShowCpu.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "FanShowCpu", checkbox_FanShowCpu.IsChecked.ToString()); };
                 checkbox_FanShowGpu.Click += (sender, e) => { SettingSave(vConfigurationFpsOverlayer, "FanShowGpu", checkbox_FanShowGpu.IsChecked.ToString()); };
@@ -274,7 +275,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorSingle.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorSingle", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -286,7 +287,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorBackground.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorBackground", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -298,7 +299,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorGpu.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorGpu", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -310,7 +311,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorCpu.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorCpu", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -322,7 +323,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorMem.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorMem", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -334,7 +335,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorFan.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorFan", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -346,7 +347,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorNet.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorNet", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -358,7 +359,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorApp.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorApp", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -370,7 +371,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorBat.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorBat", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -382,7 +383,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorTime.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorTime", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -394,7 +395,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorCustomText.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorCustomText", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -406,7 +407,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorMon.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorMon", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -418,7 +419,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorFps.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorFps", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -430,7 +431,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorFrametime.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "ColorFrametime", newColor.ToString());
-                        vWindowMain.UpdateFpsOverlayStyle();
+                        vWindowStats.UpdateFpsOverlayStyle();
                     }
                 };
 
@@ -450,14 +451,14 @@ namespace FpsOverlayer
                 {
                     textblock_FrametimeWidth.Text = textblock_FrametimeWidth.Tag + ": " + slider_FrametimeWidth.Value.ToString("0") + "px";
                     SettingSave(vConfigurationFpsOverlayer, "FrametimeWidth", slider_FrametimeWidth.Value);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 slider_FrametimeHeight.ValueChanged += (sender, e) =>
                 {
                     textblock_FrametimeHeight.Text = textblock_FrametimeHeight.Tag + ": " + slider_FrametimeHeight.Value.ToString("0") + "px";
                     SettingSave(vConfigurationFpsOverlayer, "FrametimeHeight", slider_FrametimeHeight.Value);
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
                 };
 
                 //Crosshair
@@ -475,7 +476,7 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_CrosshairColor.Background = newBrush;
                         SettingSave(vConfigurationFpsOverlayer, "CrosshairColor", newColor.ToString());
-                        vWindowMain.UpdateCrosshairOverlayStyle();
+                        vWindowCrosshair.UpdateCrosshairOverlayStyle();
                     }
                 };
 
@@ -483,48 +484,48 @@ namespace FpsOverlayer
                 {
                     textblock_CrosshairOpacity.Text = textblock_CrosshairOpacity.Tag + ": " + slider_CrosshairOpacity.Value.ToString("0.00") + "%";
                     SettingSave(vConfigurationFpsOverlayer, "CrosshairOpacity", slider_CrosshairOpacity.Value);
-                    vWindowMain.UpdateCrosshairOverlayStyle();
+                    vWindowCrosshair.UpdateCrosshairOverlayStyle();
                 };
 
                 slider_CrosshairVerticalPosition.ValueChanged += (sender, e) =>
                 {
                     textblock_CrosshairVerticalPosition.Text = textblock_CrosshairVerticalPosition.Tag + ": " + slider_CrosshairVerticalPosition.Value.ToString("0") + "px";
                     SettingSave(vConfigurationFpsOverlayer, "CrosshairVerticalPosition", slider_CrosshairVerticalPosition.Value);
-                    vWindowMain.UpdateCrosshairOverlayStyle();
+                    vWindowCrosshair.UpdateCrosshairOverlayStyle();
                 };
 
                 slider_CrosshairHorizontalPosition.ValueChanged += (sender, e) =>
                 {
                     textblock_CrosshairHorizontalPosition.Text = textblock_CrosshairHorizontalPosition.Tag + ": " + slider_CrosshairHorizontalPosition.Value.ToString("0") + "px";
                     SettingSave(vConfigurationFpsOverlayer, "CrosshairHorizontalPosition", slider_CrosshairHorizontalPosition.Value);
-                    vWindowMain.UpdateCrosshairOverlayStyle();
+                    vWindowCrosshair.UpdateCrosshairOverlayStyle();
                 };
 
                 slider_CrosshairSize.ValueChanged += (sender, e) =>
                 {
                     textblock_CrosshairSize.Text = textblock_CrosshairSize.Tag + ": " + slider_CrosshairSize.Value.ToString("0") + "px";
                     SettingSave(vConfigurationFpsOverlayer, "CrosshairSize", slider_CrosshairSize.Value);
-                    vWindowMain.UpdateCrosshairOverlayStyle();
+                    vWindowCrosshair.UpdateCrosshairOverlayStyle();
                 };
 
                 slider_CrosshairThickness.ValueChanged += (sender, e) =>
                 {
                     textblock_CrosshairThickness.Text = textblock_CrosshairThickness.Tag + ": " + slider_CrosshairThickness.Value.ToString("0") + "px";
                     SettingSave(vConfigurationFpsOverlayer, "CrosshairThickness", slider_CrosshairThickness.Value);
-                    vWindowMain.UpdateCrosshairOverlayStyle();
+                    vWindowCrosshair.UpdateCrosshairOverlayStyle();
                 };
 
                 combobox_CrosshairStyle.SelectionChanged += (sender, e) =>
                 {
                     SettingSave(vConfigurationFpsOverlayer, "CrosshairStyle", combobox_CrosshairStyle.SelectedIndex.ToString());
-                    vWindowMain.UpdateCrosshairOverlayStyle();
+                    vWindowCrosshair.UpdateCrosshairOverlayStyle();
                 };
 
                 //Tools
-                checkbox_ToolsShowStartup.Click += (sender, e) =>
+                checkbox_ToolsLaunch.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
-                    SettingSave(vConfigurationFpsOverlayer, "ToolsShowStartup", senderCheckBox.IsChecked.ToString());
+                    SettingSave(vConfigurationFpsOverlayer, "ToolsLaunch", senderCheckBox.IsChecked.ToString());
                 };
 
                 //Browser

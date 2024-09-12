@@ -290,7 +290,7 @@
 
                     <StackPanel Name="stackpanel_Browser" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Tools Settings"/>
-                        <CheckBox Name="checkbox_ToolsShowStartup" Content="Show tools on app startup" Style="{StaticResource CheckBoxBlack}"/>
+                        <CheckBox Name="checkbox_ToolsLaunch" Content="Show tools on app startup" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will open the tools overlay on application startup." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Browser Settings"/>

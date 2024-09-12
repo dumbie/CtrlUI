@@ -136,7 +136,7 @@ namespace FpsOverlayer
         {
             try
             {
-                vWindowMain.SwitchCrosshairVisibility(true);
+                vWindowCrosshair.SwitchCrosshairVisibility(true);
             }
             catch { }
         }
@@ -330,7 +330,7 @@ namespace FpsOverlayer
                     SettingSave(vConfigurationFpsOverlayer, targetName, newId.ToString());
 
                     //Update stats overlay style
-                    vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowStats.UpdateFpsOverlayStyle();
 
                     //Update stats position text
                     UpdateStatsPositionText();

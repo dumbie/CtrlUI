@@ -28,9 +28,10 @@ namespace FpsOverlayer
         public const int vTotalStatsCount = 11;
 
         //Application Windows
-        public static WindowMain vWindowMain = new WindowMain();
-        public static WindowSettings vWindowSettings = new WindowSettings();
+        public static WindowStats vWindowStats = new WindowStats();
+        public static WindowCrosshair vWindowCrosshair = new WindowCrosshair();
         public static WindowTools vWindowTools = new WindowTools();
+        public static WindowSettings vWindowSettings = new WindowSettings();
         public static AppTray vAppTray = new AppTray();
 
         //Interaction Variables
