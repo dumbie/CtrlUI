@@ -71,6 +71,7 @@ namespace FpsOverlayer
                     SettingSave(vConfigurationFpsOverlayer, "HideScreenCapture", checkbox_HideScreenCapture.IsChecked.ToString());
                     vWindowStats.UpdateWindowAffinity();
                     vWindowCrosshair.UpdateWindowAffinity();
+                    vWindowTools.UpdateWindowAffinity();
                 };
 
                 combobox_InterfaceFontStyleName.SelectionChanged += (sender, e) =>

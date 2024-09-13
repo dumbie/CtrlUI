@@ -4,11 +4,12 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static FpsOverlayer.AppVariables;
 
-namespace FpsOverlayer.ToolsOverlay
+namespace FpsOverlayer
 {
     public partial class WindowTools : Window
     {
@@ -35,6 +36,9 @@ namespace FpsOverlayer.ToolsOverlay
                 HwndSource hwndSource = HwndSource.FromHwnd(vInteropWindowHandle);
                 HwndTarget hwndTarget = hwndSource.CompositionTarget;
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
+
+                //Update window display affinity
+                UpdateWindowAffinity();
 
                 //Update window position
                 UpdateWindowPosition();
@@ -134,6 +138,23 @@ namespace FpsOverlayer.ToolsOverlay
 
                 //Move the window position
                 WindowUpdatePosition(monitorNumber, vInteropWindowHandle, AVWindowPosition.FullScreen);
+            }
+            catch { }
+        }
+
+        //Update window display affinity
+        public void UpdateWindowAffinity()
+        {
+            try
+            {
+                if (SettingLoad(vConfigurationFpsOverlayer, "HideScreenCapture", typeof(bool)))
+                {
+                    SetWindowDisplayAffinity(vInteropWindowHandle, DisplayAffinityFlags.WDA_EXCLUDEFROMCAPTURE);
+                }
+                else
+                {
+                    SetWindowDisplayAffinity(vInteropWindowHandle, DisplayAffinityFlags.WDA_NONE);
+                }
             }
             catch { }
         }
