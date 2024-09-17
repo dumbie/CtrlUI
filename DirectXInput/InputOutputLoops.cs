@@ -73,7 +73,7 @@ namespace DirectXInput
             {
                 Debug.WriteLine("Handle virtual output data for: " + controller.Details.DisplayName);
 
-                while (await TaskCheckLoop(controller.OutputVirtualTask, 0))
+                while (await TaskCheckLoop(controller.OutputVirtualTask, 0.1F))
                 {
                     try
                     {
