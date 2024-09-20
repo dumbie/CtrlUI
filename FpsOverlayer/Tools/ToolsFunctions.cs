@@ -4,7 +4,7 @@ using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static FpsOverlayer.AppVariables;
 
-namespace FpsOverlayer.ToolsOverlay
+namespace FpsOverlayer
 {
     public partial class WindowTools : Window
     {
@@ -77,7 +77,7 @@ namespace FpsOverlayer.ToolsOverlay
 
                     //Update window style
                     vToolsBlockInteract = false;
-                    WindowUpdateStyle(vInteropWindowHandle, true, vToolsBlockInteract, vToolsBlockInteract);
+                    WindowUpdateStyle(vInteropWindowHandle, true, true, vToolsBlockInteract, vToolsBlockInteract);
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace FpsOverlayer.ToolsOverlay
 
                     //Update window style
                     vToolsBlockInteract = true;
-                    WindowUpdateStyle(vInteropWindowHandle, true, vToolsBlockInteract, vToolsBlockInteract);
+                    WindowUpdateStyle(vInteropWindowHandle, true, true, vToolsBlockInteract, vToolsBlockInteract);
                 }
             }
             catch { }

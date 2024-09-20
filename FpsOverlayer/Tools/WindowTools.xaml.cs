@@ -90,7 +90,7 @@ namespace FpsOverlayer
         }
 
         //Update the window visibility
-        void UpdateWindowVisibility(bool visible)
+        public void UpdateWindowVisibility(bool visible)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace FpsOverlayer
                         WindowUpdateVisibility(vInteropWindowHandle, true);
 
                         //Update window style
-                        WindowUpdateStyle(vInteropWindowHandle, true, vToolsBlockInteract, vToolsBlockInteract);
+                        WindowUpdateStyle(vInteropWindowHandle, true, true, vToolsBlockInteract, vToolsBlockInteract);
 
                         this.Title = "Tools Overlayer (Visible)";
                         vWindowVisible = true;
@@ -159,29 +159,29 @@ namespace FpsOverlayer
             catch { }
         }
 
+        //Update windows on resolution change
+        public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //Wait for resolution change
+                await Task.Delay(2000);
+
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, true, vToolsBlockInteract, vToolsBlockInteract);
+
+                //Update window position
+                UpdateWindowPosition();
+            }
+            catch { }
+        }
+
         //Close tools overlay
         private void button_Close_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 SwitchToolsVisibility();
-            }
-            catch { }
-        }
-
-        //Update window position on resolution change
-        public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //Wait for change to complete
-                await Task.Delay(2000);
-
-                //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, vToolsBlockInteract, vToolsBlockInteract);
-
-                //Check if window is out of screen
-                WindowCheckScreenBounds(null, vInteropWindowHandle, 10);
             }
             catch { }
         }

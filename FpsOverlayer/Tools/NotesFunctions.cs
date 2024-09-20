@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows;
 using static FpsOverlayer.AppVariables;
 
-namespace FpsOverlayer.ToolsOverlay
+namespace FpsOverlayer
 {
     public partial class WindowTools : Window
     {

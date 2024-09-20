@@ -2,7 +2,7 @@
 using static ArnoldVinkCode.AVSettings;
 using static FpsOverlayer.AppVariables;
 
-namespace FpsOverlayer.ToolsOverlay
+namespace FpsOverlayer
 {
     public partial class WindowTools : Window
     {

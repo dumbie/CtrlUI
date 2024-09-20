@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
@@ -15,7 +17,7 @@ namespace FpsOverlayer
         public WindowCrosshair() { InitializeComponent(); }
 
         //Window Variables
-        private IntPtr vInteropWindowHandle = IntPtr.Zero;
+        public IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
 
         //Window Initialized
@@ -32,7 +34,7 @@ namespace FpsOverlayer
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
                 //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, true, true);
+                WindowUpdateStyle(vInteropWindowHandle, true, true, true, true);
 
                 //Update window display affinity
                 UpdateWindowAffinity();
@@ -40,8 +42,11 @@ namespace FpsOverlayer
                 //Update window position
                 UpdateWindowPosition();
 
-                //Update the crosshair overlay style
+                //Update crosshair overlay style
                 UpdateCrosshairOverlayStyle();
+
+                //Check if resolution has changed
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
                 //Show crosshair when enabled
                 if (SettingLoad(vConfigurationFpsOverlayer, "CrosshairLaunch", typeof(bool)))
@@ -74,23 +79,6 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update window display affinity
-        public void UpdateWindowAffinity()
-        {
-            try
-            {
-                if (SettingLoad(vConfigurationFpsOverlayer, "HideScreenCapture", typeof(bool)))
-                {
-                    SetWindowDisplayAffinity(vInteropWindowHandle, DisplayAffinityFlags.WDA_EXCLUDEFROMCAPTURE);
-                }
-                else
-                {
-                    SetWindowDisplayAffinity(vInteropWindowHandle, DisplayAffinityFlags.WDA_NONE);
-                }
-            }
-            catch { }
-        }
-
         //Update the window visibility
         public void UpdateWindowVisibility(bool visible)
         {
@@ -107,7 +95,7 @@ namespace FpsOverlayer
                         WindowUpdateVisibility(vInteropWindowHandle, true);
 
                         //Update window style
-                        WindowUpdateStyle(vInteropWindowHandle, true, true, true);
+                        WindowUpdateStyle(vInteropWindowHandle, true, true, true, true);
 
                         this.Title = "Cross Overlayer (Visible)";
                         vWindowVisible = true;
@@ -140,6 +128,40 @@ namespace FpsOverlayer
 
                 //Move the window position
                 WindowUpdatePosition(monitorNumber, vInteropWindowHandle, AVWindowPosition.FullScreen);
+            }
+            catch { }
+        }
+
+        //Update window display affinity
+        public void UpdateWindowAffinity()
+        {
+            try
+            {
+                if (SettingLoad(vConfigurationFpsOverlayer, "HideScreenCapture", typeof(bool)))
+                {
+                    SetWindowDisplayAffinity(vInteropWindowHandle, DisplayAffinityFlags.WDA_EXCLUDEFROMCAPTURE);
+                }
+                else
+                {
+                    SetWindowDisplayAffinity(vInteropWindowHandle, DisplayAffinityFlags.WDA_NONE);
+                }
+            }
+            catch { }
+        }
+
+        //Update windows on resolution change
+        public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //Wait for resolution change
+                await Task.Delay(2000);
+
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, true, true, true);
+
+                //Update window position
+                UpdateWindowPosition();
             }
             catch { }
         }

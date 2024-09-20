@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using FpsOverlayer.ToolsOverlay;
 using LibreHardwareMonitor.Hardware;
 using Microsoft.Diagnostics.Tracing.Session;
 using Microsoft.Web.WebView2.Wpf;
@@ -23,8 +22,6 @@ namespace FpsOverlayer
         public static Configuration vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
         public static Configuration vConfigurationFpsOverlayer = SettingLoadConfig("FpsOverlayer.exe.csettings");
         public static bool vManualHiddenFpsOverlay = false;
-        public static bool vManualHiddenCrosshairOverlay = false;
-        public static bool vManualShownCrosshairOverlay = false;
         public const int vTotalStatsCount = 11;
 
         //Application Windows

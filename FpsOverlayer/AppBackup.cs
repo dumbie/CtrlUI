@@ -18,7 +18,7 @@ namespace FpsOverlayer
                 //Create backup directory
                 AVFiles.Directory_Create("Backups", false);
 
-                //Cleanup profile backups
+                //Cleanup backups
                 FileInfo[] fileInfo = new DirectoryInfo("Backups").GetFiles("*.zip");
                 foreach (FileInfo backupFile in fileInfo)
                 {
@@ -33,7 +33,7 @@ namespace FpsOverlayer
                     catch { }
                 }
 
-                //Create profile backup
+                //Create backup
                 string backupTime = DateTime.Now.ToString("yyyyMMddHHmmss") + "-Notes.zip";
                 ZipFile.CreateFromDirectory("Notes", "Backups\\" + backupTime);
             }

@@ -77,7 +77,6 @@ namespace FpsOverlayer
 
                         //Update overlays position and visibility
                         UpdateFpsOverlayPositionVisibility(foregroundProcess.ExeNameNoExt);
-                        vWindowCrosshair.UpdateCrosshairOverlayPositionVisibility(foregroundProcess.ExeNameNoExt, false);
 
                         //Check if the foreground window is fps overlayer
                         if (vProcessCurrent.Identifier == foregroundProcess.Identifier)
@@ -93,7 +92,7 @@ namespace FpsOverlayer
                             UpdateApplicationName(foregroundProcess.WindowTitleMain);
 
                             //Update windows on change
-                            UpdateWindowsOnChange();
+                            UpdateWindowOnChange();
                         }
 
                         //Update the current target process
@@ -105,16 +104,13 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update windows on change
-        void UpdateWindowsOnChange()
+        //Update window on change
+        void UpdateWindowOnChange()
         {
             try
             {
-                //Update fps window style
-                WindowUpdateStyle(vInteropWindowHandle, true, true, true);
-
-                //Update tools window style
-                WindowUpdateStyle(vWindowTools.vInteropWindowHandle, true, vToolsBlockInteract, vToolsBlockInteract);
+                //Update stats window style
+                WindowUpdateStyle(vInteropWindowHandle, true, true, true, true);
 
                 //Update window position
                 UpdateWindowPosition();

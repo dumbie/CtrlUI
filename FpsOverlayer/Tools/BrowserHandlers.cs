@@ -10,7 +10,7 @@ using static FpsOverlayer.AppVariables;
 using static FpsOverlayer.NotificationFunctions;
 using static LibraryShared.Classes;
 
-namespace FpsOverlayer.ToolsOverlay
+namespace FpsOverlayer
 {
     public partial class WindowTools : Window
     {
