@@ -45,7 +45,7 @@ namespace DirectXInput.KeyboardCode
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
                 //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
+                WindowUpdateStyle(vInteropWindowHandle, true, true, true, false);
 
                 //Update the user interface clock style
                 UpdateClockStyle();
@@ -181,11 +181,11 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                //Wait for change to complete
+                //Wait for resolution change
                 await Task.Delay(2000);
 
                 //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
+                WindowUpdateStyle(vInteropWindowHandle, true, true, true, false);
 
                 //Update window position
                 UpdateWindowPosition();
@@ -209,7 +209,7 @@ namespace DirectXInput.KeyboardCode
                         WindowUpdateVisibility(vInteropWindowHandle, true);
 
                         //Update window style
-                        WindowUpdateStyle(vInteropWindowHandle, true, true, false);
+                        WindowUpdateStyle(vInteropWindowHandle, true, true, true, false);
 
                         this.Title = "DirectXInput Keyboard (Visible)";
                         vWindowVisible = true;

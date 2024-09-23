@@ -153,7 +153,7 @@ namespace CtrlUI
                 {
                     textblock_SettingsAppWindowSize.Text = textblock_SettingsAppWindowSize.Tag + ": " + slider_SettingsAppWindowSize.Value.ToString() + "%";
                     SettingSave(vConfigurationCtrlUI, "AppWindowSize", slider_SettingsAppWindowSize.Value);
-                    WindowUpdateStyle(vInteropWindowHandle, true, false, false);
+                    WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
                     await UpdateWindowPosition(false, true);
                 };
 
@@ -161,7 +161,7 @@ namespace CtrlUI
                 {
                     textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
                     SettingSave(vConfigurationCtrlUI, "DisplayMonitor", slider_SettingsDisplayMonitor.Value);
-                    WindowUpdateStyle(vInteropWindowHandle, true, false, false);
+                    WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
                     await UpdateWindowPosition(true, false);
                 };
 

@@ -18,7 +18,7 @@ namespace CtrlUI
                 //Create backup directory
                 AVFiles.Directory_Create("Backups", false);
 
-                //Cleanup profile backups
+                //Cleanup backups
                 FileInfo[] fileInfo = new DirectoryInfo("Backups").GetFiles("*.zip");
                 foreach (FileInfo backupFile in fileInfo)
                 {
@@ -33,7 +33,7 @@ namespace CtrlUI
                     catch { }
                 }
 
-                //Create profile backup
+                //Create backup
                 string backupTime = DateTime.Now.ToString("yyyyMMddHHmmss") + "-Profiles.zip";
                 ZipFile.CreateFromDirectory("Profiles\\User", "Backups\\" + backupTime);
             }

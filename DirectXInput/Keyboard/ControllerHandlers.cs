@@ -156,7 +156,7 @@ namespace DirectXInput.KeyboardCode
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
 
                                 //Update window style
-                                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
+                                WindowUpdateStyle(vInteropWindowHandle, true, true, true, false);
 
                                 //Check keyboard focus
                                 FocusCheckKeyboard(this, vInteropWindowHandle);
@@ -199,7 +199,7 @@ namespace DirectXInput.KeyboardCode
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
 
                                 //Update window style
-                                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
+                                WindowUpdateStyle(vInteropWindowHandle, true, true, true, false);
 
                                 //Check keyboard focus
                                 FocusCheckKeyboard(this, vInteropWindowHandle);
@@ -242,7 +242,7 @@ namespace DirectXInput.KeyboardCode
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
 
                                 //Update window style
-                                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
+                                WindowUpdateStyle(vInteropWindowHandle, true, true, true, false);
 
                                 //Check keyboard focus
                                 FocusCheckKeyboard(this, vInteropWindowHandle);
@@ -285,7 +285,7 @@ namespace DirectXInput.KeyboardCode
                                 PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
 
                                 //Update window style
-                                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
+                                WindowUpdateStyle(vInteropWindowHandle, true, true, true, false);
 
                                 //Check keyboard focus
                                 FocusCheckKeyboard(this, vInteropWindowHandle);
@@ -316,7 +316,7 @@ namespace DirectXInput.KeyboardCode
                             PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
 
                             //Update window style
-                            WindowUpdateStyle(vInteropWindowHandle, true, true, false);
+                            WindowUpdateStyle(vInteropWindowHandle, true, true, true, false);
 
                             //Check keyboard focus
                             FocusCheckKeyboard(this, vInteropWindowHandle);

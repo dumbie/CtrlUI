@@ -53,7 +53,7 @@ namespace CtrlUI
                     SettingSave(vConfigurationCtrlUI, "DisplayMonitor", "1");
 
                     //Update window style
-                    WindowUpdateStyle(vInteropWindowHandle, true, false, false);
+                    WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
 
                     //Update window position
                     await UpdateWindowPosition(true, false);
@@ -75,7 +75,7 @@ namespace CtrlUI
                 SettingSave(vConfigurationCtrlUI, "DisplayMonitor", monitorNumber.ToString());
 
                 //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, false, false);
+                WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
 
                 //Update window position
                 await UpdateWindowPosition(true, false);

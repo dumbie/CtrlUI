@@ -22,11 +22,11 @@ namespace CtrlUI
         {
             try
             {
-                //Wait for change to complete
+                //Wait for resolution change
                 await Task.Delay(2000);
 
                 //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, false, false);
+                WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
 
                 //Update window position
                 await UpdateWindowPosition(false, true);
@@ -238,7 +238,7 @@ namespace CtrlUI
                 await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, skipNotification, false);
 
                 //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, false, false);
+                WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
 
                 //Update window position
                 await UpdateWindowPosition(false, true);
