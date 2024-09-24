@@ -145,13 +145,15 @@
                         <Button Name="button_Browser_Link" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Browser_Link_Click" ToolTip="Show or hide link menu">
                             <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Link.png"/>
                         </Button>
+                        <Button Name="button_Browser_LinkRefresh" Visibility="Collapsed" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Browser_LinkRefresh_Click" ToolTip="Refresh current page">
+                            <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Refresh.png"/>
+                        </Button>
+                        <Button Name="button_Browser_LinkOpen" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Browser_LinkOpen_Click" ToolTip="Open link in browser">
+                            <Image Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Play.png"/>
+                        </Button>
                     </StackPanel>
 
-                    <Grid Grid.Column="1">
-                        <TextBox Name="textbox_Browser_Link" Style="{StaticResource TextBoxWhite}" Margin="5,0,5,0" TextChanged="textbox_Browser_Link_TextChanged" PreviewKeyUp="textbox_Browser_Link_PreviewKeyUp"/>
-                        <Image Name="button_Browser_LinkRefresh" Visibility="Collapsed" Margin="0,0,8,2" HorizontalAlignment="Right" Cursor="Hand" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Refresh.png" Height="30" PreviewMouseDown="button_Browser_LinkRefresh_MouseDown" ToolTip="Refresh current page"/>
-                        <Image Name="button_Browser_LinkOpen" Margin="0,0,8,2" HorizontalAlignment="Right" Cursor="Hand" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Play.png" Height="30" PreviewMouseDown="button_Browser_LinkOpen_MouseDown" ToolTip="Open link in browser"/>
-                    </Grid>
+                    <TextBox Grid.Column="1" Name="textbox_Browser_Link" Style="{StaticResource TextBoxWhite}" Margin="5,0,5,0" TextChanged="textbox_Browser_Link_TextChanged" PreviewKeyUp="textbox_Browser_Link_PreviewKeyUp"/>
 
                     <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
                         <Button Name="button_Browser_MoveWindow" Cursor="SizeAll" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTip="Move window" PreviewMouseDown="button_Browser_PreviewMouseDown" PreviewMouseMove="button_BrowserMove_PreviewMouseMove">

@@ -87,7 +87,7 @@ namespace FpsOverlayer
         }
 
         //Refresh the current link
-        private void button_Browser_LinkRefresh_MouseDown(object sender, MouseButtonEventArgs e)
+        private void button_Browser_LinkRefresh_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -177,7 +177,7 @@ namespace FpsOverlayer
         }
 
         //Open link from textbox icon
-        private async void button_Browser_LinkOpen_MouseDown(object sender, MouseButtonEventArgs e)
+        private async void button_Browser_LinkOpen_Click(object sender, RoutedEventArgs e)
         {
             try
             {
