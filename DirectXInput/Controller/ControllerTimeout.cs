@@ -27,7 +27,7 @@ namespace DirectXInput
             try
             {
                 //Check if controller is connected and has data
-                if (Controller.Connected() && !Controller.TimeoutIgnore && Controller.ControllerDataInput != null && Controller.TicksInputLast != 0 && Controller.TicksInputPrev != 0)
+                if (Controller.Connected() && !Controller.SupportedCurrent.HasInputOnDemand && !Controller.TimeoutIgnore && Controller.ControllerDataInput != null && Controller.TicksInputLast != 0 && Controller.TicksInputPrev != 0)
                 {
                     long lastMs = GetSystemTicksMs() - Controller.TicksInputLast;
                     if (lastMs > Controller.TicksTargetTimeout)

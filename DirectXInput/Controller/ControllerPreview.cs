@@ -76,7 +76,14 @@ namespace DirectXInput
 
                     //Update latency
                     long latencyMs = Controller.TicksInputLast - Controller.TicksInputPrev;
-                    txt_ActiveControllerLatency.Text = "Latency " + latencyMs + "ms";
+                    if (Controller.SupportedCurrent.HasInputOnDemand)
+                    {
+                        txt_ActiveControllerLatency.Text = "Latency (OD) " + latencyMs + "ms";
+                    }
+                    else
+                    {
+                        txt_ActiveControllerLatency.Text = "Latency " + latencyMs + "ms";
+                    }
 
                     //Update battery
                     if (Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Charging)
