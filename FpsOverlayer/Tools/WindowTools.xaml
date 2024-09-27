@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FpsOverlayer"
+        xmlns:AVStyles="clr-namespace:ArnoldVinkCode.Styles;assembly=ArnoldVinkCode"
         RenderOptions.BitmapScalingMode="HighQuality"
         SnapsToDevicePixels="True"
         mc:Ignorable="d"
@@ -109,7 +110,11 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <ListBox Grid.Row="0" Margin="0,0,0,5" MaxHeight="210" Name="listbox_Link" Style="{StaticResource ListBoxVertical}" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemLink}" SelectionMode="Single" PreviewMouseLeftButtonUp="listbox_Browser_Link_PreviewMouseLeftButtonUp" PreviewMouseRightButtonUp="listbox_Browser_Link_PreviewMouseRightButtonUp"/>
+                    <ListBox Grid.Row="0" Name="listbox_Link" Margin="0,0,0,5" MaxHeight="210" Style="{StaticResource ListBoxVertical}" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemLink}" SelectionMode="Single" PreviewMouseLeftButtonUp="listbox_Browser_Link_PreviewMouseLeftButtonUp" PreviewMouseRightButtonUp="listbox_Browser_Link_PreviewMouseRightButtonUp">
+                        <ListBox.Width>
+                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}"/>
+                        </ListBox.Width>
+                    </ListBox>
 
                     <StackPanel Grid.Row="1">
                         <Button Name="button_Browser_AddLink" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Browser_AddLink_Click">
@@ -153,7 +158,7 @@
                         </Button>
                     </StackPanel>
 
-                    <TextBox Grid.Column="1" Name="textbox_Browser_Link" Style="{StaticResource TextBoxWhite}" Margin="5,0,5,0" TextChanged="textbox_Browser_Link_TextChanged" PreviewKeyUp="textbox_Browser_Link_PreviewKeyUp"/>
+                    <AVStyles:TextBoxNoResize Grid.Column="1" Name="textbox_Browser_Link" Style="{StaticResource TextBoxWhite}" Margin="5,0,5,0" TextChanged="textbox_Browser_Link_TextChanged" PreviewKeyUp="textbox_Browser_Link_PreviewKeyUp"/>
 
                     <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
                         <Button Name="button_Browser_MoveWindow" Cursor="SizeAll" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTip="Move window" PreviewMouseDown="button_Browser_PreviewMouseDown" PreviewMouseMove="button_BrowserMove_PreviewMouseMove">
