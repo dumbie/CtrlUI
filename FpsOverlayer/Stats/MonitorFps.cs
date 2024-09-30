@@ -42,7 +42,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        void UpdateFpsVisibility()
+        bool UpdateFpsVisibility()
         {
             try
             {
@@ -54,6 +54,8 @@ namespace FpsOverlayer
                         stackpanel_CurrentFrametime.Visibility = Visibility.Collapsed;
                         stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
                     });
+
+                    return false;
                 }
                 else
                 {
@@ -82,6 +84,7 @@ namespace FpsOverlayer
                 }
             }
             catch { }
+            return true;
         }
 
         async Task UpdateStatsFps()
@@ -93,7 +96,10 @@ namespace FpsOverlayer
                     try
                     {
                         //Update fps visibility
-                        UpdateFpsVisibility();
+                        if (!UpdateFpsVisibility())
+                        {
+                            continue;
+                        }
 
                         //Calculate the current fps (1sec)
                         double CurrentFrameTimes = vListFrameTimes.Take(100).Average();

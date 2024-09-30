@@ -13,6 +13,9 @@ namespace FpsOverlayer
             {
                 if (border_Browser.Visibility == Visibility.Visible)
                 {
+                    //Reset browser interface
+                    Browser_Reset_Interface(string.Empty, false);
+
                     //Switch visibility
                     border_Browser.Visibility = Visibility.Collapsed;
 

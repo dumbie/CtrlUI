@@ -46,8 +46,8 @@ namespace FpsOverlayer
                 //Bind lists to the listbox elements
                 ListBoxBindLists();
 
-                //Reset browser interface to defaults
-                Browser_Reset_Interface(string.Empty);
+                //Reset browser interface
+                Browser_Reset_Interface(string.Empty, true);
 
                 //Show or hide certain tools
                 ShowHide_Tools();
@@ -71,9 +71,6 @@ namespace FpsOverlayer
             {
                 //Update the window visibility
                 UpdateWindowVisibility(false);
-
-                //Remove browser from grid
-                Browser_Remove_Grid(string.Empty);
             }
             catch { }
         }

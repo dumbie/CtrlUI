@@ -60,38 +60,10 @@ namespace FpsOverlayer
             }
             catch (Exception ex)
             {
-                //Remove browser from grid
-                Browser_Remove_Grid("Error: " + ex.Message);
                 Debug.WriteLine("Failed to add browser: " + ex.Message);
-            }
-        }
-
-        //Remove browser from grid
-        private void Browser_Remove_Grid(string errorMessage)
-        {
-            try
-            {
-                //Check unload setting
-                if (!SettingLoad(vConfigurationFpsOverlayer, "BrowserUnload", typeof(bool)))
-                {
-                    return;
-                }
-
-                //Dispose webviewer
-                if (vBrowserWebView != null)
-                {
-                    vBrowserWebView.Dispose();
-                    vBrowserWebView = null;
-                }
 
                 //Reset browser interface
-                Browser_Reset_Interface(errorMessage);
-
-                Debug.WriteLine("Removed browser from grid.");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to remove browser: " + ex.Message);
+                Browser_Reset_Interface("Error: " + ex.Message, true);
             }
         }
 
@@ -124,22 +96,35 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Reset browser interface
-        public void Browser_Reset_Interface(string browserError)
+        //Reset browser interface and variables
+        public void Browser_Reset_Interface(string errorMessage, bool forceUnload)
         {
             try
             {
-                //Clear browser grid
-                grid_Browser.Children.Clear();
+                //Check unload setting
+                if (forceUnload || SettingLoad(vConfigurationFpsOverlayer, "BrowserUnload", typeof(bool)))
+                {
+                    Debug.WriteLine("Resetting browser interface and variables.");
 
-                //Show link hint grid
-                grid_Browser_LinkHint.Visibility = Visibility.Visible;
+                    //Clear browser grid
+                    grid_Browser.Children.Clear();
 
-                //Reset current link
-                textbox_Browser_Link.Text = string.Empty;
+                    //Dispose webviewer
+                    if (vBrowserWebView != null)
+                    {
+                        vBrowserWebView.Dispose();
+                        vBrowserWebView = null;
+                    }
 
-                //Set error text
-                textblock_Browser_Error.Text = browserError;
+                    //Show link hint grid
+                    grid_Browser_LinkHint.Visibility = Visibility.Visible;
+
+                    //Reset current link
+                    textbox_Browser_Link.Text = string.Empty;
+
+                    //Set error text
+                    textblock_Browser_Error.Text = errorMessage;
+                }
             }
             catch { }
         }

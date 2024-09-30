@@ -32,6 +32,10 @@ namespace FpsOverlayer
                 }
                 else
                 {
+                    //Reset browser interface
+                    Browser_Reset_Interface(string.Empty, false);
+
+                    //Hide browser overlay
                     border_Browser.Visibility = Visibility.Collapsed;
                 }
             }
@@ -52,6 +56,10 @@ namespace FpsOverlayer
                     }
                     else if (overlayVisible)
                     {
+                        //Reset browser interface
+                        Browser_Reset_Interface(string.Empty, false);
+
+                        //Hide tools overlay
                         grid_ToolsOverlayer.Visibility = Visibility.Collapsed;
                     }
                     else
