@@ -181,6 +181,7 @@ namespace FpsOverlayer
         {
             try
             {
+                //Check if string is empty
                 if (string.IsNullOrWhiteSpace(textbox_Browser_Link.Text))
                 {
                     await Notification_Send_Status("Browser", "Please enter a link");
@@ -208,13 +209,18 @@ namespace FpsOverlayer
         {
             try
             {
-                string websiteLink = textbox_Browser_Link.Text;
-                if (!string.IsNullOrWhiteSpace(websiteLink))
+                //Check if string is empty
+                if (string.IsNullOrWhiteSpace(textbox_Browser_Link.Text))
                 {
-                    Clipboard.SetText(websiteLink);
-                    await Notification_Send_Status("Paste", "Link copied to clipboard");
-                    Debug.WriteLine("Link copied to clipboard: " + websiteLink);
+                    await Notification_Send_Status("Browser", "Website link is empty");
+                    return;
                 }
+
+                //Set clipboard text
+                Clipboard.SetText(textbox_Browser_Link.Text);
+
+                await Notification_Send_Status("Paste", "Link copied to clipboard");
+                Debug.WriteLine("Link copied to clipboard: " + textbox_Browser_Link.Text);
             }
             catch { }
         }
@@ -225,30 +231,37 @@ namespace FpsOverlayer
             try
             {
                 string websiteLink = textbox_Browser_Link.Text;
-                if (!string.IsNullOrWhiteSpace(websiteLink))
+
+                //Check if string is empty
+                if (string.IsNullOrWhiteSpace(websiteLink))
                 {
-                    //Check if string is valid link
-                    websiteLink = StringLinkCleanup(websiteLink);
-                    if (!StringLinkValidate(websiteLink))
-                    {
-                        await Notification_Send_Status("Browser", "Invalid link entered");
-                        return;
-                    }
-
-                    //Check if link already exists
-                    if (vFpsBrowserLinks.Any(x => x.String1.ToLower().Replace("/", "") == websiteLink.ToLower().Replace("/", "")))
-                    {
-                        await Notification_Send_Status("Browser", "Link already exists");
-                        return;
-                    }
-
-                    //Add text string to the list
-                    ProfileShared profileShared = new ProfileShared();
-                    profileShared.String1 = websiteLink;
-                    vFpsBrowserLinks.Add(profileShared);
-                    JsonSaveObject(vFpsBrowserLinks, @"Profiles\User\FpsBrowserLinks.json");
-                    Debug.WriteLine("Link added to menu: " + websiteLink);
+                    await Notification_Send_Status("Browser", "Please enter a link");
+                    return;
                 }
+
+                //Cleanup string link
+                websiteLink = StringLinkCleanup(websiteLink);
+
+                //Check if string is valid link
+                if (!StringLinkValidate(websiteLink))
+                {
+                    await Notification_Send_Status("Browser", "Invalid link entered");
+                    return;
+                }
+
+                //Check if link already exists
+                if (vFpsBrowserLinks.Any(x => x.String1.ToLower().Replace("/", "") == websiteLink.ToLower().Replace("/", "")))
+                {
+                    await Notification_Send_Status("Browser", "Link already exists");
+                    return;
+                }
+
+                //Add text string to the list
+                ProfileShared profileShared = new ProfileShared();
+                profileShared.String1 = websiteLink;
+                vFpsBrowserLinks.Add(profileShared);
+                JsonSaveObject(vFpsBrowserLinks, @"Profiles\User\FpsBrowserLinks.json");
+                Debug.WriteLine("Link added to menu: " + websiteLink);
             }
             catch { }
         }
