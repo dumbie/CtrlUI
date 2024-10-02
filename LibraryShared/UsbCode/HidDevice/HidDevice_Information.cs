@@ -220,6 +220,9 @@ namespace LibraryUsb
         {
             try
             {
+                //Check if device has attributes
+                if (Attributes == null) { return false; }
+
                 byte[] data = new byte[254];
                 HidD_GetProductString(FileHandle, ref data[0], data.Length);
                 string productNameString = data.ToUTF16String().Replace("\0", string.Empty);
@@ -246,6 +249,9 @@ namespace LibraryUsb
         {
             try
             {
+                //Check if device has attributes
+                if (Attributes == null) { return false; }
+
                 byte[] data = new byte[254];
                 HidD_GetManufacturerString(FileHandle, ref data[0], data.Length);
                 string vendorNameString = data.ToUTF16String().Replace("\0", string.Empty);
@@ -272,6 +278,9 @@ namespace LibraryUsb
         {
             try
             {
+                //Check if device has attributes
+                if (Attributes == null) { return false; }
+
                 byte[] data = new byte[254];
                 HidD_GetSerialNumberString(FileHandle, ref data[0], data.Length);
                 string serialNumberString = data.ToUTF16String().Replace("\0", string.Empty);
