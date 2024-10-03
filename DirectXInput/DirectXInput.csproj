@@ -39,6 +39,9 @@
 		<Content Include="Profiles\Default\DirectControllersSupported\8BitDoPro2.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Profiles\Default\DirectControllersSupported\MicrosoftXboxOneS.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Profiles\Default\DirectControllersSupported\NintendoSwitchPro.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
