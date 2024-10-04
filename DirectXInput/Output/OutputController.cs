@@ -81,7 +81,25 @@ namespace DirectXInput
                 }
 
                 //Check which controller is connected
-                if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && Controller.Details.Wireless)
+                if (Controller.SupportedCurrent.CodeName == "MicrosoftXboxOneS" && Controller.Details.Wireless)
+                {
+                    //Bluetooth Output - MicrosoftXboxOneS
+                    byte[] outputReport = new byte[9];
+                    outputReport[0] = 0x03; //Report identifier
+                    outputReport[1] = 0x0F; //Rumble mode
+                    outputReport[2] = 0x00; //Left trigger
+                    outputReport[3] = 0x00; //Right trigger
+                    outputReport[4] = controllerRumbleHeavy; //Heavy rumble
+                    outputReport[5] = controllerRumbleLight; //Light rumble
+                    outputReport[6] = 0xFF;
+                    outputReport[7] = 0x00;
+                    outputReport[8] = 0x01;
+
+                    //Send data to the controller
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
+                    Debug.WriteLine("BlueRumb MicrosoftXboxOneS: " + bytesWritten);
+                }
+                else if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - SonyPS5DualSense
                     byte[] outputReport = new byte[75];
