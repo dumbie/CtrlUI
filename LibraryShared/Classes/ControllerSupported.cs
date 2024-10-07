@@ -8,7 +8,6 @@
             public string[] ProductIDs { get; set; }
             public string VendorID { get; set; }
             public bool HasInputOnDemand { get; set; }
-            public bool HasDirectDPad { get; set; }
             public bool HasRumbleMode { get; set; }
             public bool HasRumbleTrigger { get; set; }
             public bool HasLedStatus { get; set; }
@@ -17,10 +16,13 @@
             public int OffsetWired { get; set; }
             public int OffsetWireless { get; set; }
             public ClassOffsetHeader OffsetHeader { get; set; } = new ClassOffsetHeader();
+            public ClassOffsetDPad OffsetDPad { get; set; } = new ClassOffsetDPad();
             public ClassOffsetButton OffsetButton { get; set; } = new ClassOffsetButton();
 
             public class ClassOffsetHeader
             {
+                public int? DPadLeft { get; set; }
+                public int? DPadRight { get; set; }
                 public int? ThumbLeftX { get; set; }
                 public int? ThumbLeftY { get; set; }
                 public int? ThumbLeftZ { get; set; }
@@ -37,16 +39,24 @@
                 public int? Checksum { get; set; }
             }
 
+            public class ClassOffsetDPad
+            {
+                public int? DPadN { get; set; }
+                public int? DPadNE { get; set; }
+                public int? DPadE { get; set; }
+                public int? DPadSE { get; set; }
+                public int? DPadS { get; set; }
+                public int? DPadSW { get; set; }
+                public int? DPadW { get; set; }
+                public int? DPadNW { get; set; }
+            }
+
             public class ClassOffsetButton
             {
                 public ClassButtonDetails A { get; set; }
                 public ClassButtonDetails B { get; set; }
                 public ClassButtonDetails X { get; set; }
                 public ClassButtonDetails Y { get; set; }
-                public ClassButtonDetails DPadLeft { get; set; }
-                public ClassButtonDetails DPadRight { get; set; }
-                public ClassButtonDetails DPadUp { get; set; }
-                public ClassButtonDetails DPadDown { get; set; }
                 public ClassButtonDetails ShoulderLeft { get; set; }
                 public ClassButtonDetails ShoulderRight { get; set; }
                 public ClassButtonDetails TriggerLeft { get; set; }
@@ -66,8 +76,8 @@
 
             public class ClassButtonDetails
             {
-                public int Group { get; set; }
-                public int Offset { get; set; }
+                public int? Group { get; set; }
+                public int? Offset { get; set; }
             }
         }
     }

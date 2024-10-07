@@ -2,10 +2,10 @@
   "CodeName": "NintendoSwitchPro",
   "ProductIDs": [ "0x2009" ],
   "VendorID": "0x057e",
-  "HasDirectDPad": true,
   "OffsetWired": 1,
   "OffsetWireless": 1,
   "OffsetHeader": {
+    "DPadLeft": 4,
     "ThumbLeftX": 5,
     "ThumbLeftY": 6,
     "ThumbLeftZ": 7,
@@ -17,6 +17,16 @@
     "Gyroscope": 18,
     "Accelerometer": 12,
     "BatteryLevel": 1
+  },
+  "OffsetDPad": {
+    "DPadN": 2,
+    "DPadNE": 6,
+    "DPadE": 4,
+    "DPadSE": 5,
+    "DPadS": 1,
+    "DPadSW": 9,
+    "DPadW": 8,
+    "DPadNW": 10
   },
   "OffsetButton": {
     "A": {
@@ -34,22 +44,6 @@
     "Y": {
       "Group": 2,
       "Offset": 1
-    },
-    "DPadLeft": {
-      "Group": 4,
-      "Offset": 3
-    },
-    "DPadRight": {
-      "Group": 4,
-      "Offset": 2
-    },
-    "DPadUp": {
-      "Group": 4,
-      "Offset": 1
-    },
-    "DPadDown": {
-      "Group": 4,
-      "Offset": 0
     },
     "ShoulderLeft": {
       "Group": 4,

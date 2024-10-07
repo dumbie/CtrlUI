@@ -3,16 +3,25 @@
   "ProductIDs": [ "0x02e0" ],
   "VendorID": "0x045e",
   "HasInputOnDemand": true,
-  "HasDirectDPad": true,
-  "OffsetWired": 1,
   "OffsetWireless": 1,
   "OffsetHeader": {
+    "DPadLeft": 12,
     "ThumbLeftX": 1,
     "ThumbLeftY": 3,
     "ThumbRightX": 5,
     "ThumbRightY": 7,
     "TriggerLeft": 8,
     "TriggerRight": 10
+  },
+  "OffsetDPad": {
+    "DPadN": 1,
+    "DPadNE": 2,
+    "DPadE": 3,
+    "DPadSE": 4,
+    "DPadS": 5,
+    "DPadSW": 6,
+    "DPadW": 7,
+    "DPadNW": 8
   },
   "OffsetButton": {
     "A": {
@@ -29,22 +38,6 @@
     },
     "Y": {
       "Group": 13,
-      "Offset": 3
-    },
-    "DPadLeft": {
-      "Group": 12,
-      "Offset": 0
-    },
-    "DPadRight": {
-      "Group": 12,
-      "Offset": 1
-    },
-    "DPadUp": {
-      "Group": 12,
-      "Offset": 2
-    },
-    "DPadDown": {
-      "Group": 12,
       "Offset": 3
     },
     "ShoulderLeft": {

@@ -11,76 +11,75 @@ namespace DirectXInput
         {
             try
             {
-                if (controller.SupportedCurrent.OffsetButton.DPadLeft != null)
+                //Set controller header offset
+                int headerOffset = controller.Details.Wireless ? controller.SupportedCurrent.OffsetWireless : controller.SupportedCurrent.OffsetWired;
+
+                //Get left DPad state
+                if (controller.SupportedCurrent.OffsetHeader.DPadLeft != null)
                 {
-                    //Set controller header offset
-                    int headerOffset = controller.Details.Wireless ? controller.SupportedCurrent.OffsetWireless : controller.SupportedCurrent.OffsetWired;
-
-                    //Get DPad state
-                    bool DPadStateLeft = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.DPadLeft.Group] & (1 << controller.SupportedCurrent.OffsetButton.DPadLeft.Offset)) != 0;
-                    bool DPadStateRight = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.DPadRight.Group] & (1 << controller.SupportedCurrent.OffsetButton.DPadRight.Offset)) != 0;
-                    bool DPadStateUp = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.DPadUp.Group] & (1 << controller.SupportedCurrent.OffsetButton.DPadUp.Offset)) != 0;
-                    bool DPadStateDown = (controller.ControllerDataInput[headerOffset + controller.SupportedCurrent.OffsetButton.DPadDown.Group] & (1 << controller.SupportedCurrent.OffsetButton.DPadDown.Offset)) != 0;
-                    int DPadStateAll = (DPadStateLeft ? 1 : 0) << 0 | (DPadStateRight ? 1 : 0) << 1 | (DPadStateUp ? 1 : 0) << 2 | (DPadStateDown ? 1 : 0) << 3;
-
-                    //Check DPad type
-                    if (controller.SupportedCurrent.HasDirectDPad)
+                    int dPadLeftRaw = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.DPadLeft];
+                    if (dPadLeftRaw == controller.SupportedCurrent.OffsetDPad.DPadN)
                     {
-                        if (controller.Details.Profile.DPadFourWayMovement)
-                        {
-                            switch (DPadStateAll)
-                            {
-                                case 1: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 2: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = true; break;
-                                case 4: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 8: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                default: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                            }
-                        }
-                        else
-                        {
-                            switch (DPadStateAll)
-                            {
-                                case 1: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 2: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = true; break;
-                                case 4: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 8: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 5: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 6: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = true; break;
-                                case 9: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 10: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = true; break;
-                                default: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                            }
-                        }
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = true;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false;
+                    }
+                    else if (!controller.Details.Profile.DPadFourWayMovement && dPadLeftRaw == controller.SupportedCurrent.OffsetDPad.DPadNE)
+                    {
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = true;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = true;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false;
+                    }
+                    else if (dPadLeftRaw == controller.SupportedCurrent.OffsetDPad.DPadE)
+                    {
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = true;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false;
+                    }
+                    else if (!controller.Details.Profile.DPadFourWayMovement && dPadLeftRaw == controller.SupportedCurrent.OffsetDPad.DPadSE)
+                    {
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = true;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = true;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false;
+                    }
+                    else if (dPadLeftRaw == controller.SupportedCurrent.OffsetDPad.DPadS)
+                    {
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = true;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false;
+                    }
+                    else if (!controller.Details.Profile.DPadFourWayMovement && dPadLeftRaw == controller.SupportedCurrent.OffsetDPad.DPadSW)
+                    {
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = true;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = true;
+                    }
+                    else if (dPadLeftRaw == controller.SupportedCurrent.OffsetDPad.DPadW)
+                    {
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = true;
+                    }
+                    else if (!controller.Details.Profile.DPadFourWayMovement && dPadLeftRaw == controller.SupportedCurrent.OffsetDPad.DPadNW)
+                    {
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = true;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = true;
                     }
                     else
                     {
-                        if (controller.Details.Profile.DPadFourWayMovement)
-                        {
-                            switch (DPadStateAll)
-                            {
-                                case 0: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 2: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = true; break;
-                                case 4: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 6: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                default: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                            }
-                        }
-                        else
-                        {
-                            switch (DPadStateAll)
-                            {
-                                case 0: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 2: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = true; break;
-                                case 4: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 6: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 1: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = true; break;
-                                case 3: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = true; break;
-                                case 5: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                case 7: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = true; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                                default: controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false; controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false; break;
-                            }
-                        }
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadUp].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadRight].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadDown].PressedRaw = false;
+                        controller.InputCurrent.Buttons[(byte)ControllerButtons.DPadLeft].PressedRaw = false;
                     }
                 }
 

@@ -6,6 +6,7 @@
   "OffsetWireless": 3,
   "HasLedStatus": true,
   "OffsetHeader": {
+    "DPadLeft": 4,
     "ThumbLeftX": 0,
     "ThumbLeftY": 1,
     "ThumbRightX": 2,
@@ -17,6 +18,16 @@
     "Accelerometer": 18,
     "BatteryLevel": 29,
     "Checksum": 71
+  },
+  "OffsetDPad": {
+    "DPadN": 0,
+    "DPadNE": 1,
+    "DPadE": 2,
+    "DPadSE": 3,
+    "DPadS": 4,
+    "DPadSW": 5,
+    "DPadW": 6,
+    "DPadNW": 7
   },
   "OffsetButton": {
     "A": {
@@ -34,22 +45,6 @@
     "Y": {
       "Group": 4,
       "Offset": 7
-    },
-    "DPadLeft": {
-      "Group": 4,
-      "Offset": 0
-    },
-    "DPadRight": {
-      "Group": 4,
-      "Offset": 1
-    },
-    "DPadUp": {
-      "Group": 4,
-      "Offset": 2
-    },
-    "DPadDown": {
-      "Group": 4,
-      "Offset": 3
     },
     "ShoulderLeft": {
       "Group": 5,

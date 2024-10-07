@@ -5,6 +5,7 @@
   "OffsetWired": 1,
   "OffsetWireless": 1,
   "OffsetHeader": {
+    "DPadLeft": 0,
     "ThumbLeftX": 1,
     "ThumbLeftY": 2,
     "ThumbRightX": 3,
@@ -12,6 +13,16 @@
     "TriggerLeft": 6,
     "TriggerRight": 5,
     "BatteryLevel": 9
+  },
+  "OffsetDPad": {
+    "DPadN": 0,
+    "DPadNE": 1,
+    "DPadE": 2,
+    "DPadSE": 3,
+    "DPadS": 4,
+    "DPadSW": 5,
+    "DPadW": 6,
+    "DPadNW": 7
   },
   "OffsetButton": {
     "A": {
@@ -28,22 +39,6 @@
     },
     "Y": {
       "Group": 7,
-      "Offset": 3
-    },
-    "DPadLeft": {
-      "Group": 0,
-      "Offset": 0
-    },
-    "DPadRight": {
-      "Group": 0,
-      "Offset": 1
-    },
-    "DPadUp": {
-      "Group": 0,
-      "Offset": 2
-    },
-    "DPadDown": {
-      "Group": 0,
       "Offset": 3
     },
     "ShoulderLeft": {
