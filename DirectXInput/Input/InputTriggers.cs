@@ -17,7 +17,18 @@ namespace DirectXInput
                 //Read analog triggers
                 if (!controller.Details.Profile.UseButtonTriggers && controller.SupportedCurrent.OffsetHeader.TriggerLeft != null)
                 {
-                    int triggerLeftBytes = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerLeft];
+                    //Check Microsoft Xbox controller
+                    int triggerLeftBytes = 0;
+                    if (controller.SupportedCurrent.CodeName == "MicrosoftXboxOneS")
+                    {
+                        int triggerLeftRaw = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerLeft];
+                        int triggerLeftRange = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerLeft + 1];
+                        triggerLeftBytes = ((triggerLeftRange * 255) + triggerLeftRaw) / 4;
+                    }
+                    else
+                    {
+                        triggerLeftBytes = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerLeft];
+                    }
 
                     //Check the triggers deadzone
                     if (controller.Details.Profile.DeadzoneTriggerLeft != 0)
@@ -41,7 +52,18 @@ namespace DirectXInput
 
                 if (!controller.Details.Profile.UseButtonTriggers && controller.SupportedCurrent.OffsetHeader.TriggerRight != null)
                 {
-                    int triggerRightBytes = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerRight];
+                    //Check Microsoft Xbox controller
+                    int triggerRightBytes = 0;
+                    if (controller.SupportedCurrent.CodeName == "MicrosoftXboxOneS")
+                    {
+                        int triggerRightRaw = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerRight];
+                        int triggerRightRange = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerRight + 1];
+                        triggerRightBytes = ((triggerRightRange * 255) + triggerRightRaw) / 4;
+                    }
+                    else
+                    {
+                        triggerRightBytes = controller.ControllerDataInput[headerOffset + (int)controller.SupportedCurrent.OffsetHeader.TriggerRight];
+                    }
 
                     //Check the triggers deadzone
                     if (controller.Details.Profile.DeadzoneTriggerRight != 0)
