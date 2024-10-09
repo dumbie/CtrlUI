@@ -17,6 +17,7 @@ namespace DirectXInput
                 //Check if controller is connected
                 if (!controller.Connected())
                 {
+                    controller.ReadFailureCount++;
                     Debug.WriteLine("Read input controller is not connected: " + controller.NumberId);
                     AVHighResDelay.Delay(0.1F);
                     return;
@@ -27,6 +28,7 @@ namespace DirectXInput
                 {
                     if (!controller.HidDevice.ReadBytesFile(controller.ControllerDataInput))
                     {
+                        controller.ReadFailureCount++;
                         Debug.WriteLine("Failed to read input data from hid controller: " + controller.NumberId);
                         AVHighResDelay.Delay(0.1F);
                         return;
@@ -36,6 +38,7 @@ namespace DirectXInput
                 {
                     if (!controller.WinUsbDevice.ReadBytesIntPipe(controller.ControllerDataInput))
                     {
+                        controller.ReadFailureCount++;
                         Debug.WriteLine("Failed to read input data from win controller: " + controller.NumberId);
                         AVHighResDelay.Delay(0.1F);
                         return;
@@ -45,6 +48,7 @@ namespace DirectXInput
                 //Validate controller input data
                 if (!InputValidateData(controller))
                 {
+                    controller.ReadFailureCount++;
                     Debug.WriteLine("Invalid input data read from controller: " + controller.NumberId);
                     AVHighResDelay.Delay(0.1F);
                     return;
@@ -52,6 +56,9 @@ namespace DirectXInput
 
                 //Update read status
                 controller.ControllerDataRead = true;
+
+                //Update read failure count
+                controller.ReadFailureCount = 0;
 
                 //Update Thumbsticks
                 InputUpdateThumbsticks(controller);

@@ -27,14 +27,26 @@ namespace DirectXInput
             try
             {
                 //Check if controller is connected and has data
-                if (Controller.Connected() && !Controller.SupportedCurrent.HasInputOnDemand && !Controller.TimeoutIgnore && Controller.ControllerDataInput != null && Controller.TicksInputLast != 0 && Controller.TicksInputPrev != 0)
+                if (Controller.Connected() && !Controller.TimeoutIgnore && Controller.ControllerDataInput != null && Controller.TicksInputLast != 0 && Controller.TicksInputPrev != 0)
                 {
-                    long lastMs = GetSystemTicksMs() - Controller.TicksInputLast;
-                    if (lastMs > Controller.TicksTargetTimeout)
+                    if (Controller.SupportedCurrent.HasInputOnDemand)
                     {
-                        Debug.WriteLine("Controller " + Controller.NumberId + " has timed out: " + lastMs + "/" + Controller.TicksTargetTimeout + "ms.");
-                        await StopController(Controller, "timeout", "Disconnected timed out controller " + Controller.NumberId);
-                        return true;
+                        if (Controller.ReadFailureCount > Controller.ReadFailureCountTarget)
+                        {
+                            Debug.WriteLine("Controller " + Controller.NumberId + " has timed out: " + Controller.ReadFailureCount + " failures.");
+                            await StopController(Controller, "timeout", "Disconnected timed out controller " + Controller.NumberId);
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        long lastMs = GetSystemTicksMs() - Controller.TicksInputLast;
+                        if (lastMs > Controller.TicksTimeoutTarget)
+                        {
+                            Debug.WriteLine("Controller " + Controller.NumberId + " has timed out: " + lastMs + "/" + Controller.TicksTimeoutTarget + "ms.");
+                            await StopController(Controller, "timeout", "Disconnected timed out controller " + Controller.NumberId);
+                            return true;
+                        }
                     }
                 }
             }
