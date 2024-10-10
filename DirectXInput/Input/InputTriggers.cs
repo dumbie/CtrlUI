@@ -86,12 +86,12 @@ namespace DirectXInput
                 }
 
                 //Read digital triggers
-                if (controller.Details.Profile.UseButtonTriggers || controller.InputCurrent.TriggerLeft == 0)
+                if (controller.Details.Profile.UseButtonTriggers || controller.SupportedCurrent.OffsetHeader.TriggerLeft == null || controller.InputCurrent.TriggerLeft == 0)
                 {
                     if (controller.InputCurrent.Buttons[(int)ControllerButtons.TriggerLeft].PressedRaw) { controller.InputCurrent.TriggerLeft = 255; } else { controller.InputCurrent.TriggerLeft = 0; }
                 }
 
-                if (controller.Details.Profile.UseButtonTriggers || controller.InputCurrent.TriggerRight == 0)
+                if (controller.Details.Profile.UseButtonTriggers || controller.SupportedCurrent.OffsetHeader.TriggerRight == null || controller.InputCurrent.TriggerRight == 0)
                 {
                     if (controller.InputCurrent.Buttons[(int)ControllerButtons.TriggerRight].PressedRaw) { controller.InputCurrent.TriggerRight = 255; } else { controller.InputCurrent.TriggerRight = 0; }
                 }
