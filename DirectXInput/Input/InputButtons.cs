@@ -11,7 +11,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Read controller button data switch
-        private static bool ReadButtonDataSwitch(ControllerStatus controller, ControllerButtons controllerButton)
+        private static ButtonPressStatus ReadButtonDataSwitch(ControllerStatus controller, ControllerButtons controllerButton)
         {
             try
             {
@@ -39,13 +39,14 @@ namespace DirectXInput
                         return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.ThumbLeft);
                     case ControllerButtons.ThumbRight:
                         return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.ThumbRight);
-                    //Buttons (Back, Start, Guide and others)
+                    //Buttons (Back, Start, Guide)
                     case ControllerButtons.Back:
                         return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Back);
                     case ControllerButtons.Start:
                         return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Start);
                     case ControllerButtons.Guide:
                         return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.Guide);
+                    //Buttons (Others)
                     case ControllerButtons.One:
                         return ReadButtonDataRaw(controller, controller.SupportedCurrent.OffsetButton.One);
                     case ControllerButtons.Two:
@@ -61,44 +62,68 @@ namespace DirectXInput
                 }
             }
             catch { }
-            return false;
+            return ButtonPressStatus.Ignore;
         }
 
         //Read controller button data raw
-        private static bool ReadButtonDataRaw(ControllerStatus controller, ClassButtonDetails button)
+        private static ButtonPressStatus ReadButtonDataRaw(ControllerStatus controller, ClassButtonDetails button)
         {
             try
             {
                 if (button != null)
                 {
+                    //Check if controller header matches
+                    if (button.Header != null)
+                    {
+                        //Fix change to byte array check (SequenceEqual)
+                        byte headerBytes = controller.ControllerDataInput[0];
+                        if (headerBytes != button.Header)
+                        {
+                            return ButtonPressStatus.Ignore;
+                        }
+                    }
+
                     //Set controller header offset
                     int headerOffset = controller.Details.Wireless ? controller.SupportedCurrent.OffsetWireless : controller.SupportedCurrent.OffsetWired;
 
                     //Check if controller button is pressed
-                    return (controller.ControllerDataInput[headerOffset + button.Group] & (1 << button.Offset)) != 0;
+                    if ((controller.ControllerDataInput[headerOffset + (int)button.Group] & (1 << button.Offset)) != 0)
+                    {
+                        return ButtonPressStatus.Pressed;
+                    }
+                    else
+                    {
+                        return ButtonPressStatus.Released;
+                    }
                 }
             }
             catch { }
-            return false;
+            return ButtonPressStatus.Ignore;
         }
 
-        private static bool UpdateButtonData(ControllerStatus controller, ControllerButtons controllerButton, ControllerButtons? controllerMapping)
+        private static void UpdateButtonData(ControllerStatus controller, ControllerButtons controllerButton, ControllerButtons? controllerMapping)
         {
             try
             {
                 //Check controller mapping status
                 if (vMappingControllerStatus == MappingStatus.Mapping || controllerMapping == null)
                 {
-                    controller.InputCurrent.Buttons[(byte)controllerButton].PressedRaw = ReadButtonDataSwitch(controller, controllerButton);
+                    ButtonPressStatus readButtonData = ReadButtonDataSwitch(controller, controllerButton);
+                    if (readButtonData != ButtonPressStatus.Ignore)
+                    {
+                        controller.InputCurrent.Buttons[(byte)controllerButton].PressedRaw = readButtonData == ButtonPressStatus.Pressed;
+                    }
                 }
                 else
                 {
-                    controller.InputCurrent.Buttons[(byte)controllerButton].PressedRaw = ReadButtonDataSwitch(controller, (ControllerButtons)controllerMapping);
+                    ButtonPressStatus readButtonData = ReadButtonDataSwitch(controller, (ControllerButtons)controllerMapping);
+                    if (readButtonData != ButtonPressStatus.Ignore)
+                    {
+                        controller.InputCurrent.Buttons[(byte)controllerButton].PressedRaw = readButtonData == ButtonPressStatus.Pressed;
+                    }
                 }
-                return true;
             }
             catch { }
-            return false;
         }
 
         private static bool InputUpdateButtons(ControllerStatus controller)
@@ -119,10 +144,12 @@ namespace DirectXInput
                 UpdateButtonData(controller, ControllerButtons.ThumbLeft, controller.Details.Profile.ButtonThumbLeft);
                 UpdateButtonData(controller, ControllerButtons.ThumbRight, controller.Details.Profile.ButtonThumbRight);
 
-                //Buttons (Back, Start, Guide and others)
+                //Buttons (Back, Start, Guide)
                 UpdateButtonData(controller, ControllerButtons.Back, controller.Details.Profile.ButtonBack);
                 UpdateButtonData(controller, ControllerButtons.Start, controller.Details.Profile.ButtonStart);
                 UpdateButtonData(controller, ControllerButtons.Guide, controller.Details.Profile.ButtonGuide);
+
+                //Buttons (Others)
                 UpdateButtonData(controller, ControllerButtons.One, controller.Details.Profile.ButtonOne);
                 UpdateButtonData(controller, ControllerButtons.Two, controller.Details.Profile.ButtonTwo);
                 UpdateButtonData(controller, ControllerButtons.Three, controller.Details.Profile.ButtonThree);

@@ -76,6 +76,7 @@
 
             public class ClassButtonDetails
             {
+                public int? Header { get; set; }
                 public int? Group { get; set; }
                 public int? Offset { get; set; }
             }

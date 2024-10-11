@@ -28,6 +28,7 @@ namespace DirectXInput
                 }
 
                 //Check if guide button is exclusive and needs to be blocked
+                //Fix HasInputOnDemand button press time
                 if (controller.InputCurrent.Buttons[(byte)ControllerButtons.Guide].PressedRaw && SettingLoad(vConfigurationDirectXInput, "ExclusiveGuide", typeof(bool)))
                 {
                     controller.InputCurrent.Buttons[(byte)ControllerButtons.Guide].PressedRaw = false;
