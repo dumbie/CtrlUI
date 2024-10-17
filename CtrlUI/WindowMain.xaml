@@ -215,6 +215,9 @@
                                     <Button Name="button_Category_Menu_Processes" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
                                         <TextBlock Name="textblock_Category_Menu_Processes" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Processes"/>
                                     </Button>
+                                    <Button Name="button_Category_Menu_Gallery" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
+                                        <TextBlock Name="textblock_Category_Menu_Gallery" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Gallery"/>
+                                    </Button>
                                     <Button Name="button_Category_Menu_Search" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
                                         <TextBlock Name="textblock_Category_Menu_Search" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Search"/>
                                     </Button>
@@ -256,6 +259,7 @@
                         <ListBox Name="lb_Launchers" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle"/>
                         <ListBox Name="lb_Shortcuts" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle"/>
                         <ListBox Name="lb_Processes" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                        <ListBox Name="lb_Gallery" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemGallery}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle" ScrollViewer.ScrollChanged="LbGalleryScrollViewer_ScrollChanged"/>
                         <ListBox Name="lb_Search" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemSearch}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Continue"/>
                     </Grid>
                 </Grid>

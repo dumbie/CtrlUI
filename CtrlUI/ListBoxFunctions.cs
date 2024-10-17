@@ -55,6 +55,11 @@ namespace CtrlUI
                 TextSearch.SetTextPath(lb_Processes, "Name");
                 lb_Processes.ItemsSource = List_Processes;
 
+                lb_Gallery.IsTextSearchEnabled = true;
+                lb_Gallery.IsTextSearchCaseSensitive = false;
+                TextSearch.SetTextPath(lb_Gallery, "Name");
+                lb_Gallery.ItemsSource = List_Gallery;
+
                 lb_ColorPicker.ItemsSource = List_ColorPicker;
 
                 lb_Search.IsTextSearchEnabled = true;
@@ -84,6 +89,7 @@ namespace CtrlUI
                 lb_Launchers.SelectedIndex = 0;
                 lb_Shortcuts.SelectedIndex = 0;
                 lb_Processes.SelectedIndex = 0;
+                lb_Gallery.SelectedIndex = 0;
                 lb_FilePicker.SelectedIndex = 0;
                 lb_ColorPicker.SelectedIndex = 0;
                 lb_MessageBox.SelectedIndex = 0;

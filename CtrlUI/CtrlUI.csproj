@@ -937,6 +937,9 @@
 		<Content Include="Profiles\User\CtrlLocationsFile.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Profiles\User\CtrlLocationsGallery.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Profiles\User\CtrlLocationsShortcut.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

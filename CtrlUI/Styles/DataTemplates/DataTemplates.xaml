@@ -9,6 +9,7 @@
     <sys:Double x:Key="ApplicationPanelSize">110</sys:Double>
     <sys:Double x:Key="ApplicationImageHeight">100</sys:Double>
     <sys:Double x:Key="ApplicationImageMaxWidth">80</sys:Double>
+    <sys:Double x:Key="MediaImageHeight">200</sys:Double>
 
     <!-- ListBoxItemAppCategory -->
     <DataTemplate x:Key="ListBoxItemAppCategory">
@@ -90,6 +91,21 @@
             <styles:ScrollViewerLoopHorizontal Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ScrollViewerHidden}">
                 <TextBlock Text="{Binding EmulatorName}" Style="{StaticResource TextBlockGray}"/>
             </styles:ScrollViewerLoopHorizontal>
+        </Grid>
+    </DataTemplate>
+
+    <!-- ListBoxItemGallery -->
+    <DataTemplate x:Key="ListBoxItemGallery">
+        <Grid Margin="2">
+            <Border CornerRadius="2" Height="180" Width="240" MaxHeight="{DynamicResource MediaImageHeight}">
+                <Border.Background>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="{Binding ImageBitmap}"/>
+                </Border.Background>
+            </Border>
+
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,2,0,0">
+                <Image Height="20" VerticalAlignment="Center" Margin="2,0,2,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Play.png" Opacity="0.90"/>
+            </StackPanel>
         </Grid>
     </DataTemplate>
 

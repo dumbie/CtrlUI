@@ -24,6 +24,7 @@ namespace CtrlUI
                 else if (senderFramework.Name == "button_Category_Menu_Launchers") { await CategoryListChange(ListCategory.Launcher); }
                 else if (senderFramework.Name == "button_Category_Menu_Shortcuts") { await CategoryListChange(ListCategory.Shortcut); }
                 else if (senderFramework.Name == "button_Category_Menu_Processes") { await CategoryListChange(ListCategory.Process); }
+                else if (senderFramework.Name == "button_Category_Menu_Gallery") { await CategoryListChange(ListCategory.Gallery); }
                 else if (senderFramework.Name == "button_Category_Menu_Search") { await CategoryListChange(ListCategory.Search); }
             }
             catch { }
@@ -40,6 +41,7 @@ namespace CtrlUI
                 else if (listCategory == ListCategory.Launcher) { return List_Launchers.Count; }
                 else if (listCategory == ListCategory.Shortcut) { return List_Shortcuts.Count; }
                 else if (listCategory == ListCategory.Process) { return List_Processes.Count; }
+                else if (listCategory == ListCategory.Gallery) { return List_Gallery.Count; }
                 else if (listCategory == ListCategory.Search) { return List_Search.Count; }
             }
             catch
@@ -81,6 +83,7 @@ namespace CtrlUI
                 else if (List_Launchers.Count > 0) { return ListCategory.Launcher; }
                 else if (List_Shortcuts.Count > 0) { return ListCategory.Shortcut; }
                 else if (List_Processes.Count > 0) { return ListCategory.Process; }
+                else if (List_Gallery.Count > 0) { return ListCategory.Gallery; }
                 else if (List_Search.Count > 0) { return ListCategory.Search; }
             }
             catch
@@ -219,6 +222,11 @@ namespace CtrlUI
                     targetListbox = lb_Processes;
                     targetTextblock = textblock_Category_Menu_Processes;
                 }
+                else if (listCategory == ListCategory.Gallery)
+                {
+                    targetListbox = lb_Gallery;
+                    targetTextblock = textblock_Category_Menu_Gallery;
+                }
                 else if (listCategory == ListCategory.Search)
                 {
                     targetListbox = lb_Search;
@@ -232,6 +240,7 @@ namespace CtrlUI
                 lb_Launchers.Visibility = Visibility.Collapsed;
                 lb_Shortcuts.Visibility = Visibility.Collapsed;
                 lb_Processes.Visibility = Visibility.Collapsed;
+                lb_Gallery.Visibility = Visibility.Collapsed;
                 lb_Search.Visibility = Visibility.Collapsed;
                 targetListbox.Visibility = Visibility.Visible;
 
@@ -242,6 +251,7 @@ namespace CtrlUI
                 textblock_Category_Menu_Launchers.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
                 textblock_Category_Menu_Shortcuts.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
                 textblock_Category_Menu_Processes.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
+                textblock_Category_Menu_Gallery.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
                 textblock_Category_Menu_Search.Style = (Style)Application.Current.Resources["TextBlockGrayLight"];
                 targetTextblock.Style = (Style)Application.Current.Resources["TextBlockWhiteLight"];
 

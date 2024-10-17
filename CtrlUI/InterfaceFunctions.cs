@@ -39,6 +39,7 @@ namespace CtrlUI
                 button_Category_Menu_Launchers.Click += Button_Category_Menu_Click;
                 button_Category_Menu_Shortcuts.Click += Button_Category_Menu_Click;
                 button_Category_Menu_Processes.Click += Button_Category_Menu_Click;
+                button_Category_Menu_Gallery.Click += Button_Category_Menu_Click;
                 button_Category_Menu_Search.Click += Button_Category_Menu_Click;
 
                 //App list functions
@@ -54,6 +55,8 @@ namespace CtrlUI
                 lb_Shortcuts.PreviewMouseUp += ListBox_Apps_MousePressUp;
                 lb_Processes.PreviewKeyUp += ListBox_Apps_KeyPressUp;
                 lb_Processes.PreviewMouseUp += ListBox_Apps_MousePressUp;
+                lb_Gallery.PreviewKeyUp += ListBox_Apps_KeyPressUp;
+                lb_Gallery.PreviewMouseUp += ListBox_Apps_MousePressUp;
                 lb_Search.PreviewKeyUp += ListBox_Apps_KeyPressUp;
                 lb_Search.PreviewMouseUp += ListBox_Apps_MousePressUp;
 

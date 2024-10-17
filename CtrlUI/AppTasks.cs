@@ -9,6 +9,7 @@ namespace CtrlUI
         public static AVTaskDetails vTask_UpdateClock = new AVTaskDetails("vTask_UpdateClock");
         public static AVTaskDetails vTask_UpdateWindowStatus = new AVTaskDetails("vTask_UpdateWindowStatus");
         public static AVTaskDetails vTask_ControllerConnected = new AVTaskDetails("vTask_ControllerConnected");
+        public static AVTaskDetails vTask_UpdateGallery = new AVTaskDetails("vTask_UpdateGallery");
         public static AVTaskDetails vTask_UpdateProcesses = new AVTaskDetails("vTask_UpdateProcesses");
         public static AVTaskDetails vTask_UpdateLaunchers = new AVTaskDetails("vTask_UpdateLaunchers");
         public static AVTaskDetails vTask_UpdateShortcuts = new AVTaskDetails("vTask_UpdateShortcuts");
@@ -24,6 +25,7 @@ namespace CtrlUI
                 AVActions.TaskStartLoop(vTaskLoop_UpdateClock, vTask_UpdateClock);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateWindowStatus, vTask_UpdateWindowStatus);
                 AVActions.TaskStartLoop(vTaskLoop_ControllerConnected, vTask_ControllerConnected);
+                AVActions.TaskStartLoop(vTaskLoop_UpdateGallery, vTask_UpdateGallery);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateProcesses, vTask_UpdateProcesses);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateLaunchers, vTask_UpdateLaunchers);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateShortcuts, vTask_UpdateShortcuts);
@@ -42,6 +44,7 @@ namespace CtrlUI
                 await AVActions.TaskStopLoop(vTask_UpdateClock, 5000);
                 await AVActions.TaskStopLoop(vTask_UpdateWindowStatus, 5000);
                 await AVActions.TaskStopLoop(vTask_ControllerConnected, 5000);
+                await AVActions.TaskStopLoop(vTask_UpdateGallery, 5000);
                 await AVActions.TaskStopLoop(vTask_UpdateProcesses, 5000);
                 await AVActions.TaskStopLoop(vTask_UpdateLaunchers, 5000);
                 await AVActions.TaskStopLoop(vTask_UpdateShortcuts, 5000);

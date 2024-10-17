@@ -65,6 +65,18 @@ namespace CtrlUI
             catch { }
         }
 
+        async Task vTaskLoop_UpdateGallery()
+        {
+            try
+            {
+                while (await TaskCheckLoop(vTask_UpdateGallery, 2000))
+                {
+                    await RefreshListGallery(false);
+                }
+            }
+            catch { }
+        }
+
         async Task vTaskLoop_UpdateProcesses()
         {
             try

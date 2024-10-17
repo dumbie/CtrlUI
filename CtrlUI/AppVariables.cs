@@ -43,7 +43,7 @@ namespace CtrlUI
         public static bool vMousePressDownLeftClick = false;
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
-        public static string[] vSelectNearCharacterLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Search", "lb_FilePicker" };
+        public static string[] vSelectNearCharacterLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Gallery", "lb_Search", "lb_FilePicker" };
         public static string[] vTabTargetListsSingleColumn = { "lb_Manage_AddAppCategory", "lb_Manage_AddEmulatorCategory" };
         public static string[] vTabTargetListsFirstLastColumn = { };
         public static string[] vTabTargetListsFirstLastItem = { };
@@ -107,12 +107,14 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadHelp = FileToBitmapImage(new string[] { "Assets/Default/Icons/Help.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
 
         //Update Variables
+        public static long vLastUpdateGallery = 0;
         public static long vLastUpdateShortcuts = 0;
         public static long vLastUpdateLaunchers = 0;
 
         //Busy Variables
         public static bool vBusyCheckingForUpdate = false;
         public static bool vBusyRefreshingProcesses = false;
+        public static bool vBusyRefreshingGallery = false;
         public static bool vBusyRefreshingShortcuts = false;
         public static bool vBusyRefreshingLaunchers = false;
         public static int vBusyRefreshingCount()
@@ -120,6 +122,7 @@ namespace CtrlUI
             int refreshCount = 0;
             try
             {
+                if (vBusyRefreshingGallery) { refreshCount++; }
                 if (vBusyRefreshingShortcuts) { refreshCount++; }
                 if (vBusyRefreshingLaunchers) { refreshCount++; }
             }
@@ -218,9 +221,10 @@ namespace CtrlUI
         public static bool vListLoadedLaunchers = false;
         public static bool vListLoadedShortcuts = false;
         public static bool vListLoadedProcesses = false;
+        public static bool vListLoadedGallery = false;
         public static bool vAppsLoaded()
         {
-            return vListLoadedApplications && vListLoadedLaunchers && vListLoadedShortcuts && vListLoadedProcesses;
+            return vListLoadedApplications && vListLoadedLaunchers && vListLoadedShortcuts && vListLoadedProcesses && vListLoadedGallery;
         }
 
         //Json Lists
@@ -237,12 +241,14 @@ namespace CtrlUI
         public static ObservableCollection<ProfileShared> vCtrlCloseLaunchers = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\Default\CtrlCloseLaunchers.json");
         public static ObservableCollection<ProfileShared> vCtrlLocationsFile = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\CtrlLocationsFile.json");
         public static ObservableCollection<ProfileShared> vCtrlLocationsShortcut = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\CtrlLocationsShortcut.json");
+        public static ObservableCollection<ProfileShared> vCtrlLocationsGallery = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\User\CtrlLocationsGallery.json");
         public static ObservableCollection<DataBindApp> List_Games = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Launchers = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Apps = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Emulators = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Shortcuts = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Processes = new ObservableCollection<DataBindApp>();
+        public static ObservableCollection<DataBindApp> List_Gallery = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Search = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindFile> List_FilePicker = new ObservableCollection<DataBindFile>();
         public static ObservableCollection<SolidColorBrush> List_ColorPicker = new ObservableCollection<SolidColorBrush>();

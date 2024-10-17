@@ -142,6 +142,7 @@ namespace CtrlUI
                 Visibility visibilityLaunchers = List_Launchers.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityShortcuts = List_Shortcuts.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityProcesses = List_Processes.Any() ? Visibility.Visible : Visibility.Collapsed;
+                Visibility visibilityGallery = List_Gallery.Any() ? Visibility.Visible : Visibility.Collapsed;
 
                 AVActions.DispatcherInvoke(delegate
                 {
@@ -151,6 +152,7 @@ namespace CtrlUI
                     button_Category_Menu_Launchers.Visibility = visibilityLaunchers;
                     button_Category_Menu_Shortcuts.Visibility = visibilityShortcuts;
                     button_Category_Menu_Processes.Visibility = visibilityProcesses;
+                    button_Category_Menu_Gallery.Visibility = visibilityGallery;
                 });
             }
             catch { }
