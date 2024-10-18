@@ -71,6 +71,11 @@
     "Back": {
       "Group": 13,
       "Offset": 6
+    },
+    "Guide": {
+      "Header": 2,
+      "Group": 0,
+      "Offset": 0
     }
   }
 }

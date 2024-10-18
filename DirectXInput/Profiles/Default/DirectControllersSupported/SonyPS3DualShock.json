@@ -2,10 +2,10 @@
   "CodeName": "SonyPS3DualShock",
   "ProductIDs": [ "0x0268" ],
   "VendorID": "0x054c",
-  "HasDirectDPad": true,
   "HasLedPlayer": true,
   "OffsetWired": 2,
   "OffsetHeader": {
+    "DPadLeft": 0,
     "ThumbLeftX": 4,
     "ThumbLeftY": 5,
     "ThumbRightX": 6,
@@ -14,6 +14,16 @@
     "TriggerRight": 17,
     "Gyroscope": 45,
     "Accelerometer": 39
+  },
+  "OffsetDPad": {
+    "DPadN": 16,
+    "DPadNE": 48,
+    "DPadE": 32,
+    "DPadSE": 96,
+    "DPadS": 64,
+    "DPadSW": 192,
+    "DPadW": 128,
+    "DPadNW": 144
   },
   "OffsetButton": {
     "A": {
@@ -31,22 +41,6 @@
     "Y": {
       "Group": 1,
       "Offset": 4
-    },
-    "DPadLeft": {
-      "Group": 0,
-      "Offset": 7
-    },
-    "DPadRight": {
-      "Group": 0,
-      "Offset": 5
-    },
-    "DPadUp": {
-      "Group": 0,
-      "Offset": 4
-    },
-    "DPadDown": {
-      "Group": 0,
-      "Offset": 6
     },
     "ShoulderLeft": {
       "Group": 1,
