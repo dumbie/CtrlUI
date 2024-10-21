@@ -22,7 +22,7 @@ namespace CtrlUI
                 //Check which mouse button is pressed
                 if (e.ClickCount == 1)
                 {
-                    if (vMousePressDownLeftClick)
+                    if (vMousePressDownLeft)
                     {
                         await lb_ColorPicker_LeftClick();
                     }

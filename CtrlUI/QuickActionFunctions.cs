@@ -55,7 +55,7 @@ namespace CtrlUI
                 if (quickLaunchApp != null)
                 {
                     //Check which launch mode needs to be used
-                    await CheckProcessLaunchMode(quickLaunchApp);
+                    await CheckApplicationLaunchMode(quickLaunchApp);
                 }
                 else
                 {

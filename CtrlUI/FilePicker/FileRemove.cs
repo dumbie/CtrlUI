@@ -14,22 +14,15 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task FilePicker_FileRemove_Remove(DataBindFile dataBindFile, bool useRecycleBin)
+        //Remove file or folder
+        async Task<bool> FileRemove(string fileName, string filePath, string fileCategory, bool useRecycleBin)
         {
             try
             {
-                //Check the file or folder
-                if (dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUpPre)
-                {
-                    await Notification_Send_Status("Close", "Invalid file or folder");
-                    Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
-                    return;
-                }
-
                 //Remove file or folder
                 SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
                 shFileOpstruct.wFunc = FILEOP_FUNC.FO_DELETE;
-                shFileOpstruct.pFrom = dataBindFile.PathFile + "\0\0";
+                shFileOpstruct.pFrom = filePath + "\0\0";
                 if (useRecycleBin)
                 {
                     shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_NOCONFIRMATION | FILEOP_FLAGS.FOF_ALLOWUNDO;
@@ -40,46 +33,35 @@ namespace CtrlUI
                 }
                 int shFileResult = SHFileOperation(ref shFileOpstruct);
 
-                //Check if the removed item is clipboard and reset it
-                DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault(x => x.PathFile == dataBindFile.PathFile);
-                if (clipboardFile != null)
-                {
-                    //Remove the clipboard item
-                    clipboardFile.ClipboardType = ClipboardType.None;
-                    vClipboardFiles.Remove(clipboardFile);
-                }
-
-                //Remove file from the listbox
-                await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile, true);
-
-                //Check if there are files or folders
-                FilePicker_CheckFilesAndFoldersCount();
-
                 //Check file operation status
                 if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                 {
                     if (useRecycleBin)
                     {
-                        await Notification_Send_Status("Remove", "Recycled file or folder");
+                        await Notification_Send_Status("Remove", "Recycled " + fileCategory);
                     }
                     else
                     {
-                        await Notification_Send_Status("Remove", "Removed file or folder");
+                        await Notification_Send_Status("Remove", "Removed " + fileCategory);
                     }
-                    Debug.WriteLine("Removed file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                    Debug.WriteLine("Removed file or folder: " + fileName + " path: " + filePath + " recyclebin: " + useRecycleBin);
+                    return true;
                 }
                 else if (shFileOpstruct.fAnyOperationsAborted)
                 {
-                    await Notification_Send_Status("Remove", "File or folder removal aborted");
-                    Debug.WriteLine("File or folder removal aborted: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                    await Notification_Send_Status("Remove", fileCategory + " removal aborted");
+                    Debug.WriteLine("File or folder removal aborted: " + fileName + " path: " + filePath);
+                    return false;
                 }
                 else
                 {
-                    await Notification_Send_Status("Remove", "File or folder removal failed");
-                    Debug.WriteLine("File or folder removal failed: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                    await Notification_Send_Status("Remove", fileCategory + " removal failed");
+                    Debug.WriteLine("File or folder removal failed: " + fileName + " path: " + filePath);
+                    return false;
                 }
             }
             catch { }
+            return false;
         }
 
         async Task FilePicker_FileRemove_Single(DataBindFile dataBindFile)
@@ -114,14 +96,31 @@ namespace CtrlUI
                     return;
                 }
 
+                //Notify file or folder removal
                 await Notification_Send_Status("Remove", "Removing file or folder");
                 Debug.WriteLine("Removing file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
-                //Remove the file or folder
-                await FilePicker_FileRemove_Remove(dataBindFile, useRecycleBin);
+                //Remove file or folder
+                if (await FileRemove(dataBindFile.Name, dataBindFile.PathFile, "file or folder", useRecycleBin))
+                {
+                    //Check if the removed item is clipboard and reset it
+                    DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault(x => x.PathFile == dataBindFile.PathFile);
+                    if (clipboardFile != null)
+                    {
+                        //Remove the clipboard item
+                        clipboardFile.ClipboardType = ClipboardType.None;
+                        vClipboardFiles.Remove(clipboardFile);
+                    }
 
-                //Update the clipboard status text
-                Clipboard_UpdateStatusText();
+                    //Remove file from the listbox
+                    await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile, true);
+
+                    //Check if there are files or folders
+                    FilePicker_CheckFilesAndFoldersCount();
+
+                    //Update clipboard status text
+                    Clipboard_UpdateStatusText();
+                }
             }
             catch { }
         }
@@ -160,15 +159,37 @@ namespace CtrlUI
 
                 await Notification_Send_Status("Remove", "Removing files or folders");
 
-                //Remove the files or folders
+                //Remove files or folders
                 foreach (DataBindFile dataBindFile in List_FilePicker.Where(x => x.Checked == Visibility.Visible).ToList())
                 {
-                    Debug.WriteLine("Removing files or folders: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
-                    await FilePicker_FileRemove_Remove(dataBindFile, useRecycleBin);
-                }
+                    try
+                    {
+                        Debug.WriteLine("Removing files or folders: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
-                //Update the clipboard status text
-                Clipboard_UpdateStatusText();
+                        //Remove files or folders
+                        if (await FileRemove(dataBindFile.Name, dataBindFile.PathFile, "files or folders", useRecycleBin))
+                        {
+                            //Check if the removed item is clipboard and reset it
+                            DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault(x => x.PathFile == dataBindFile.PathFile);
+                            if (clipboardFile != null)
+                            {
+                                //Remove the clipboard item
+                                clipboardFile.ClipboardType = ClipboardType.None;
+                                vClipboardFiles.Remove(clipboardFile);
+                            }
+
+                            //Remove file from the listbox
+                            await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile, true);
+
+                            //Check if there are files or folders
+                            FilePicker_CheckFilesAndFoldersCount();
+
+                            //Update clipboard status text
+                            Clipboard_UpdateStatusText();
+                        }
+                    }
+                    catch { }
+                }
             }
             catch { }
         }

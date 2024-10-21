@@ -24,11 +24,11 @@ namespace CtrlUI
                 //Check which mouse button is pressed
                 if (e.ClickCount == 1)
                 {
-                    if (vMousePressDownRightClick)
+                    if (vMousePressDownRight)
                     {
                         await ListBox_Apps_RightClick(sender);
                     }
-                    else if (vMousePressDownLeftClick)
+                    else if (vMousePressDownLeft)
                     {
                         await ListBox_Apps_LeftClick(sender);
                     }
@@ -47,7 +47,7 @@ namespace CtrlUI
                 {
                     //Check which launch mode needs to be used
                     DataBindApp SelectedItem = (DataBindApp)ListboxSender.SelectedItem;
-                    await CheckProcessLaunchMode(SelectedItem);
+                    await CheckApplicationLaunchMode(SelectedItem);
                 }
             }
             catch
@@ -78,6 +78,10 @@ namespace CtrlUI
                     else if (selectedItem.Category == AppCategory.Launcher)
                     {
                         await RightClickLauncher(listboxSender, listboxSelectedIndex, selectedItem);
+                    }
+                    else if (selectedItem.Category == AppCategory.Gallery)
+                    {
+                        await RightClickGallery(listboxSender, listboxSelectedIndex, selectedItem);
                     }
                     else
                     {

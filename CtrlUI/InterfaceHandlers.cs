@@ -52,16 +52,18 @@ namespace CtrlUI
         {
             try
             {
-                //Reset the previous mouse click states
-                vMousePressDownLeftClick = false;
-                vMousePressDownRightClick = false;
+                //Reset previous mouse click states
+                vMousePressDownLeft = false;
+                vMousePressDownRight = false;
+                vMousePressDownMiddle = false;
                 vMousePressDownXButton1 = false;
 
                 //Check which mouse button is pressed
                 if (e.ClickCount == 1)
                 {
-                    if (e.LeftButton == MouseButtonState.Pressed) { vMousePressDownLeftClick = true; }
-                    else if (e.RightButton == MouseButtonState.Pressed) { vMousePressDownRightClick = true; }
+                    if (e.LeftButton == MouseButtonState.Pressed) { vMousePressDownLeft = true; }
+                    else if (e.RightButton == MouseButtonState.Pressed) { vMousePressDownRight = true; }
+                    else if (e.MiddleButton == MouseButtonState.Pressed) { vMousePressDownMiddle = true; }
                     else if (e.XButton1 == MouseButtonState.Pressed) { vMousePressDownXButton1 = true; }
                 }
             }

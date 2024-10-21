@@ -83,7 +83,7 @@ namespace CtrlUI
                     //Update image and description
                     await FilePicker_LoadDetails(dataBindFile);
 
-                    //Update the clipboard status text
+                    //Update clipboard status text
                     Clipboard_UpdateStatusText();
 
                     await Notification_Send_Status("Rename", "Renamed file or folder");

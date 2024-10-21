@@ -34,30 +34,6 @@ namespace CtrlUI
             return shortcutFilename;
         }
 
-        //Remove shortcut file prompt
-        async Task RemoveShortcutFilePrompt(DataBindApp dataBindApp)
-        {
-            try
-            {
-                List<DataBindString> Answers = new List<DataBindString>();
-
-                DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerRemove.Name = "Move shortcut file to recycle bin";
-                Answers.Add(AnswerRemove);
-
-                DataBindString messageResult = await Popup_Show_MessageBox("Shortcut target path no longer exists", string.Empty, "Would you like to remove the shortcut file?", Answers);
-                if (messageResult != null)
-                {
-                    if (messageResult == AnswerRemove)
-                    {
-                        await RemoveShortcutFile(lb_Shortcuts, lb_Shortcuts.SelectedIndex, dataBindApp, true);
-                    }
-                }
-            }
-            catch { }
-        }
-
         //Get details from a shortcut file
         ShortcutDetails ReadShortcutFile(string shortcutPath)
         {
@@ -244,7 +220,7 @@ namespace CtrlUI
                         {
                             //Debug.WriteLine("Shortcut is already in list, updating: " + targetPathLower);
                             shortcutExistCheck.Name = shortcutDetails.Title;
-                            shortcutExistCheck.ShortcutPath = shortcutDetails.ShortcutPath;
+                            shortcutExistCheck.PathShortcut = shortcutDetails.ShortcutPath;
                             continue;
                         }
 
@@ -406,7 +382,7 @@ namespace CtrlUI
                 }
 
                 //Add the shortcut to the list
-                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusUrlProtocol = shortcutUrlProtocol, StatusUrlBrowser = shortcutUrlBrowser, StatusLauncherImage = launcherImage, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
+                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathLaunch = shortcutDetails.WorkingPath, PathShortcut = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusUrlProtocol = shortcutUrlProtocol, StatusUrlBrowser = shortcutUrlBrowser, StatusLauncherImage = launcherImage, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
                 if (shortcutDetails.Type == ShortcutType.UWP)
                 {
                     dataBindApp.AppUserModelId = shortcutDetails.TargetPath;

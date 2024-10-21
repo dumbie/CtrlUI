@@ -18,15 +18,14 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Check which launch mode needs to be used
-        async Task CheckProcessLaunchMode(DataBindApp dataBindApp)
+        async Task CheckApplicationLaunchMode(DataBindApp dataBindApp)
         {
             try
             {
                 //Check if the shortcut is available
                 if (dataBindApp.Category == AppCategory.Shortcut && dataBindApp.StatusAvailable == Visibility.Visible)
                 {
-                    Debug.WriteLine("Remove shortcut prompt: " + dataBindApp.ShortcutPath);
-                    await RemoveShortcutFilePrompt(dataBindApp);
+                    await List_FileRemove_Prompt(lb_Shortcuts, lb_Shortcuts.SelectedIndex, dataBindApp);
                     return;
                 }
 
@@ -45,6 +44,12 @@ namespace CtrlUI
 
                     //Show the process window
                     await ShowProcessWindowAuto(dataBindApp, processMulti);
+                }
+                else if (dataBindApp.Category == AppCategory.Gallery)
+                {
+                    //Open media in default viewer
+                    await PrepareProcessLauncherUrlProtocolAsync(dataBindApp, true, false);
+                    return;
                 }
                 else if (Check_PathUrlProtocol(dataBindApp.PathExe))
                 {
