@@ -23,15 +23,19 @@ namespace CtrlUI
             {
                 foreach (DataBindFile dataBindFile in List_FilePicker)
                 {
-                    //Cancel loading
-                    if (vFilePickerLoadCancel)
+                    try
                     {
-                        Debug.WriteLine("File picker details load cancelled.");
-                        return;
-                    }
+                        //Cancel loading
+                        if (vFilePickerLoadCancel)
+                        {
+                            Debug.WriteLine("File picker details load cancelled.");
+                            return;
+                        }
 
-                    //Update image and description
-                    await FilePicker_LoadDetails(dataBindFile);
+                        //Update image and description
+                        await FilePicker_LoadDetails(dataBindFile);
+                    }
+                    catch { }
                 }
             }
             catch (Exception ex)
@@ -74,7 +78,7 @@ namespace CtrlUI
                     directoryRomDescriptions = filesDescriptions.Concat(romsDescriptions).OrderByDescending(x => x.Name.Length).ToArray();
                 }
 
-                BitmapImage listImageBitmap = null;
+                BitmapSource listImageBitmap = null;
                 string listDescription = string.Empty;
 
                 //Check the file type
@@ -88,8 +92,9 @@ namespace CtrlUI
                     {
                         string listFileFullNameLower = dataBindFile.PathFile.ToLower();
                         string listFileExtensionLower = Path.GetExtension(dataBindFile.PathFile).ToLower().Replace(".", string.Empty);
-                        if (listFileFullNameLower.EndsWith(".jpg") || listFileFullNameLower.EndsWith(".png") || listFileFullNameLower.EndsWith(".gif"))
+                        if (listFileFullNameLower.EndsWith(".jpg") || listFileFullNameLower.EndsWith(".png") || listFileFullNameLower.EndsWith(".jxr") || listFileFullNameLower.EndsWith(".gif"))
                         {
+                            //Fix improve load Windows thumbnails
                             listImageBitmap = FileToBitmapImage(new string[] { dataBindFile.PathFile }, null, vImageBackupSource, IntPtr.Zero, 50, 0);
                         }
                         else
@@ -137,7 +142,7 @@ namespace CtrlUI
         }
 
         //Get rom details image and description
-        void FilePicker_GetRomDetails(string listName, string listPath, FileInfo[] directoryRomImages, FileInfo[] directoryRomDescription, ref BitmapImage listImage, ref string listDescription)
+        void FilePicker_GetRomDetails(string listName, string listPath, FileInfo[] directoryRomImages, FileInfo[] directoryRomDescription, ref BitmapSource listImage, ref string listDescription)
         {
             try
             {

@@ -10,7 +10,8 @@
             Emulator = 2,
             Shortcut = 3,
             Process = 4,
-            Launcher = 5
+            Launcher = 5,
+            Gallery = 6
         }
 
         public enum ListCategory
@@ -21,7 +22,8 @@
             Launcher = 3,
             Shortcut = 4,
             Process = 5,
-            Search = 6
+            Gallery = 6,
+            Search = 7
         }
 
         public enum EmulatorCategory

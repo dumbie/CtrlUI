@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVUwpAppx;
@@ -161,9 +162,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        string editedShortcutFolder = shortcutFolder.String1;
-                        editedShortcutFolder = editedShortcutFolder.Replace("%DESKTOPUSER%", Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-                        editedShortcutFolder = editedShortcutFolder.Replace("%DESKTOPPUBLIC%", Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory));
+                        string editedShortcutFolder = ConvertEnvironmentPath(shortcutFolder.String1);
                         if (Directory.Exists(editedShortcutFolder))
                         {
                             DirectoryInfo directoryInfo = new DirectoryInfo(editedShortcutFolder);

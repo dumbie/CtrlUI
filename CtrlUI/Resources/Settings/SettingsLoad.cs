@@ -70,9 +70,13 @@ namespace CtrlUI
                 textblock_SettingsAdjustChromiumDpi.Text = textblock_SettingsAdjustChromiumDpi.Tag + ": +" + SettingLoad(vConfigurationCtrlUI, "AdjustChromiumDpi", typeof(string)) + "%";
                 slider_SettingsAdjustChromiumDpi.Value = SettingLoad(vConfigurationCtrlUI, "AdjustChromiumDpi", typeof(double));
 
-                //Load the sound volume
+                //Load sound volume
                 textblock_SettingsSoundVolume.Text = "User interface sound volume: " + SettingLoad(vConfigurationCtrlUI, "InterfaceSoundVolume", typeof(string)) + "%";
                 slider_SettingsSoundVolume.Value = SettingLoad(vConfigurationCtrlUI, "InterfaceSoundVolume", typeof(double));
+
+                //Load gallery days
+                textblock_SettingsGalleryLoadDays.Text = "Limit gallery loading days: " + SettingLoad(vConfigurationCtrlUI, "GalleryLoadDays", typeof(string));
+                slider_SettingsGalleryLoadDays.Value = SettingLoad(vConfigurationCtrlUI, "GalleryLoadDays", typeof(double));
 
                 //Set the application name to string to check shortcuts
                 string targetName = AVFunctions.ApplicationName();

@@ -184,6 +184,12 @@ namespace CtrlUI
                     SettingSave(vConfigurationCtrlUI, "InterfaceSoundVolume", slider_SettingsSoundVolume.Value);
                 };
 
+                slider_SettingsGalleryLoadDays.ValueChanged += (sender, e) =>
+                {
+                    textblock_SettingsGalleryLoadDays.Text = "Limit gallery loading days: " + Convert.ToInt32(slider_SettingsGalleryLoadDays.Value);
+                    SettingSave(vConfigurationCtrlUI, "GalleryLoadDays", slider_SettingsGalleryLoadDays.Value);
+                };
+
                 //Save - Socket Client Port
                 txt_SettingsSocketClientPortStart.TextChanged += (sender, e) =>
                 {

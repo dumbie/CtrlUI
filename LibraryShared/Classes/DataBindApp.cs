@@ -366,22 +366,36 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivShortcutPath = string.Empty;
-            public string ShortcutPath
+            private string PrivPathShortcut = string.Empty;
+            public string PathShortcut
             {
-                get { return this.PrivShortcutPath; }
+                get { return this.PrivPathShortcut; }
                 set
                 {
-                    if (this.PrivShortcutPath != value)
+                    if (this.PrivPathShortcut != value)
                     {
-                        this.PrivShortcutPath = value;
+                        this.PrivPathShortcut = value;
                         NotifyPropertyChanged();
                     }
                 }
             }
 
-            private BitmapImage PrivImageBitmap = null;
-            public BitmapImage ImageBitmap
+            private string PrivPathGallery = string.Empty;
+            public string PathGallery
+            {
+                get { return this.PrivPathGallery; }
+                set
+                {
+                    if (this.PrivPathGallery != value)
+                    {
+                        this.PrivPathGallery = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private BitmapSource PrivImageBitmap = null;
+            public BitmapSource ImageBitmap
             {
                 get { return this.PrivImageBitmap; }
                 set
@@ -506,8 +520,8 @@ namespace LibraryShared
                 }
             }
 
-            private BitmapImage PrivStatusEmulatorCategoryImage = null;
-            public BitmapImage StatusEmulatorCategoryImage
+            private BitmapSource PrivStatusEmulatorCategoryImage = null;
+            public BitmapSource StatusEmulatorCategoryImage
             {
                 get { return this.PrivStatusEmulatorCategoryImage; }
                 set
@@ -520,8 +534,8 @@ namespace LibraryShared
                 }
             }
 
-            private BitmapImage PrivStatusSearchCategoryImage = null;
-            public BitmapImage StatusSearchCategoryImage
+            private BitmapSource PrivStatusSearchCategoryImage = null;
+            public BitmapSource StatusSearchCategoryImage
             {
                 get { return this.PrivStatusSearchCategoryImage; }
                 set
@@ -534,8 +548,8 @@ namespace LibraryShared
                 }
             }
 
-            private BitmapImage PrivStatusLauncherImage = null;
-            public BitmapImage StatusLauncherImage
+            private BitmapSource PrivStatusLauncherImage = null;
+            public BitmapSource StatusLauncherImage
             {
                 get { return this.PrivStatusLauncherImage; }
                 set

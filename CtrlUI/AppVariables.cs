@@ -40,8 +40,9 @@ namespace CtrlUI
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;
-        public static bool vMousePressDownLeftClick = false;
-        public static bool vMousePressDownRightClick = false;
+        public static bool vMousePressDownLeft = false;
+        public static bool vMousePressDownRight = false;
+        public static bool vMousePressDownMiddle = false;
         public static bool vMousePressDownXButton1 = false;
         public static string[] vSelectNearCharacterLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Gallery", "lb_Search", "lb_FilePicker" };
         public static string[] vTabTargetListsSingleColumn = { "lb_Manage_AddAppCategory", "lb_Manage_AddEmulatorCategory" };

@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System.Threading.Tasks;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -21,15 +22,26 @@ namespace CtrlUI
                 //Minimize CtrlUI window
                 await AppWindowMinimize(true, true);
 
-                //Launch the url protocol
-                bool launchSuccess = AVProcess.Launch_ShellExecute(dataBindApp.PathExe, dataBindApp.PathLaunch, dataBindApp.Argument, dataBindApp.LaunchAsAdmin);
+                //Check app category
+                string exePath = string.Empty;
+                if (dataBindApp.Category == AppCategory.Gallery)
+                {
+                    exePath = dataBindApp.PathGallery;
+                }
+                else
+                {
+                    exePath = dataBindApp.PathExe;
+                }
+
+                //Launch url protocol
+                bool launchSuccess = AVProcess.Launch_ShellExecute(exePath, dataBindApp.PathLaunch, dataBindApp.Argument, dataBindApp.LaunchAsAdmin);
                 if (!launchSuccess)
                 {
                     await Notification_Send_Status("Close", "Failed launching " + dataBindApp.Name);
                     return false;
                 }
 
-                //Launch the keyboard controller
+                //Launch keyboard controller
                 if (launchKeyboard)
                 {
                     await ShowHideKeyboardController(true);

@@ -25,7 +25,7 @@ namespace CtrlUI
                 Answers.Add(AnswerRemove);
 
                 //Get media information
-                string mediaInformation = dataBindApp.PathExe;
+                string mediaInformation = dataBindApp.PathGallery;
 
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", mediaInformation, "", Answers);
                 if (messageResult != null)

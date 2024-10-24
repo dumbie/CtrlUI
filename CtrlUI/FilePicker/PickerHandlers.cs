@@ -513,13 +513,17 @@ namespace CtrlUI
                     {
                         await FilePicker_GoFolderUp();
                     }
-                    else if (vMousePressDownLeftClick)
+                    else if (vMousePressDownLeft)
                     {
                         await Listbox_FilePicker_LeftClick();
                     }
-                    else if (vMousePressDownRightClick)
+                    else if (vMousePressDownRight)
                     {
                         await Listbox_FilePicker_RightClick();
+                    }
+                    else if (vMousePressDownMiddle)
+                    {
+                        FilePicker_CheckItem();
                     }
                 }
             }

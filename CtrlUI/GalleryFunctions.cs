@@ -6,7 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVProcess;
+using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -58,30 +60,32 @@ namespace CtrlUI
                     await Notification_Send_Status("Refresh", "Refreshing gallery");
                 }
 
+                //Get gallery load days setting
+                int galleryLoadDaysInt = SettingLoad(vConfigurationCtrlUI, "GalleryLoadDays", typeof(int));
+                DateTime galleryLoadDaysDateTime = DateTime.Now.AddDays(-galleryLoadDaysInt);
+
                 //Get all files from gallery directories
                 IEnumerable<FileInfo> directoryGallery = Enumerable.Empty<FileInfo>();
                 foreach (ProfileShared galleryFolder in vCtrlLocationsGallery)
                 {
                     try
                     {
-                        string editedGalleryFolder = galleryFolder.String1;
-                        editedGalleryFolder = editedGalleryFolder.Replace("%DESKTOPUSER%", Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-                        editedGalleryFolder = editedGalleryFolder.Replace("%DESKTOPPUBLIC%", Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory));
+                        string editedGalleryFolder = ConvertEnvironmentPath(galleryFolder.String1);
                         if (Directory.Exists(editedGalleryFolder))
                         {
                             DirectoryInfo directoryInfo = new DirectoryInfo(editedGalleryFolder);
-                            IEnumerable<FileInfo> filterGallery = directoryInfo.GetFiles("*", SearchOption.AllDirectories).Where(x => x.Name.ToLower().EndsWith(".jpg") || x.Name.ToLower().EndsWith(".jxr") || x.Name.ToLower().EndsWith(".png") || x.Name.ToLower().EndsWith(".gif") || x.Name.ToLower().EndsWith(".mp4"));
+                            IEnumerable<FileInfo> filterGallery = directoryInfo.GetFiles("*", SearchOption.AllDirectories).Where(x => x.Name.ToLower().EndsWith(".jpg") || x.Name.ToLower().EndsWith(".jxr") || x.Name.ToLower().EndsWith(".png") || x.Name.ToLower().EndsWith(".gif") || x.Name.ToLower().EndsWith(".mp4")).Where(x => x.LastWriteTime >= galleryLoadDaysDateTime);
                             directoryGallery = directoryGallery.Concat(filterGallery);
                         }
                     }
                     catch { }
                 }
 
-                //Sort and filter the list by name
-                directoryGallery = directoryGallery.OrderBy(x => x.Name);
+                //Sort and filter list by creation time
+                directoryGallery = directoryGallery.OrderBy(x => x.CreationTime);
 
                 //Remove media that is no longer available from the list
-                Func<DataBindApp, bool> filterGalleryApp = x => x.Category == AppCategory.Gallery && !directoryGallery.Any(y => y.FullName == x.PathExe);
+                Func<DataBindApp, bool> filterGalleryApp = x => x.Category == AppCategory.Gallery && !directoryGallery.Any(y => y.FullName == x.PathGallery);
                 await ListBoxRemoveAll(lb_Gallery, List_Gallery, filterGalleryApp);
                 await ListBoxRemoveAll(lb_Search, List_Search, filterGalleryApp);
 
@@ -97,7 +101,7 @@ namespace CtrlUI
                         string mediaPath = file.FullName;
 
                         //Check if media is already in gallery list
-                        Func<DataBindApp, bool> duplicateCheck = x => (x.PathExe == mediaPath);
+                        Func<DataBindApp, bool> duplicateCheck = x => (x.PathGallery == mediaPath);
                         DataBindApp mediaExistCheck = List_Gallery.FirstOrDefault(duplicateCheck);
                         if (mediaExistCheck != null)
                         {
@@ -106,7 +110,7 @@ namespace CtrlUI
                         }
 
                         //Add media to gallery list
-                        DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Unknown, Category = AppCategory.Gallery, Name = mediaName, PathExe = mediaPath };
+                        DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Unknown, Category = AppCategory.Gallery, Name = mediaName, PathGallery = mediaPath };
                         await ListBoxAddItem(lb_Gallery, List_Gallery, dataBindApp, true, false);
                     }
                     catch { }

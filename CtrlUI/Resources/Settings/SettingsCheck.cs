@@ -40,6 +40,8 @@ namespace CtrlUI
                 if (!SettingCheck(vConfigurationCtrlUI, "ServerPort")) { SettingSave(vConfigurationCtrlUI, "ServerPort", "26759"); } //Shared
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchMinimized")) { SettingSave(vConfigurationCtrlUI, "LaunchMinimized", "False"); }
 
+                if (!SettingCheck(vConfigurationCtrlUI, "GalleryLoadDays")) { SettingSave(vConfigurationCtrlUI, "GalleryLoadDays", "186"); }
+
                 if (!SettingCheck(vConfigurationCtrlUI, "ShowLibrarySteam")) { SettingSave(vConfigurationCtrlUI, "ShowLibrarySteam", "True"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryEADesktop")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryEADesktop", "True"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryEpic")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryEpic", "True"); }

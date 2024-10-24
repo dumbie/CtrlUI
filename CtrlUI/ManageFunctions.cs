@@ -125,7 +125,7 @@ namespace CtrlUI
                     }
                 }
 
-                //Remove application from the listboxes
+                //Remove application from listboxes
                 if (dataBindApp.Category == AppCategory.Game)
                 {
                     await ListBoxRemoveItem(lb_Games, List_Games, dataBindApp, true);
@@ -149,6 +149,10 @@ namespace CtrlUI
                 else if (dataBindApp.Category == AppCategory.Launcher)
                 {
                     await ListBoxRemoveItem(lb_Launchers, List_Launchers, dataBindApp, true);
+                }
+                else if (dataBindApp.Category == AppCategory.Gallery)
+                {
+                    await ListBoxRemoveItem(lb_Gallery, List_Gallery, dataBindApp, true);
                 }
 
                 //Remove application from search listbox

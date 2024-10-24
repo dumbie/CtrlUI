@@ -29,7 +29,7 @@ namespace CtrlUI
                 else if (dataBindApp.Category == AppCategory.Gallery)
                 {
                     fileCategory = "media file";
-                    filePath = dataBindApp.PathExe;
+                    filePath = dataBindApp.PathGallery;
                 }
 
                 //Confirm file remove prompt
