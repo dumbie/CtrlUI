@@ -7,7 +7,7 @@
             public string searchType { get; set; } = "games";
             public string[] searchTerms { get; set; }
             public int searchPage { get; set; } = 1;
-            public int size { get; set; } = 30;
+            public int size { get; set; } = 25;
             public SearchOptions searchOptions { get; set; } = new SearchOptions();
 
             public class SearchOptions
@@ -27,13 +27,20 @@
                 public string rangeCategory { get; set; } = "main";
                 public RangeTime rangeTime { get; set; } = new RangeTime();
                 public Gameplay gameplay { get; set; } = new Gameplay();
+                public RangeYear rangeYear { get; set; } = new RangeYear();
                 public string modifier { get; set; } = string.Empty;
             }
 
             public class RangeTime
             {
-                public int min { get; set; }
-                public int max { get; set; }
+                public int? min { get; set; }
+                public int? max { get; set; }
+            }
+
+            public class RangeYear
+            {
+                public int? min { get; set; }
+                public int? max { get; set; }
             }
 
             public class Gameplay

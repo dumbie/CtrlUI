@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -24,9 +25,9 @@ namespace CtrlUI
                 //Xbox string[] requestAuthorization = new[] { "Authorization", "Basic bWljcm9zb2Z0X3N0b3JlZnJvbnQ6MmZhMDcxNDU2ZDJhZDNiNmI2M2Y2N2Q4NGVhYzcwNTY=" };
                 string[][] requestHeaders = new string[][] { requestAccept, requestReferer };
 
-                //Set download uri
+                //Set download url
                 //Xbox string apiUrl = "https://howlongtobeat.com/___api/games?xbox_id=9WZDNCRFHWD2";
-                string apiUrl = "https://www.howlongtobeat.com/api/search";
+                string apiUrl = "https://howlongtobeat.com/api/search/" + vApiHltbAuthKey;
 
                 //Split name and remove characters
                 string[] searchFilterTerms = gameName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
