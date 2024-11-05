@@ -64,7 +64,7 @@ namespace CtrlUI
                 //Load and set application image
                 if (loadAppImage)
                 {
-                    dataBindApp.ImageBitmap = Image_Application_Load(dataBindApp, vImageLoadSize);
+                    dataBindApp.ImageBitmap = Image_Application_Load(dataBindApp, vImageLoadSize, 0);
                 }
 
                 //Add application to the list
@@ -112,7 +112,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> messageAnswers = new List<DataBindString>();
                     DataBindString answerYes = new DataBindString();
-                    answerYes.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerYes.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     answerYes.Name = "Remove application from list";
                     messageAnswers.Add(answerYes);
 
@@ -207,7 +207,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -228,7 +228,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -241,7 +241,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -254,7 +254,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -267,7 +267,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -280,7 +280,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -295,7 +295,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
@@ -306,7 +306,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
@@ -323,7 +323,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
@@ -364,7 +364,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
@@ -393,7 +393,7 @@ namespace CtrlUI
                     vEditAppDataBind.LaunchEnableAutoHDR = (bool)checkbox_AddLaunchEnableAutoHDR.IsChecked;
 
                     //Edit application image in the list
-                    vEditAppDataBind.ImageBitmap = Image_Application_Load(vEditAppDataBind, vImageLoadSize);
+                    vEditAppDataBind.ImageBitmap = Image_Application_Load(vEditAppDataBind, vImageLoadSize, 0);
 
                     //Edit emulator image in the list
                     if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Console) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadConsole; }
@@ -521,7 +521,7 @@ namespace CtrlUI
                 List<DataBindString> listEmulatorCategories = new List<DataBindString>();
 
                 DataBindString categoryOther = new DataBindString();
-                categoryOther.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Other.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                categoryOther.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Other.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
                 categoryOther.Name = "Other";
                 listEmulatorCategories.Add(categoryOther);
 
@@ -719,7 +719,7 @@ namespace CtrlUI
                 ManageInterface_UpdateCategory(dataBindApp.Category, true);
 
                 //Load application image
-                img_AddAppLogo.Source = Image_Application_Load(dataBindApp, vImageLoadSize);
+                img_AddAppLogo.Source = Image_Application_Load(dataBindApp, vImageLoadSize, 0);
 
                 //Fill the text boxes with application details
                 tb_AddAppName.Text = dataBindApp.Name;
@@ -826,7 +826,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> answersConfirm = new List<DataBindString>();
                         DataBindString answerAlright = new DataBindString();
-                        answerAlright.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerAlright.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         answerAlright.Name = "Ok";
                         answersConfirm.Add(answerAlright);
 

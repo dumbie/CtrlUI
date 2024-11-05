@@ -26,7 +26,7 @@ namespace LibraryUsb
             }
             finally
             {
-                SafeCloseMarshal(marshalPtr);
+                SafeCloseMarshal(ref marshalPtr);
             }
         }
 

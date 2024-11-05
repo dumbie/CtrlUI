@@ -163,7 +163,7 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, executablePath, "IndieGala" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, executablePath, "IndieGala" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()

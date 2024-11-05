@@ -35,12 +35,12 @@ namespace CtrlUI
                 //Confirm file remove prompt
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerRecycle = new DataBindString();
-                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 answerRecycle.Name = "Move " + fileCategory + " to recycle bin*";
                 messageAnswers.Add(answerRecycle);
 
                 DataBindString answerPerma = new DataBindString();
-                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 answerPerma.Name = "Remove " + fileCategory + " permanently";
                 messageAnswers.Add(answerPerma);
 

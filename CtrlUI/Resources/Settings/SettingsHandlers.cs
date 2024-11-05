@@ -127,7 +127,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString AnswerManage = new DataBindString();
-                AnswerManage.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerManage.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerManage.Name = "Manage controllers";
                 Answers.Add(AnswerManage);
 
@@ -194,7 +194,7 @@ namespace CtrlUI
             {
                 //Add font styles to string list
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageFonts = FileToBitmapImage(new string[] { "Assets/Default/Icons/Font.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFonts = FileToBitmapImage(new string[] { "Assets/Default/Icons/Font.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
 
                 //Add default fonts
                 DataBindString AnswerSegoe = new DataBindString();
@@ -265,11 +265,15 @@ namespace CtrlUI
 
                 foreach (DirectoryInfo clockStyle in clockStyles)
                 {
-                    BitmapImage imageClocks = FileToBitmapImage(new string[] { clockStyle.FullName + "/Preview.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    DataBindString AnswerCustom = new DataBindString();
-                    AnswerCustom.ImageBitmap = imageClocks;
-                    AnswerCustom.Name = clockStyle.Name;
-                    Answers.Add(AnswerCustom);
+                    try
+                    {
+                        BitmapImage imageClocks = FileToBitmapImage(new string[] { clockStyle.FullName + "/Preview.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        DataBindString AnswerCustom = new DataBindString();
+                        AnswerCustom.ImageBitmap = imageClocks;
+                        AnswerCustom.Name = clockStyle.Name;
+                        Answers.Add(AnswerCustom);
+                    }
+                    catch { }
                 }
 
                 //Show the messagebox
@@ -305,7 +309,7 @@ namespace CtrlUI
                 DirectoryInfo[] soundPacksDefault = directoryInfoDefault.GetDirectories("*", SearchOption.TopDirectoryOnly);
                 IEnumerable<DirectoryInfo> soundPacks = soundPacksUser.Concat(soundPacksDefault);
 
-                BitmapImage imagePacks = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeUp.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imagePacks = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeUp.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
 
                 foreach (DirectoryInfo soundPack in soundPacks)
                 {
@@ -404,7 +408,7 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -421,7 +425,7 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -432,7 +436,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 Answer1.Name = "Ok";
                 Answers.Add(Answer1);
 
@@ -479,7 +483,7 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -496,7 +500,7 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -507,7 +511,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 Answer1.Name = "Ok";
                 Answers.Add(Answer1);
 

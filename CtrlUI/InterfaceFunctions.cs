@@ -217,10 +217,10 @@ namespace CtrlUI
                     clockPath = "Assets/User/Clocks/" + clockStyle;
                 }
 
-                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { clockPath + "/Face.png" }, null, vImageBackupSource, IntPtr.Zero, 40, 0);
-                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { clockPath + "/Hour.png" }, null, vImageBackupSource, IntPtr.Zero, 40, 0);
-                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { clockPath + "/Minute.png" }, null, vImageBackupSource, IntPtr.Zero, 40, 0);
-                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { clockPath + "/Center.png" }, null, vImageBackupSource, IntPtr.Zero, 40, 0);
+                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { clockPath + "/Face.png" }, null, vImageBackupSource, 40, 0, IntPtr.Zero, 0);
+                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { clockPath + "/Hour.png" }, null, vImageBackupSource, 40, 0, IntPtr.Zero, 0);
+                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { clockPath + "/Minute.png" }, null, vImageBackupSource, 40, 0, IntPtr.Zero, 0);
+                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { clockPath + "/Center.png" }, null, vImageBackupSource, 40, 0, IntPtr.Zero, 0);
             }
             catch { }
         }
@@ -390,17 +390,17 @@ namespace CtrlUI
                 img_Menu_IndieGalaStatus.Source = vImagePreloadIndieGala;
                 img_Menu_ItchIOStatus.Source = vImagePreloadItchIO;
                 img_Menu_DiscordStatus.Source = vImagePreloadDiscord;
-                img_Menu_DirectXInputStatus.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-                img_Menu_FpsOverlayerStatus.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-                img_Menu_ScreenCaptureToolStatus.Source = FileToBitmapImage(new string[] { "ScreenCaptureTool" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                img_Menu_DirectXInputStatus.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                img_Menu_FpsOverlayerStatus.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                img_Menu_ScreenCaptureToolStatus.Source = FileToBitmapImage(new string[] { "ScreenCaptureTool" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
                 //Check if the first launch logo's need to be loaded
                 if (SettingLoad(vConfigurationCtrlUI, "AppFirstLaunch", typeof(bool)))
                 {
-                    grid_Popup_Welcome_img_Edge.Source = FileToBitmapImage(new string[] { "Edge" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-                    grid_Popup_Welcome_img_Kodi.Source = FileToBitmapImage(new string[] { "Kodi" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-                    grid_Popup_Welcome_img_Spotify.Source = FileToBitmapImage(new string[] { "Spotify" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-                    grid_Popup_Welcome_img_PSRemote.Source = FileToBitmapImage(new string[] { "Remote Play" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                    grid_Popup_Welcome_img_Edge.Source = FileToBitmapImage(new string[] { "Edge" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                    grid_Popup_Welcome_img_Kodi.Source = FileToBitmapImage(new string[] { "Kodi" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                    grid_Popup_Welcome_img_Spotify.Source = FileToBitmapImage(new string[] { "Spotify" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                    grid_Popup_Welcome_img_PSRemote.Source = FileToBitmapImage(new string[] { "Remote Play" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
                     grid_Popup_Welcome_img_Discord.Source = vImagePreloadDiscord;
                     grid_Popup_Welcome_img_Steam.Source = vImagePreloadSteam;
                     grid_Popup_Welcome_img_EADesktop.Source = vImagePreloadEADesktop;

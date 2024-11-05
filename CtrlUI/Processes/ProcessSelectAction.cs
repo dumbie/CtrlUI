@@ -64,11 +64,11 @@ namespace CtrlUI
                 DataBindString AnswerHide = new DataBindString();
                 if (processMulti.WindowHandleMain != IntPtr.Zero)
                 {
-                    AnswerShow.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerShow.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     AnswerShow.Name = "Show application";
                     Answers.Add(AnswerShow);
 
-                    AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMinimize.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMinimize.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     AnswerHide.Name = "Hide application";
                     Answers.Add(AnswerHide);
                 }
@@ -76,13 +76,13 @@ namespace CtrlUI
                 DataBindString AnswerClose = new DataBindString();
                 if (!processIsExplorer)
                 {
-                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     AnswerClose.Name = "Close application";
                     Answers.Add(AnswerClose);
                 }
 
                 DataBindString AnswerLaunch = new DataBindString();
-                AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerLaunch.Name = "Launch new instance";
                 Answers.Add(AnswerLaunch);
 
@@ -93,7 +93,7 @@ namespace CtrlUI
                 DataBindString AnswerRestartDefault = new DataBindString();
                 if (defaultArgument && !processIsExplorer)
                 {
-                    AnswerRestartDefault.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerRestartDefault.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     AnswerRestartDefault.Name = "Restart application";
                     AnswerRestartDefault.NameSub = "(Default argument)";
                     Answers.Add(AnswerRestartDefault);
@@ -104,7 +104,7 @@ namespace CtrlUI
                 DataBindString AnswerRestartCurrent = new DataBindString();
                 if (currentArgument && !currentMatchesDefaultArgument && !processIsExplorer)
                 {
-                    AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     AnswerRestartCurrent.Name = "Restart application";
                     AnswerRestartCurrent.NameSub = "(Current argument)";
                     Answers.Add(AnswerRestartCurrent);
@@ -113,7 +113,7 @@ namespace CtrlUI
                 DataBindString AnswerRestartWithout = new DataBindString();
                 if (!processIsExplorer)
                 {
-                    AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     AnswerRestartWithout.Name = "Restart application";
                     AnswerRestartWithout.NameSub = "(Without argument)";
                     Answers.Add(AnswerRestartWithout);

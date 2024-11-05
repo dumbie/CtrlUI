@@ -153,7 +153,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString AnswerCloseLaunchers = new DataBindString();
-                AnswerCloseLaunchers.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerCloseLaunchers.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerCloseLaunchers.Name = "Close launchers";
                 Answers.Add(AnswerCloseLaunchers);
 
@@ -187,7 +187,7 @@ namespace CtrlUI
                 //Ask if the user really wants to disconnect remote streams
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString AnswerDisconnectStreams = new DataBindString();
-                AnswerDisconnectStreams.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Stream.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerDisconnectStreams.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Stream.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerDisconnectStreams.Name = "Disconnect streams";
                 Answers.Add(AnswerDisconnectStreams);
 

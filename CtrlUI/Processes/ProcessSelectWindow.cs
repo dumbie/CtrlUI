@@ -76,7 +76,7 @@ namespace CtrlUI
 
                             //Add window to selection
                             DataBindString AnswerWindow = new DataBindString();
-                            AnswerWindow.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            AnswerWindow.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                             AnswerWindow.Name = windowTitleString;
                             AnswerWindow.NameSub = windowSubString;
                             AnswerWindow.Data1 = windowHandle;
@@ -112,7 +112,7 @@ namespace CtrlUI
                     DataBindString AnswerHideAll = new DataBindString();
                     if (addHideAll)
                     {
-                        AnswerHideAll.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMinimize.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        AnswerHideAll.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMinimize.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         AnswerHideAll.Name = "Hide all the windows";
                         Answers.Add(AnswerHideAll);
                     }

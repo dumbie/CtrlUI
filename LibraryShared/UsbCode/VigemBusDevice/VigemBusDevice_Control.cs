@@ -113,7 +113,7 @@ namespace LibraryUsb
             }
             finally
             {
-                SafeCloseHandle(createEvent);
+                SafeCloseHandle(ref createEvent);
             }
         }
 
@@ -160,7 +160,7 @@ namespace LibraryUsb
             }
             finally
             {
-                SafeCloseHandle(createEvent);
+                SafeCloseHandle(ref createEvent);
             }
         }
     }

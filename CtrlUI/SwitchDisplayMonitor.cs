@@ -226,7 +226,7 @@ namespace CtrlUI
                         string globalSettingsString = microsoftSubKey.GetValue("DirectXUserGlobalSettings")?.ToString();
 
                         //Set global settings value
-                        if (!string.IsNullOrEmpty(globalSettingsString))
+                        if (!string.IsNullOrWhiteSpace(globalSettingsString))
                         {
                             if (globalSettingsString.Contains("AutoHDREnable=0"))
                             {

@@ -248,7 +248,7 @@ namespace CtrlUI
                     AVActions.DispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
-                        img_Main_Battery.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Battery/BatteryVerCharge.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Main_Battery.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Battery/BatteryVerCharge.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         img_Main_Battery.Visibility = Visibility.Visible;
                     });
                     return;
@@ -281,7 +281,7 @@ namespace CtrlUI
                     string updatedImage = "Assets/Default/Icons/Battery/BatteryVerDis" + percentageNumber + ".png";
                     if (currentImage.ToLower() != updatedImage.ToLower())
                     {
-                        img_Main_Battery.Source = FileToBitmapImage(new string[] { updatedImage }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Main_Battery.Source = FileToBitmapImage(new string[] { updatedImage }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     }
 
                     //Show the battery image and clock
@@ -309,10 +309,10 @@ namespace CtrlUI
                     vControllerActiveId = controllerId;
                     AVActions.DispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     });
                 }
                 else if (controllerId == 1)
@@ -320,10 +320,10 @@ namespace CtrlUI
                     vControllerActiveId = controllerId;
                     AVActions.DispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     });
                 }
                 else if (controllerId == 2)
@@ -331,10 +331,10 @@ namespace CtrlUI
                     vControllerActiveId = controllerId;
                     AVActions.DispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     });
                 }
                 else if (controllerId == 3)
@@ -342,10 +342,10 @@ namespace CtrlUI
                     vControllerActiveId = controllerId;
                     AVActions.DispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     });
                 }
             }

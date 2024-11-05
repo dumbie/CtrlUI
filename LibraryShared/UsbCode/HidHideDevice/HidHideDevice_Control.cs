@@ -99,7 +99,7 @@ namespace LibraryUsb
             }
             finally
             {
-                SafeCloseMarshal(controlIntPtr);
+                SafeCloseMarshal(ref controlIntPtr);
             }
         }
 
@@ -139,7 +139,7 @@ namespace LibraryUsb
             }
             finally
             {
-                SafeCloseMarshal(controlIntPtr);
+                SafeCloseMarshal(ref controlIntPtr);
             }
         }
 
@@ -170,7 +170,7 @@ namespace LibraryUsb
             }
             finally
             {
-                SafeCloseMarshal(controlIntPtr);
+                SafeCloseMarshal(ref controlIntPtr);
             }
         }
 
@@ -219,7 +219,7 @@ namespace LibraryUsb
             }
             finally
             {
-                SafeCloseMarshal(controlIntPtr);
+                SafeCloseMarshal(ref controlIntPtr);
             }
         }
 
@@ -250,7 +250,7 @@ namespace LibraryUsb
             }
             finally
             {
-                SafeCloseMarshal(controlIntPtr);
+                SafeCloseMarshal(ref controlIntPtr);
             }
         }
 
@@ -282,7 +282,7 @@ namespace LibraryUsb
             }
             finally
             {
-                SafeCloseMarshal(controlIntPtr);
+                SafeCloseMarshal(ref controlIntPtr);
             }
         }
     }

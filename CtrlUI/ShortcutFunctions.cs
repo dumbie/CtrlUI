@@ -72,10 +72,10 @@ namespace CtrlUI
                         catch { }
 
                         //Expand environment variables
-                        string targetPath = Environment.ExpandEnvironmentVariables(shellLinkObject.Target.Path);
-                        string workingPath = Environment.ExpandEnvironmentVariables(shellLinkObject.WorkingDirectory);
-                        iconPath = Environment.ExpandEnvironmentVariables(iconPath);
-                        shortcutPath = Environment.ExpandEnvironmentVariables(shortcutPath);
+                        string targetPath = ConvertEnvironmentPath(shellLinkObject.Target.Path);
+                        string workingPath = ConvertEnvironmentPath(shellLinkObject.WorkingDirectory);
+                        iconPath = ConvertEnvironmentPath(iconPath);
+                        shortcutPath = ConvertEnvironmentPath(shortcutPath);
 
                         //Check shortcut type
                         if (Check_PathUrlProtocol(targetPath))
@@ -365,7 +365,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    //Debug.WriteLine("Unknown shortcut: " + TargetPathLower);
+                    //Debug.WriteLine("Unknown shortcut: " + targetPathLower);
                     return;
                 }
 
@@ -377,7 +377,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, targetPathLower, "Assets/Default/Extensions/" + targetExtensionLower + ".png" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, shortcutDetails.IconIndex);
+                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, targetPathLower, shortcutDetails.ShortcutPath }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, shortcutDetails.IconIndex);
                 }
 
                 //Add the shortcut to the list

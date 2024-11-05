@@ -29,7 +29,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -50,7 +50,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -89,7 +89,7 @@ namespace CtrlUI
                     File_Copy(vFilePickerResult.PathFile, appAssetFolder + saveFileName + ".png", true);
 
                     //Load the new application image
-                    BitmapImage applicationImage = Image_Application_Load(vEditAppDataBind, vImageLoadSize);
+                    BitmapImage applicationImage = Image_Application_Load(vEditAppDataBind, vImageLoadSize, 0);
 
                     //Set the new application image
                     img_AddAppLogo.Source = applicationImage;
@@ -104,7 +104,7 @@ namespace CtrlUI
                     File_Copy(vFilePickerResult.PathFile, appAssetFolder + saveFileName + ".png", true);
 
                     //Load the new application image
-                    BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                    BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
                     //Set the new application image
                     img_AddAppLogo.Source = applicationImage;
@@ -141,7 +141,7 @@ namespace CtrlUI
                     tb_AddAppEmulatorName.Text = vFilePickerResult.Name.Replace(".exe", "");
 
                     //Set application image to image preview
-                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppEmulatorName.Text, vFilePickerResult.PathFile }, vImageSourceFoldersEmulatorsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppEmulatorName.Text, vFilePickerResult.PathFile }, vImageSourceFoldersEmulatorsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
                 }
                 else
                 {
@@ -150,7 +150,7 @@ namespace CtrlUI
                     tb_AddAppEmulatorName.Text = string.Empty;
 
                     //Set application image to image preview
-                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppName.Text, vFilePickerResult.PathFile }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppName.Text, vFilePickerResult.PathFile }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
                 }
 
                 //Enable manage interface

@@ -20,7 +20,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Download game information
-        public async Task<DownloadInfoGame> DownloadInfoGame(string nameGame, string nameEmulatorPlatform, int imageWidth, bool downloadImage, bool useCache)
+        public async Task<DownloadInfoGame> DownloadInfoGame(string nameGame, string nameEmulatorPlatform, int imageWidth, int imageHeight, bool downloadImage, bool useCache)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace CtrlUI
                     }
 
                     //Load bitmap image
-                    cacheInfo.ImageBitmap = FileToBitmapImage(new string[] { userSaveDirectory + nameGameSave + ".png", defaultDirectory + nameGameSave + ".png" }, null, null, IntPtr.Zero, imageWidth, 0);
+                    cacheInfo.ImageBitmap = FileToBitmapImage(new string[] { userSaveDirectory + nameGameSave + ".png", defaultDirectory + nameGameSave + ".png" }, null, null, imageWidth, imageHeight, IntPtr.Zero, 0);
 
                     //Return the information
                     return cacheInfo;
@@ -157,7 +157,7 @@ namespace CtrlUI
                             try
                             {
                                 //Convert bytes to a BitmapImage
-                                downloadedBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
+                                downloadedBitmapImage = BytesToBitmapImage(imageBytes, imageWidth, imageHeight);
 
                                 //Save bytes to image file
                                 File.WriteAllBytes(userSaveDirectory + nameGameSave + ".png", imageBytes);

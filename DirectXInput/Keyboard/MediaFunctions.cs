@@ -305,7 +305,7 @@ namespace DirectXInput.KeyboardCode
                         string updatedImage = "Assets/Default/Icons/Music.png";
                         if (currentImage.ToLower() != updatedImage.ToLower())
                         {
-                            image_Information_Thumbnail.Source = FileToBitmapImage(new string[] { updatedImage }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_Information_Thumbnail.Source = FileToBitmapImage(new string[] { updatedImage }, null, vImageBackupSource, 0, 0, IntPtr.Zero, 0);
                         }
                     }
                     grid_MediaPlaying.Visibility = Visibility.Visible;

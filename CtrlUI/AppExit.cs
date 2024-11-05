@@ -20,27 +20,27 @@ namespace CtrlUI
                 //Show the closing messagebox
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString AnswerCloseCtrlUI = new DataBindString();
-                AnswerCloseCtrlUI.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerCloseCtrlUI.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerCloseCtrlUI.Name = "Close CtrlUI";
                 Answers.Add(AnswerCloseCtrlUI);
 
                 DataBindString AnswerRestartCtrlUI = new DataBindString();
-                AnswerRestartCtrlUI.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerRestartCtrlUI.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerRestartCtrlUI.Name = "Restart CtrlUI";
                 Answers.Add(AnswerRestartCtrlUI);
 
                 DataBindString AnswerShutdownPC = new DataBindString();
-                AnswerShutdownPC.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shutdown.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerShutdownPC.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shutdown.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerShutdownPC.Name = "Shutdown my PC";
                 Answers.Add(AnswerShutdownPC);
 
                 DataBindString AnswerRestartPC = new DataBindString();
-                AnswerRestartPC.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Restart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerRestartPC.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Restart.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerRestartPC.Name = "Restart my PC";
                 Answers.Add(AnswerRestartPC);
 
                 DataBindString AnswerLockPC = new DataBindString();
-                AnswerLockPC.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Lock.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerLockPC.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Lock.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerLockPC.Name = "Lock my PC";
                 Answers.Add(AnswerLockPC);
 

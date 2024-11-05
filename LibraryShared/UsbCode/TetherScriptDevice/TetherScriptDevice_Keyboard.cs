@@ -66,7 +66,7 @@ namespace LibraryUsb
             }
             finally
             {
-                SafeCloseMarshal(featureIntPtr);
+                SafeCloseMarshal(ref featureIntPtr);
             }
         }
 
@@ -98,7 +98,7 @@ namespace LibraryUsb
             }
             finally
             {
-                SafeCloseMarshal(featureIntPtr);
+                SafeCloseMarshal(ref featureIntPtr);
             }
         }
     }

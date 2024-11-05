@@ -40,10 +40,10 @@ namespace DirectXInput
         //Image Variables
         public static int vImageLoadSize = 120;
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
-        public static BitmapImage vImagePreloadIconControllerAccent = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadIconControllerDark = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadIconKeyboard = FileToBitmapImage(new string[] { "Assets/Default/Icons/Keyboard.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadIconMusic = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadIconControllerAccent = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+        public static BitmapImage vImagePreloadIconControllerDark = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+        public static BitmapImage vImagePreloadIconKeyboard = FileToBitmapImage(new string[] { "Assets/Default/Icons/Keyboard.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+        public static BitmapImage vImagePreloadIconMusic = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;

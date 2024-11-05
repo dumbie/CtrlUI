@@ -19,7 +19,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Load application image
-        public BitmapImage Image_Application_Load(DataBindApp dataBindApp, int imageSize)
+        public BitmapImage Image_Application_Load(DataBindApp dataBindApp, int imageWidth, int imageHeight)
         {
             BitmapImage applicationImage = null;
             try
@@ -54,7 +54,7 @@ namespace CtrlUI
                     catch { }
 
                     //Set application bitmap image
-                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageSquareLargestLogoPath, imageWideLargestLogoPath }, imageSourceFolders, vImageBackupSource, IntPtr.Zero, imageSize, 0);
+                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageSquareLargestLogoPath, imageWideLargestLogoPath }, imageSourceFolders, vImageBackupSource, imageWidth, imageHeight, IntPtr.Zero, 0);
                 }
                 else
                 {
@@ -64,7 +64,7 @@ namespace CtrlUI
                     string imageFileExePath = dataBindApp.PathExe;
 
                     //Set application bitmap image
-                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, imageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, imageSourceFolders, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
                 }
 
                 Debug.WriteLine("Loaded application image: " + applicationImage);
@@ -163,12 +163,12 @@ namespace CtrlUI
                 BitmapImage applicationImage = null;
                 if (dataBindApp != null)
                 {
-                    applicationImage = Image_Application_Load(dataBindApp, vImageLoadSize);
+                    applicationImage = Image_Application_Load(dataBindApp, vImageLoadSize, 0);
                     dataBindApp.ImageBitmap = applicationImage;
                 }
                 else
                 {
-                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, imageSourceFoldersCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, imageSourceFoldersCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
                 }
                 img_AddAppLogo.Source = applicationImage;
 

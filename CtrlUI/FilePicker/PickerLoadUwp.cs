@@ -98,7 +98,7 @@ namespace CtrlUI
                         }
 
                         //Load the application image
-                        BitmapImage uwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, null, vImageBackupSource, IntPtr.Zero, 50, 0);
+                        BitmapImage uwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, null, vImageBackupSource, 50, 0, IntPtr.Zero, 0);
 
                         //Add the application to the list
                         DataBindFile dataBindFile = new DataBindFile() { FileType = FileType.UwpApp, Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableAliasName, PathFile = appxDetails.AppUserModelId, PathFull = appxDetails.FullPackageName, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };

@@ -112,7 +112,7 @@ namespace CtrlUI
                 //Get application image
                 //Fix open yaml configurations and look for image (Ubisoft Launcher\cache\assets)
                 //string configurationsPath = Path.Combine(UbisoftInstallPath(), "cache\\configuration\\configurations"); > thumbimage
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Ubisoft" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Ubisoft" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()

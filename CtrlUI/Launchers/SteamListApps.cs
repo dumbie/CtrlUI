@@ -167,7 +167,7 @@ namespace CtrlUI
                 string libraryImageLink = "https://cdn.cloudflare.steamstatic.com/steam/apps/" + appId + "/library_600x900.jpg";
                 string libraryImageName = steamMainPath + "\\appcache\\librarycache\\" + appId + "_library_600x900.jpg";
                 string logoImageName = steamMainPath + "\\appcache\\librarycache\\" + appId + "_logo.png";
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, libraryImageName, logoImageName, "Steam" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, libraryImageName, logoImageName, "Steam" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()

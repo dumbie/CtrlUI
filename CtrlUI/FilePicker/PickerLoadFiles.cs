@@ -29,13 +29,13 @@ namespace CtrlUI
                 {
                     if (Path.GetPathRoot(targetPath) != targetPath)
                     {
-                        BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Default/Icons/Up.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Default/Icons/Up.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         DataBindFile dataBindFileGoUp = new DataBindFile() { FileType = FileType.GoUpPre, Name = "Go up", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = Path.GetDirectoryName(targetPath) };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
                     else
                     {
-                        BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Default/Icons/Up.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Default/Icons/Up.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         DataBindFile dataBindFileGoUp = new DataBindFile() { FileType = FileType.GoUpPre, Name = "Go up", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = "PC" };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }

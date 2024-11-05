@@ -39,7 +39,7 @@ namespace CtrlUI
                     DirectoryInfo listDirectory = Directory.CreateDirectory(newFolderPath);
 
                     //Create new folder databindfile
-                    BitmapImage folderImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage folderImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, Name = listDirectory.Name, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
 
                     //Add the new listbox item

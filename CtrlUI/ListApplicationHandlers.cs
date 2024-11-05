@@ -26,30 +26,30 @@ namespace CtrlUI
                 DataBindString AnswerHowLongToBeat = new DataBindString();
                 if (dataBindApp.Category == AppCategory.Game)
                 {
-                    AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     AnswerHowLongToBeat.Name = "How long to beat information";
                     Answers.Add(AnswerHowLongToBeat);
                 }
 
                 DataBindString AnswerEdit = new DataBindString();
-                AnswerEdit.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Edit.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerEdit.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Edit.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerEdit.Name = "Edit this application details";
                 Answers.Add(AnswerEdit);
 
                 DataBindString AnswerMove = new DataBindString();
-                AnswerMove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Move.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerMove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Move.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerMove.Name = "Move application position in list";
                 Answers.Add(AnswerMove);
 
                 DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerRemove.Name = "Remove application from list";
                 Answers.Add(AnswerRemove);
 
                 DataBindString AnswerAddExe = new DataBindString();
                 if (dataBindApp.Category == AppCategory.App || dataBindApp.Category == AppCategory.Game || dataBindApp.Category == AppCategory.Emulator)
                 {
-                    AnswerAddExe.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddExe.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerAddExe.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddExe.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     AnswerAddExe.Name = "Add new executable application to list";
                     Answers.Add(AnswerAddExe);
                 }
@@ -57,7 +57,7 @@ namespace CtrlUI
                 DataBindString AnswerAddStore = new DataBindString();
                 if (dataBindApp.Category == AppCategory.App || dataBindApp.Category == AppCategory.Game || dataBindApp.Category == AppCategory.Emulator)
                 {
-                    AnswerAddStore.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddStore.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerAddStore.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddStore.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     AnswerAddStore.Name = "Add Windows store application to list";
                     Answers.Add(AnswerAddStore);
                 }

@@ -25,27 +25,27 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerHowLongToBeat = new DataBindString();
-                AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerHowLongToBeat.Name = "How long to beat information";
                 Answers.Add(AnswerHowLongToBeat);
 
                 DataBindString AnswerDownload = new DataBindString();
-                AnswerDownload.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerDownload.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerDownload.Name = "Download game information";
                 Answers.Add(AnswerDownload);
 
                 DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerRemove.Name = "Remove the shortcut file";
                 Answers.Add(AnswerRemove);
 
                 DataBindString AnswerRename = new DataBindString();
-                AnswerRename.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Rename.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerRename.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Rename.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerRename.Name = "Rename the shortcut file";
                 Answers.Add(AnswerRename);
 
                 DataBindString AnswerHide = new DataBindString();
-                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Hide.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Hide.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerHide.Name = "Hide shortcut from list";
                 Answers.Add(AnswerHide);
 
@@ -75,7 +75,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerDownload)
                     {
-                        DownloadInfoGame informationDownloaded = await DownloadInfoGame(dataBindApp.Name, string.Empty, 100, true, false);
+                        DownloadInfoGame informationDownloaded = await DownloadInfoGame(dataBindApp.Name, string.Empty, 100, 0, true, false);
                         if (informationDownloaded != null)
                         {
                             if (informationDownloaded.ImageBitmap != null)

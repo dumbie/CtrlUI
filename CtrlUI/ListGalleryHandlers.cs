@@ -20,7 +20,7 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerRemove.Name = "Remove the media file";
                 Answers.Add(AnswerRemove);
 
