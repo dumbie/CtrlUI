@@ -78,7 +78,7 @@ namespace CtrlUI
                     directoryRomDescriptions = filesDescriptions.Concat(romsDescriptions).OrderByDescending(x => x.Name.Length).ToArray();
                 }
 
-                BitmapSource listImageBitmap = null;
+                BitmapImage listImageBitmap = null;
                 string listDescription = string.Empty;
 
                 //Check the file type
@@ -90,17 +90,7 @@ namespace CtrlUI
                     }
                     else
                     {
-                        string listFileFullNameLower = dataBindFile.PathFile.ToLower();
-                        string listFileExtensionLower = Path.GetExtension(dataBindFile.PathFile).ToLower().Replace(".", string.Empty);
-                        if (listFileFullNameLower.EndsWith(".jpg") || listFileFullNameLower.EndsWith(".png") || listFileFullNameLower.EndsWith(".jxr") || listFileFullNameLower.EndsWith(".gif"))
-                        {
-                            //Fix improve load Windows thumbnails
-                            listImageBitmap = FileToBitmapImage(new string[] { dataBindFile.PathFile }, null, vImageBackupSource, IntPtr.Zero, 50, 0);
-                        }
-                        else
-                        {
-                            listImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Extensions/" + listFileExtensionLower + ".png", "Assets/Default/Icons/File.png" }, null, vImageBackupSource, IntPtr.Zero, 50, 0);
-                        }
+                        listImageBitmap = FileCacheToBitmapImage(dataBindFile.PathFile, vImageBackupSource, 50, 0, false);
                     }
                 }
                 else if (dataBindFile.FileType == FileType.Folder)
@@ -111,12 +101,12 @@ namespace CtrlUI
                     }
                     else
                     {
-                        listImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        listImageBitmap = FileCacheToBitmapImage(dataBindFile.PathFile, vImageBackupSource, 50, 0, false);
                     }
                 }
                 else if (dataBindFile.FileType == FileType.PlatformDesc)
                 {
-                    DownloadInfoPlatform informationDownloaded = await DownloadInfoPlatform(vFilePickerSettings.SourceDataBindApp.Name, 0, false, true);
+                    DownloadInfoPlatform informationDownloaded = await DownloadInfoPlatform(vFilePickerSettings.SourceDataBindApp.Name, 0, 0, false, true);
                     if (informationDownloaded != null)
                     {
                         listDescription = informationDownloaded.Summary;
@@ -142,7 +132,7 @@ namespace CtrlUI
         }
 
         //Get rom details image and description
-        void FilePicker_GetRomDetails(string listName, string listPath, FileInfo[] directoryRomImages, FileInfo[] directoryRomDescription, ref BitmapSource listImage, ref string listDescription)
+        void FilePicker_GetRomDetails(string listName, string listPath, FileInfo[] directoryRomImages, FileInfo[] directoryRomDescription, ref BitmapImage listImage, ref string listDescription)
         {
             try
             {
@@ -199,8 +189,10 @@ namespace CtrlUI
                     catch { }
                 }
 
-                //Update description and image
-                listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "_Rom" }, vImageSourceFoldersEmulatorsCombined, vImageBackupSource, IntPtr.Zero, 210, 0);
+                //Update image
+                listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "_Rom" }, vImageSourceFoldersEmulatorsCombined, vImageBackupSource, 210, 0, IntPtr.Zero, 0);
+
+                //Update description
                 string jsonFile = FileToString(new string[] { romPathDescription, subPathDescription });
                 if (jsonFile.Contains("platform_logo"))
                 {
