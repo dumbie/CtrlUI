@@ -134,7 +134,7 @@ namespace CtrlUI
                     await FilePicker_Focus(targetIndex, targetPath);
 
                     //Load image and descriptions
-                    await FilePicker_LoadDetails();
+                    AVActions.TaskStartBackground(FilePicker_LoadDetails);
                 }
 
                 //Hide file picker loading animation
