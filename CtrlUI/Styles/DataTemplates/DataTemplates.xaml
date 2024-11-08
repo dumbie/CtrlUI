@@ -103,9 +103,12 @@
                 </Border.Background>
             </Border>
 
-            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,2,0,0">
-                <Image Height="20" VerticalAlignment="Center" Margin="2,0,2,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Play.png" Opacity="0.90"/>
-            </StackPanel>
+            <Border Visibility="{Binding StatusVideo}" MinWidth="25" MinHeight="25" CornerRadius="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="2">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource ApplicationDarkGrayColor}" Opacity="0.90"/>
+                </Border.Background>
+                <Image Height="20" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Play.png"/>
+            </Border>
         </Grid>
     </DataTemplate>
 

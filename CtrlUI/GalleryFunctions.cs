@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVProcess;
@@ -94,8 +95,9 @@ namespace CtrlUI
                 {
                     try
                     {
-                        //Get media name
+                        //Get media details
                         string mediaName = Path.GetFileNameWithoutExtension(file.Name);
+                        string mediaExtension = Path.GetExtension(file.Name);
 
                         //Get media path
                         string mediaPath = file.FullName;
@@ -109,8 +111,12 @@ namespace CtrlUI
                             continue;
                         }
 
+                        //Check if media is video
+                        bool mediaVideo = mediaExtension == ".mp4" || mediaExtension == ".gif";
+                        Visibility statusVideo = mediaVideo ? Visibility.Visible : Visibility.Collapsed;
+
                         //Add media to gallery list
-                        DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Unknown, Category = AppCategory.Gallery, Name = mediaName, PathGallery = mediaPath };
+                        DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Unknown, Category = AppCategory.Gallery, Name = mediaName, PathGallery = mediaPath, StatusVideo = statusVideo };
                         await ListBoxAddItem(lb_Gallery, List_Gallery, dataBindApp, true, false);
                     }
                     catch { }

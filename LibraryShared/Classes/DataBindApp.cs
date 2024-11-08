@@ -394,8 +394,8 @@ namespace LibraryShared
                 }
             }
 
-            private BitmapSource PrivImageBitmap = null;
-            public BitmapSource ImageBitmap
+            private BitmapImage PrivImageBitmap = null;
+            public BitmapImage ImageBitmap
             {
                 get { return this.PrivImageBitmap; }
                 set
@@ -478,6 +478,20 @@ namespace LibraryShared
                 }
             }
 
+            private Visibility PrivStatusVideo = Visibility.Collapsed;
+            public Visibility StatusVideo
+            {
+                get { return this.PrivStatusVideo; }
+                set
+                {
+                    if (this.PrivStatusVideo != value)
+                    {
+                        this.PrivStatusVideo = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private Visibility PrivStatusStore = Visibility.Collapsed;
             public Visibility StatusStore
             {
@@ -520,8 +534,8 @@ namespace LibraryShared
                 }
             }
 
-            private BitmapSource PrivStatusEmulatorCategoryImage = null;
-            public BitmapSource StatusEmulatorCategoryImage
+            private BitmapImage PrivStatusEmulatorCategoryImage = null;
+            public BitmapImage StatusEmulatorCategoryImage
             {
                 get { return this.PrivStatusEmulatorCategoryImage; }
                 set
@@ -534,8 +548,8 @@ namespace LibraryShared
                 }
             }
 
-            private BitmapSource PrivStatusSearchCategoryImage = null;
-            public BitmapSource StatusSearchCategoryImage
+            private BitmapImage PrivStatusSearchCategoryImage = null;
+            public BitmapImage StatusSearchCategoryImage
             {
                 get { return this.PrivStatusSearchCategoryImage; }
                 set
@@ -548,8 +562,8 @@ namespace LibraryShared
                 }
             }
 
-            private BitmapSource PrivStatusLauncherImage = null;
-            public BitmapSource StatusLauncherImage
+            private BitmapImage PrivStatusLauncherImage = null;
+            public BitmapImage StatusLauncherImage
             {
                 get { return this.PrivStatusLauncherImage; }
                 set
