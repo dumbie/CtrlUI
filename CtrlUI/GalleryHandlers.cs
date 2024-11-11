@@ -1,4 +1,4 @@
-﻿using System;
+﻿using ArnoldVinkCode;
 using System.Windows.Controls;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInterface;
@@ -13,8 +13,7 @@ namespace CtrlUI
         {
             try
             {
-                //Fix load media in separate thread to prevent freezes
-                //Fix read thumbnails from windows thumbs.db to speed up
+                //Fix high cpu load when scrolling very fast
                 ListBox senderListBox = (ListBox)sender;
                 foreach (DataBindApp dataBindApp in senderListBox.Items)
                 {
@@ -25,7 +24,11 @@ namespace CtrlUI
                         {
                             if (dataBindApp.ImageBitmap == null)
                             {
-                                dataBindApp.ImageBitmap = FileToBitmapImage(new string[] { dataBindApp.PathExe }, null, vImageBackupSource, IntPtr.Zero, 200, 0);
+                                void TaskAction()
+                                {
+                                    dataBindApp.ImageBitmap = FileCacheToBitmapImage(dataBindApp.PathGallery, vImageBackupSource, 200, 0, false);
+                                }
+                                AVActions.TaskStartBackground(TaskAction);
                             }
                         }
                         else

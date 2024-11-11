@@ -1,5 +1,17 @@
 ﻿[
   {
+    "String1": "Captures"
+  },
+  {
     "String1": "%DESKTOPUSER%\\Gallery"
+  },
+  {
+    "String1": "%DESKTOPPUBLIC%\\Gallery"
+  },
+  {
+    "String1": "%PICTURES%\\Screenshots"
+  },
+  {
+    "String1": "%VIDEOS%\\Captures"
   }
 ]
