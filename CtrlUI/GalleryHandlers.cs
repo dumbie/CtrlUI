@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System;
 using System.Windows.Controls;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInterface;
@@ -9,13 +10,27 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        private void LbGalleryScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        private void ListBox_GalleryScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             try
             {
-                //Fix high cpu load when scrolling very fast
-                ListBox senderListBox = (ListBox)sender;
-                foreach (DataBindApp dataBindApp in senderListBox.Items)
+                AVFunctions.TimerRenew(ref vDispatcherTimerDelay);
+                vDispatcherTimerDelay.Interval = TimeSpan.FromMilliseconds(50);
+                vDispatcherTimerDelay.Tick += delegate
+                {
+                    AVFunctions.TimerStop(vDispatcherTimerDelay);
+                    UpdateGalleryMediaImages();
+                };
+                AVFunctions.TimerReset(vDispatcherTimerDelay);
+            }
+            catch { }
+        }
+
+        private void UpdateGalleryMediaImages()
+        {
+            try
+            {
+                foreach (DataBindApp dataBindApp in lb_Gallery.Items)
                 {
                     try
                     {

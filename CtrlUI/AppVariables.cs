@@ -52,6 +52,7 @@ namespace CtrlUI
 
         //Dispatcher Timers
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
+        public static DispatcherTimer vDispatcherTimerDelay = new DispatcherTimer();
 
         //Search Variables
         public static SearchSource[] vImageSourceFoldersEmulatorsCombined =

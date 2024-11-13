@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
@@ -59,6 +60,9 @@ namespace CtrlUI
                 lb_Gallery.PreviewMouseUp += ListBox_Apps_MousePressUp;
                 lb_Search.PreviewKeyUp += ListBox_Apps_KeyPressUp;
                 lb_Search.PreviewMouseUp += ListBox_Apps_MousePressUp;
+
+                //Gallery functions
+                lb_Gallery.AddHandler(ScrollViewer.ScrollChangedEvent, new ScrollChangedEventHandler(ListBox_GalleryScrollViewer_ScrollChanged));
 
                 //MessageBox list functions
                 lb_MessageBox.PreviewKeyUp += ListBox_MessageBox_KeyPressUp;
