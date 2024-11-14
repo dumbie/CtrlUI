@@ -1,9 +1,11 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
 using static DirectXInput.AppVariables;
@@ -99,6 +101,14 @@ namespace DirectXInput
                     if (!ShowInTaskbar) { Application_ShowHideWindow(); }
                     await Message_InstallDrivers();
                     return;
+                }
+
+                //Check settings if Screen Capture Tool launches on start
+                bool shortcutCaptureImage = vShortcutsController.Any(x => x.Name == "CaptureImage" && !x.Trigger.All(x => x == ControllerButtons.None));
+                bool shortcutCaptureVideo = vShortcutsController.Any(x => x.Name == "CaptureVideo" && !x.Trigger.All(x => x == ControllerButtons.None));
+                if (shortcutCaptureImage || shortcutCaptureVideo)
+                {
+                    ProcessLaunch.LaunchScreenCaptureTool(true, true);
                 }
 
                 //Load the help text

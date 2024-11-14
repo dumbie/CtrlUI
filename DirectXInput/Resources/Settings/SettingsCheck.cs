@@ -39,9 +39,6 @@ namespace DirectXInput
 
                 //Media settings
                 if (!SettingCheck(vConfigurationDirectXInput, "MediaVolumeStep")) { SettingSave(vConfigurationDirectXInput, "MediaVolumeStep", "2"); }
-
-                //Socket settings
-                if (!SettingCheck(vConfigurationDirectXInput, "ServerPortScreenCaptureTool")) { SettingSave(vConfigurationDirectXInput, "ServerPortScreenCaptureTool", "1040"); }
             }
             catch (Exception ex)
             {

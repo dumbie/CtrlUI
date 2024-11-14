@@ -265,7 +265,7 @@ namespace DirectXInput
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                             {
                                 Debug.WriteLine("Button Global - Capture screen image");
-                                XboxGameDVR.CaptureImage();
+                                await ToolFunctions.ScreenCaptureToolCaptureImage();
 
                                 ControllerUsed = true;
                                 ControllerDelay750 = true;
@@ -277,7 +277,7 @@ namespace DirectXInput
                             if (CheckShortcutButton(controller.InputCurrent.Buttons, shortcutTrigger, false))
                             {
                                 Debug.WriteLine("Button Global - Capture screen video");
-                                XboxGameDVR.CaptureVideo();
+                                await ToolFunctions.ScreenCaptureToolCaptureVideo();
 
                                 ControllerUsed = true;
                                 ControllerDelay750 = true;

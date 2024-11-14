@@ -49,10 +49,6 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shortcut.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Shortcuts" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Name="menuButtonCapture" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage capture settings">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Screenshot.png" Width="55" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Capture" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                    </StackPanel>
                     <StackPanel Name="menuButtonKeyboard" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open keyboard settings">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keyboard.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Keyboard" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -542,34 +538,6 @@
 
                                 <TextBlock Margin="0,10,0,0" Text="Capture screen video by pressing:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <styles:ShortcutController Name="controller_CaptureVideo" TriggerName="CaptureVideo"/>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Grid>
-                </Grid>
-            </Grid>
-
-            <!-- Grid Capture -->
-            <Grid Name="grid_Capture" Grid.Column="1" Background="{DynamicResource ApplicationWhiteBrush}" Visibility="Collapsed">
-                <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
-                        <StackPanel>
-                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Capture"/>
-                            <Border Margin="0,30,0,0" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
-                        </StackPanel>
-                    </Grid>
-
-                    <Grid Grid.Row="1">
-                        <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
-                            <StackPanel>
-                                <Button Name="btn_Settings_OpenCaptureFolder" Margin="0,10,0,0" Content="Open image and video capture folder" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
-                                <Button Name="btn_Settings_OpenXboxGameBarOverlay" Margin="0,10,0,0" Content="Open Xbox Game Bar overlay" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
-                                <Button Name="btn_Settings_OpenXboxGameBarSettings" Margin="0,10,0,0" Content="Open Xbox Game Bar settings" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
-                                <Button Name="btn_Settings_OpenXboxCapture" Margin="0,10,0,0" Content="Open Xbox Capture settings" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
