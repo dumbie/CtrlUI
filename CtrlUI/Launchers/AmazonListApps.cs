@@ -32,13 +32,16 @@ namespace CtrlUI
                                     using (RegistryKey installDetails = registryKeyUninstall.OpenSubKey(uninstallApp))
                                     {
                                         string uninstallString = installDetails.GetValue("UninstallString")?.ToString();
-                                        if (uninstallString.Contains("Amazon Game"))
+                                        if (!string.IsNullOrWhiteSpace(uninstallString))
                                         {
-                                            string appId = uninstallString.Split(new string[] { " -p " }, StringSplitOptions.None)[1];
-                                            string appName = installDetails.GetValue("DisplayName")?.ToString();
-                                            string appIcon = installDetails.GetValue("DisplayIcon")?.ToString().Replace("\"", string.Empty);
-                                            string installDir = installDetails.GetValue("InstallLocation")?.ToString().Replace("\"", string.Empty);
-                                            await AmazonAddApplication(appId, appName, appIcon, installDir);
+                                            if (uninstallString.Contains("Amazon Game"))
+                                            {
+                                                string appId = uninstallString.Split(new string[] { " -p " }, StringSplitOptions.None)[1];
+                                                string appName = installDetails.GetValue("DisplayName")?.ToString();
+                                                string appIcon = installDetails.GetValue("DisplayIcon")?.ToString().Replace("\"", string.Empty);
+                                                string installDir = installDetails.GetValue("InstallLocation")?.ToString().Replace("\"", string.Empty);
+                                                await AmazonAddApplication(appId, appName, appIcon, installDir);
+                                            }
                                         }
                                     }
                                 }
@@ -87,7 +90,7 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appIcon, "Amazon" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appIcon, "Amazon" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()

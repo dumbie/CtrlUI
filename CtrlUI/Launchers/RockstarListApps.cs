@@ -35,12 +35,15 @@ namespace CtrlUI
                                     {
                                         string publisher = installDetails.GetValue("Publisher")?.ToString();
                                         string uninstallString = installDetails.GetValue("UninstallString")?.ToString();
-                                        if (publisher.Contains("Rockstar") && uninstallString.Contains("Launcher.exe") && uninstallString.Contains("-uninstall"))
+                                        if (!string.IsNullOrWhiteSpace(publisher) && !string.IsNullOrWhiteSpace(uninstallString))
                                         {
-                                            string appName = installDetails.GetValue("DisplayName")?.ToString();
-                                            string appExe = installDetails.GetValue("DisplayIcon")?.ToString().Replace("\"", string.Empty);
-                                            string installDir = installDetails.GetValue("InstallLocation")?.ToString().Replace("\"", string.Empty);
-                                            await RockstarAddApplication(appExe, appName, installDir);
+                                            if (publisher.Contains("Rockstar") && uninstallString.Contains("Launcher.exe") && uninstallString.Contains("-uninstall"))
+                                            {
+                                                string appName = installDetails.GetValue("DisplayName")?.ToString();
+                                                string appExe = installDetails.GetValue("DisplayIcon")?.ToString().Replace("\"", string.Empty);
+                                                string installDir = installDetails.GetValue("InstallLocation")?.ToString().Replace("\"", string.Empty);
+                                                await RockstarAddApplication(appExe, appName, installDir);
+                                            }
                                         }
                                     }
                                 }
@@ -86,7 +89,7 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appExe, "Rockstar" }, vImageSourceFoldersAppsCombined, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appExe, "Rockstar" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
