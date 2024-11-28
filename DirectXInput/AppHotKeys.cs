@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using static ArnoldVinkCode.AVClasses;
-using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputHotkey;
+using static ArnoldVinkCode.AVInputOutputHotkeyHook;
 using static DirectXInput.AppVariables;
 
 namespace DirectXInput
 {
     public partial class WindowMain
     {
-        private async void EventHotkeyPressed(List<KeysVirtual> keysPressed)
+        private async void EventHotkeyPressed(bool[] keysPressed)
         {
             try
             {
@@ -17,7 +15,7 @@ namespace DirectXInput
                 {
                     if (shortcutTrigger.Name == "LaunchCtrlUI")
                     {
-                        if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                        if (CheckHotkeyPressed(keysPressed, shortcutTrigger.Trigger))
                         {
                             Debug.WriteLine("Button Global - Show or hide CtrlUI");
                             await ToolFunctions.CtrlUI_LaunchShow();

@@ -143,8 +143,8 @@ namespace DirectXInput
                 TasksBackgroundStart();
 
                 //Register keyboard hotkeys
-                AVInputOutputHotkey.Start();
-                AVInputOutputHotkey.EventHotkeyPressedList += EventHotkeyPressed;
+                AVInputOutputHotkeyHook.Start();
+                AVInputOutputHotkeyHook.EventHotkeyPressedList += EventHotkeyPressed;
 
                 //Set application first launch to false
                 SettingSave(vConfigurationDirectXInput, "AppFirstLaunch", "False");

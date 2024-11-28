@@ -14,11 +14,11 @@ namespace DirectXInput
             try
             {
                 List<string> messageAnswers = new List<string>();
-                messageAnswers.Add("Exit application");
+                messageAnswers.Add("Close application");
                 messageAnswers.Add("Cancel");
 
-                string messageResult = await new AVMessageBox().Popup(vWindowMain, "Do you really want to exit DirectXInput?", "This will disconnect all your currently connected controllers.", messageAnswers);
-                if (messageResult == "Exit application")
+                string messageResult = await new AVMessageBox().Popup(vWindowMain, "Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", messageAnswers);
+                if (messageResult == "Close application")
                 {
                     await Application_Exit();
                 }

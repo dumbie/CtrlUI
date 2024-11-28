@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using static ArnoldVinkCode.AVClasses;
-using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputHotkey;
+using static ArnoldVinkCode.AVInputOutputHotkeyHook;
 using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
 {
     public partial class AppHotkeys
     {
-        public static void EventHotkeyPressed(List<KeysVirtual> keysPressed)
+        public static void EventHotkeyPressed(bool[] keysPressed)
         {
             try
             {
@@ -17,7 +15,7 @@ namespace FpsOverlayer
                 {
                     if (shortcutTrigger.Name == "ShowHideTools")
                     {
-                        if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                        if (CheckHotkeyPressed(keysPressed, shortcutTrigger.Trigger))
                         {
                             Debug.WriteLine("Button Global - ShowHideTools");
                             vWindowTools.SwitchToolsVisibility();
@@ -26,7 +24,7 @@ namespace FpsOverlayer
                     }
                     else if (shortcutTrigger.Name == "ShowHideCrosshair")
                     {
-                        if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                        if (CheckHotkeyPressed(keysPressed, shortcutTrigger.Trigger))
                         {
                             Debug.WriteLine("Button Global - ShowHideCrosshair");
                             vWindowCrosshair.SwitchCrosshairVisibility(true);
@@ -35,7 +33,7 @@ namespace FpsOverlayer
                     }
                     else if (shortcutTrigger.Name == "ShowHideFpsStats")
                     {
-                        if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                        if (CheckHotkeyPressed(keysPressed, shortcutTrigger.Trigger))
                         {
                             Debug.WriteLine("Button Global - ShowHideFpsStats");
                             vWindowStats.SwitchFpsOverlayVisibility();
@@ -44,7 +42,7 @@ namespace FpsOverlayer
                     }
                     else if (shortcutTrigger.Name == "PositionFpsStats")
                     {
-                        if (CheckHotkeyPress(keysPressed, shortcutTrigger.Trigger))
+                        if (CheckHotkeyPressed(keysPressed, shortcutTrigger.Trigger))
                         {
                             Debug.WriteLine("Button Global - PositionFpsStats");
                             vWindowStats.ChangeFpsOverlayPosition();

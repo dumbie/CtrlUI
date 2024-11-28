@@ -46,8 +46,8 @@ namespace FpsOverlayer
                 vWindowCrosshair.Show();
 
                 //Register keyboard hotkeys
-                AVInputOutputHotkey.Start();
-                AVInputOutputHotkey.EventHotkeyPressedList += EventHotkeyPressed;
+                AVInputOutputHotkeyHook.Start();
+                AVInputOutputHotkeyHook.EventHotkeyPressedList += EventHotkeyPressed;
 
                 //Enable the socket server
                 await EnableSocketServer();
