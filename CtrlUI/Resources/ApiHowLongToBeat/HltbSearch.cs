@@ -33,8 +33,8 @@ namespace CtrlUI
                 string resultAppJson = await AVDownloader.DownloadStringAsync(5000, "CtrlUI", requestHeaders, new Uri(apiUrl));
 
                 //Extract api auth key
-                Match regExApiAuthKey = Regex.Match(resultAppJson, "fetch\\(\"/api/search/\".concat\\(\"(.*?)\"\\)");
-                string apiAuthkey = regExApiAuthKey.Groups[1].Value;
+                Match regExApiAuthKey = Regex.Match(resultAppJson, "fetch\\(\"/api/search/\".concat\\(\"(.*?)\"\\).concat\\(\"(.*?)\"\\)");
+                string apiAuthkey = regExApiAuthKey.Groups[1].Value + regExApiAuthKey.Groups[2].Value;
 
                 //Update api auth key
                 if (!string.IsNullOrWhiteSpace(apiAuthkey))

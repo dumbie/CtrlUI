@@ -4,6 +4,7 @@
     {
         public class ApiHltbSearchQuery
         {
+            public bool useCache = false;
             public string searchType { get; set; } = "games";
             public string[] searchTerms { get; set; }
             public int searchPage { get; set; } = 1;
@@ -48,6 +49,7 @@
                 public string perspective { get; set; } = string.Empty;
                 public string flow { get; set; } = string.Empty;
                 public string genre { get; set; } = string.Empty;
+                public string subGenre { get; set; } = " ";
             }
 
             public class Users
