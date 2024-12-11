@@ -33,7 +33,7 @@ namespace CtrlUI
                 string resultAppJson = await AVDownloader.DownloadStringAsync(5000, "CtrlUI", requestHeaders, new Uri(apiUrl));
 
                 //Extract api auth key
-                Match regExApiAuthKey = Regex.Match(resultAppJson, "fetch\\(\"/api/search/\".concat\\(\"(.*?)\"\\).concat\\(\"(.*?)\"\\)");
+                Match regExApiAuthKey = Regex.Match(resultAppJson, "fetch\\(\"/api/find/\".concat\\(\"(.*?)\"\\).concat\\(\"(.*?)\"\\)");
                 string apiAuthkey = regExApiAuthKey.Groups[1].Value + regExApiAuthKey.Groups[2].Value;
 
                 //Update api auth key
@@ -82,7 +82,7 @@ namespace CtrlUI
 
                 //Set download url
                 //Xbox string apiUrl = "https://howlongtobeat.com/___api/games?xbox_id=9WZDNCRFHWD2";
-                string apiUrl = "https://howlongtobeat.com/api/search/" + vApiHltbAuthKey;
+                string apiUrl = "https://howlongtobeat.com/api/find/" + vApiHltbAuthKey;
 
                 //Split name and remove characters
                 string[] searchFilterTerms = gameName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);

@@ -49,7 +49,8 @@
                 public string perspective { get; set; } = string.Empty;
                 public string flow { get; set; } = string.Empty;
                 public string genre { get; set; } = string.Empty;
-                public string subGenre { get; set; } = " ";
+                public string subGenre { get; set; } = string.Empty;
+                public string difficulty { get; set; } = string.Empty;
             }
 
             public class Users
