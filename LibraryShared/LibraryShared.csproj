@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
-		<NoWarn>CA1416;SYSLIB0011</NoWarn>
+		<NoWarn>CA1416</NoWarn>
 		<OutputType>Library</OutputType>
 	</PropertyGroup>
 	<PropertyGroup>
@@ -10,6 +10,7 @@
 		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
 		<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<EnableUnsafeBinaryFormatterSerialization>True</EnableUnsafeBinaryFormatterSerialization>
 		<AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
 		<OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
@@ -27,7 +28,7 @@
 		</Compile>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="protobuf-net.Core" Version="3.2.30" />
+		<PackageReference Include="protobuf-net.Core" Version="3.2.45" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\ArnoldVinkCode\Desktop\ArnoldVinkCode.csproj" />
