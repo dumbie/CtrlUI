@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using static ArnoldVinkCode.AVCertificate;
 using static ArnoldVinkCode.AVFirewall;
 
 namespace DriverInstaller
@@ -55,7 +56,7 @@ namespace DriverInstaller
                 RemoveStartupShortcut("FpsOverlayer.url");
                 RemoveStartupShortcut("ScreenCaptureTool.url");
 
-                //Reset progessbar
+                //Reset progress bar
                 ProgressBarUpdate(100, true);
                 TextBoxAppend("CtrlUI cleanup completed.");
                 TextBoxAppend("--- Manually remove CtrlUI directory ---");
