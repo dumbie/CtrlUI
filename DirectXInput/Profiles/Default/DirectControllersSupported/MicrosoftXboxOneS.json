@@ -1,6 +1,6 @@
 {
   "CodeName": "MicrosoftXboxOneS",
-  "ProductIDs": [ "0x02e0" ],
+  "ProductIDs": [ "0x02e0-debug" ],
   "VendorID": "0x045e",
   "HasInputOnDemand": true,
   "OffsetWireless": 1,
