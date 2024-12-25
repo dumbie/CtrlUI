@@ -24,13 +24,17 @@ Screen Capture Tool allows you to capture your screen to an image or video.
 - Easily customize the controller button layout.
 - Make and save a screenshot directly with your controller.
 - Control your system volume and media with your controller.
-- Built-in on screen keyboard which can be used by your controller.
+- On screen keyboard and keypad for your controller.
 
 ## Fps Overlayer Application Features
 - Show current frame rate of a running application.
 - Show processor, videocard and other hardware stats.
-- Show current time on your screen while gaming.
-- Browse the web in an overlay while gaming.
+- Show a crosshair overlay to help you aim while gaming.
+- Tool overlay with web browser, notes and more features.
+
+## Screen Capture Tool Application Features
+- Capture your screen to an image or video.
+- HDR to SDR tonemapping when needed.
 
 ## Supported controllers 
 - Sony PlayStation 1 (Wired)
@@ -68,6 +72,7 @@ Screen Capture Tool allows you to capture your screen to an image or video.
 
 ## Requirements
 - Microsoft .NET Core Runtime installed.
+- Microsoft HEVC Video Extensions installed.
 - Microsoft Visual C++ Redistributable installed.
 - Microsoft Windows 11 64-bit or higher is required.
 - Supported game controller connected through DirectXInput.
@@ -87,6 +92,11 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v2.2.0.0 (24-December-2024)
+- CtrlUI: Added screenshot gallery.
+- FpsOverlayer: Added notes to tool overlay.
+- Added Screen Capture Tool.
+
 v2.1.0.0 (11-July-2024)
 - FpsOverlayer: Added fan speed information support.
 - FpsOverlayer: Added address bar to browser overlay.
