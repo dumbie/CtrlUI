@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using ArnoldVinkCode;
+using Microsoft.Win32;
 using SteamKit2;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVSearch;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -163,13 +165,17 @@ namespace CtrlUI
                     return;
                 }
 
-                //Get application image
-                string libraryImageLink = "https://cdn.cloudflare.steamstatic.com/steam/apps/" + appId + "/library_600x900.jpg";
-                string libraryImageName = steamMainPath + "\\appcache\\librarycache\\" + appId + "_library_600x900.jpg";
-                string logoImageName = steamMainPath + "\\appcache\\librarycache\\" + appId + "_logo.png";
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, libraryImageName, logoImageName, "Steam" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                //Search application image
+                SearchSource[] searchSources =
+                {
+                    new SearchSource() { SearchPath = steamMainPath + "\\appcache\\librarycache\\" + appId, SearchPatterns = ["*.png", "*.jpg"], SearchOption = SearchOption.AllDirectories }
+                };
+                string searchImage = Search_Files(["library_600x900", "logo"], searchSources, false).FirstOrDefault();
 
-                //Add the application to the list
+                //Get application image
+                BitmapImage iconBitmapImage = FileToBitmapImage([appName, searchImage, "Steam"], vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+
+                //Add application to the list
                 DataBindApp dataBindApp = new DataBindApp()
                 {
                     Category = AppCategory.Launcher,
