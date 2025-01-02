@@ -33,22 +33,21 @@ namespace CtrlUI
                 string resultAppJson = await AVDownloader.DownloadStringAsync(5000, "CtrlUI", requestHeaders, new Uri(apiUrl));
 
                 //Extract api auth key
-                Match regExApiAuthKey = Regex.Match(resultAppJson, "fetch\\(\"/api/find/\".concat\\(\"(.*?)\"\\).concat\\(\"(.*?)\"\\)");
-                string apiAuthkey = regExApiAuthKey.Groups[1].Value + regExApiAuthKey.Groups[2].Value;
+                string[] apiSearchNames = ["search", "find", "lookup"];
+                foreach (string searchName in apiSearchNames)
+                {
+                    Match regExApiAuthKey = Regex.Match(resultAppJson, "fetch\\(\"/api/" + searchName + "/\".concat\\(\"(.*?)\"\\).concat\\(\"(.*?)\"\\)");
+                    if (regExApiAuthKey.Success)
+                    {
+                        vApiHltbSearchName = searchName;
+                        vApiHltbAuthKey = regExApiAuthKey.Groups[1].Value + regExApiAuthKey.Groups[2].Value;
+                        Debug.WriteLine("Updated how long to beat api key: " + vApiHltbAuthKey);
+                        return true;
+                    }
+                }
 
-                //Update api auth key
-                if (!string.IsNullOrWhiteSpace(apiAuthkey))
-                {
-                    vApiHltbAuthKey = apiAuthkey;
-                    Debug.WriteLine("Updated how long to beat api key: " + vApiHltbAuthKey);
-                    return true;
-                }
-                else
-                {
-                    vApiHltbAuthKey = string.Empty;
-                    Debug.WriteLine("Failed to update how long to beat api key: empty key.");
-                    return false;
-                }
+                Debug.WriteLine("Failed to update how long to beat api key: empty key.");
+                return false;
             }
             catch (Exception ex)
             {
@@ -82,7 +81,7 @@ namespace CtrlUI
 
                 //Set download url
                 //Xbox string apiUrl = "https://howlongtobeat.com/___api/games?xbox_id=9WZDNCRFHWD2";
-                string apiUrl = "https://howlongtobeat.com/api/find/" + vApiHltbAuthKey;
+                string apiUrl = "https://howlongtobeat.com/api/" + vApiHltbSearchName + "/" + vApiHltbAuthKey;
 
                 //Split name and remove characters
                 string[] searchFilterTerms = gameName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
