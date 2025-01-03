@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using SteamKit2;
 using System;
 using System.Collections.Generic;

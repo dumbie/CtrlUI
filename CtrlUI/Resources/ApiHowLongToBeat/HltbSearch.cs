@@ -40,6 +40,7 @@ namespace CtrlUI
                     if (regExApiAuthKey.Success)
                     {
                         vApiHltbSearchName = searchName;
+                        vApiHltbAuthDateTime = DateTime.Now;
                         vApiHltbAuthKey = regExApiAuthKey.Groups[1].Value + regExApiAuthKey.Groups[2].Value;
                         Debug.WriteLine("Updated how long to beat api key: " + vApiHltbAuthKey);
                         return true;
@@ -64,8 +65,13 @@ namespace CtrlUI
                 Debug.WriteLine("Searching how long to beat game: " + gameName);
 
                 //Check authentication key
-                //Fix check if auth key expired
-                if (string.IsNullOrWhiteSpace(vApiHltbAuthKey))
+                double authExpiredMinutes = 0;
+                if (vApiHltbAuthDateTime != null)
+                {
+                    authExpiredMinutes = DateTime.Now.Subtract((DateTime)vApiHltbAuthDateTime).TotalMinutes;
+                }
+
+                if (authExpiredMinutes > 15 || string.IsNullOrWhiteSpace(vApiHltbAuthKey))
                 {
                     if (!await ApiHowLongToBeat_UpdateAuthKey())
                     {

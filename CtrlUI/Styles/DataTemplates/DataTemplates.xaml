@@ -197,7 +197,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="30" Grid.Column="0" Margin="0,0,20,0" MinWidth="350" MaxWidth="700" Style="{StaticResource ScrollViewerHidden}">
+            <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="30" Grid.Column="0" Margin="0,0,20,0" MinWidth="350" MaxWidth="650" Style="{StaticResource ScrollViewerHidden}">
                 <TextBlock Text="{Binding Data1}" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}"/>
             </styles:ScrollViewerLoopHorizontal>
             <TextBlock Grid.Column="1" Margin="0,0,20,0" Text="{Binding Data2}" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeLarge}"/>
