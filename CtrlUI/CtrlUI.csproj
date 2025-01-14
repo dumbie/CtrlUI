@@ -925,7 +925,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="protobuf-net" Version="3.2.45" />
-		<PackageReference Include="SteamKit2" Version="3.0.0" />
+		<PackageReference Include="SteamKit2" Version="3.0.1" />
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
