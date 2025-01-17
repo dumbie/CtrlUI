@@ -71,9 +71,38 @@ namespace CtrlUI
                         }
                         catch { }
 
+                        string targetPath = string.Empty;
+                        try
+                        {
+                            targetPath = shellLinkObject.Path;
+                        }
+                        catch { }
+                        try
+                        {
+                            if (string.IsNullOrWhiteSpace(targetPath))
+                            {
+                                targetPath = shellLinkObject.Target.Path;
+                            }
+                        }
+                        catch { }
+
+                        string workingPath = string.Empty;
+                        try
+                        {
+                            workingPath = shellLinkObject.WorkingDirectory;
+                        }
+                        catch { }
+
+                        string commentString = string.Empty;
+                        try
+                        {
+                            commentString = shellLinkObject.Description;
+                        }
+                        catch { }
+
                         //Expand environment variables
-                        string targetPath = ConvertEnvironmentPath(shellLinkObject.Target.Path);
-                        string workingPath = ConvertEnvironmentPath(shellLinkObject.WorkingDirectory);
+                        targetPath = ConvertEnvironmentPath(targetPath);
+                        workingPath = ConvertEnvironmentPath(workingPath);
                         iconPath = ConvertEnvironmentPath(iconPath);
                         shortcutPath = ConvertEnvironmentPath(shortcutPath);
 
@@ -99,10 +128,13 @@ namespace CtrlUI
                         shortcutDetails.IconPath = iconPath;
                         shortcutDetails.ShortcutPath = shortcutPath;
                         shortcutDetails.Argument = argumentString;
-                        shortcutDetails.Comment = shellLinkObject.Description;
+                        shortcutDetails.Comment = commentString;
                         shortcutDetails.TimeModify = folderItem.ModifyDate;
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Failed reading shortcut: " + ex.Message + "/" + shortcutPath);
+                    }
                 });
 
                 thread.SetApartmentState(ApartmentState.STA);
