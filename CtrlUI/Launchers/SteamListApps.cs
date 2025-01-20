@@ -129,7 +129,7 @@ namespace CtrlUI
                 //Get application id
                 string appId = keyValue["appID"].Value;
 
-                //Get launch argument
+                //Get run command
                 string runCommand = "steam://rungameid/" + appId;
                 vLauncherAppAvailableCheck.Add(runCommand);
 

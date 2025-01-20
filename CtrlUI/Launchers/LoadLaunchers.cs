@@ -104,22 +104,28 @@ namespace CtrlUI
                     await AmazonScanAddLibrary();
                 }
 
-                //Scan and add library from UWP games
+                //Scan and add library from UWP
                 if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryUwp", typeof(bool)))
                 {
                     await UwpScanAddLibrary();
                 }
 
-                //Scan and add library from IndieGala games
+                //Scan and add library from IndieGala
                 if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryIndieGala", typeof(bool)))
                 {
                     await IndieGalaScanAddLibrary();
                 }
 
-                //Scan and add library from Itch.io games
+                //Scan and add library from Itch.io
                 if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryItchIO", typeof(bool)))
                 {
                     await ItchIOScanAddLibrary();
+                }
+
+                //Scan and add library from Humble
+                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryHumble", typeof(bool)))
+                {
+                    await HumbleScanAddLibrary();
                 }
 
                 //Remove deleted launcher applications

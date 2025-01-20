@@ -16,7 +16,8 @@
             UWP = 8,
             Amazon = 9,
             ItchIO = 10,
-            IndieGala = 11
+            IndieGala = 11,
+            Humble = 12
         }
     }
 }

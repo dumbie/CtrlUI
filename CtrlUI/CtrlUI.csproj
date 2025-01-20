@@ -32,6 +32,9 @@
 		<Content Include="Api\IGDB\Platforms.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Assets\Default\Apps\Humble.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Assets\Default\Apps\ScreenCaptureTool.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

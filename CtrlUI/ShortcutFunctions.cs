@@ -368,6 +368,10 @@ namespace CtrlUI
                     {
                         launcherImage = vImagePreloadAmazon;
                     }
+                    else if (targetPathLower.Contains("humble:"))
+                    {
+                        launcherImage = vImagePreloadHumble;
+                    }
                 }
                 else if (shortcutDetails.Type == ShortcutType.UWP)
                 {

@@ -94,6 +94,7 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadAmazon = FileToBitmapImage(new string[] { "Amazon" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadIndieGala = FileToBitmapImage(new string[] { "IndieGala" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadItchIO = FileToBitmapImage(new string[] { "ItchIO" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+        public static BitmapImage vImagePreloadHumble = FileToBitmapImage(new string[] { "Humble" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadConsole = FileToBitmapImage(new string[] { "Assets/Default/Icons/Console.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadHandheld = FileToBitmapImage(new string[] { "Assets/Default/Icons/Handheld.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadComputer = FileToBitmapImage(new string[] { "Assets/Default/Icons/Computer.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
