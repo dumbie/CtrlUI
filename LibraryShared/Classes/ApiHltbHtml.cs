@@ -2,7 +2,7 @@
 {
     public partial class Classes
     {
-        public class ApiHltbSearchQuery
+        public class ApiHltbSearchQueryHtml
         {
             public bool useCache = false;
             public string searchType { get; set; } = "games";
@@ -59,7 +59,7 @@
             }
         }
 
-        public class ApiHltbSearchResult
+        public class ApiHltbSearchResultHtml
         {
             public string color { get; set; }
             public string title { get; set; }

@@ -54,12 +54,12 @@ namespace CtrlUI
                 Popup_Show_Element(grid_Popup_HowLongToBeat);
 
                 //Search for game
-                ApiHltbSearchResult searchResult = await ApiHowLongToBeat_Search(filterSearchGame);
+                ApiHltbSearchResultHtml searchResult = await ApiHowLongToBeat_Search_Html(filterSearchGame);
 
                 //Read games from result
                 if (searchResult != null && searchResult.data != null)
                 {
-                    foreach (ApiHltbSearchResult.Data hltbData in searchResult.data)
+                    foreach (ApiHltbSearchResultHtml.Data hltbData in searchResult.data)
                     {
                         try
                         {
