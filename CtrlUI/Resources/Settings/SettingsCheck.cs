@@ -53,6 +53,7 @@ namespace CtrlUI
                 if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryUwp")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryUwp", "True"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryIndieGala")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryIndieGala", "True"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryItchIO")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryItchIO", "True"); }
+                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryHumble")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryHumble", "True"); }
 
                 if (!SettingCheck(vConfigurationCtrlUI, "HideBatteryLevel")) { SettingSave(vConfigurationCtrlUI, "HideBatteryLevel", "False"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "HideControllerHelp")) { SettingSave(vConfigurationCtrlUI, "HideControllerHelp", "False"); }

@@ -302,6 +302,7 @@ namespace CtrlUI
                 bool runningAmazon = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "amazon games");
                 bool runningIndieGala = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "igclient");
                 bool runningItchIO = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "itch");
+                bool runningHumble = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "humble app");
                 bool runningDiscord = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "discord");
                 bool runningDirectXInput = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "directxinput");
                 bool runningScreenCaptureTool = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "screencapturetool");
@@ -319,6 +320,7 @@ namespace CtrlUI
                     img_Menu_AmazonStatus.Opacity = runningAmazon ? 1.00 : 0.40;
                     img_Menu_IndieGalaStatus.Opacity = runningIndieGala ? 1.00 : 0.40;
                     img_Menu_ItchIOStatus.Opacity = runningItchIO ? 1.00 : 0.40;
+                    img_Menu_HumbleStatus.Opacity = runningHumble ? 1.00 : 0.40;
                     img_Menu_DiscordStatus.Opacity = runningDiscord ? 1.00 : 0.40;
                     img_Menu_DirectXInputStatus.Opacity = runningDirectXInput ? 1.00 : 0.40;
                     img_Menu_ScreenCaptureToolStatus.Opacity = runningScreenCaptureTool ? 1.00 : 0.40;
@@ -393,6 +395,7 @@ namespace CtrlUI
                 img_Menu_AmazonStatus.Source = vImagePreloadAmazon;
                 img_Menu_IndieGalaStatus.Source = vImagePreloadIndieGala;
                 img_Menu_ItchIOStatus.Source = vImagePreloadItchIO;
+                img_Menu_HumbleStatus.Source = vImagePreloadHumble;
                 img_Menu_DiscordStatus.Source = vImagePreloadDiscord;
                 img_Menu_DirectXInputStatus.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
                 img_Menu_FpsOverlayerStatus.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);

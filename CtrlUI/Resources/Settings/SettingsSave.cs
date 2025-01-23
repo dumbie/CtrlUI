@@ -110,6 +110,13 @@ namespace CtrlUI
                     await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 };
 
+                cb_SettingsShowLibraryHumble.Click += async (sender, e) =>
+                {
+                    SettingSave(vConfigurationCtrlUI, "ShowLibraryHumble", cb_SettingsShowLibraryHumble.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Humble;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
                 cb_SettingsHideBatteryLevel.Click += (sender, e) =>
                 {
                     SettingSave(vConfigurationCtrlUI, "HideBatteryLevel", cb_SettingsHideBatteryLevel.IsChecked.ToString());

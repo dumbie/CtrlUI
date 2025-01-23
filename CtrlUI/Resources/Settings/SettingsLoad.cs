@@ -30,6 +30,7 @@ namespace CtrlUI
                 cb_SettingsShowLibraryUwp.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryUwp", typeof(bool));
                 cb_SettingsShowLibraryIndieGala.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryIndieGala", typeof(bool));
                 cb_SettingsShowLibraryItchIO.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryItchIO", typeof(bool));
+                cb_SettingsShowLibraryHumble.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowLibraryHumble", typeof(bool));
 
                 cb_SettingsHideBatteryLevel.IsChecked = SettingLoad(vConfigurationCtrlUI, "HideBatteryLevel", typeof(bool));
                 cb_SettingsHideControllerHelp.IsChecked = SettingLoad(vConfigurationCtrlUI, "HideControllerHelp", typeof(bool));
