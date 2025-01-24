@@ -119,6 +119,23 @@ namespace CtrlUI
                     Answers.Add(AnswerRestartWithout);
                 }
 
+                DataBindString AnswerAutoHDR = new DataBindString();
+                bool applicationAutoHDR = false;
+                if (!processIsExplorer && dataBindApp.Type == ProcessType.Win32)
+                {
+                    AnswerAutoHDR.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorHDR.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    applicationAutoHDR = CheckApplicationAutoHDR(dataBindApp);
+                    if (applicationAutoHDR)
+                    {
+                        AnswerAutoHDR.Name = "Disable Windows Auto HDR support";
+                    }
+                    else
+                    {
+                        AnswerAutoHDR.Name = "Enable Windows Auto HDR support";
+                    }
+                    Answers.Add(AnswerAutoHDR);
+                }
+
                 //Get launch information
                 string launchInformation = string.Empty;
                 if (processMulti.Type == ProcessType.UWP || processMulti.Type == ProcessType.Win32Store)
@@ -221,6 +238,21 @@ namespace CtrlUI
                     else if (messageResult == AnswerLaunch)
                     {
                         await LaunchProcessDatabindAuto(dataBindApp);
+                    }
+                    else if (messageResult == AnswerAutoHDR)
+                    {
+                        if (applicationAutoHDR)
+                        {
+                            await DisableApplicationAutoHDR(dataBindApp);
+                        }
+                        else
+                        {
+                            //Enable Windows auto HDR feature
+                            await EnableWindowsAutoHDRFeature();
+
+                            //Allow auto HDR for application
+                            await EnableApplicationAutoHDR(dataBindApp);
+                        }
                     }
                 }
                 else
