@@ -30,29 +30,32 @@ namespace CtrlUI
                 GoGConfig gogConfigDeserial = JsonConvert.DeserializeObject<GoGConfig>(gogConfigJson);
 
                 //Add applications from json path
-                string[] gameFolders = Directory.GetDirectories(gogConfigDeserial.libraryPath, "*");
-                foreach (string infoFolder in gameFolders)
+                foreach (string installationPath in gogConfigDeserial.installationPaths)
                 {
-                    try
+                    string[] gameFolders = Directory.GetDirectories(installationPath, "*");
+                    foreach (string infoFolder in gameFolders)
                     {
-                        string[] infoFiles = Directory.GetFiles(infoFolder, "goggame*.info");
-                        foreach (string infoFile in infoFiles)
+                        try
                         {
-                            try
+                            string[] infoFiles = Directory.GetFiles(infoFolder, "goggame*.info");
+                            foreach (string infoFile in infoFiles)
                             {
-                                string icoFilePath = infoFile.Replace(".info", ".ico");
-                                string gogGamePath = Path.GetDirectoryName(infoFile);
-                                string infoFileString = File.ReadAllText(infoFile);
-                                GoGGameInfo gogGameInfo = JsonConvert.DeserializeObject<GoGGameInfo>(infoFileString);
-                                await GoGAddApplication(gogGamePath, icoFilePath, gogGameInfo);
-                            }
-                            catch (Exception ex)
-                            {
-                                Debug.WriteLine("Failed to deserialize GoG game: " + infoFile + " / " + ex.Message);
+                                try
+                                {
+                                    string icoFilePath = infoFile.Replace(".info", ".ico");
+                                    string gogGamePath = Path.GetDirectoryName(infoFile);
+                                    string infoFileString = File.ReadAllText(infoFile);
+                                    GoGGameInfo gogGameInfo = JsonConvert.DeserializeObject<GoGGameInfo>(infoFileString);
+                                    await GoGAddApplication(gogGamePath, icoFilePath, gogGameInfo);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.WriteLine("Failed to deserialize GoG game: " + infoFile + " / " + ex.Message);
+                                }
                             }
                         }
+                        catch { }
                     }
-                    catch { }
                 }
             }
             catch (Exception ex)
@@ -82,6 +85,14 @@ namespace CtrlUI
                         string runCommand = Path.Combine(gogGamePath, gameTask.path);
                         runCommand = runCommand.Replace("/", "\\");
                         runCommand = Regex.Replace(runCommand, @"\s*(\\){2,}\s*", "\\");
+
+                        //Get run command
+                        //GalaxyClient.exe /urlProtocol="%1"
+                        //GalaxyClient.exe /command=runGame /gameId=1136126792
+                        //goggalaxy://openGameView/1136126792
+                        //goggalaxy://openStoreUrl/embed.gog.com/game/absolute_drift
+
+                        //Add application to available list
                         vLauncherAppAvailableCheck.Add(runCommand);
 
                         //Check if application is already added

@@ -17,6 +17,7 @@ namespace LibraryShared
         public class GoGConfig
         {
             public string libraryPath { get; set; }
+            public List<string> installationPaths { get; set; }
         }
 
         public class GoGPlayTasks
