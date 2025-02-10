@@ -1,6 +1,8 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -8,31 +10,94 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Generate summary string from ApiIGDB
-        string ApiIGDB_GameSummaryString(ApiIGDBGames infoGames)
+        //Generate BitmapImage for ApiIGDBGames
+        async Task<BitmapImage> ApiIGDB_GameBitmapImage(ApiIGDBGames infoGames)
+        {
+            try
+            {
+                //Get download uri
+                Uri downloadUri = null;
+                if (infoGames.cover != null)
+                {
+                    downloadUri = new Uri("https://images.igdb.com/igdb/image/upload/t_720p/" + infoGames.cover.image_id + ".png");
+                }
+
+                //Download image to bytes
+                byte[] imageBytes = await AVDownloader.DownloadByteAsync(5000, "CtrlUI", null, downloadUri);
+
+                //Check downloaded image bytes
+                if (imageBytes != null && imageBytes.Length > 256)
+                {
+                    try
+                    {
+                        //Cache bytes to variable
+                        vContentInformationImageBytes = imageBytes;
+
+                        //Convert bytes to BitmapImage
+                        return BytesToBitmapImage(imageBytes, 0, 0);
+                    }
+                    catch { }
+                }
+            }
+            catch { }
+            return null;
+        }
+
+        //Generate summary string for ApiIGDBGames
+        string ApiIGDB_GameSummaryString(ApiIGDBGames infoGames, bool incReleaseDate, bool incGenres, bool incPlatforms, bool incEngines, bool incCompanies)
         {
             string summaryString = string.Empty;
             try
             {
+                //Fix add features... single player, multiplayer, coop etc.
+
                 //Release date
-                if (infoGames.first_release_date != 0)
+                if (incReleaseDate)
                 {
                     ApiIGDB_ReleaseDateToString(infoGames, out string gameReleaseDate, out string gameReleaseYear);
-                    summaryString += "\nReleased: " + gameReleaseDate;
+                    if (gameReleaseDate != "Unknown")
+                    {
+                        summaryString += "\nReleased: " + gameReleaseDate;
+                    }
                 }
 
                 //Genres
-                string gameGenres = string.Empty;
-                if (infoGames.genres != null)
+                if (incGenres)
                 {
-                    foreach (int genreId in infoGames.genres)
-                    {
-                        ApiIGDBGenres apiIGDBGenres = vApiIGDBGenres.FirstOrDefault(x => x.id == genreId);
-                        gameGenres = AVFunctions.StringAdd(gameGenres, apiIGDBGenres.name, ",");
-                    }
-                    if (!string.IsNullOrWhiteSpace(gameGenres))
+                    ApiIGDB_GenresToString(infoGames, out string gameGenres);
+                    if (gameGenres != "Unknown")
                     {
                         summaryString += "\nGenres: " + gameGenres;
+                    }
+                }
+
+                //Platforms
+                if (incPlatforms)
+                {
+                    ApiIGDB_PlatformsToString(infoGames, out string gamePlatforms);
+                    if (gamePlatforms != "Unknown")
+                    {
+                        summaryString += "\nPlatforms: " + gamePlatforms;
+                    }
+                }
+
+                //Companies
+                if (incCompanies)
+                {
+                    ApiIGDB_CompaniesToString(infoGames, out string gameCompanies);
+                    if (gameCompanies != "Unknown")
+                    {
+                        summaryString += "\nCompanies: " + gameCompanies;
+                    }
+                }
+
+                //Engines
+                if (incEngines)
+                {
+                    ApiIGDB_EnginesToString(infoGames, out string gameEngines);
+                    if (gameEngines != "Unknown")
+                    {
+                        summaryString += "\nGame engine: " + gameEngines;
                     }
                 }
 
@@ -46,48 +111,12 @@ namespace CtrlUI
                     summaryString += "\n\n" + infoGames.summary;
                 }
 
-                //Remove first linebreak
+                //Remove first line break
                 summaryString = AVFunctions.StringRemoveStart(summaryString, "\n");
             }
             catch { }
             if (string.IsNullOrWhiteSpace(summaryString)) { summaryString = "There is no description available."; }
             return summaryString;
-        }
-
-        //ApiIGDB ReleaseDate to string
-        void ApiIGDB_ReleaseDateToString(ApiIGDBGames infoGames, out string gameReleaseDate, out string gameReleaseYear)
-        {
-            gameReleaseDate = "Unknown";
-            gameReleaseYear = "N/A";
-            try
-            {
-                if (infoGames.first_release_date != 0)
-                {
-                    DateTime epochDateTime = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(infoGames.first_release_date);
-                    gameReleaseDate = epochDateTime.ToString("d MMMM yyyy", vAppCultureInfo);
-                    gameReleaseYear = epochDateTime.ToString("yyyy", vAppCultureInfo);
-                }
-            }
-            catch { }
-        }
-
-        //ApiIGDB Platforms to string
-        void ApiIGDB_PlatformsToString(ApiIGDBGames infoGames, out string gamePlatforms)
-        {
-            gamePlatforms = string.Empty;
-            try
-            {
-                foreach (int platformId in infoGames.platforms)
-                {
-                    ApiIGDBPlatforms apiIGDBPlatforms = vApiIGDBPlatforms.FirstOrDefault(x => x.id == platformId);
-                    if (apiIGDBPlatforms != null)
-                    {
-                        gamePlatforms = AVFunctions.StringAdd(gamePlatforms, apiIGDBPlatforms.name, ",");
-                    }
-                }
-            }
-            catch { }
-            if (string.IsNullOrWhiteSpace(gamePlatforms)) { gamePlatforms = "Unknown"; }
         }
     }
 }

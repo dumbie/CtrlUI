@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,12 +13,26 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Download image id information
-        public async Task<ApiIGDBImage[]> ApiIGDB_DownloadImage(string imageId, string imageCategory)
+        //Download igdb platforms search
+        public async Task<ApiIGDBPlatforms[]> ApiIGDB_DownloadPlatforms_Search(string searchName)
         {
             try
             {
-                Debug.WriteLine("Downloading IGDB image for: " + imageId);
+                Debug.WriteLine("Downloading IGDB platforms for: " + searchName);
+
+                //Replace spaces with asterisk
+                string igdbSearchName = string.Empty;
+                if (searchName.Count(char.IsWhiteSpace) > 1)
+                {
+                    igdbSearchName = searchName.Replace(" ", "*");
+                }
+                else
+                {
+                    igdbSearchName = searchName;
+                }
+
+                //Convert to lowercase
+                igdbSearchName = igdbSearchName.ToLower();
 
                 //Authenticate with Twitch
                 string authAccessToken = await ApiTwitch_Authenticate();
@@ -33,33 +48,38 @@ namespace CtrlUI
                 string[][] requestHeaders = new string[][] { requestAccept, requestClientID, requestAuthorization };
 
                 //Create request uri
-                Uri requestUri = new Uri("https://api.igdb.com/v4/" + imageCategory);
+                Uri requestUri = new Uri("https://api.igdb.com/v4/platforms");
+
+                //Generate fields string
+                string fieldString = GenerateIgdbFieldString(typeof(ApiIGDBPlatforms));
 
                 //Create request body
-                string requestBodyString = "fields *; limit 100; where id = " + imageId + ";";
+                string requestBodyString = "fields " + fieldString + "; limit 100; search \"" + igdbSearchName + "\";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
-                //Download available image
+                //Download igdb content
                 string resultSearch = await AVDownloader.SendPostRequestAsync(5000, "CtrlUI", requestHeaders, requestUri, requestBodyStringContent);
+
+                //Check if string is empty
                 if (string.IsNullOrWhiteSpace(resultSearch))
                 {
-                    Debug.WriteLine("Failed downloading image.");
+                    Debug.WriteLine("Failed downloading platforms.");
                     return null;
                 }
 
                 //Check if status is set
                 if (resultSearch.Contains("\"status\"") && resultSearch.Contains("\"type\""))
                 {
-                    Debug.WriteLine("Received invalid image data.");
+                    Debug.WriteLine("Received invalid platforms data.");
                     return null;
                 }
 
-                //Return covers
-                return JsonConvert.DeserializeObject<ApiIGDBImage[]>(resultSearch);
+                //Return content
+                return JsonConvert.DeserializeObject<ApiIGDBPlatforms[]>(resultSearch).OrderBy(x => x.name).ToArray();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed downloading image: " + ex.Message);
+                Debug.WriteLine("Failed downloading IGDB platforms: " + ex.Message);
                 return null;
             }
         }
