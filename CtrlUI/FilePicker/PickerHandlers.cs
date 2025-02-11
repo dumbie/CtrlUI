@@ -6,8 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
@@ -148,20 +146,20 @@ namespace CtrlUI
                     //Count checked items
                     int checkedItems = List_FilePicker.Count(x => x.Checked == Visibility.Visible);
 
+                    DataBindString answerShowGameInfo = new DataBindString();
+                    if (!preFile && vFilePickerSettings.ShowEmulatorInterface)
+                    {
+                        answerShowGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Star.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerShowGameInfo.Name = "Show game information";
+                        Answers.Add(answerShowGameInfo);
+                    }
+
                     DataBindString answerHowLongToBeat = new DataBindString();
                     if (!preFile && vFilePickerSettings.ShowEmulatorInterface)
                     {
                         answerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         answerHowLongToBeat.Name = "How long to beat information";
                         Answers.Add(answerHowLongToBeat);
-                    }
-
-                    DataBindString answerDownloadGameInfo = new DataBindString();
-                    if (!preFile && vFilePickerSettings.ShowEmulatorInterface)
-                    {
-                        answerDownloadGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        answerDownloadGameInfo.Name = "Download game information";
-                        Answers.Add(answerDownloadGameInfo);
                     }
 
                     //Check the sorting type
@@ -338,18 +336,10 @@ namespace CtrlUI
                         {
                             await Popup_Show_HowLongToBeat(selectedItem.Name);
                         }
-                        //Download game information
-                        else if (messageResult == answerDownloadGameInfo)
+                        //Show game information
+                        else if (messageResult == answerShowGameInfo)
                         {
-                            DownloadInfoGame informationDownloaded = await DownloadInfoGame(selectedItem.Name, vFilePickerSettings.SourceDataBindApp.Name, 210, 0, true, false);
-                            if (informationDownloaded != null)
-                            {
-                                selectedItem.Description = informationDownloaded.Summary;
-                                if (informationDownloaded.ImageBitmap != null)
-                                {
-                                    selectedItem.ImageBitmap = informationDownloaded.ImageBitmap;
-                                }
-                            }
+                            await Popup_Show_GameInformation(selectedItem.Name, selectedItem);
                         }
                     }
                 }
@@ -471,33 +461,6 @@ namespace CtrlUI
             }
         }
 
-        //Load rom information when selection has changed
-        void Lb_FilePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                if (vFilePickerSettings.ShowEmulatorInterface)
-                {
-                    ListBox ListboxSender = (ListBox)sender;
-                    DataBindFile SelectedItem = (DataBindFile)ListboxSender.SelectedItem;
-                    //Debug.WriteLine("File picker selection has changed to: " + selectedItem.Name);
-
-                    //Set image binding
-                    Binding imageBinding = new Binding();
-                    imageBinding.Path = new PropertyPath("ImageBitmap");
-                    imageBinding.Source = SelectedItem;
-                    grid_Popup_FilePicker_image_Description.SetBinding(Image.SourceProperty, imageBinding);
-
-                    //Set text binding
-                    Binding textBinding = new Binding();
-                    textBinding.Path = new PropertyPath("Description");
-                    textBinding.Source = SelectedItem;
-                    grid_Popup_FilePicker_textblock_Description.SetBinding(TextBlock.TextProperty, textBinding);
-                }
-            }
-            catch { }
-        }
-
         //Handle file picker mouse/touch tapped
         async void ListBox_FilePicker_MousePressUp(object sender, MouseButtonEventArgs e)
         {
@@ -595,11 +558,7 @@ namespace CtrlUI
                     }
                     else if (selectedItem.FileType == FileType.PlatformDesc)
                     {
-                        DownloadInfoPlatform informationDownloaded = await DownloadInfoPlatform(selectedItem.PathFile, 210, 0, false, false);
-                        if (informationDownloaded != null)
-                        {
-                            selectedItem.Description = ApiIGDB_PlatformSummaryString(informationDownloaded.Details);
-                        }
+                        await Popup_Show_PlatformInformation(selectedItem.NameDetail, selectedItem);
                     }
                     else
                     {

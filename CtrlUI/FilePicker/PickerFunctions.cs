@@ -77,18 +77,12 @@ namespace CtrlUI
                         //Change list picker style
                         lb_FilePicker.Style = Application.Current.Resources["ListBoxWrapPanelVertical"] as Style;
                         lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemRom"] as DataTemplate;
-
-                        //Show rom information
-                        grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Visible;
                     }
                     else
                     {
                         //Change list picker style
                         lb_FilePicker.Style = Application.Current.Resources["ListBoxVertical"] as Style;
                         lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemFile"] as DataTemplate;
-
-                        //Hide rom information
-                        grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                     }
 
                     //Update the navigation history index

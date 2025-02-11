@@ -173,6 +173,12 @@ namespace CtrlUI
         public static bool vHowLongToBeatOpen = false;
         public static AVFocusDetails vHowLongToBeatElementFocus = new AVFocusDetails();
 
+        //Information Variables
+        public static bool vContentInformationOpen = false;
+        public static AVFocusDetails vContentInformationElementFocus = new AVFocusDetails();
+        public static object vContentInformationDataBind = null;
+        public static byte[] vContentInformationImageBytes = [];
+
         //MessageBox Variables
         public static bool vMessageBoxOpen = false;
         public static bool vMessageBoxCancelled = false;
@@ -232,10 +238,6 @@ namespace CtrlUI
         {
             return vListLoadedApplications && vListLoadedLaunchers && vListLoadedShortcuts && vListLoadedProcesses && vListLoadedGallery;
         }
-
-        //Json Lists
-        public static List<ApiIGDBGenres> vApiIGDBGenres = JsonLoadFile<List<ApiIGDBGenres>>(@"Api\IGDB\Genres.json");
-        public static List<ApiIGDBPlatforms> vApiIGDBPlatforms = JsonLoadFile<List<ApiIGDBPlatforms>>(@"Api\IGDB\Platforms.json");
 
         //Application Lists
         public static ObservableCollection<ProfileShared> vCtrlIgnoreProcessName = JsonLoadFile<ObservableCollection<ProfileShared>>(@"Profiles\Default\CtrlIgnoreProcessName.json");

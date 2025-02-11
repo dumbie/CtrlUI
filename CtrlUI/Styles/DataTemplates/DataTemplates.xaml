@@ -112,6 +112,15 @@
         </Grid>
     </DataTemplate>
 
+    <!-- ListBoxItemContentScreenshot -->
+    <DataTemplate x:Key="ListBoxItemContentScreenshot">
+        <Border Margin="2" CornerRadius="4" Height="135" Width="240">
+            <Border.Background>
+                <ImageBrush Stretch="UniformToFill" ImageSource="{Binding}"/>
+            </Border.Background>
+        </Border>
+    </DataTemplate>
+
     <!-- ListBoxItemFile -->
     <DataTemplate x:Key="ListBoxItemFile">
         <Grid Margin="5">

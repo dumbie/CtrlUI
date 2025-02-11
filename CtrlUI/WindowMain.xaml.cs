@@ -107,9 +107,6 @@ namespace CtrlUI
                 //Select the first ListBox item
                 ListBoxResetIndexes();
 
-                //Update IGDB api files
-                await ApiIGDB_UpdateFiles();
-
                 //Load Json stored apps
                 await JsonLoadList_Applications();
 

@@ -232,7 +232,7 @@
                             </StackPanel>
                         </Grid>
 
-                        <Border Margin="0,5,0,0" Height="3" CornerRadius="1" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
+                        <Border Margin="0,5,0,0" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
 
                         <StackPanel Name="stackpanel_Search_Interface" Margin="0,5,0,0" Visibility="Collapsed">
                             <Grid>
@@ -704,7 +704,7 @@
                                 </StackPanel>
 
                                 <StackPanel Name="settingsStackpanelOther" Visibility="Collapsed">
-                                    <TextBlock Name="textblock_SettingsGalleryLoadDays" Text="Limit gallery loading days" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                    <TextBlock Name="textblock_SettingsGalleryLoadDays" Text="Limit gallery loading days" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Select for how much days ago you want the gallery to show media." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                                     <Slider Name="slider_SettingsGalleryLoadDays" Width="400" Minimum="1" Maximum="365" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
 
@@ -930,31 +930,17 @@
                         </StackPanel>
 
                         <Grid Grid.Row="1" HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Grid Grid.Column="0" HorizontalAlignment="Stretch">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <ListBox Grid.Row="0" Name="lb_FilePicker" HorizontalAlignment="Stretch" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemFile}" Style="{StaticResource ListBoxVertical}" KeyboardNavigation.DirectionalNavigation="Continue"/>
-                                <StackPanel Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Stretch">
-                                    <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_NoFilesAvailable" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed" Text="No files or folders available in this directory."/>
-                                    <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_ClipboardStatus" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
-                                    <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_CurrentPath" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
-                                    <Button Margin="0,0,0,10" Name="grid_Popup_FilePicker_button_SelectFolder" Content="Use the currently opened folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
-                                </StackPanel>
-                            </Grid>
-
-                            <AVStyles:ScrollViewerLoopVertical ScrollLoopStep="2" Grid.Column="1" Style="{StaticResource ScrollViewerVertical}" Width="380" x:Name="grid_Popup_FilePicker_stackpanel_Description" Visibility="Collapsed">
-                                <StackPanel Margin="10,0,5,0">
-                                    <Image Name="grid_Popup_FilePicker_image_Description" Height="210" HorizontalAlignment="Center"/>
-                                    <TextBlock Margin="0,5,0,0" Name="grid_Popup_FilePicker_textblock_Description" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}"/>
-                                </StackPanel>
-                            </AVStyles:ScrollViewerLoopVertical>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ListBox Grid.Row="0" Name="lb_FilePicker" HorizontalAlignment="Stretch" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemFile}" Style="{StaticResource ListBoxVertical}" KeyboardNavigation.DirectionalNavigation="Continue"/>
+                            <StackPanel Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Stretch">
+                                <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_NoFilesAvailable" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed" Text="No files or folders available in this directory."/>
+                                <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_ClipboardStatus" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
+                                <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_CurrentPath" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
+                                <Button Margin="0,0,0,10" Name="grid_Popup_FilePicker_button_SelectFolder" Content="Use the currently opened folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
+                            </StackPanel>
                         </Grid>
                     </Grid>
 
@@ -1043,6 +1029,72 @@
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_ProfileManager_Close" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Popup - Content Information -->
+                <Grid Name="grid_Popup_ContentInformation" Visibility="Collapsed">
+                    <Grid Margin="140,0,140,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Name="grid_ContentInformation_Header" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="How Long To Beat"/>
+                            <Border Name="grid_ContentInformation_Border" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1" Margin="0,0,0,40">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ListBox Grid.Column="0" Name="listbox_ContentInfo_Gallery" Margin="0,10,10,0" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemContentScreenshot}" Style="{StaticResource ListBoxVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+
+                            <ScrollViewer Grid.Column="1" Margin="0,10,0,0">
+                                <StackPanel>
+                                    <Button Name="btn_ContentInfo_Focus" Height="0" Width="0"/>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Name="border_ContentInfo_Top" Background="{DynamicResource ApplicationWhiteBrush}" Margin="0,0,20,0" CornerRadius="10">
+                                        <Image Name="image_ContentInfo_Top" Margin="5" MaxHeight="95" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <Border Name="ellipse_ContentInfo_Rating_Users" Margin="0,0,20,0" CornerRadius="100" Width="100" Height="100" Background="DimGray">
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Name="textblock_ContentInfo_Rating_Users" Margin="-15" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                                                <TextBlock Name="textblock_ContentInfo_Rating_Users_Count" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeMedium}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Name="border_ContentInfo_Rating_Critics" Margin="0,0,20,0" CornerRadius="20" Width="100" Height="100" Background="DimGray">
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Name="textblock_ContentInfo_Rating_Critics" Margin="-15" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                                                <TextBlock Name="textblock_ContentInfo_Rating_Critics_Count" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeMedium}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+
+                                    <TextBlock Name="textblock_ContentInfo_Description" Margin="0,24,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeMedium}" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+
+                    <!-- Shortcuts -->
+                    <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
+                        <Button Name="grid_Popup_ContentInformation_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="image_ContentInformation_Close" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="grid_Popup_ContentInformation_button_Save" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Save and use image">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="image_ContentInformation_Save" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Save.png" Height="35" Width="35"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>

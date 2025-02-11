@@ -93,6 +93,8 @@ namespace CtrlUI
                 grid_Popup_Help_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_MoveApplication_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_MessageBox_button_Close.Click += Button_Popup_Close_Click;
+                grid_Popup_ContentInformation_button_Close.Click += Button_Popup_Close_Click;
+                grid_Popup_ContentInformation_button_Save.Click += Grid_Popup_ContentInformation_button_Save_Click;
                 grid_Popup_HowLongToBeat_button_Close.Click += Button_Popup_Close_Click;
 
                 //Search functions
@@ -109,7 +111,6 @@ namespace CtrlUI
                 //File Picker functions
                 lb_FilePicker.PreviewKeyUp += ListBox_FilePicker_KeyPressUp;
                 lb_FilePicker.PreviewMouseUp += ListBox_FilePicker_MousePressUp;
-                lb_FilePicker.SelectionChanged += Lb_FilePicker_SelectionChanged;
                 grid_Popup_FilePicker_button_SelectFolder.Click += Grid_Popup_FilePicker_button_SelectFolder_Click;
 
                 //Profile Manager functions

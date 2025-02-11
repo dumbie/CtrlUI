@@ -40,6 +40,11 @@ namespace CtrlUI
                         grid_Popup_HowLongToBeat.Opacity = 0.02;
                         grid_Popup_HowLongToBeat.IsEnabled = false;
                     }
+                    if (elementTarget != grid_Popup_ContentInformation && vContentInformationOpen)
+                    {
+                        grid_Popup_ContentInformation.Opacity = 0.02;
+                        grid_Popup_ContentInformation.IsEnabled = false;
+                    }
                     if (elementTarget != grid_Popup_FilePicker && vFilePickerOpen)
                     {
                         grid_Popup_FilePicker.Opacity = 0.02;
@@ -94,6 +99,11 @@ namespace CtrlUI
                     {
                         grid_Popup_HowLongToBeat.Opacity = 1.00;
                         grid_Popup_HowLongToBeat.IsEnabled = true;
+                    }
+                    else if (vContentInformationOpen)
+                    {
+                        grid_Popup_ContentInformation.Opacity = 1.00;
+                        grid_Popup_ContentInformation.IsEnabled = true;
                     }
                     else if (vMessageBoxOpen)
                     {
@@ -255,6 +265,7 @@ namespace CtrlUI
                 if (vTextInputOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_TextInput(); }); }
                 else if (vMessageBoxOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_MessageBox(); }); }
                 else if (vHowLongToBeatOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_HowLongToBeat(); }); }
+                else if (vContentInformationOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ContentInformation(); }); }
                 else if (vFilePickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_FilePicker(false, false); }); }
                 else if (vColorPickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ColorPicker(); }); }
                 else if (vPopupOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close(); }); }
@@ -283,6 +294,7 @@ namespace CtrlUI
                 if (vTextInputOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_TextInput(); }); }
                 if (vMessageBoxOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_MessageBox(); }); }
                 if (vHowLongToBeatOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_HowLongToBeat(); }); }
+                if (vContentInformationOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ContentInformation(); }); }
                 if (vFilePickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_FilePicker(false, false); }); }
                 if (vColorPickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ColorPicker(); }); }
                 if (vPopupOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close(); }); }
@@ -296,7 +308,7 @@ namespace CtrlUI
         {
             try
             {
-                if (vPopupOpen || vColorPickerOpen || vMainMenuOpen || vFilePickerOpen || vHowLongToBeatOpen || vMessageBoxOpen || vTextInputOpen)
+                if (vPopupOpen || vColorPickerOpen || vMainMenuOpen || vFilePickerOpen || vHowLongToBeatOpen || vContentInformationOpen || vMessageBoxOpen || vTextInputOpen)
                 {
                     return true;
                 }

@@ -59,10 +59,11 @@ namespace CtrlUI
                 {
                     if (vFilePickerSettings.RootPath == targetPath)
                     {
-                        string platformName = "Emulator platform information";
-                        string platformDescription = "Download " + vFilePickerSettings.SourceDataBindApp.Name + " platform information.";
-                        DataBindFile dataBindFileplatform = new DataBindFile() { FileType = FileType.PlatformDesc, Name = platformName, Description = platformDescription, ImageBitmap = vImagePreloadHelp, PathFile = vFilePickerSettings.SourceDataBindApp.Name };
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileplatform, false, false);
+                        string fileName = "Emulator platform information";
+                        string platformName = vFilePickerSettings.SourceDataBindApp.Name;
+                        string platformDescription = "Download " + platformName + " platform information.";
+                        DataBindFile dataBindFilePlatform = new DataBindFile() { FileType = FileType.PlatformDesc, Name = fileName, NameDetail = platformName, Description = platformDescription, ImageBitmap = vImagePreloadHelp, PathFile = vFilePickerSettings.SourceDataBindApp.Name };
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePlatform, false, false);
                     }
 
                     string fileDescription = "Launch without a rom loaded";
@@ -122,7 +123,15 @@ namespace CtrlUI
                                 string folderDate = listFolder.LastWriteTime.ToShortDateString().Replace("-", "/");
 
                                 //Set the detailed text
-                                string folderDetailed = folderDate;
+                                string folderDetailed = string.Empty;
+                                if (vFilePickerSettings.ShowEmulatorInterface)
+                                {
+                                    folderDetailed = vFilePickerSettings.SourceDataBindApp.Name;
+                                }
+                                else
+                                {
+                                    folderDetailed = folderDate;
+                                }
 
                                 //Check the copy cut type
                                 ClipboardType clipboardType = ClipboardType.None;
@@ -184,7 +193,15 @@ namespace CtrlUI
                                 string fileDate = listFile.LastWriteTime.ToShortDateString().Replace("-", "/");
 
                                 //Set the detailed text
-                                string fileDetailed = fileSize + " (" + fileDate + ")";
+                                string fileDetailed = string.Empty;
+                                if (vFilePickerSettings.ShowEmulatorInterface)
+                                {
+                                    fileDetailed = vFilePickerSettings.SourceDataBindApp.Name;
+                                }
+                                else
+                                {
+                                    fileDetailed = fileSize + " (" + fileDate + ")";
+                                }
 
                                 //Check the copy cut type
                                 ClipboardType clipboardType = ClipboardType.None;
