@@ -8,7 +8,6 @@ using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -72,10 +71,7 @@ namespace CtrlUI
                     DataBindFile dataBindFile = (DataBindFile)vContentInformationDataBind;
 
                     //Set BitmapImage to DataBind
-                    if (dataBindFile.FileType != FileType.PlatformDesc)
-                    {
-                        dataBindFile.ImageBitmap = bitmapImage;
-                    }
+                    dataBindFile.ImageBitmap = bitmapImage;
 
                     //Get save file path
                     string saveFilePath = GetDataBindFileAssetsFilePath(dataBindFile, ".png");

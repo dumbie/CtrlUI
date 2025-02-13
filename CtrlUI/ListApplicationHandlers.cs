@@ -23,6 +23,22 @@ namespace CtrlUI
                 //Show the messagebox popup with options
                 List<DataBindString> Answers = new List<DataBindString>();
 
+                DataBindString AnswerShowPlatformInfo = new DataBindString();
+                if (dataBindApp.Category == AppCategory.Emulator)
+                {
+                    AnswerShowPlatformInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Star.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    AnswerShowPlatformInfo.Name = "Show platform information";
+                    Answers.Add(AnswerShowPlatformInfo);
+                }
+
+                DataBindString AnswerShowGameInfo = new DataBindString();
+                if (dataBindApp.Category == AppCategory.Game)
+                {
+                    AnswerShowGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Star.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    AnswerShowGameInfo.Name = "Show game information";
+                    Answers.Add(AnswerShowGameInfo);
+                }
+
                 DataBindString AnswerHowLongToBeat = new DataBindString();
                 if (dataBindApp.Category == AppCategory.Game)
                 {
@@ -113,7 +129,18 @@ namespace CtrlUI
                 {
                     if (messageResult == AnswerHowLongToBeat)
                     {
+                        //Show how long to beat popup
                         await Popup_Show_HowLongToBeat(dataBindApp.Name);
+                    }
+                    else if (messageResult == AnswerShowPlatformInfo)
+                    {
+                        //Show platform information popup
+                        await Popup_Show_PlatformInformation(dataBindApp.Name, dataBindApp);
+                    }
+                    else if (messageResult == AnswerShowGameInfo)
+                    {
+                        //Show game information popup
+                        await Popup_Show_GameInformation(dataBindApp.Name, dataBindApp);
                     }
                     else if (messageResult == AnswerEdit)
                     {

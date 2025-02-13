@@ -141,7 +141,7 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
 
                     //Check the file type
-                    bool preFile = selectedItem.FileType == FileType.FolderPre || selectedItem.FileType == FileType.FilePre || selectedItem.FileType == FileType.GoUpPre || selectedItem.FileType == FileType.PlatformDesc;
+                    bool preFile = selectedItem.FileType == FileType.FolderPre || selectedItem.FileType == FileType.FilePre || selectedItem.FileType == FileType.GoUpPre;
 
                     //Count checked items
                     int checkedItems = List_FilePicker.Count(x => x.Checked == Visibility.Visible);
@@ -555,10 +555,6 @@ namespace CtrlUI
                             await Notification_Send_Status("Close", "Link target does not exist");
                             Debug.WriteLine("Link target does not exist");
                         }
-                    }
-                    else if (selectedItem.FileType == FileType.PlatformDesc)
-                    {
-                        await Popup_Show_PlatformInformation(selectedItem.NameDetail, selectedItem);
                     }
                     else
                     {

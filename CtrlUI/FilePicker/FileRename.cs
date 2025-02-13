@@ -80,8 +80,8 @@ namespace CtrlUI
                     dataBindFile.Name = newFileName + newFileExtension;
                     dataBindFile.PathFile = newFilePath;
 
-                    //Update image and description
-                    await FilePicker_LoadDetails(dataBindFile);
+                    //Update file details in listbox
+                    FilePicker_LoadDetails(dataBindFile);
 
                     //Update clipboard status text
                     Clipboard_UpdateStatusText();

@@ -22,15 +22,15 @@ namespace CtrlUI
 
                 List<DataBindString> Answers = new List<DataBindString>();
 
+                DataBindString AnswerShowGameInfo = new DataBindString();
+                AnswerShowGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Star.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerShowGameInfo.Name = "Show game information";
+                Answers.Add(AnswerShowGameInfo);
+
                 DataBindString AnswerHowLongToBeat = new DataBindString();
                 AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                 AnswerHowLongToBeat.Name = "How long to beat information";
                 Answers.Add(AnswerHowLongToBeat);
-
-                DataBindString AnswerDownload = new DataBindString();
-                AnswerDownload.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                AnswerDownload.Name = "Download game information";
-                Answers.Add(AnswerDownload);
 
                 DataBindString AnswerHide = new DataBindString();
                 AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Hide.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
@@ -61,16 +61,9 @@ namespace CtrlUI
                     {
                         await Popup_Show_HowLongToBeat(dataBindApp.Name);
                     }
-                    else if (messageResult == AnswerDownload)
+                    else if (messageResult == AnswerShowGameInfo)
                     {
-                        DownloadInfoGame informationDownloaded = await DownloadInfoGame(dataBindApp.Name, string.Empty, 100, 0, true, false);
-                        if (informationDownloaded != null)
-                        {
-                            if (informationDownloaded.ImageBitmap != null)
-                            {
-                                dataBindApp.ImageBitmap = informationDownloaded.ImageBitmap;
-                            }
-                        }
+                        await Popup_Show_GameInformation(dataBindApp.Name, dataBindApp);
                     }
                     else if (messageResult == AnswerHide)
                     {

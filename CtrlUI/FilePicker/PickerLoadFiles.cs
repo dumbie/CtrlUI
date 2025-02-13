@@ -57,15 +57,6 @@ namespace CtrlUI
                 //Add launch emulator options
                 if (vFilePickerSettings.ShowEmulatorInterface)
                 {
-                    if (vFilePickerSettings.RootPath == targetPath)
-                    {
-                        string fileName = "Emulator platform information";
-                        string platformName = vFilePickerSettings.SourceDataBindApp.Name;
-                        string platformDescription = "Download " + platformName + " platform information.";
-                        DataBindFile dataBindFilePlatform = new DataBindFile() { FileType = FileType.PlatformDesc, Name = fileName, NameDetail = platformName, Description = platformDescription, ImageBitmap = vImagePreloadHelp, PathFile = vFilePickerSettings.SourceDataBindApp.Name };
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePlatform, false, false);
-                    }
-
                     string fileDescription = "Launch without a rom loaded";
                     DataBindFile dataBindFileWithoutRom = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = vImagePreloadEmulator, PathFile = string.Empty };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutRom, false, false);

@@ -47,12 +47,31 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
                 foreach (ApiIGDBPlatforms infoPlatforms in iGDBPlatforms)
                 {
-                    DataBindString answerDownload = new DataBindString();
-                    answerDownload.ImageBitmap = vImagePreloadEmulator;
-                    answerDownload.Name = infoPlatforms.name;
-                    answerDownload.NameSub = infoPlatforms.alternative_name;
-                    answerDownload.Data1 = infoPlatforms;
-                    Answers.Add(answerDownload);
+                    try
+                    {
+                        //Get first versions
+                        ApiIGDBPlatformsVersions infoVersions = infoPlatforms.versions.FirstOrDefault();
+
+                        //Get release year
+                        string releaseYear = string.Empty;
+                        if (infoVersions != null)
+                        {
+                            ApiIGDBReleaseDates infoReleaseDate = infoVersions.platform_version_release_dates.FirstOrDefault();
+                            if (infoReleaseDate != null)
+                            {
+                                releaseYear = infoReleaseDate.y.ToString();
+                            }
+                        }
+
+                        DataBindString answerDownload = new DataBindString();
+                        answerDownload.ImageBitmap = vImagePreloadEmulator;
+                        answerDownload.Name = infoPlatforms.name;
+                        answerDownload.NameSub = infoPlatforms.alternative_name;
+                        answerDownload.NameDetail = releaseYear;
+                        answerDownload.Data1 = infoPlatforms;
+                        Answers.Add(answerDownload);
+                    }
+                    catch { }
                 }
 
                 //Get selected result
