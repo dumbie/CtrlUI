@@ -140,5 +140,50 @@ namespace CtrlUI
             catch { }
             if (string.IsNullOrWhiteSpace(gameInfo)) { gameInfo = "Unknown"; }
         }
+
+        //ApiIGDB Game Modes to string
+        public void ApiIGDB_GameModesToString(ApiIGDBGames infoGames, out string gameInfo)
+        {
+            gameInfo = string.Empty;
+            try
+            {
+                foreach (ApiIGDBGamesModes infoId in infoGames.game_modes)
+                {
+                    gameInfo = AVFunctions.StringAdd(gameInfo, infoId.name, ",");
+                }
+            }
+            catch { }
+            if (string.IsNullOrWhiteSpace(gameInfo)) { gameInfo = "Unknown"; }
+        }
+
+        //ApiIGDB Themes to string
+        public void ApiIGDB_ThemesToString(ApiIGDBGames infoGames, out string gameInfo)
+        {
+            gameInfo = string.Empty;
+            try
+            {
+                foreach (ApiIGDBGamesThemes infoId in infoGames.themes)
+                {
+                    gameInfo = AVFunctions.StringAdd(gameInfo, infoId.name, ",");
+                }
+            }
+            catch { }
+            if (string.IsNullOrWhiteSpace(gameInfo)) { gameInfo = "Unknown"; }
+        }
+
+        //ApiIGDB Perspectives to string
+        public void ApiIGDB_PerspectivesToString(ApiIGDBGames infoGames, out string gameInfo)
+        {
+            gameInfo = string.Empty;
+            try
+            {
+                foreach (ApiIGDBGamesPlayerPerspectives infoId in infoGames.player_perspectives)
+                {
+                    gameInfo = AVFunctions.StringAdd(gameInfo, infoId.name, ",");
+                }
+            }
+            catch { }
+            if (string.IsNullOrWhiteSpace(gameInfo)) { gameInfo = "Unknown"; }
+        }
     }
 }

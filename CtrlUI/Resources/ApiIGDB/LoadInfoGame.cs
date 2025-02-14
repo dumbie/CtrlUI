@@ -1,56 +1,16 @@
 ﻿using ArnoldVinkCode;
-using System;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVImage;
-using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Generate BitmapImage for ApiIGDBGames
-        async Task<BitmapImage> ApiIGDB_GameBitmapImage(ApiIGDBGames infoGames)
-        {
-            try
-            {
-                //Get download uri
-                Uri downloadUri = null;
-                if (infoGames.cover != null)
-                {
-                    downloadUri = new Uri("https://images.igdb.com/igdb/image/upload/t_720p/" + infoGames.cover.image_id + ".png");
-                }
-
-                //Download image to bytes
-                byte[] imageBytes = await AVDownloader.DownloadByteAsync(5000, "CtrlUI", null, downloadUri);
-
-                //Check downloaded image bytes
-                if (imageBytes != null && imageBytes.Length > 256)
-                {
-                    try
-                    {
-                        //Cache bytes to variable
-                        vContentInformationImageBytes = imageBytes;
-
-                        //Convert bytes to BitmapImage
-                        return BytesToBitmapImage(imageBytes, 0, 0);
-                    }
-                    catch { }
-                }
-            }
-            catch { }
-            return null;
-        }
-
         //Generate summary string for ApiIGDBGames
-        string ApiIGDB_GameSummaryString(ApiIGDBGames infoGames, bool incReleaseDate, bool incGenres, bool incPlatforms, bool incEngines, bool incCompanies)
+        string ApiIGDB_GameSummaryString(ApiIGDBGames infoGames, bool incReleaseDate, bool incGenres, bool incModes, bool incPlatforms, bool incEngines, bool incCompanies)
         {
             string summaryString = string.Empty;
             try
             {
-                //Fix add features... single player, multiplayer, coop etc.
-
                 //Release date
                 if (incReleaseDate)
                 {
@@ -68,6 +28,36 @@ namespace CtrlUI
                     if (gameGenres != "Unknown")
                     {
                         summaryString += "\nGenres: " + gameGenres;
+                    }
+                }
+
+                //Themes
+                if (incModes)
+                {
+                    ApiIGDB_ThemesToString(infoGames, out string gameThemes);
+                    if (gameThemes != "Unknown")
+                    {
+                        summaryString += "\nThemes: " + gameThemes;
+                    }
+                }
+
+                //Game Modes
+                if (incModes)
+                {
+                    ApiIGDB_GameModesToString(infoGames, out string gameModes);
+                    if (gameModes != "Unknown")
+                    {
+                        summaryString += "\nGame modes: " + gameModes;
+                    }
+                }
+
+                //Perspectives
+                if (incModes)
+                {
+                    ApiIGDB_PerspectivesToString(infoGames, out string gamePerspectives);
+                    if (gamePerspectives != "Unknown")
+                    {
+                        summaryString += "\nPerspectives: " + gamePerspectives;
                     }
                 }
 
