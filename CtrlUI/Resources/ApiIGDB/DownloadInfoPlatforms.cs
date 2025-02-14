@@ -20,19 +20,9 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Downloading IGDB platforms for: " + searchName);
 
-                //Replace spaces with asterisk
-                string igdbSearchName = string.Empty;
-                if (searchName.Count(char.IsWhiteSpace) > 1)
-                {
-                    igdbSearchName = searchName.Replace(" ", "*");
-                }
-                else
-                {
-                    igdbSearchName = searchName;
-                }
-
-                //Convert to lowercase
-                igdbSearchName = igdbSearchName.ToLower();
+                //Generate where search string
+                string[] searchSplitted = searchName.Split(' ');
+                string whereString = "where " + AVFunctions.StringJoin(searchSplitted, " | ", "name ~ *\"", "\"*") + ";";
 
                 //Authenticate with Twitch
                 string authAccessToken = await ApiTwitch_Authenticate();
@@ -54,7 +44,7 @@ namespace CtrlUI
                 string fieldString = GenerateIgdbFieldString(typeof(ApiIGDBPlatforms));
 
                 //Create request body
-                string requestBodyString = "fields " + fieldString + "; limit 100; search \"" + igdbSearchName + "\";";
+                string requestBodyString = "fields " + fieldString + "; limit 100; " + whereString;
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
                 //Download igdb content
