@@ -374,6 +374,7 @@
                                         <Image Name="img_AddAppLogo" Margin="0,5,0,5" MaxWidth="120" MaxHeight="120"/>
                                     </Button>
                                     <Button Name="btn_Manage_ResetAppLogo" Margin="0,5,0,0" Content="Reset application image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                    <CheckBox Name="checkbox_LightImageBackground" Margin="0,5,0,0" Content="Show light image background" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>
                                 </StackPanel>
 
                                 <StackPanel Name="sp_AddAppCategory">

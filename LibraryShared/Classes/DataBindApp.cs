@@ -294,6 +294,20 @@ namespace LibraryShared
                 }
             }
 
+            private bool PrivLightImageBackground = false;
+            public bool LightImageBackground
+            {
+                get { return this.PrivLightImageBackground; }
+                set
+                {
+                    if (this.PrivLightImageBackground != value)
+                    {
+                        this.PrivLightImageBackground = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             //Emulator variables
             private string PrivEmulatorName = string.Empty;
             public string EmulatorName

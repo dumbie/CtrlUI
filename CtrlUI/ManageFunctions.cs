@@ -391,6 +391,7 @@ namespace CtrlUI
                     vEditAppDataBind.LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked;
                     vEditAppDataBind.LaunchEnableDisplayHDR = (bool)checkbox_AddLaunchEnableDisplayHDR.IsChecked;
                     vEditAppDataBind.LaunchEnableAutoHDR = (bool)checkbox_AddLaunchEnableAutoHDR.IsChecked;
+                    vEditAppDataBind.LightImageBackground = (bool)checkbox_LightImageBackground.IsChecked;
 
                     //Edit application image in the list
                     vEditAppDataBind.ImageBitmap = Image_Application_Load(vEditAppDataBind, vImageLoadSize, 0);
@@ -735,6 +736,7 @@ namespace CtrlUI
                 checkbox_AddLaunchSkipRom.IsChecked = dataBindApp.LaunchSkipRom;
                 checkbox_AddLaunchEnableDisplayHDR.IsChecked = dataBindApp.LaunchEnableDisplayHDR;
                 checkbox_AddLaunchEnableAutoHDR.IsChecked = dataBindApp.LaunchEnableAutoHDR;
+                checkbox_LightImageBackground.IsChecked = dataBindApp.LightImageBackground;
 
                 //Load skip rom
                 tb_AddAppPathRoms.IsEnabled = !dataBindApp.LaunchSkipRom;
@@ -778,6 +780,7 @@ namespace CtrlUI
                 checkbox_AddLaunchSkipRom.IsChecked = false;
                 checkbox_AddLaunchEnableDisplayHDR.IsChecked = false;
                 checkbox_AddLaunchEnableAutoHDR.IsChecked = false;
+                checkbox_LightImageBackground.IsChecked = false;
 
                 //Show the manage popup
                 await Popup_Show(grid_Popup_Manage, btn_AddAppPathExe);
