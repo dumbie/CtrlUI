@@ -5,6 +5,7 @@ using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -19,29 +20,31 @@ namespace CtrlUI
                 vDispatcherTimerDelay.Tick += delegate
                 {
                     AVFunctions.TimerStop(vDispatcherTimerDelay);
-                    UpdateGalleryMediaImages();
+                    UpdateGalleryMediaImages(false);
                 };
                 AVFunctions.TimerReset(vDispatcherTimerDelay);
             }
             catch { }
         }
 
-        private void UpdateGalleryMediaImages()
+        private void UpdateGalleryMediaImages(bool searchListBox)
         {
             try
             {
-                foreach (DataBindApp dataBindApp in lb_Gallery.Items)
+                ListBox targetListBox = searchListBox ? lb_Search : lb_Gallery;
+                foreach (DataBindApp dataBindApp in targetListBox.Items)
                 {
                     try
                     {
-                        ListBoxItem listBoxItem = (ListBoxItem)lb_Gallery.ItemContainerGenerator.ContainerFromItem(dataBindApp);
+                        if (dataBindApp.Category != AppCategory.Gallery) { continue; }
+                        ListBoxItem listBoxItem = (ListBoxItem)targetListBox.ItemContainerGenerator.ContainerFromItem(dataBindApp);
                         if (FrameworkElementVisibleUser(listBoxItem, this))
                         {
                             if (dataBindApp.ImageBitmap == null)
                             {
                                 void TaskAction()
                                 {
-                                    dataBindApp.ImageBitmap = FileCacheToBitmapImage(dataBindApp.PathGallery, vImageBackupSource, 200, 0, false);
+                                    dataBindApp.ImageBitmap = FileCacheToBitmapImage(dataBindApp.PathGallery, vImageBackupSource, 384, 0, false);
                                 }
                                 AVActions.TaskStartBackground(TaskAction);
                             }
