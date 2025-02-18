@@ -55,6 +55,9 @@ namespace CtrlUI
                     gif_List_Loading.Show();
                 });
 
+                //Check if loading first time
+                bool firstLoad = !List_Gallery.Any();
+
                 //Show refresh status message
                 if (showStatus)
                 {
@@ -120,6 +123,15 @@ namespace CtrlUI
                         await ListBoxAddItem(lb_Gallery, List_Gallery, dataBindApp, true, false);
                     }
                     catch { }
+                }
+
+                //First load functions
+                if (firstLoad)
+                {
+                    AVActions.DispatcherInvoke(delegate
+                    {
+                        lb_Gallery.SelectedIndex = 0;
+                    });
                 }
 
                 //Hide the loading gif
