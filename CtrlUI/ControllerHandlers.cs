@@ -98,6 +98,10 @@ namespace CtrlUI
                         {
                             KeySendSingle(KeysVirtual.BackSpace, vProcessCurrent.WindowHandleMain);
                         }
+                        else if (vContentInformationOpen)
+                        {
+                            await ContentInformationSave();
+                        }
                         else if (vCurrentListCategory == ListCategory.Search)
                         {
                             await AVActions.DispatcherInvoke(async delegate { await Search_Reset(true); });

@@ -40,7 +40,7 @@ namespace CtrlUI
         }
 
         //Update DataBind and save image to file
-        private async void Grid_Popup_ContentInformation_button_Save_Click(object sender, RoutedEventArgs e)
+        public async Task ContentInformationSave()
         {
             try
             {
@@ -61,7 +61,7 @@ namespace CtrlUI
                     dataBindApp.ImageBitmap = bitmapImage;
 
                     //Get save file path
-                    string saveFilePath = GetDataBindAppAssetsFilePath(dataBindApp, ".png");
+                    string saveFilePath = GetAssetsImageFilePath(dataBindApp, ".png", false);
 
                     //Save bytes to image file
                     AVFiles.BytesToFile(saveFilePath, vContentInformationImageBytes);
@@ -74,13 +74,23 @@ namespace CtrlUI
                     dataBindFile.ImageBitmap = bitmapImage;
 
                     //Get save file path
-                    string saveFilePath = GetDataBindFileAssetsFilePath(dataBindFile, ".png");
+                    string saveFilePath = GetAssetsImageFilePath(dataBindFile, ".png", false);
 
                     //Save bytes to image file
                     AVFiles.BytesToFile(saveFilePath, vContentInformationImageBytes);
                 }
 
                 await Notification_Send_Status("Save", "Saved and using image");
+            }
+            catch { }
+        }
+
+        //Update DataBind and save image to file
+        private async void Grid_Popup_ContentInformation_button_Save_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await ContentInformationSave();
             }
             catch { }
         }
