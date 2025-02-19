@@ -100,7 +100,7 @@ namespace DirectXInput
                 controller.TicksInputLast = ticksSystem;
 
                 //Check if controller is idle and update active time
-                if (!CheckControllerIdlePress(controller))
+                if (controller.BatteryCurrent.BatteryStatus == BatteryStatus.Charging || !CheckControllerIdlePress(controller))
                 {
                     controller.TicksActiveLast = ticksSystem;
                 }

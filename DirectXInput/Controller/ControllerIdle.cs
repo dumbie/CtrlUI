@@ -30,7 +30,7 @@ namespace DirectXInput
             {
                 if (Controller.Connected() && Controller.ControllerDataInput != null && Controller.TicksActiveLast != 0)
                 {
-                    if (Controller.Details.Wireless && Controller.BatteryCurrent.BatteryStatus != BatteryStatus.Charging)
+                    if (Controller.Details.Wireless)
                     {
                         long lastMs = GetSystemTicksMs() - Controller.TicksActiveLast;
                         int targetTimeMs = SettingLoad(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", typeof(int)) * 60000;
