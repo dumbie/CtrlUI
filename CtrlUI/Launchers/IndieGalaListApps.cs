@@ -83,6 +83,9 @@ namespace CtrlUI
                 string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string installedJsonPath = Path.Combine(commonApplicationDataPath, "IGClient\\storage\\installed.json");
 
+                //Check if json exists
+                if (!File.Exists(installedJsonPath)) { return; }
+
                 //Convert json
                 string jsonFileText = File.ReadAllText(installedJsonPath);
                 List<IndieGalaInstalledApp> igInstalledApps = JsonConvert.DeserializeObject<List<IndieGalaInstalledApp>>(jsonFileText);

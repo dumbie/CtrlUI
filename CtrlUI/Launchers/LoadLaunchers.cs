@@ -50,8 +50,8 @@ namespace CtrlUI
                     gif_List_Loading.Show();
                 });
 
-                //Check if sorting is required
-                bool sortByName = !List_Launchers.Any();
+                //Check if loading first time
+                bool firstLoad = !List_Launchers.Any();
 
                 //Clear the app remove check list
                 vLauncherAppAvailableCheck.Clear();
@@ -133,8 +133,8 @@ namespace CtrlUI
                 await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 await ListBoxRemoveAll(lb_Search, List_Search, filterLauncherApp);
 
-                //Sort applications and select first item
-                if (sortByName)
+                //First load functions
+                if (firstLoad)
                 {
                     SortFunction<DataBindApp> sortFuncName = new SortFunction<DataBindApp>();
                     sortFuncName.function = x => x.Name;

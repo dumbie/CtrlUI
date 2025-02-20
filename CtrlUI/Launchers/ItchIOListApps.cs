@@ -55,6 +55,9 @@ namespace CtrlUI
                 string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string databasePath = Path.Combine(commonApplicationDataPath, "itch\\db\\butler.db");
 
+                //Check if database exists
+                if (!File.Exists(databasePath)) { return; }
+
                 //Create sql connection
                 List<ItchIOApp> listApps = new List<ItchIOApp>();
                 using (SQLiteConnection sqLiteConnection = new SQLiteConnection("Data Source=" + databasePath + ";Mode=ReadOnly"))

@@ -163,7 +163,7 @@ namespace CtrlUI
                 {
                     appBranch = appBranch.Replace(branchReplace, string.Empty);
                 }
-                appBranch = AVFunctions.ToTitleCase(appBranch);
+                appBranch = AVFunctions.StringToTitleCase(appBranch);
 
                 //Get application name
                 string appName = Path.GetFileName(installDir);

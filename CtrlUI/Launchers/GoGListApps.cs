@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ArnoldVinkCode;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVSearch;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -24,10 +26,18 @@ namespace CtrlUI
                 //Get launcher paths
                 string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 string gogConfigPath = Path.Combine(commonApplicationDataPath, "GOG.com\\Galaxy\\config.json");
+                string gogImagesPath = Path.Combine(commonApplicationDataPath, "GOG.com\\Galaxy\\webcache");
 
                 //Get applications path from json config
                 string gogConfigJson = File.ReadAllText(gogConfigPath);
                 GoGConfig gogConfigDeserial = JsonConvert.DeserializeObject<GoGConfig>(gogConfigJson);
+
+                //Search for cover images
+                SearchSource[] searchSources =
+                {
+                    new SearchSource() { SearchPath = gogImagesPath, SearchPatterns = ["*.webp"], SearchOption = SearchOption.AllDirectories }
+                };
+                string[] gogImagesArray = AVSearch.Search_Files(["glx_vertical_cover"], searchSources, true);
 
                 //Add applications from json path
                 foreach (string installationPath in gogConfigDeserial.installationPaths)
@@ -42,11 +52,12 @@ namespace CtrlUI
                             {
                                 try
                                 {
-                                    string icoFilePath = infoFile.Replace(".info", ".ico");
                                     string gogGamePath = Path.GetDirectoryName(infoFile);
                                     string infoFileString = File.ReadAllText(infoFile);
                                     GoGGameInfo gogGameInfo = JsonConvert.DeserializeObject<GoGGameInfo>(infoFileString);
-                                    await GoGAddApplication(gogGamePath, icoFilePath, gogGameInfo);
+                                    string icoFilePath = infoFile.Replace(".info", ".ico");
+                                    string imageFilePath = gogImagesArray.Where(x => x.Contains(gogGameInfo.gameId)).FirstOrDefault();
+                                    await GoGAddApplication(gogGamePath, icoFilePath, imageFilePath, gogGameInfo);
                                 }
                                 catch (Exception ex)
                                 {
@@ -64,7 +75,7 @@ namespace CtrlUI
             }
         }
 
-        async Task GoGAddApplication(string gogGamePath, string icoFilePath, GoGGameInfo gogGameInfo)
+        async Task GoGAddApplication(string gogGamePath, string icoFilePath, string imageFilePath, GoGGameInfo gogGameInfo)
         {
             try
             {
@@ -139,7 +150,7 @@ namespace CtrlUI
                             appImage = Path.Combine(gogGamePath, playtaskIcon.icon);
                             //Debug.WriteLine("Set GoG image to: " + appImage);
                         }
-                        BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appImage, icoFilePath, "GoG" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                        BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appImage, imageFilePath, icoFilePath, "GoG" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
                         //Check the application category
                         Visibility categoryLauncher = gameTask.category == GoGAppCategory.launcher ? Visibility.Visible : Visibility.Collapsed;
