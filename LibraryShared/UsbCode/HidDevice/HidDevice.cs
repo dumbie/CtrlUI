@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
 using System.Diagnostics;
-using System.IO;
 using static LibraryUsb.NativeMethods_File;
 
 namespace LibraryUsb
@@ -13,7 +12,6 @@ namespace LibraryUsb
         public string DevicePath;
         public string DeviceInstanceId;
         private SafeFileHandle FileHandle;
-        private FileStream FileStream;
         public HidDeviceAttributes Attributes;
         public HidDeviceCapabilities Capabilities;
 
@@ -32,10 +30,6 @@ namespace LibraryUsb
 
                 if (OpenDevice())
                 {
-                    if (initialize)
-                    {
-                        OpenFileStream();
-                    }
                     GetDeviceAttributes();
                     GetDeviceCapabilities();
                     //GetDeviceButtonStatus();
@@ -63,7 +57,7 @@ namespace LibraryUsb
                 FileShareMode shareModeNormal = FileShareMode.FILE_SHARE_READ | FileShareMode.FILE_SHARE_WRITE;
                 FileDesiredAccess desiredAccess = FileDesiredAccess.GENERIC_READ | FileDesiredAccess.GENERIC_WRITE;
                 FileCreationDisposition creationDisposition = FileCreationDisposition.OPEN_EXISTING;
-                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_FLAG_OVERLAPPED | FileFlagsAndAttributes.FILE_FLAG_NO_BUFFERING | FileFlagsAndAttributes.FILE_FLAG_WRITE_THROUGH;
+                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_FLAG_NO_BUFFERING | FileFlagsAndAttributes.FILE_FLAG_WRITE_THROUGH;
 
                 //Try to open the device exclusively
                 FileHandle = CreateFile(DevicePath, desiredAccess, shareModeExclusive, IntPtr.Zero, creationDisposition, flagsAttributes, IntPtr.Zero);
@@ -99,34 +93,10 @@ namespace LibraryUsb
             }
         }
 
-        private bool OpenFileStream()
-        {
-            try
-            {
-                FileStream = new FileStream(FileHandle, FileAccess.ReadWrite, 1, true);
-                if (FileStream.CanTimeout)
-                {
-                    FileStream.ReadTimeout = 2000;
-                    FileStream.WriteTimeout = 2000;
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to open hid file stream: " + ex.Message);
-                return false;
-            }
-        }
-
         public bool CloseDevice()
         {
             try
             {
-                if (FileStream != null)
-                {
-                    FileStream.Dispose();
-                    FileStream = null;
-                }
                 if (FileHandle != null)
                 {
                     FileHandle.Dispose();

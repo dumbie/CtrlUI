@@ -76,11 +76,11 @@ namespace LibraryUsb
             FILE_FLAG_WRITE_THROUGH = 0x80000000
         }
 
-        //[DllImport("kernel32.dll")]
-        //public static extern bool ReadFile(SafeFileHandle hFile, byte[] lpBuffer, int nNumberOfBytesToRead, out int lpNumberOfBytesReaded, IntPtr lpOverlapped);
+        [DllImport("kernel32.dll")]
+        public static extern bool ReadFile(SafeFileHandle hFile, byte[] lpBuffer, int nNumberOfBytesToRead, out int lpNumberOfBytesReaded, IntPtr lpOverlapped);
 
-        //[DllImport("kernel32.dll")]
-        //public static extern bool WriteFile(SafeFileHandle hFile, byte[] lpBuffer, int nNumberOfBytesToWrite, out int lpNumberOfBytesWritten, IntPtr lpOverlapped);
+        [DllImport("kernel32.dll")]
+        public static extern bool WriteFile(SafeFileHandle hFile, byte[] lpBuffer, int nNumberOfBytesToWrite, out int lpNumberOfBytesWritten, IntPtr lpOverlapped);
 
         [DllImport("kernel32.dll")]
         public static extern SafeFileHandle CreateFile(string lpFileName, FileDesiredAccess dwDesiredAccess, FileShareMode dwShareMode, IntPtr lpSecurityAttributes, FileCreationDisposition dwCreationDisposition, FileFlagsAndAttributes dwFlagsAndAttributes, IntPtr hTemplateFile);

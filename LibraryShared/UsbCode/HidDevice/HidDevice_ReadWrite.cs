@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using static LibraryUsb.NativeMethods_File;
 using static LibraryUsb.NativeMethods_Hid;
 
 namespace LibraryUsb
@@ -25,8 +26,8 @@ namespace LibraryUsb
             try
             {
                 if (!Connected) { return false; }
-                FileStream.Write(outputBuffer, 0, outputBuffer.Length);
-                return true;
+                WriteFile(FileHandle, outputBuffer, outputBuffer.Length, out int lpNumberOfBytesWritten, IntPtr.Zero);
+                return lpNumberOfBytesWritten > 0;
             }
             catch (Exception ex)
             {
@@ -40,7 +41,8 @@ namespace LibraryUsb
             try
             {
                 if (!Connected) { return false; }
-                return FileStream.Read(inputBuffer, 0, inputBuffer.Length) > 0;
+                ReadFile(FileHandle, inputBuffer, inputBuffer.Length, out int lpNumberOfBytesRead, IntPtr.Zero);
+                return lpNumberOfBytesRead > 0;
             }
             catch (Exception ex)
             {
