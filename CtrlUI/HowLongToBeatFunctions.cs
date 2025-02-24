@@ -13,15 +13,15 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Show and close HowLongToBeat Popup
-        public async Task Popup_Show_HowLongToBeat(string searchGame)
+        public async Task Popup_Show_HowLongToBeat(string searchTerm)
         {
             try
             {
                 //Filter game name
-                string filterSearchGame = FilterNameGame(searchGame, true, false, true, 0);
+                string filterSearchGame = FilterNameGame(searchTerm, true, false, 0);
 
                 //Show the text input popup
-                filterSearchGame = await Popup_ShowHide_TextInput("How long to beat search", filterSearchGame, "Search how long to beat for the game", true);
+                filterSearchGame = await Popup_ShowHide_TextInput("How long to beat search", filterSearchGame, "Search", true);
                 if (string.IsNullOrWhiteSpace(filterSearchGame))
                 {
                     Debug.WriteLine("No search term entered.");
@@ -42,7 +42,7 @@ namespace CtrlUI
                 lb_HowLongToBeat.Items.Clear();
 
                 //Show loading progress
-                textblock_HowLongToBeat_Unknown.Text = "Downloading gameplay time for " + searchGame;
+                textblock_HowLongToBeat_Unknown.Text = "Downloading gameplay time for " + searchTerm;
                 gif_HowLongToBeat_Loading.Show();
                 grid_HowLongToBeat.Visibility = Visibility.Collapsed;
                 stackpanel_HowLongToBeat_Status.Visibility = Visibility.Visible;
@@ -135,7 +135,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    textblock_HowLongToBeat_Unknown.Text = "Unknown gameplay time for " + searchGame;
+                    textblock_HowLongToBeat_Unknown.Text = "Unknown gameplay time for " + searchTerm;
                     grid_HowLongToBeat.Visibility = Visibility.Collapsed;
                     stackpanel_HowLongToBeat_Status.Visibility = Visibility.Visible;
                 }

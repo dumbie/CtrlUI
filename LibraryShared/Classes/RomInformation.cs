@@ -14,7 +14,7 @@ namespace LibraryShared
         public class DownloadInfoPlatform
         {
             public BitmapImage ImageBitmap { get; set; }
-            public ApiIGDBPlatformVersions Details { get; set; }
+            public ApiIGDBPlatforms Details { get; set; }
             public string Summary { get; set; }
         }
     }

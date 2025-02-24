@@ -94,13 +94,13 @@ namespace CtrlUI
                             Debug.WriteLine("Resetting the text input popup.");
                             await AVActions.DispatcherInvoke(async delegate { await Popup_Reset_TextInput(true, string.Empty); });
                         }
-                        else if (vFilePickerOpen)
-                        {
-                            KeySendSingle(KeysVirtual.BackSpace, vProcessCurrent.WindowHandleMain);
-                        }
                         else if (vContentInformationOpen)
                         {
                             await ContentInformationSave();
+                        }
+                        else if (vFilePickerOpen)
+                        {
+                            KeySendSingle(KeysVirtual.BackSpace, vProcessCurrent.WindowHandleMain);
                         }
                         else if (vCurrentListCategory == ListCategory.Search)
                         {

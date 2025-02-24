@@ -11,8 +11,7 @@
             Folder,
             FilePre,
             File,
-            Link,
-            PlatformDesc
+            Link
         }
     }
 }

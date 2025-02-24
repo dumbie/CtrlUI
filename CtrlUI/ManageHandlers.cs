@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -68,25 +67,14 @@ namespace CtrlUI
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
 
-                //Check application category
-                string appAssetFolder = string.Empty;
-                if (selectedAppCategory == AppCategory.Emulator)
-                {
-                    appAssetFolder = "Assets/User/Emulators/";
-                }
-                else
-                {
-                    appAssetFolder = "Assets/User/Apps/";
-                }
-
                 //Update the new application image
                 if (vEditAppDataBind != null)
                 {
-                    //Check invalid file name
-                    string saveFileName = AVFiles.FileNameReplaceInvalidChars(vEditAppDataBind.Name, string.Empty);
+                    //Get save file path
+                    string saveFilePath = GetAssetsImageFilePath(vEditAppDataBind, ".png", false);
 
                     //Copy the new application image
-                    File_Copy(vFilePickerResult.PathFile, appAssetFolder + saveFileName + ".png", true);
+                    File_Copy(vFilePickerResult.PathFile, saveFilePath, true);
 
                     //Load the new application image
                     BitmapImage applicationImage = Image_Application_Load(vEditAppDataBind, vImageLoadSize, 0);
@@ -97,11 +85,11 @@ namespace CtrlUI
                 }
                 else
                 {
-                    //Check invalid file name
-                    string saveFileName = AVFiles.FileNameReplaceInvalidChars(tb_AddAppName.Text, string.Empty);
+                    //Get save file path
+                    string saveFilePath = GetAssetsImageFilePath(selectedAppCategory, tb_AddAppName.Text, ".png", false);
 
                     //Copy the new application image
-                    File_Copy(vFilePickerResult.PathFile, appAssetFolder + saveFileName + ".png", true);
+                    File_Copy(vFilePickerResult.PathFile, saveFilePath, true);
 
                     //Load the new application image
                     BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
