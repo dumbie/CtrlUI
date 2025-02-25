@@ -153,7 +153,7 @@ namespace CtrlUI
             {
                 //Add all apps to the string list
                 List<DataBindString> Answers = new List<DataBindString>();
-                foreach (DataBindApp dataBindApp in CombineAppLists(true, true, true, false, false, false))
+                foreach (DataBindApp dataBindApp in CombineAppLists(true, true, true, false, false, false, false))
                 {
                     DataBindString stringApp = new DataBindString() { Name = dataBindApp.Name, ImageBitmap = dataBindApp.ImageBitmap };
                     Answers.Add(stringApp);
@@ -166,13 +166,13 @@ namespace CtrlUI
                     btn_Settings_AppQuickLaunch_TextBlock.Text = "Change quick launch app: " + messageResult.Name;
 
                     //Set previous quick launch application to false
-                    foreach (DataBindApp dataBindApp in CombineAppLists(true, true, true, false, false, false).Where(x => x.QuickLaunch))
+                    foreach (DataBindApp dataBindApp in CombineAppLists(true, true, true, false, false, false, false).Where(x => x.QuickLaunch))
                     {
                         dataBindApp.QuickLaunch = false;
                     }
 
                     //Set new quick launch application to true
-                    foreach (DataBindApp dataBindApp in CombineAppLists(true, true, true, false, false, false).Where(x => x.Name.ToLower() == messageResult.Name.ToLower()))
+                    foreach (DataBindApp dataBindApp in CombineAppLists(true, true, true, false, false, false, false).Where(x => x.Name.ToLower() == messageResult.Name.ToLower()))
                     {
                         dataBindApp.QuickLaunch = true;
                     }

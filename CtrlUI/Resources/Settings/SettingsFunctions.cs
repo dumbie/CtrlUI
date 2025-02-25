@@ -15,7 +15,7 @@ namespace CtrlUI
                 //Set and load the quick launch application name
                 try
                 {
-                    DataBindApp QuickLaunchApp = CombineAppLists(true, true, true, false, false, false).FirstOrDefault(x => x.QuickLaunch);
+                    DataBindApp QuickLaunchApp = CombineAppLists(true, true, true, false, false, false, false).FirstOrDefault(x => x.QuickLaunch);
                     btn_Settings_AppQuickLaunch_TextBlock.Text = "Change quick launch app: " + QuickLaunchApp.Name;
                 }
                 catch

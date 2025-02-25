@@ -42,7 +42,7 @@ namespace CtrlUI
                     List_Search.Clear();
 
                     //Search and add applications
-                    IEnumerable<DataBindApp> searchResult = CombineAppLists(true, true, true, true, true, true).Where(x => x.Name.ToLower().Contains(searchString.ToLower()));
+                    IEnumerable<DataBindApp> searchResult = CombineAppLists(true, true, true, true, true, true, true).Where(x => x.Name.ToLower().Contains(searchString.ToLower()));
                     foreach (DataBindApp dataBindApp in searchResult)
                     {
                         try
@@ -56,10 +56,13 @@ namespace CtrlUI
                         catch { }
                     }
 
-                    //Update the search results count
+                    //Update search result gallery images
+                    UpdateGalleryMediaImages(true);
+
+                    //Update search results count
                     UpdateSearchResults();
 
-                    //Select the first search index
+                    //Select first search index
                     lb_Search.SelectedIndex = 0;
 
                     Debug.WriteLine("Added search application: " + searchString);

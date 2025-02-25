@@ -53,7 +53,7 @@ namespace CtrlUI
             try
             {
                 //Combine applications
-                var JsonFilterList = CombineAppLists(true, true, true, false, false, false).Select(x => new { x.Number, x.Category, x.Type, x.Name, x.AppUserModelId, x.NameExe, x.PathExe, x.PathLaunch, x.PathRoms, x.Argument, x.QuickLaunch, x.LaunchAsAdmin, x.LaunchFilePicker, x.LaunchSkipRom, x.LaunchKeyboard, x.LaunchEnableDisplayHDR, x.LaunchEnableAutoHDR, x.LastLaunch, x.RunningTime, x.EmulatorName, x.EmulatorCategory, x.LightImageBackground });
+                var JsonFilterList = CombineAppLists(true, true, true, false, false, false, false).Select(x => new { x.Number, x.Category, x.Type, x.Name, x.AppUserModelId, x.NameExe, x.PathExe, x.PathLaunch, x.PathRoms, x.Argument, x.QuickLaunch, x.LaunchAsAdmin, x.LaunchFilePicker, x.LaunchSkipRom, x.LaunchKeyboard, x.LaunchEnableDisplayHDR, x.LaunchEnableAutoHDR, x.LastLaunch, x.RunningTime, x.EmulatorName, x.EmulatorCategory, x.LightImageBackground });
 
                 //Save object to json
                 JsonSaveObject(JsonFilterList, @"Profiles\User\CtrlApplications.json");

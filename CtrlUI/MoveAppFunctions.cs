@@ -34,7 +34,7 @@ namespace CtrlUI
                 await SortAppListsByNumber(true);
 
                 //Get the target application
-                IEnumerable<DataBindApp> combinedApps = CombineAppLists(true, true, true, false, false, false).Where(x => x.Category == vMoveAppDataBind.Category);
+                IEnumerable<DataBindApp> combinedApps = CombineAppLists(true, true, true, false, false, false, false).Where(x => x.Category == vMoveAppDataBind.Category);
                 DataBindApp targetAppDataBind = combinedApps.OrderByDescending(x => x.Number).FirstOrDefault(x => x.Number < vMoveAppDataBind.Number);
                 int selectedNumber = vMoveAppDataBind.Number;
                 int targetNumber = targetAppDataBind.Number;
@@ -62,7 +62,7 @@ namespace CtrlUI
                 await SortAppListsByNumber(true);
 
                 //Get the target application
-                IEnumerable<DataBindApp> combinedApps = CombineAppLists(true, true, true, false, false, false).Where(x => x.Category == vMoveAppDataBind.Category);
+                IEnumerable<DataBindApp> combinedApps = CombineAppLists(true, true, true, false, false, false, false).Where(x => x.Category == vMoveAppDataBind.Category);
                 DataBindApp targetAppDataBind = combinedApps.OrderBy(x => x.Number).FirstOrDefault(x => x.Number > vMoveAppDataBind.Number);
                 int selectedNumber = vMoveAppDataBind.Number;
                 int targetNumber = targetAppDataBind.Number;

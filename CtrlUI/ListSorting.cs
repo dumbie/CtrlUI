@@ -37,7 +37,7 @@ namespace CtrlUI
             int NewNumber = 0;
             try
             {
-                IEnumerable<DataBindApp> CurrentApps = CombineAppLists(true, true, true, false, false, false);
+                IEnumerable<DataBindApp> CurrentApps = CombineAppLists(true, true, true, false, false, false, false);
                 if (CurrentApps.Any())
                 {
                     NewNumber = CurrentApps.Select(x => x.Number).Max() + 1;

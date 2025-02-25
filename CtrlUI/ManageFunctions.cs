@@ -319,7 +319,7 @@ namespace CtrlUI
                 if (addApplication)
                 {
                     //Check if application executable already exists
-                    if (CombineAppLists(true, true, true, false, false, false).Any(x => x.PathExe.ToLower() == tb_AddAppPathExe.Text.ToLower()))
+                    if (CombineAppLists(true, true, true, false, false, false, false).Any(x => x.PathExe.ToLower() == tb_AddAppPathExe.Text.ToLower()))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
@@ -360,7 +360,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Application executable has not changed.");
                     }
-                    else if (CombineAppLists(true, true, true, false, false, false).Any(x => x.PathExe.ToLower() == tb_AddAppPathExe.Text.ToLower()))
+                    else if (CombineAppLists(true, true, true, false, false, false, false).Any(x => x.PathExe.ToLower() == tb_AddAppPathExe.Text.ToLower()))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
@@ -825,7 +825,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Check if new application already exists
-                    if (CombineAppLists(true, true, true, false, false, false).Any(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower() || x.AppUserModelId.ToLower() == vFilePickerResult.PathFile.ToLower()))
+                    if (CombineAppLists(true, true, true, false, false, false, false).Any(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower() || x.AppUserModelId.ToLower() == vFilePickerResult.PathFile.ToLower()))
                     {
                         List<DataBindString> answersConfirm = new List<DataBindString>();
                         DataBindString answerAlright = new DataBindString();

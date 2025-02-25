@@ -14,7 +14,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Combine all the saved lists to make comparison
-        IEnumerable<DataBindApp> CombineAppLists(bool includeApps, bool includeGames, bool includeEmulators, bool includeLaunchers, bool includeShortcuts, bool includeProcesses)
+        IEnumerable<DataBindApp> CombineAppLists(bool includeApps, bool includeGames, bool includeEmulators, bool includeLaunchers, bool includeShortcuts, bool includeProcesses, bool includeGallery)
         {
             IEnumerable<DataBindApp> combinedLists = new List<DataBindApp>();
             try
@@ -25,6 +25,7 @@ namespace CtrlUI
                 if (includeLaunchers) { combinedLists = combinedLists.Concat(List_Launchers); }
                 if (includeShortcuts) { combinedLists = combinedLists.Concat(List_Shortcuts); }
                 if (includeProcesses) { combinedLists = combinedLists.Concat(List_Processes); }
+                if (includeGallery) { combinedLists = combinedLists.Concat(List_Gallery); }
             }
             catch (Exception ex)
             {
@@ -115,7 +116,7 @@ namespace CtrlUI
                 }
 
                 //Get the currently running processes
-                IEnumerable<DataBindApp> combinedAppLists = CombineAppLists(true, true, true, false, true, false).Where(x => x.StatusUrlProtocol == Visibility.Collapsed);
+                IEnumerable<DataBindApp> combinedAppLists = CombineAppLists(true, true, true, false, true, false, false).Where(x => x.StatusUrlProtocol == Visibility.Collapsed);
 
                 //List process identifiers and window handles
                 List<IntPtr> processWindowHandles = new List<IntPtr>();
@@ -165,7 +166,7 @@ namespace CtrlUI
             {
                 bool applicationUpdated = false;
                 //Debug.WriteLine("Updating the application running time.");
-                foreach (DataBindApp dataBindApp in CombineAppLists(true, true, true, false, false, false).Where(x => x.ProcessMulti.Any()))
+                foreach (DataBindApp dataBindApp in CombineAppLists(true, true, true, false, false, false, false).Where(x => x.ProcessMulti.Any()))
                 {
                     try
                     {

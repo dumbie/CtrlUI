@@ -95,6 +95,10 @@ namespace CtrlUI
                 {
                     dataBindApp.StatusSearchCategoryImage = vImagePreloadShortcut;
                 }
+                else if (dataBindApp.Category == AppCategory.Gallery)
+                {
+                    dataBindApp.StatusSearchCategoryImage = vImagePreloadGallery;
+                }
             }
             catch { }
         }
