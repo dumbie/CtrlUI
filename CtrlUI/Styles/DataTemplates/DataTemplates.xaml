@@ -7,7 +7,7 @@
 
     <!-- Converter Variables -->
     <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
-    
+
     <!-- Style Variables -->
     <sys:Double x:Key="ApplicationPanelSize">110</sys:Double>
     <sys:Double x:Key="ApplicationImageHeight">100</sys:Double>
@@ -106,7 +106,7 @@
     <!-- ListBoxItemGallery -->
     <DataTemplate x:Key="ListBoxItemGallery">
         <Grid Margin="2">
-            <Border CornerRadius="2" Height="180" Width="240" MaxHeight="{DynamicResource MediaImageHeight}">
+            <Border CornerRadius="4" Height="180" Width="240" MaxHeight="{DynamicResource MediaImageHeight}">
                 <Border.Background>
                     <ImageBrush Stretch="UniformToFill" ImageSource="{Binding ImageBitmap}"/>
                 </Border.Background>
@@ -261,6 +261,18 @@
                                 <Setter Property="Visibility" Value="Collapsed"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding FileType}" Value="Folder">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Link.png" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.90">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding FileType}" Value="Link">
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
                                 </Style.Triggers>
