@@ -4,7 +4,6 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVSettings;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Enums;
 
 namespace DirectXInput
 {

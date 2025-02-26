@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -140,7 +141,7 @@ namespace FpsOverlayer
                 }
 
                 //Create note file
-                File.WriteAllText(filePath, string.Empty);
+                AVFiles.StringToFile(filePath, string.Empty);
 
                 //Reload combobox
                 LoadNotesList(fileName);
@@ -165,7 +166,7 @@ namespace FpsOverlayer
                 string filePath = "Notes\\" + fileName + ".txt";
 
                 //Save text to file
-                File.WriteAllText(filePath, textbox_Notes_Text.Text);
+                AVFiles.StringToFile(filePath, textbox_Notes_Text.Text);
 
                 //Update status
                 textbox_Notes_Name.BorderBrush = (SolidColorBrush)Application.Current.Resources["ApplicationValidBrush"];

@@ -57,13 +57,6 @@ namespace CtrlUI
                     return null;
                 }
 
-                //Check if status is set
-                if (resultSearch.Contains("\"status\"") && resultSearch.Contains("\"type\""))
-                {
-                    Debug.WriteLine("Received invalid platforms data.");
-                    return null;
-                }
-
                 //Return content
                 return JsonConvert.DeserializeObject<ApiIGDBPlatforms[]>(resultSearch).OrderBy(x => x.name).ToArray();
             }

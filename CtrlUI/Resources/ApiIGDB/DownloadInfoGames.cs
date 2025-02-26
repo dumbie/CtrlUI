@@ -64,13 +64,6 @@ namespace CtrlUI
                     return null;
                 }
 
-                //Check if status is set
-                if (resultSearch.Contains("\"status\"") && resultSearch.Contains("\"type\""))
-                {
-                    Debug.WriteLine("Received invalid games data.");
-                    return null;
-                }
-
                 //Return content
                 return JsonConvert.DeserializeObject<ApiIGDBGames[]>(resultSearch).OrderBy(x => x.name).ToArray();
             }
