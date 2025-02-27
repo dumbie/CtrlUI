@@ -26,12 +26,6 @@
 		<DebugType>none</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
-		<Content Include="Api\IGDB\Genres.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Api\IGDB\Platforms.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 		<Content Include="Assets\Default\Apps\Humble.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -82,6 +76,9 @@
 		</Content>
 		<Content Include="Assets\Default\Emulators\_Update.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Default\Icons\Save.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\Default\Icons\FileAdd.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -140,6 +137,9 @@
 		<Content Include="Assets\Default\Icons\Resize.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Assets\Default\Icons\Star.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Assets\Default\Icons\Tools.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -158,30 +158,6 @@
 		<Content Include="Assets\Default\Icons\Screenshot.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Assets\Default\Sounds\ArcticZephyr\CaptureFailed.mp3">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Default\Sounds\ArcticZephyr\CaptureScreenshot.mp3">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Default\Sounds\ArcticZephyr\CaptureVideoStart.mp3">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Default\Sounds\ArcticZephyr\CaptureVideoStop.mp3">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Default\Sounds\Default\CaptureFailed.mp3">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Default\Sounds\Default\CaptureScreenshot.mp3">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Default\Sounds\Default\CaptureVideoStart.mp3">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Default\Sounds\Default\CaptureVideoStop.mp3">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 		<Content Include="Assets\Default\Assets in this folder will get overwritten when updating">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -192,15 +168,6 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\User\Assets in this folder will not get overwritten when updating">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Default\Emulators\Nintendo 64\Platform.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Default\Emulators\Nintendo 64\Mario Kart 64.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Default\Emulators\Nintendo 64\Super Mario 64.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\BoxArt-RemoteDesktop.png">
@@ -353,10 +320,10 @@
 		<Content Include="Assets\Default\Icons\ArrowUp.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Assets\Default\Icons\Background.png">
+		<Content Include="Assets\Default\Icons\Image.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Assets\Default\Icons\BackgroundVideo.png">
+		<Content Include="Assets\Default\Icons\Video.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\Default\Icons\Battery\BatteryVerCharge.png">
@@ -927,12 +894,12 @@
 		</COMReference>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="protobuf-net" Version="3.2.45" />
-		<PackageReference Include="SteamKit2" Version="3.0.1" />
+		<PackageReference Include="protobuf-net" Version="3.2.46" />
+		<PackageReference Include="SteamKit2" Version="3.0.2" />
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="if $(Configuration) == Release (&#xD;&#xA;$(SolutionDir)SignToolExe.exe&#xD;&#xA;mkdir $(TargetDir)\Resources&#xD;&#xA;move /y $(TargetDir)\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\runtimes\win\lib\net8.0\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\runtimes\win-x64\native\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\Resources\CtrlUI.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\DirectXInput.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\DriverInstaller.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\FpsOverlayer.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\ScreenCaptureTool.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\LibraryShared.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\ArnoldVinkCode.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\WinRT.Runtime.dll $(TargetDir)&#xD;&#xA;copy /y $(SolutionDir)..\RetroImageRemaster $(TargetDir)\Assets\Default\Emulators&#xD;&#xA;rd /s /q $(TargetDir)\amd64&#xD;&#xA;rd /s /q $(TargetDir)\arm64&#xD;&#xA;rd /s /q $(TargetDir)\de&#xD;&#xA;rd /s /q $(TargetDir)\es&#xD;&#xA;rd /s /q $(TargetDir)\fr&#xD;&#xA;rd /s /q $(TargetDir)\it&#xD;&#xA;rd /s /q $(TargetDir)\ja&#xD;&#xA;rd /s /q $(TargetDir)\sv&#xD;&#xA;rd /s /q $(TargetDir)\tr&#xD;&#xA;rd /s /q $(TargetDir)\pl&#xD;&#xA;rd /s /q $(TargetDir)\ru&#xD;&#xA;rd /s /q $(TargetDir)\runtimes&#xD;&#xA;rd /s /q $(TargetDir)\x86&#xD;&#xA;rd /s /q $(TargetDir)\zh-CN&#xD;&#xA;rd /s /q $(TargetDir)\zh-Hant&#xD;&#xA;del /q $(TargetDir)\*.pdb&#xD;&#xA;del /q $(TargetDir)\*.xml&#xD;&#xA;)" />
+		<Exec Command="if $(Configuration) == Release (&#xD;&#xA;$(SolutionDir)SignToolExe.exe&#xD;&#xA;mkdir $(TargetDir)\Resources&#xD;&#xA;move /y $(TargetDir)\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\runtimes\win\lib\net8.0\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\runtimes\win-x64\native\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\Resources\CtrlUI.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\DirectXInput.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\DriverInstaller.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\FpsOverlayer.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\ScreenCaptureTool.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\LibraryShared.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\ArnoldVinkCode.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\WinRT.Runtime.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\ScreenCaptureImport.deps.json $(TargetDir)\Resources&#xD;&#xA;copy /y $(SolutionDir)..\RetroImageRemaster $(TargetDir)\Assets\Default\Emulators&#xD;&#xA;rd /s /q $(TargetDir)\amd64&#xD;&#xA;rd /s /q $(TargetDir)\arm64&#xD;&#xA;rd /s /q $(TargetDir)\de&#xD;&#xA;rd /s /q $(TargetDir)\es&#xD;&#xA;rd /s /q $(TargetDir)\fr&#xD;&#xA;rd /s /q $(TargetDir)\it&#xD;&#xA;rd /s /q $(TargetDir)\ja&#xD;&#xA;rd /s /q $(TargetDir)\sv&#xD;&#xA;rd /s /q $(TargetDir)\tr&#xD;&#xA;rd /s /q $(TargetDir)\pl&#xD;&#xA;rd /s /q $(TargetDir)\ru&#xD;&#xA;rd /s /q $(TargetDir)\runtimes&#xD;&#xA;rd /s /q $(TargetDir)\x86&#xD;&#xA;rd /s /q $(TargetDir)\zh-CN&#xD;&#xA;rd /s /q $(TargetDir)\zh-Hant&#xD;&#xA;del /q $(TargetDir)\*.pdb&#xD;&#xA;del /q $(TargetDir)\*.xml&#xD;&#xA;)" />
 	</Target>
 	<Target Name="DonePublish" AfterTargets="Publish">
 		<Exec Command="$(SolutionDir)SignToolExe.exe" />

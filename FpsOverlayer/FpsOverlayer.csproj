@@ -50,6 +50,9 @@
 		<Content Include="Profiles\User\FpsPositionProcessName.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Resources\LibreHardwareMonitorLib.deps.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Resources\LibreHardwareMonitorLib.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -64,7 +67,7 @@
 		<ProjectReference Include="..\LibraryShared\LibraryShared.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.18" />
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+		<PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.19" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3065.39" />
 	</ItemGroup>
 </Project>
