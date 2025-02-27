@@ -92,6 +92,12 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v2.3.0.0 (27-February-2025)
+- CtrlUI: Added Humble Bundle launcher app support.
+- CtrlUI: Added game and platform information feature.
+- CtrlUI: Added option to enable Windows Auto HDR for process.
+- CtrlUI: Added option to show light background behind app icon.
+
 v2.2.0.0 (24-December-2024)
 - CtrlUI: Added screenshot gallery.
 - FpsOverlayer: Added notes to tool overlay.
