@@ -18,7 +18,8 @@
     "DriverInstaller"
   ],
   "FilesIgnore": [
-    ".csettings"
+    ".csettings",
+    "Notes/Default.txt"
   ],
   "FilesDelete": [
     "CtrlUI.exe.config",
