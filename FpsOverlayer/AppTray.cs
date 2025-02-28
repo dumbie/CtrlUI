@@ -10,10 +10,11 @@ namespace FpsOverlayer
 {
     public partial class AppTray
     {
-        //Tray Menu Variables
-        public NotifyIcon TrayNotifyIcon = new NotifyIcon();
-        public ContextMenuStrip TrayContextMenu = new ContextMenuStrip();
+        //Tray menu Variables
+        public static NotifyIcon TrayNotifyIcon = new NotifyIcon();
+        private static ContextMenuStrip TrayContextMenu = new ContextMenuStrip();
 
+        //Create tray menu
         public AppTray()
         {
             try

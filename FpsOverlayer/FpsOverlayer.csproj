@@ -61,6 +61,7 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
+		<EmbeddedResource Include="Assets\AppIcon-Disabled.ico" />
 		<EmbeddedResource Include="Assets\AppIcon.ico" />
 	</ItemGroup>
 	<ItemGroup>

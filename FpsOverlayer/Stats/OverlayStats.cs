@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,7 @@ namespace FpsOverlayer
                 {
                     grid_StatsOverlayer.Visibility = Visibility.Collapsed;
                 });
+                AppTray.TrayNotifyIcon.Icon = new Icon(AVEmbedded.EmbeddedResourceToStream(null, "FpsOverlayer.Assets.AppIcon-Disabled.ico"));
             }
             catch { }
         }
@@ -36,6 +38,7 @@ namespace FpsOverlayer
                 {
                     grid_StatsOverlayer.Visibility = Visibility.Visible;
                 });
+                AppTray.TrayNotifyIcon.Icon = new Icon(AVEmbedded.EmbeddedResourceToStream(null, "FpsOverlayer.Assets.AppIcon.ico"));
             }
             catch { }
         }

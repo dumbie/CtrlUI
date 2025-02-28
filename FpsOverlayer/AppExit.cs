@@ -27,7 +27,7 @@ namespace FpsOverlayer
                 }
 
                 //Hide visible tray icon
-                vAppTray.TrayNotifyIcon.Visible = false;
+                AppTray.TrayNotifyIcon.Visible = false;
 
                 //Exit application
                 Environment.Exit(0);
