@@ -176,7 +176,7 @@ namespace CtrlUI
                         if (controllerStatusNew.Connected)
                         {
                             AVActions.DispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 1.00; });
-                            string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
+                            string ControllerIdDisplay = controllerStatusNew.NumberDisplay().ToString();
                             //await Notification_Send_Status("Controller", "Connected (" + ControllerIdDisplay + ")");
 
                             //Update the controller help
@@ -185,7 +185,7 @@ namespace CtrlUI
                         else
                         {
                             AVActions.DispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 0.40; });
-                            string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
+                            string ControllerIdDisplay = controllerStatusNew.NumberDisplay().ToString();
                             //await Notification_Send_Status("Controller", "Disconnected (" + ControllerIdDisplay + ")");
 
                             //Hide the battery status

@@ -36,7 +36,7 @@ namespace DirectXInput
                         //Debug.WriteLine("Controller " + Controller.NumberId + " idle check: " + lastMs + "/" + targetTimeMs + "ms.");
                         if (targetTimeMs > 0 && lastMs > targetTimeMs)
                         {
-                            await StopController(Controller, "idle", "Disconnected idle controller " + Controller.NumberId);
+                            await StopController(Controller, "idle", "Disconnected idle controller " + Controller.NumberDisplay());
                             return true;
                         }
                     }

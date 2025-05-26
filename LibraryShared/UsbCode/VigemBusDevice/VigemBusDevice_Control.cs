@@ -69,10 +69,10 @@ namespace LibraryUsb
         {
             try
             {
-                bool unplug0 = await VirtualUnplug(0);
-                bool unplug1 = await VirtualUnplug(1);
-                bool unplug2 = await VirtualUnplug(2);
-                bool unplug3 = await VirtualUnplug(3);
+                bool unplug0 = await VirtualUnplug(0 + VirtualIdOffset);
+                bool unplug1 = await VirtualUnplug(1 + VirtualIdOffset);
+                bool unplug2 = await VirtualUnplug(2 + VirtualIdOffset);
+                bool unplug3 = await VirtualUnplug(3 + VirtualIdOffset);
                 return unplug0 && unplug1 && unplug2 && unplug3;
             }
             catch (Exception ex)

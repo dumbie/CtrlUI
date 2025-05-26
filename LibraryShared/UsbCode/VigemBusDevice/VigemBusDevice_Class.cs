@@ -3,6 +3,8 @@
     public partial class VigemBusDevice : WinUsbDevice
     {
         //VigemBus v1.21.442.0
+        public const int VirtualIdOffset = 20;
+
         public enum IoControlCodesVirtual : uint
         {
             VIGEM_PLUGIN = 0x2AA004,

@@ -20,7 +20,7 @@ namespace DirectXInput
                 //Set byte array
                 controller.VirtualDataInput = new byte[(int)VigemBusDevice.ByteArraySizes.Input];
                 controller.VirtualDataInput[0] = (byte)VigemBusDevice.ByteArraySizes.Input; //Size
-                controller.VirtualDataInput[4] = (byte)(controller.NumberId + 1); //SerialNo
+                controller.VirtualDataInput[4] = (byte)(controller.NumberVirtual() + 1); //SerialNo
             }
             catch { }
         }
@@ -33,7 +33,7 @@ namespace DirectXInput
                 //Set byte array
                 controller.VirtualDataInput = new byte[(int)VigemBusDevice.ByteArraySizes.Input];
                 controller.VirtualDataInput[0] = (byte)VigemBusDevice.ByteArraySizes.Input; //Size
-                controller.VirtualDataInput[4] = (byte)(controller.NumberId + 1); //SerialNo
+                controller.VirtualDataInput[4] = (byte)(controller.NumberVirtual() + 1); //SerialNo
 
                 //Thumb Left
                 controller.VirtualDataInput[12] = TranslateByte_0xFF(0, controller.InputCurrent.ThumbLeftX);

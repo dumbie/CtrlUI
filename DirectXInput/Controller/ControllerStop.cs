@@ -35,7 +35,7 @@ namespace DirectXInput
 
                 //Get controller display number
                 Debug.WriteLine("Disconnecting the controller " + controller.NumberId + ": " + controller.Details.DisplayName);
-                string controllerNumberDisplay = (controller.NumberId + 1).ToString();
+                string controllerNumberDisplay = controller.NumberDisplay().ToString();
 
                 //Show controller disconnect notification
                 NotificationDetails notificationDetails = new NotificationDetails();
@@ -103,7 +103,7 @@ namespace DirectXInput
                 if (vVirtualBusDevice != null)
                 {
                     //Disconnect virtual controller
-                    await vVirtualBusDevice.VirtualUnplug(controller.NumberId);
+                    await vVirtualBusDevice.VirtualUnplug(controller.NumberVirtual());
                 }
 
                 //Disconnect Hid or WinUsb device

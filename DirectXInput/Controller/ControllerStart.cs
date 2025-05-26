@@ -34,7 +34,7 @@ namespace DirectXInput
                 }
 
                 //Set controller interface information
-                string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
+                string controllerNumberDisplay = Controller.NumberDisplay().ToString();
 
                 //Open the selected controller
                 if (!OpenController(Controller))
@@ -44,9 +44,10 @@ namespace DirectXInput
                     return false;
                 }
 
-                //Unplug and plugin the virtual device
-                await vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
-                await vVirtualBusDevice.VirtualPlugin(Controller.NumberId);
+                //Unplug and plugin virtual device
+                bool virtualUnplug = await vVirtualBusDevice.VirtualUnplug(Controller.NumberVirtual());
+                bool virtualPlugin = await vVirtualBusDevice.VirtualPlugin(Controller.NumberVirtual());
+                Debug.WriteLine("Virtual device plugin result: " + virtualUnplug + " / " + virtualPlugin);
 
                 NotificationDetails notificationDetailsConnected = new NotificationDetails();
                 notificationDetailsConnected.Icon = "Controller";

@@ -127,7 +127,6 @@ namespace DirectXInput
             try
             {
                 //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has a low battery level " + Controller.BatteryPercentageCurrent + "/" + Controller.BatteryPercentagePrevious);
-                string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
 
                 //Check if controller is connected
                 if (!Controller.Connected())
@@ -135,7 +134,10 @@ namespace DirectXInput
                     return;
                 }
 
-                //Check the current battery level
+                //Check controller display number
+                string controllerNumberDisplay = Controller.NumberDisplay().ToString();
+
+                //Check controller current battery level
                 bool batteryLevelChanged = Controller.BatteryCurrent.BatteryPercentage != Controller.BatteryPrevious.BatteryPercentage || Controller.BatteryCurrent.BatteryStatus != Controller.BatteryPrevious.BatteryStatus;
                 bool batteryLevelLow = Controller.BatteryCurrent.BatteryPercentage <= SettingLoad(vConfigurationDirectXInput, "BatteryLowLevel", typeof(int)) && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal;
 

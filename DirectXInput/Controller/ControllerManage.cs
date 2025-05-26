@@ -220,7 +220,7 @@ namespace DirectXInput
                         activeController.Activated = false;
 
                         //Show controller activated notification
-                        string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
+                        string controllerNumberDisplay = Controller.NumberDisplay().ToString();
                         NotificationDetails notificationDetails = new NotificationDetails();
                         notificationDetails.Icon = "Controller";
                         notificationDetails.Text = "Activated (" + controllerNumberDisplay + ")";

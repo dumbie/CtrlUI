@@ -83,7 +83,7 @@ namespace CtrlUI
                 {
                     SolidColorBrush newSolidColorBrush = new SolidColorBrush(Color.FromArgb((byte)(uintColor >> 24), (byte)(uintColor >> 16), (byte)(uintColor >> 8), (byte)(uintColor)));
                     List_ColorPicker.Add(newSolidColorBrush);
-                };
+                }
             }
             catch { }
         }

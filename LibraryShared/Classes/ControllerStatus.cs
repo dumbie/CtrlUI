@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVActions;
+using static LibraryUsb.VigemBusDevice;
 
 namespace LibraryShared
 {
@@ -10,9 +11,14 @@ namespace LibraryShared
     {
         public class ControllerStatus
         {
-            //Controller Status
+            //Controller Basics
             public int NumberId = -1;
+            public int NumberDisplay() { return NumberId + 1; }
+            public int NumberVirtual() { return NumberId + VirtualIdOffset; }
             public bool Activated = false;
+
+            //Controller Details
+            public ControllerDetails Details = null;
 
             //Color Status
             public Color? Color = null;
@@ -37,8 +43,7 @@ namespace LibraryShared
             public int ReadFailureCount = 0;
             public int ReadFailureCountTarget = 200;
 
-            //Controller Details
-            public ControllerDetails Details = null;
+            //Controller Status
             public bool Disconnecting = false;
             public bool Connected()
             {
@@ -99,8 +104,11 @@ namespace LibraryShared
                 {
                     Debug.WriteLine("Reset the controller status for controller: " + NumberId);
 
-                    //Controller Status
+                    //Controller Basics
                     Activated = false;
+
+                    //Controller Details
+                    Details = null;
 
                     //Color Status
                     ColorLedBlink = false;
@@ -122,8 +130,7 @@ namespace LibraryShared
                     TicksActiveLast = 0;
                     ReadFailureCount = 0;
 
-                    //Controller Details
-                    Details = null;
+                    //Controller Status
                     Disconnecting = false;
 
                     //Controller Tasks
