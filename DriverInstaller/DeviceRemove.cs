@@ -34,26 +34,51 @@ namespace DriverInstaller
             catch { }
         }
 
-        void RemoveUnusedVigemVirtualBus()
+        void RemoveUnusedVigemG2VirtualBus()
         {
             try
             {
-                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesSetupApi(GuidClassVigemVirtualBus, false);
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesSetupApi(GuidClassVigemG2VirtualBus, false);
                 if (enumerateInfoList.Any())
                 {
                     foreach (EnumerateInfo device in enumerateInfoList)
                     {
                         try
                         {
-                            DeviceRemove(GuidClassVigemVirtualBus, device.DeviceInstanceId);
+                            DeviceRemove(GuidClassVigemG2VirtualBus, device.DeviceInstanceId);
                         }
                         catch { }
                     }
-                    TextBoxAppend(enumerateInfoList.Count + "x unused VigemVirtualBus removed.");
+                    TextBoxAppend(enumerateInfoList.Count + "x unused VigemVirtualBus G2 removed.");
                 }
                 else
                 {
-                    Debug.WriteLine("No unused VigemVirtualBus found.");
+                    Debug.WriteLine("No unused VigemVirtualBus G2 found.");
+                }
+            }
+            catch { }
+        }
+
+        void RemoveUnusedVigemG1VirtualBus()
+        {
+            try
+            {
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesSetupApi(GuidClassVigemG1VirtualBus, false);
+                if (enumerateInfoList.Any())
+                {
+                    foreach (EnumerateInfo device in enumerateInfoList)
+                    {
+                        try
+                        {
+                            DeviceRemove(GuidClassVigemG1VirtualBus, device.DeviceInstanceId);
+                        }
+                        catch { }
+                    }
+                    TextBoxAppend(enumerateInfoList.Count + "x unused VigemVirtualBus G1 removed.");
+                }
+                else
+                {
+                    Debug.WriteLine("No unused VigemVirtualBus G1 found.");
                 }
             }
             catch { }

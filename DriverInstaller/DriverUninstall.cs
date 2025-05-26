@@ -52,12 +52,12 @@ namespace DriverInstaller
 
                 //Remove unused devices and drivers
                 ProgressBarUpdate(30, false);
-                RemoveUnusedVigemVirtualBus();
+                RemoveUnusedVigemG1VirtualBus();
+                RemoveUnusedVigemG2VirtualBus();
                 RemoveUnusedScpVirtualBus();
                 RemoveUnusedXboxControllers();
                 RemoveUnusedDS3Controllers();
                 RemoveUnusedFakerInputDevices();
-                UninstallHidGuardian();
 
                 //Uninstall FakerInput Driver
                 ProgressBarUpdate(40, false);
@@ -65,11 +65,13 @@ namespace DriverInstaller
 
                 //Uninstall Virtual Bus Driver
                 ProgressBarUpdate(55, false);
-                UninstallVigemVirtualBus();
+                UninstallVigemG1VirtualBus();
+                UninstallVigemG2VirtualBus();
                 UninstallScpVirtualBus();
 
                 //Uninstall HidHide Driver
                 ProgressBarUpdate(70, false);
+                UninstallHidGuardian();
                 UninstallHidHide();
 
                 //Uninstall DS3 USB Driver
@@ -110,7 +112,31 @@ namespace DriverInstaller
             catch { }
         }
 
-        void UninstallVigemVirtualBus()
+        void UninstallVigemG2VirtualBus()
+        {
+            try
+            {
+                List<FileInfo> infPaths = EnumerateDevicesDriverStore("nssvpd.inf", false);
+                foreach (FileInfo infPath in infPaths)
+                {
+                    try
+                    {
+                        if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        {
+                            TextBoxAppend("ViGEm G2 Virtual Bus Driver uninstalled.");
+                        }
+                        else
+                        {
+                            TextBoxAppend("ViGEm G2 Virtual Bus Driver not uninstalled.");
+                        }
+                    }
+                    catch { }
+                }
+            }
+            catch { }
+        }
+
+        void UninstallVigemG1VirtualBus()
         {
             try
             {
@@ -121,11 +147,11 @@ namespace DriverInstaller
                     {
                         if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                         {
-                            TextBoxAppend("ViGEm Virtual Bus Driver uninstalled.");
+                            TextBoxAppend("ViGEm G1 Virtual Bus Driver uninstalled.");
                         }
                         else
                         {
-                            TextBoxAppend("ViGEm Virtual Bus Driver not uninstalled.");
+                            TextBoxAppend("ViGEm G1 Virtual Bus Driver not uninstalled.");
                         }
                     }
                     catch { }

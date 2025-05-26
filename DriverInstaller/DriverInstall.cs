@@ -52,12 +52,12 @@ namespace DriverInstaller
 
                 //Remove unused devices and drivers
                 ProgressBarUpdate(30, false);
-                RemoveUnusedVigemVirtualBus();
+                RemoveUnusedVigemG1VirtualBus();
+                RemoveUnusedVigemG2VirtualBus();
                 RemoveUnusedScpVirtualBus();
                 RemoveUnusedXboxControllers();
                 RemoveUnusedDS3Controllers();
                 RemoveUnusedFakerInputDevices();
-                UninstallHidGuardian();
 
                 //Install FakerInput Driver
                 ProgressBarUpdate(40, false);
@@ -66,17 +66,22 @@ namespace DriverInstaller
                 //Uninstall Virtual Bus Driver
                 ProgressBarUpdate(50, false);
                 UninstallScpVirtualBus();
+                UninstallVigemG2VirtualBus();
 
                 //Install Virtual Bus Driver
                 ProgressBarUpdate(60, false);
-                InstallVigemVirtualBus();
+                InstallVigemG1VirtualBus();
+
+                //Uninstall HidHide Driver
+                ProgressBarUpdate(70, false);
+                UninstallHidGuardian();
 
                 //Install HidHide Driver
-                ProgressBarUpdate(70, false);
+                ProgressBarUpdate(80, false);
                 InstallHidHide();
 
                 //Install DS3 USB Driver
-                ProgressBarUpdate(85, false);
+                ProgressBarUpdate(90, false);
                 InstallDualShock3();
 
                 ProgressBarUpdate(100, false);
@@ -110,22 +115,43 @@ namespace DriverInstaller
             catch { }
         }
 
-        void InstallVigemVirtualBus()
+        void InstallVigemG2VirtualBus()
+        {
+            try
+            {
+                if (DeviceCreateNode("System", GuidClassSystem, @"Nefarius\VirtualPad"))
+                {
+                    TextBoxAppend("ViGEm G2 Virtual Bus Node created.");
+                }
+
+                if (DriverInstallInf(@"Drivers\VirtualPad\nssvpd.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                {
+                    TextBoxAppend("ViGEm G2 Virtual Bus Driver installed.");
+                }
+                else
+                {
+                    TextBoxAppend("ViGEm G2 Virtual Bus Driver not installed.");
+                }
+            }
+            catch { }
+        }
+
+        void InstallVigemG1VirtualBus()
         {
             try
             {
                 if (DeviceCreateNode("System", GuidClassSystem, @"Nefarius\ViGEmBus\Gen1"))
                 {
-                    TextBoxAppend("ViGEm Virtual Bus Node created.");
+                    TextBoxAppend("ViGEm G1 Virtual Bus Node created.");
                 }
 
                 if (DriverInstallInf(@"Drivers\ViGEmBus\x64\ViGEmBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
-                    TextBoxAppend("ViGEm Virtual Bus Driver installed.");
+                    TextBoxAppend("ViGEm G1 Virtual Bus Driver installed.");
                 }
                 else
                 {
-                    TextBoxAppend("ViGEm Virtual Bus Driver not installed.");
+                    TextBoxAppend("ViGEm G1 Virtual Bus Driver not installed.");
                 }
             }
             catch { }
