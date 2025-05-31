@@ -102,7 +102,7 @@ namespace DirectXInput
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - SonyPS5DualSense
-                    byte[] outputReport = new byte[75];
+                    byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0xA2;
                     outputReport[1] = 0x31;
                     outputReport[2] = 0x02;
@@ -165,12 +165,11 @@ namespace DirectXInput
                     outputReport[48] = Controller.ColorLedCurrentG;
                     outputReport[49] = Controller.ColorLedCurrentB;
 
-                    //Add CRC32 to bytes array
-                    int checksumOffset = Controller.SupportedCurrent.OffsetWireless + (int)Controller.SupportedCurrent.OffsetHeader.Checksum;
-                    byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport, checksumOffset);
+                    //Replace CRC32 in bytes array
+                    ByteArrayCRC32Replace(ref outputReport, 0, 1, 74);
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReportCRC32);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
                     Debug.WriteLine("BlueRumb SonyPS5DualSense: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && !Controller.Details.Wireless)
@@ -245,19 +244,23 @@ namespace DirectXInput
                 {
                     //Bluetooth Output - SonyPS4DualShock
                     byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
-                    outputReport[0] = 0x11;
-                    outputReport[1] = 0x80;
-                    outputReport[3] = 0xFF;
-                    outputReport[6] = controllerRumbleLight;
-                    outputReport[7] = controllerRumbleHeavy;
+                    outputReport[0] = 0xA2;
+                    outputReport[1] = 0x11;
+                    outputReport[2] = 0xC0;
+                    outputReport[4] = 0xFF;
+                    outputReport[7] = controllerRumbleLight;
+                    outputReport[8] = controllerRumbleHeavy;
 
                     //Set the controller led color
-                    outputReport[8] = Controller.ColorLedCurrentR;
-                    outputReport[9] = Controller.ColorLedCurrentG;
-                    outputReport[10] = Controller.ColorLedCurrentB;
+                    outputReport[9] = Controller.ColorLedCurrentR;
+                    outputReport[10] = Controller.ColorLedCurrentG;
+                    outputReport[11] = Controller.ColorLedCurrentB;
+
+                    //Replace CRC32 in bytes array
+                    ByteArrayCRC32Replace(ref outputReport, 0, 1, 74);
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(outputReport);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
                     Debug.WriteLine("BlueRumb SonyPS4DualShock: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS4DualShock" && !Controller.Details.Wireless)
@@ -323,12 +326,12 @@ namespace DirectXInput
                 {
                     //Wired Output - SonyPS12DualShock
                     byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
-                    outputReport[0] = 0x01;
+                    outputReport[0] = 0x01; //Fix second controller 0x02
                     outputReport[3] = (byte)(controllerRumbleHeavy / 2); //Between 0 and 127.5
                     outputReport[4] = (byte)(controllerRumbleLight > 0 ? 0x01 : 0x00); //On or Off
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(outputReport);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
                     Debug.WriteLine("UsbRumb SonyPS12DualShock: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "NintendoSwitchPro")
