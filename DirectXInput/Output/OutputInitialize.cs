@@ -24,18 +24,18 @@ namespace DirectXInput
                 else if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - DualSense 5
-                    byte[] outputReport = new byte[75];
+                    byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
                     outputReport[0] = 0xA2;
                     outputReport[1] = 0x31;
                     outputReport[2] = 0x02;
                     outputReport[3] = 0xFF;
                     outputReport[4] = 0x08;
 
-                    //Add CRC32 to bytes array
-                    byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport, 74);
+                    //Replace CRC32 in bytes array
+                    ByteArrayCRC32Replace(ref outputReport, 0, 1, 74);
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReportCRC32);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
                     Debug.WriteLine("Initialized Bluetooth controller: SonyPS5DualSense: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "NintendoSwitchPro")

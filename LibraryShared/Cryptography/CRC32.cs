@@ -52,18 +52,18 @@ namespace LibraryShared
             0XB40BBE37, 0XC30C8EA1, 0X5A05DF1B, 0X2D02EF8D
         };
 
-        public static byte[] ComputeHashCRC32(uint md5Seed, byte[] byteData, bool reversed)
+        public static byte[] ComputeHashCRC32(uint crcSeed, byte[] byteData, bool reversed)
         {
             try
             {
-                //Set MD5 seed
+                //Set CRC32 seed
                 uint hashResult = 0xFFFFFFFF;
-                if (md5Seed != 0)
+                if (crcSeed != 0)
                 {
-                    hashResult = md5Seed;
+                    hashResult = crcSeed;
                 }
 
-                //Generate MD5
+                //Generate CRC32
                 foreach (byte currentByte in byteData)
                 {
                     hashResult = ChecksumTableCRC32[(hashResult & 0xFF) ^ currentByte] ^ (hashResult >> 8);
@@ -81,18 +81,18 @@ namespace LibraryShared
             }
         }
 
-        public static uint ComputeHashCRC32(uint md5Seed, byte[] byteData)
+        public static uint ComputeHashCRC32(uint crcSeed, byte[] byteData)
         {
             try
             {
-                //Set MD5 seed
+                //Set CRC32 seed
                 uint hashResult = 0xFFFFFFFF;
-                if (md5Seed != 0)
+                if (crcSeed != 0)
                 {
-                    hashResult = md5Seed;
+                    hashResult = crcSeed;
                 }
 
-                //Generate MD5
+                //Generate CRC32
                 foreach (byte currentByte in byteData)
                 {
                     hashResult = ChecksumTableCRC32[(hashResult & 0xFF) ^ currentByte] ^ (hashResult >> 8);

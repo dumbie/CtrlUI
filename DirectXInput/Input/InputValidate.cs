@@ -23,11 +23,11 @@ namespace DirectXInput
                 {
                     if (controllerStatus.Details.Wireless)
                     {
-                        //Compute MD5
+                        //Compute CRC32
                         int checksumOffset = controllerStatus.SupportedCurrent.OffsetWireless + (int)controllerStatus.SupportedCurrent.OffsetHeader.Checksum;
                         byte[] checksumInput = controllerStatus.ControllerDataInput.Take(checksumOffset).ToArray();
 
-                        //Read MD5
+                        //Read CRC32
                         byte check0 = controllerStatus.ControllerDataInput[checksumOffset];
                         byte check1 = controllerStatus.ControllerDataInput[checksumOffset + 1];
                         byte check2 = controllerStatus.ControllerDataInput[checksumOffset + 2];
@@ -36,7 +36,7 @@ namespace DirectXInput
                         //Compare 8BitDo static hash
                         if (check0 == 169 && check1 == 47 && check2 == 73 && check3 == 54) { return true; }
 
-                        //Compare computed MD5 hash
+                        //Compare computed CRC32 hash
                         byte[] checksumCompute = ComputeHashCRC32(0x8C2C830C, checksumInput, false);
                         if (checksumCompute[0] != check0) { return false; }
                         if (checksumCompute[1] != check1) { return false; }
@@ -48,12 +48,12 @@ namespace DirectXInput
                 {
                     if (controllerStatus.Details.Wireless)
                     {
-                        //Compute MD5
+                        //Compute CRC32
                         int checksumOffset = controllerStatus.SupportedCurrent.OffsetWireless + (int)controllerStatus.SupportedCurrent.OffsetHeader.Checksum;
                         byte[] checksumInput = controllerStatus.ControllerDataInput.Take(checksumOffset).ToArray();
                         byte[] checksumCompute = ComputeHashCRC32(0x8C2C830C, checksumInput, false);
 
-                        //Compare computed MD5 hash
+                        //Compare computed CRC32 hash
                         byte check0 = controllerStatus.ControllerDataInput[checksumOffset];
                         if (checksumCompute[0] != check0) { return false; }
                         byte check1 = controllerStatus.ControllerDataInput[checksumOffset + 1];
