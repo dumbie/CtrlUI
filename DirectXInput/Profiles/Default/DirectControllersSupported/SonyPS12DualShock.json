@@ -2,13 +2,14 @@
   "CodeName": "SonyPS12DualShock",
   "ProductIDs": [ "0x0001" ],
   "VendorID": "0x0810",
-  "OffsetWired": 1,
+  "OffsetWired": 0,
   "OffsetHeader": {
-    "DPadLeft": 4,
-    "ThumbLeftX": 2,
-    "ThumbLeftY": 3,
-    "ThumbRightX": 1,
-    "ThumbRightY": 0
+    "DPadLeft": 5,
+    "ThumbLeftX": 3,
+    "ThumbLeftY": 4,
+    "ThumbRightX": 2,
+    "ThumbRightY": 1,
+    "NumberOutput": 0
   },
   "OffsetDPad": {
     "DPadN": 0,
@@ -22,51 +23,51 @@
   },
   "OffsetButton": {
     "A": {
-      "Group": 4,
+      "Group": 5,
       "Offset": 6
     },
     "B": {
-      "Group": 4,
+      "Group": 5,
       "Offset": 5
     },
     "X": {
-      "Group": 4,
+      "Group": 5,
       "Offset": 7
     },
     "Y": {
-      "Group": 4,
+      "Group": 5,
       "Offset": 4
     },
     "ShoulderLeft": {
-      "Group": 5,
+      "Group": 6,
       "Offset": 2
     },
     "ShoulderRight": {
-      "Group": 5,
+      "Group": 6,
       "Offset": 3
     },
     "TriggerLeft": {
-      "Group": 5,
+      "Group": 6,
       "Offset": 0
     },
     "TriggerRight": {
-      "Group": 5,
+      "Group": 6,
       "Offset": 1
     },
     "ThumbLeft": {
-      "Group": 5,
+      "Group": 6,
       "Offset": 6
     },
     "ThumbRight": {
-      "Group": 5,
+      "Group": 6,
       "Offset": 7
     },
     "Start": {
-      "Group": 5,
+      "Group": 6,
       "Offset": 5
     },
     "Back": {
-      "Group": 5,
+      "Group": 6,
       "Offset": 4
     }
   }

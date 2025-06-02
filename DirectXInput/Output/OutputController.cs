@@ -326,7 +326,7 @@ namespace DirectXInput
                 {
                     //Wired Output - SonyPS12DualShock
                     byte[] outputReport = new byte[Controller.ControllerDataOutput.Length];
-                    outputReport[0] = 0x01; //Fix second controller 0x02
+                    outputReport[0] = (byte)Controller.NumberOutput;
                     outputReport[3] = (byte)(controllerRumbleHeavy / 2); //Between 0 and 127.5
                     outputReport[4] = (byte)(controllerRumbleLight > 0 ? 0x01 : 0x00); //On or Off
 

@@ -60,6 +60,9 @@ namespace DirectXInput
                 //Update read failure count
                 controller.ReadFailureCount = 0;
 
+                //Update Identifiers
+                InputUpdateIdentifiers(controller);
+
                 //Update Thumbsticks
                 InputUpdateThumbsticks(controller);
 

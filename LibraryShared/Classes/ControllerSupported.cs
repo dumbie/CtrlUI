@@ -37,6 +37,7 @@
                 public int? BatteryLevel { get; set; }
                 public int? BatteryStatus { get; set; }
                 public int? Checksum { get; set; }
+                public int? NumberOutput { get; set; }
             }
 
             public class ClassOffsetDPad

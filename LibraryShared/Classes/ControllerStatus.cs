@@ -13,6 +13,7 @@ namespace LibraryShared
         {
             //Controller Basics
             public int NumberId = -1;
+            public int NumberOutput = -1;
             public int NumberDisplay() { return NumberId + 1; }
             public int NumberVirtual() { return NumberId + VirtualIdOffset; }
             public bool Activated = false;
@@ -105,6 +106,7 @@ namespace LibraryShared
                     Debug.WriteLine("Reset the controller status for controller: " + NumberId);
 
                     //Controller Basics
+                    NumberOutput = -1;
                     Activated = false;
 
                     //Controller Details
