@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVJsonFunctions;

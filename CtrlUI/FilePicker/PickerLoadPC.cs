@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVDiskInfo;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVSettings;

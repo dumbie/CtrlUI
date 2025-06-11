@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVJsonFunctions;

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
+using static ArnoldVinkCode.AVUpdate;
 using static CtrlUI.AppBackup;
 using static CtrlUI.AppVariables;
-using static LibraryShared.AppUpdate;
 
 namespace CtrlUI
 {
@@ -25,8 +25,8 @@ namespace CtrlUI
                 //Setup application defaults
                 AVStartup.SetupDefaults(ProcessPriority.High, true);
 
-                //Application update checks
-                await UpdateCheck();
+                //Application update cleanup
+                await UpdateCleanup();
 
                 //Backup Json profiles
                 BackupJsonProfiles();

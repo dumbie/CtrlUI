@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;

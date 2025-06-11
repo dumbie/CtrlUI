@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;

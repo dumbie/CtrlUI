@@ -26,6 +26,15 @@
 		<DebugType>none</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Include="..\..\DirectXInput\DirectXInput\Library\Classes\ControllerBattery.cs" Link="Library\Classes\ControllerBattery.cs" />
+	  <Compile Include="..\..\DirectXInput\DirectXInput\Library\Classes\ControllerButtonDetails.cs" Link="Library\Classes\ControllerButtonDetails.cs" />
+	  <Compile Include="..\..\DirectXInput\DirectXInput\Library\Classes\ControllerInput.cs" Link="Library\Classes\ControllerInput.cs" />
+	  <Compile Include="..\..\DirectXInput\DirectXInput\Library\Classes\ControllerStatusDetails.cs" Link="Library\Classes\ControllerStatusDetails.cs" />
+	  <Compile Include="..\..\DirectXInput\DirectXInput\Library\Enums\BatteryStatus.cs" Link="Library\Enums\BatteryStatus.cs" />
+	  <Compile Include="..\..\DirectXInput\DirectXInput\Library\Usb\VigemBusDevice\VigemBusDevice_Class.cs" Link="Library\Usb\VigemBusDevice\VigemBusDevice_Class.cs" />
+	  <Compile Include="..\..\DirectXInput\DirectXInput\Library\Variables\ControllerTimings.cs" Link="Library\Variables\ControllerTimings.cs" />
+	</ItemGroup>
+	<ItemGroup>
 		<Content Include="Assets\Default\Apps\Humble.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -880,9 +889,6 @@
 		<EmbeddedResource Include="Assets\AppIcon.ico" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\LibraryShared\LibraryShared.csproj" />
-	</ItemGroup>
-	<ItemGroup>
 		<COMReference Include="Shell32">
 			<Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
 			<VersionMajor>1</VersionMajor>
@@ -897,6 +903,13 @@
 		<PackageReference Include="protobuf-net" Version="3.2.52" />
 		<PackageReference Include="SteamKit2" Version="3.2.0" />
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\ArnoldVinkCode\Desktop\ArnoldVinkCode.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Library\Usb\VigemBusDevice\" />
+	  <Folder Include="Library\Variables\" />
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="if $(Configuration) == Release (&#xD;&#xA;$(SolutionDir)SignToolExe.exe&#xD;&#xA;mkdir $(TargetDir)\Resources&#xD;&#xA;move /y $(TargetDir)\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\runtimes\win\lib\net8.0\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\runtimes\win-x64\native\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\Resources\CtrlUI.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\DirectXInput.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\DriverInstaller.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\FpsOverlayer.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\ScreenCaptureTool.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\LibraryShared.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\ArnoldVinkCode.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\ScreenCaptureImport.deps.json $(TargetDir)\Resources&#xD;&#xA;copy /y $(SolutionDir)..\RetroImageRemaster $(TargetDir)\Assets\Default\Emulators&#xD;&#xA;rd /s /q $(TargetDir)\amd64&#xD;&#xA;rd /s /q $(TargetDir)\arm64&#xD;&#xA;rd /s /q $(TargetDir)\de&#xD;&#xA;rd /s /q $(TargetDir)\es&#xD;&#xA;rd /s /q $(TargetDir)\fr&#xD;&#xA;rd /s /q $(TargetDir)\it&#xD;&#xA;rd /s /q $(TargetDir)\ja&#xD;&#xA;rd /s /q $(TargetDir)\sv&#xD;&#xA;rd /s /q $(TargetDir)\tr&#xD;&#xA;rd /s /q $(TargetDir)\pl&#xD;&#xA;rd /s /q $(TargetDir)\ru&#xD;&#xA;rd /s /q $(TargetDir)\runtimes&#xD;&#xA;rd /s /q $(TargetDir)\x86&#xD;&#xA;rd /s /q $(TargetDir)\zh-CN&#xD;&#xA;rd /s /q $(TargetDir)\zh-Hant&#xD;&#xA;del /q $(TargetDir)\*.pdb&#xD;&#xA;del /q $(TargetDir)\*.xml&#xD;&#xA;)" />

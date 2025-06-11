@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
