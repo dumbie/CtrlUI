@@ -70,7 +70,6 @@ namespace CtrlUI
                     settingsStackpanelInterface.Visibility = Visibility.Collapsed;
                     settingsStackpanelSound.Visibility = Visibility.Collapsed;
                     settingsStackpanelBrowser.Visibility = Visibility.Collapsed;
-                    settingsStackpanelNetwork.Visibility = Visibility.Collapsed;
                     settingsStackpanelOther.Visibility = Visibility.Collapsed;
 
                     //Show the requested setting tab
@@ -104,11 +103,6 @@ namespace CtrlUI
                     {
                         settingsStackpanelBrowser.Visibility = Visibility.Visible;
                         await FocusElement(cb_SettingsShowHiddenFilesFolders, vProcessCurrent.WindowHandleMain);
-                    }
-                    else if (SelStackPanel.Name == "settingsButtonNetwork")
-                    {
-                        settingsStackpanelNetwork.Visibility = Visibility.Visible;
-                        await FocusElement(txt_SettingsSocketClientPortStart, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonOther")
                     {
@@ -288,9 +282,6 @@ namespace CtrlUI
 
                     //Update the clock style
                     UpdateClockStyle();
-
-                    //Notify applications setting changed
-                    await NotifyDirectXInputSettingChanged("InterfaceClockStyleName");
                 }
             }
             catch { }
@@ -332,9 +323,6 @@ namespace CtrlUI
 
                     //Update the setting
                     SettingSave(vConfigurationCtrlUI, "InterfaceSoundPackName", messageResult.Name);
-
-                    //Notify applications setting changed
-                    await NotifyDirectXInputSettingChanged("InterfaceSoundPackName");
                 }
             }
             catch { }

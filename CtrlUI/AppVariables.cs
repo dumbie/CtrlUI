@@ -31,7 +31,6 @@ namespace CtrlUI
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static CultureInfo vAppCultureInfo = CultureInfo.InvariantCulture;
         public static Configuration vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
-        public static Configuration vConfigurationDirectXInput = SettingLoadConfig("DirectXInput.exe.csettings");
 
         //Api Variables
         public static string vApiHltbAuthKey = string.Empty;

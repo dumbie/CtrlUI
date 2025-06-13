@@ -512,10 +512,6 @@
                                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Folder.png" Width="55" HorizontalAlignment="Center"/>
                                     <TextBlock Text="File Browser" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                                 </StackPanel>
-                                <StackPanel Name="settingsButtonNetwork" Style="{StaticResource ListBoxMenuStackPanel}">
-                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Network.png" Width="55" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Network" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                                </StackPanel>
                                 <StackPanel Name="settingsButtonOther" Style="{StaticResource ListBoxMenuStackPanel}">
                                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Hamburger.png" Width="55" HorizontalAlignment="Center"/>
                                     <TextBlock Text="Other" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -691,17 +687,6 @@
                                     <TextBlock Text="Enabling this will hide mounted network drives in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                                     <TextBlock Text="* You can add new file locations to open in the profile manager." Margin="0,20,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                </StackPanel>
-
-                                <StackPanel Name="settingsStackpanelNetwork" Visibility="Collapsed">
-                                    <TextBlock Text="Sockets client and server ports:*" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Sockets are used to receive and send information to the other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBox Name="txt_SettingsSocketClientPortStart" Style="{StaticResource TextBoxWhite}" Width="120" HorizontalAlignment="Left"/>
-                                        <TextBox Name="txt_SettingsSocketClientPortRange" IsEnabled="False" Style="{StaticResource TextBoxWhite}" Width="120" Margin="5,0,0,0" HorizontalAlignment="Left"/>
-                                    </StackPanel>
-
-                                    <TextBlock Text="* Changing the port requires you to restart the other applications." Margin="0,20,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                                 </StackPanel>
 
                                 <StackPanel Name="settingsStackpanelOther" Visibility="Collapsed">

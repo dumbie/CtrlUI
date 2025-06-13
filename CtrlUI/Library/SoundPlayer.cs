@@ -3,16 +3,12 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Media;
 using static ArnoldVinkCode.AVSettings;
 
 namespace LibraryShared
 {
     public partial class SoundPlayer
     {
-        //Player Variables
-        private static MediaPlayer windowsMediaPlayer = new MediaPlayer();
-
         //Play interface sound
         public static void PlayInterfaceSound(Configuration sourceConfig, string soundName, bool forceSound, bool forceMaxVolume)
         {
@@ -38,13 +34,7 @@ namespace LibraryShared
                         soundFileName = soundFileNameUser;
                     }
 
-                    Uri soundFileUri = new Uri(soundFileName, UriKind.RelativeOrAbsolute);
-                    AVActions.DispatcherInvoke(delegate
-                    {
-                        windowsMediaPlayer.Volume = soundVolume;
-                        windowsMediaPlayer.Open(soundFileUri);
-                        windowsMediaPlayer.Play();
-                    });
+                    AVSoundPlayer.PlaySound(soundFileName, soundVolume);
                 }
             }
             catch (Exception ex)

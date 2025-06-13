@@ -1,11 +1,11 @@
 ﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
-using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -43,43 +43,34 @@ namespace CtrlUI
             try
             {
                 //Get the source server ip and port
-                //Debug.WriteLine("Received udp socket from: " + endPoint.IPEndPoint.Address.ToString() + ":" + endPoint.IPEndPoint.Port);
+                //Debug.WriteLine("Received udp socket from: " + endPoint.IPEndPoint.Address.ToString() + ":" + endPoint.IPEndPoint.Port + "/" + receivedBytes.Length + "bytes");
 
                 //Deserialize the received bytes
                 if (DeserializeBytesToObject(receivedBytes, out SocketSendContainer deserializedBytes))
                 {
-                    if (deserializedBytes.Object is ControllerInput)
+                    Type objectType = Type.GetType(deserializedBytes.SendType);
+                    if (objectType == typeof(ControllerInput))
                     {
                         if (!vControllerBusy)
                         {
                             vControllerBusy = true;
 
-                            ControllerInput receivedControllerInput = (ControllerInput)deserializedBytes.Object;
+                            ControllerInput receivedControllerInput = deserializedBytes.GetObjectAsType<ControllerInput>();
                             await ControllerInteraction(receivedControllerInput);
 
                             vControllerBusy = false;
                         }
                     }
-                    else if (deserializedBytes.Object is List<ControllerStatusDetails>)
+                    else if (objectType == typeof(List<ControllerStatusDetails>))
                     {
-                        List<ControllerStatusDetails> controllerStatusSummaryList = (List<ControllerStatusDetails>)deserializedBytes.Object;
+                        List<ControllerStatusDetails> controllerStatusSummaryList = deserializedBytes.GetObjectAsType<List<ControllerStatusDetails>>();
                         UpdateControllerStatus(controllerStatusSummaryList);
                     }
-                    else if (deserializedBytes.Object is string)
+                    else if (objectType == typeof(string))
                     {
-                        string receivedString = (string)deserializedBytes.Object;
+                        string receivedString = (string)deserializedBytes.SendObject;
                         Debug.WriteLine("Received socket string: " + receivedString);
-                        if (receivedString == "SettingChangedShortcut")
-                        {
-                            vConfigurationDirectXInput = SettingLoadConfig("DirectXInput.exe.csettings");
-                            UpdateControllerHelp();
-                        }
-                        else if (receivedString == "SettingChangedControllerColor")
-                        {
-                            vConfigurationDirectXInput = SettingLoadConfig("DirectXInput.exe.csettings");
-                            UpdateControllerColor();
-                        }
-                        else if (receivedString == "AppWindowHideShow")
+                        if (receivedString == "AppWindowHideShow")
                         {
                             await AVActions.DispatcherInvoke(async delegate { await AppWindow_HideShow(); });
                         }

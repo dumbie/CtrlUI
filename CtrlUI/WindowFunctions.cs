@@ -54,13 +54,6 @@ namespace CtrlUI
                 int verticalTop = (int)(displayMonitorSettings.BoundsTop + (displayMonitorSettings.HeightNative - windowHeight) / 2);
                 WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
 
-                //Notify apps the monitor changed
-                if (notifyApps)
-                {
-                    await NotifyDirectXInputSettingChanged("DisplayMonitor");
-                    await NotifyFpsOverlayerSettingChanged("DisplayMonitor");
-                }
-
                 //Show monitor change notification
                 if (!skipNotification)
                 {

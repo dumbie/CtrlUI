@@ -131,10 +131,10 @@ namespace CtrlUI
                     await FirstLaunchAddApps();
                 }
 
-                //Update the controller help
+                //Update controller help
                 UpdateControllerHelp();
 
-                //Update the controller color
+                //Update controller color
                 UpdateControllerColor();
 
                 //Enable the socket server
@@ -155,7 +155,6 @@ namespace CtrlUI
             try
             {
                 int socketServerPort = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(int));
-
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", socketServerPort, false, true);
                 vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;

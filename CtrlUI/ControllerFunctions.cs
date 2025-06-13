@@ -53,22 +53,18 @@ namespace CtrlUI
         {
             try
             {
-                string ControllerColor0 = SettingLoad(vConfigurationDirectXInput, "ControllerColor0", typeof(string));
-                string ControllerColor1 = SettingLoad(vConfigurationDirectXInput, "ControllerColor1", typeof(string));
-                string ControllerColor2 = SettingLoad(vConfigurationDirectXInput, "ControllerColor2", typeof(string));
-                string ControllerColor3 = SettingLoad(vConfigurationDirectXInput, "ControllerColor3", typeof(string));
                 AVActions.DispatcherInvoke(delegate
                 {
-                    SolidColorBrush ControllerColor0Brush = new BrushConverter().ConvertFrom(ControllerColor0) as SolidColorBrush;
+                    SolidColorBrush ControllerColor0Brush = new BrushConverter().ConvertFrom(vController0.Color.ToString()) as SolidColorBrush;
                     border_Menu_Controller0.Background = ControllerColor0Brush;
 
-                    SolidColorBrush ControllerColor1Brush = new BrushConverter().ConvertFrom(ControllerColor1) as SolidColorBrush;
+                    SolidColorBrush ControllerColor1Brush = new BrushConverter().ConvertFrom(vController1.Color.ToString()) as SolidColorBrush;
                     border_Menu_Controller1.Background = ControllerColor1Brush;
 
-                    SolidColorBrush ControllerColor2Brush = new BrushConverter().ConvertFrom(ControllerColor2) as SolidColorBrush;
+                    SolidColorBrush ControllerColor2Brush = new BrushConverter().ConvertFrom(vController2.Color.ToString()) as SolidColorBrush;
                     border_Menu_Controller2.Background = ControllerColor2Brush;
 
-                    SolidColorBrush ControllerColor3Brush = new BrushConverter().ConvertFrom(ControllerColor3) as SolidColorBrush;
+                    SolidColorBrush ControllerColor3Brush = new BrushConverter().ConvertFrom(vController3.Color.ToString()) as SolidColorBrush;
                     border_Menu_Controller3.Background = ControllerColor3Brush;
                 });
             }
@@ -91,13 +87,13 @@ namespace CtrlUI
                 SocketSendContainer socketSend = new SocketSendContainer();
                 socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
                 socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
-                socketSend.Object = "ControllerStatusSummaryList";
+                socketSend.SetObject("ControllerStatusSummaryList");
 
                 //Request controller status
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), vArnoldVinkSockets.vSocketServerPort + 1);
+                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), 26760);
                 await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
             }
             catch { }
@@ -146,13 +142,13 @@ namespace CtrlUI
                         ActivateController(controllerStatusNew.NumberId);
                     }
 
-                    //Update the battery icons and level
+                    //Update battery icons and level
                     if (controllerStatusNew.Activated)
                     {
                         UpdateBatteryStatus(controllerStatusNew.BatteryCurrent);
                     }
 
-                    //Update the controller status for comparison
+                    //Update controller status for comparison
                     if (controllerStatusNew.NumberId == 0)
                     {
                         vController0 = controllerStatusNew;
@@ -170,6 +166,12 @@ namespace CtrlUI
                         vController3 = controllerStatusNew;
                     }
 
+                    //Update controller help
+                    UpdateControllerHelp();
+
+                    //Update controller colors
+                    UpdateControllerColor();
+
                     //Show controller connection popup and update the controller menu image
                     if (controllerStatusOld.Connected != controllerStatusNew.Connected)
                     {
@@ -178,9 +180,6 @@ namespace CtrlUI
                             AVActions.DispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 1.00; });
                             string ControllerIdDisplay = controllerStatusNew.NumberDisplay().ToString();
                             //await Notification_Send_Status("Controller", "Connected (" + ControllerIdDisplay + ")");
-
-                            //Update the controller help
-                            UpdateControllerHelp();
                         }
                         else
                         {
@@ -193,9 +192,6 @@ namespace CtrlUI
                             {
                                 HideBatteryStatus(true);
                             }
-
-                            //Update the controller help
-                            UpdateControllerHelp();
                         }
                     }
                 }

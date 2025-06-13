@@ -172,8 +172,11 @@ namespace CtrlUI
                 //Update the clock with date
                 UpdateClockTime();
 
-                //Update the controller help
+                //Update controller help
                 UpdateControllerHelp();
+
+                //Update controller colors
+                UpdateControllerColor();
             }
             catch { }
         }

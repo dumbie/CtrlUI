@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
 	<appSettings>
-		<add key="ServerPort" value="26759"/>
-		<add key="DisplayMonitor" value="1"/>
-		<add key="ColorAccentLight" value="#1E90FF"/>
-		<add key="InterfaceSound" value="True"/>
-		<add key="InterfaceSoundVolume" value="70"/>
-		<add key="InterfaceSoundPackName" value="Default"/>
-		<add key="InterfaceClockStyleName" value="Cortana"/>
 	</appSettings>
 </configuration>

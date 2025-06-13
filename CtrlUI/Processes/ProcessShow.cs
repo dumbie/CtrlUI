@@ -123,18 +123,18 @@ namespace CtrlUI
                 socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
                 if (forceShow)
                 {
-                    socketSend.Object = "KeyboardShow";
+                    socketSend.SetObject("KeyboardShow");
                 }
                 else
                 {
-                    socketSend.Object = "KeyboardHideShow";
+                    socketSend.SetObject("KeyboardHideShow");
                 }
 
                 //Request controller status
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), vArnoldVinkSockets.vSocketServerPort + 1);
+                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), 26760);
                 await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
             }
             catch { }

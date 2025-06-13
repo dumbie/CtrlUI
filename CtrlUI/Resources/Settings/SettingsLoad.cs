@@ -42,11 +42,6 @@ namespace CtrlUI
                 cb_SettingsLaunchFpsOverlayer.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchFpsOverlayer", typeof(bool));
                 cb_SettingsLaunchDirectXInput.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchDirectXInput", typeof(bool));
 
-                //Load the socket used ports
-                int serverPortRange = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(int)) + 2;
-                txt_SettingsSocketClientPortStart.Text = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(string));
-                txt_SettingsSocketClientPortRange.Text = Convert.ToString(serverPortRange);
-
                 //Load the application font size
                 textblock_SettingsAppFontSize.Text = "Adjust the application font size: " + SettingLoad(vConfigurationCtrlUI, "AppFontSize", typeof(string));
                 slider_SettingsAppFontSize.Value = SettingLoad(vConfigurationCtrlUI, "AppFontSize", typeof(double));

@@ -1,8 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
-using System.Windows.Media;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static CtrlUI.AppVariables;
@@ -195,42 +193,6 @@ namespace CtrlUI
                 {
                     textblock_SettingsGalleryLoadDays.Text = "Limit gallery loading days: " + Convert.ToInt32(slider_SettingsGalleryLoadDays.Value);
                     SettingSave(vConfigurationCtrlUI, "GalleryLoadDays", slider_SettingsGalleryLoadDays.Value);
-                };
-
-                //Save - Socket Client Port
-                txt_SettingsSocketClientPortStart.TextChanged += (sender, e) =>
-                {
-                    //Color brushes
-                    BrushConverter BrushConvert = new BrushConverter();
-                    Brush BrushInvalid = BrushConvert.ConvertFromString("#CD1A2B") as Brush;
-                    Brush BrushValid = BrushConvert.ConvertFromString("#1DB954") as Brush;
-
-                    if (string.IsNullOrWhiteSpace(txt_SettingsSocketClientPortStart.Text))
-                    {
-                        txt_SettingsSocketClientPortStart.BorderBrush = BrushInvalid;
-                        txt_SettingsSocketClientPortRange.BorderBrush = BrushInvalid;
-                        return;
-                    }
-
-                    if (Regex.IsMatch(txt_SettingsSocketClientPortStart.Text, "(\\D+)"))
-                    {
-                        txt_SettingsSocketClientPortStart.BorderBrush = BrushInvalid;
-                        txt_SettingsSocketClientPortRange.BorderBrush = BrushInvalid;
-                        return;
-                    }
-
-                    int NewServerPort = Convert.ToInt32(txt_SettingsSocketClientPortStart.Text);
-                    if (NewServerPort < 100 || NewServerPort > 65500)
-                    {
-                        txt_SettingsSocketClientPortStart.BorderBrush = BrushInvalid;
-                        txt_SettingsSocketClientPortRange.BorderBrush = BrushInvalid;
-                        return;
-                    }
-
-                    txt_SettingsSocketClientPortStart.BorderBrush = BrushValid;
-                    txt_SettingsSocketClientPortRange.BorderBrush = BrushValid;
-                    txt_SettingsSocketClientPortRange.Text = Convert.ToString(NewServerPort + 2);
-                    SettingSave(vConfigurationCtrlUI, "ServerPort", txt_SettingsSocketClientPortStart.Text);
                 };
             }
             catch (Exception ex)
