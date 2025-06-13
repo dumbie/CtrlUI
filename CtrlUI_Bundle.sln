@@ -18,11 +18,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DriverInstaller", "..\Direc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArnoldVinkCode", "..\ArnoldVinkCode\Desktop\ArnoldVinkCode.csproj", "{7958A167-08A0-4F0F-812C-D9EA2904887B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScreenCaptureTool", "..\ScreenCaptureDLL\ScreenCaptureTool\ScreenCaptureTool.csproj", "{A3B9B2D6-99E4-491C-8F7C-0AE16A4E7CE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScreenCaptureTool", "..\ScreenCaptureTool\ScreenCaptureTool\ScreenCaptureTool.csproj", "{A3B9B2D6-99E4-491C-8F7C-0AE16A4E7CE4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScreenCaptureImport", "..\ScreenCaptureDLL\ScreenCaptureImport\ScreenCaptureImport.csproj", "{3D01E8FB-5A60-4321-9762-DD9A27B4C2E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScreenCaptureImport", "..\ScreenCaptureTool\ScreenCaptureImport\ScreenCaptureImport.csproj", "{3D01E8FB-5A60-4321-9762-DD9A27B4C2E3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScreenCaptureDll", "..\ScreenCaptureDLL\ScreenCapture\ScreenCapture.vcxproj", "{D41825DF-7633-4BD6-A5C5-119494CF050B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScreenCaptureDll", "..\ScreenCaptureTool\ScreenCapture\ScreenCapture.vcxproj", "{D41825DF-7633-4BD6-A5C5-119494CF050B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
