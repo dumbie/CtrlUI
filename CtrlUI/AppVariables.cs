@@ -116,7 +116,6 @@ namespace CtrlUI
         public static long vLastUpdateLaunchers = 0;
 
         //Busy Variables
-        public static bool vBusyCheckingForUpdate = false;
         public static bool vBusyRefreshingProcesses = false;
         public static bool vBusyRefreshingGallery = false;
         public static bool vBusyRefreshingShortcuts = false;

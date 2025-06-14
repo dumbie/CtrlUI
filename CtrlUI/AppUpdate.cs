@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ApiGitHub;
+using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -12,29 +14,48 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Check for available application update
-        public async Task<bool> CheckForAppUpdate(bool onlyNotification)
+        //Clean application update files
+        public async Task UpdateCleanup()
         {
-            bool updateAvailable = false;
             try
             {
-                //Check if already updating
-                if (vBusyCheckingForUpdate)
+                Debug.WriteLine("Cleaning application update.");
+
+                //Close running application updater
+                if (Close_ProcessesByName("Updater.exe", true))
                 {
-                    Debug.WriteLine("Already checking for application update, cancelling.");
-                    return updateAvailable;
+                    await Task.Delay(1000);
                 }
 
-                //Update the updating status
-                vBusyCheckingForUpdate = true;
+                //Check if the updater has been updated
+                File_Move("Resources/UpdaterReplace.exe", "Updater.exe", true);
+                File_Move("Updater/UpdaterReplace.exe", "Updater.exe", true);
+            }
+            catch { }
+        }
+
+        //Launch updater and restart application
+        public void UpdateRestart()
+        {
+            try
+            {
+                Launch_ShellExecute("Updater.exe", "", "-ProcessLaunch", true);
+                Environment.Exit(0);
+            }
+            catch { }
+        }
+
+        //Check for available application update
+        public async Task<bool> UpdateCheck(bool onlyNotification)
+        {
+            try
+            {
+                Debug.WriteLine("Checking for application update.");
 
                 string onlineVersion = await ApiGitHub_GetLatestVersion("dumbie", "CtrlUI");
                 string currentVersion = "v" + AVFunctions.ApplicationVersion();
                 if (!string.IsNullOrWhiteSpace(onlineVersion) && onlineVersion != currentVersion)
                 {
-                    //Update status variable
-                    updateAvailable = true;
-
                     //Insert main menu item
                     MainMenuInsertUpdate();
 
@@ -45,73 +66,45 @@ namespace CtrlUI
                     }
                     else
                     {
-                        List<DataBindString> Answers = new List<DataBindString>();
+                        List<DataBindString> messageBoxAnswers = new List<DataBindString>();
                         DataBindString AnswerUpdateRestart = new DataBindString();
                         AnswerUpdateRestart.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         AnswerUpdateRestart.Name = "Update and restart CtrlUI";
-                        Answers.Add(AnswerUpdateRestart);
+                        messageBoxAnswers.Add(AnswerUpdateRestart);
 
-                        DataBindString messageResult = await Popup_Show_MessageBox("A newer version has been found: " + onlineVersion, "", "Do you want to update the application to the newest version now?", Answers);
+                        DataBindString messageResult = await Popup_Show_MessageBox("Newer version has been found: " + onlineVersion, "", "Would you like to update the application to the newest version available?", messageBoxAnswers);
                         if (messageResult != null)
                         {
                             if (messageResult == AnswerUpdateRestart)
                             {
-                                await AppUpdateRestart();
+                                UpdateRestart();
                             }
                         }
                     }
+
+                    return true;
                 }
                 else
                 {
                     if (!onlyNotification)
                     {
-                        List<DataBindString> Answers = new List<DataBindString>();
+                        List<DataBindString> messageBoxAnswers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
                         Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         Answer1.Name = "Ok";
-                        Answers.Add(Answer1);
+                        messageBoxAnswers.Add(Answer1);
 
-                        await Popup_Show_MessageBox("No new application update has been found", "", "", Answers);
+                        await Popup_Show_MessageBox("No new application update has been found", "", "", messageBoxAnswers);
                     }
+
+                    return false;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                await AppUpdateFailed(onlyNotification);
+                Debug.WriteLine("Failed checking for application update: " + ex.Message);
+                return false;
             }
-
-            vBusyCheckingForUpdate = false;
-            return updateAvailable;
-        }
-
-        //Application update check failed message
-        async Task AppUpdateFailed(bool silentCheck)
-        {
-            try
-            {
-                if (!silentCheck)
-                {
-                    List<DataBindString> Answers = new List<DataBindString>();
-                    DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                    Answer1.Name = "Ok";
-                    Answers.Add(Answer1);
-
-                    await Popup_Show_MessageBox("Failed to check for application update", "", "Please check your internet connection and try again.", Answers);
-                }
-            }
-            catch { }
-        }
-
-        //Launch updater and restart application
-        async Task AppUpdateRestart()
-        {
-            try
-            {
-                AVProcess.Launch_ShellExecute("Updater.exe", "", "", true);
-                await AppExit.Exit();
-            }
-            catch { }
         }
     }
 }

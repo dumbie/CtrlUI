@@ -143,8 +143,11 @@ namespace CtrlUI
                 //Change listbox category to default
                 await CategoryListChange(vCurrentListCategory);
 
+                //Clean application update files
+                await UpdateCleanup();
+
                 //Check for available application update
-                await CheckForAppUpdate(true);
+                await UpdateCheck(true);
             }
             catch { }
         }

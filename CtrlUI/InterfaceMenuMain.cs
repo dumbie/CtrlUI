@@ -50,7 +50,7 @@ namespace CtrlUI
                 {
                     DataBindString selectedItem = (DataBindString)listbox_MainMenu.SelectedItem;
                     string selectedItemString = selectedItem.Data1.ToString();
-                    if (selectedItemString == "menuButtonUpdateRestart") { await AppUpdateRestart(); }
+                    if (selectedItemString == "menuButtonUpdateRestart") { UpdateRestart(); }
                     else if (selectedItemString == "menuButtonMonitor") { await Popup_Show(grid_Popup_Monitor, btn_Monitor_Switch_Primary); }
                     else if (selectedItemString == "menuButtonAudioDevice") { await SwitchAudioDevice(); }
                     else if (selectedItemString == "menuButtonRunExe") { await LaunchExecutableFile(); }

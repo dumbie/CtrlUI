@@ -4,49 +4,20 @@
   "FileName": "CtrlUI.zip",
   "ExtractName": "CtrlUI",
   "ProcessLaunch": [
-    "DirectXInput-Launcher.exe"
+    "Launcher.exe"
   ],
   "ProcessClose": [
     "CtrlUI",
-    "CtrlUI-Launcher",
-    "DirectXInput",
-    "DirectXInput-Launcher",
-    "FpsOverlayer",
-    "FpsOverlayer-Launcher",
-    "ScreenCaptureTool",
-    "ScreenCaptureTool-Launcher",
-    "DriverInstaller"
+    "Launcher"
   ],
   "FilesIgnore": [
-    ".csettings",
-    "Notes/Default.txt"
-  ],
-  "FilesDelete": [
-    "CtrlUI.exe.config",
-    "CtrlUI-Admin.exe",
-    "CtrlUI-Admin.exe.config",
-    "DirectXInput.exe.config",
-    "DirectXInput-Admin.exe",
-    "DirectXInput-Admin.exe.config",
-    "DirectXInput-Launcher.exe.config",
-    "DriverInstaller.exe.config",
-    "FpsOverlayer.exe.config",
-    "FpsOverlayer-Admin.exe",
-    "FpsOverlayer-Admin.exe.config",
-    "FpsOverlayer-Launcher.exe.config",
-    "Updater.exe.config",
-    "Resources/ArnoldVinkCertificate.cer",
-    "Assets/Default/Background.png",
-    "Assets/Default/BackgroundLive.mp4",
-    "ProcessTool.exe",
-    "ScreenCaptureTool.exe.config",
-    "Resources/PixelShader.hlsl",
-    "Resources/VertexShader.hlsl"
+    ".exe.Config",
+    ".csettings"
   ],
   "FoldersIgnore": [
     "Profiles/User"
   ],
   "FoldersDelete": [
-    "Drivers"
+    "Resources"
   ]
 }

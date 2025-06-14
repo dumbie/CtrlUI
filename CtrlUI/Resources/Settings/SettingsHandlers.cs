@@ -343,7 +343,7 @@ namespace CtrlUI
         {
             try
             {
-                await CheckForAppUpdate(false);
+                await UpdateCheck(false);
             }
             catch { }
         }
