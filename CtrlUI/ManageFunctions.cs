@@ -250,7 +250,7 @@ namespace CtrlUI
                 }
 
                 //Prevent CtrlUI from been added to the list
-                if (win32Application && (tb_AddAppPathExe.Text.ToLower().Contains("ctrlui.exe") || tb_AddAppPathExe.Text.ToLower().Contains("ctrlui-launcher.exe")))
+                if (win32Application && tb_AddAppPathExe.Text.ToLower().Contains("ctrlui"))
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();

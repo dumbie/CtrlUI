@@ -103,7 +103,7 @@
                         <Button Name="button_MenuMinimize" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Minimize application">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/AppMinimize.png"/>
                         </Button>
-                        <Button Name="button_MenuClose" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Close application">
+                        <Button Name="button_MenuClose" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Exit application">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/AppClose.png"/>
                         </Button>
                         <Button Name="button_MenuSorting" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Sort apps or files">

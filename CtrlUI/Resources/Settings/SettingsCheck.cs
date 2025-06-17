@@ -8,20 +8,6 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Check - Application Folders
-        void Folders_Check()
-        {
-            try
-            {
-                AVFiles.Directory_Create(@"Assets\User\Apps", false);
-                AVFiles.Directory_Create(@"Assets\User\Emulators", false);
-                AVFiles.Directory_Create(@"Assets\User\Clocks", false);
-                AVFiles.Directory_Create(@"Assets\User\Fonts", false);
-                AVFiles.Directory_Create(@"Assets\User\Sounds", false);
-            }
-            catch { }
-        }
-
         //Check - Application Settings
         void Settings_Check()
         {
