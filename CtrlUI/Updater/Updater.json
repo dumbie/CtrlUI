@@ -3,19 +3,34 @@
   "RepoName": "CtrlUI",
   "FileName": "CtrlUI.zip",
   "ExtractName": "CtrlUI",
+  "ExtractPathRemove": [ "CtrlUI" ],
   "ProcessLaunch": [
     "Launcher.exe"
   ],
   "ProcessClose": [
     "CtrlUI",
+    "DirectXInput",
+    "FpsOverlayer",
+    "ScreenCaptureTool",
+    "DriverInstaller",
     "Launcher"
   ],
   "FilesIgnore": [
-    ".exe.Config",
     ".csettings"
   ],
+  "FilesDelete": [
+    "CtrlUI-Launcher.exe",
+    "DirectXInput.exe",
+    "DirectXInput-Launcher.exe",
+    "DriverInstaller.exe",
+    "FpsOverlayer.exe",
+    "FpsOverlayer-Launcher.exe",
+    "ScreenCaptureTool.exe",
+    "ScreenCaptureTool-Launcher.exe"
+  ],
   "FoldersIgnore": [
-    "Profiles/User"
+    "Profiles/User",
+    "Notes"
   ],
   "FoldersDelete": [
     "Resources"
