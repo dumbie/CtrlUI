@@ -210,42 +210,27 @@ namespace CtrlUI
         {
             try
             {
-                if (!Check_RunningProcessByName("DirectXInput", true))
-                {
-                    Debug.WriteLine("Launching DirectXInput");
-                    if (!silentLaunch)
-                    {
-                        await Notification_Send_Status("DirectXInput", "Launching DirectXInput");
-                    }
-
-                    AVProcess.Launch_ShellExecute("DirectXInput-Launcher.exe", "", "", true);
-                }
-                else
-                {
-                    if (!silentLaunch)
-                    {
-                        await Notification_Send_Status("DirectXInput", "DirectXInput is already running");
-                    }
-                }
+                await AVTaskScheduler.TaskRun("ArnoldVink_DirectXInput", "DirectXInput", silentLaunch);
             }
             catch { }
         }
 
         //Launch Fps Overlayer application
-        async Task LaunchFpsOverlayer(bool forceLaunch)
+        async Task LaunchFpsOverlayer(bool silentLaunch)
         {
             try
             {
-                if (forceLaunch || !Check_RunningProcessByName("FpsOverlayer", true))
-                {
-                    Debug.WriteLine("Launching Fps Overlayer");
+                await AVTaskScheduler.TaskRun("ArnoldVink_FpsOverlayer", "Fps Overlayer", silentLaunch);
+            }
+            catch { }
+        }
 
-                    //Show notification
-                    await Notification_Send_Status("Fps", "Showing Fps Overlayer");
-
-                    //Launch Fps Overlayer
-                    AVProcess.Launch_ShellExecute("FpsOverlayer-Launcher.exe", "", "", true);
-                }
+        //Launch Screen Capture Tool application
+        async Task LaunchScreenCaptureTool(bool silentLaunch)
+        {
+            try
+            {
+                await AVTaskScheduler.TaskRun("ArnoldVink_ScreenCaptureTool", "Screen Capture Tool", silentLaunch);
             }
             catch { }
         }

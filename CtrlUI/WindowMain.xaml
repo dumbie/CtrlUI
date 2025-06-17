@@ -527,15 +527,16 @@
                                     <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will launch CtrlUI when you start Windows automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                                    <CheckBox Name="cb_SettingsLaunchFpsOverlayer" Content="Launch Fps Overlayer on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will launch Fps Overlayer when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
                                     <CheckBox Name="cb_SettingsLaunchDirectXInput" Content="Launch DirectXInput on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will launch DirectXInput when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
+                                    <CheckBox Name="cb_SettingsLaunchFpsOverlayer" Content="Launch Fps Overlayer on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                    <TextBlock Text="Enabling this will launch Fps Overlayer when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                                    <Button Name="btn_Settings_AppQuickLaunch" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <CheckBox Name="cb_SettingsLaunchScreenCaptureTool" Content="Launch Screen Capture Tool on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                    <TextBlock Text="Enabling this will launch Screen Capture Tool when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                                    <Button Name="btn_Settings_AppQuickLaunch" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/AppLaunch.png" Width="50" HorizontalAlignment="Center"/>
@@ -549,6 +550,24 @@
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/DirectXInput.png" Width="50" HorizontalAlignment="Center"/>
                                                 <TextBlock Margin="15,0,0,0" Text="Launch DirectXInput application" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+
+                                    <Button Name="btn_Settings_LaunchFpsOverlayer" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Fps.png" Width="50" HorizontalAlignment="Center"/>
+                                                <TextBlock Margin="15,0,0,0" Text="Launch Fps Overlayer application" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+
+                                    <Button Name="btn_Settings_LaunchScreenCaptureTool" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Screenshot.png" Width="50" HorizontalAlignment="Center"/>
+                                                <TextBlock Margin="15,0,0,0" Text="Launch Screen Capture Tool application" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
@@ -629,9 +648,7 @@
                                     <TextBlock Text="Select the image size that you want to use for applications in the lists." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                                     <Slider Name="slider_SettingsAppImageSize" Width="400" Minimum="-20" Maximum="80" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
 
-                                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
-
-                                    <Button Name="btn_Settings_ColorPickerAccent" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Button Name="btn_Settings_ColorPickerAccent" Margin="0,15,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Border CornerRadius="2" Name="rectangle_Settings_ColorPickerAccent" Width="50" Height="50" Background="{DynamicResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
@@ -667,9 +684,7 @@
                                     <TextBlock Text="Change the used user interface sound volume level." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                                     <Slider Name="slider_SettingsSoundVolume" Width="400" Minimum="5" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
 
-                                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
-
-                                    <Button Name="btn_Settings_InterfaceSoundPackName" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Button Name="btn_Settings_InterfaceSoundPackName" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeUp.png" Width="50" HorizontalAlignment="Center"/>
@@ -694,9 +709,7 @@
                                     <TextBlock Text="Select for how much days ago you want the gallery to show media." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                                     <Slider Name="slider_SettingsGalleryLoadDays" Width="400" Minimum="1" Maximum="365" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
 
-                                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
-
-                                    <Button Name="btn_Settings_AddRemoteDesktop" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Button Name="btn_Settings_AddRemoteDesktop" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shortcut.png" Width="50" HorizontalAlignment="Center"/>

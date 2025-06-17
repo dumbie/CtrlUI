@@ -125,6 +125,12 @@ namespace CtrlUI
                     await LaunchFpsOverlayer(true);
                 }
 
+                //Check settings if Screen Capture Tool launches on start
+                if (SettingLoad(vConfigurationCtrlUI, "LaunchScreenCaptureTool", typeof(bool)))
+                {
+                    await LaunchScreenCaptureTool(true);
+                }
+
                 //Check settings if this is the first application launch
                 if (SettingLoad(vConfigurationCtrlUI, "AppFirstLaunch", typeof(bool)))
                 {

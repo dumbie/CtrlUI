@@ -338,6 +338,26 @@ namespace CtrlUI
             catch { }
         }
 
+        //Launch Fps Overlayer application
+        async void Button_LaunchFpsOverlayer_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await LaunchFpsOverlayer(false);
+            }
+            catch { }
+        }
+
+        //Launch Screen Capture Tool application
+        async void Button_LaunchScreenCaptureTool_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await LaunchScreenCaptureTool(false);
+            }
+            catch { }
+        }
+
         //Check for available application update
         async void Button_Settings_CheckForUpdate_Click(object sender, RoutedEventArgs e)
         {

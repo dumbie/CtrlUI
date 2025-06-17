@@ -147,6 +147,8 @@ namespace CtrlUI
                 Listbox_SettingsMenu.PreviewMouseUp += ListBox_Settings_MousePressUp;
                 btn_Settings_AppQuickLaunch.Click += Button_Settings_AppQuickLaunch;
                 btn_Settings_LaunchDirectXInput.Click += Button_LaunchDirectXInput_Click;
+                btn_Settings_LaunchScreenCaptureTool.Click += Button_LaunchScreenCaptureTool_Click;
+                btn_Settings_LaunchFpsOverlayer.Click += Button_LaunchFpsOverlayer_Click;
                 btn_Settings_CheckControllers.Click += Button_Settings_CheckControllers_Click;
                 btn_Settings_CheckForUpdate.Click += Button_Settings_CheckForUpdate_Click;
                 btn_Settings_AddGeforceExperience.Click += Button_Settings_AddGeForceExperience_Click;

@@ -31,6 +31,11 @@ namespace CtrlUI
                     SettingSave(vConfigurationCtrlUI, "LaunchDirectXInput", cb_SettingsLaunchDirectXInput.IsChecked.ToString());
                 };
 
+                cb_SettingsLaunchScreenCaptureTool.Click += (sender, e) =>
+                {
+                    SettingSave(vConfigurationCtrlUI, "LaunchScreenCaptureTool", cb_SettingsLaunchScreenCaptureTool.IsChecked.ToString());
+                };
+
                 cb_SettingsShowLibrarySteam.Click += async (sender, e) =>
                 {
                     SettingSave(vConfigurationCtrlUI, "ShowLibrarySteam", cb_SettingsShowLibrarySteam.IsChecked.ToString());
@@ -137,7 +142,7 @@ namespace CtrlUI
 
                 cb_SettingsWindowsStartup.Click += (sender, e) =>
                 {
-                    AVSettings.StartupShortcutManage("CtrlUI-Launcher.exe", false);
+                    AVSettings.StartupShortcutManage("Launcher.exe", false);
                 };
 
                 slider_SettingsAppFontSize.ValueChanged += (sender, e) =>

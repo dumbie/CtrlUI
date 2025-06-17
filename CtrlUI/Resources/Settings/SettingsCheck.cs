@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Diagnostics;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
@@ -56,6 +55,7 @@ namespace CtrlUI
 
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchFpsOverlayer")) { SettingSave(vConfigurationCtrlUI, "LaunchFpsOverlayer", "False"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchDirectXInput")) { SettingSave(vConfigurationCtrlUI, "LaunchDirectXInput", "True"); }
+                if (!SettingCheck(vConfigurationCtrlUI, "LaunchScreenCaptureTool")) { SettingSave(vConfigurationCtrlUI, "LaunchScreenCaptureTool", "False"); }
             }
             catch (Exception ex)
             {
