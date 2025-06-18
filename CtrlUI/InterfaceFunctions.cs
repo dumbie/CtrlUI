@@ -149,10 +149,7 @@ namespace CtrlUI
                 btn_Settings_LaunchDirectXInput.Click += Button_LaunchDirectXInput_Click;
                 btn_Settings_LaunchScreenCaptureTool.Click += Button_LaunchScreenCaptureTool_Click;
                 btn_Settings_LaunchFpsOverlayer.Click += Button_LaunchFpsOverlayer_Click;
-                btn_Settings_CheckControllers.Click += Button_Settings_CheckControllers_Click;
                 btn_Settings_CheckForUpdate.Click += Button_Settings_CheckForUpdate_Click;
-                btn_Settings_AddGeforceExperience.Click += Button_Settings_AddGeForceExperience_Click;
-                btn_Settings_AddRemoteDesktop.Click += Button_Settings_AddRemoteDesktop_Click;
                 btn_Settings_ColorPickerAccent.Click += Button_Settings_ColorPickerAccent;
                 btn_Settings_InterfaceSoundPackName.Click += Button_Settings_InterfaceSoundPackName;
                 btn_Settings_InterfaceClockStyleName.Click += Button_Settings_InterfaceClockStyleName;

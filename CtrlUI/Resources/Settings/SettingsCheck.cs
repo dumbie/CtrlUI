@@ -53,6 +53,7 @@ namespace CtrlUI
                 if (!SettingCheck(vConfigurationCtrlUI, "InterfaceClockStyleName")) { SettingSave(vConfigurationCtrlUI, "InterfaceClockStyleName", "Cortana"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "InterfaceFontStyleName")) { SettingSave(vConfigurationCtrlUI, "InterfaceFontStyleName", "Segoe UI"); }
 
+                //Launch settings
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchFpsOverlayer")) { SettingSave(vConfigurationCtrlUI, "LaunchFpsOverlayer", "False"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchDirectXInput")) { SettingSave(vConfigurationCtrlUI, "LaunchDirectXInput", "True"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchScreenCaptureTool")) { SettingSave(vConfigurationCtrlUI, "LaunchScreenCaptureTool", "False"); }

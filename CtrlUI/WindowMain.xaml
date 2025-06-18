@@ -525,7 +525,7 @@
                             <Grid>
                                 <StackPanel Name="settingsStackpanelLaunch">
                                     <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will launch CtrlUI when you start Windows automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                    <TextBlock Text="Enabling this will launch CtrlUI when Windows starts automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                                     <CheckBox Name="cb_SettingsLaunchDirectXInput" Content="Launch DirectXInput on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will launch DirectXInput when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
@@ -709,34 +709,7 @@
                                     <TextBlock Text="Select for how much days ago you want the gallery to show media." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                                     <Slider Name="slider_SettingsGalleryLoadDays" Width="400" Minimum="1" Maximum="365" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
 
-                                    <Button Name="btn_Settings_AddRemoteDesktop" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Button.Content>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shortcut.png" Width="50" HorizontalAlignment="Center"/>
-                                                <TextBlock Name="btn_Settings_AddRemoteDesktop_TextBlock" Margin="15,0,0,0" Text="Add Remote Desktop to GeForce Experience" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Button.Content>
-                                    </Button>
-
-                                    <Button Name="btn_Settings_AddGeforceExperience" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Button.Content>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shortcut.png" Width="50" HorizontalAlignment="Center"/>
-                                                <TextBlock Name="btn_Settings_AddGeforceExperience_TextBlock" Margin="15,0,0,0" Text="Add CtrlUI to GeForce Experience" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Button.Content>
-                                    </Button>
-
-                                    <Button Name="btn_Settings_CheckControllers" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                        <Button.Content>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png" Width="50" HorizontalAlignment="Center"/>
-                                                <TextBlock Margin="15,0,0,0" Text="Manage Windows controllers" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Button.Content>
-                                    </Button>
-
-                                    <Button Name="btn_Settings_CheckForUpdate" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Button Name="btn_Settings_CheckForUpdate" Margin="0,15,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Refresh.png" Width="50" HorizontalAlignment="Center"/>
@@ -1060,7 +1033,7 @@
 
                                     <StackPanel Orientation="Horizontal">
                                         <Border Name="border_ContentInfo_Top" Background="{DynamicResource ApplicationWhiteBrush}" Margin="0,0,20,0" CornerRadius="10">
-                                        <Image Name="image_ContentInfo_Top" Margin="5" MaxHeight="95" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <Image Name="image_ContentInfo_Top" Margin="5" MaxHeight="95" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Border>
                                         <Border Name="ellipse_ContentInfo_Rating_Users" Margin="0,0,20,0" CornerRadius="100" Width="100" Height="100" Background="DimGray">
                                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">

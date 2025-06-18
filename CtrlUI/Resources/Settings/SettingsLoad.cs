@@ -38,7 +38,7 @@ namespace CtrlUI
                 cb_SettingsShowHiddenFilesFolders.IsChecked = SettingLoad(vConfigurationCtrlUI, "ShowHiddenFilesFolders", typeof(bool));
                 cb_SettingsHideNetworkDrives.IsChecked = SettingLoad(vConfigurationCtrlUI, "HideNetworkDrives", typeof(bool));
 
-                cb_SettingsInterfaceSound.IsChecked = SettingLoad(vConfigurationCtrlUI, "InterfaceSound", typeof(bool));
+                //Load launch settings
                 cb_SettingsLaunchFpsOverlayer.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchFpsOverlayer", typeof(bool));
                 cb_SettingsLaunchDirectXInput.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchDirectXInput", typeof(bool));
                 cb_SettingsLaunchScreenCaptureTool.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchScreenCaptureTool", typeof(bool));
@@ -68,6 +68,7 @@ namespace CtrlUI
                 slider_SettingsAdjustChromiumDpi.Value = SettingLoad(vConfigurationCtrlUI, "AdjustChromiumDpi", typeof(double));
 
                 //Load sound volume
+                cb_SettingsInterfaceSound.IsChecked = SettingLoad(vConfigurationCtrlUI, "InterfaceSound", typeof(bool));
                 textblock_SettingsSoundVolume.Text = "User interface sound volume: " + SettingLoad(vConfigurationCtrlUI, "InterfaceSoundVolume", typeof(string)) + "%";
                 slider_SettingsSoundVolume.Value = SettingLoad(vConfigurationCtrlUI, "InterfaceSoundVolume", typeof(double));
 
@@ -78,26 +79,8 @@ namespace CtrlUI
                 //Set the application name to string to check shortcuts
                 string targetName = AVFunctions.ApplicationName();
 
-                //Check if application is set to launch on Windows startup
-                string targetFileStartup = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), targetName + ".url");
-                if (File.Exists(targetFileStartup))
-                {
-                    cb_SettingsWindowsStartup.IsChecked = true;
-                }
-
-                //Check if CtrlUI is added to GeForce Experience
-                string targetFileGeForceCtrlUI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/", targetName + ".url");
-                if (File.Exists(targetFileGeForceCtrlUI))
-                {
-                    btn_Settings_AddGeforceExperience_TextBlock.Text = "Remove CtrlUI from GeForce Experience";
-                }
-
-                //Check if remote desktop is added to GeForce Experience
-                string targetFileGeForceRemote = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/", "Remote Desktop.url");
-                if (File.Exists(targetFileGeForceRemote))
-                {
-                    btn_Settings_AddRemoteDesktop_TextBlock.Text = "Remove Remote Desktop from GeForce Experience";
-                }
+                //Launch settings
+                cb_SettingsWindowsStartup.IsChecked = AVSettings.StartupShortcutCheck();
 
                 //Wait for settings to have loaded
                 await Task.Delay(1500);
