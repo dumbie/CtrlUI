@@ -24,7 +24,7 @@ namespace CtrlUI
                 }
                 nameDownload = nameDownload.ToLower();
 
-                await Notification_Send_Status("Download", "Downloading information");
+                Notification_Show_Status("Download", "Downloading information");
                 Debug.WriteLine("Downloading information for: " + searchTerm);
 
                 //Download available games
@@ -32,7 +32,7 @@ namespace CtrlUI
                 if (iGDBPlatforms == null || !iGDBPlatforms.Any())
                 {
                     Debug.WriteLine("No platforms found for: " + searchTerm);
-                    await Notification_Send_Status("Close", "No platforms found");
+                    Notification_Show_Status("Close", "No platforms found");
                     return null;
                 }
 

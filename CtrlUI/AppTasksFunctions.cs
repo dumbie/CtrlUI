@@ -23,7 +23,7 @@ namespace CtrlUI
             {
                 while (await TaskCheckLoop(vTask_UpdateWindowStatus, 500))
                 {
-                    await UpdateWindowStatus();
+                    UpdateWindowStatus();
                 }
             }
             catch { }

@@ -173,7 +173,7 @@ namespace CtrlUI
                 //Show removed notification
                 if (!silent)
                 {
-                    await Notification_Send_Status("Minus", "Removed " + dataBindApp.Name);
+                    Notification_Show_Status("Minus", "Removed " + dataBindApp.Name);
                     Debug.WriteLine("Removed application: " + dataBindApp.Name);
                 }
             }
@@ -331,7 +331,7 @@ namespace CtrlUI
                         return;
                     }
 
-                    await Notification_Send_Status("Plus", "Added " + tb_AddAppName.Text);
+                    Notification_Show_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding Win32 app: " + tb_AddAppName.Text + " to the list.");
                     DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = selectedAppCategory, EmulatorCategory = selectedEmulatorCategory, Name = tb_AddAppName.Text, EmulatorName = tb_AddAppEmulatorName.Text, PathExe = tb_AddAppPathExe.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, NameExe = tb_AddAppNameExe.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchSkipRom = (bool)checkbox_AddLaunchSkipRom.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableDisplayHDR = (bool)checkbox_AddLaunchEnableDisplayHDR.IsChecked, LaunchEnableAutoHDR = (bool)checkbox_AddLaunchEnableAutoHDR.IsChecked, LaunchAsAdmin = (bool)checkbox_AddLaunchAsAdmin.IsChecked };
                     await AddAppToList(dataBindApp, true, true);
@@ -411,7 +411,7 @@ namespace CtrlUI
                     //Reset application status
                     vEditAppDataBind.ResetStatus(true);
 
-                    await Notification_Send_Status("Edit", "Edited " + vEditAppDataBind.Name);
+                    Notification_Show_Status("Edit", "Edited " + vEditAppDataBind.Name);
                     Debug.WriteLine("Editing application: " + vEditAppDataBind.Name + " in the list.");
 
                     //Save changes to Json file
@@ -837,7 +837,7 @@ namespace CtrlUI
                         return;
                     }
 
-                    await Notification_Send_Status("Plus", "Added " + vFilePickerResult.Name);
+                    Notification_Show_Status("Plus", "Added " + vFilePickerResult.Name);
                     Debug.WriteLine("Adding UWP app: " + tb_AddAppName.Text + " to the list.");
                     DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, AppUserModelId = vFilePickerResult.PathFile, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableDisplayHDR = (bool)checkbox_AddLaunchEnableDisplayHDR.IsChecked, LaunchEnableAutoHDR = (bool)checkbox_AddLaunchEnableAutoHDR.IsChecked, LaunchAsAdmin = (bool)checkbox_AddLaunchAsAdmin.IsChecked };
                     await AddAppToList(dataBindApp, true, true);

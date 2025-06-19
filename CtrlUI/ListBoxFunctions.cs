@@ -151,7 +151,7 @@ namespace CtrlUI
             try
             {
                 //Make sure the list is sorted by name
-                await FilePicker_SortFilesFoldersByName(true);
+                FilePicker_SortFilesFoldersByName(true);
 
                 //Get the current character
                 DataBindFile dataBindApp = (DataBindFile)parentListbox.SelectedItem;
@@ -214,7 +214,7 @@ namespace CtrlUI
             try
             {
                 //Make sure the list is sorted by name
-                await SortAppListsByName(true);
+                SortAppListsByName(true);
 
                 //Get the current character
                 DataBindApp dataBindApp = (DataBindApp)parentListbox.SelectedItem;

@@ -100,7 +100,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("Hide", "Hiding shortcut " + dataBindApp.Name);
+                Notification_Show_Status("Hide", "Hiding shortcut " + dataBindApp.Name);
                 Debug.WriteLine("Hiding shortcut by name: " + dataBindApp.Name + " path: " + dataBindApp.PathShortcut);
 
                 //Create new profile shared
@@ -119,7 +119,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("Hide", "Failed hiding");
+                Notification_Show_Status("Hide", "Failed hiding");
                 Debug.WriteLine("Failed hiding shortcut: " + ex.Message);
             }
         }
@@ -129,7 +129,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("Rename", "Renaming shortcut");
+                Notification_Show_Status("Rename", "Renaming shortcut");
                 Debug.WriteLine("Renaming shortcut: " + dataBindApp.Name + " path: " + dataBindApp.PathShortcut);
 
                 //Show the text input popup
@@ -138,7 +138,7 @@ namespace CtrlUI
                 //Check if file name changed
                 if (textInputString == dataBindApp.Name)
                 {
-                    await Notification_Send_Status("Rename", "File name not changed");
+                    Notification_Show_Status("Rename", "File name not changed");
                     Debug.WriteLine("The file name did not change.");
                     return;
                 }
@@ -156,19 +156,19 @@ namespace CtrlUI
                         dataBindApp.Name = textInputString;
                         dataBindApp.PathShortcut = newFilePath;
 
-                        await Notification_Send_Status("Rename", "Renamed shortcut");
+                        Notification_Show_Status("Rename", "Renamed shortcut");
                         Debug.WriteLine("Renamed shortcut file to: " + textInputString);
                     }
                     else
                     {
-                        await Notification_Send_Status("Rename", "Failed renaming");
+                        Notification_Show_Status("Rename", "Failed renaming");
                         Debug.WriteLine("Failed renaming shortcut.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("Rename", "Failed renaming");
+                Notification_Show_Status("Rename", "Failed renaming");
                 Debug.WriteLine("Failed renaming shortcut: " + ex.Message);
             }
         }

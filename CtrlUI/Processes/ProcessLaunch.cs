@@ -66,7 +66,7 @@ namespace CtrlUI
                     //Wait for processes to have refreshed
                     if (vBusyRefreshingProcesses)
                     {
-                        await Notification_Send_Status("AppLaunch", "Preparing application launch");
+                        Notification_Show_Status("AppLaunch", "Preparing application launch");
                         Debug.WriteLine("Processes are refreshing, wait for it to complete.");
                         while (vBusyRefreshingProcesses)
                         {
@@ -95,7 +95,7 @@ namespace CtrlUI
                 bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
                 //Check if databind paths are available
-                if (!await CheckDatabindPathAuto(dataBindApp))
+                if (!CheckDatabindPathAuto(dataBindApp))
                 {
                     return;
                 }

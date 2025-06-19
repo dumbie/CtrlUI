@@ -52,7 +52,7 @@ namespace CtrlUI
             }
             catch
             {
-                await Notification_Send_Status("Close", "Failed to launch or show app");
+                Notification_Show_Status("Close", "Failed to launch or show app");
                 Debug.WriteLine("Failed launching or showing the application.");
             }
         }

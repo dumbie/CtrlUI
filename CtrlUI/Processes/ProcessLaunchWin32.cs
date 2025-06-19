@@ -62,7 +62,7 @@ namespace CtrlUI
                 //Check if the application exists
                 if (!File.Exists(pathExe))
                 {
-                    await Notification_Send_Status("Close", "Executable not found");
+                    Notification_Show_Status("Close", "Executable not found");
                     Debug.WriteLine("Launch executable not found.");
                     return false;
                 }
@@ -70,7 +70,7 @@ namespace CtrlUI
                 //Show launching message
                 if (!silent)
                 {
-                    await Notification_Send_Status("AppLaunch", "Launching " + appTitle);
+                    Notification_Show_Status("AppLaunch", "Launching " + appTitle);
                     //Debug.WriteLine("Launching Win32: " + appTitle + "/" + pathExe);
                 }
 
@@ -84,7 +84,7 @@ namespace CtrlUI
                 bool launchSuccess = AVProcess.Launch_ShellExecute(pathExe, pathWork, launchArgument, launchAsAdmin);
                 if (!launchSuccess)
                 {
-                    await Notification_Send_Status("Close", "Failed launching " + appTitle);
+                    Notification_Show_Status("Close", "Failed launching " + appTitle);
                     return false;
                 }
 
@@ -98,7 +98,7 @@ namespace CtrlUI
             }
             catch
             {
-                await Notification_Send_Status("Close", "Failed launching " + appTitle);
+                Notification_Show_Status("Close", "Failed launching " + appTitle);
                 return false;
             }
         }

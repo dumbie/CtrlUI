@@ -49,17 +49,17 @@ namespace CtrlUI
                 {
                     if (messageResult == AnswerCloseCtrlUI)
                     {
-                        await vWindowMain.Notification_Send_Status("AppClose", "Closing CtrlUI");
+                        vWindowMain.Notification_Show_Status("AppClose", "Closing CtrlUI");
                         await Exit();
                     }
                     else if (messageResult == AnswerRestartCtrlUI)
                     {
-                        await vWindowMain.Notification_Send_Status("AppRestart", "Restarting CtrlUI");
+                        vWindowMain.Notification_Show_Status("AppRestart", "Restarting CtrlUI");
                         await Restart();
                     }
                     else if (messageResult == AnswerRestartPC)
                     {
-                        await vWindowMain.Notification_Send_Status("Restart", "Restarting your PC");
+                        vWindowMain.Notification_Show_Status("Restart", "Restarting your PC");
 
                         //Restart the PC
                         AVProcess.Launch_ShellExecute(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /f /t 0", true);
@@ -69,7 +69,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerShutdownPC)
                     {
-                        await vWindowMain.Notification_Send_Status("Shutdown", "Shutting down your PC");
+                        vWindowMain.Notification_Show_Status("Shutdown", "Shutting down your PC");
 
                         //Shutdown the PC
                         AVProcess.Launch_ShellExecute(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /f /t 0", true);
@@ -79,7 +79,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerLockPC)
                     {
-                        await vWindowMain.Notification_Send_Status("Lock", "Locking your PC");
+                        vWindowMain.Notification_Show_Status("Lock", "Locking your PC");
 
                         //Lock the PC
                         LockWorkStation();

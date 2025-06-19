@@ -32,13 +32,13 @@ namespace CtrlUI
                     //Move or copy the file or folder
                     if (clipboardFile.ClipboardType == ClipboardType.Cut)
                     {
-                        await Notification_Send_Status("Cut", "Moving file or folder");
+                        Notification_Show_Status("Cut", "Moving file or folder");
                         Debug.WriteLine("Moving file or folder: " + oldFilePath + " to " + newFilePath);
 
                         //Check if moving to same directory
                         if (oldFilePath == newFilePath)
                         {
-                            await Notification_Send_Status("Cut", "Invalid move folder");
+                            Notification_Show_Status("Cut", "Invalid move folder");
                             Debug.WriteLine("Moving file or folder to the same directory.");
                             return;
                         }
@@ -46,7 +46,7 @@ namespace CtrlUI
                         //Check if moving in the directory
                         if (newFilePath.Contains(oldFilePath))
                         {
-                            await Notification_Send_Status("Cut", "Invalid move folder");
+                            Notification_Show_Status("Cut", "Invalid move folder");
                             Debug.WriteLine("Moving file or folder to the sub directory.");
                             return;
                         }
@@ -105,23 +105,23 @@ namespace CtrlUI
                         //Check file operation status
                         if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                         {
-                            await Notification_Send_Status("Cut", "File or folder moved");
+                            Notification_Show_Status("Cut", "File or folder moved");
                             Debug.WriteLine("File or folder moved: " + oldFilePath + " to " + newFilePath);
                         }
                         else if (shFileOpstruct.fAnyOperationsAborted)
                         {
-                            await Notification_Send_Status("Cut", "File or folder move aborted");
+                            Notification_Show_Status("Cut", "File or folder move aborted");
                             Debug.WriteLine("File or folder move aborted: " + oldFilePath + " to " + newFilePath);
                         }
                         else
                         {
-                            await Notification_Send_Status("Cut", "File or folder move failed");
+                            Notification_Show_Status("Cut", "File or folder move failed");
                             Debug.WriteLine("File or folder move failed: " + oldFilePath + " to " + newFilePath);
                         }
                     }
                     else
                     {
-                        await Notification_Send_Status("Copy", "Copying file or folder");
+                        Notification_Show_Status("Copy", "Copying file or folder");
                         Debug.WriteLine("Copying file or folder: " + oldFilePath + " to " + newFilePath);
 
                         //Check file or folder
@@ -173,17 +173,17 @@ namespace CtrlUI
                         //Check file operation status
                         if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                         {
-                            await Notification_Send_Status("Copy", "File or folder copied");
+                            Notification_Show_Status("Copy", "File or folder copied");
                             Debug.WriteLine("File or folder copied: " + oldFilePath + " to " + newFilePath);
                         }
                         else if (shFileOpstruct.fAnyOperationsAborted)
                         {
-                            await Notification_Send_Status("Copy", "File or folder copy aborted");
+                            Notification_Show_Status("Copy", "File or folder copy aborted");
                             Debug.WriteLine("File or folder copy aborted: " + oldFilePath + " to " + newFilePath);
                         }
                         else
                         {
-                            await Notification_Send_Status("Copy", "File or folder copy failed");
+                            Notification_Show_Status("Copy", "File or folder copy failed");
                             Debug.WriteLine("File or folder copy failed: " + oldFilePath + " to " + newFilePath);
                         }
                     }
@@ -203,7 +203,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("Paste", "Failed pasting");
+                Notification_Show_Status("Paste", "Failed pasting");
                 Debug.WriteLine("Failed pasting file or folder: " + ex.Message);
             }
         }

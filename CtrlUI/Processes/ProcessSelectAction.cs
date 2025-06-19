@@ -243,15 +243,15 @@ namespace CtrlUI
                     {
                         if (applicationAutoHDR)
                         {
-                            await DisableApplicationAutoHDR(dataBindApp);
+                            DisableApplicationAutoHDR(dataBindApp);
                         }
                         else
                         {
                             //Enable Windows auto HDR feature
-                            await EnableWindowsAutoHDRFeature();
+                            EnableWindowsAutoHDRFeature();
 
                             //Allow auto HDR for application
-                            await EnableApplicationAutoHDR(dataBindApp);
+                            EnableApplicationAutoHDR(dataBindApp);
                         }
                     }
                 }

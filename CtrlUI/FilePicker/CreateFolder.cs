@@ -30,7 +30,7 @@ namespace CtrlUI
                     //Check if the folder exists
                     if (Directory.Exists(newFolderPath))
                     {
-                        await Notification_Send_Status("FolderAdd", "Folder already exists");
+                        Notification_Show_Status("FolderAdd", "Folder already exists");
                         Debug.WriteLine("Create folder already exists.");
                         return;
                     }
@@ -51,13 +51,13 @@ namespace CtrlUI
                     //Check if there are files or folders
                     FilePicker_CheckFilesAndFoldersCount();
 
-                    await Notification_Send_Status("FolderAdd", "Created new folder");
+                    Notification_Show_Status("FolderAdd", "Created new folder");
                     Debug.WriteLine("Created new folder in: " + newFolderPath);
                 }
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("FolderAdd", "Failed creating folder");
+                Notification_Show_Status("FolderAdd", "Failed creating folder");
                 Debug.WriteLine("Failed creating new folder: " + ex.Message);
             }
         }

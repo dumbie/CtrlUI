@@ -38,7 +38,7 @@ namespace CtrlUI
             }
             catch
             {
-                await Notification_Send_Status("AppLaunch", "Please set a quick launch app");
+                Notification_Show_Status("AppLaunch", "Please set a quick launch app");
                 Debug.WriteLine("Please set a quick launch app");
             }
         }
@@ -59,13 +59,13 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("AppLaunch", "Please set a quick launch app");
+                    Notification_Show_Status("AppLaunch", "Please set a quick launch app");
                     Debug.WriteLine("Please set a quick launch app");
                 }
             }
             catch
             {
-                await Notification_Send_Status("AppLaunch", "Please set a quick launch app");
+                Notification_Show_Status("AppLaunch", "Please set a quick launch app");
                 Debug.WriteLine("Please set a quick launch app");
             }
         }

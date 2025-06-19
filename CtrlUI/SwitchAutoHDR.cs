@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks;
 using static ArnoldVinkCode.AVProcess;
 using static LibraryShared.Classes;
 
@@ -10,7 +9,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Enable Windows Auto HDR feature
-        async Task EnableWindowsAutoHDRFeature()
+        void EnableWindowsAutoHDRFeature()
         {
             try
             {
@@ -57,7 +56,7 @@ namespace CtrlUI
             catch
             {
                 Debug.WriteLine("Failed to enable Windows Auto HDR feature.");
-                await Notification_Send_Status("MonitorHDR", "Failed enabling Windows Auto HDR feature");
+                Notification_Show_Status("MonitorHDR", "Failed enabling Windows Auto HDR feature");
             }
         }
 
@@ -103,7 +102,7 @@ namespace CtrlUI
         }
 
         //Enable Auto HDR for unsupported application
-        async Task EnableApplicationAutoHDR(DataBindApp dataBindApp)
+        void EnableApplicationAutoHDR(DataBindApp dataBindApp)
         {
             try
             {
@@ -133,17 +132,17 @@ namespace CtrlUI
                 }
 
                 Debug.WriteLine("Enabled Windows Auto HDR support for: " + d3DName + "/" + d3DBehaviors);
-                await Notification_Send_Status("MonitorHDR", "Enabled Auto HDR, restart application");
+                Notification_Show_Status("MonitorHDR", "Enabled Auto HDR, restart application");
             }
             catch
             {
                 Debug.WriteLine("Failed to enable Windows Auto HDR for application.");
-                await Notification_Send_Status("MonitorHDR", "Failed enabling application Auto HDR");
+                Notification_Show_Status("MonitorHDR", "Failed enabling application Auto HDR");
             }
         }
 
         //Disable Auto HDR for unsupported application
-        async Task DisableApplicationAutoHDR(DataBindApp dataBindApp)
+        void DisableApplicationAutoHDR(DataBindApp dataBindApp)
         {
             try
             {
@@ -167,7 +166,7 @@ namespace CtrlUI
                 }
 
                 Debug.WriteLine("Disabled Windows Auto HDR support for: " + d3DName);
-                await Notification_Send_Status("MonitorHDR", "Disabled Auto HDR, restart application");
+                Notification_Show_Status("MonitorHDR", "Disabled Auto HDR, restart application");
             }
             catch
             {

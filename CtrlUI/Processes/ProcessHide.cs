@@ -38,7 +38,7 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Hide application has no window.");
-                    await Notification_Send_Status("Close", "Application has no window");
+                    Notification_Show_Status("Close", "Application has no window");
                 }
 
                 //Focus on CtrlUI window
@@ -60,7 +60,7 @@ namespace CtrlUI
                 {
                     if (!skipNotification)
                     {
-                        await Notification_Send_Status("Close", "Application has no window");
+                        Notification_Show_Status("Close", "Application has no window");
                     }
                     Debug.WriteLine("Application cannot be hidden, window handle is empty.");
                     return;
@@ -69,7 +69,7 @@ namespace CtrlUI
                 //Update the interface status
                 if (!skipNotification)
                 {
-                    await Notification_Send_Status("AppMinimize", "Hiding " + processName);
+                    Notification_Show_Status("AppMinimize", "Hiding " + processName);
                 }
                 Debug.WriteLine("Hiding application window: " + processName + "/" + windowHandleTarget);
 
@@ -77,7 +77,7 @@ namespace CtrlUI
                 bool windowHidden = await AVProcess.Hide_ProcessByWindowHandle(windowHandleTarget);
                 if (!windowHidden)
                 {
-                    await Notification_Send_Status("Close", "Failed hiding application");
+                    Notification_Show_Status("Close", "Failed hiding application");
                     Debug.WriteLine("Failed hiding the application, no longer running?");
                     return;
                 }
@@ -90,7 +90,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("Close", "Failed hiding application");
+                Notification_Show_Status("Close", "Failed hiding application");
                 Debug.WriteLine("Failed hiding the application, no longer running? " + ex.Message);
             }
         }
@@ -105,7 +105,7 @@ namespace CtrlUI
                 {
                     if (!skipNotification)
                     {
-                        await Notification_Send_Status("Close", "Application has no window");
+                        Notification_Show_Status("Close", "Application has no window");
                     }
                     Debug.WriteLine("Application cannot be hidden, window handle is empty.");
                     return;
@@ -114,7 +114,7 @@ namespace CtrlUI
                 //Update the interface status
                 if (!skipNotification)
                 {
-                    await Notification_Send_Status("AppMinimize", "Hiding all " + processName);
+                    Notification_Show_Status("AppMinimize", "Hiding all " + processName);
                 }
                 Debug.WriteLine("Hiding all application windows: " + processName);
 
@@ -135,7 +135,7 @@ namespace CtrlUI
 
                 if (!windowHidden)
                 {
-                    await Notification_Send_Status("Close", "Failed hiding application");
+                    Notification_Show_Status("Close", "Failed hiding application");
                     Debug.WriteLine("Failed hiding the application, no longer running?");
                     return;
                 }
@@ -148,7 +148,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("Close", "Failed hiding application");
+                Notification_Show_Status("Close", "Failed hiding application");
                 Debug.WriteLine("Failed hiding the application, no longer running? " + ex.Message);
             }
         }

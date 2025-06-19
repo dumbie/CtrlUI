@@ -80,7 +80,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("Hide", "Hiding launcher " + dataBindApp.Name);
+                Notification_Show_Status("Hide", "Hiding launcher " + dataBindApp.Name);
                 Debug.WriteLine("Hiding launcher by name: " + dataBindApp.Name);
 
                 //Create new profile shared
@@ -99,7 +99,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("Hide", "Failed hiding");
+                Notification_Show_Status("Hide", "Failed hiding");
                 Debug.WriteLine("Failed hiding launcher: " + ex.Message);
             }
         }

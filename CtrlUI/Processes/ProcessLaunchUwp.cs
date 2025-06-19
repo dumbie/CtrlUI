@@ -61,7 +61,7 @@ namespace CtrlUI
                 //Check if the application exists
                 if (GetUwpAppPackageByAppUserModelId(appUserModelId) == null)
                 {
-                    await Notification_Send_Status("Close", "Application not found");
+                    Notification_Show_Status("Close", "Application not found");
                     Debug.WriteLine("Launch application not found.");
                     return false;
                 }
@@ -69,7 +69,7 @@ namespace CtrlUI
                 //Show launching message
                 if (!silent)
                 {
-                    await Notification_Send_Status("AppLaunch", "Launching " + appTitle);
+                    Notification_Show_Status("AppLaunch", "Launching " + appTitle);
                     //Debug.WriteLine("Launching UWP or Win32Store: " + appTitle + "/" + pathExe);
                 }
 
@@ -83,7 +83,7 @@ namespace CtrlUI
                 bool launchSuccess = AVProcess.Launch_UwpApplication(appUserModelId, launchArgument);
                 if (!launchSuccess)
                 {
-                    await Notification_Send_Status("Close", "Failed launching " + appTitle);
+                    Notification_Show_Status("Close", "Failed launching " + appTitle);
                     return false;
                 }
 
@@ -97,7 +97,7 @@ namespace CtrlUI
             }
             catch
             {
-                await Notification_Send_Status("Close", "Failed launching " + appTitle);
+                Notification_Show_Status("Close", "Failed launching " + appTitle);
                 return false;
             }
         }

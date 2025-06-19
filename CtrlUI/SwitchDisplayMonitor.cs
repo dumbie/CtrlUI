@@ -37,7 +37,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("MonitorSwitch", "Extending display monitor");
+                Notification_Show_Status("MonitorSwitch", "Extending display monitor");
 
                 //Enable monitor extend mode
                 EnableMonitorExtendMode();
@@ -52,7 +52,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("MonitorSwitch", "Duplicating display monitor");
+                Notification_Show_Status("MonitorSwitch", "Duplicating display monitor");
 
                 //Enable monitor clone mode
                 EnableMonitorCloneMode();
@@ -67,7 +67,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("MonitorSwitch", "Switching secondary monitor");
+                Notification_Show_Status("MonitorSwitch", "Switching secondary monitor");
 
                 //Switch secondary monitor
                 EnableMonitorSecond();
@@ -82,7 +82,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("MonitorSwitch", "Switching primary monitor");
+                Notification_Show_Status("MonitorSwitch", "Switching primary monitor");
 
                 //Switch primary monitor
                 EnableMonitorFirst();
@@ -107,10 +107,10 @@ namespace CtrlUI
                 if (dataBindApp.LaunchEnableAutoHDR)
                 {
                     //Enable Windows auto HDR feature
-                    await EnableWindowsAutoHDRFeature();
+                    EnableWindowsAutoHDRFeature();
 
                     //Allow auto HDR for application
-                    await EnableApplicationAutoHDR(dataBindApp);
+                    EnableApplicationAutoHDR(dataBindApp);
                 }
 
                 //Wait for HDR initialization
@@ -129,12 +129,12 @@ namespace CtrlUI
             {
                 if (enableHDR)
                 {
-                    await Notification_Send_Status("MonitorHDR", "Enabling monitor HDR");
+                    Notification_Show_Status("MonitorHDR", "Enabling monitor HDR");
                     Debug.WriteLine("Enabling monitor HDR.");
                 }
                 else
                 {
-                    await Notification_Send_Status("MonitorHDR", "Disabling monitor HDR");
+                    Notification_Show_Status("MonitorHDR", "Disabling monitor HDR");
                     Debug.WriteLine("Disabling monitor HDR.");
                 }
 
@@ -154,7 +154,7 @@ namespace CtrlUI
             catch
             {
                 Debug.WriteLine("Failed to switch monitor HDR.");
-                await Notification_Send_Status("MonitorHDR", "Failed switching HDR");
+                Notification_Show_Status("MonitorHDR", "Failed switching HDR");
             }
         }
 

@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVSettings;
@@ -146,7 +145,7 @@ namespace CtrlUI
                     }
 
                     //Show changed message
-                    await Notification_Send_Status("AppLaunch", "Quick launch app changed");
+                    Notification_Show_Status("AppLaunch", "Quick launch app changed");
 
                     //Save changes to Json file
                     JsonSaveList_Applications();
@@ -205,7 +204,7 @@ namespace CtrlUI
                 if (messageResult != null)
                 {
                     //Show changed message
-                    await Notification_Send_Status("Font", "Font style changed");
+                    Notification_Show_Status("Font", "Font style changed");
 
                     //Update the setting
                     SettingSave(vConfigurationCtrlUI, "InterfaceFontStyleName", messageResult.Name);
@@ -249,7 +248,7 @@ namespace CtrlUI
                 if (messageResult != null)
                 {
                     //Show changed message
-                    await Notification_Send_Status("Clock", "Clock style changed");
+                    Notification_Show_Status("Clock", "Clock style changed");
 
                     //Update the setting
                     SettingSave(vConfigurationCtrlUI, "InterfaceClockStyleName", messageResult.Name);
@@ -293,7 +292,7 @@ namespace CtrlUI
                 if (messageResult != null)
                 {
                     //Show changed message
-                    await Notification_Send_Status("VolumeUp", "Sound pack changed");
+                    Notification_Show_Status("VolumeUp", "Sound pack changed");
 
                     //Update the setting
                     SettingSave(vConfigurationCtrlUI, "InterfaceSoundPackName", messageResult.Name);

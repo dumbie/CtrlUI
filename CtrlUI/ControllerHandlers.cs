@@ -79,7 +79,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            await SortAppListsSwitch(false);
+                            SortAppListsSwitch(false);
                         }
 
                         ControllerUsed = true;
@@ -96,7 +96,7 @@ namespace CtrlUI
                         }
                         else if (vContentInformationOpen)
                         {
-                            await ContentInformationSave();
+                            ContentInformationSave();
                         }
                         else if (vFilePickerOpen)
                         {
@@ -195,9 +195,9 @@ namespace CtrlUI
                         }
                         else if (vTextInputOpen)
                         {
-                            await AVActions.DispatcherInvoke(async delegate
+                            AVActions.DispatcherInvoke(delegate
                             {
-                                await ValidateSetTextInput();
+                                ValidateSetTextInput();
                             });
                         }
                         else if (Popup_Open_Check(grid_Popup_Manage))
@@ -223,9 +223,9 @@ namespace CtrlUI
                         Debug.WriteLine("Button: BackPressed / Showing search");
                         if (vFilePickerOpen)
                         {
-                            await AVActions.DispatcherInvoke(async delegate
+                            AVActions.DispatcherInvoke(delegate
                             {
-                                await FilePicker_SortFilesFoldersSwitch(false);
+                                FilePicker_SortFilesFoldersSwitch(false);
                             });
                         }
                         else if (!Popup_Open_Any())

@@ -32,7 +32,7 @@ namespace CtrlUI
                     //Check if the text file exists
                     if (File.Exists(newFilePath))
                     {
-                        await Notification_Send_Status("Font", "Text file already exists");
+                        Notification_Show_Status("Font", "Text file already exists");
                         Debug.WriteLine("Create text file already exists.");
                         return;
                     }
@@ -63,13 +63,13 @@ namespace CtrlUI
                     //Check if there are files or folders
                     FilePicker_CheckFilesAndFoldersCount();
 
-                    await Notification_Send_Status("Font", "Created new text file");
+                    Notification_Show_Status("Font", "Created new text file");
                     Debug.WriteLine("Created new text file in: " + newFilePath);
                 }
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("Font", "Failed creating file");
+                Notification_Show_Status("Font", "Failed creating file");
                 Debug.WriteLine("Failed creating new text file: " + ex.Message);
             }
         }

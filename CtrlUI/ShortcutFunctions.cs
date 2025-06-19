@@ -186,7 +186,7 @@ namespace CtrlUI
                 //Show refresh status message
                 if (showStatus)
                 {
-                    await Notification_Send_Status("Refresh", "Refreshing shortcuts");
+                    Notification_Show_Status("Refresh", "Refreshing shortcuts");
                 }
 
                 //Get all files from the shortcut directories

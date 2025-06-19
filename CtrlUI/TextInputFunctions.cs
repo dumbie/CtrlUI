@@ -146,7 +146,7 @@ namespace CtrlUI
         }
 
         //Validate and set the text input result
-        async Task ValidateSetTextInput()
+        void ValidateSetTextInput()
         {
             try
             {
@@ -154,7 +154,7 @@ namespace CtrlUI
                 string placeholderString = (string)grid_Popup_TextInput_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
                 if (textboxString == placeholderString)
                 {
-                    await Notification_Send_Status("Rename", "Invalid text");
+                    Notification_Show_Status("Rename", "Invalid text");
                     vTextInputResult = string.Empty;
                 }
                 else

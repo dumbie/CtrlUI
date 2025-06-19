@@ -1226,6 +1226,20 @@
                     </StackPanel>
                 </Border>
 
+                <!-- Popup - Notification -->
+                <Border Name="grid_Popup_Notification" Grid.Row="0" BorderThickness="4" Margin="0,5,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" CornerRadius="5" Visibility="Collapsed">
+                    <Border.Background>
+                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.90"/>
+                    </Border.Background>
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="{DynamicResource ApplicationAccentLightColor}" Opacity="0.90"/>
+                    </Border.BorderBrush>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Image x:Name="image_Notification_Icon" Height="35" Margin="5,0,10,0"/>
+                        <TextBlock x:Name="textblock_Notification_Status" Margin="0,0,5,0" VerticalAlignment="Center" Style="{DynamicResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}" Text="..."/>
+                    </StackPanel>
+                </Border>
+
                 <!-- Status - Disable -->
                 <Border Name="grid_DisableMain" CornerRadius="10" Visibility="Collapsed">
                     <Border.Background>

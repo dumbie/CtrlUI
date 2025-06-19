@@ -23,7 +23,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("AppClose", "Closing " + dataBindApp.Name);
+                Notification_Show_Status("AppClose", "Closing " + dataBindApp.Name);
                 Debug.WriteLine("Closing process: " + dataBindApp.Name);
 
                 //Close the process
@@ -48,7 +48,7 @@ namespace CtrlUI
                 //Check if process closed
                 if (closedProcess)
                 {
-                    await Notification_Send_Status("AppClose", "Closed " + dataBindApp.Name);
+                    Notification_Show_Status("AppClose", "Closed " + dataBindApp.Name);
                     Debug.WriteLine("Closed process: " + dataBindApp.Name);
 
                     //Reset the process running status
@@ -67,7 +67,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("AppClose", "Failed to close application");
+                    Notification_Show_Status("AppClose", "Failed to close application");
                     Debug.WriteLine("Failed to close the application.");
                     return false;
                 }
@@ -84,7 +84,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("AppClose", "Closing all " + dataBindApp.Name);
+                Notification_Show_Status("AppClose", "Closing all " + dataBindApp.Name);
                 Debug.WriteLine("Closing all processes: " + dataBindApp.Name);
 
                 //Close the processes
@@ -116,7 +116,7 @@ namespace CtrlUI
                 //Check if process closed
                 if (closedProcess)
                 {
-                    await Notification_Send_Status("AppClose", "Closed all " + dataBindApp.Name);
+                    Notification_Show_Status("AppClose", "Closed all " + dataBindApp.Name);
                     Debug.WriteLine("Closed all processes: " + dataBindApp.Name);
 
                     //Reset the process running status
@@ -135,7 +135,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("AppClose", "Failed to close application");
+                    Notification_Show_Status("AppClose", "Failed to close application");
                     Debug.WriteLine("Failed to close the application.");
                     return false;
                 }
@@ -163,7 +163,7 @@ namespace CtrlUI
                 {
                     if (messageResult == AnswerCloseLaunchers)
                     {
-                        await Notification_Send_Status("AppClose", "Closing other launchers");
+                        Notification_Show_Status("AppClose", "Closing other launchers");
 
                         //Close all known other launchers
                         foreach (ProfileShared closeLauncher in vCtrlCloseLaunchers)
@@ -197,7 +197,7 @@ namespace CtrlUI
                 {
                     if (messageResult == AnswerDisconnectStreams)
                     {
-                        await Notification_Send_Status("Stream", "Disconnecting remote streams");
+                        Notification_Show_Status("Stream", "Disconnecting remote streams");
 
                         //Disconnect Steam Streaming
                         AVProcess.Close_ProcessesByName("steam.exe", true);
@@ -231,7 +231,7 @@ namespace CtrlUI
                 Debug.WriteLine("Hiding Fps Overlayer");
 
                 //Show notification
-                await Notification_Send_Status("Fps", "Hiding Fps Overlayer");
+                Notification_Show_Status("Fps", "Hiding Fps Overlayer");
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();

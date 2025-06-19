@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using static ArnoldVinkCode.AVFiles;
@@ -115,7 +114,7 @@ namespace CtrlUI
         }
 
         //Reset application image
-        public async Task Image_Application_Reset(DataBindApp dataBindApp)
+        public void Image_Application_Reset(DataBindApp dataBindApp)
         {
             try
             {
@@ -172,7 +171,7 @@ namespace CtrlUI
                 }
                 img_AddAppLogo.Source = applicationImage;
 
-                await Notification_Send_Status("Restart", "Application image reset");
+                Notification_Show_Status("Restart", "Application image reset");
                 Debug.WriteLine("Application image reset: " + imageFileName);
             }
             catch (Exception ex)

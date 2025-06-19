@@ -1,44 +1,48 @@
-﻿using System.Diagnostics;
-using System.Net;
-using System.Threading.Tasks;
-using static ArnoldVinkCode.ArnoldVinkSockets;
-using static ArnoldVinkCode.AVClassConverters;
+﻿using ArnoldVinkCode;
+using System;
+using System.Windows;
+using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Classes;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Send the notification status
-        public async Task Notification_Send_Status(string targetIcon, string targetText)
+        //Show notification
+        public void Notification_Show_Status(string icon, string text)
         {
             try
             {
-                //Check if socket server is running
-                if (vArnoldVinkSockets == null)
+                //Update the notification
+                AVActions.DispatcherInvoke(delegate
                 {
-                    Debug.WriteLine("The socket server is not running.");
-                    return;
-                }
+                    try
+                    {
+                        //Set notification text
+                        image_Notification_Icon.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/" + icon + ".png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        textblock_Notification_Status.Text = text;
 
-                //Create notification class
-                NotificationDetails NotificationDetails = new NotificationDetails();
-                NotificationDetails.Icon = targetIcon;
-                NotificationDetails.Text = targetText;
+                        //Show the notification
+                        grid_Popup_Notification.Visibility = Visibility.Visible;
+                    }
+                    catch { }
+                });
 
-                //Prepare socket data
-                SocketSendContainer socketSend = new SocketSendContainer();
-                socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
-                socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
-                socketSend.SetObject(NotificationDetails);
+                //Start notification timer
+                vDispatcherTimerOverlay.Interval = TimeSpan.FromMilliseconds(3000);
+                vDispatcherTimerOverlay.Tick += delegate
+                {
+                    try
+                    {
+                        //Hide the notification
+                        grid_Popup_Notification.Visibility = Visibility.Collapsed;
 
-                //Request controller status
-                byte[] SerializedData = SerializeObjectToBytes(socketSend);
-
-                //Send socket data
-                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), 26760);
-                await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
+                        //Renew the timer
+                        AVFunctions.TimerRenew(ref vDispatcherTimerOverlay);
+                    }
+                    catch { }
+                };
+                AVFunctions.TimerReset(vDispatcherTimerOverlay);
             }
             catch { }
         }

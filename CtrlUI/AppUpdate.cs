@@ -62,7 +62,7 @@ namespace CtrlUI
                     //Notification or interaction
                     if (onlyNotification)
                     {
-                        await Notification_Send_Status("Refresh", "CtrlUI update available");
+                        Notification_Show_Status("Refresh", "CtrlUI update available");
                     }
                     else
                     {

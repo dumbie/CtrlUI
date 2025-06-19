@@ -16,24 +16,24 @@ namespace CtrlUI
         }
 
         //Check text input key presses
-        async void Grid_Popup_TextInput_textbox_PreviewKeyUp(object sender, KeyEventArgs e)
+        void Grid_Popup_TextInput_textbox_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             try
             {
                 if (e.Key == Key.Enter)
                 {
-                    await ValidateSetTextInput();
+                    ValidateSetTextInput();
                 }
             }
             catch { }
         }
 
         //Close the popup and store text
-        async void Button_TextInputConfirmText_Click(object sender, RoutedEventArgs e)
+        void Button_TextInputConfirmText_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await ValidateSetTextInput();
+                ValidateSetTextInput();
             }
             catch { }
         }

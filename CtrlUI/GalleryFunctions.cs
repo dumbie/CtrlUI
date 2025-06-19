@@ -62,7 +62,7 @@ namespace CtrlUI
                 //Show refresh status message
                 if (showStatus)
                 {
-                    await Notification_Send_Status("Refresh", "Refreshing gallery");
+                    Notification_Show_Status("Refresh", "Refreshing gallery");
                 }
 
                 //Get gallery load days setting

@@ -1,10 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 
@@ -74,9 +71,6 @@ namespace CtrlUI
                 //Load gallery days
                 textblock_SettingsGalleryLoadDays.Text = "Limit gallery loading days: " + SettingLoad(vConfigurationCtrlUI, "GalleryLoadDays", typeof(string));
                 slider_SettingsGalleryLoadDays.Value = SettingLoad(vConfigurationCtrlUI, "GalleryLoadDays", typeof(double));
-
-                //Set the application name to string to check shortcuts
-                string targetName = AVFunctions.ApplicationName();
 
                 //Launch settings
                 cb_SettingsWindowsStartup.IsChecked = AVSettings.StartupShortcutCheck();

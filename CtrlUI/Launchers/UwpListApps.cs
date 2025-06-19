@@ -139,7 +139,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("RemoveCross", "Uninstalling " + selectedItem.Name);
+                Notification_Show_Status("RemoveCross", "Uninstalling " + selectedItem.Name);
 
                 //Remove application from pc
                 bool uwpRemoved = UwpRemoveApplicationByPackageFullName(selectedItem.PathFull);

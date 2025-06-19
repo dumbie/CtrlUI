@@ -29,13 +29,13 @@ namespace CtrlUI
                 WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
 
                 //Update window position
-                await UpdateWindowPosition(false, true);
+                UpdateWindowPosition(true);
             }
             catch { }
         }
 
         //Update window position
-        async Task UpdateWindowPosition(bool notifyApps, bool skipNotification)
+        void UpdateWindowPosition(bool skipNotification)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace CtrlUI
                 //Show monitor change notification
                 if (!skipNotification)
                 {
-                    await Notification_Send_Status("MonitorNext", "Moved to monitor " + monitorNumber);
+                    Notification_Show_Status("MonitorNext", "Moved to monitor " + monitorNumber);
                 }
 
                 Debug.WriteLine("Moved the application to monitor: " + monitorNumber);
@@ -66,21 +66,21 @@ namespace CtrlUI
         }
 
         //Update the window status
-        async Task UpdateWindowStatus()
+        void UpdateWindowStatus()
         {
             try
             {
                 vProcessDirectXInput = Get_ProcessesMultiByName("DirectXInput", true).FirstOrDefault();
                 int focusedProcessId = Detail_ProcessIdByWindowHandle(GetForegroundWindow());
 
-                await AVActions.DispatcherInvoke(async delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     try
                     {
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
                         if (vProcessCurrent.Identifier == focusedProcessId)
                         {
-                            await AppWindowActivated();
+                            AppWindowActivated();
                         }
                         else
                         {
@@ -94,7 +94,7 @@ namespace CtrlUI
         }
 
         //Application window activated event
-        async Task AppWindowActivated()
+        void AppWindowActivated()
         {
             try
             {
@@ -107,7 +107,7 @@ namespace CtrlUI
                     AppWindowEnable();
 
                     //Update window position
-                    await UpdateWindowPosition(false, true);
+                    UpdateWindowPosition(true);
 
                     //Resume ScrollViewerLoops
                     PauseResumeScrollviewerLoops(false);
@@ -206,7 +206,7 @@ namespace CtrlUI
             }
             catch
             {
-                await Notification_Send_Status("Close", "Failed to minimize or show CtrlUI");
+                Notification_Show_Status("Close", "Failed to minimize or show CtrlUI");
                 Debug.WriteLine("Failed to minimize or show CtrlUI.");
             }
         }
@@ -234,7 +234,7 @@ namespace CtrlUI
                 WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
 
                 //Update window position
-                await UpdateWindowPosition(false, true);
+                UpdateWindowPosition(true);
 
                 //Move mouse cursor to target
                 MoveMousePosition();
@@ -261,7 +261,7 @@ namespace CtrlUI
                 //Show minimize notification
                 if (!skipNotification)
                 {
-                    await Notification_Send_Status("AppMinimize", "Hiding CtrlUI");
+                    Notification_Show_Status("AppMinimize", "Hiding CtrlUI");
                 }
 
                 //Wait for application to minimize

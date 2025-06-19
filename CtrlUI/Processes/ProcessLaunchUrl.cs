@@ -15,7 +15,7 @@ namespace CtrlUI
                 //Show launching message
                 if (!silent)
                 {
-                    await Notification_Send_Status("AppLaunch", "Launching " + dataBindApp.Name);
+                    Notification_Show_Status("AppLaunch", "Launching " + dataBindApp.Name);
                     //Debug.WriteLine("Launching url protocol: " + dataBindApp.PathExe + " / " + dataBindApp.PathLaunch);
                 }
 
@@ -37,7 +37,7 @@ namespace CtrlUI
                 bool launchSuccess = AVProcess.Launch_ShellExecute(exePath, dataBindApp.PathLaunch, dataBindApp.Argument, dataBindApp.LaunchAsAdmin);
                 if (!launchSuccess)
                 {
-                    await Notification_Send_Status("Close", "Failed launching " + dataBindApp.Name);
+                    Notification_Show_Status("Close", "Failed launching " + dataBindApp.Name);
                     return false;
                 }
 
@@ -51,7 +51,7 @@ namespace CtrlUI
             }
             catch
             {
-                await Notification_Send_Status("Close", "Failed launching " + dataBindApp.Name);
+                Notification_Show_Status("Close", "Failed launching " + dataBindApp.Name);
                 return false;
             }
         }

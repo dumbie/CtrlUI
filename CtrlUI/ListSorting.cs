@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using static ArnoldVinkCode.AVFocus;
 using static CtrlUI.AppVariables;
@@ -15,17 +14,17 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Sort list based on visibility
-        async Task SortListsAuto()
+        void SortListsAuto()
         {
             try
             {
                 if (vFilePickerOpen)
                 {
-                    await FilePicker_SortFilesFoldersSwitch(false);
+                    FilePicker_SortFilesFoldersSwitch(false);
                 }
                 else
                 {
-                    await SortAppListsSwitch(false);
+                    SortAppListsSwitch(false);
                 }
             }
             catch { }
@@ -116,28 +115,28 @@ namespace CtrlUI
         }
 
         //Sort the application lists
-        async Task SortAppListsSwitch(bool silentSort)
+        void SortAppListsSwitch(bool silentSort)
         {
             try
             {
                 if (vSortType == SortingType.Number)
                 {
-                    await SortAppListsByName(silentSort);
+                    SortAppListsByName(silentSort);
                 }
                 else
                 {
-                    await SortAppListsByNumber(silentSort);
+                    SortAppListsByNumber(silentSort);
                 }
             }
             catch { }
         }
 
         //Sort the application lists by number
-        async Task SortAppListsByNumber(bool silentSort)
+        void SortAppListsByNumber(bool silentSort)
         {
             try
             {
-                if (!silentSort) { await Notification_Send_Status("Sorting", "Sorting by number, date or category"); }
+                if (!silentSort) { Notification_Show_Status("Sorting", "Sorting by number, date or category"); }
                 vSortType = SortingType.Number;
 
                 //Sort function
@@ -191,11 +190,11 @@ namespace CtrlUI
         }
 
         //Sort the application lists by name
-        async Task SortAppListsByName(bool silentSort)
+        void SortAppListsByName(bool silentSort)
         {
             try
             {
-                if (!silentSort) { await Notification_Send_Status("Sorting", "Sorting by name"); }
+                if (!silentSort) { Notification_Show_Status("Sorting", "Sorting by name"); }
                 vSortType = SortingType.Name;
 
                 //Sort function

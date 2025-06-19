@@ -253,7 +253,7 @@ namespace CtrlUI
                         }
                     }
                     else if (e.Key == Key.F3) { await CategoryListChange(ListCategory.Search); }
-                    else if (e.Key == Key.F4) { await SortListsAuto(); }
+                    else if (e.Key == Key.F4) { SortListsAuto(); }
                     else if (e.Key == Key.F6) { await Popup_ShowHide_MainMenu(false); }
                     else if (e.Key == Key.F7) { await ShowFileManager(); }
                 }

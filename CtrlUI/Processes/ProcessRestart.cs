@@ -47,7 +47,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("AppRestart", "Restarting " + dataBindApp.Name);
+                Notification_Show_Status("AppRestart", "Restarting " + dataBindApp.Name);
                 Debug.WriteLine("Restarting application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandleMain);
 
                 //Minimize CtrlUI window
@@ -57,7 +57,7 @@ namespace CtrlUI
                 bool launchSuccess = await AVProcess.Restart_ProcessByProcessId(processMulti.Identifier, newArguments, withoutArguments);
                 if (!launchSuccess)
                 {
-                    await Notification_Send_Status("Close", "Failed restarting " + dataBindApp.Name);
+                    Notification_Show_Status("Close", "Failed restarting " + dataBindApp.Name);
                     Debug.WriteLine("Failed to restart process: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandleMain);
                     return false;
                 }

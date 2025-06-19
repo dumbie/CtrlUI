@@ -140,7 +140,7 @@ namespace CtrlUI
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed loading filepicker: " + ex.Message);
-                await Notification_Send_Status("Close", "Picker loading failed");
+                Notification_Show_Status("Close", "Picker loading failed");
                 await FilePicker_GoFolderUp();
             }
             finally

@@ -26,12 +26,12 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task MoveApplicationList_Left()
+        void MoveApplicationList_Left()
         {
             try
             {
                 //Sort the lists by number
-                await SortAppListsByNumber(true);
+                SortAppListsByNumber(true);
 
                 //Get the target application
                 IEnumerable<DataBindApp> combinedApps = CombineAppLists(true, true, true, false, false, false, false).Where(x => x.Category == vMoveAppDataBind.Category);
@@ -45,8 +45,8 @@ namespace CtrlUI
                 targetAppDataBind.Number = selectedNumber;
 
                 //Sort the lists by number
-                await SortAppListsByNumber(true);
-                await Notification_Send_Status("Sorting", "Moving app left");
+                SortAppListsByNumber(true);
+                Notification_Show_Status("Sorting", "Moving app left");
 
                 //Save json applist
                 JsonSaveList_Applications();
@@ -54,12 +54,12 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task MoveApplicationList_Right()
+        void MoveApplicationList_Right()
         {
             try
             {
                 //Sort the lists by number
-                await SortAppListsByNumber(true);
+                SortAppListsByNumber(true);
 
                 //Get the target application
                 IEnumerable<DataBindApp> combinedApps = CombineAppLists(true, true, true, false, false, false, false).Where(x => x.Category == vMoveAppDataBind.Category);
@@ -73,8 +73,8 @@ namespace CtrlUI
                 targetAppDataBind.Number = selectedNumber;
 
                 //Sort the lists by number
-                await SortAppListsByNumber(true);
-                await Notification_Send_Status("Sorting", "Moving app right");
+                SortAppListsByNumber(true);
+                Notification_Show_Status("Sorting", "Moving app right");
 
                 //Save json applist
                 JsonSaveList_Applications();

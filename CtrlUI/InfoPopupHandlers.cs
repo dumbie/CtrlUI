@@ -40,7 +40,7 @@ namespace CtrlUI
         }
 
         //Update DataBind and save image to file
-        public async Task ContentInformationSave()
+        public void ContentInformationSave()
         {
             try
             {
@@ -48,7 +48,7 @@ namespace CtrlUI
                 BitmapImage bitmapImage = BytesToBitmapImage(vContentInformationImageBytes, 0, 0);
                 if (bitmapImage == null)
                 {
-                    await Notification_Send_Status("Save", "No image to save");
+                    Notification_Show_Status("Save", "No image to save");
                     return;
                 }
 
@@ -80,17 +80,17 @@ namespace CtrlUI
                     AVFiles.BytesToFile(saveFilePath, vContentInformationImageBytes);
                 }
 
-                await Notification_Send_Status("Save", "Saved and using image");
+                Notification_Show_Status("Save", "Saved and using image");
             }
             catch { }
         }
 
         //Update DataBind and save image to file
-        private async void Grid_Popup_ContentInformation_button_Save_Click(object sender, RoutedEventArgs e)
+        private void Grid_Popup_ContentInformation_button_Save_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await ContentInformationSave();
+                ContentInformationSave();
             }
             catch { }
         }

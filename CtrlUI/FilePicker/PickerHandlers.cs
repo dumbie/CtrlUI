@@ -44,11 +44,11 @@ namespace CtrlUI
             catch { }
         }
 
-        async void Grid_Popup_FilePicker_button_ControllerBack_Click(object sender, RoutedEventArgs e)
+        void Grid_Popup_FilePicker_button_ControllerBack_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await FilePicker_SortFilesFoldersSwitch(false);
+                FilePicker_SortFilesFoldersSwitch(false);
             }
             catch { }
         }
@@ -90,7 +90,7 @@ namespace CtrlUI
                 if (vFilePickerCurrentPath == "PC" && selectedItem.FileType != FileType.FolderDisc)
                 {
                     Debug.WriteLine("File and folders action cancelled, no actions available.");
-                    await Notification_Send_Status("Close", "No actions available");
+                    Notification_Show_Status("Close", "No actions available");
                     return;
                 }
 
@@ -274,25 +274,25 @@ namespace CtrlUI
                         //Sort files and folders
                         if (messageResult == answerSort)
                         {
-                            await FilePicker_SortFilesFoldersSwitch(false);
+                            FilePicker_SortFilesFoldersSwitch(false);
                         }
                         //Copy file or folder
                         else if (messageResult == answerCopySingle)
                         {
-                            await FilePicker_FileCopy_Single(selectedItem);
+                            FilePicker_FileCopy_Single(selectedItem);
                         }
                         else if (messageResult == answerCopyChecked)
                         {
-                            await FilePicker_FileCopy_Checked();
+                            FilePicker_FileCopy_Checked();
                         }
                         //Cut file or folder
                         else if (messageResult == answerCutSingle)
                         {
-                            await FilePicker_FileCut_Single(selectedItem);
+                            FilePicker_FileCut_Single(selectedItem);
                         }
                         else if (messageResult == answerCutChecked)
                         {
-                            await FilePicker_FileCut_Checked();
+                            FilePicker_FileCut_Checked();
                         }
                         //Paste file or folder
                         else if (messageResult == answerPaste)
@@ -348,37 +348,37 @@ namespace CtrlUI
         }
 
         //Sort files and folders in picker
-        async Task FilePicker_SortFilesFoldersSwitch(bool silent)
+        void FilePicker_SortFilesFoldersSwitch(bool silent)
         {
             try
             {
                 if (vFilePickerSortingType == SortingType.Name)
                 {
-                    await FilePicker_SortFilesFoldersByDate(silent);
+                    FilePicker_SortFilesFoldersByDate(silent);
                 }
                 else
                 {
-                    await FilePicker_SortFilesFoldersByName(silent);
+                    FilePicker_SortFilesFoldersByName(silent);
                 }
             }
             catch { }
         }
 
-        async Task FilePicker_SortFilesFoldersByName(bool silent)
+        void FilePicker_SortFilesFoldersByName(bool silent)
         {
             try
             {
                 if (vFilePickerCurrentPath == "PC")
                 {
                     Debug.WriteLine("Invalid sorting path, returning.");
-                    await Notification_Send_Status("Sorting", "Invalid sort path");
+                    Notification_Show_Status("Sorting", "Invalid sort path");
                     return;
                 }
 
                 if (!silent)
                 {
                     Debug.WriteLine("Sorting files and folders by name");
-                    await Notification_Send_Status("Sorting", "Sorting by name");
+                    Notification_Show_Status("Sorting", "Sorting by name");
                 }
 
                 vFilePickerSortingType = SortingType.Name;
@@ -398,21 +398,21 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task FilePicker_SortFilesFoldersByDate(bool silent)
+        void FilePicker_SortFilesFoldersByDate(bool silent)
         {
             try
             {
                 if (vFilePickerCurrentPath == "PC")
                 {
                     Debug.WriteLine("Invalid sorting path, returning.");
-                    await Notification_Send_Status("Sorting", "Invalid sort path");
+                    Notification_Show_Status("Sorting", "Invalid sort path");
                     return;
                 }
 
                 if (!silent)
                 {
                     Debug.WriteLine("Sorting files and folders by date");
-                    await Notification_Send_Status("Sorting", "Sorting by date");
+                    Notification_Show_Status("Sorting", "Sorting by date");
                 }
 
                 vFilePickerSortingType = SortingType.Date;
@@ -450,14 +450,14 @@ namespace CtrlUI
                     else
                     {
                         Debug.WriteLine("No folder to navigate go up / no up.");
-                        await Notification_Send_Status("Up", "No folder to go up");
+                        Notification_Show_Status("Up", "No folder to go up");
                     }
                 }
             }
             catch
             {
                 Debug.WriteLine("No folder to navigate go up / catch.");
-                await Notification_Send_Status("Up", "No folder to go up");
+                Notification_Show_Status("Up", "No folder to go up");
             }
         }
 
@@ -552,7 +552,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            await Notification_Send_Status("Close", "Link target does not exist");
+                            Notification_Show_Status("Close", "Link target does not exist");
                             Debug.WriteLine("Link target does not exist");
                         }
                     }

@@ -60,11 +60,11 @@ namespace CtrlUI
                     return;
                 }
 
-                await Notification_Send_Status("Remove", "Removing " + fileCategory);
+                Notification_Show_Status("Remove", "Removing " + fileCategory);
                 Debug.WriteLine("Removing file or folder: " + fileName + " path: " + filePath);
 
                 //Remove file or folder
-                if (await FileRemove(fileName, filePath, fileCategory, useRecycleBin))
+                if (FileRemove(fileName, filePath, fileCategory, useRecycleBin))
                 {
                     //Remove item from list
                     await RemoveAppFromList(dataBindApp, false, false, true);

@@ -15,7 +15,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Remove file or folder
-        async Task<bool> FileRemove(string fileName, string filePath, string fileCategory, bool useRecycleBin)
+        bool FileRemove(string fileName, string filePath, string fileCategory, bool useRecycleBin)
         {
             try
             {
@@ -38,24 +38,24 @@ namespace CtrlUI
                 {
                     if (useRecycleBin)
                     {
-                        await Notification_Send_Status("Remove", "Recycled " + fileCategory);
+                        Notification_Show_Status("Remove", "Recycled " + fileCategory);
                     }
                     else
                     {
-                        await Notification_Send_Status("Remove", "Removed " + fileCategory);
+                        Notification_Show_Status("Remove", "Removed " + fileCategory);
                     }
                     Debug.WriteLine("Removed file or folder: " + fileName + " path: " + filePath + " recyclebin: " + useRecycleBin);
                     return true;
                 }
                 else if (shFileOpstruct.fAnyOperationsAborted)
                 {
-                    await Notification_Send_Status("Remove", fileCategory + " removal aborted");
+                    Notification_Show_Status("Remove", fileCategory + " removal aborted");
                     Debug.WriteLine("File or folder removal aborted: " + fileName + " path: " + filePath);
                     return false;
                 }
                 else
                 {
-                    await Notification_Send_Status("Remove", fileCategory + " removal failed");
+                    Notification_Show_Status("Remove", fileCategory + " removal failed");
                     Debug.WriteLine("File or folder removal failed: " + fileName + " path: " + filePath);
                     return false;
                 }
@@ -97,11 +97,11 @@ namespace CtrlUI
                 }
 
                 //Notify file or folder removal
-                await Notification_Send_Status("Remove", "Removing file or folder");
+                Notification_Show_Status("Remove", "Removing file or folder");
                 Debug.WriteLine("Removing file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                 //Remove file or folder
-                if (await FileRemove(dataBindFile.Name, dataBindFile.PathFile, "file or folder", useRecycleBin))
+                if (FileRemove(dataBindFile.Name, dataBindFile.PathFile, "file or folder", useRecycleBin))
                 {
                     //Check if the removed item is clipboard and reset it
                     DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault(x => x.PathFile == dataBindFile.PathFile);
@@ -157,7 +157,7 @@ namespace CtrlUI
                     return;
                 }
 
-                await Notification_Send_Status("Remove", "Removing files or folders");
+                Notification_Show_Status("Remove", "Removing files or folders");
 
                 //Remove files or folders
                 foreach (DataBindFile dataBindFile in List_FilePicker.Where(x => x.Checked == Visibility.Visible).ToList())
@@ -167,7 +167,7 @@ namespace CtrlUI
                         Debug.WriteLine("Removing files or folders: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                         //Remove files or folders
-                        if (await FileRemove(dataBindFile.Name, dataBindFile.PathFile, "files or folders", useRecycleBin))
+                        if (FileRemove(dataBindFile.Name, dataBindFile.PathFile, "files or folders", useRecycleBin))
                         {
                             //Check if the removed item is clipboard and reset it
                             DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault(x => x.PathFile == dataBindFile.PathFile);

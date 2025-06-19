@@ -35,7 +35,7 @@ namespace CtrlUI
                 //Check if there are any items
                 if (Answers.Count <= 1)
                 {
-                    await Notification_Send_Status("Remove", "No files in recycle bin");
+                    Notification_Show_Status("Remove", "No files in recycle bin");
                     Debug.WriteLine("Recycle bin does not have any files or folders.");
                     return;
                 }
@@ -141,7 +141,7 @@ namespace CtrlUI
                         //Check file operation status
                         if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                         {
-                            await Notification_Send_Status("Restart", "File or folder restored");
+                            Notification_Show_Status("Restart", "File or folder restored");
                         }
                     }
                     else if (messageResult == answerDelete)
@@ -156,7 +156,7 @@ namespace CtrlUI
                         //Check file operation status
                         if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                         {
-                            await Notification_Send_Status("Remove", "File or folder permanently deleted");
+                            Notification_Show_Status("Remove", "File or folder permanently deleted");
                         }
                     }
                 }
@@ -180,7 +180,7 @@ namespace CtrlUI
                 {
                     if (messageResult == answerEmpty)
                     {
-                        await Notification_Send_Status("Remove", "Emptying recycle bin");
+                        Notification_Show_Status("Remove", "Emptying recycle bin");
                         Debug.WriteLine("Emptying the Windows recycle bin.");
 
                         //Play recycle bin empty sound

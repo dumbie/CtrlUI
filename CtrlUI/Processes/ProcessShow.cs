@@ -44,7 +44,7 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Show application has no window.");
-                    await Notification_Send_Status("Close", "Application has no window");
+                    Notification_Show_Status("Close", "Application has no window");
                 }
             }
             catch (Exception ex)
@@ -63,7 +63,7 @@ namespace CtrlUI
                 {
                     if (!skipNotification)
                     {
-                        await Notification_Send_Status("Close", "Application cannot be shown");
+                        Notification_Show_Status("Close", "Application cannot be shown");
                     }
                     Debug.WriteLine("Application cannot be shown, window handle is empty.");
                     return;
@@ -74,7 +74,7 @@ namespace CtrlUI
                 //Update the interface status
                 if (!skipNotification)
                 {
-                    await Notification_Send_Status("AppMiniMaxi", "Showing " + processName);
+                    Notification_Show_Status("AppMiniMaxi", "Showing " + processName);
                 }
 
                 //Minimize CtrlUI window
@@ -87,7 +87,7 @@ namespace CtrlUI
                 bool windowFocused = await AVProcess.Show_ProcessByWindowHandle(windowHandleTarget);
                 if (!windowFocused)
                 {
-                    await Notification_Send_Status("Close", "Failed showing application");
+                    Notification_Show_Status("Close", "Failed showing application");
                     Debug.WriteLine("Failed showing the application, no longer running?");
                     return;
                 }
@@ -100,7 +100,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("Close", "Failed showing application");
+                Notification_Show_Status("Close", "Failed showing application");
                 Debug.WriteLine("Failed showing the application, no longer running? " + ex.Message);
             }
         }

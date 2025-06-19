@@ -197,11 +197,11 @@ namespace CtrlUI
         }
 
         //Reset the application image
-        async void Button_Manage_ResetAppLogo_Click(object sender, RoutedEventArgs e)
+        void Button_Manage_ResetAppLogo_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await Image_Application_Reset(vEditAppDataBind);
+                Image_Application_Reset(vEditAppDataBind);
             }
             catch { }
         }
