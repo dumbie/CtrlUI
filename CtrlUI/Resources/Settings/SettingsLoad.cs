@@ -57,9 +57,8 @@ namespace CtrlUI
 
                 //Load the display monitor
                 int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
-                textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + monitorNumber;
+                textblock_SettingsDisplayMonitor.Text = textblock_SettingsDisplayMonitor.Tag + ": " + monitorNumber;
                 slider_SettingsDisplayMonitor.Value = monitorNumber;
-                slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count();
 
                 //Load display settings
                 cb_SettingsMonitorPreventSleep.IsChecked = SettingLoad(vConfigurationCtrlUI, "MonitorPreventSleep", typeof(bool));

@@ -160,7 +160,6 @@ namespace CtrlUI
                 btn_Monitor_Switch_Secondary.Click += Btn_Monitor_Switch_Secondary_Click;
                 btn_Monitor_Switch_Duplicate.Click += Btn_Monitor_Switch_Duplicate_Click;
                 btn_Monitor_Switch_Extend.Click += Btn_Monitor_Switch_Extend_Click;
-                btn_Monitor_Move_App.Click += Btn_Monitor_Move_App_Click;
                 btn_Monitor_HDR_Enable.Click += Btn_Monitor_HDR_Enable_Click;
                 btn_Monitor_HDR_Disable.Click += Btn_Monitor_HDR_Disable_Click;
 

@@ -23,13 +23,6 @@ namespace CtrlUI
                     btn_Settings_AppQuickLaunch_TextBlock.Text = "Change the quick launch app";
                 }
 
-                //Set the available monitor amount
-                try
-                {
-                    slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count();
-                }
-                catch { }
-
                 //Show the settings popup
                 await Popup_Show(grid_Popup_Settings, null);
 

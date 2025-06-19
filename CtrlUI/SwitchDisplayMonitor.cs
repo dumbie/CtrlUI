@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
-using static ArnoldVinkCode.AVWindowFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -30,55 +29,6 @@ namespace CtrlUI
             try
             {
                 await AllMonitorSwitchHDR(true, false);
-            }
-            catch { }
-        }
-
-        //Move application to the next monitor
-        private async void Btn_Monitor_Move_App_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //Check if there are multiple monitors
-                int totalScreenCount = Screen.AllScreens.Count();
-                if (totalScreenCount == 1)
-                {
-                    Debug.WriteLine("Only one monitor");
-                    await Notification_Send_Status("MonitorNext", "Only one monitor");
-
-                    //Save the new monitor number
-                    SettingSave(vConfigurationCtrlUI, "DisplayMonitor", "1");
-
-                    //Update window style
-                    WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
-
-                    //Update window position
-                    await UpdateWindowPosition(true, false);
-                    return;
-                }
-
-                //Check the next target monitor
-                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
-                if (monitorNumber >= totalScreenCount)
-                {
-                    monitorNumber = 1;
-                }
-                else
-                {
-                    monitorNumber++;
-                }
-
-                //Save the new monitor number
-                SettingSave(vConfigurationCtrlUI, "DisplayMonitor", monitorNumber.ToString());
-
-                //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
-
-                //Update window position
-                await UpdateWindowPosition(true, false);
-
-                //Focus on CtrlUI window
-                await AppWindowShow(true, true);
             }
             catch { }
         }

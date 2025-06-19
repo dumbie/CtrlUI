@@ -584,9 +584,9 @@
                                     <TextBlock Text="Adjust the DPI of Chromium based browsers like Edge and Chrome on launch." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                                     <Slider Name="slider_SettingsAdjustChromiumDpi" Width="400" Minimum="0" Maximum="3.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
 
-                                    <TextBlock Name="textblock_SettingsDisplayMonitor" Text="Monitor to display the applications on" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Monitor that CtrlUI, DirectXInput, Keyboard and Fps Overlayer appears on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                    <Slider Name="slider_SettingsDisplayMonitor" Width="400" Minimum="1" Maximum="12" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
+                                    <TextBlock Name="textblock_SettingsDisplayMonitor" Text="Monitor to display window on" Tag="Monitor to display window on" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                    <TextBlock Text="Monitor that the CtrlUI window appears on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                    <Slider Name="slider_SettingsDisplayMonitor" Width="400" Minimum="1" Maximum="20" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
                                 </StackPanel>
 
                                 <StackPanel Name="settingsStackpanelApps" Visibility="Collapsed">
@@ -780,15 +780,6 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MonitorExtend.png" Width="100" HorizontalAlignment="Center"/>
                                             <TextBlock Margin="15,0,0,0" Text="Switch to extend mode" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button.Content>
-                                </Button>
-
-                                <Button Name="btn_Monitor_Move_App" Margin="0,10,0,0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MonitorNext.png" Width="50" HorizontalAlignment="Center"/>
-                                            <TextBlock Margin="15,0,0,0" Text="Move CtrlUI to the next monitor" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Button.Content>
                                 </Button>
