@@ -16,7 +16,7 @@ this application allow you to run all your favorite applications from one locati
 ## Installation Instructions
 1) Extract the CtrlUI folder to any directory you want on your device.
 2) Make sure that you have installed all the requirements listed below.
-3) Launch CtrlUI executable and setup a few basic apps in the welcome screen.
+3) Run the Launcher executable and setup a few basic apps in the welcome screen.
 4) Enjoy using your new controller friendly based user interface.
 
 ## Uninstallation Instructions
