@@ -149,7 +149,7 @@ namespace CtrlUI
                     DataBindString answerShowGameInfo = new DataBindString();
                     if (!preFile && vFilePickerSettings.ShowEmulatorInterface)
                     {
-                        answerShowGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Star.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerShowGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Information.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         answerShowGameInfo.Name = "Show game information";
                         Answers.Add(answerShowGameInfo);
                     }

@@ -85,6 +85,9 @@
 		<Content Include="Assets\Default\Emulators\_Update.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Assets\Default\Icons\Information.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Assets\Default\Icons\Save.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -849,7 +852,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="protobuf-net" Version="3.2.52" />
-		<PackageReference Include="SteamKit2" Version="3.2.0" />
+		<PackageReference Include="SteamKit2" Version="3.3.0" />
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
 	</ItemGroup>
 	<ItemGroup>

@@ -26,7 +26,7 @@ namespace CtrlUI
                 DataBindString AnswerShowPlatformInfo = new DataBindString();
                 if (dataBindApp.Category == AppCategory.Emulator)
                 {
-                    AnswerShowPlatformInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Star.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    AnswerShowPlatformInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Information.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     AnswerShowPlatformInfo.Name = "Show platform information";
                     Answers.Add(AnswerShowPlatformInfo);
                 }
@@ -34,7 +34,7 @@ namespace CtrlUI
                 DataBindString AnswerShowGameInfo = new DataBindString();
                 if (dataBindApp.Category == AppCategory.Game)
                 {
-                    AnswerShowGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Star.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    AnswerShowGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Information.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                     AnswerShowGameInfo.Name = "Show game information";
                     Answers.Add(AnswerShowGameInfo);
                 }
