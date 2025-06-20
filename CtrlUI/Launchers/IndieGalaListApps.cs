@@ -53,7 +53,7 @@ namespace CtrlUI
                 public bool in_collection { get; set; }
                 public string build_version { get; set; }
                 public List<string> tags { get; set; }
-                public List<string> build_download_path { get; set; }
+                public string build_download_path { get; set; }
             }
 
             public class Rating
@@ -70,7 +70,7 @@ namespace CtrlUI
             }
 
             public Target target { get; set; }
-            public List<string> path { get; set; }
+            public string path { get; set; }
             public double playtime { get; set; }
             public bool needsUpdate { get; set; }
         }
@@ -116,7 +116,7 @@ namespace CtrlUI
 
                 //Combine directories
                 string executableName = igInstalledApp.target.game_data.exe_path;
-                string executablePath = Path.Combine(igInstalledApp.path.FirstOrDefault(), igInstalledApp.target.item_data.slugged_name);
+                string executablePath = Path.Combine(igInstalledApp.path, igInstalledApp.target.item_data.slugged_name);
 
                 //Check executable name
                 if (string.IsNullOrWhiteSpace(executableName))
