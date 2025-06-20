@@ -1023,9 +1023,7 @@
                                     <Button Name="btn_ContentInfo_Focus" Height="0" Width="0"/>
 
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Name="border_ContentInfo_Top" Background="{DynamicResource ApplicationWhiteBrush}" Margin="0,0,20,0" CornerRadius="10">
-                                            <Image Name="image_ContentInfo_Top" Margin="5" MaxHeight="95" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
+                                        <AVStyles:ImageRound Name="image_ContentInfo_Top" Margin="0,0,20,0" MaxHeight="220" CornerRadius="10"/>
                                         <Border Name="ellipse_ContentInfo_Rating_Users" Margin="0,0,20,0" CornerRadius="100" Width="100" Height="100" Background="DimGray">
                                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <TextBlock Name="textblock_ContentInfo_Rating_Users" Margin="-15" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" FontWeight="SemiBold" HorizontalAlignment="Center"/>

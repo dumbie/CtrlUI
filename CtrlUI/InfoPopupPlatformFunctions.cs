@@ -46,11 +46,11 @@ namespace CtrlUI
                 if (topImage != null)
                 {
                     image_ContentInfo_Top.Source = topImage;
-                    border_ContentInfo_Top.Visibility = Visibility.Visible;
+                    image_ContentInfo_Top.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    border_ContentInfo_Top.Visibility = Visibility.Collapsed;
+                    image_ContentInfo_Top.Visibility = Visibility.Collapsed;
                 }
 
                 //Set ratings
