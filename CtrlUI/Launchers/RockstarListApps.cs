@@ -37,7 +37,7 @@ namespace CtrlUI
                                         string uninstallString = installDetails.GetValue("UninstallString")?.ToString();
                                         if (!string.IsNullOrWhiteSpace(publisher) && !string.IsNullOrWhiteSpace(uninstallString))
                                         {
-                                            if (publisher.Contains("Rockstar") && uninstallString.Contains("Launcher.exe") && uninstallString.Contains("-uninstall"))
+                                            if (publisher.Contains("Rockstar") && uninstallString.Contains("-uninstall"))
                                             {
                                                 string appName = installDetails.GetValue("DisplayName")?.ToString();
                                                 string appExe = installDetails.GetValue("DisplayIcon")?.ToString().Replace("\"", string.Empty);
