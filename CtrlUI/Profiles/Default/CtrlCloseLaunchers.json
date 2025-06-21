@@ -1,5 +1,14 @@
 ﻿[
   {
+    "String1": "App"
+  },
+  {
+    "String1": "Client"
+  },
+  {
+    "String1": "Launcher"
+  },
+  {
     "String1": "steam"
   },
   {
@@ -33,10 +42,10 @@
     "String1": "GlyphClientApp"
   },
   {
-    "String1": "PlayniteUI"
+    "String1": "Playnite.DesktopApp"
   },
   {
-    "String1": "launcher"
+    "String1": "Playnite.FullscreenApp"
   },
   {
     "String1": "RockstarService"
@@ -106,5 +115,92 @@
   },
   {
     "String1": "Humble App"
+  },
+  {
+    "String1": "Purple"
+  },
+  {
+    "String1": "PurpleOn"
+  },
+  {
+    "String1": "Hydra"
+  },
+  {
+    "String1": "Legacy Games Launcher"
+  },
+  {
+    "String1": "STOVE"
+  },
+  {
+    "String1": "IGClient"
+  },
+  {
+    "String1": "Starward"
+  },
+  {
+    "String1": "nostlan"
+  },
+  {
+    "String1": "Metropolis_Launcher"
+  },
+  {
+    "String1": "RetroArch"
+  },
+  {
+    "String1": "EmulationStation"
+  },
+  {
+    "String1": "ES-DE"
+  },
+  {
+    "String1": "pegasus-fe"
+  },
+  {
+    "String1": "EmuDeck"
+  },
+  {
+    "String1": "mame"
+  },
+  {
+    "String1": "OneGameLauncher"
+  },
+  {
+    "String1": "Rare"
+  },
+  {
+    "String1": "Gavilya"
+  },
+  {
+    "String1": "kolektor"
+  },
+  {
+    "String1": "Fit Launcher"
+  },
+  {
+    "String1": "Retrom"
+  },
+  {
+    "String1": "qp"
+  },
+  {
+    "String1": "gamevault"
+  },
+  {
+    "String1": "attract"
+  },
+  {
+    "String1": "RomStation"
+  },
+  {
+    "String1": "Nuxion"
+  },
+  {
+    "String1": "retrobat"
+  },
+  {
+    "String1": "RocketLauncher"
+  },
+  {
+    "String1": "HyperSpin"
   }
 ]
