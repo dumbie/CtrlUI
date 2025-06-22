@@ -1,6 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,55 +14,35 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        public class StoveLauncher
-        {
-            public string defaultPath { get; set; }
-            public List<string> defaultPathList { get; set; }
-        }
-
-        public partial class StoveApp
-        {
-            public string game_id { get; set; }
-            public string install_path { get; set; }
-            public string game_title { get; set; }
-            public string shortcut_link_url { get; set; }
-        }
-
         async Task StoveScanAddLibrary()
         {
             try
             {
-                //Get app json path
-                string roamingPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                string jsonPath = Path.Combine(roamingPath, "STOVE\\Config\\ClientConfig.json");
-
-                //Load applications from json
-                string jsonString = File.ReadAllText(jsonPath);
-                StoveLauncher installDeserial = JsonConvert.DeserializeObject<StoveLauncher>(jsonString);
-
-                //Add applications from json path
-                foreach (string installPath in installDeserial.defaultPathList)
+                //Open the Windows registry
+                using (RegistryKey registryKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
                 {
-                    try
+                    using (RegistryKey regKeyStoveApps = registryKeyCurrentUser.OpenSubKey("Software\\SGUP\\apps"))
                     {
-                        string[] infoFiles = Directory.GetFiles(installPath, "GameManifest*.upf", SearchOption.AllDirectories);
-                        foreach (string infoFile in infoFiles)
+                        if (regKeyStoveApps != null)
                         {
-                            try
+                            foreach (string appId in regKeyStoveApps.GetSubKeyNames())
                             {
-                                string infoFileString = File.ReadAllText(infoFile);
-                                StoveApp infoApplication = JsonConvert.DeserializeObject<StoveApp>(infoFileString);
-                                string appName = infoApplication.game_title;
-                                string runCommand = "sgup://run/" + infoApplication.game_id;
-                                await StoveAddApplication(appName, runCommand);
-                            }
-                            catch (Exception ex)
-                            {
-                                Debug.WriteLine("Failed to deserialize Stove game: " + infoFile + " / " + ex.Message);
+                                try
+                                {
+                                    using (RegistryKey installDetails = regKeyStoveApps.OpenSubKey(appId))
+                                    {
+                                        string exeName = installDetails.GetValue("ExeName").ToString();
+                                        string gamePath = installDetails.GetValue("GamePath").ToString();
+                                        string gameTitle = installDetails.GetValue("GameTitle").ToString();
+                                        string executablePath = Path.Combine(gamePath, exeName);
+                                        string runCommand = "sgup://run/" + appId;
+                                        await StoveAddApplication(gameTitle, executablePath, runCommand);
+                                    }
+                                }
+                                catch { }
                             }
                         }
                     }
-                    catch { }
                 }
             }
             catch (Exception ex)
@@ -72,11 +51,11 @@ namespace CtrlUI
             }
         }
 
-        async Task StoveAddApplication(string appName, string runCommand)
+        async Task StoveAddApplication(string appName, string appIcon, string runCommand)
         {
             try
             {
-                //Get launch argument
+                //Add application to check list
                 vLauncherAppAvailableCheck.Add(runCommand);
 
                 //Check if application is already added
@@ -97,17 +76,17 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Stove" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appIcon, "Stove" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
                 {
                     Category = AppCategory.Launcher,
-                    Launcher = AppLauncher.Epic,
+                    Launcher = AppLauncher.Stove,
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
-                    StatusLauncherImage = vImagePreloadEpic
+                    StatusLauncherImage = vImagePreloadStove
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);

@@ -126,7 +126,7 @@ namespace CtrlUI
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
-                Debug.WriteLine("Added UWP app: " + appName + "/" + appUserModelId);
+                //Debug.WriteLine("Added UWP app: " + appName + "/" + appUserModelId);
             }
             catch
             {
