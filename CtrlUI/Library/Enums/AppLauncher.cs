@@ -17,7 +17,12 @@
             Amazon = 9,
             ItchIO = 10,
             IndieGala = 11,
-            Humble = 12
+            Humble = 12,
+            Stove = 13,
+            GooglePlay = 14,
+            FourGame = 15,
+            BigFish = 16,
+            Arc = 17
         }
     }
 }
