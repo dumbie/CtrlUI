@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
+using static CtrlUI.Classes;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 
@@ -15,28 +15,6 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Classes
-        public class HumbleAppJson
-        {
-            public Settings settings { get; set; }
-            [JsonProperty("game-collection-4")]
-            public List<GameCollection4> gamecollection4 { get; set; }
-        }
-
-        public class Settings
-        {
-            public string downloadLocation { get; set; }
-        }
-
-        public class GameCollection4
-        {
-            public string gameName { get; set; }
-            public string status { get; set; }
-            public string downloadMachineName { get; set; }
-            public string filePath { get; set; }
-            public string executablePath { get; set; }
-        }
-
         async Task HumbleScanAddLibrary()
         {
             try

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LibraryShared
+namespace CtrlUI
 {
     public partial class Classes
     {
