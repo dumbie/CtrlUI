@@ -23,7 +23,8 @@
             FourGame = 15,
             BigFish = 16,
             Arc = 17,
-            Netmarble = 18
+            Netmarble = 18,
+            RobotCache = 19
         }
     }
 }
