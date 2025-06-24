@@ -24,7 +24,8 @@
             BigFish = 16,
             Arc = 17,
             Netmarble = 18,
-            RobotCache = 19
+            RobotCache = 19,
+            Vive = 20
         }
     }
 }
