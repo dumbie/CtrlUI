@@ -32,7 +32,8 @@
             MyGames = 24,
             NCSoft = 25,
             Nexon = 26,
-            Elixir = 27
+            Elixir = 27,
+            Gameforge = 28
         }
     }
 }
