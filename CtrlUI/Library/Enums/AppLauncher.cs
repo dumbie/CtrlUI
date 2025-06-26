@@ -30,7 +30,8 @@
             Fawkes = 22,
             Wargaming = 23,
             MyGames = 24,
-            NCSoft = 25
+            NCSoft = 25,
+            Nexon = 26
         }
     }
 }
