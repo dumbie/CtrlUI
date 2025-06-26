@@ -28,7 +28,8 @@
             Vive = 20,
             Oculus = 21,
             Fawkes = 22,
-            Wargaming = 23
+            Wargaming = 23,
+            MyGames = 24
         }
     }
 }
