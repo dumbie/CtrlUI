@@ -104,24 +104,22 @@ namespace CtrlUI
 
                     //Set run command
                     string runCommand = "origin://LaunchGame/" + contentIds;
+
+                    //Add application to check list
                     vLauncherAppAvailableCheck.Add(runCommand);
 
                     //Check if application is already added
                     DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == runCommand.ToLower());
                     if (launcherExistCheck != null)
                     {
-                        //Debug.WriteLine("EA Desktop app already in list: " + appIds);
+                        //Debug.WriteLine("Launcher app already in list: " + appIds);
                         return;
                     }
 
-                    //Get application name
-                    string appNameLower = appName.ToLower();
-
                     //Check if application name is ignored
-                    if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
+                    if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appName.ToLower()))
                     {
-                        //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
-                        await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                        //Debug.WriteLine("Launcher app is on the blacklist: " + appName);
                         return;
                     }
 

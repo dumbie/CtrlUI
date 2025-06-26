@@ -79,7 +79,7 @@ namespace CtrlUI
         {
             try
             {
-                //Get launch argument
+                //Add application to check list
                 vLauncherAppAvailableCheck.Add(runCommand);
 
                 //Check if application is already added
@@ -94,8 +94,7 @@ namespace CtrlUI
                 string appNameLower = appName.ToLower();
                 if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
                 {
-                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    //Debug.WriteLine("Launcher app is on the blacklist: " + appName);
                     return;
                 }
 

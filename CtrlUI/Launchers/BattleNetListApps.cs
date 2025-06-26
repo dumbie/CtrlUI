@@ -108,14 +108,14 @@ namespace CtrlUI
                     launchKeyboard = true;
                 }
 
-                //Add application to available list
+                //Add application to check list
                 vLauncherAppAvailableCheck.Add(launcherExePath);
 
                 //Check if application is already added
                 DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.Argument) && x.Argument.ToLower() == launchArgument.ToLower());
                 if (launcherExistCheck != null)
                 {
-                    //Debug.WriteLine("BattleNet app already in list: " + appUid);
+                    //Debug.WriteLine("Launcher app already in list: " + appUid);
                     return;
                 }
 
@@ -136,11 +136,9 @@ namespace CtrlUI
                 }
 
                 //Check if application name is ignored
-                string appNameLower = appName.ToLower();
-                if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
+                if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appName.ToLower()))
                 {
-                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    //Debug.WriteLine("Launcher app is on the blacklist: " + appName);
                     return;
                 }
 

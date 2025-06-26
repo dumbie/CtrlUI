@@ -68,7 +68,7 @@ namespace CtrlUI
                 DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == executablePath.ToLower());
                 if (launcherExistCheck != null)
                 {
-                    //Debug.WriteLine("4Game app already in list: " + appName);
+                    //Debug.WriteLine("Launcher app already in list: " + appName);
                     return;
                 }
 
@@ -76,8 +76,7 @@ namespace CtrlUI
                 string appNameLower = displayName.ToLower();
                 if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
                 {
-                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    //Debug.WriteLine("Launcher app is on the blacklist: " + appName);
                     return;
                 }
 

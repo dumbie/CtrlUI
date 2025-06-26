@@ -81,8 +81,7 @@ namespace CtrlUI
                 string appNameLower = displayName.ToLower();
                 if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
                 {
-                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + displayName);
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    //Debug.WriteLine("Launcher app is on the blacklist: " + displayName);
                     return;
                 }
 

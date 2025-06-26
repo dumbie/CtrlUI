@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
+using static CtrlUI.Classes;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 
@@ -16,37 +17,6 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Classes
-        private class ItchIOVerdict
-        {
-            public class Candidate
-            {
-                public string path { get; set; }
-                public int depth { get; set; }
-                public string flavor { get; set; }
-                public string arch { get; set; }
-                public int size { get; set; }
-                public WindowsInfo windowsInfo { get; set; }
-            }
-
-            public class WindowsInfo
-            {
-                public bool gui { get; set; }
-            }
-
-            public string basePath { get; set; }
-            public int totalSize { get; set; }
-            public List<Candidate> candidates { get; set; }
-        }
-
-        private class ItchIOApp
-        {
-            public long Identifier { get; set; }
-            public string Title { get; set; }
-            public string ExecutablePath { get; set; }
-            public string VerdictJson { get; set; }
-        }
-
         async Task ItchIOScanAddLibrary()
         {
             try
@@ -66,44 +36,45 @@ namespace CtrlUI
                     await sqLiteConnection.OpenAsync();
 
                     //Read caves
-                    using (SQLiteCommand sqlComm = new SQLiteCommand(@"SELECT game_id,verdict FROM caves", sqLiteConnection))
+                    using (SQLiteCommand sqlCommand = new SQLiteCommand(@"SELECT game_id,verdict FROM caves", sqLiteConnection))
                     {
-                        SQLiteDataReader executeReader = sqlComm.ExecuteReader();
-                        while (await executeReader.ReadAsync())
+                        using (SQLiteDataReader sqlReader = sqlCommand.ExecuteReader())
                         {
-                            try
+                            while (await sqlReader.ReadAsync())
                             {
-                                ItchIOApp itchIOApp = new ItchIOApp()
+                                try
                                 {
-                                    Identifier = (long)executeReader["game_id"],
-                                    VerdictJson = (string)executeReader["verdict"]
-                                };
-                                listApps.Add(itchIOApp);
+                                    ItchIOApp itchIOApp = new ItchIOApp()
+                                    {
+                                        Identifier = (long)sqlReader["game_id"],
+                                        VerdictJson = (string)sqlReader["verdict"]
+                                    };
+                                    listApps.Add(itchIOApp);
+                                }
+                                catch { }
                             }
-                            catch { }
                         }
                     }
 
                     //Read games
-                    using (SQLiteCommand sqlComm = new SQLiteCommand(@"SELECT id,title FROM games", sqLiteConnection))
+                    using (SQLiteCommand sqlCommand = new SQLiteCommand(@"SELECT id,title FROM games", sqLiteConnection))
                     {
-                        SQLiteDataReader executeReader = sqlComm.ExecuteReader();
-                        while (await executeReader.ReadAsync())
+                        using (SQLiteDataReader sqlReader = sqlCommand.ExecuteReader())
                         {
-                            try
+                            while (await sqlReader.ReadAsync())
                             {
-                                ItchIOApp itchIOApp = listApps.FirstOrDefault(x => x.Identifier == (long)executeReader["id"]);
-                                if (itchIOApp != null)
+                                try
                                 {
-                                    itchIOApp.Title = (string)executeReader["title"];
+                                    ItchIOApp itchIOApp = listApps.FirstOrDefault(x => x.Identifier == (long)sqlReader["id"]);
+                                    if (itchIOApp != null)
+                                    {
+                                        itchIOApp.Title = (string)sqlReader["title"];
+                                    }
                                 }
+                                catch { }
                             }
-                            catch { }
                         }
                     }
-
-                    //Close sql connection
-                    sqLiteConnection.Close();
                 }
 
                 //Process applications
@@ -139,14 +110,14 @@ namespace CtrlUI
                     return;
                 }
 
-                //Add application to available list
+                //Add application to check list
                 vLauncherAppAvailableCheck.Add(itchIOApp.ExecutablePath);
 
                 //Check if application is already added
                 DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == itchIOApp.ExecutablePath.ToLower());
                 if (launcherExistCheck != null)
                 {
-                    //Debug.WriteLine("ItchIO app already in list: " + itchIOApp.Title);
+                    //Debug.WriteLine("Launcher app already in list: " + itchIOApp.Title);
                     return;
                 }
 
@@ -154,8 +125,7 @@ namespace CtrlUI
                 string appNameLower = itchIOApp.Title.ToLower();
                 if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
                 {
-                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + itchIOApp.Title);
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    //Debug.WriteLine("Launcher app is on the blacklist: " + itchIOApp.Title);
                     return;
                 }
 

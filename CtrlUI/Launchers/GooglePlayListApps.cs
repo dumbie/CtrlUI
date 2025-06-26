@@ -47,14 +47,14 @@ namespace CtrlUI
         {
             try
             {
-                //Add app run command
+                //Add application to check list
                 vLauncherAppAvailableCheck.Add(shortcutDetails.TargetPath);
 
                 //Check if application is already added
                 DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == shortcutDetails.TargetPath.ToLower());
                 if (launcherExistCheck != null)
                 {
-                    //Debug.WriteLine("Google play app already in list: " + shortcutDetails.TargetPath);
+                    //Debug.WriteLine("Launcher app already in list: " + shortcutDetails.TargetPath);
                     return;
                 }
 
@@ -62,8 +62,7 @@ namespace CtrlUI
                 string appNameLower = shortcutDetails.Title.ToLower();
                 if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
                 {
-                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    //Debug.WriteLine("Launcher app is on the blacklist: " + appName);
                     return;
                 }
 

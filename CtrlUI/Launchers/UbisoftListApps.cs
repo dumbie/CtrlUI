@@ -87,13 +87,15 @@ namespace CtrlUI
 
                 //Get launch argument
                 string runCommand = "uplay://launch/" + appId + "/0";
+
+                //Add application to check list
                 vLauncherAppAvailableCheck.Add(runCommand);
 
                 //Check if application is already added
                 DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == runCommand.ToLower());
                 if (launcherExistCheck != null)
                 {
-                    //Debug.WriteLine("Ubisoft app already in list: " + appIds);
+                    //Debug.WriteLine("Launcher app already in list: " + appIds);
                     return;
                 }
 
@@ -104,8 +106,7 @@ namespace CtrlUI
                 string appNameLower = appName.ToLower();
                 if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
                 {
-                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    //Debug.WriteLine("Launcher app is on the blacklist: " + appName);
                     return;
                 }
 

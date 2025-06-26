@@ -65,16 +65,14 @@ namespace CtrlUI
                 DataBindApp launcherExistCheck = List_Launchers.FirstOrDefault(x => x.PathExe.ToLower() == runCommand.ToLower());
                 if (launcherExistCheck != null)
                 {
-                    //Debug.WriteLine("BigFish app already in list: " + appName);
+                    //Debug.WriteLine("Launcher app already in list: " + displayName);
                     return;
                 }
 
                 //Check if application name is ignored
-                string appNameLower = displayName.ToLower();
-                if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
+                if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == displayName.ToLower()))
                 {
-                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    //Debug.WriteLine("Launcher app is on the blacklist: " + displayName);
                     return;
                 }
 
