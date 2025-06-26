@@ -25,7 +25,9 @@
             Arc = 17,
             Netmarble = 18,
             RobotCache = 19,
-            Vive = 20
+            Vive = 20,
+            Oculus = 21,
+            Fawkes = 22
         }
     }
 }

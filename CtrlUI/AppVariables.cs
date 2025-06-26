@@ -103,6 +103,7 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadRobotCache = FileToBitmapImage(new string[] { "RobotCache" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadVive = FileToBitmapImage(new string[] { "Vive" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadOculus = FileToBitmapImage(new string[] { "Oculus" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+        public static BitmapImage vImagePreloadFawkes = FileToBitmapImage(new string[] { "Fawkes" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
         //Image cache consoles
         public static BitmapImage vImagePreloadConsole = FileToBitmapImage(new string[] { "Assets/Default/Icons/Console.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
