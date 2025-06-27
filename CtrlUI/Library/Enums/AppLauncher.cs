@@ -34,7 +34,8 @@
             Nexon = 26,
             Elixir = 27,
             Gameforge = 28,
-            Riot = 29
+            Riot = 29,
+            Glyph = 30
         }
     }
 }
