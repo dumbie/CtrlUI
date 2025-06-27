@@ -35,7 +35,8 @@
             Elixir = 27,
             Gameforge = 28,
             Riot = 29,
-            Glyph = 30
+            Glyph = 30,
+            Asobimo = 31
         }
     }
 }
