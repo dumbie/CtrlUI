@@ -36,7 +36,8 @@
             Gameforge = 28,
             Riot = 29,
             Glyph = 30,
-            Asobimo = 31
+            Asobimo = 31,
+            Ankama = 32
         }
     }
 }
