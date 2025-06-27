@@ -33,7 +33,8 @@
             NCSoft = 25,
             Nexon = 26,
             Elixir = 27,
-            Gameforge = 28
+            Gameforge = 28,
+            Riot = 29
         }
     }
 }
