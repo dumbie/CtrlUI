@@ -37,7 +37,8 @@
             Riot = 29,
             Glyph = 30,
             Asobimo = 31,
-            Ankama = 32
+            Ankama = 32,
+            GameJolt = 33
         }
     }
 }
