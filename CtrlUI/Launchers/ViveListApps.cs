@@ -33,11 +33,17 @@ namespace CtrlUI
                 {
                     try
                     {
+                        //Check if application id is in blacklist
+                        if (vViveAppIdBlacklist.Contains(appInstalled.appId))
+                        {
+                            Debug.WriteLine("Vive id is blacklisted: " + appInstalled.appId);
+                            continue;
+                        }
+
                         string appName = appInstalled.title;
-                        //string appIcon = appInstalled.imageUri;
-                        //Fix load images from HTC\Viveport\Cache
+                        string appImage = Path.Combine(appInstalled.path, "Thumbnail-square.jpg");
                         string runcommand = appInstalled.uri;
-                        await ViveAddApplication(appName, runcommand);
+                        await ViveAddApplication(appName, appImage, runcommand);
                     }
                     catch { }
                 }
@@ -48,7 +54,7 @@ namespace CtrlUI
             }
         }
 
-        async Task ViveAddApplication(string appName, string runCommand)
+        async Task ViveAddApplication(string appName, string appImage, string runCommand)
         {
             try
             {
@@ -72,7 +78,7 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Vive" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appImage, "Vive" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
