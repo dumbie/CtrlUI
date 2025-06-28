@@ -32,11 +32,15 @@ namespace CtrlUI
                                 {
                                     using (RegistryKey installDetails = regKeyUninstall.OpenSubKey(appId))
                                     {
-                                        string applicationId = installDetails.GetValue("GcGameId").ToString();
-                                        string displayIcon = installDetails.GetValue("DisplayIcon").ToString();
-                                        string displayName = installDetails.GetValue("DisplayName").ToString();
-                                        string runCommand = "mygames://play/" + applicationId;
-                                        await MyGamesAddApplication(displayName, displayIcon, runCommand);
+                                        string uninstallString = installDetails.GetValue("UninstallString").ToString();
+                                        if (uninstallString.Contains("mygames://"))
+                                        {
+                                            string applicationId = installDetails.GetValue("GcGameId").ToString();
+                                            string displayIcon = installDetails.GetValue("DisplayIcon").ToString();
+                                            string displayName = installDetails.GetValue("GcTitle").ToString();
+                                            string runCommand = "mygames://play/" + applicationId;
+                                            await MyGamesAddApplication(displayName, displayIcon, runCommand);
+                                        }
                                     }
                                 }
                                 catch { }
