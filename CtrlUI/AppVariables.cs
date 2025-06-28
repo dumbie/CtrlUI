@@ -116,6 +116,7 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadAnkama = FileToBitmapImage(new string[] { "Ankama" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadGameJolt = FileToBitmapImage(new string[] { "Game Jolt" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadHoYoPlay = FileToBitmapImage(new string[] { "HoYoPlay" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+        public static BitmapImage vImagePreloadVKPlay = FileToBitmapImage(new string[] { "VK Play" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
         //Image cache consoles
         public static BitmapImage vImagePreloadConsole = FileToBitmapImage(new string[] { "Assets/Default/Icons/Console.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
