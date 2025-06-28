@@ -38,7 +38,8 @@
             Glyph = 30,
             Asobimo = 31,
             Ankama = 32,
-            GameJolt = 33
+            GameJolt = 33,
+            HoYoPlay = 34
         }
     }
 }

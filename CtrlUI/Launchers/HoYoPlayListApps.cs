@@ -13,37 +13,44 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task GlyphScanAddLibrary()
+        async Task HoYoPlayScanAddLibrary()
         {
             try
             {
+                //Json source: AppData\Roaming\Cognosphere\HYP\1_0\data\gamedata.dat
+                //Icon source: %APPDATA%\Cognosphere\HYP\1_0\ico\*id*.ico
+                //Shortcuts: Start Menu\Programs\HoYoPlay\
+
                 //Open the Windows registry
-                using (RegistryKey registryKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                using (RegistryKey registryKeyLocal = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
                 {
-                    using (RegistryKey regKeyUninstall = registryKeyCurrentUser.OpenSubKey("Software\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall"))
+                    using (RegistryKey regKeyUninstall = registryKeyLocal.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall"))
                     {
                         if (regKeyUninstall != null)
                         {
-                            //Filter Glyph applications
-                            var regKeyGames = regKeyUninstall.GetSubKeyNames().Where(x => x.StartsWith("Glyph ")).ToList();
+                            //Filter HoYoPlay applications
+                            var regKeyGames = regKeyUninstall.GetSubKeyNames().Where(x => x.EndsWith("_production")).ToList();
                             foreach (string appId in regKeyGames)
                             {
                                 try
                                 {
                                     using (RegistryKey installDetails = regKeyUninstall.OpenSubKey(appId))
                                     {
-                                        string displayName = installDetails.GetValue("DisplayName").ToString();
-                                        string displayIcon = installDetails.GetValue("DisplayIcon").ToString();
                                         string uninstallString = installDetails.GetValue("UninstallString").ToString();
-                                        string[] uninstallSplit = uninstallString.Split("-");
-                                        string executablePath = uninstallSplit.FirstOrDefault();
-                                        string executeArguments = string.Empty;
-                                        foreach (string splitString in uninstallSplit.Skip(1))
+                                        if (uninstallString.Contains("HoYoPlay"))
                                         {
-                                            executeArguments += "-" + splitString;
+                                            string displayName = installDetails.GetValue("DisplayName").ToString();
+                                            string displayIcon = installDetails.GetValue("DisplayIcon").ToString();
+                                            string[] uninstallSplit = uninstallString.Split("--");
+                                            string executablePath = uninstallSplit.FirstOrDefault();
+                                            string executeArguments = string.Empty;
+                                            foreach (string splitString in uninstallSplit.Skip(1))
+                                            {
+                                                executeArguments += "--" + splitString;
+                                            }
+                                            executeArguments = executeArguments.Replace("--uninstall_game", "--game");
+                                            await HoYoPlayAddApplication(displayName, displayIcon, executablePath, executeArguments);
                                         }
-                                        executeArguments = executeArguments.Replace("-uninstall", "-play");
-                                        await GlyphAddApplication(displayName, displayIcon, executablePath, executeArguments);
                                     }
                                 }
                                 catch { }
@@ -54,11 +61,11 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed adding Glyph library: " + ex.Message);
+                Debug.WriteLine("Failed adding HoYoPlay library: " + ex.Message);
             }
         }
 
-        async Task GlyphAddApplication(string displayName, string displayIcon, string executablePath, string executeArguments)
+        async Task HoYoPlayAddApplication(string displayName, string displayIcon, string executablePath, string executeArguments)
         {
             try
             {
@@ -82,26 +89,26 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { displayName, displayIcon, "GlyphClient" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { displayName, displayIcon, "HoYoPlay" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
                 {
                     Category = AppCategory.Launcher,
-                    Launcher = AppLauncher.Glyph,
+                    Launcher = AppLauncher.HoYoPlay,
                     Name = displayName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = executablePath,
                     Argument = executeArguments,
-                    StatusLauncherImage = vImagePreloadGlyph
+                    StatusLauncherImage = vImagePreloadHoYoPlay
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
-                //Debug.WriteLine("Added Glyph app: " + displayName);
+                //Debug.WriteLine("Added HoYoPlay app: " + displayName);
             }
             catch
             {
-                Debug.WriteLine("Failed adding Glyph app: " + displayName);
+                Debug.WriteLine("Failed adding HoYoPlay app: " + displayName);
             }
         }
     }
