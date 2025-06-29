@@ -41,7 +41,8 @@
             GameJolt = 33,
             HoYoPlay = 34,
             VKPlay = 35,
-            HikariField = 36
+            HikariField = 36,
+            LoadingBay = 37
         }
     }
 }
