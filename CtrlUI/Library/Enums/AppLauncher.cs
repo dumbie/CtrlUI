@@ -40,7 +40,8 @@
             Ankama = 32,
             GameJolt = 33,
             HoYoPlay = 34,
-            VKPlay = 35
+            VKPlay = 35,
+            HikariField = 36
         }
     }
 }
