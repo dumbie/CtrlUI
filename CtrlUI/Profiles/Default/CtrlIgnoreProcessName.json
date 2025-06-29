@@ -1,12 +1,15 @@
 [
   {
-    "String1": "ctrlui"
+    "String1": "CtrlUI"
   },
   {
-    "String1": "directxinput"
+    "String1": "DirectXInput"
   },
   {
-    "String1": "fpsoverlayer"
+    "String1": "FpsOverlayer"
+  },
+  {
+    "String1": "ScreenCaptureTool"
   },
   {
     "String1": "updater"

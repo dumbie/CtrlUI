@@ -9,6 +9,12 @@
     "String1": "Launcher"
   },
   {
+    "String1": "XboxPcApp"
+  },
+  {
+    "String1": "XboxPcTray"
+  },
+  {
     "String1": "steam"
   },
   {
@@ -16,6 +22,9 @@
   },
   {
     "String1": "EADesktop"
+  },
+  {
+    "String1": "EABackgroundService"
   },
   {
     "String1": "upc"
@@ -66,7 +75,10 @@
     "String1": "gfclient"
   },
   {
-    "String1": "RiotClientUx"
+    "String1": "Riot Client"
+  },
+  {
+    "String1": "Riot Services"
   },
   {
     "String1": "Innova.Launcher"
@@ -138,6 +150,9 @@
     "String1": "Starward"
   },
   {
+    "String1": "CollapseLauncher"
+  },
+  {
     "String1": "nostlan"
   },
   {
@@ -202,5 +217,125 @@
   },
   {
     "String1": "HyperSpin"
+  },
+  {
+    "String1": "GameJoltClient"
+  },
+  {
+    "String1": "Flow.Launcher"
+  },
+  {
+    "String1": "Elixir Games"
+  },
+  {
+    "String1": "LauncherElectron"
+  },
+  {
+    "String1": "SpacefarerGamesLauncher"
+  },
+  {
+    "String1": "wgc"
+  },
+  {
+    "String1": "bfgclient"
+  },
+  {
+    "String1": "OculusClient"
+  },
+  {
+    "String1": "LoadingBayInstaller"
+  },
+  {
+    "String1": "LoadingBayService"
+  },
+  {
+    "String1": "Netmarble Launcher"
+  },
+  {
+    "String1": "HYP"
+  },
+  {
+    "String1": "VFUNLauncher"
+  },
+  {
+    "String1": "VLauncher"
+  },
+  {
+    "String1": "Vive"
+  },
+  {
+    "String1": "Ankama Launcher"
+  },
+  {
+    "String1": "HIKARI FIELD CLIENT"
+  },
+  {
+    "String1": "ASOBIMOLauncher"
+  },
+  {
+    "String1": "Artix Game Launcher"
+  },
+  {
+    "String1": "GeForceNOW"
+  },
+  {
+    "String1": "Afterplay"
+  },
+  {
+    "String1": "HyperPlay"
+  },
+  {
+    "String1": "Ultra"
+  },
+  {
+    "String1": "PlariumPlay"
+  },
+  {
+    "String1": "PlariumPlayClientService"
+  },
+  {
+    "String1": "AppIDC"
+  },
+  {
+    "String1": "tinyBuild Launcher"
+  },
+  {
+    "String1": "tymtLauncher"
+  },
+  {
+    "String1": "Terribilis Studio Launcher"
+  },
+  {
+    "String1": "tiggit"
+  },
+  {
+    "String1": "WiseGameBooster"
+  },
+  {
+    "String1": "GameLauncher"
+  },
+  {
+    "String1": "GameConsole-wt"
+  },
+  {
+    "String1": "GamesAppService"
+  },
+  {
+    "String1": "Alderon Games Launcher"
+  },
+  {
+    "String1": "Tempo Launcher"
+  },
+  {
+    "String1": "Tempo Launcher - Beta"
+  },
+  {
+    "String1": "Chaf Games"
+  },
+  {
+    "String1": "FrontEnd"
+  },
+  {
+    "String1": "JagexLauncher"
   }
 ]
