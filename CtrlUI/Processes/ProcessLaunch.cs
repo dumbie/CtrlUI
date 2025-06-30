@@ -100,6 +100,16 @@ namespace CtrlUI
                     return;
                 }
 
+                //Check launcher actions
+                if (dataBindApp.Category == AppCategory.Launcher)
+                {
+                    if (dataBindApp.Launcher == AppLauncher.Jagex)
+                    {
+                        //Close Jagex launcher to allow launch argument
+                        AVProcess.Close_ProcessesByName("JagexLauncher", true);
+                    }
+                }
+
                 //Set launch argument
                 string launchArgument = string.Empty;
                 if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)

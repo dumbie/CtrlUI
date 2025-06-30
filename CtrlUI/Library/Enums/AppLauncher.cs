@@ -42,7 +42,8 @@
             HoYoPlay = 34,
             VKPlay = 35,
             HikariField = 36,
-            LoadingBay = 37
+            LoadingBay = 37,
+            Jagex = 38
         }
     }
 }

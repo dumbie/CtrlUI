@@ -119,6 +119,7 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadVKPlay = FileToBitmapImage(new string[] { "VK Play" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadHikariField = FileToBitmapImage(new string[] { "Hikari Field" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadLoadingBay = FileToBitmapImage(new string[] { "Loading Bay" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+        public static BitmapImage vImagePreloadJagex = FileToBitmapImage(new string[] { "Jagex" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
         //Image cache consoles
         public static BitmapImage vImagePreloadConsole = FileToBitmapImage(new string[] { "Assets/Default/Icons/Console.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
