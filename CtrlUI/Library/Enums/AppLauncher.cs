@@ -43,7 +43,8 @@
             VKPlay = 35,
             HikariField = 36,
             LoadingBay = 37,
-            Jagex = 38
+            Jagex = 38,
+            Paradox = 39
         }
     }
 }
