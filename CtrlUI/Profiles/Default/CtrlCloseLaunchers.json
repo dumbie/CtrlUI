@@ -15,6 +15,9 @@
     "String1": "XboxPcTray"
   },
   {
+    "String1": "XboxPcAppFT"
+  },
+  {
     "String1": "steam"
   },
   {
@@ -117,7 +120,13 @@
     "String1": "RazerCortex"
   },
   {
+    "String1": "PhotonExplorer"
+  },
+  {
     "String1": "PhotonFrontend"
+  },
+  {
+    "String1": "PhotonManager"
   },
   {
     "String1": "NCLauncher2"
@@ -276,7 +285,16 @@
     "String1": "Artix Game Launcher"
   },
   {
+    "String1": "GameLauncher"
+  },
+  {
+    "String1": "Game Launcher"
+  },
+  {
     "String1": "GeForceNOW"
+  },
+  {
+    "String1": "GeForceNOWContainer"
   },
   {
     "String1": "Afterplay"
@@ -337,5 +355,47 @@
   },
   {
     "String1": "JagexLauncher"
+  },
+  {
+    "String1": "GameRoom"
+  },
+  {
+    "String1": "ksgamelauncher"
+  },
+  {
+    "String1": "BsgLauncher"
+  },
+  {
+    "String1": "Aurora Game Hub"
+  },
+  {
+    "String1": "glaunch"
+  },
+  {
+    "String1": "DLsiteNest"
+  },
+  {
+    "String1": "NinnyRomLauncher"
+  },
+  {
+    "String1": "OS Game-Launcher"
+  },
+  {
+    "String1": "Ultra Game Launcher"
+  },
+  {
+    "String1": "flex-launcher"
+  },
+  {
+    "String1": "gjagent"
+  },
+  {
+    "String1": "Ninja Kiwi Archive"
+  },
+  {
+    "String1": "Open Loot Launcher"
+  },
+  {
+    "String1": "ArmouryCrate"
   }
 ]
