@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Security.Principal;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -49,7 +50,7 @@ namespace CtrlUI
         public static bool vMousePressDownXButton1 = false;
         public static string[] vSelectNearCharacterLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Gallery", "lb_Search", "lb_FilePicker" };
         public static string[] vTabTargetListsSingleColumn = { "lb_Manage_AddAppCategory", "lb_Manage_AddEmulatorCategory" };
-        public static string[] vTabTargetListsFirstLastColumn = { };
+        public static string[] vTabTargetListsFirstLastColumn = { "lb_Sorting" };
         public static string[] vTabTargetListsFirstLastItem = { };
 
         //Dispatcher Timers
@@ -121,6 +122,7 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadLoadingBay = FileToBitmapImage(new string[] { "Loading Bay" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadJagex = FileToBitmapImage(new string[] { "Jagex" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
         public static BitmapImage vImagePreloadParadox = FileToBitmapImage(new string[] { "Paradox" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+        public static BitmapImage vImagePreloadDLsite = FileToBitmapImage(new string[] { "DLsite" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
 
         //Image cache consoles
         public static BitmapImage vImagePreloadConsole = FileToBitmapImage(new string[] { "Assets/Default/Icons/Console.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
@@ -196,8 +198,9 @@ namespace CtrlUI
         //Category Variables
         public static ListCategory vCurrentListCategory = ListCategory.App;
 
-        //Sort Variables
-        public static SortingType vSortType = SortingType.Number;
+        //Sorting Variables
+        public static bool vSortingOpen = false;
+        public static AVFocusDetails vSortingElementFocus = new AVFocusDetails();
 
         //HowLongToBeat Variables
         public static bool vHowLongToBeatOpen = false;
@@ -226,7 +229,6 @@ namespace CtrlUI
         public static FilePickerSettings vFilePickerSettings = new FilePickerSettings();
         public static AVFocusDetails vFilePickerElementFocus = new AVFocusDetails();
         public static List<PickerNavigation> vFilePickerNavigationHistory = new List<PickerNavigation>();
-        public static SortingType vFilePickerSortingType = SortingType.Name;
         public static string vFilePickerSourcePath = string.Empty;
         public static string vFilePickerCurrentPath = string.Empty;
         public static string vFilePickerPreviousPath = string.Empty;
@@ -239,9 +241,10 @@ namespace CtrlUI
         public static List<DataBindFile> vClipboardFiles = new List<DataBindFile>();
 
         //Manage Variables
+        public static AppCategory vEditAppDataBindCategory = AppCategory.App;
         public static DataBindApp vEditAppDataBind = null;
         public static DataBindApp vMoveAppDataBind = null;
-        public static AppCategory vEditAppDataBindCategory = AppCategory.App;
+        public static ListBox vMoveAppListBox = null;
 
         //Controller Variables
         public static bool vControllerBusy = false;

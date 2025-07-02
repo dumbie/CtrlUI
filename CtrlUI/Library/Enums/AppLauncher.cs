@@ -44,7 +44,8 @@
             HikariField = 36,
             LoadingBay = 37,
             Jagex = 38,
-            Paradox = 39
+            Paradox = 39,
+            DLsite = 40
         }
     }
 }
