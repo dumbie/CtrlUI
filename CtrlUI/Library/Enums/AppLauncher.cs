@@ -45,7 +45,8 @@
             LoadingBay = 37,
             Jagex = 38,
             Paradox = 39,
-            DLsite = 40
+            DLsite = 40,
+            WildTangent = 41
         }
     }
 }
