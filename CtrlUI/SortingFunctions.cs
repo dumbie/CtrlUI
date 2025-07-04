@@ -88,9 +88,21 @@ namespace CtrlUI
                     {
                         Function = x => x.Name,
                     };
-                    SortFunction<DataBindFile> sortFuncDate = new SortFunction<DataBindFile>()
+                    SortFunction<DataBindFile> sortFuncDateModified = new SortFunction<DataBindFile>()
                     {
                         Function = x => x.DateModified
+                    };
+                    SortFunction<DataBindFile> sortFuncDateCreated = new SortFunction<DataBindFile>()
+                    {
+                        Function = x => x.DateCreated
+                    };
+                    SortFunction<DataBindFile> sortFuncFileExtension = new SortFunction<DataBindFile>()
+                    {
+                        Function = x => x.Extension
+                    };
+                    SortFunction<DataBindFile> sortFuncFileSize = new SortFunction<DataBindFile>()
+                    {
+                        Function = x => x.Size
                     };
 
                     //Item
@@ -103,9 +115,30 @@ namespace CtrlUI
 
                     lb_Sorting.Items.Add(new ProfileShared()
                     {
-                        String1 = "Sort by date",
+                        String1 = "Sort by date modified",
                         Object1 = sortListBox,
-                        Object2 = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncDate]
+                        Object2 = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncDateModified]
+                    });
+
+                    lb_Sorting.Items.Add(new ProfileShared()
+                    {
+                        String1 = "Sort by date created",
+                        Object1 = sortListBox,
+                        Object2 = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncDateCreated]
+                    });
+
+                    lb_Sorting.Items.Add(new ProfileShared()
+                    {
+                        String1 = "Sort by file type",
+                        Object1 = sortListBox,
+                        Object2 = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncFileExtension]
+                    });
+
+                    lb_Sorting.Items.Add(new ProfileShared()
+                    {
+                        String1 = "Sort by file size",
+                        Object1 = sortListBox,
+                        Object2 = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncFileSize]
                     });
                 }
                 else
@@ -116,10 +149,17 @@ namespace CtrlUI
                         Function = x => x.Name
                     };
 
+                    //Check name title
+                    string sortNameTitle = "Sort by name";
+                    if (sortListBox == lb_Emulators)
+                    {
+                        sortNameTitle = "Sort by platform name";
+                    }
+
                     //Item
                     lb_Sorting.Items.Add(new ProfileShared()
                     {
-                        String1 = "Sort by name",
+                        String1 = sortNameTitle,
                         Object1 = sortListBox,
                         Object2 = sortFuncName
                     });
@@ -163,7 +203,8 @@ namespace CtrlUI
                         Object2 = sortFuncRunTime
                     });
                 }
-                else if (sortListBox == lb_Emulators)
+
+                if (sortListBox == lb_Emulators)
                 {
                     //Function
                     SortFunction<DataBindApp> sortFuncName = new SortFunction<DataBindApp>()
@@ -188,7 +229,7 @@ namespace CtrlUI
                     {
                         String1 = "Sort by emulator category",
                         Object1 = sortListBox,
-                        Object2 = sortFuncName
+                        Object2 = sortFuncCategory
                     });
                 }
                 else if (sortListBox == lb_Launchers)

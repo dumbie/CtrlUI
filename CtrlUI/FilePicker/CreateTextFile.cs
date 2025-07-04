@@ -3,9 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFocus;
-using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -51,8 +49,10 @@ namespace CtrlUI
                     string fileDetailed = fileSize + " (" + fileDate + ")";
 
                     //Create new file databindfile
-                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/TextFile.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                    DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, Name = fileName, NameDetail = fileDetailed, DateModified = dateCreated, ImageBitmap = fileImage, PathFile = newFilePath };
+                    DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, Extension = ".txt", Name = fileName, NameDetail = fileDetailed, DateCreated = dateCreated, DateModified = dateCreated, PathFile = newFilePath };
+
+                    //Update file details in databindfile
+                    FilePicker_LoadDetails(dataBindFileFile);
 
                     //Add the new listbox item
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);

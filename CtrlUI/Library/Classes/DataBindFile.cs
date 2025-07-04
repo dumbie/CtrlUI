@@ -67,6 +67,20 @@ namespace LibraryShared
                 }
             }
 
+            private DateTime PrivDateCreated;
+            public DateTime DateCreated
+            {
+                get { return this.PrivDateCreated; }
+                set
+                {
+                    if (this.PrivDateCreated != value)
+                    {
+                        this.PrivDateCreated = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private DateTime PrivDateModified;
             public DateTime DateModified
             {
@@ -146,6 +160,34 @@ namespace LibraryShared
                     if (this.PrivPathRoot != value)
                     {
                         this.PrivPathRoot = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private string PrivExtension;
+            public string Extension
+            {
+                get { return this.PrivExtension; }
+                set
+                {
+                    if (this.PrivExtension != value)
+                    {
+                        this.PrivExtension = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private long PrivSize;
+            public long Size
+            {
+                get { return this.PrivSize; }
+                set
+                {
+                    if (this.PrivSize != value)
+                    {
+                        this.PrivSize = value;
                         NotifyPropertyChanged();
                     }
                 }

@@ -127,7 +127,7 @@ namespace CtrlUI
                                 bool hiddenFileFolder = listFolder.Attributes.HasFlag(FileAttributes.Hidden);
                                 if (!systemFileFolder && (!hiddenFileFolder || SettingLoad(vConfigurationCtrlUI, "ShowHiddenFilesFolders", typeof(bool))))
                                 {
-                                    DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, ClipboardType = clipboardType, Name = listFolder.Name, NameDetail = folderDetailed, DateModified = listFolder.LastWriteTime, PathFile = listFolder.FullName, PathRoot = targetPath };
+                                    DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, ClipboardType = clipboardType, Name = listFolder.Name, NameDetail = folderDetailed, DateCreated = listFolder.CreationTime, DateModified = listFolder.LastWriteTime, PathFile = listFolder.FullName, PathRoot = targetPath };
                                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
                                 }
                             }
@@ -168,7 +168,8 @@ namespace CtrlUI
                                 }
 
                                 //Get the file size
-                                string fileSize = AVFunctions.ConvertBytesSizeToString(listFile.Length);
+                                long fileSizeLong = listFile.Length;
+                                string fileSizeString = AVFunctions.ConvertBytesSizeToString(fileSizeLong);
 
                                 //Get the file date
                                 string fileDate = listFile.LastWriteTime.ToShortDateString().Replace("-", "/");
@@ -181,12 +182,15 @@ namespace CtrlUI
                                 }
                                 else
                                 {
-                                    fileDetailed = fileSize + " (" + fileDate + ")";
+                                    fileDetailed = fileSizeString + " (" + fileDate + ")";
                                 }
+
+                                //Get file extension
+                                string fileExtension = listFile.Extension;
 
                                 //Check if file is a shortcut
                                 bool fileIsShortcut = false;
-                                if (listFile.Extension == ".url" || listFile.Extension == ".lnk" || listFile.Extension == ".pif")
+                                if (fileExtension == ".url" || fileExtension == ".lnk" || fileExtension == ".pif")
                                 {
                                     fileIsShortcut = true;
                                 }
@@ -204,7 +208,7 @@ namespace CtrlUI
                                 bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
                                 if (!systemFileFolder && (!hiddenFileFolder || SettingLoad(vConfigurationCtrlUI, "ShowHiddenFilesFolders", typeof(bool))))
                                 {
-                                    DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, ClipboardType = clipboardType, IsShortcut = fileIsShortcut, Name = listFile.Name, NameDetail = fileDetailed, DateModified = listFile.LastWriteTime, PathFile = listFile.FullName, PathRoot = targetPath };
+                                    DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, ClipboardType = clipboardType, IsShortcut = fileIsShortcut, Size = fileSizeLong, Extension = fileExtension, Name = listFile.Name, NameDetail = fileDetailed, DateCreated = listFile.CreationTime, DateModified = listFile.LastWriteTime, PathFile = listFile.FullName, PathRoot = targetPath };
                                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
                                 }
                             }
