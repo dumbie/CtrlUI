@@ -79,7 +79,10 @@ namespace CtrlUI
                         }
                         else
                         {
-                            SortAppListsSwitch(false);
+                            await AVActions.DispatcherInvoke(async delegate
+                            {
+                                await Popup_Show_Sorting();
+                            });
                         }
 
                         ControllerUsed = true;
@@ -223,9 +226,9 @@ namespace CtrlUI
                         Debug.WriteLine("Button: BackPressed / Showing search");
                         if (vFilePickerOpen)
                         {
-                            AVActions.DispatcherInvoke(delegate
+                            await AVActions.DispatcherInvoke(async delegate
                             {
-                                FilePicker_SortFilesFoldersSwitch(false);
+                                await Popup_Show_Sorting();
                             });
                         }
                         else if (!Popup_Open_Any())

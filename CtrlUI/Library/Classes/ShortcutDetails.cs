@@ -23,7 +23,7 @@ namespace LibraryShared
             public string ShortcutPath { get; set; }
             public string Argument { get; set; }
             public string Comment { get; set; }
-            public DateTime TimeModify { get; set; }
+            public DateTime DateModified { get; set; }
         }
     }
 }

@@ -159,7 +159,7 @@ namespace CtrlUI
                     MainMenuButtonsEnable(false);
 
                     //Enable the application window
-                    grid_DisableHelp.Visibility = Visibility.Collapsed;
+                    grid_ControllerHelp_Content.Opacity = 1.00;
                     grid_DisableMain.Visibility = Visibility.Collapsed;
                 });
             }
@@ -180,7 +180,7 @@ namespace CtrlUI
                     MainMenuButtonsDisable();
 
                     //Disable the application window
-                    grid_DisableHelp.Visibility = Visibility.Visible;
+                    grid_ControllerHelp_Content.Opacity = 0.10;
                     grid_DisableMain.Visibility = Visibility.Visible;
                 });
             }

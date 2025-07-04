@@ -12,7 +12,7 @@
         Width="1280"
         Height="720"
         Topmost="True"
-        WindowStyle="None" 
+        WindowStyle="None"
         WindowState="Normal"
         AllowsTransparency="True"
         ResizeMode="CanMinimize"
@@ -26,12 +26,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Grid Help -->
+        <!-- Grid Controller Help -->
         <Border Name="grid_ControllerHelp" Grid.Row="0" Margin="0,0,0,5" Height="45" CornerRadius="5" Visibility="Collapsed">
             <Border.Background>
                 <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>
-            <Grid>
+            <Grid Name="grid_ControllerHelp_Content">
                 <AVStyles:ScrollViewerLoopHorizontal ScrollLoopSpeed="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,20,0" Style="{StaticResource ScrollViewerHidden}">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Name="sp_ControllerHelpLeft" Orientation="Horizontal" Margin="5,5,10,5" Visibility="Collapsed">
@@ -72,13 +72,6 @@
                         </StackPanel>
                     </StackPanel>
                 </AVStyles:ScrollViewerLoopHorizontal>
-
-                <!-- Status - Disable -->
-                <Border Name="grid_DisableHelp" CornerRadius="10" Visibility="Collapsed">
-                    <Border.Background>
-                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
-                    </Border.Background>
-                </Border>
             </Grid>
         </Border>
 
@@ -100,14 +93,14 @@
                         <Button Name="button_MenuHamburger" Margin="0,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Open the main menu">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Hamburger.png"/>
                         </Button>
+                        <Button Name="button_MenuSorting" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Sorting">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/SortFilter.png"/>
+                        </Button>
                         <Button Name="button_MenuMinimize" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Minimize application">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/AppMinimize.png"/>
                         </Button>
                         <Button Name="button_MenuClose" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Exit application">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/AppClose.png"/>
-                        </Button>
-                        <Button Name="button_MenuSorting" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Sort apps or files">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Sorting.png"/>
                         </Button>
                     </StackPanel>
 
@@ -137,11 +130,6 @@
                             <Image Name="img_Menu_GoGStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                             <Image Name="img_Menu_EpicStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                             <Image Name="img_Menu_BattleNetStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                            <Image Name="img_Menu_RockstarStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                            <Image Name="img_Menu_AmazonStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                            <Image Name="img_Menu_IndieGalaStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                            <Image Name="img_Menu_ItchIOStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                            <Image Name="img_Menu_HumbleStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                             <Image Name="img_Menu_DiscordStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
 
                             <Image Name="img_Menu_FpsOverlayerStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
@@ -234,7 +222,7 @@
 
                         <Border Margin="0,5,0,0" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
 
-                        <StackPanel Name="stackpanel_Search_Interface" Margin="0,5,0,0" Visibility="Collapsed">
+                        <StackPanel Name="stackpanel_Search_Interface" Margin="0,10,0,0" Visibility="Collapsed">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -308,7 +296,7 @@
                         <StackPanel>
                             <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Now it's time to quickly setup some basics to get you going along with the application."/>
                             <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Connect your controller and set it up in DirectXInput and then you will able to use it in this application."/>
-                            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Once you have a controller connected through DirectXInput you can always access CtrlUI by pressing on the 'Guide' button, holding down the 'Guide' button will open an onscreen keyboard."/>
+                            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Once you have a controller connected through the DirectXInput application you can always access CtrlUI by pressing on the 'Guide' button, holding down the 'Guide' button will open an onscreen keyboard."/>
                             <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="If you are running into an issue or can't find something, you might find your answer on the 'Help' page."/>
                             <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Here are some popular applications for you to setup and easily launch later on, you can add all the applications you want later on by clicking on the 'Add application' button in the main menu."/>
 
@@ -930,7 +918,7 @@
                         <Button Name="grid_Popup_FilePicker_button_ControllerBack" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Sort files and folders" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_FilePicker_Back" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Height="30" Width="30" Margin="0,0,5,0"/>
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Sorting.png" Height="35" Width="35"/>
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/SortFilter.png" Height="35" Width="35"/>
                             </StackPanel>
                         </Button>
                         <Button Name="grid_Popup_FilePicker_button_ControllerStart" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Select file or folder" Visibility="Collapsed">
@@ -1140,6 +1128,41 @@
                         <Button Name="grid_Popup_MessageBox_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_MessageBox_Close" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Popup - Sorting -->
+                <Grid Name="grid_Popup_Sorting" Visibility="Collapsed">
+                    <Grid Margin="140,0,140,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="0.80*"/>
+                            <RowDefinition Height="0.20*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0">
+                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Sorting"/>
+                            <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Ascending" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                <CheckBox Name="checkbox_Sorting_Direction" Style="{StaticResource CheckBoxWhite}" Margin="10,0,10,0"/>
+                                <TextBlock Text="Descending" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            </StackPanel>
+                            <ListBox Name="lb_Sorting" Margin="0,10,0,0" VerticalAlignment="Top" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemString}" Style="{StaticResource ListBoxVertical}" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Shortcuts -->
+                    <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
+                        <Button Name="grid_Popup_Sorting_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="image_Sorting_Close" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
                             </StackPanel>
                         </Button>

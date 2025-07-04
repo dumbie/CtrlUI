@@ -19,6 +19,26 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        //Check and return the highest app number
+        public int GetHighestAppNumber()
+        {
+            int newNumber = 0;
+            try
+            {
+                IEnumerable<DataBindApp> CurrentApps = CombineAppLists(true, true, true, false, false, false, false);
+                if (CurrentApps.Any())
+                {
+                    newNumber = CurrentApps.Select(x => x.Number).Max() + 1;
+                }
+                else
+                {
+                    newNumber = 1;
+                }
+            }
+            catch { }
+            return newNumber;
+        }
+
         //Add application to the specific list
         async Task AddAppToList(DataBindApp dataBindApp, bool generateAppNumber, bool loadAppImage)
         {

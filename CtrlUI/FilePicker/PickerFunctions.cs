@@ -219,7 +219,7 @@ namespace CtrlUI
                 DataBindFile dataBindFile = (DataBindFile)lb_FilePicker.SelectedItem;
 
                 //Check the file or folder
-                if (vFilePickerCurrentPath == "PC" || dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUpPre)
+                if (vFilePickerCurrentPath == "PC" || vFilePickerCurrentPath == "UWP" || dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUpPre)
                 {
                     Debug.WriteLine("Invalid file type, cannot be selected.");
                     return;

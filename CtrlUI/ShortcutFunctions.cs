@@ -130,7 +130,7 @@ namespace CtrlUI
                         shortcutDetails.ShortcutPath = shortcutPath;
                         shortcutDetails.Argument = argumentString;
                         shortcutDetails.Comment = commentString;
-                        shortcutDetails.TimeModify = folderItem.ModifyDate;
+                        shortcutDetails.DateModified = folderItem.ModifyDate;
                     }
                     catch (Exception ex)
                     {
@@ -418,7 +418,7 @@ namespace CtrlUI
                 }
 
                 //Add the shortcut to the list
-                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathLaunch = shortcutDetails.WorkingPath, PathShortcut = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusUrlProtocol = shortcutUrlProtocol, StatusUrlBrowser = shortcutUrlBrowser, StatusLauncherImage = launcherImage, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
+                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathLaunch = shortcutDetails.WorkingPath, PathShortcut = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusUrlProtocol = shortcutUrlProtocol, StatusUrlBrowser = shortcutUrlBrowser, StatusLauncherImage = launcherImage, DateModified = shortcutDetails.DateModified, StatusAvailable = shortcutAvailable };
                 if (shortcutDetails.Type == ShortcutType.UWP)
                 {
                     dataBindApp.AppUserModelId = shortcutDetails.TargetPath;

@@ -89,7 +89,7 @@ namespace CtrlUI
                     }
 
                     //Update controller help text
-                    UpdateControllerHelpText("Quick launch", "Sort", string.Empty, "Interact", string.Empty, "Search", "Menu", string.Empty, string.Empty);
+                    UpdateControllerHelpText("Quick launch", "Sorting", string.Empty, "Interact", string.Empty, "Search", "Menu", string.Empty, string.Empty);
                 });
             }
             catch { }

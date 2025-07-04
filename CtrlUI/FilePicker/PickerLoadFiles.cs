@@ -77,18 +77,8 @@ namespace CtrlUI
 
                 //Get all the top files and folders
                 DirectoryInfo directoryInfo = new DirectoryInfo(targetPath);
-                DirectoryInfo[] directoryFolders = null;
-                FileInfo[] directoryFiles = null;
-                if (vFilePickerSortingType == SortingType.Name)
-                {
-                    directoryFolders = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
-                    directoryFiles = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
-                }
-                else
-                {
-                    directoryFolders = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly).OrderByDescending(x => x.LastWriteTime).ToArray();
-                    directoryFiles = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).OrderByDescending(x => x.LastWriteTime).ToArray();
-                }
+                DirectoryInfo[] directoryFolders = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
+                FileInfo[] directoryFiles = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
 
                 //Get all the directories from target directory
                 if (vFilePickerSettings.ShowDirectories)
@@ -194,6 +184,13 @@ namespace CtrlUI
                                     fileDetailed = fileSize + " (" + fileDate + ")";
                                 }
 
+                                //Check if file is a shortcut
+                                bool fileIsShortcut = false;
+                                if (listFile.Extension == ".url" || listFile.Extension == ".lnk" || listFile.Extension == ".pif")
+                                {
+                                    fileIsShortcut = true;
+                                }
+
                                 //Check the copy cut type
                                 ClipboardType clipboardType = ClipboardType.None;
                                 DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault(x => x.PathFile == listFile.FullName);
@@ -207,13 +204,7 @@ namespace CtrlUI
                                 bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
                                 if (!systemFileFolder && (!hiddenFileFolder || SettingLoad(vConfigurationCtrlUI, "ShowHiddenFilesFolders", typeof(bool))))
                                 {
-                                    FileType fileType = FileType.File;
-                                    string fileExtension = listFile.Extension;
-                                    if (fileExtension == ".url" || fileExtension == ".lnk")
-                                    {
-                                        fileType = FileType.Link;
-                                    }
-                                    DataBindFile dataBindFileFile = new DataBindFile() { FileType = fileType, ClipboardType = clipboardType, Name = listFile.Name, NameDetail = fileDetailed, DateModified = listFile.LastWriteTime, PathFile = listFile.FullName, PathRoot = targetPath };
+                                    DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, ClipboardType = clipboardType, IsShortcut = fileIsShortcut, Name = listFile.Name, NameDetail = fileDetailed, DateModified = listFile.LastWriteTime, PathFile = listFile.FullName, PathRoot = targetPath };
                                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
                                 }
                             }

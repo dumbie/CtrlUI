@@ -181,7 +181,7 @@
 
     <!-- ListBoxItemString -->
     <DataTemplate x:Key="ListBoxItemString">
-        <TextBlock Margin="8,0,8,0" Text="{Binding Name}" VerticalAlignment="Center" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+        <TextBlock Margin="8,4,8,4" Text="{Binding String1}" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}"/>
     </DataTemplate>
 
     <!-- ListBoxItemIconString -->

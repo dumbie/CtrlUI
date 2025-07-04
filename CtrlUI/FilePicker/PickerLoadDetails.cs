@@ -46,7 +46,7 @@ namespace CtrlUI
             {
                 //Check file type
                 BitmapImage listImageBitmap = null;
-                if (dataBindFile.FileType == FileType.File || dataBindFile.FileType == FileType.Link || dataBindFile.FileType == FileType.Folder)
+                if (dataBindFile.FileType == FileType.File || dataBindFile.FileType == FileType.Folder)
                 {
                     //Get image file
                     if (vFilePickerSettings.ShowEmulatorInterface)

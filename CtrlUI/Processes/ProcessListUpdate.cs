@@ -80,7 +80,7 @@ namespace CtrlUI
                         foreach (DataBindApp existingCombinedApp in combinedAppLists.Where(filterCombinedApp))
                         {
                             //Update the process running time
-                            existingCombinedApp.StatusProcessRunTime = processRunTime;
+                            existingCombinedApp.StatusProcessRunningTime = processRunTime;
 
                             //Update the process running status
                             existingCombinedApp.StatusRunning = processStatusRunning;
@@ -141,7 +141,7 @@ namespace CtrlUI
                             }
 
                             //Update the process running time
-                            existingProcessApp.StatusProcessRunTime = processRunTime;
+                            existingProcessApp.StatusProcessRunningTime = processRunTime;
 
                             //Update the process suspended status
                             existingProcessApp.StatusSuspended = processStatusSuspended;
@@ -181,7 +181,7 @@ namespace CtrlUI
                         listProcessMulti.Add(processMulti);
 
                         //Add the process to the process list
-                        DataBindApp dataBindApp = new DataBindApp() { Type = processMulti.Type, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processMulti.WindowTitleMain, AppUserModelId = processAppUserModelId, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, StatusNotResponding = processStatusNotResponding, StatusProcessRunTime = processRunTime };
+                        DataBindApp dataBindApp = new DataBindApp() { Type = processMulti.Type, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processMulti.WindowTitleMain, AppUserModelId = processAppUserModelId, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, StatusNotResponding = processStatusNotResponding, StatusProcessRunningTime = processRunTime };
                         await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
 
                         //Add the process to the search list

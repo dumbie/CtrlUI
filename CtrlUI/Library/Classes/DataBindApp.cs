@@ -366,15 +366,15 @@ namespace LibraryShared
                 }
             }
 
-            private int PrivStatusProcessRunTime = -1;
-            public int StatusProcessRunTime
+            private int PrivStatusProcessRunningTime = -1;
+            public int StatusProcessRunningTime
             {
-                get { return this.PrivStatusProcessRunTime; }
+                get { return this.PrivStatusProcessRunningTime; }
                 set
                 {
-                    if (this.PrivStatusProcessRunTime != value)
+                    if (this.PrivStatusProcessRunningTime != value)
                     {
-                        this.PrivStatusProcessRunTime = value;
+                        this.PrivStatusProcessRunningTime = value;
                         NotifyPropertyChanged();
                     }
                 }
@@ -422,15 +422,15 @@ namespace LibraryShared
                 }
             }
 
-            private DateTime PrivTimeCreation = new DateTime();
-            public DateTime TimeCreation
+            private DateTime PrivDateModified = new DateTime();
+            public DateTime DateModified
             {
-                get { return this.PrivTimeCreation; }
+                get { return this.PrivDateModified; }
                 set
                 {
-                    if (this.PrivTimeCreation != value)
+                    if (this.PrivDateModified != value)
                     {
-                        this.PrivTimeCreation = value;
+                        this.PrivDateModified = value;
                         NotifyPropertyChanged();
                     }
                 }

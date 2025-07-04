@@ -97,6 +97,11 @@ namespace CtrlUI
                 grid_Popup_ContentInformation_button_Save.Click += Grid_Popup_ContentInformation_button_Save_Click;
                 grid_Popup_HowLongToBeat_button_Close.Click += Button_Popup_Close_Click;
 
+                //Sorting functions
+                grid_Popup_Sorting_button_Close.Click += Button_Popup_Close_Click;
+                lb_Sorting.PreviewKeyUp += ListBox_Sorting_KeyPressUp;
+                lb_Sorting.PreviewMouseUp += ListBox_Sorting_MousePressUp;
+
                 //Search functions
                 grid_Search_textbox.TextChanged += grid_Search_textbox_TextChanged;
                 grid_Search_button_Reset.Click += grid_Search_button_Reset_Click;
@@ -297,11 +302,6 @@ namespace CtrlUI
                 bool runningUbisoft = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "ubisoftconnect" || x.ExeNameNoExt.ToLower() == "upc");
                 bool runningEpic = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "epicgameslauncher");
                 bool runningBattleNet = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "battle.net");
-                bool runningRockstar = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "rockstarservice");
-                bool runningAmazon = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "amazon games");
-                bool runningIndieGala = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "igclient");
-                bool runningItchIO = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "itch");
-                bool runningHumble = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "humble app");
                 bool runningDiscord = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "discord");
                 bool runningDirectXInput = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "directxinput");
                 bool runningScreenCaptureTool = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "screencapturetool");
@@ -315,11 +315,6 @@ namespace CtrlUI
                     img_Menu_UbisoftStatus.Opacity = runningUbisoft ? 1.00 : 0.40;
                     img_Menu_EpicStatus.Opacity = runningEpic ? 1.00 : 0.40;
                     img_Menu_BattleNetStatus.Opacity = runningBattleNet ? 1.00 : 0.40;
-                    img_Menu_RockstarStatus.Opacity = runningRockstar ? 1.00 : 0.40;
-                    img_Menu_AmazonStatus.Opacity = runningAmazon ? 1.00 : 0.40;
-                    img_Menu_IndieGalaStatus.Opacity = runningIndieGala ? 1.00 : 0.40;
-                    img_Menu_ItchIOStatus.Opacity = runningItchIO ? 1.00 : 0.40;
-                    img_Menu_HumbleStatus.Opacity = runningHumble ? 1.00 : 0.40;
                     img_Menu_DiscordStatus.Opacity = runningDiscord ? 1.00 : 0.40;
                     img_Menu_DirectXInputStatus.Opacity = runningDirectXInput ? 1.00 : 0.40;
                     img_Menu_ScreenCaptureToolStatus.Opacity = runningScreenCaptureTool ? 1.00 : 0.40;
@@ -390,11 +385,6 @@ namespace CtrlUI
                 img_Menu_GoGStatus.Source = vImagePreloadGoG;
                 img_Menu_EpicStatus.Source = vImagePreloadEpic;
                 img_Menu_BattleNetStatus.Source = vImagePreloadBattleNet;
-                img_Menu_RockstarStatus.Source = vImagePreloadRockstar;
-                img_Menu_AmazonStatus.Source = vImagePreloadAmazon;
-                img_Menu_IndieGalaStatus.Source = vImagePreloadIndieGala;
-                img_Menu_ItchIOStatus.Source = vImagePreloadItchIO;
-                img_Menu_HumbleStatus.Source = vImagePreloadHumble;
                 img_Menu_DiscordStatus.Source = vImagePreloadDiscord;
                 img_Menu_DirectXInputStatus.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
                 img_Menu_FpsOverlayerStatus.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);

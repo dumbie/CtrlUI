@@ -158,7 +158,7 @@ namespace CtrlUI
                     else if (messageResult == AnswerMove)
                     {
                         //Show application move popup
-                        await Popup_Show_AppMove(dataBindApp);
+                        await Popup_Show_AppMove(listboxSender, dataBindApp);
                     }
                     else if (messageResult == AnswerAddExe)
                     {

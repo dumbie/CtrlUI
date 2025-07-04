@@ -194,7 +194,7 @@ namespace CtrlUI
                 }
 
                 //Get process running time
-                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.StatusProcessRunTime, categoryTitle);
+                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.StatusProcessRunningTime, categoryTitle);
                 if (!string.IsNullOrWhiteSpace(processRunningTimeString))
                 {
                     launchInformation += "\n" + processRunningTimeString;

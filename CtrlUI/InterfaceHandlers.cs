@@ -17,11 +17,11 @@ namespace CtrlUI
         }
 
         //Handle sorting mouse presses
-        void Button_MenuSorting_Click(object sender, RoutedEventArgs e)
+        async void Button_MenuSorting_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                SortListsAuto();
+                await Popup_Show_Sorting();
             }
             catch { }
         }

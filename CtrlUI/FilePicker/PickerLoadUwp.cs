@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using Windows.Management.Deployment;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVSortObservableCollection;
 using static ArnoldVinkCode.AVUwpAppx;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -107,14 +108,10 @@ namespace CtrlUI
                     catch { }
                 }
 
-                //Sort the application list by name
+                //Sort list by name
                 SortFunction<DataBindFile> sortFuncName = new SortFunction<DataBindFile>();
-                sortFuncName.function = x => x.Name;
-
-                List<SortFunction<DataBindFile>> orderListPicker = new List<SortFunction<DataBindFile>>();
-                orderListPicker.Add(sortFuncName);
-
-                SortObservableCollection(lb_FilePicker, List_FilePicker, orderListPicker, null);
+                sortFuncName.Function = x => x.Name;
+                SortObservableCollection(lb_FilePicker, List_FilePicker, sortFuncName, null);
             }
             catch { }
         }

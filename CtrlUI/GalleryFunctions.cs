@@ -120,7 +120,7 @@ namespace CtrlUI
                         Visibility statusVideo = mediaVideo ? Visibility.Visible : Visibility.Collapsed;
 
                         //Add media to gallery list
-                        DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Unknown, Category = AppCategory.Gallery, Name = mediaName, PathGallery = mediaPath, StatusVideo = statusVideo };
+                        DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Unknown, Category = AppCategory.Gallery, Name = mediaName, PathGallery = mediaPath, StatusVideo = statusVideo, DateModified = file.LastWriteTime };
                         await ListBoxAddItem(lb_Gallery, List_Gallery, dataBindApp, true, false);
                     }
                     catch { }

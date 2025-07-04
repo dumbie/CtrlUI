@@ -11,6 +11,7 @@ using System.Windows.Input;
 using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVSortObservableCollection;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -98,6 +99,32 @@ namespace CtrlUI
             catch { }
         }
 
+        //Get and return focused listbox
+        public ListBox GetFocusedListBox()
+        {
+            ListBox focusedListBox = null;
+            try
+            {
+                AVActions.DispatcherInvoke(delegate
+                {
+                    FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
+                    if (frameworkElement != null && (frameworkElement.GetType() == typeof(ListBox) || frameworkElement.GetType() == typeof(ListBoxItem)))
+                    {
+                        if (frameworkElement.GetType() == typeof(ListBoxItem))
+                        {
+                            focusedListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
+                        }
+                        else
+                        {
+                            focusedListBox = (ListBox)frameworkElement;
+                        }
+                    }
+                });
+            }
+            catch { }
+            return focusedListBox;
+        }
+
         //Listbox move to near character
         async Task ListBoxSelectNearCharacter(bool selectNextCharacter)
         {
@@ -105,40 +132,27 @@ namespace CtrlUI
             {
                 await AVActions.DispatcherInvoke(async delegate
                 {
-                    FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                    if (frameworkElement != null && (frameworkElement.GetType() == typeof(ListBox) || frameworkElement.GetType() == typeof(ListBoxItem)))
+                    ListBox focusedListBox = GetFocusedListBox();
+                    if (focusedListBox != null && vSelectNearCharacterLists.Contains(focusedListBox.Name))
                     {
-                        ListBox parentListbox = null;
-                        if (frameworkElement.GetType() == typeof(ListBoxItem))
+                        if (focusedListBox.Name == "lb_FilePicker")
                         {
-                            parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
+                            await SelectNearCharacterFiles(selectNextCharacter, focusedListBox);
                         }
                         else
                         {
-                            parentListbox = (ListBox)frameworkElement;
+                            await SelectNearCharacterApps(selectNextCharacter, focusedListBox);
                         }
-
-                        if (vSelectNearCharacterLists.Contains(parentListbox.Name))
+                    }
+                    else
+                    {
+                        if (selectNextCharacter)
                         {
-                            if (parentListbox.Name == "lb_FilePicker")
-                            {
-                                await SelectNearCharacterFiles(selectNextCharacter, parentListbox);
-                            }
-                            else
-                            {
-                                await SelectNearCharacterApps(selectNextCharacter, parentListbox);
-                            }
+                            KeySendSingle(KeysVirtual.PageDown, vProcessCurrent.WindowHandleMain);
                         }
                         else
                         {
-                            if (selectNextCharacter)
-                            {
-                                KeySendSingle(KeysVirtual.PageDown, vProcessCurrent.WindowHandleMain);
-                            }
-                            else
-                            {
-                                KeySendSingle(KeysVirtual.PageUp, vProcessCurrent.WindowHandleMain);
-                            }
+                            KeySendSingle(KeysVirtual.PageUp, vProcessCurrent.WindowHandleMain);
                         }
                     }
                 });
@@ -146,16 +160,18 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task SelectNearCharacterFiles(bool selectNextCharacter, ListBox parentListbox)
+        async Task SelectNearCharacterFiles(bool selectNextCharacter, ListBox targetListBox)
         {
             try
             {
-                //Make sure the list is sorted by name
-                FilePicker_SortFilesFoldersByName(true);
+                //Sort list by name
+                SortFunction<DataBindFile> sortFuncName = new SortFunction<DataBindFile>();
+                sortFuncName.Function = x => x.Name;
+                SortObservableCollection(targetListBox, sortFuncName, null);
 
                 //Get the current character
-                DataBindFile dataBindApp = (DataBindFile)parentListbox.SelectedItem;
-                ObservableCollection<DataBindFile> dataBindApplist = (ObservableCollection<DataBindFile>)parentListbox.ItemsSource;
+                DataBindFile dataBindApp = (DataBindFile)targetListBox.SelectedItem;
+                ObservableCollection<DataBindFile> dataBindApplist = (ObservableCollection<DataBindFile>)targetListBox.ItemsSource;
                 char currentCharacter = dataBindApp.Name.ToUpper()[0];
 
                 //Set the character filter
@@ -166,12 +182,12 @@ namespace CtrlUI
                 DataBindFile selectAppCurrent = null;
                 if (selectNextCharacter)
                 {
-                    int currentIndex = parentListbox.SelectedIndex;
+                    int currentIndex = targetListBox.SelectedIndex;
                     selectAppCurrent = dataBindApplist.Skip(currentIndex).FirstOrDefault(filterCharacterNoMatch);
                 }
                 else
                 {
-                    int currentIndex = dataBindApplist.Count() - parentListbox.SelectedIndex;
+                    int currentIndex = dataBindApplist.Count() - targetListBox.SelectedIndex;
                     selectAppCurrent = dataBindApplist.Reverse().Skip(currentIndex).FirstOrDefault(filterCharacterNoMatch);
                     if (selectAppCurrent != null)
                     {
@@ -198,7 +214,7 @@ namespace CtrlUI
                     ShowCharacterOverlay(selectStringCurrent, selectStringNext, selectStringPrev);
 
                     //Listbox focus and select the item
-                    await ListBoxFocusItem(parentListbox, selectAppCurrent, vProcessCurrent.WindowHandleMain);
+                    await ListBoxFocusItem(targetListBox, selectAppCurrent, vProcessCurrent.WindowHandleMain);
 
                     Debug.WriteLine("Selected list character: " + selectCharacterCurrent + "/" + selectAppCurrent.Name);
                 }
@@ -209,16 +225,18 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task SelectNearCharacterApps(bool selectNextCharacter, ListBox parentListbox)
+        async Task SelectNearCharacterApps(bool selectNextCharacter, ListBox targetListBox)
         {
             try
             {
-                //Make sure the list is sorted by name
-                SortAppListsByName(true);
+                //Sort list by name
+                SortFunction<DataBindApp> sortFuncName = new SortFunction<DataBindApp>();
+                sortFuncName.Function = x => x.Name;
+                SortObservableCollection(targetListBox, sortFuncName, null);
 
                 //Get the current character
-                DataBindApp dataBindApp = (DataBindApp)parentListbox.SelectedItem;
-                ObservableCollection<DataBindApp> dataBindApplist = (ObservableCollection<DataBindApp>)parentListbox.ItemsSource;
+                DataBindApp dataBindApp = (DataBindApp)targetListBox.SelectedItem;
+                ObservableCollection<DataBindApp> dataBindApplist = (ObservableCollection<DataBindApp>)targetListBox.ItemsSource;
                 char currentCharacter = dataBindApp.Name.ToUpper()[0];
 
                 //Set the character filter
@@ -229,12 +247,12 @@ namespace CtrlUI
                 DataBindApp selectAppCurrent = null;
                 if (selectNextCharacter)
                 {
-                    int currentIndex = parentListbox.SelectedIndex;
+                    int currentIndex = targetListBox.SelectedIndex;
                     selectAppCurrent = dataBindApplist.Skip(currentIndex).FirstOrDefault(filterCharacterNoMatch);
                 }
                 else
                 {
-                    int currentIndex = dataBindApplist.Count() - parentListbox.SelectedIndex;
+                    int currentIndex = dataBindApplist.Count() - targetListBox.SelectedIndex;
                     selectAppCurrent = dataBindApplist.Reverse().Skip(currentIndex).FirstOrDefault(filterCharacterNoMatch);
                     if (selectAppCurrent != null)
                     {
@@ -261,7 +279,7 @@ namespace CtrlUI
                     ShowCharacterOverlay(selectStringCurrent, selectStringNext, selectStringPrev);
 
                     //Listbox focus and select the item
-                    await ListBoxFocusItem(parentListbox, selectAppCurrent, vProcessCurrent.WindowHandleMain);
+                    await ListBoxFocusItem(targetListBox, selectAppCurrent, vProcessCurrent.WindowHandleMain);
 
                     Debug.WriteLine("Selected list character: " + selectCharacterCurrent + "/" + selectAppCurrent.Name);
                 }

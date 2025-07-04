@@ -10,7 +10,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Show the popup
-        void Popup_Show_Element(FrameworkElement elementTarget, double mainOpacity = 0.08)
+        void Popup_Show_Element(FrameworkElement elementTarget, double mainOpacity = 0.10)
         {
             try
             {
@@ -23,6 +23,7 @@ namespace CtrlUI
                     //Hide the background
                     grid_Main.Opacity = mainOpacity;
                     grid_Main.IsEnabled = false;
+                    grid_ControllerHelp_Content.Opacity = mainOpacity;
 
                     //Hide other popups
                     if (elementTarget != grid_Popup_TextInput && vTextInputOpen)
@@ -34,6 +35,11 @@ namespace CtrlUI
                     {
                         grid_Popup_MessageBox.Opacity = 0.02;
                         grid_Popup_MessageBox.IsEnabled = false;
+                    }
+                    if (elementTarget != grid_Popup_Sorting && vSortingOpen)
+                    {
+                        grid_Popup_Sorting.Opacity = 0.02;
+                        grid_Popup_Sorting.IsEnabled = false;
                     }
                     if (elementTarget != grid_Popup_HowLongToBeat && vHowLongToBeatOpen)
                     {
@@ -86,6 +92,7 @@ namespace CtrlUI
                     {
                         grid_Main.Opacity = 1.00;
                         grid_Main.IsEnabled = true;
+                        grid_ControllerHelp_Content.Opacity = 1.00;
                         return;
                     }
 
@@ -94,6 +101,11 @@ namespace CtrlUI
                     {
                         grid_Popup_TextInput.Opacity = 1.00;
                         grid_Popup_TextInput.IsEnabled = true;
+                    }
+                    else if (vSortingOpen)
+                    {
+                        grid_Popup_Sorting.Opacity = 1.00;
+                        grid_Popup_Sorting.IsEnabled = true;
                     }
                     else if (vHowLongToBeatOpen)
                     {
@@ -268,6 +280,7 @@ namespace CtrlUI
                 if (vTextInputOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_TextInput(); }); }
                 else if (vMessageBoxOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_MessageBox(); }); }
                 else if (vHowLongToBeatOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_HowLongToBeat(); }); }
+                else if (vSortingOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_Sorting(); }); }
                 else if (vContentInformationOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ContentInformation(); }); }
                 else if (vFilePickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_FilePicker(false, false); }); }
                 else if (vColorPickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ColorPicker(); }); }
@@ -297,6 +310,7 @@ namespace CtrlUI
                 if (vTextInputOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_TextInput(); }); }
                 if (vMessageBoxOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_MessageBox(); }); }
                 if (vHowLongToBeatOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_HowLongToBeat(); }); }
+                if (vSortingOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_Sorting(); }); }
                 if (vContentInformationOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ContentInformation(); }); }
                 if (vFilePickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_FilePicker(false, false); }); }
                 if (vColorPickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ColorPicker(); }); }
@@ -311,7 +325,7 @@ namespace CtrlUI
         {
             try
             {
-                if (vPopupOpen || vColorPickerOpen || vMainMenuOpen || vFilePickerOpen || vHowLongToBeatOpen || vContentInformationOpen || vMessageBoxOpen || vTextInputOpen)
+                if (vPopupOpen || vColorPickerOpen || vMainMenuOpen || vFilePickerOpen || vHowLongToBeatOpen || vContentInformationOpen || vMessageBoxOpen || vTextInputOpen || vSortingOpen)
                 {
                     return true;
                 }

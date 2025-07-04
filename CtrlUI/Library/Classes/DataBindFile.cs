@@ -81,6 +81,20 @@ namespace LibraryShared
                 }
             }
 
+            private bool PrivIsShortcut;
+            public bool IsShortcut
+            {
+                get { return this.PrivIsShortcut; }
+                set
+                {
+                    if (this.PrivIsShortcut != value)
+                    {
+                        this.PrivIsShortcut = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private string PrivPathFile;
             public string PathFile
             {

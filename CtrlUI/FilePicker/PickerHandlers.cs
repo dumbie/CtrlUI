@@ -44,11 +44,11 @@ namespace CtrlUI
             catch { }
         }
 
-        void Grid_Popup_FilePicker_button_ControllerBack_Click(object sender, RoutedEventArgs e)
+        async void Grid_Popup_FilePicker_button_ControllerBack_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                FilePicker_SortFilesFoldersSwitch(false);
+                await Popup_Show_Sorting();
             }
             catch { }
         }
@@ -162,21 +162,6 @@ namespace CtrlUI
                         Answers.Add(answerHowLongToBeat);
                     }
 
-                    //Check the sorting type
-                    string sortType = string.Empty;
-                    if (vFilePickerSortingType == SortingType.Name)
-                    {
-                        sortType = "Sort files and folders by date";
-                    }
-                    else
-                    {
-                        sortType = "Sort files and folders by name";
-                    }
-                    DataBindString answerSort = new DataBindString();
-                    answerSort.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Sorting.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                    answerSort.Name = sortType;
-                    Answers.Add(answerSort);
-
                     DataBindString answerCopySingle = new DataBindString();
                     if (!preFile)
                     {
@@ -271,13 +256,8 @@ namespace CtrlUI
                     DataBindString messageResult = await Popup_Show_MessageBox("File and folder actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
                     if (messageResult != null)
                     {
-                        //Sort files and folders
-                        if (messageResult == answerSort)
-                        {
-                            FilePicker_SortFilesFoldersSwitch(false);
-                        }
                         //Copy file or folder
-                        else if (messageResult == answerCopySingle)
+                        if (messageResult == answerCopySingle)
                         {
                             FilePicker_FileCopy_Single(selectedItem);
                         }
@@ -343,92 +323,6 @@ namespace CtrlUI
                         }
                     }
                 }
-            }
-            catch { }
-        }
-
-        //Sort files and folders in picker
-        void FilePicker_SortFilesFoldersSwitch(bool silent)
-        {
-            try
-            {
-                if (vFilePickerSortingType == SortingType.Name)
-                {
-                    FilePicker_SortFilesFoldersByDate(silent);
-                }
-                else
-                {
-                    FilePicker_SortFilesFoldersByName(silent);
-                }
-            }
-            catch { }
-        }
-
-        void FilePicker_SortFilesFoldersByName(bool silent)
-        {
-            try
-            {
-                if (vFilePickerCurrentPath == "PC")
-                {
-                    Debug.WriteLine("Invalid sorting path, returning.");
-                    Notification_Show_Status("Sorting", "Invalid sort path");
-                    return;
-                }
-
-                if (!silent)
-                {
-                    Debug.WriteLine("Sorting files and folders by name");
-                    Notification_Show_Status("Sorting", "Sorting by name");
-                }
-
-                vFilePickerSortingType = SortingType.Name;
-
-                SortFunction<DataBindFile> sortFuncFileType = new SortFunction<DataBindFile>();
-                sortFuncFileType.function = x => x.FileType;
-
-                SortFunction<DataBindFile> sortFuncName = new SortFunction<DataBindFile>();
-                sortFuncName.function = x => x.Name;
-
-                List<SortFunction<DataBindFile>> orderList = new List<SortFunction<DataBindFile>>();
-                orderList.Add(sortFuncFileType);
-                orderList.Add(sortFuncName);
-
-                SortObservableCollection(lb_FilePicker, List_FilePicker, orderList, null);
-            }
-            catch { }
-        }
-
-        void FilePicker_SortFilesFoldersByDate(bool silent)
-        {
-            try
-            {
-                if (vFilePickerCurrentPath == "PC")
-                {
-                    Debug.WriteLine("Invalid sorting path, returning.");
-                    Notification_Show_Status("Sorting", "Invalid sort path");
-                    return;
-                }
-
-                if (!silent)
-                {
-                    Debug.WriteLine("Sorting files and folders by date");
-                    Notification_Show_Status("Sorting", "Sorting by date");
-                }
-
-                vFilePickerSortingType = SortingType.Date;
-
-                SortFunction<DataBindFile> sortFuncFileType = new SortFunction<DataBindFile>();
-                sortFuncFileType.function = x => x.FileType;
-
-                SortFunction<DataBindFile> sortFuncDateModified = new SortFunction<DataBindFile>();
-                sortFuncDateModified.function = x => x.DateModified;
-                sortFuncDateModified.ascending = false;
-
-                List<SortFunction<DataBindFile>> orderList = new List<SortFunction<DataBindFile>>();
-                orderList.Add(sortFuncFileType);
-                orderList.Add(sortFuncDateModified);
-
-                SortObservableCollection(lb_FilePicker, List_FilePicker, orderList, null);
             }
             catch { }
         }
@@ -539,7 +433,7 @@ namespace CtrlUI
                     {
                         await FilePicker_GoFolderUp();
                     }
-                    else if (selectedItem.FileType == FileType.Link)
+                    else if (selectedItem.IsShortcut)
                     {
                         ShortcutDetails shortcutDetails = ReadShortcutFile(selectedItem.PathFile);
                         if (Directory.Exists(shortcutDetails.TargetPath))
