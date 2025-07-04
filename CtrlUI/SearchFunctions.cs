@@ -87,6 +87,10 @@ namespace CtrlUI
                 {
                     dataBindApp.StatusSearchCategoryImage = vImagePreloadEmulator;
                 }
+                else if (dataBindApp.Category == AppCategory.Launcher)
+                {
+                    dataBindApp.StatusSearchCategoryImage = vImagePreloadLauncher;
+                }
                 else if (dataBindApp.Category == AppCategory.Process)
                 {
                     dataBindApp.StatusSearchCategoryImage = vImagePreloadProcess;
