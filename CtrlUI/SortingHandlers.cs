@@ -15,7 +15,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle sorting mouse/touch tapped
-        async void ListBox_Sorting_MousePressUp(object sender, MouseButtonEventArgs e)
+        private async void ListBox_Sorting_MousePressUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace CtrlUI
         }
 
         //Handle sorting keyboard/controller tapped
-        async void ListBox_Sorting_KeyPressUp(object sender, KeyEventArgs e)
+        private async void ListBox_Sorting_KeyPressUp(object sender, KeyEventArgs e)
         {
             try
             {
@@ -86,6 +86,15 @@ namespace CtrlUI
             {
                 Debug.WriteLine("ListBox sort handle failed: " + ex.Message);
             }
+        }
+
+        private void Grid_Popup_Sorting_button_Direction_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SortingSwitchDirection();
+            }
+            catch { }
         }
     }
 }

@@ -303,5 +303,15 @@ namespace CtrlUI
                 Debug.WriteLine("Sorting close error: " + ex.Message);
             }
         }
+
+        //Switch sorting direction
+        public void SortingSwitchDirection()
+        {
+            try
+            {
+                checkbox_Sorting_Direction.IsChecked = !(bool)checkbox_Sorting_Direction.IsChecked;
+            }
+            catch { }
+        }
     }
 }

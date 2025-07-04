@@ -99,6 +99,7 @@ namespace CtrlUI
 
                 //Sorting functions
                 grid_Popup_Sorting_button_Close.Click += Button_Popup_Close_Click;
+                grid_Popup_Sorting_button_Direction.Click += Grid_Popup_Sorting_button_Direction_Click;
                 lb_Sorting.PreviewKeyUp += ListBox_Sorting_KeyPressUp;
                 lb_Sorting.PreviewMouseUp += ListBox_Sorting_MousePressUp;
 

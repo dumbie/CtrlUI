@@ -92,7 +92,14 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: YPressed");
 
-                        if (vTextInputOpen)
+                        if (vSortingOpen)
+                        {
+                            AVActions.DispatcherInvoke(delegate
+                            {
+                                SortingSwitchDirection();
+                            });
+                        }
+                        else if (vTextInputOpen)
                         {
                             Debug.WriteLine("Resetting the text input popup.");
                             await AVActions.DispatcherInvoke(async delegate { await Popup_Reset_TextInput(true, string.Empty); });

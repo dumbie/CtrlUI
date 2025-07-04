@@ -44,6 +44,8 @@ namespace CtrlUI
                         image_Settings_LB.Visibility = Visibility.Collapsed;
                         image_Settings_RB.Visibility = Visibility.Collapsed;
                         image_Search_Reset.Visibility = Visibility.Collapsed;
+                        image_Sorting_Close.Visibility = Visibility.Collapsed;
+                        image_Sorting_Direction.Visibility = Visibility.Collapsed;
                         gif_FilePicker_Loading.Height = 30;
                         gif_FilePicker_Loading.Width = 30;
                         return;
@@ -74,6 +76,8 @@ namespace CtrlUI
                         image_Settings_LB.Visibility = Visibility.Visible;
                         image_Settings_RB.Visibility = Visibility.Visible;
                         image_Search_Reset.Visibility = Visibility.Visible;
+                        image_Sorting_Close.Visibility = Visibility.Visible;
+                        image_Sorting_Direction.Visibility = Visibility.Visible;
                         gif_FilePicker_Loading.Height = 75;
                         gif_FilePicker_Loading.Width = 75;
                     }
