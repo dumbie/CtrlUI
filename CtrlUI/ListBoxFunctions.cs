@@ -164,10 +164,24 @@ namespace CtrlUI
         {
             try
             {
+                //Check file picker folder
+                if (vFilePickerCurrentPath == "PC")
+                {
+                    Debug.WriteLine("Invalid folder, cannot be sorted.");
+                    return;
+                }
+
                 //Sort list by name
-                SortFunction<DataBindFile> sortFuncName = new SortFunction<DataBindFile>();
-                sortFuncName.Function = x => x.Name;
-                SortObservableCollection(targetListBox, sortFuncName, null);
+                SortFunction<DataBindFile> sortFuncFileType = new SortFunction<DataBindFile>()
+                {
+                    Function = x => x.FileType
+                };
+                SortFunction<DataBindFile> sortFuncName = new SortFunction<DataBindFile>()
+                {
+                    Function = x => x.Name
+                };
+                var sortFunction = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncName];
+                SortObservableCollection(targetListBox, sortFunction, null);
 
                 //Get the current character
                 DataBindFile dataBindApp = (DataBindFile)targetListBox.SelectedItem;
