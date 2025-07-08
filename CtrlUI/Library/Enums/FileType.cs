@@ -2,7 +2,7 @@
 {
     public partial class Enums
     {
-        //Note: this is also the file picker sort order
+        //Note: this is also the sorting order
         public enum FileType
         {
             UwpApp,
