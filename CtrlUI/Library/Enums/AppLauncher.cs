@@ -37,6 +37,7 @@
             Nexon,
             Oculus,
             Paradox,
+            Plarium,
             Riot,
             RobotCache,
             Rockstar,
