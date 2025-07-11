@@ -26,6 +26,7 @@
             HikariField,
             HoYoPlay,
             Humble,
+            HyperPlay,
             IndieGala,
             ItchIO,
             Jagex,
