@@ -1,0 +1,16 @@
+- VFUN: Can't find way to launch games directly or signal launcher.
+- Ninja Kiwi Archive: Can't find way to launch games directly or signal launcher.
+- Ultra: Json file is encrypted, currently cannot read it.
+- Elixir V2: Json file is encrypted, currently cannot read it.
+- IDC Games: Launcher is broken can't login and install games.
+- Seasun Games: Can't find a way to list games from library.
+- GeForce Now: Can't find a way to list games from library.
+- Artix: No games to install, web based games only.
+- Battlestate Games: No account or game in possession.
+- PlayStation Plus: No account or game in possession.
+- Chaf Games: No account or game in possession.
+- tinyBuild: No account or game in possession.
+- Frontier: Not a multi game launcher.
+
+If you would like me to add a missing launcher or one of the launchers stopped working, please let me know.
+https://contact.arnoldvink.com
