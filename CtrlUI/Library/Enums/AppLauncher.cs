@@ -37,6 +37,7 @@
             Netmarble,
             Nexon,
             Oculus,
+            OpenLoot,
             Paradox,
             Plarium,
             Riot,
