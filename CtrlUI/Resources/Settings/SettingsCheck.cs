@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
+using static ArnoldVinkCode.AVArrayFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -29,19 +32,6 @@ namespace CtrlUI
 
                 if (!SettingCheck(vConfigurationCtrlUI, "GalleryLoadDays")) { SettingSave(vConfigurationCtrlUI, "GalleryLoadDays", "186"); }
 
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibrarySteam")) { SettingSave(vConfigurationCtrlUI, "ShowLibrarySteam", "True"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryEADesktop")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryEADesktop", "True"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryEpic")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryEpic", "True"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryUbisoft")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryUbisoft", "True"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryGoG")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryGoG", "True"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryBattleNet")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryBattleNet", "True"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryRockstar")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryRockstar", "True"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryAmazon")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryAmazon", "True"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryUwp")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryUwp", "True"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryIndieGala")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryIndieGala", "True"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryItchIO")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryItchIO", "True"); }
-                if (!SettingCheck(vConfigurationCtrlUI, "ShowLibraryHumble")) { SettingSave(vConfigurationCtrlUI, "ShowLibraryHumble", "True"); }
-
                 if (!SettingCheck(vConfigurationCtrlUI, "HideBatteryLevel")) { SettingSave(vConfigurationCtrlUI, "HideBatteryLevel", "False"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "HideControllerHelp")) { SettingSave(vConfigurationCtrlUI, "HideControllerHelp", "False"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "ShowHiddenFilesFolders")) { SettingSave(vConfigurationCtrlUI, "ShowHiddenFilesFolders", "False"); }
@@ -53,10 +43,22 @@ namespace CtrlUI
                 if (!SettingCheck(vConfigurationCtrlUI, "InterfaceClockStyleName")) { SettingSave(vConfigurationCtrlUI, "InterfaceClockStyleName", "Cortana"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "InterfaceFontStyleName")) { SettingSave(vConfigurationCtrlUI, "InterfaceFontStyleName", "Segoe UI"); }
 
-                //Launch settings
+                //Startup settings
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchFpsOverlayer")) { SettingSave(vConfigurationCtrlUI, "LaunchFpsOverlayer", "False"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchDirectXInput")) { SettingSave(vConfigurationCtrlUI, "LaunchDirectXInput", "True"); }
                 if (!SettingCheck(vConfigurationCtrlUI, "LaunchScreenCaptureTool")) { SettingSave(vConfigurationCtrlUI, "LaunchScreenCaptureTool", "False"); }
+
+                //Launcher settings
+                var appLauncherArray = EnumToEnumArray<AppLauncher>().Where(x => x != AppLauncher.Unknown);
+                foreach (AppLauncher appLauncher in appLauncherArray)
+                {
+                    try
+                    {
+                        string settingName = "ShowLibrary" + appLauncher.ToString();
+                        if (!SettingCheck(vConfigurationCtrlUI, settingName)) { SettingSave(vConfigurationCtrlUI, settingName, "True"); }
+                    }
+                    catch { }
+                }
             }
             catch (Exception ex)
             {

@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
-using static ArnoldVinkCode.Styles.MainColors;
+using static ArnoldVinkStyles.MainColors;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -34,6 +34,7 @@ namespace CtrlUI
                 //Check application settings
                 Folders_Check();
                 Settings_Check();
+                Settings_Items();
                 await Settings_Load();
                 Settings_Save();
 
@@ -116,19 +117,19 @@ namespace CtrlUI
                 //Check settings if DirectXInput launches on start
                 if (SettingLoad(vConfigurationCtrlUI, "LaunchDirectXInput", typeof(bool)))
                 {
-                    await LaunchDirectXInput(true);
+                    LaunchDirectXInput(true);
                 }
 
                 //Check settings if Fps Overlayer launches on start
                 if (SettingLoad(vConfigurationCtrlUI, "LaunchFpsOverlayer", typeof(bool)))
                 {
-                    await LaunchFpsOverlayer(true);
+                    LaunchFpsOverlayer(true);
                 }
 
                 //Check settings if Screen Capture Tool launches on start
                 if (SettingLoad(vConfigurationCtrlUI, "LaunchScreenCaptureTool", typeof(bool)))
                 {
-                    await LaunchScreenCaptureTool(true);
+                    LaunchScreenCaptureTool(true);
                 }
 
                 //Check settings if this is the first application launch

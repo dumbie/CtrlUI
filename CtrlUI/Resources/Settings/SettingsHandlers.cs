@@ -73,7 +73,7 @@ namespace CtrlUI
 
                     //Show the requested setting tab
                     StackPanel SelStackPanel = (StackPanel)Listbox_SettingsMenu.SelectedItem;
-                    if (SelStackPanel.Name == "settingsButtonLaunch")
+                    if (SelStackPanel.Name == "settingsButtonStartup")
                     {
                         settingsStackpanelLaunch.Visibility = Visibility.Visible;
                         await FocusElement(cb_SettingsWindowsStartup, vProcessCurrent.WindowHandleMain);
@@ -83,10 +83,10 @@ namespace CtrlUI
                         settingsStackpanelDisplay.Visibility = Visibility.Visible;
                         await FocusElement(cb_SettingsLaunchMinimized, vProcessCurrent.WindowHandleMain);
                     }
-                    else if (SelStackPanel.Name == "settingsButtonApps")
+                    else if (SelStackPanel.Name == "settingsButtonLaunchers")
                     {
                         settingsStackpanelApps.Visibility = Visibility.Visible;
-                        await FocusElement(cb_SettingsShowLibrarySteam, vProcessCurrent.WindowHandleMain);
+                        await FocusElement(listbox_LauncherSetting, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonInterface")
                     {
@@ -302,31 +302,31 @@ namespace CtrlUI
         }
 
         //Launch DirectXInput application
-        async void Button_LaunchDirectXInput_Click(object sender, RoutedEventArgs e)
+        void Button_LaunchDirectXInput_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await LaunchDirectXInput(false);
+                LaunchDirectXInput(false);
             }
             catch { }
         }
 
         //Launch Fps Overlayer application
-        async void Button_LaunchFpsOverlayer_Click(object sender, RoutedEventArgs e)
+        void Button_LaunchFpsOverlayer_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await LaunchFpsOverlayer(false);
+                LaunchFpsOverlayer(false);
             }
             catch { }
         }
 
         //Launch Screen Capture Tool application
-        async void Button_LaunchScreenCaptureTool_Click(object sender, RoutedEventArgs e)
+        void Button_LaunchScreenCaptureTool_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await LaunchScreenCaptureTool(false);
+                LaunchScreenCaptureTool(false);
             }
             catch { }
         }

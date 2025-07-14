@@ -235,6 +235,7 @@ namespace CtrlUI
                         {
                             //Debug.WriteLine("Shortcut is in the combined list skipping: " + targetPathLower);
                             await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
+                            await ListBoxRemoveAll(lb_Search, List_Search, x => x.PathExe.ToLower() == targetPathLower);
                             continue;
                         }
 
@@ -243,6 +244,7 @@ namespace CtrlUI
                         {
                             //Debug.WriteLine("Shortcut is on the blacklist skipping: " + targetTitleLower);
                             await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
+                            await ListBoxRemoveAll(lb_Search, List_Search, x => x.PathExe.ToLower() == targetPathLower);
                             continue;
                         }
 

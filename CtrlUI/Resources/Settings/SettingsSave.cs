@@ -4,8 +4,6 @@ using System.Diagnostics;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Classes;
-using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -34,90 +32,6 @@ namespace CtrlUI
                 cb_SettingsLaunchScreenCaptureTool.Click += (sender, e) =>
                 {
                     SettingSave(vConfigurationCtrlUI, "LaunchScreenCaptureTool", cb_SettingsLaunchScreenCaptureTool.IsChecked.ToString());
-                };
-
-                cb_SettingsShowLibrarySteam.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibrarySteam", cb_SettingsShowLibrarySteam.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Steam;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
-                cb_SettingsShowLibraryEADesktop.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibraryEADesktop", cb_SettingsShowLibraryEADesktop.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.EADesktop;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
-                cb_SettingsShowLibraryEpic.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibraryEpic", cb_SettingsShowLibraryEpic.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Epic;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
-                cb_SettingsShowLibraryUbisoft.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibraryUbisoft", cb_SettingsShowLibraryUbisoft.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Ubisoft;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
-                cb_SettingsShowLibraryGoG.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibraryGoG", cb_SettingsShowLibraryGoG.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.GoG;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
-                cb_SettingsShowLibraryBattleNet.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibraryBattleNet", cb_SettingsShowLibraryBattleNet.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.BattleNet;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
-                cb_SettingsShowLibraryRockstar.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibraryRockstar", cb_SettingsShowLibraryRockstar.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Rockstar;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
-                cb_SettingsShowLibraryAmazon.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibraryAmazon", cb_SettingsShowLibraryAmazon.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Amazon;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
-                cb_SettingsShowLibraryUwp.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibraryUwp", cb_SettingsShowLibraryUwp.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.UWP;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
-                cb_SettingsShowLibraryIndieGala.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibraryIndieGala", cb_SettingsShowLibraryIndieGala.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.IndieGala;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
-                cb_SettingsShowLibraryItchIO.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibraryItchIO", cb_SettingsShowLibraryItchIO.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.ItchIO;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
-                cb_SettingsShowLibraryHumble.Click += async (sender, e) =>
-                {
-                    SettingSave(vConfigurationCtrlUI, "ShowLibraryHumble", cb_SettingsShowLibraryHumble.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Humble;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 };
 
                 cb_SettingsHideBatteryLevel.Click += (sender, e) =>

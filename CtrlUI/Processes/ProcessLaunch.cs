@@ -216,31 +216,31 @@ namespace CtrlUI
         }
 
         //Launch DirectXInput application
-        async Task LaunchDirectXInput(bool silentLaunch)
+        void LaunchDirectXInput(bool silentLaunch)
         {
             try
             {
-                await AVTaskScheduler.TaskRun("ArnoldVink_DirectXInput", "DirectXInput", silentLaunch);
+                AVTaskScheduler.TaskRun("ArnoldVink_DirectXInput", "DirectXInput", silentLaunch);
             }
             catch { }
         }
 
         //Launch Fps Overlayer application
-        async Task LaunchFpsOverlayer(bool silentLaunch)
+        void LaunchFpsOverlayer(bool silentLaunch)
         {
             try
             {
-                await AVTaskScheduler.TaskRun("ArnoldVink_FpsOverlayer", "Fps Overlayer", silentLaunch);
+                AVTaskScheduler.TaskRun("ArnoldVink_FpsOverlayer", "Fps Overlayer", silentLaunch);
             }
             catch { }
         }
 
         //Launch Screen Capture Tool application
-        async Task LaunchScreenCaptureTool(bool silentLaunch)
+        void LaunchScreenCaptureTool(bool silentLaunch)
         {
             try
             {
-                await AVTaskScheduler.TaskRun("ArnoldVink_ScreenCaptureTool", "Screen Capture Tool", silentLaunch);
+                AVTaskScheduler.TaskRun("ArnoldVink_ScreenCaptureTool", "Screen Capture Tool", silentLaunch);
             }
             catch { }
         }

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CtrlUI"
-        xmlns:AVStyles="clr-namespace:ArnoldVinkCode.Styles;assembly=ArnoldVinkCode"
+        xmlns:AVStyles="clr-namespace:ArnoldVinkStyles;assembly=ArnoldVinkStyles"
         RenderOptions.BitmapScalingMode="HighQuality"
         SnapsToDevicePixels="True"
         mc:Ignorable="d"
@@ -476,17 +476,17 @@
                             <Image Grid.Column="0" Name="image_Settings_LB" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="30" Margin="0,0,10,0"/>
 
                             <ListBox Grid.Column="1" Name="Listbox_SettingsMenu" SelectedIndex="0" HorizontalAlignment="Center" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" Style="{StaticResource ListBoxHorizontal}">
-                                <StackPanel Name="settingsButtonLaunch" Style="{StaticResource ListBoxMenuStackPanel}">
+                                <StackPanel Name="settingsButtonStartup" Style="{StaticResource ListBoxMenuStackPanel}">
                                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/AppRunExe.png" Width="55" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Launch" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Startup" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel Name="settingsButtonDisplay" Style="{StaticResource ListBoxMenuStackPanel}">
                                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Monitor.png" Width="55" HorizontalAlignment="Center"/>
                                     <TextBlock Text="Display" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                                 </StackPanel>
-                                <StackPanel Name="settingsButtonApps" Style="{StaticResource ListBoxMenuStackPanel}">
-                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/List.png" Width="55" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Apps" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                                <StackPanel Name="settingsButtonLaunchers" Style="{StaticResource ListBoxMenuStackPanel}">
+                                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Launcher.png" Width="55" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Launchers" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel Name="settingsButtonInterface" Style="{StaticResource ListBoxMenuStackPanel}">
                                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Interface.png" Width="55" HorizontalAlignment="Center"/>
@@ -577,45 +577,15 @@
                                     <Slider Name="slider_SettingsDisplayMonitor" Width="400" Minimum="1" Maximum="20" HorizontalAlignment="Left" Style="{StaticResource SliderBlockBlack}"/>
                                 </StackPanel>
 
-                                <StackPanel Name="settingsStackpanelApps" Visibility="Collapsed">
-                                    <CheckBox Name="cb_SettingsShowLibrarySteam" Content="Shows games from Steam library" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from your Steam library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                <Grid Name="settingsStackpanelApps" Visibility="Collapsed">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                    <CheckBox Name="cb_SettingsShowLibraryEADesktop" Content="Shows games from EA Desktop library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from your EA Desktop library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <CheckBox Name="cb_SettingsShowLibraryEpic" Content="Shows games from Epic library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from your Epic library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <CheckBox Name="cb_SettingsShowLibraryUbisoft" Content="Shows games from Ubisoft library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from your Ubisoft library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <CheckBox Name="cb_SettingsShowLibraryGoG" Content="Shows games from GoG library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from your GoG library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <CheckBox Name="cb_SettingsShowLibraryBattleNet" Content="Shows games from Battle.net library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from your Battle.net library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <CheckBox Name="cb_SettingsShowLibraryRockstar" Content="Shows games from Rockstar library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from your Rockstar library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <CheckBox Name="cb_SettingsShowLibraryAmazon" Content="Shows games from Amazon library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from your Amazon library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <CheckBox Name="cb_SettingsShowLibraryIndieGala" Content="Shows games from IndieGala library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from your IndieGala library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <CheckBox Name="cb_SettingsShowLibraryItchIO" Content="Shows games from Itch.io library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from your Itch.io library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <CheckBox Name="cb_SettingsShowLibraryHumble" Content="Shows games from Humble library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from your Humble library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <CheckBox Name="cb_SettingsShowLibraryUwp" Content="Shows games from Microsoft Store" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show all the installed games from the Microsoft Store." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <TextBlock Text="* It may take a minute before your launcher library gets updated." Margin="0,20,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                </StackPanel>
+                                    <ListBox Grid.Row="0" Name="listbox_LauncherSetting" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemLauncherToggle}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                                    <TextBlock Grid.Row="1" Text="* It may take a minute before your launcher library gets updated." Margin="0,20,0,0" HorizontalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                </Grid>
 
                                 <StackPanel Name="settingsStackpanelInterface" Visibility="Collapsed">
                                     <CheckBox Name="cb_SettingsHideBatteryLevel" Content="Hide the controller battery level status" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
@@ -682,15 +652,16 @@
                                     </Button>
                                 </StackPanel>
 
-                                <StackPanel Name="settingsStackpanelBrowser" Visibility="Collapsed">
-                                    <CheckBox Name="cb_SettingsShowHiddenFilesFolders" Content="Show hidden files and folders" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will show hidden files and folders in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                <Grid Name="settingsStackpanelBrowser" Visibility="Collapsed">
+                                    <StackPanel>
+                                        <CheckBox Name="cb_SettingsShowHiddenFilesFolders" Content="Show hidden files and folders" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                        <TextBlock Text="Enabling this will show hidden files and folders in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                                    <CheckBox Name="cb_SettingsHideNetworkDrives" Content="Hide network drives in file browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will hide mounted network drives in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <TextBlock Text="* You can add new file locations to open in the profile manager." Margin="0,20,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                </StackPanel>
+                                        <CheckBox Name="cb_SettingsHideNetworkDrives" Content="Hide network drives in file browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                        <TextBlock Text="Enabling this will hide mounted network drives in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                    </StackPanel>
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="* You can add new file locations to open in the profile manager." Margin="0,20,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                </Grid>
 
                                 <StackPanel Name="settingsStackpanelOther" Visibility="Collapsed">
                                     <TextBlock Name="textblock_SettingsGalleryLoadDays" Text="Limit gallery loading days" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>

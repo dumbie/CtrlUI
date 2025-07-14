@@ -1,5 +1,5 @@
 ﻿using ArnoldVinkCode;
-using ArnoldVinkCode.Styles;
+using ArnoldVinkStyles;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -160,6 +160,8 @@ namespace CtrlUI
                 btn_Settings_InterfaceSoundPackName.Click += Button_Settings_InterfaceSoundPackName;
                 btn_Settings_InterfaceClockStyleName.Click += Button_Settings_InterfaceClockStyleName;
                 btn_Settings_InterfaceFontStyleName.Click += Button_Settings_InterfaceFontStyleName;
+                listbox_LauncherSetting.PreviewKeyUp += ListBox_LauncherSetting_KeyPressUp;
+                listbox_LauncherSetting.PreviewMouseUp += ListBox_LauncherSetting_MousePressUp;
 
                 //Monitor functions
                 btn_Monitor_Switch_Primary.Click += Btn_Monitor_Switch_Primary_Click;

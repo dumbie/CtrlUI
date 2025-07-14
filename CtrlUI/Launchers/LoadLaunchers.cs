@@ -1,11 +1,12 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVArrayFunctions;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkCode.AVSortObservableCollection;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -56,93 +57,217 @@ namespace CtrlUI
                 //Clear the app remove check list
                 vLauncherAppAvailableCheck.Clear();
 
-                //Scan and add library from Steam
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibrarySteam", typeof(bool)))
+                //Scan and add libraries
+                var appLauncherArray = EnumToEnumArray<AppLauncher>().Where(x => x != AppLauncher.Unknown);
+                foreach (AppLauncher appLauncher in appLauncherArray)
                 {
-                    await SteamScanAddLibrary();
-                }
-
-                //Scan and add library from EA Desktop
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryEADesktop", typeof(bool)))
-                {
-                    await EADesktopScanAddLibrary();
-                }
-
-                //Scan and add library from Epic
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryEpic", typeof(bool)))
-                {
-                    await EpicScanAddLibrary();
-                }
-
-                //Scan and add library from Ubisoft
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryUbisoft", typeof(bool)))
-                {
-                    await UbisoftScanAddLibrary();
-                }
-
-                //Scan and add library from GoG
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryGoG", typeof(bool)))
-                {
-                    await GoGScanAddLibrary();
-                }
-
-                //Scan and add library from Battle.net
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryBattleNet", typeof(bool)))
-                {
-                    await BattleNetScanAddLibrary();
-                }
-
-                //Scan and add library from Rockstar
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryRockstar", typeof(bool)))
-                {
-                    await RockstarScanAddLibrary();
-                }
-
-                //Scan and add library from Amazon
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryAmazon", typeof(bool)))
-                {
-                    await AmazonScanAddLibrary();
-                }
-
-                //Scan and add library from UWP
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryUwp", typeof(bool)))
-                {
-                    await UwpScanAddLibrary();
-                }
-
-                //Scan and add library from IndieGala
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryIndieGala", typeof(bool)))
-                {
-                    await IndieGalaScanAddLibrary();
-                }
-
-                //Scan and add library from Itch.io
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryItchIO", typeof(bool)))
-                {
-                    await ItchIOScanAddLibrary();
-                }
-
-                //Scan and add library from Humble
-                if (SettingLoad(vConfigurationCtrlUI, "ShowLibraryHumble", typeof(bool)))
-                {
-                    await HumbleScanAddLibrary();
+                    try
+                    {
+                        string settingName = "ShowLibrary" + appLauncher.ToString();
+                        if (SettingLoad(vConfigurationCtrlUI, settingName, typeof(bool)))
+                        {
+                            if (appLauncher == AppLauncher.FourGame)
+                            {
+                                await FourGameScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Amazon)
+                            {
+                                await AmazonScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Ankama)
+                            {
+                                await AnkamaScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Arc)
+                            {
+                                await ArcScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Asobimo)
+                            {
+                                await AsobimoScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.BattleNet)
+                            {
+                                await BattleNetScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.BigFish)
+                            {
+                                await BigFishScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.DLsite)
+                            {
+                                await DLsiteScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.EADesktop)
+                            {
+                                await EADesktopScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Elixir)
+                            {
+                                await ElixirScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Epic)
+                            {
+                                await EpicScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Fawkes)
+                            {
+                                await FawkesScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Gameforge)
+                            {
+                                await GameforgeScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.GameJolt)
+                            {
+                                await GameJoltScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Glyph)
+                            {
+                                await GlyphScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.GoG)
+                            {
+                                await GoGScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.GooglePlay)
+                            {
+                                await GooglePlayScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.HikariField)
+                            {
+                                await HikariFieldScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.HoYoPlay)
+                            {
+                                await HoYoPlayScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Humble)
+                            {
+                                await HumbleScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.HyperPlay)
+                            {
+                                await HyperPlayScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.IndieGala)
+                            {
+                                await IndieGalaScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.ItchIO)
+                            {
+                                await ItchIOScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Jagex)
+                            {
+                                await JagexScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.LegacyGames)
+                            {
+                                await LegacyGamesScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.LoadingBay)
+                            {
+                                await LoadingBayScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.MyGames)
+                            {
+                                await MyGamesScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.NCSoft)
+                            {
+                                await NCSoftScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Netmarble)
+                            {
+                                await NetmarbleScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Nexon)
+                            {
+                                await NexonScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Oculus)
+                            {
+                                await OculusScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Paradox)
+                            {
+                                await ParadoxScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.OpenLoot)
+                            {
+                                await OpenLootScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Plarium)
+                            {
+                                await PlariumScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Riot)
+                            {
+                                await RiotScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.RobotCache)
+                            {
+                                await RobotCacheScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Rockstar)
+                            {
+                                await RockstarScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Steam)
+                            {
+                                await SteamScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Stove)
+                            {
+                                await StoveScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Ubisoft)
+                            {
+                                await UbisoftScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.UWP)
+                            {
+                                await UwpScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Vive)
+                            {
+                                await ViveScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.VKPlay)
+                            {
+                                await VkPlayScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.Wargaming)
+                            {
+                                await WargamingScanAddLibrary();
+                            }
+                            else if (appLauncher == AppLauncher.WildTangent)
+                            {
+                                await WildTangentScanAddLibrary();
+                            }
+                        }
+                    }
+                    catch { }
                 }
 
                 //Remove deleted launcher applications
-                Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && !vLauncherAppAvailableCheck.Any(y => y == x.PathExe || y == x.AppUserModelId);
-                await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                await ListBoxRemoveAll(lb_Search, List_Search, filterLauncherApp);
+                Func<DataBindApp, bool> filterLauncherDeleted = x => x.Category == AppCategory.Launcher && !vLauncherAppAvailableCheck.Any(y => y == x.PathExe || y == x.AppUserModelId);
+                await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherDeleted);
+                await ListBoxRemoveAll(lb_Search, List_Search, filterLauncherDeleted);
+
+                //Remove ignored launcher applications
+                Func<DataBindApp, bool> filterLauncherIgnored = x => x.Category == AppCategory.Launcher && vCtrlIgnoreLauncherName.Any(y => y.String1.ToLower() == x.Name.ToLower());
+                await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherIgnored);
+                await ListBoxRemoveAll(lb_Search, List_Search, filterLauncherIgnored);
 
                 //First load functions
                 if (firstLoad)
                 {
+                    //Sort list by name
                     SortFunction<DataBindApp> sortFuncName = new SortFunction<DataBindApp>();
-                    sortFuncName.function = x => x.Name;
-
-                    List<SortFunction<DataBindApp>> orderListLaunchers = new List<SortFunction<DataBindApp>>();
-                    orderListLaunchers.Add(sortFuncName);
-
-                    SortObservableCollection(lb_Launchers, List_Launchers, orderListLaunchers, null);
+                    sortFuncName.Function = x => x.Name;
+                    SortObservableCollection(lb_Launchers, List_Launchers, sortFuncName, null);
 
                     AVActions.DispatcherInvoke(delegate
                     {
