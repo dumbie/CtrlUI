@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVFocus;
+using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;

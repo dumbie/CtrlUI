@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;

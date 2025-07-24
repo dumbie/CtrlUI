@@ -10,14 +10,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVClasses;
-using static ArnoldVinkCode.AVFocus;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSearch;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkStyles.AVFocus;
+using static ArnoldVinkStyles.AVImage;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 
@@ -54,8 +54,8 @@ namespace CtrlUI
         public static string[] vTabTargetListsFirstLastItem = { };
 
         //Dispatcher Timers
-        public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
-        public static DispatcherTimer vDispatcherTimerDelay = new DispatcherTimer();
+        public static AVHighResTimer vAVTimerOverlay = new AVHighResTimer();
+        public static AVHighResTimer vAVTimerDelay = new AVHighResTimer();
 
         //Search Variables
         public static SearchSource[] vImageSourceFoldersEmulatorsCombined =

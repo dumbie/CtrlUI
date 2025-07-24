@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static CtrlUI.Classes;
 using static LibraryShared.Classes;

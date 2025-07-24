@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -11,6 +10,7 @@ using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -51,7 +51,7 @@ namespace CtrlUI
                 vBusyRefreshingGallery = true;
 
                 //Show the loading gif
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     gif_List_Loading.Show();
                 });
@@ -129,7 +129,7 @@ namespace CtrlUI
                 //First load functions
                 if (firstLoad)
                 {
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         lb_Gallery.SelectedIndex = 0;
                     });
@@ -138,7 +138,7 @@ namespace CtrlUI
                 //Hide the loading gif
                 if (vBusyRefreshingCount() == 1)
                 {
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         gif_List_Loading.Hide();
                     });

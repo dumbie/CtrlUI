@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFiles;
-using static ArnoldVinkCode.AVFocus;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVProcess;
+using static ArnoldVinkStyles.AVFocus;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 

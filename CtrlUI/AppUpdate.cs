@@ -5,8 +5,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ApiGitHub;
 using static ArnoldVinkCode.AVFiles;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 

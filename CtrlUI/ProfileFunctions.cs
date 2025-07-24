@@ -7,9 +7,9 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVClasses;
-using static ArnoldVinkCode.AVFocus;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVJsonFunctions;
+using static ArnoldVinkStyles.AVFocus;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 

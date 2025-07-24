@@ -1,8 +1,8 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Windows.Controls;
-using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.AVInterface;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVImage;
+using static ArnoldVinkStyles.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -15,14 +15,24 @@ namespace CtrlUI
         {
             try
             {
-                AVFunctions.TimerRenew(ref vDispatcherTimerDelay);
-                vDispatcherTimerDelay.Interval = TimeSpan.FromMilliseconds(50);
-                vDispatcherTimerDelay.Tick += delegate
+                //Start delay timer
+                vAVTimerDelay.Interval = 50;
+                vAVTimerDelay.Tick = delegate
                 {
-                    AVFunctions.TimerStop(vDispatcherTimerDelay);
-                    UpdateGalleryMediaImages(false);
+                    try
+                    {
+                        DispatcherInvoke(delegate
+                        {
+                            //Stop delay timer
+                            vAVTimerDelay.Stop();
+
+                            //Update gallery images
+                            UpdateGalleryMediaImages(false);
+                        });
+                    }
+                    catch { }
                 };
-                AVFunctions.TimerReset(vDispatcherTimerDelay);
+                vAVTimerDelay.Start();
             }
             catch { }
         }

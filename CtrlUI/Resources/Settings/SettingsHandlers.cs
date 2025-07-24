@@ -1,7 +1,6 @@
-﻿using ArnoldVinkCode;
+﻿using ArnoldVinkStyles;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,9 +8,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVFocus;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkStyles.AVFocus;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -24,7 +23,6 @@ namespace CtrlUI
         {
             try
             {
-                Debug.WriteLine(e.Key);
                 if (e.Key == Key.Space || e.Key == Key.Down)
                 {
                     await Listbox_Settings_SingleTap();
@@ -39,7 +37,7 @@ namespace CtrlUI
             try
             {
                 //Check if an actual ListBoxItem is clicked
-                if (!AVFunctions.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+                if (!AVInterface.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
 
                 //Check which mouse button is pressed
                 if (e.ClickCount == 1)
@@ -86,7 +84,8 @@ namespace CtrlUI
                     else if (SelStackPanel.Name == "settingsButtonLaunchers")
                     {
                         settingsStackpanelApps.Visibility = Visibility.Visible;
-                        await FocusElement(listbox_LauncherSetting, vProcessCurrent.WindowHandleMain);
+                        int selectedIndex = listbox_LauncherSetting.SelectedIndex;
+                        await ListBoxFocusIndex(listbox_LauncherSetting, false, selectedIndex, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonInterface")
                     {

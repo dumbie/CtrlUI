@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using static ArnoldVinkCode.AVFocus;
+using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;

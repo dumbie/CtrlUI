@@ -6,8 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -41,7 +42,7 @@ namespace CtrlUI
                     }
                 }
 
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     //Enable or disable the copy paste status
                     if (vClipboardFiles.Any())
@@ -67,7 +68,7 @@ namespace CtrlUI
                 }
 
                 //Enable or disable the side navigate buttons
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Visible;
                     grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Visible;

@@ -1,7 +1,12 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkStyles;
 using System;
+using System.ComponentModel;
+using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -14,7 +19,7 @@ namespace CtrlUI
             try
             {
                 //Update the notification
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     try
                     {
@@ -29,20 +34,23 @@ namespace CtrlUI
                 });
 
                 //Start notification timer
-                vDispatcherTimerOverlay.Interval = TimeSpan.FromMilliseconds(3000);
-                vDispatcherTimerOverlay.Tick += delegate
+                vAVTimerOverlay.Interval = 3000;
+                vAVTimerOverlay.Tick = delegate
                 {
                     try
                     {
-                        //Hide the notification
-                        grid_Popup_Notification.Visibility = Visibility.Collapsed;
+                        DispatcherInvoke(delegate
+                        {
+                            //Stop notification timer
+                            vAVTimerOverlay.Stop();
 
-                        //Renew the timer
-                        AVFunctions.TimerRenew(ref vDispatcherTimerOverlay);
+                            //Hide notification
+                            grid_Popup_Notification.Visibility = Visibility.Collapsed;
+                        });
                     }
                     catch { }
                 };
-                AVFunctions.TimerReset(vDispatcherTimerOverlay);
+                vAVTimerOverlay.Start();
             }
             catch { }
         }

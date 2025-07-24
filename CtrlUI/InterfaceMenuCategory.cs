@@ -1,10 +1,10 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using static ArnoldVinkCode.AVFocus;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Enums;
 
@@ -58,7 +58,7 @@ namespace CtrlUI
             {
                 if (CategoryListCount(vCurrentListCategory) <= 0 && vCurrentListCategory != ListCategory.Search)
                 {
-                    await AVActions.DispatcherInvoke(async delegate
+                    await DispatcherInvoke(async delegate
                     {
                         ListCategory? listCategorySwitch = CategoryListPreviousWithItems(vCurrentListCategory, false);
                         if (listCategorySwitch == null)
@@ -166,7 +166,7 @@ namespace CtrlUI
                     listCountString = string.Empty;
                 }
 
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     textblock_Category_Count.Text = listCountString;
                 });

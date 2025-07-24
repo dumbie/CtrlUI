@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVProcess;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -145,7 +146,7 @@ namespace CtrlUI
                 Visibility visibilityProcesses = List_Processes.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityGallery = List_Gallery.Any() ? Visibility.Visible : Visibility.Collapsed;
 
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     button_Category_Menu_Apps.Visibility = visibilityApps;
                     button_Category_Menu_Games.Visibility = visibilityGames;

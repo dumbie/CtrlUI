@@ -1,15 +1,15 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVDisplayMonitor;
-using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
 
@@ -73,7 +73,7 @@ namespace CtrlUI
                 vProcessDirectXInput = Get_ProcessesMultiByName("DirectXInput", true).FirstOrDefault();
                 int focusedProcessId = Detail_ProcessIdByWindowHandle(GetForegroundWindow());
 
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     try
                     {
@@ -150,7 +150,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     //Update window status message
                     textblock_DisableMain.Text = string.Empty;
@@ -171,7 +171,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     //Update window status message
                     textblock_DisableMain.Text = windowText;

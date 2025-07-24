@@ -1,7 +1,7 @@
-﻿using ArnoldVinkCode.Styles;
+﻿using ArnoldVinkStyles;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using static ArnoldVinkCode.AVFocus;
+using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
 

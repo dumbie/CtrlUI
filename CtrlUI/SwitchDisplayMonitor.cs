@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +7,7 @@ using System.Windows.Forms;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -163,7 +163,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     if (SettingLoad(vConfigurationCtrlUI, "MonitorPreventSleep", typeof(bool)))
                     {
@@ -185,7 +185,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     Debug.WriteLine("Allowing monitor to sleep.");
                     SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);

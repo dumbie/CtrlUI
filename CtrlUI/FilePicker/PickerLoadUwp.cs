@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,9 +7,10 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using Windows.Management.Deployment;
-using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.AVSortObservableCollection;
 using static ArnoldVinkCode.AVUwpAppx;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVImage;
+using static ArnoldVinkStyles.AVSortObservableCollection;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -24,7 +24,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     //File Picker change select mode
                     FilePicker_ChangeSelectMode(false);

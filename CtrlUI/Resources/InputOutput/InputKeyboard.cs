@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using ArnoldVinkCode.Styles;
+﻿using ArnoldVinkStyles;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -125,7 +124,7 @@ namespace CtrlUI
                 FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
-                    ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
+                    ListBox parentListbox = AVVisualTree.FindVisualParent<ListBox>(frameworkElement);
                     if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
                     {
                         KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
@@ -169,7 +168,7 @@ namespace CtrlUI
                 FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
-                    ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
+                    ListBox parentListbox = AVVisualTree.FindVisualParent<ListBox>(frameworkElement);
                     if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
                     {
                         KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);

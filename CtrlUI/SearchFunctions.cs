@@ -1,9 +1,9 @@
-﻿using ArnoldVinkCode;
-using ArnoldVinkCode.Styles;
+﻿using ArnoldVinkStyles;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.AVFocus;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -48,7 +48,7 @@ namespace CtrlUI
         {
             try
             {
-                await AVActions.DispatcherInvoke(async delegate
+                await DispatcherInvoke(async delegate
                 {
                     string searchString = grid_Search_textbox.Text;
                     string placeholderString = (string)grid_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
@@ -112,7 +112,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     string searchString = grid_Search_textbox.Text;
                     string placeholderString = (string)grid_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);

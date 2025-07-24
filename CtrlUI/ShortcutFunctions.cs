@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using Shell32;
+﻿using Shell32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,9 +13,10 @@ using Windows.ApplicationModel;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFiles;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVUwpAppx;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -178,7 +178,7 @@ namespace CtrlUI
                 vBusyRefreshingShortcuts = true;
 
                 //Show the loading gif
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     gif_List_Loading.Show();
                 });
@@ -267,7 +267,7 @@ namespace CtrlUI
                 //Hide the loading gif
                 if (vBusyRefreshingCount() == 1)
                 {
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         gif_List_Loading.Hide();
                     });

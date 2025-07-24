@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -72,7 +73,7 @@ namespace CtrlUI
                         Debug.WriteLine("Received socket string: " + receivedString);
                         if (receivedString == "AppWindowHideShow")
                         {
-                            await AVActions.DispatcherInvoke(async delegate { await AppWindow_HideShow(); });
+                            await DispatcherInvoke(async delegate { await AppWindow_HideShow(); });
                         }
                     }
                 }

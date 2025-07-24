@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkStyles;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static ArnoldVinkCode.AVFocus;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
-using static ArnoldVinkCode.AVSortObservableCollection;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVFocus;
+using static ArnoldVinkStyles.AVSortObservableCollection;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -105,14 +107,14 @@ namespace CtrlUI
             ListBox focusedListBox = null;
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
                     if (frameworkElement != null && (frameworkElement.GetType() == typeof(ListBox) || frameworkElement.GetType() == typeof(ListBoxItem)))
                     {
                         if (frameworkElement.GetType() == typeof(ListBoxItem))
                         {
-                            focusedListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
+                            focusedListBox = AVVisualTree.FindVisualParent<ListBox>(frameworkElement);
                         }
                         else
                         {
@@ -130,7 +132,7 @@ namespace CtrlUI
         {
             try
             {
-                await AVActions.DispatcherInvoke(async delegate
+                await DispatcherInvoke(async delegate
                 {
                     ListBox focusedListBox = GetFocusedListBox();
                     if (focusedListBox != null && vSelectNearCharacterLists.Contains(focusedListBox.Name))
@@ -310,7 +312,7 @@ namespace CtrlUI
             try
             {
                 //Show the overlay
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     try
                     {
@@ -323,20 +325,23 @@ namespace CtrlUI
                 });
 
                 //Start overlay timer
-                vDispatcherTimerOverlay.Interval = TimeSpan.FromMilliseconds(2000);
-                vDispatcherTimerOverlay.Tick += delegate
+                vAVTimerOverlay.Interval = 2000;
+                vAVTimerOverlay.Tick = delegate
                 {
                     try
                     {
-                        //Hide the overlay
-                        grid_Popup_SelectCharacter.Visibility = Visibility.Collapsed;
+                        DispatcherInvoke(delegate
+                        {
+                            //Stop overlay timer
+                            vAVTimerOverlay.Stop();
 
-                        //Renew the timer
-                        AVFunctions.TimerRenew(ref vDispatcherTimerOverlay);
+                            //Hide overlay
+                            grid_Popup_SelectCharacter.Visibility = Visibility.Collapsed;
+                        });
                     }
                     catch { }
                 };
-                AVFunctions.TimerReset(vDispatcherTimerOverlay);
+                vAVTimerOverlay.Start();
             }
             catch { }
         }
@@ -346,7 +351,7 @@ namespace CtrlUI
         {
             try
             {
-                await AVActions.DispatcherInvoke(async delegate
+                await DispatcherInvoke(async delegate
                 {
                     //Debug.WriteLine("Adding item to list collection: " + listCollection);
 
@@ -387,7 +392,7 @@ namespace CtrlUI
         {
             try
             {
-                await AVActions.DispatcherInvoke(async delegate
+                await DispatcherInvoke(async delegate
                 {
                     //Store the current listbox items count
                     int listBoxItemCount = listBox.Items.Count;
@@ -420,7 +425,7 @@ namespace CtrlUI
         {
             try
             {
-                await AVActions.DispatcherInvoke(async delegate
+                await DispatcherInvoke(async delegate
                 {
                     //Store the current listbox items count
                     int listBoxItemCount = listBox.Items.Count;

@@ -1,12 +1,12 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVArrayFunctions;
 using static ArnoldVinkCode.AVSettings;
-using static ArnoldVinkCode.AVSortObservableCollection;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVSortObservableCollection;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -46,7 +46,7 @@ namespace CtrlUI
                 vBusyRefreshingLaunchers = true;
 
                 //Show the loading gif
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     gif_List_Loading.Show();
                 });
@@ -269,7 +269,7 @@ namespace CtrlUI
                     sortFuncName.Function = x => x.Name;
                     SortObservableCollection(lb_Launchers, List_Launchers, sortFuncName, null);
 
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         lb_Launchers.SelectedIndex = 0;
                     });
@@ -278,7 +278,7 @@ namespace CtrlUI
                 //Hide the loading gif
                 if (vBusyRefreshingCount() == 1)
                 {
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         gif_List_Loading.Hide();
                     });

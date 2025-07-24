@@ -8,9 +8,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -241,7 +242,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     //Rotate the clock images
                     int clockSecond = DateTime.Now.Second;
@@ -275,11 +276,11 @@ namespace CtrlUI
         {
             try
             {
-                foreach (ScrollViewerLoopHorizontal scrollViewer in AVFunctions.FindVisualChildren<ScrollViewerLoopHorizontal>(this))
+                foreach (ScrollViewerLoopHorizontal scrollViewer in AVVisualTree.FindVisualChildren<ScrollViewerLoopHorizontal>(this))
                 {
                     scrollViewer.ScrollPaused = pauseScroll;
                 }
-                foreach (ScrollViewerLoopVertical scrollViewer in AVFunctions.FindVisualChildren<ScrollViewerLoopVertical>(this))
+                foreach (ScrollViewerLoopVertical scrollViewer in AVVisualTree.FindVisualChildren<ScrollViewerLoopVertical>(this))
                 {
                     scrollViewer.ScrollPaused = pauseScroll;
                 }
@@ -310,7 +311,7 @@ namespace CtrlUI
                 bool runningScreenCaptureTool = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "screencapturetool");
                 bool runningFpsOverlayer = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "fpsoverlayer");
 
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     img_Menu_SteamStatus.Opacity = runningSteam ? 1.00 : 0.40;
                     img_Menu_EADesktopStatus.Opacity = runningEADesktop ? 1.00 : 0.40;

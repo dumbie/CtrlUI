@@ -1,7 +1,8 @@
-﻿using ArnoldVinkCode;
+﻿using ArnoldVinkStyles;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.AVFocus;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
 
@@ -14,7 +15,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     //Show the popup
                     elementTarget.Visibility = Visibility.Visible;
@@ -81,7 +82,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     //Hide the popup
                     elementTarget.Visibility = Visibility.Collapsed;
@@ -277,15 +278,15 @@ namespace CtrlUI
             try
             {
                 //Close open top popup
-                if (vTextInputOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_TextInput(); }); }
-                else if (vMessageBoxOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_MessageBox(); }); }
-                else if (vHowLongToBeatOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_HowLongToBeat(); }); }
-                else if (vSortingOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_Sorting(); }); }
-                else if (vContentInformationOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ContentInformation(); }); }
-                else if (vFilePickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_FilePicker(false, false); }); }
-                else if (vColorPickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ColorPicker(); }); }
-                else if (vPopupOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close(); }); }
-                else if (vMainMenuOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_MainMenu(); }); }
+                if (vTextInputOpen) { await DispatcherInvoke(async delegate { await Popup_Close_TextInput(); }); }
+                else if (vMessageBoxOpen) { await DispatcherInvoke(async delegate { await Popup_Close_MessageBox(); }); }
+                else if (vHowLongToBeatOpen) { await DispatcherInvoke(async delegate { await Popup_Close_HowLongToBeat(); }); }
+                else if (vSortingOpen) { await DispatcherInvoke(async delegate { await Popup_Close_Sorting(); }); }
+                else if (vContentInformationOpen) { await DispatcherInvoke(async delegate { await Popup_Close_ContentInformation(); }); }
+                else if (vFilePickerOpen) { await DispatcherInvoke(async delegate { await Popup_Close_FilePicker(false, false); }); }
+                else if (vColorPickerOpen) { await DispatcherInvoke(async delegate { await Popup_Close_ColorPicker(); }); }
+                else if (vPopupOpen) { await DispatcherInvoke(async delegate { await Popup_Close(); }); }
+                else if (vMainMenuOpen) { await DispatcherInvoke(async delegate { await Popup_Close_MainMenu(); }); }
 
                 //Wait for popups to have closed
                 if (waitClose)
@@ -307,15 +308,15 @@ namespace CtrlUI
         {
             try
             {
-                if (vTextInputOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_TextInput(); }); }
-                if (vMessageBoxOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_MessageBox(); }); }
-                if (vHowLongToBeatOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_HowLongToBeat(); }); }
-                if (vSortingOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_Sorting(); }); }
-                if (vContentInformationOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ContentInformation(); }); }
-                if (vFilePickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_FilePicker(false, false); }); }
-                if (vColorPickerOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_ColorPicker(); }); }
-                if (vPopupOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close(); }); }
-                if (vMainMenuOpen) { await AVActions.DispatcherInvoke(async delegate { await Popup_Close_MainMenu(); }); }
+                if (vTextInputOpen) { await DispatcherInvoke(async delegate { await Popup_Close_TextInput(); }); }
+                if (vMessageBoxOpen) { await DispatcherInvoke(async delegate { await Popup_Close_MessageBox(); }); }
+                if (vHowLongToBeatOpen) { await DispatcherInvoke(async delegate { await Popup_Close_HowLongToBeat(); }); }
+                if (vSortingOpen) { await DispatcherInvoke(async delegate { await Popup_Close_Sorting(); }); }
+                if (vContentInformationOpen) { await DispatcherInvoke(async delegate { await Popup_Close_ContentInformation(); }); }
+                if (vFilePickerOpen) { await DispatcherInvoke(async delegate { await Popup_Close_FilePicker(false, false); }); }
+                if (vColorPickerOpen) { await DispatcherInvoke(async delegate { await Popup_Close_ColorPicker(); }); }
+                if (vPopupOpen) { await DispatcherInvoke(async delegate { await Popup_Close(); }); }
+                if (vMainMenuOpen) { await DispatcherInvoke(async delegate { await Popup_Close_MainMenu(); }); }
             }
             catch { }
         }
@@ -340,7 +341,7 @@ namespace CtrlUI
             bool popupOpen = false;
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     popupOpen = vPopupOpen && vPopupElementTarget == popupGrid;
                 });

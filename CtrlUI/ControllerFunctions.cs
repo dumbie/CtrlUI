@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
@@ -9,8 +8,9 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -34,7 +34,7 @@ namespace CtrlUI
                 if (vProcessDirectXInput == null)
                 {
                     //Debug.WriteLine("DirectXInput is not running, skipping controller check.");
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
@@ -53,7 +53,7 @@ namespace CtrlUI
         {
             try
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     SolidColorBrush ControllerColor0Brush = new BrushConverter().ConvertFrom(vController0.Color.ToString()) as SolidColorBrush;
                     border_Menu_Controller0.Background = ControllerColor0Brush;
@@ -177,12 +177,12 @@ namespace CtrlUI
                     {
                         if (controllerStatusNew.Connected)
                         {
-                            AVActions.DispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 1.00; });
+                            DispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 1.00; });
                             string ControllerIdDisplay = controllerStatusNew.NumberDisplay().ToString();
                         }
                         else
                         {
-                            AVActions.DispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 0.40; });
+                            DispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 0.40; });
                             string ControllerIdDisplay = controllerStatusNew.NumberDisplay().ToString();
 
                             //Hide the battery status
@@ -204,7 +204,7 @@ namespace CtrlUI
             {
                 if (ForceHide || SettingLoad(vConfigurationCtrlUI, "HideBatteryLevel", typeof(bool)))
                 {
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
@@ -228,7 +228,7 @@ namespace CtrlUI
                 //Check if battery level is available
                 if (controllerBattery.BatteryStatus == BatteryStatus.Unknown)
                 {
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
@@ -239,7 +239,7 @@ namespace CtrlUI
                 //Check if battery is charging
                 if (controllerBattery.BatteryStatus == BatteryStatus.Charging)
                 {
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Battery/BatteryVerCharge.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
@@ -261,7 +261,7 @@ namespace CtrlUI
                 else if (controllerBattery.BatteryPercentage <= 90) { percentageNumber = "90"; }
 
                 //Set the battery percentage
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     //Set the used battery percentage text
                     txt_Main_Battery.Text = Convert.ToString(controllerBattery.BatteryPercentage) + "%";
@@ -285,7 +285,7 @@ namespace CtrlUI
             }
             catch
             {
-                AVActions.DispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     txt_Main_Battery.Visibility = Visibility.Collapsed;
                     img_Main_Battery.Visibility = Visibility.Collapsed;
@@ -301,7 +301,7 @@ namespace CtrlUI
                 if (controllerId == 0)
                 {
                     vControllerActiveId = controllerId;
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
@@ -312,7 +312,7 @@ namespace CtrlUI
                 else if (controllerId == 1)
                 {
                     vControllerActiveId = controllerId;
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
@@ -323,7 +323,7 @@ namespace CtrlUI
                 else if (controllerId == 2)
                 {
                     vControllerActiveId = controllerId;
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
@@ -334,7 +334,7 @@ namespace CtrlUI
                 else if (controllerId == 3)
                 {
                     vControllerActiveId = controllerId;
-                    AVActions.DispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
                         img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
