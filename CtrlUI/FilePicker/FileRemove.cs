@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVShell;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -15,7 +15,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Remove file or folder
-        bool FileRemove(string fileName, string filePath, string fileCategory, bool useRecycleBin)
+        async Task<bool> FileRemove(string fileName, string filePath, string fileCategory, bool useRecycleBin)
         {
             try
             {
@@ -38,24 +38,24 @@ namespace CtrlUI
                 {
                     if (useRecycleBin)
                     {
-                        Notification_Show_Status("Remove", "Recycled " + fileCategory);
+                        await Notification_Show_Status("Remove", "Recycled " + fileCategory);
                     }
                     else
                     {
-                        Notification_Show_Status("Remove", "Removed " + fileCategory);
+                        await Notification_Show_Status("Remove", "Removed " + fileCategory);
                     }
                     Debug.WriteLine("Removed file or folder: " + fileName + " path: " + filePath + " recyclebin: " + useRecycleBin);
                     return true;
                 }
                 else if (shFileOpstruct.fAnyOperationsAborted)
                 {
-                    Notification_Show_Status("Remove", fileCategory + " removal aborted");
+                    await Notification_Show_Status("Remove", fileCategory + " removal aborted");
                     Debug.WriteLine("File or folder removal aborted: " + fileName + " path: " + filePath);
                     return false;
                 }
                 else
                 {
-                    Notification_Show_Status("Remove", fileCategory + " removal failed");
+                    await Notification_Show_Status("Remove", fileCategory + " removal failed");
                     Debug.WriteLine("File or folder removal failed: " + fileName + " path: " + filePath);
                     return false;
                 }
@@ -71,12 +71,22 @@ namespace CtrlUI
                 //Confirm file remove prompt
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerRecycle = new DataBindString();
-                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                answerRecycle.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Remove.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 answerRecycle.Name = "Move file or folder to recycle bin*";
                 messageAnswers.Add(answerRecycle);
 
                 DataBindString answerPerma = new DataBindString();
-                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                answerPerma.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/RemoveCross.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 answerPerma.Name = "Remove file or folder permanently";
                 messageAnswers.Add(answerPerma);
 
@@ -97,11 +107,11 @@ namespace CtrlUI
                 }
 
                 //Notify file or folder removal
-                Notification_Show_Status("Remove", "Removing file or folder");
+                await Notification_Show_Status("Remove", "Removing file or folder");
                 Debug.WriteLine("Removing file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                 //Remove file or folder
-                if (FileRemove(dataBindFile.Name, dataBindFile.PathFile, "file or folder", useRecycleBin))
+                if (await FileRemove(dataBindFile.Name, dataBindFile.PathFile, "file or folder", useRecycleBin))
                 {
                     //Check if the removed item is clipboard and reset it
                     DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault(x => x.PathFile == dataBindFile.PathFile);
@@ -113,7 +123,7 @@ namespace CtrlUI
                     }
 
                     //Remove file from the listbox
-                    await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile, true);
+                    await ListViewRemoveItem(listView_FilePicker, List_FilePicker, dataBindFile, true);
 
                     //Check if there are files or folders
                     FilePicker_CheckFilesAndFoldersCount();
@@ -132,12 +142,22 @@ namespace CtrlUI
                 //Confirm file remove prompt
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerRecycle = new DataBindString();
-                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                answerRecycle.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Remove.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 answerRecycle.Name = "Move files or folders to recycle bin*";
                 messageAnswers.Add(answerRecycle);
 
                 DataBindString answerPerma = new DataBindString();
-                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                answerPerma.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/RemoveCross.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 answerPerma.Name = "Remove files or folders permanently";
                 messageAnswers.Add(answerPerma);
 
@@ -157,7 +177,7 @@ namespace CtrlUI
                     return;
                 }
 
-                Notification_Show_Status("Remove", "Removing files or folders");
+                await Notification_Show_Status("Remove", "Removing files or folders");
 
                 //Remove files or folders
                 foreach (DataBindFile dataBindFile in List_FilePicker.Where(x => x.Checked == Visibility.Visible).ToList())
@@ -167,7 +187,7 @@ namespace CtrlUI
                         Debug.WriteLine("Removing files or folders: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                         //Remove files or folders
-                        if (FileRemove(dataBindFile.Name, dataBindFile.PathFile, "files or folders", useRecycleBin))
+                        if (await FileRemove(dataBindFile.Name, dataBindFile.PathFile, "files or folders", useRecycleBin))
                         {
                             //Check if the removed item is clipboard and reset it
                             DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault(x => x.PathFile == dataBindFile.PathFile);
@@ -179,7 +199,7 @@ namespace CtrlUI
                             }
 
                             //Remove file from the listbox
-                            await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile, true);
+                            await ListViewRemoveItem(listView_FilePicker, List_FilePicker, dataBindFile, true);
 
                             //Check if there are files or folders
                             FilePicker_CheckFilesAndFoldersCount();

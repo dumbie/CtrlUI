@@ -1,23 +1,23 @@
-﻿using System.Windows;
+﻿using Windows.UI.Xaml;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
-        void Btn_MoveAppRight_Click(object sender, RoutedEventArgs e)
+        async void Btn_MoveAppRight_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                MoveApplicationList_Right();
+                await MoveApplicationList_Right();
             }
             catch { }
         }
 
-        void Btn_MoveAppLeft_Click(object sender, RoutedEventArgs e)
+        async void Btn_MoveAppLeft_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                MoveApplicationList_Left();
+                await MoveApplicationList_Left();
             }
             catch { }
         }

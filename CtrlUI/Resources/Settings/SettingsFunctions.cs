@@ -38,16 +38,16 @@ namespace CtrlUI
             {
                 if (changeLeft)
                 {
-                    int selectedIndex = Listbox_SettingsMenu.SelectedIndex;
+                    int selectedIndex = listView_SettingsMenu.SelectedIndex;
                     if (selectedIndex > 0)
                     {
-                        Listbox_SettingsMenu.SelectedIndex = Listbox_SettingsMenu.SelectedIndex - 1;
+                        listView_SettingsMenu.SelectedIndex = listView_SettingsMenu.SelectedIndex - 1;
                         await Listbox_Settings_SingleTap();
                     }
                 }
                 else
                 {
-                    Listbox_SettingsMenu.SelectedIndex = Listbox_SettingsMenu.SelectedIndex + 1;
+                    listView_SettingsMenu.SelectedIndex = listView_SettingsMenu.SelectedIndex + 1;
                     await Listbox_Settings_SingleTap();
                 }
             }

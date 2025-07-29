@@ -26,19 +26,19 @@ namespace CtrlUI
                 cb_SettingsLaunchDirectXInput.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchDirectXInput", typeof(bool));
                 cb_SettingsLaunchScreenCaptureTool.IsChecked = SettingLoad(vConfigurationCtrlUI, "LaunchScreenCaptureTool", typeof(bool));
 
-                //Load the application font size
+                //Load application font size
                 textblock_SettingsAppFontSize.Text = "Adjust the application font size: " + SettingLoad(vConfigurationCtrlUI, "AppFontSize", typeof(string));
                 slider_SettingsAppFontSize.Value = SettingLoad(vConfigurationCtrlUI, "AppFontSize", typeof(double));
 
-                //Load the application image size
+                //Load application image size
                 textblock_SettingsAppImageSize.Text = "Adjust the application image size: " + SettingLoad(vConfigurationCtrlUI, "AppImageSize", typeof(string));
                 slider_SettingsAppImageSize.Value = SettingLoad(vConfigurationCtrlUI, "AppImageSize", typeof(double));
 
-                //Load the application window size
+                //Load application window size
                 textblock_SettingsAppWindowSize.Text = textblock_SettingsAppWindowSize.Tag + ": " + SettingLoad(vConfigurationCtrlUI, "AppWindowSize", typeof(string)) + "%";
                 slider_SettingsAppWindowSize.Value = SettingLoad(vConfigurationCtrlUI, "AppWindowSize", typeof(double));
 
-                //Load the display monitor
+                //Load display monitor
                 int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
                 textblock_SettingsDisplayMonitor.Text = textblock_SettingsDisplayMonitor.Tag + ": " + monitorNumber;
                 slider_SettingsDisplayMonitor.Value = monitorNumber;

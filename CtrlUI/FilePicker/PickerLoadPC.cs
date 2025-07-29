@@ -3,8 +3,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVDiskInfo;
 using static ArnoldVinkCode.AVSettings;
@@ -24,7 +24,7 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     //File Picker change select mode
                     FilePicker_ChangeSelectMode(false);
@@ -51,68 +51,134 @@ namespace CtrlUI
                 //Add the previous used path
                 if (!string.IsNullOrWhiteSpace(vFilePickerPreviousPath))
                 {
-                    BitmapImage imageFolderPrevious = FileToBitmapImage(new string[] { "Assets/Default/Icons/Restart.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    BitmapImage imageFolderPrevious = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Restart.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     DataBindFile dataBindFilePreviousPath = new DataBindFile() { FileType = FileType.FolderPre, Name = "Previous", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolderPrevious, PathFile = vFilePickerPreviousPath };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePreviousPath, false, false);
+                    await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFilePreviousPath, false, false);
                 }
 
                 //Add launch without a file option
                 if (vFilePickerSettings.ShowLaunchWithoutFile)
                 {
                     string fileDescription = "Launch application without a file";
-                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    BitmapImage fileImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppLaunch.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     DataBindFile dataBindFileWithoutFile = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutFile, false, false);
+                    await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileWithoutFile, false, false);
                 }
 
                 //Add emulator images folder
                 if (vFilePickerSettings.ShowEmulatorImages)
                 {
-                    DataBindFile dataBindEmuImages = new DataBindFile() { FileType = FileType.FolderPre, Name = "Emulator images", ImageBitmap = vImagePreloadEmulator, PathFile = "Assets\\Default\\Emulators" };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindEmuImages, false, false);
+                    BitmapImage emulatorImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Emulator.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+
+                    DataBindFile dataBindEmuImages = new DataBindFile() { FileType = FileType.FolderPre, Name = "Emulator images", ImageBitmap = emulatorImage, PathFile = "Assets\\Default\\Emulators" };
+                    await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindEmuImages, false, false);
                 }
 
                 //Add desktop folder
-                BitmapImage imageFolderDesktop = FileCacheToBitmapImage(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), vImageBackupSource, 50, 0, true);
+                BitmapImage imageFolderDesktop = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [Environment.GetFolderPath(Environment.SpecialFolder.Desktop)],
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeFilePicker,
+                    UseThumbnail = true,
+                    Dispatcher = this.Dispatcher
+                });
                 DataBindFile dataBindFileDesktop = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Desktop", ImageBitmap = imageFolderDesktop, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
-                await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDesktop, false, false);
+                await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileDesktop, false, false);
 
                 //Add documents folder
-                BitmapImage imageFolderDocuments = FileCacheToBitmapImage(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), vImageBackupSource, 50, 0, true);
+                BitmapImage imageFolderDocuments = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)],
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeFilePicker,
+                    UseThumbnail = true,
+                    Dispatcher = this.Dispatcher
+                });
                 DataBindFile dataBindFileDocuments = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Documents", ImageBitmap = imageFolderDocuments, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) };
-                await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDocuments, false, false);
+                await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileDocuments, false, false);
 
                 //Add downloads folder
                 string downloadsPath = AVShellInfo.ShellPath_KnownFolder(KnownFolder.Downloads);
                 if (!string.IsNullOrWhiteSpace(downloadsPath) && Directory.Exists(downloadsPath))
                 {
-                    BitmapImage imageFolderDownload = FileCacheToBitmapImage(downloadsPath, vImageBackupSource, 50, 0, true);
+                    BitmapImage imageFolderDownload = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = [downloadsPath],
+                        BackupPath = vImageBackupSource,
+                        Width = vImageLoadSizeFilePicker,
+                        UseThumbnail = true,
+                        Dispatcher = this.Dispatcher
+                    });
                     DataBindFile dataBindFileDownloads = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Downloads", ImageBitmap = imageFolderDownload, PathFile = downloadsPath };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDownloads, false, false);
+                    await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileDownloads, false, false);
                 }
 
                 //Add music folder
-                BitmapImage imageFolderMusic = FileCacheToBitmapImage(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), vImageBackupSource, 50, 0, true);
+                BitmapImage imageFolderMusic = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)],
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeFilePicker,
+                    UseThumbnail = true,
+                    Dispatcher = this.Dispatcher
+                });
                 DataBindFile dataBindFileMusic = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Music", ImageBitmap = imageFolderMusic, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) };
-                await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileMusic, false, false);
+                await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileMusic, false, false);
 
                 //Add pictures folder
-                BitmapImage imageFolderPictures = FileCacheToBitmapImage(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), vImageBackupSource, 50, 0, true);
+                BitmapImage imageFolderPictures = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)],
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeFilePicker,
+                    UseThumbnail = true,
+                    Dispatcher = this.Dispatcher
+                });
                 DataBindFile dataBindFilePictures = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Pictures", ImageBitmap = imageFolderPictures, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
-                await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
+                await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
 
                 //Add videos folder
-                BitmapImage imageFolderVideos = FileCacheToBitmapImage(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos), vImageBackupSource, 50, 0, true);
+                BitmapImage imageFolderVideos = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [Environment.GetFolderPath(Environment.SpecialFolder.MyVideos)],
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeFilePicker,
+                    UseThumbnail = true,
+                    Dispatcher = this.Dispatcher
+                });
                 DataBindFile dataBindFileVideos = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Videos", ImageBitmap = imageFolderVideos, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) };
-                await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileVideos, false, false);
+                await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileVideos, false, false);
 
                 //Add onedrive folder
                 string onedrivePath = AVShellInfo.ShellPath_KnownFolder(KnownFolder.OneDrive);
                 if (!string.IsNullOrWhiteSpace(onedrivePath) && Directory.Exists(onedrivePath))
                 {
-                    BitmapImage imageFolderOnedrive = FileCacheToBitmapImage(onedrivePath, vImageBackupSource, 50, 0, true);
+                    BitmapImage imageFolderOnedrive = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = [onedrivePath],
+                        BackupPath = vImageBackupSource,
+                        Width = vImageLoadSizeFilePicker,
+                        UseThumbnail = true,
+                        Dispatcher = this.Dispatcher
+                    });
                     DataBindFile dataBindFileOnedrive = new DataBindFile() { FileType = FileType.FolderPre, Name = "OneDrive", ImageBitmap = imageFolderOnedrive, PathFile = onedrivePath };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileOnedrive, false, false);
+                    await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileOnedrive, false, false);
                 }
 
                 //Load file browser settings
@@ -147,10 +213,17 @@ namespace CtrlUI
                         dataBindFile.NameSub = diskInfo.Label;
                         dataBindFile.NameDetail = diskInfo.SizeString;
                         dataBindFile.PathFile = diskInfo.Path;
-                        dataBindFile.ImageBitmap = FileCacheToBitmapImage(dataBindFile.PathFile, vImageBackupSource, 50, 0, true);
+                        dataBindFile.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = [dataBindFile.PathFile],
+                            BackupPath = vImageBackupSource,
+                            Width = vImageLoadSizeFilePicker,
+                            UseThumbnail = true,
+                            Dispatcher = this.Dispatcher
+                        });
 
                         //Add databindfile to the list
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
+                        await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFile, false, false);
                     }
                     catch { }
                 }
@@ -178,10 +251,17 @@ namespace CtrlUI
                         dataBindFile.NameSub = diskInfo.Label + " (" + fileLocation.String1 + ")";
                         dataBindFile.NameDetail = diskInfo.SizeString;
                         dataBindFile.PathFile = diskInfo.Path;
-                        dataBindFile.ImageBitmap = FileCacheToBitmapImage(dataBindFile.PathFile, vImageBackupSource, 50, 0, true);
+                        dataBindFile.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = [dataBindFile.PathFile],
+                            BackupPath = vImageBackupSource,
+                            Width = vImageLoadSizeFilePicker,
+                            UseThumbnail = true,
+                            Dispatcher = this.Dispatcher
+                        });
 
                         //Add databindfile to the list
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
+                        await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFile, false, false);
                     }
                     catch { }
                 }

@@ -13,7 +13,7 @@ namespace CtrlUI
             try
             {
                 Debug.WriteLine("Ejecting the disc drive: " + driveLetter);
-                Notification_Show_Status("FolderDisc", "Ejecting the drive");
+                await Notification_Show_Status("FolderDisc", "Ejecting the drive");
 
                 //Get the drive
                 int ssfDRIVES = 17;
@@ -25,13 +25,13 @@ namespace CtrlUI
                 folderItem.InvokeVerb("Eject");
 
                 //Remove drive from the listbox
-                await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile, true);
+                await ListViewRemoveItem(listView_FilePicker, List_FilePicker, dataBindFile, true);
 
-                Notification_Show_Status("FolderDisc", "Ejected the drive");
+                await Notification_Show_Status("FolderDisc", "Ejected the drive");
                 return true;
             }
             catch { }
-            Notification_Show_Status("Close", "Failed to eject drive");
+            await Notification_Show_Status("Close", "Failed to eject drive");
             return false;
         }
     }

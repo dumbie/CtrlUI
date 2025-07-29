@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +29,12 @@ namespace CtrlUI
                 foreach (AudioDeviceSummary audioDevice in devicesList)
                 {
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeUp.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/VolumeUp.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     Answer1.Name = audioDevice.Name;
                     Answers.Add(Answer1);
                 }
@@ -45,11 +49,11 @@ namespace CtrlUI
                     {
                         if (SetDefaultDevice(changeDevice.Identifier))
                         {
-                            Notification_Show_Status("VolumeUp", "Switched audio device");
+                            await Notification_Show_Status("VolumeUp", "Switched audio device");
                         }
                         else
                         {
-                            Notification_Show_Status("VolumeUp", "Switching audio failed");
+                            await Notification_Show_Status("VolumeUp", "Switching audio failed");
                         }
                     }
                 }
@@ -57,7 +61,7 @@ namespace CtrlUI
             catch
             {
                 Debug.WriteLine("Failed to load the audio devices");
-                Notification_Show_Status("VolumeUp", "No audio available");
+                await Notification_Show_Status("VolumeUp", "No audio available");
             }
         }
     }

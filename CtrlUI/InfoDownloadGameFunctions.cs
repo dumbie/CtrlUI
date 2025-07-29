@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -24,7 +25,7 @@ namespace CtrlUI
                 }
                 nameDownload = nameDownload.ToLower();
 
-                Notification_Show_Status("Download", "Downloading information");
+                await Notification_Show_Status("Download", "Downloading information");
                 Debug.WriteLine("Downloading information for: " + searchTerm);
 
                 //Download available games
@@ -32,7 +33,7 @@ namespace CtrlUI
                 if (iGDBGames == null || !iGDBGames.Any())
                 {
                     Debug.WriteLine("No games found for: " + searchTerm);
-                    Notification_Show_Status("Close", "No games found");
+                    await Notification_Show_Status("Close", "No games found");
                     return null;
                 }
 
@@ -57,7 +58,12 @@ namespace CtrlUI
                     ApiIGDB_PlatformsToString(infoGames, out string gamePlatforms);
 
                     DataBindString answerDownload = new DataBindString();
-                    answerDownload.ImageBitmap = vImagePreloadGame;
+                    answerDownload.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Game.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     answerDownload.Name = infoGames.name;
                     answerDownload.NameSub = gamePlatforms;
                     answerDownload.NameDetail = gameReleaseYear;

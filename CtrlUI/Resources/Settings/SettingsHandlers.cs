@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
+using Windows.System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVFocus;
 using static ArnoldVinkStyles.AVImage;
@@ -19,11 +20,11 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle settings menu keyboard/controller tapped
-        async void ListBox_Settings_KeyPressUp(object sender, KeyEventArgs e)
+        async void ListView_Settings_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Space || e.Key == Key.Down)
+                if (e.Key == VirtualKey.Space || e.Key == VirtualKey.Down)
                 {
                     await Listbox_Settings_SingleTap();
                 }
@@ -32,23 +33,18 @@ namespace CtrlUI
         }
 
         //Handle settings menu mouse/touch tapped
-        async void ListBox_Settings_MousePressUp(object sender, MouseButtonEventArgs e)
+        async void ListView_Settings_MousePressUp(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                //Check if an actual ListBoxItem is clicked
-                if (!AVInterface.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+                //Check if an actual ListViewItem is clicked
+                if (!AVInterface.CheckClickedListViewItem(e))
+                {
+                    return;
+                }
 
                 //Check which mouse button is pressed
-                if (e.ClickCount == 1)
-                {
-                    vSingleTappedEvent = true;
-                    await Task.Delay(500);
-                    if (vSingleTappedEvent)
-                    {
-                        await Listbox_Settings_SingleTap();
-                    }
-                }
+                await Listbox_Settings_SingleTap();
             }
             catch { }
         }
@@ -58,7 +54,7 @@ namespace CtrlUI
         {
             try
             {
-                if (Listbox_SettingsMenu.SelectedIndex >= 0)
+                if (listView_SettingsMenu.SelectedIndex >= 0)
                 {
                     //Hide all the setting tabs
                     settingsStackpanelLaunch.Visibility = Visibility.Collapsed;
@@ -70,7 +66,7 @@ namespace CtrlUI
                     settingsStackpanelOther.Visibility = Visibility.Collapsed;
 
                     //Show the requested setting tab
-                    StackPanel SelStackPanel = (StackPanel)Listbox_SettingsMenu.SelectedItem;
+                    StackPanel SelStackPanel = (StackPanel)listView_SettingsMenu.SelectedItem;
                     if (SelStackPanel.Name == "settingsButtonStartup")
                     {
                         settingsStackpanelLaunch.Visibility = Visibility.Visible;
@@ -84,8 +80,8 @@ namespace CtrlUI
                     else if (SelStackPanel.Name == "settingsButtonLaunchers")
                     {
                         settingsStackpanelApps.Visibility = Visibility.Visible;
-                        int selectedIndex = listbox_LauncherSetting.SelectedIndex;
-                        await ListBoxFocusIndex(listbox_LauncherSetting, false, selectedIndex, vProcessCurrent.WindowHandleMain);
+                        int selectedIndex = listView_LauncherSetting.SelectedIndex;
+                        await ListViewFocusIndex(listView_LauncherSetting, false, selectedIndex, vProcessCurrent.WindowHandleMain);
                     }
                     else if (SelStackPanel.Name == "settingsButtonInterface")
                     {
@@ -144,7 +140,7 @@ namespace CtrlUI
                     }
 
                     //Show changed message
-                    Notification_Show_Status("AppLaunch", "Quick launch app changed");
+                    await Notification_Show_Status("AppLaunch", "Quick launch app changed");
 
                     //Save changes to Json file
                     JsonSaveList_Applications();
@@ -160,7 +156,12 @@ namespace CtrlUI
             {
                 //Add font styles to string list
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageFonts = FileToBitmapImage(new string[] { "Assets/Default/Icons/Font.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                BitmapImage imageFonts = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Font.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
 
                 //Add default fonts
                 DataBindString AnswerSegoe = new DataBindString();
@@ -203,7 +204,7 @@ namespace CtrlUI
                 if (messageResult != null)
                 {
                     //Show changed message
-                    Notification_Show_Status("Font", "Font style changed");
+                    await Notification_Show_Status("Font", "Font style changed");
 
                     //Update the setting
                     SettingSave(vConfigurationCtrlUI, "InterfaceFontStyleName", messageResult.Name);
@@ -233,7 +234,13 @@ namespace CtrlUI
                 {
                     try
                     {
-                        BitmapImage imageClocks = FileToBitmapImage(new string[] { clockStyle.FullName + "/Preview.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        BitmapImage imageClocks = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = [clockStyle.FullName + "/Preview.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+
                         DataBindString AnswerCustom = new DataBindString();
                         AnswerCustom.ImageBitmap = imageClocks;
                         AnswerCustom.Name = clockStyle.Name;
@@ -247,13 +254,13 @@ namespace CtrlUI
                 if (messageResult != null)
                 {
                     //Show changed message
-                    Notification_Show_Status("Clock", "Clock style changed");
+                    await Notification_Show_Status("Clock", "Clock style changed");
 
                     //Update the setting
                     SettingSave(vConfigurationCtrlUI, "InterfaceClockStyleName", messageResult.Name);
 
                     //Update the clock style
-                    UpdateClockStyle();
+                    await UpdateClockStyle();
                 }
             }
             catch { }
@@ -272,7 +279,12 @@ namespace CtrlUI
                 DirectoryInfo[] soundPacksDefault = directoryInfoDefault.GetDirectories("*", SearchOption.TopDirectoryOnly);
                 IEnumerable<DirectoryInfo> soundPacks = soundPacksUser.Concat(soundPacksDefault);
 
-                BitmapImage imagePacks = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeUp.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                BitmapImage imagePacks = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/VolumeUp.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
 
                 foreach (DirectoryInfo soundPack in soundPacks)
                 {
@@ -291,7 +303,7 @@ namespace CtrlUI
                 if (messageResult != null)
                 {
                     //Show changed message
-                    Notification_Show_Status("VolumeUp", "Sound pack changed");
+                    await Notification_Show_Status("VolumeUp", "Sound pack changed");
 
                     //Update the setting
                     SettingSave(vConfigurationCtrlUI, "InterfaceSoundPackName", messageResult.Name);

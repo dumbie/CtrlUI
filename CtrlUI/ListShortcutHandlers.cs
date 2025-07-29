@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVJsonFunctions;
@@ -17,7 +17,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task RightClickShortcut(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
+        async Task RightClickShortcut(ListView listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
         {
             try
             {
@@ -26,27 +26,52 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerShowGameInfo = new DataBindString();
-                AnswerShowGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Information.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerShowGameInfo.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Information.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerShowGameInfo.Name = "Show game information";
                 Answers.Add(AnswerShowGameInfo);
 
                 DataBindString AnswerHowLongToBeat = new DataBindString();
-                AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerHowLongToBeat.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Timer.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerHowLongToBeat.Name = "How long to beat information";
                 Answers.Add(AnswerHowLongToBeat);
 
                 DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerRemove.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Remove.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerRemove.Name = "Remove the shortcut file";
                 Answers.Add(AnswerRemove);
 
                 DataBindString AnswerRename = new DataBindString();
-                AnswerRename.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Rename.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerRename.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Rename.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerRename.Name = "Rename the shortcut file";
                 Answers.Add(AnswerRename);
 
                 DataBindString AnswerHide = new DataBindString();
-                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Hide.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerHide.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Hide.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerHide.Name = "Hide shortcut from list";
                 Answers.Add(AnswerHide);
 
@@ -96,11 +121,11 @@ namespace CtrlUI
         }
 
         //Hide the shortcut file
-        async Task HideShortcutFile(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
+        async Task HideShortcutFile(ListView listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
         {
             try
             {
-                Notification_Show_Status("Hide", "Hiding shortcut " + dataBindApp.Name);
+                await Notification_Show_Status("Hide", "Hiding shortcut " + dataBindApp.Name);
                 Debug.WriteLine("Hiding shortcut by name: " + dataBindApp.Name + " path: " + dataBindApp.PathShortcut);
 
                 //Create new profile shared
@@ -115,11 +140,11 @@ namespace CtrlUI
                 await RemoveAppFromList(dataBindApp, false, false, true);
 
                 //Select the previous index
-                await ListBoxFocusIndex(listboxSender, false, listboxSelectedIndex, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listboxSender, false, listboxSelectedIndex, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {
-                Notification_Show_Status("Hide", "Failed hiding");
+                await Notification_Show_Status("Hide", "Failed hiding");
                 Debug.WriteLine("Failed hiding shortcut: " + ex.Message);
             }
         }
@@ -129,7 +154,7 @@ namespace CtrlUI
         {
             try
             {
-                Notification_Show_Status("Rename", "Renaming shortcut");
+                await Notification_Show_Status("Rename", "Renaming shortcut");
                 Debug.WriteLine("Renaming shortcut: " + dataBindApp.Name + " path: " + dataBindApp.PathShortcut);
 
                 //Show the text input popup
@@ -138,7 +163,7 @@ namespace CtrlUI
                 //Check if file name changed
                 if (textInputString == dataBindApp.Name)
                 {
-                    Notification_Show_Status("Rename", "File name not changed");
+                    await Notification_Show_Status("Rename", "File name not changed");
                     Debug.WriteLine("The file name did not change.");
                     return;
                 }
@@ -156,19 +181,19 @@ namespace CtrlUI
                         dataBindApp.Name = textInputString;
                         dataBindApp.PathShortcut = newFilePath;
 
-                        Notification_Show_Status("Rename", "Renamed shortcut");
+                        await Notification_Show_Status("Rename", "Renamed shortcut");
                         Debug.WriteLine("Renamed shortcut file to: " + textInputString);
                     }
                     else
                     {
-                        Notification_Show_Status("Rename", "Failed renaming");
+                        await Notification_Show_Status("Rename", "Failed renaming");
                         Debug.WriteLine("Failed renaming shortcut.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                Notification_Show_Status("Rename", "Failed renaming");
+                await Notification_Show_Status("Rename", "Failed renaming");
                 Debug.WriteLine("Failed renaming shortcut: " + ex.Message);
             }
         }

@@ -1,8 +1,8 @@
 ﻿using ArnoldVinkStyles;
 using System;
 using System.Diagnostics;
-using System.Windows;
-using System.Windows.Input;
+using Windows.System;
+using Windows.UI.Xaml.Input;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -15,7 +15,7 @@ namespace CtrlUI
         {
             try
             {
-                vMessageBoxResult = lb_MessageBox.SelectedItem as DataBindString;
+                vMessageBoxResult = listView_MessageBox.SelectedItem as DataBindString;
                 Debug.WriteLine("Set messagebox result to: " + vMessageBoxResult.Name);
             }
             catch (Exception ex)
@@ -25,11 +25,11 @@ namespace CtrlUI
         }
 
         //Handle messagebox keyboard/controller tapped
-        void ListBox_MessageBox_KeyPressUp(object sender, KeyEventArgs e)
+        void ListView_MessageBox_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Space)
+                if (e.Key == VirtualKey.Space)
                 {
                     MessageBoxSetResult();
                 }
@@ -38,20 +38,20 @@ namespace CtrlUI
         }
 
         //Handle messagebox mouse/touch tapped
-        void ListBox_MessageBox_MousePressUp(object sender, MouseButtonEventArgs e)
+        void ListView_MessageBox_MousePressUp(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                //Check if an actual ListBoxItem is clicked
-                if (!AVInterface.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+                //Check if an actual ListViewItem is clicked
+                if (!AVInterface.CheckClickedListViewItem(e))
+                {
+                    return;
+                }
 
                 //Check which mouse button is pressed
-                if (e.ClickCount == 1)
+                if (vMousePressDownLeft)
                 {
-                    if (vMousePressDownLeft)
-                    {
-                        MessageBoxSetResult();
-                    }
+                    MessageBoxSetResult();
                 }
             }
             catch { }

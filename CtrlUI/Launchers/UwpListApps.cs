@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using Windows.Gaming.Preview.GamesEnumeration;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkStyles.AVImage;
@@ -110,8 +110,15 @@ namespace CtrlUI
                     return;
                 }
 
-                //Load the application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath, "Microsoft" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                //Get application image
+                BitmapImage bitmapImageApplication = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [appName, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath, "Microsoft"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeApplication,
+                    Dispatcher = this.Dispatcher
+                });
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
@@ -120,13 +127,13 @@ namespace CtrlUI
                     Launcher = AppLauncher.UWP,
                     Category = AppCategory.Launcher,
                     Name = appName,
-                    ImageBitmap = iconBitmapImage,
+                    ImageBitmap = bitmapImageApplication,
                     NameExe = appxDetails.ExecutableAliasName,
                     AppUserModelId = appUserModelId,
-                    StatusLauncherImage = vImagePreloadMicrosoft
+                    StatusLauncherImage = await LoadLauncherImage(AppLauncher.UWP, vImageLoadSizeApplication, 0)
                 };
 
-                await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
+                await ListViewAddItem(listView_Launchers, List_Launchers, dataBindApp, false, false);
                 //Debug.WriteLine("Added UWP app: " + appName + "/" + appUserModelId);
             }
             catch
@@ -140,7 +147,7 @@ namespace CtrlUI
         {
             try
             {
-                Notification_Show_Status("RemoveCross", "Uninstalling " + selectedItem.Name);
+                await Notification_Show_Status("RemoveCross", "Uninstalling " + selectedItem.Name);
 
                 //Remove application from pc
                 bool uwpRemoved = UwpRemoveApplicationByPackageFullName(selectedItem.PathFull);
@@ -148,7 +155,7 @@ namespace CtrlUI
                 //Remove application from list
                 if (uwpRemoved)
                 {
-                    await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, selectedItem, true);
+                    await ListViewRemoveItem(listView_FilePicker, List_FilePicker, selectedItem, true);
                 }
             }
             catch { }

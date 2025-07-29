@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVImage;
@@ -30,19 +30,29 @@ namespace CtrlUI
                 {
                     if (Path.GetPathRoot(targetPath) != targetPath)
                     {
-                        BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Default/Icons/Up.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        BitmapImage imageBack = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Up.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         DataBindFile dataBindFileGoUp = new DataBindFile() { FileType = FileType.GoUpPre, Name = "Go up", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = Path.GetDirectoryName(targetPath) };
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
+                        await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
                     else
                     {
-                        BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Default/Icons/Up.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        BitmapImage imageBack = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Up.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         DataBindFile dataBindFileGoUp = new DataBindFile() { FileType = FileType.GoUpPre, Name = "Go up", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = "PC" };
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
+                        await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
                 }
 
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     //Enable or disable the copy paste status
                     if (vClipboardFiles.Any())
@@ -58,17 +68,24 @@ namespace CtrlUI
                 //Add launch emulator options
                 if (vFilePickerSettings.ShowEmulatorInterface)
                 {
+                    BitmapImage emulatorImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Emulator.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+
                     string fileDescription = "Launch without a rom loaded";
-                    DataBindFile dataBindFileWithoutRom = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = vImagePreloadEmulator, PathFile = string.Empty };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutRom, false, false);
+                    DataBindFile dataBindFileWithoutRom = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = emulatorImage, PathFile = string.Empty };
+                    await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileWithoutRom, false, false);
 
                     string romDescription = "Launch with this folder as rom";
-                    DataBindFile dataBindFileFolderRom = new DataBindFile() { FileType = FileType.FilePre, Name = romDescription, Description = romDescription + ".", ImageBitmap = vImagePreloadEmulator, PathFile = targetPath };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolderRom, false, false);
+                    DataBindFile dataBindFileFolderRom = new DataBindFile() { FileType = FileType.FilePre, Name = romDescription, Description = romDescription + ".", ImageBitmap = emulatorImage, PathFile = targetPath };
+                    await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileFolderRom, false, false);
                 }
 
                 //Enable or disable the side navigate buttons
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Visible;
                     grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Visible;
@@ -129,7 +146,7 @@ namespace CtrlUI
                                 if (!systemFileFolder && (!hiddenFileFolder || SettingLoad(vConfigurationCtrlUI, "ShowHiddenFilesFolders", typeof(bool))))
                                 {
                                     DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, ClipboardType = clipboardType, Name = listFolder.Name, NameDetail = folderDetailed, DateCreated = listFolder.CreationTime, DateModified = listFolder.LastWriteTime, PathFile = listFolder.FullName, PathRoot = targetPath };
-                                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
+                                    await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
                                 }
                             }
                             catch { }
@@ -210,7 +227,7 @@ namespace CtrlUI
                                 if (!systemFileFolder && (!hiddenFileFolder || SettingLoad(vConfigurationCtrlUI, "ShowHiddenFilesFolders", typeof(bool))))
                                 {
                                     DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, ClipboardType = clipboardType, IsShortcut = fileIsShortcut, Size = fileSizeLong, Extension = fileExtension, Name = listFile.Name, NameDetail = fileDetailed, DateCreated = listFile.CreationTime, DateModified = listFile.LastWriteTime, PathFile = listFile.FullName, PathRoot = targetPath };
-                                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
+                                    await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileFile, false, false);
                                 }
                             }
                             catch { }

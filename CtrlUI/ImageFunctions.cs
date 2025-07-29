@@ -2,8 +2,9 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Media.Imaging;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSearch;
@@ -18,7 +19,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Load application image
-        public BitmapImage Image_Application_Load(DataBindApp dataBindApp, int imageWidth, int imageHeight)
+        public async Task<BitmapImage> Image_Application_Load(DataBindApp dataBindApp, int imageWidth, int imageHeight)
         {
             BitmapImage applicationImage = null;
             try
@@ -53,7 +54,15 @@ namespace CtrlUI
                     catch { }
 
                     //Set application bitmap image
-                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageSquareLargestLogoPath, imageWideLargestLogoPath }, imageSourceFolders, vImageBackupSource, imageWidth, imageHeight, IntPtr.Zero, 0);
+                    applicationImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = [imageFileName, imageFileExeName, imageSquareLargestLogoPath, imageWideLargestLogoPath],
+                        SearchPaths = imageSourceFolders,
+                        BackupPath = vImageBackupSource,
+                        Width = imageWidth,
+                        Height = imageHeight,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
                 else
                 {
@@ -63,10 +72,18 @@ namespace CtrlUI
                     string imageFileExePath = dataBindApp.PathExe;
 
                     //Set application bitmap image
-                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, imageSourceFolders, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                    applicationImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = [imageFileName, imageFileExeName, imageFileExePath],
+                        SearchPaths = imageSourceFolders,
+                        BackupPath = vImageBackupSource,
+                        Width = imageWidth,
+                        Height = imageHeight,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
 
-                Debug.WriteLine("Loaded application image: " + applicationImage);
+                Debug.WriteLine("Loaded application image: " + dataBindApp.Name);
                 return applicationImage;
             }
             catch (Exception ex)
@@ -114,7 +131,7 @@ namespace CtrlUI
         }
 
         //Reset application image
-        public void Image_Application_Reset(DataBindApp dataBindApp)
+        public async Task Image_Application_Reset(DataBindApp dataBindApp)
         {
             try
             {
@@ -162,16 +179,23 @@ namespace CtrlUI
                 BitmapImage applicationImage = null;
                 if (dataBindApp != null)
                 {
-                    applicationImage = Image_Application_Load(dataBindApp, vImageLoadSize, 0);
+                    applicationImage = await Image_Application_Load(dataBindApp, vImageLoadSizeApplication, 0);
                     dataBindApp.ImageBitmap = applicationImage;
                 }
                 else
                 {
-                    applicationImage = FileToBitmapImage(new string[] { imageFileName, imageFileExeName, imageFileExePath }, imageSourceFoldersCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                    applicationImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = [imageFileName, imageFileExeName, imageFileExePath],
+                        SearchPaths = imageSourceFoldersCombined,
+                        BackupPath = vImageBackupSource,
+                        Width = vImageLoadSizeApplication,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
                 img_AddAppLogo.Source = applicationImage;
 
-                Notification_Show_Status("Restart", "Application image reset");
+                await Notification_Show_Status("Restart", "Application image reset");
                 Debug.WriteLine("Application image reset: " + imageFileName);
             }
             catch (Exception ex)

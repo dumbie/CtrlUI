@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVArrayFunctions;
 using static ArnoldVinkCode.AVSettings;
@@ -46,9 +47,9 @@ namespace CtrlUI
                 vBusyRefreshingLaunchers = true;
 
                 //Show the loading gif
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
-                    gif_List_Loading.Show();
+                    gif_List_Loading.Visibility = Visibility.Visible;
                 });
 
                 //Check if loading first time
@@ -253,34 +254,35 @@ namespace CtrlUI
 
                 //Remove deleted launcher applications
                 Func<DataBindApp, bool> filterLauncherDeleted = x => x.Category == AppCategory.Launcher && !vLauncherAppAvailableCheck.Any(y => y == x.PathExe || y == x.AppUserModelId);
-                await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherDeleted);
-                await ListBoxRemoveAll(lb_Search, List_Search, filterLauncherDeleted);
+                await ListViewRemoveAll(listView_Launchers, List_Launchers, filterLauncherDeleted);
+                await ListViewRemoveAll(listView_Search, List_Search, filterLauncherDeleted);
 
                 //Remove ignored launcher applications
                 Func<DataBindApp, bool> filterLauncherIgnored = x => x.Category == AppCategory.Launcher && vCtrlIgnoreLauncherName.Any(y => y.String1.ToLower() == x.Name.ToLower());
-                await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherIgnored);
-                await ListBoxRemoveAll(lb_Search, List_Search, filterLauncherIgnored);
+                await ListViewRemoveAll(listView_Launchers, List_Launchers, filterLauncherIgnored);
+                await ListViewRemoveAll(listView_Search, List_Search, filterLauncherIgnored);
 
                 //First load functions
                 if (firstLoad)
                 {
-                    //Sort list by name
-                    SortFunction<DataBindApp> sortFuncName = new SortFunction<DataBindApp>();
-                    sortFuncName.Function = x => x.Name;
-                    SortObservableCollection(lb_Launchers, List_Launchers, sortFuncName, null);
-
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
-                        lb_Launchers.SelectedIndex = 0;
+                        //Sort list by name
+                        SortFunction<DataBindApp> sortFuncName = new SortFunction<DataBindApp>();
+                        sortFuncName.Function = x => x.Name;
+                        SortObservableCollection(listView_Launchers, List_Launchers, sortFuncName, null);
+
+                        //Select first index
+                        listView_Launchers.SelectedIndex = 0;
                     });
                 }
 
                 //Hide the loading gif
                 if (vBusyRefreshingCount() == 1)
                 {
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
-                        gif_List_Loading.Hide();
+                        gif_List_Loading.Visibility = Visibility.Collapsed;
                     });
                 }
             }

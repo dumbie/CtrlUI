@@ -2,8 +2,8 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkStyles.AVFocus;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -40,15 +40,18 @@ namespace CtrlUI
         }
 
         //Update DataBind and save image to file
-        public void ContentInformationSave()
+        public async Task ContentInformationSave()
         {
             try
             {
                 //Convert bytes to BitmapImage
-                BitmapImage bitmapImage = BytesToBitmapImage(vContentInformationImageBytes, 0, 0);
+                BitmapImage bitmapImage = await FileToBitmapImage(new AVImageFile()
+                {
+                    ImageBytes = vContentInformationImageBytes
+                });
                 if (bitmapImage == null)
                 {
-                    Notification_Show_Status("Save", "No image to save");
+                    await Notification_Show_Status("Save", "No image to save");
                     return;
                 }
 
@@ -80,17 +83,17 @@ namespace CtrlUI
                     AVFiles.BytesToFile(saveFilePath, vContentInformationImageBytes);
                 }
 
-                Notification_Show_Status("Save", "Saved and using image");
+                await Notification_Show_Status("Save", "Saved and using image");
             }
             catch { }
         }
 
         //Update DataBind and save image to file
-        private void Grid_Popup_ContentInformation_button_Save_Click(object sender, RoutedEventArgs e)
+        private async void Grid_Popup_ContentInformation_button_Save_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                ContentInformationSave();
+                await ContentInformationSave();
             }
             catch { }
         }

@@ -23,7 +23,7 @@ namespace CtrlUI
         {
             try
             {
-                Notification_Show_Status("AppClose", "Closing " + dataBindApp.Name);
+                await Notification_Show_Status("AppClose", "Closing " + dataBindApp.Name);
                 Debug.WriteLine("Closing process: " + dataBindApp.Name);
 
                 //Close the process
@@ -48,7 +48,7 @@ namespace CtrlUI
                 //Check if process closed
                 if (closedProcess)
                 {
-                    Notification_Show_Status("AppClose", "Closed " + dataBindApp.Name);
+                    await Notification_Show_Status("AppClose", "Closed " + dataBindApp.Name);
                     Debug.WriteLine("Closed process: " + dataBindApp.Name);
 
                     //Reset the process running status
@@ -67,7 +67,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Notification_Show_Status("AppClose", "Failed to close application");
+                    await Notification_Show_Status("AppClose", "Failed to close application");
                     Debug.WriteLine("Failed to close the application.");
                     return false;
                 }
@@ -84,7 +84,7 @@ namespace CtrlUI
         {
             try
             {
-                Notification_Show_Status("AppClose", "Closing all " + dataBindApp.Name);
+                await Notification_Show_Status("AppClose", "Closing all " + dataBindApp.Name);
                 Debug.WriteLine("Closing all processes: " + dataBindApp.Name);
 
                 //Close the processes
@@ -116,7 +116,7 @@ namespace CtrlUI
                 //Check if process closed
                 if (closedProcess)
                 {
-                    Notification_Show_Status("AppClose", "Closed all " + dataBindApp.Name);
+                    await Notification_Show_Status("AppClose", "Closed all " + dataBindApp.Name);
                     Debug.WriteLine("Closed all processes: " + dataBindApp.Name);
 
                     //Reset the process running status
@@ -135,7 +135,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Notification_Show_Status("AppClose", "Failed to close application");
+                    await Notification_Show_Status("AppClose", "Failed to close application");
                     Debug.WriteLine("Failed to close the application.");
                     return false;
                 }
@@ -154,7 +154,12 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString AnswerCloseLaunchers = new DataBindString();
-                AnswerCloseLaunchers.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerCloseLaunchers.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/AppClose.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerCloseLaunchers.Name = "Close launchers";
                 Answers.Add(AnswerCloseLaunchers);
 
@@ -163,7 +168,7 @@ namespace CtrlUI
                 {
                     if (messageResult == AnswerCloseLaunchers)
                     {
-                        Notification_Show_Status("AppClose", "Closing other launchers");
+                        await Notification_Show_Status("AppClose", "Closing other launchers");
 
                         //Close all known other launchers
                         foreach (ProfileShared closeLauncher in vCtrlCloseLaunchers)
@@ -188,7 +193,12 @@ namespace CtrlUI
                 //Ask if the user really wants to disconnect remote streams
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString AnswerDisconnectStreams = new DataBindString();
-                AnswerDisconnectStreams.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Stream.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerDisconnectStreams.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Stream.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerDisconnectStreams.Name = "Disconnect streams";
                 Answers.Add(AnswerDisconnectStreams);
 
@@ -197,7 +207,7 @@ namespace CtrlUI
                 {
                     if (messageResult == AnswerDisconnectStreams)
                     {
-                        Notification_Show_Status("Stream", "Disconnecting remote streams");
+                        await Notification_Show_Status("Stream", "Disconnecting remote streams");
 
                         //Disconnect Steam Streaming
                         AVProcess.Close_ProcessesByName("steam.exe", true);
@@ -231,7 +241,7 @@ namespace CtrlUI
                 Debug.WriteLine("Hiding Fps Overlayer");
 
                 //Show notification
-                Notification_Show_Status("Fps", "Hiding Fps Overlayer");
+                await Notification_Show_Status("Fps", "Hiding Fps Overlayer");
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVSettings;
@@ -34,7 +34,7 @@ namespace CtrlUI
                 if (vProcessDirectXInput == null)
                 {
                     //Debug.WriteLine("DirectXInput is not running, skipping controller check.");
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
@@ -53,18 +53,18 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
-                    SolidColorBrush ControllerColor0Brush = new BrushConverter().ConvertFrom(vController0.Color.ToString()) as SolidColorBrush;
+                    SolidColorBrush ControllerColor0Brush = new SolidColorBrush(vController0.Color);
                     border_Menu_Controller0.Background = ControllerColor0Brush;
 
-                    SolidColorBrush ControllerColor1Brush = new BrushConverter().ConvertFrom(vController1.Color.ToString()) as SolidColorBrush;
+                    SolidColorBrush ControllerColor1Brush = new SolidColorBrush(vController1.Color);
                     border_Menu_Controller1.Background = ControllerColor1Brush;
 
-                    SolidColorBrush ControllerColor2Brush = new BrushConverter().ConvertFrom(vController2.Color.ToString()) as SolidColorBrush;
+                    SolidColorBrush ControllerColor2Brush = new SolidColorBrush(vController2.Color);
                     border_Menu_Controller2.Background = ControllerColor2Brush;
 
-                    SolidColorBrush ControllerColor3Brush = new BrushConverter().ConvertFrom(vController3.Color.ToString()) as SolidColorBrush;
+                    SolidColorBrush ControllerColor3Brush = new SolidColorBrush(vController3.Color);
                     border_Menu_Controller3.Background = ControllerColor3Brush;
                 });
             }
@@ -100,7 +100,7 @@ namespace CtrlUI
         }
 
         //Update the controller status from DirectXInput
-        void UpdateControllerStatus(List<ControllerStatusDetails> controllerStatusSummaryList)
+        async Task UpdateControllerStatus(List<ControllerStatusDetails> controllerStatusSummaryList)
         {
             try
             {
@@ -139,13 +139,13 @@ namespace CtrlUI
                     //Check if controller is active controller
                     if (controllerStatusNew.Activated && vControllerActiveId != controllerStatusNew.NumberId)
                     {
-                        ActivateController(controllerStatusNew.NumberId);
+                        await ActivateController(controllerStatusNew.NumberId);
                     }
 
                     //Update battery icons and level
                     if (controllerStatusNew.Activated)
                     {
-                        UpdateBatteryStatus(controllerStatusNew.BatteryCurrent);
+                        await UpdateBatteryStatus(controllerStatusNew.BatteryCurrent);
                     }
 
                     //Update controller status for comparison
@@ -177,12 +177,12 @@ namespace CtrlUI
                     {
                         if (controllerStatusNew.Connected)
                         {
-                            DispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 1.00; });
+                            DispatcherInvoke(this.Dispatcher, delegate { controllerStatusStackpanel.Opacity = 1.00; });
                             string ControllerIdDisplay = controllerStatusNew.NumberDisplay().ToString();
                         }
                         else
                         {
-                            DispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 0.40; });
+                            DispatcherInvoke(this.Dispatcher, delegate { controllerStatusStackpanel.Opacity = 0.40; });
                             string ControllerIdDisplay = controllerStatusNew.NumberDisplay().ToString();
 
                             //Hide the battery status
@@ -204,7 +204,7 @@ namespace CtrlUI
             {
                 if (ForceHide || SettingLoad(vConfigurationCtrlUI, "HideBatteryLevel", typeof(bool)))
                 {
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
@@ -217,7 +217,7 @@ namespace CtrlUI
         }
 
         //Update the battery icons and level
-        void UpdateBatteryStatus(ControllerBattery controllerBattery)
+        async Task UpdateBatteryStatus(ControllerBattery controllerBattery)
         {
             try
             {
@@ -228,7 +228,7 @@ namespace CtrlUI
                 //Check if battery level is available
                 if (controllerBattery.BatteryStatus == BatteryStatus.Unknown)
                 {
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
@@ -239,10 +239,15 @@ namespace CtrlUI
                 //Check if battery is charging
                 if (controllerBattery.BatteryStatus == BatteryStatus.Charging)
                 {
-                    DispatcherInvoke(delegate
+                    await DispatcherInvoke(this.Dispatcher, async delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
-                        img_Main_Battery.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Battery/BatteryVerCharge.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Main_Battery.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Battery/BatteryVerCharge.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         img_Main_Battery.Visibility = Visibility.Visible;
                     });
                     return;
@@ -261,7 +266,7 @@ namespace CtrlUI
                 else if (controllerBattery.BatteryPercentage <= 90) { percentageNumber = "90"; }
 
                 //Set the battery percentage
-                DispatcherInvoke(delegate
+                await DispatcherInvoke(this.Dispatcher, async delegate
                 {
                     //Set the used battery percentage text
                     txt_Main_Battery.Text = Convert.ToString(controllerBattery.BatteryPercentage) + "%";
@@ -275,7 +280,12 @@ namespace CtrlUI
                     string updatedImage = "Assets/Default/Icons/Battery/BatteryVerDis" + percentageNumber + ".png";
                     if (currentImage.ToLower() != updatedImage.ToLower())
                     {
-                        img_Main_Battery.Source = FileToBitmapImage(new string[] { updatedImage }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Main_Battery.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = [updatedImage],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     }
 
                     //Show the battery image and clock
@@ -285,7 +295,7 @@ namespace CtrlUI
             }
             catch
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     txt_Main_Battery.Visibility = Visibility.Collapsed;
                     img_Main_Battery.Visibility = Visibility.Collapsed;
@@ -294,52 +304,132 @@ namespace CtrlUI
         }
 
         //Set a controller as the active controller
-        void ActivateController(int controllerId)
+        async Task ActivateController(int controllerId)
         {
             try
             {
                 if (controllerId == 0)
                 {
                     vControllerActiveId = controllerId;
-                    DispatcherInvoke(delegate
+                    await DispatcherInvoke(this.Dispatcher, async delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller0.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller-Accent.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller1.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller2.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller3.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     });
                 }
                 else if (controllerId == 1)
                 {
                     vControllerActiveId = controllerId;
-                    DispatcherInvoke(delegate
+                    await DispatcherInvoke(this.Dispatcher, async delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller0.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller1.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller-Accent.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller2.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller3.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     });
                 }
                 else if (controllerId == 2)
                 {
                     vControllerActiveId = controllerId;
-                    DispatcherInvoke(delegate
+                    await DispatcherInvoke(this.Dispatcher, async delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller0.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller1.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller2.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller-Accent.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller3.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     });
                 }
                 else if (controllerId == 3)
                 {
                     vControllerActiveId = controllerId;
-                    DispatcherInvoke(delegate
+                    await DispatcherInvoke(this.Dispatcher, async delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        img_Menu_Controller0.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller1.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller2.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                        img_Menu_Controller3.Source = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Controller-Accent.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     });
                 }
             }

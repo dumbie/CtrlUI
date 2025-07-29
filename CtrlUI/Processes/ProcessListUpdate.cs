@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ArnoldVinkStyles;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -79,23 +80,26 @@ namespace CtrlUI
                         Func<DataBindApp, bool> filterCombinedApp = x => (!string.IsNullOrWhiteSpace(x.PathExe) && x.PathExe.ToLower() == processPathExeLower) || (!string.IsNullOrWhiteSpace(x.PathExe) && Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == processNameExeNoExtLower) || (!string.IsNullOrWhiteSpace(x.NameExe) && x.NameExe.ToLower() == processNameExeLower) || (!string.IsNullOrWhiteSpace(x.AppUserModelId) && x.AppUserModelId.ToLower() == processAppUserModelIdLower);
                         foreach (DataBindApp existingCombinedApp in combinedAppLists.Where(filterCombinedApp))
                         {
-                            //Update the process running time
-                            existingCombinedApp.StatusProcessRunningTime = processRunTime;
-
-                            //Update the process running status
-                            existingCombinedApp.StatusRunning = processStatusRunning;
-
-                            //Update the process suspended status
-                            existingCombinedApp.StatusSuspended = processStatusSuspended;
-
-                            //Update the process not responding status
-                            existingCombinedApp.StatusNotResponding = processStatusNotResponding;
-
-                            //Add new process multi application
-                            if (!existingCombinedApp.ProcessMulti.Any(x => x.Identifier == processMulti.Identifier))
+                            AVDispatcherInvoke.DispatcherInvoke(this.Dispatcher, delegate
                             {
-                                existingCombinedApp.ProcessMulti.Add(processMulti);
-                            }
+                                //Update the process running time
+                                existingCombinedApp.StatusProcessRunningTime = processRunTime;
+
+                                //Update the process running status
+                                existingCombinedApp.StatusRunning = processStatusRunning;
+
+                                //Update the process suspended status
+                                existingCombinedApp.StatusSuspended = processStatusSuspended;
+
+                                //Update the process not responding status
+                                existingCombinedApp.StatusNotResponding = processStatusNotResponding;
+
+                                //Add new process multi application
+                                if (!existingCombinedApp.ProcessMulti.Any(x => x.Identifier == processMulti.Identifier))
+                                {
+                                    existingCombinedApp.ProcessMulti.Add(processMulti);
+                                }
+                            });
                         }
 
                         //Check if application name is blacklisted
@@ -134,22 +138,25 @@ namespace CtrlUI
                         IEnumerable<DataBindApp> existingProcessApps = List_Processes.Where(filterProcessApp);
                         foreach (DataBindApp existingProcessApp in existingProcessApps)
                         {
-                            //Update the process title
-                            if (existingProcessApp.Name != processMulti.WindowTitleMain)
+                            AVDispatcherInvoke.DispatcherInvoke(this.Dispatcher, delegate
                             {
-                                existingProcessApp.Name = processMulti.WindowTitleMain;
-                            }
+                                //Update the process title
+                                if (existingProcessApp.Name != processMulti.WindowTitleMain)
+                                {
+                                    existingProcessApp.Name = processMulti.WindowTitleMain;
+                                }
 
-                            //Update the process running time
-                            existingProcessApp.StatusProcessRunningTime = processRunTime;
+                                //Update the process running time
+                                existingProcessApp.StatusProcessRunningTime = processRunTime;
 
-                            //Update the process suspended status
-                            existingProcessApp.StatusSuspended = processStatusSuspended;
+                                //Update the process suspended status
+                                existingProcessApp.StatusSuspended = processStatusSuspended;
 
-                            //Update the process not responding status
-                            existingProcessApp.StatusNotResponding = processStatusNotResponding;
+                                //Update the process not responding status
+                                existingProcessApp.StatusNotResponding = processStatusNotResponding;
 
-                            appUpdatedContinueLoop = true;
+                                appUpdatedContinueLoop = true;
+                            });
                         }
 
                         //Check if application updated
@@ -173,8 +180,15 @@ namespace CtrlUI
                             catch { }
                         }
 
-                        //Load the application image
-                        BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processMulti.WindowTitleMain, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExe }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, windowHandleMain, 0);
+                        //Load application image
+                        BitmapImage processImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = [processMulti.WindowTitleMain, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExe],
+                            SearchPaths = vImageSourceFoldersAppsCombined,
+                            BackupPath = vImageBackupSource,
+                            Width = vImageLoadSizeApplication,
+                            Dispatcher = this.Dispatcher
+                        });
 
                         //Create new ProcessMulti list
                         List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();
@@ -182,7 +196,7 @@ namespace CtrlUI
 
                         //Add the process to the process list
                         DataBindApp dataBindApp = new DataBindApp() { Type = processMulti.Type, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processMulti.WindowTitleMain, AppUserModelId = processAppUserModelId, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, StatusNotResponding = processStatusNotResponding, StatusProcessRunningTime = processRunTime };
-                        await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
+                        await ListViewAddItem(listView_Processes, List_Processes, dataBindApp, false, false);
 
                         //Add the process to the search list
                         await AddSearchProcess(dataBindApp);

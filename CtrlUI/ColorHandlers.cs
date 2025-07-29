@@ -1,8 +1,8 @@
 ﻿using ArnoldVinkStyles;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
+using Windows.System;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.MainColors;
 using static CtrlUI.AppVariables;
@@ -12,31 +12,31 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle color picker mouse/touch tapped
-        async void ListBox_ColorPicker_MousePressUp(object sender, MouseButtonEventArgs e)
+        async void ListView_ColorPicker_MousePressUp(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                //Check if an actual ListBoxItem is clicked
-                if (!AVInterface.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+                //Check if an actual ListViewItem is clicked
+                if (!AVInterface.CheckClickedListViewItem(e))
+                {
+                    return;
+                }
 
                 //Check which mouse button is pressed
-                if (e.ClickCount == 1)
+                if (vMousePressDownLeft)
                 {
-                    if (vMousePressDownLeft)
-                    {
-                        await lb_ColorPicker_LeftClick();
-                    }
+                    await lb_ColorPicker_LeftClick();
                 }
             }
             catch { }
         }
 
         //Handle color picker keyboard/controller tapped
-        async void ListBox_ColorPicker_KeyPressUp(object sender, KeyEventArgs e)
+        async void ListView_ColorPicker_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Space)
+                if (e.Key == VirtualKey.Space)
                 {
                     await lb_ColorPicker_LeftClick();
                 }
@@ -49,10 +49,10 @@ namespace CtrlUI
         {
             try
             {
-                if (lb_ColorPicker.SelectedItems.Count > 0 && lb_ColorPicker.SelectedIndex != -1)
+                if (listView_ColorPicker.SelectedItems.Count > 0 && listView_ColorPicker.SelectedIndex != -1)
                 {
                     //Save the new accent color
-                    SolidColorBrush selectedSolidColorBrush = (SolidColorBrush)lb_ColorPicker.SelectedItem;
+                    SolidColorBrush selectedSolidColorBrush = (SolidColorBrush)listView_ColorPicker.SelectedItem;
                     string colorLightHex = selectedSolidColorBrush.ToString();
                     SettingSave(vConfigurationCtrlUI, "ColorAccentLight", colorLightHex);
 

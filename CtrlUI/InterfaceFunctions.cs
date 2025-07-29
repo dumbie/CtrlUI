@@ -5,9 +5,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
@@ -16,7 +19,7 @@ using static CtrlUI.AppVariables;
 
 namespace CtrlUI
 {
-    partial class WindowMain
+    public partial class WindowMain
     {
         //Register Interface Handlers
         void RegisterInterfaceHandlers()
@@ -25,8 +28,9 @@ namespace CtrlUI
             {
                 //Main menu functions
                 grid_Popup_MainMenu_button_Close.Click += Button_Popup_Close_Click;
-                listbox_MainMenu.PreviewKeyUp += ListBox_Menu_KeyPressUp;
-                listbox_MainMenu.PreviewMouseUp += ListBox_Menu_MousePressUp;
+                listView_MainMenu.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_MainMenu.PreviewKeyUp += ListView_Menu_KeyPressUp;
+                listView_MainMenu.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Menu_MousePressUp), true);
 
                 //Header menu functions
                 button_MenuHamburger.Click += Button_MenuHamburger_Click;
@@ -45,33 +49,47 @@ namespace CtrlUI
                 button_Category_Menu_Search.Click += Button_Category_Menu_Click;
 
                 //App list functions
-                lb_Games.PreviewKeyUp += ListBox_Apps_KeyPressUp;
-                lb_Games.PreviewMouseUp += ListBox_Apps_MousePressUp;
-                lb_Apps.PreviewKeyUp += ListBox_Apps_KeyPressUp;
-                lb_Apps.PreviewMouseUp += ListBox_Apps_MousePressUp;
-                lb_Emulators.PreviewKeyUp += ListBox_Apps_KeyPressUp;
-                lb_Emulators.PreviewMouseUp += ListBox_Apps_MousePressUp;
-                lb_Launchers.PreviewKeyUp += ListBox_Apps_KeyPressUp;
-                lb_Launchers.PreviewMouseUp += ListBox_Apps_MousePressUp;
-                lb_Shortcuts.PreviewKeyUp += ListBox_Apps_KeyPressUp;
-                lb_Shortcuts.PreviewMouseUp += ListBox_Apps_MousePressUp;
-                lb_Processes.PreviewKeyUp += ListBox_Apps_KeyPressUp;
-                lb_Processes.PreviewMouseUp += ListBox_Apps_MousePressUp;
-                lb_Gallery.PreviewKeyUp += ListBox_Apps_KeyPressUp;
-                lb_Gallery.PreviewMouseUp += ListBox_Apps_MousePressUp;
-                lb_Search.PreviewKeyUp += ListBox_Apps_KeyPressUp;
-                lb_Search.PreviewMouseUp += ListBox_Apps_MousePressUp;
+                listView_Games.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_Games.PreviewKeyUp += ListView_Apps_KeyPressUp;
+                listView_Games.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
+                listView_Apps.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_Apps.PreviewKeyUp += ListView_Apps_KeyPressUp;
+                listView_Apps.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
+                listView_Emulators.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_Emulators.PreviewKeyUp += ListView_Apps_KeyPressUp;
+                listView_Emulators.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
+                listView_Launchers.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_Launchers.PreviewKeyUp += ListView_Apps_KeyPressUp;
+                listView_Launchers.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
+                listView_Shortcuts.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_Shortcuts.PreviewKeyUp += ListView_Apps_KeyPressUp;
+                listView_Shortcuts.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
+                listView_Processes.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_Processes.PreviewKeyUp += ListView_Apps_KeyPressUp;
+                listView_Processes.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
+                listView_Gallery.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_Gallery.PreviewKeyUp += ListView_Apps_KeyPressUp;
+                listView_Gallery.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
+                listView_Search.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_Search.PreviewKeyUp += ListView_Apps_KeyPressUp;
+                listView_Search.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
 
                 //Gallery functions
-                lb_Gallery.AddHandler(ScrollViewer.ScrollChangedEvent, new ScrollChangedEventHandler(ListBox_GalleryScrollViewer_ScrollChanged));
+                ScrollViewer scrollViewer_Gallery = listView_Gallery.AVGetListViewScrollViewer();
+                if (scrollViewer_Gallery != null)
+                {
+                    scrollViewer_Gallery.ViewChanged += ListView_GalleryScrollViewer_ScrollChanged;
+                }
 
                 //MessageBox list functions
-                lb_MessageBox.PreviewKeyUp += ListBox_MessageBox_KeyPressUp;
-                lb_MessageBox.PreviewMouseUp += ListBox_MessageBox_MousePressUp;
+                listView_MessageBox.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_MessageBox.PreviewKeyUp += ListView_MessageBox_KeyPressUp;
+                listView_MessageBox.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_MessageBox_MousePressUp), true);
 
                 //Manage functions
+                listView_Manage_AddAppCategory.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_Manage_AddAppCategory.SelectionChanged += ListView_Manage_AddAppCategory_SelectionChanged;
                 btn_Manage_ResetAppLogo.Click += Button_Manage_ResetAppLogo_Click;
-                lb_Manage_AddAppCategory.SelectionChanged += Lb_Manage_AddAppCategory_SelectionChanged;
                 btn_Manage_AddAppLogo.Click += Button_AddAppLogo_Click;
                 btn_AddAppPathExe.Click += Button_AddAppPathExe_Click;
                 btn_AddAppPathLaunch.Click += Button_AddAppPathLaunch_Click;
@@ -101,8 +119,9 @@ namespace CtrlUI
                 //Sorting functions
                 grid_Popup_Sorting_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Sorting_button_Direction.Click += Grid_Popup_Sorting_button_Direction_Click;
-                lb_Sorting.PreviewKeyUp += ListBox_Sorting_KeyPressUp;
-                lb_Sorting.PreviewMouseUp += ListBox_Sorting_MousePressUp;
+                listView_Sorting.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_Sorting.PreviewKeyUp += ListView_Sorting_KeyPressUp;
+                listView_Sorting.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Sorting_MousePressUp), true);
 
                 //Search functions
                 grid_Search_textbox.TextChanged += grid_Search_textbox_TextChanged;
@@ -116,8 +135,9 @@ namespace CtrlUI
                 grid_Popup_TextInput_button_ConfirmText.Click += Button_TextInputConfirmText_Click;
 
                 //File Picker functions
-                lb_FilePicker.PreviewKeyUp += ListBox_FilePicker_KeyPressUp;
-                lb_FilePicker.PreviewMouseUp += ListBox_FilePicker_MousePressUp;
+                listView_FilePicker.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_FilePicker.PreviewKeyUp += ListView_FilePicker_KeyPressUp;
+                listView_FilePicker.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_FilePicker_MousePressUp), true);
                 grid_Popup_FilePicker_button_SelectFolder.Click += Grid_Popup_FilePicker_button_SelectFolder_Click;
 
                 //Profile Manager functions
@@ -126,13 +146,15 @@ namespace CtrlUI
                 grid_Popup_ProfileManager_button_ProfileAdd.Click += Grid_Popup_ProfileManager_button_ProfileAdd_Click;
                 grid_Popup_ProfileManager_textbox_ProfileString1.KeyDown += grid_Popup_ProfileManager_textbox_ProfileString_KeyDown;
                 grid_Popup_ProfileManager_textbox_ProfileString2.KeyDown += grid_Popup_ProfileManager_textbox_ProfileString_KeyDown;
-                lb_ProfileManager.PreviewKeyUp += ListBox_ProfileManager_KeyPressUp;
-                lb_ProfileManager.PreviewMouseUp += ListBox_ProfileManager_MousePressUp;
+                listView_ProfileManager.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_ProfileManager.PreviewKeyUp += ListView_ProfileManager_KeyPressUp;
+                listView_ProfileManager.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_ProfileManager_MousePressUp), true);
 
                 //Color Picker functions
                 grid_Popup_ColorPicker_button_ControllerRight.Click += Button_Popup_Close_Click;
-                lb_ColorPicker.PreviewKeyUp += ListBox_ColorPicker_KeyPressUp;
-                lb_ColorPicker.PreviewMouseUp += ListBox_ColorPicker_MousePressUp;
+                listView_ColorPicker.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_ColorPicker.PreviewKeyUp += ListView_ColorPicker_KeyPressUp;
+                listView_ColorPicker.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_ColorPicker_MousePressUp), true);
 
                 //Welcome functions
                 grid_Popup_Welcome_button_Start.Click += Grid_Popup_Welcome_button_Start_Click;
@@ -150,8 +172,9 @@ namespace CtrlUI
 
                 //Settings functions
                 grid_Popup_Settings_button_Close.Click += Button_Popup_Close_Click;
-                Listbox_SettingsMenu.PreviewKeyDown += ListBox_Settings_KeyPressUp;
-                Listbox_SettingsMenu.PreviewMouseUp += ListBox_Settings_MousePressUp;
+                listView_SettingsMenu.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_SettingsMenu.PreviewKeyUp += ListView_Settings_KeyPressUp;
+                listView_SettingsMenu.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Settings_MousePressUp), true);
                 btn_Settings_AppQuickLaunch.Click += Button_Settings_AppQuickLaunch;
                 btn_Settings_LaunchDirectXInput.Click += Button_LaunchDirectXInput_Click;
                 btn_Settings_LaunchScreenCaptureTool.Click += Button_LaunchScreenCaptureTool_Click;
@@ -161,8 +184,9 @@ namespace CtrlUI
                 btn_Settings_InterfaceSoundPackName.Click += Button_Settings_InterfaceSoundPackName;
                 btn_Settings_InterfaceClockStyleName.Click += Button_Settings_InterfaceClockStyleName;
                 btn_Settings_InterfaceFontStyleName.Click += Button_Settings_InterfaceFontStyleName;
-                listbox_LauncherSetting.PreviewKeyUp += ListBox_LauncherSetting_KeyPressUp;
-                listbox_LauncherSetting.PreviewMouseUp += ListBox_LauncherSetting_MousePressUp;
+                listView_LauncherSetting.PreviewKeyDown += ListView_ArrowScrollBlock;
+                listView_LauncherSetting.PreviewKeyUp += ListView_LauncherSetting_KeyPressUp;
+                listView_LauncherSetting.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_LauncherSetting_MousePressUp), true);
 
                 //Monitor functions
                 btn_Monitor_Switch_Primary.Click += Btn_Monitor_Switch_Primary_Click;
@@ -177,8 +201,8 @@ namespace CtrlUI
                 btn_Help_OpenDonation.Click += Button_Help_OpenDonation_Click;
 
                 //Global functions
-                this.PreviewMouseDown += WindowMain_PreviewMouseDown;
-                this.PreviewKeyUp += WindowMain_KeyPressUp;
+                this.AddHandler(PointerPressedEvent, new PointerEventHandler(WindowMain_PreviewMouseDown), true);
+                this.AddHandler(PreviewKeyUpEvent, new KeyEventHandler(WindowMain_KeyPressUp), true);
 
                 Debug.WriteLine("Registered all the interface handlers.");
             }
@@ -201,13 +225,15 @@ namespace CtrlUI
                     string fontPathDefault = AVFunctions.ApplicationPathRoot() + "/Assets/Default/Fonts/" + interfaceFontStyleName + ".ttf";
                     if (File.Exists(fontPathUser))
                     {
-                        ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPathUser);
-                        this.FontFamily = fontFamilies.FirstOrDefault();
+                        //FixStyle
+                        //ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPathUser);
+                        //this.FontFamily = fontFamilies.FirstOrDefault();
                     }
                     else if (File.Exists(fontPathDefault))
                     {
-                        ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPathDefault);
-                        this.FontFamily = fontFamilies.FirstOrDefault();
+                        //FixStyle
+                        //ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPathDefault);
+                        //this.FontFamily = fontFamilies.FirstOrDefault();
                     }
                 }
             }
@@ -218,7 +244,7 @@ namespace CtrlUI
         }
 
         //Update the user interface clock style
-        void UpdateClockStyle()
+        async Task UpdateClockStyle()
         {
             try
             {
@@ -229,10 +255,33 @@ namespace CtrlUI
                     clockPath = "Assets/User/Clocks/" + clockStyle;
                 }
 
-                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { clockPath + "/Face.png" }, null, vImageBackupSource, 40, 0, IntPtr.Zero, 0);
-                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { clockPath + "/Hour.png" }, null, vImageBackupSource, 40, 0, IntPtr.Zero, 0);
-                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { clockPath + "/Minute.png" }, null, vImageBackupSource, 40, 0, IntPtr.Zero, 0);
-                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { clockPath + "/Center.png" }, null, vImageBackupSource, 40, 0, IntPtr.Zero, 0);
+                img_Main_Time_Face.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [clockPath + "/Face.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+
+                img_Main_Time_Hour.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [clockPath + "/Hour.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+
+                img_Main_Time_Minute.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [clockPath + "/Minute.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+
+                img_Main_Time_Center.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [clockPath + "/Center.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
             }
             catch { }
         }
@@ -242,20 +291,30 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
-                    //Rotate the clock images
+                    //Rotate clock images
                     int clockSecond = DateTime.Now.Second;
                     int clockMinute = DateTime.Now.Minute;
                     int clockHour = DateTime.Now.Hour;
-                    img_Main_Time_Minute.LayoutTransform = new RotateTransform((clockMinute * 360 / 60) + (clockSecond / 60 * 6));
-                    img_Main_Time_Hour.LayoutTransform = new RotateTransform((clockHour * 360 / 12) + (clockMinute / 2));
+                    RotateTransform rotateTransformMinute = new RotateTransform()
+                    {
+                        Angle = (clockMinute * 360 / 60)
+                    };
+                    img_Main_Time_Minute.RenderTransform = rotateTransformMinute;
+                    img_Main_Time_Minute.RenderTransformOrigin = new Point(0.5, 0.5);
+                    RotateTransform rotateTransformHour = new RotateTransform()
+                    {
+                        Angle = (clockHour * 360 / 12)
+                    };
+                    img_Main_Time_Hour.RenderTransform = rotateTransformHour;
+                    img_Main_Time_Hour.RenderTransformOrigin = new Point(0.5, 0.5);
 
-                    //Update the time and date
+                    //Update time and date
                     txt_Main_Date.Text = DateTime.Now.ToString("d MMMM");
                     txt_Main_Time.Text = DateTime.Now.ToShortTimeString();
 
-                    //Change the visibility
+                    //Change visibility
                     if (vMainMenuOpen)
                     {
                         txt_Main_Date.Visibility = Visibility.Visible;
@@ -276,14 +335,15 @@ namespace CtrlUI
         {
             try
             {
-                foreach (ScrollViewerLoopHorizontal scrollViewer in AVVisualTree.FindVisualChildren<ScrollViewerLoopHorizontal>(this))
-                {
-                    scrollViewer.ScrollPaused = pauseScroll;
-                }
-                foreach (ScrollViewerLoopVertical scrollViewer in AVVisualTree.FindVisualChildren<ScrollViewerLoopVertical>(this))
-                {
-                    scrollViewer.ScrollPaused = pauseScroll;
-                }
+                //FixStyle
+                //foreach (ScrollViewerLoopHorizontal scrollViewer in AVFunctions.FindVisualChildren<ScrollViewerLoopHorizontal>(this))
+                //{
+                //    scrollViewer.ScrollPaused = pauseScroll;
+                //}
+                //foreach (ScrollViewerLoopVertical scrollViewer in AVFunctions.FindVisualChildren<ScrollViewerLoopVertical>(this))
+                //{
+                //    scrollViewer.ScrollPaused = pauseScroll;
+                //}
             }
             catch { }
         }
@@ -311,7 +371,7 @@ namespace CtrlUI
                 bool runningScreenCaptureTool = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "screencapturetool");
                 bool runningFpsOverlayer = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "fpsoverlayer");
 
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     img_Menu_SteamStatus.Opacity = runningSteam ? 1.00 : 0.40;
                     img_Menu_EADesktopStatus.Opacity = runningEADesktop ? 1.00 : 0.40;
@@ -379,38 +439,167 @@ namespace CtrlUI
         }
 
         //Set content and resource images with Cache OnLoad
-        void SetContentResourceXamlImages()
+        async Task SetContentResourceXamlImages()
         {
             try
             {
-                img_Menu_SteamStatus.Source = vImagePreloadSteam;
-                img_Menu_UbisoftStatus.Source = vImagePreloadUbisoft;
-                img_Menu_EADesktopStatus.Source = vImagePreloadEADesktop;
-                img_Menu_GoGStatus.Source = vImagePreloadGoG;
-                img_Menu_EpicStatus.Source = vImagePreloadEpic;
-                img_Menu_BattleNetStatus.Source = vImagePreloadBattleNet;
-                img_Menu_DiscordStatus.Source = vImagePreloadDiscord;
-                img_Menu_DirectXInputStatus.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-                img_Menu_FpsOverlayerStatus.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-                img_Menu_ScreenCaptureToolStatus.Source = FileToBitmapImage(new string[] { "ScreenCaptureTool" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                img_Menu_SteamStatus.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Steam"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+                img_Menu_UbisoftStatus.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Ubisoft"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+                img_Menu_EADesktopStatus.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["EA Desktop"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+                img_Menu_GoGStatus.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["GoG"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+                img_Menu_EpicStatus.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Epic"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+                img_Menu_BattleNetStatus.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Battle.net"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+                img_Menu_DiscordStatus.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Discord"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+                img_Menu_DirectXInputStatus.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["DirectXInput"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+                img_Menu_FpsOverlayerStatus.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["FpsOverlayer"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+                img_Menu_ScreenCaptureToolStatus.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["ScreenCaptureTool"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
 
                 //Check if the first launch logo's need to be loaded
                 if (SettingLoad(vConfigurationCtrlUI, "AppFirstLaunch", typeof(bool)))
                 {
-                    grid_Popup_Welcome_img_Edge.Source = FileToBitmapImage(new string[] { "Edge" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-                    grid_Popup_Welcome_img_Kodi.Source = FileToBitmapImage(new string[] { "Kodi" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-                    grid_Popup_Welcome_img_Spotify.Source = FileToBitmapImage(new string[] { "Spotify" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-                    grid_Popup_Welcome_img_PSRemote.Source = FileToBitmapImage(new string[] { "Remote Play" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-                    grid_Popup_Welcome_img_Discord.Source = vImagePreloadDiscord;
-                    grid_Popup_Welcome_img_Steam.Source = vImagePreloadSteam;
-                    grid_Popup_Welcome_img_EADesktop.Source = vImagePreloadEADesktop;
-                    grid_Popup_Welcome_img_Ubisoft.Source = vImagePreloadUbisoft;
-                    grid_Popup_Welcome_img_GoG.Source = vImagePreloadGoG;
-                    grid_Popup_Welcome_img_Battle.Source = vImagePreloadBattleNet;
-                    grid_Popup_Welcome_img_Epic.Source = vImagePreloadEpic;
+                    grid_Popup_Welcome_img_Edge.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Edge"],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+                    grid_Popup_Welcome_img_Kodi.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Kodi"],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+                    grid_Popup_Welcome_img_Spotify.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Spotify"],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+                    grid_Popup_Welcome_img_PSRemote.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Remote Play"],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+                    grid_Popup_Welcome_img_Discord.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Discord"],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+                    grid_Popup_Welcome_img_Steam.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Steam"],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+                    grid_Popup_Welcome_img_EADesktop.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["EA Desktop"],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+                    grid_Popup_Welcome_img_Ubisoft.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Ubisoft"],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+                    grid_Popup_Welcome_img_GoG.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["GoG"],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+                    grid_Popup_Welcome_img_Battle.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Battle.net"],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
+                    grid_Popup_Welcome_img_Epic.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Epic"],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("SetContentResourceXamlImages failed: " + ex.Message);
+            }
         }
     }
 }

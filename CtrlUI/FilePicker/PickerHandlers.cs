@@ -6,8 +6,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+using Windows.System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -85,13 +86,13 @@ namespace CtrlUI
             try
             {
                 //Get the selected list item
-                DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
+                DataBindFile selectedItem = (DataBindFile)listView_FilePicker.SelectedItem;
 
                 //Check if actions are available
                 if (vFilePickerCurrentPath == "PC" && selectedItem.FileType != FileType.FolderDisc)
                 {
                     Debug.WriteLine("File and folders action cancelled, no actions available.");
-                    Notification_Show_Status("Close", "No actions available");
+                    await Notification_Show_Status("Close", "No actions available");
                     return;
                 }
 
@@ -102,7 +103,12 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
 
                     DataBindString answerUninstall = new DataBindString();
-                    answerUninstall.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    answerUninstall.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/RemoveCross.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     answerUninstall.Name = "Uninstall this application";
                     Answers.Add(answerUninstall);
 
@@ -122,7 +128,12 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
 
                     DataBindString answerEjectDisc = new DataBindString();
-                    answerEjectDisc.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Eject.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    answerEjectDisc.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Eject.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     answerEjectDisc.Name = "Eject disc or unmount the image";
                     Answers.Add(answerEjectDisc);
 
@@ -150,7 +161,12 @@ namespace CtrlUI
                     DataBindString answerShowGameInfo = new DataBindString();
                     if (!preFile && vFilePickerSettings.ShowEmulatorInterface)
                     {
-                        answerShowGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Information.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerShowGameInfo.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Information.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerShowGameInfo.Name = "Show game information";
                         Answers.Add(answerShowGameInfo);
                     }
@@ -158,7 +174,12 @@ namespace CtrlUI
                     DataBindString answerHowLongToBeat = new DataBindString();
                     if (!preFile && vFilePickerSettings.ShowEmulatorInterface)
                     {
-                        answerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerHowLongToBeat.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Timer.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerHowLongToBeat.Name = "How long to beat information";
                         Answers.Add(answerHowLongToBeat);
                     }
@@ -166,14 +187,24 @@ namespace CtrlUI
                     DataBindString answerCopySingle = new DataBindString();
                     if (!preFile)
                     {
-                        answerCopySingle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Copy.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerCopySingle.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Copy.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerCopySingle.Name = "Copy the file or folder";
                         Answers.Add(answerCopySingle);
                     }
                     DataBindString answerCopyChecked = new DataBindString();
                     if (checkedItems > 0)
                     {
-                        answerCopyChecked.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Copy.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerCopyChecked.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Copy.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerCopyChecked.Name = "Copy selected files and folders";
                         Answers.Add(answerCopyChecked);
                     }
@@ -181,14 +212,24 @@ namespace CtrlUI
                     DataBindString answerCutSingle = new DataBindString();
                     if (!preFile)
                     {
-                        answerCutSingle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Cut.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerCutSingle.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Cut.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerCutSingle.Name = "Cut the file or folder";
                         Answers.Add(answerCutSingle);
                     }
                     DataBindString answerCutChecked = new DataBindString();
                     if (checkedItems > 0)
                     {
-                        answerCutChecked.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Cut.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerCutChecked.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Cut.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerCutChecked.Name = "Cut selected files and folders";
                         Answers.Add(answerCutChecked);
                     }
@@ -197,7 +238,12 @@ namespace CtrlUI
                     if (vClipboardFiles.Count == 1)
                     {
                         DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault();
-                        answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Paste.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerPaste.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Paste.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerPaste.Name = "Paste (" + clipboardFile.FileType.ToString() + " " + clipboardFile.ClipboardType.ToString() + ") " + clipboardFile.Name;
                         Answers.Add(answerPaste);
                     }
@@ -215,7 +261,12 @@ namespace CtrlUI
                             statusCount = "(" + cutCount + "x cut)";
                         }
 
-                        answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Paste.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerPaste.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Paste.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerPaste.Name = "Paste " + statusCount + " files or folders";
                         Answers.Add(answerPaste);
                     }
@@ -223,7 +274,12 @@ namespace CtrlUI
                     DataBindString answerRename = new DataBindString();
                     if (!preFile)
                     {
-                        answerRename.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Rename.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerRename.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Rename.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerRename.Name = "Rename the file or folder";
                         Answers.Add(answerRename);
                     }
@@ -231,25 +287,45 @@ namespace CtrlUI
                     DataBindString answerRemoveSingle = new DataBindString();
                     if (!preFile)
                     {
-                        answerRemoveSingle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerRemoveSingle.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Remove.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerRemoveSingle.Name = "Remove the file or folder";
                         Answers.Add(answerRemoveSingle);
                     }
                     DataBindString answerRemoveChecked = new DataBindString();
                     if (checkedItems > 0)
                     {
-                        answerRemoveChecked.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerRemoveChecked.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Remove.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerRemoveChecked.Name = "Remove selected files and folders";
                         Answers.Add(answerRemoveChecked);
                     }
 
                     DataBindString answerCreateFolder = new DataBindString();
-                    answerCreateFolder.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/FolderAdd.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    answerCreateFolder.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/FolderAdd.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     answerCreateFolder.Name = "Create new folder here";
                     Answers.Add(answerCreateFolder);
 
                     DataBindString answerCreateTextFile = new DataBindString();
-                    answerCreateTextFile.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/TextFile.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    answerCreateTextFile.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/TextFile.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     answerCreateTextFile.Name = "Create new text file here";
                     Answers.Add(answerCreateTextFile);
 
@@ -260,20 +336,20 @@ namespace CtrlUI
                         //Copy file or folder
                         if (messageResult == answerCopySingle)
                         {
-                            FilePicker_FileCopy_Single(selectedItem);
+                            await FilePicker_FileCopy_Single(selectedItem);
                         }
                         else if (messageResult == answerCopyChecked)
                         {
-                            FilePicker_FileCopy_Checked();
+                            await FilePicker_FileCopy_Checked();
                         }
                         //Cut file or folder
                         else if (messageResult == answerCutSingle)
                         {
-                            FilePicker_FileCut_Single(selectedItem);
+                            await FilePicker_FileCut_Single(selectedItem);
                         }
                         else if (messageResult == answerCutChecked)
                         {
-                            FilePicker_FileCut_Checked();
+                            await FilePicker_FileCut_Checked();
                         }
                         //Paste file or folder
                         else if (messageResult == answerPaste)
@@ -345,73 +421,73 @@ namespace CtrlUI
                     else
                     {
                         Debug.WriteLine("No folder to navigate go up / no up.");
-                        Notification_Show_Status("Up", "No folder to go up");
+                        await Notification_Show_Status("Up", "No folder to go up");
                     }
                 }
             }
             catch
             {
                 Debug.WriteLine("No folder to navigate go up / catch.");
-                Notification_Show_Status("Up", "No folder to go up");
+                await Notification_Show_Status("Up", "No folder to go up");
             }
         }
 
         //Handle file picker mouse/touch tapped
-        async void ListBox_FilePicker_MousePressUp(object sender, MouseButtonEventArgs e)
+        async void ListView_FilePicker_MousePressUp(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                //Check if an actual ListBoxItem is clicked
-                if (!AVInterface.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+                //Check if an actual ListViewItem is clicked
+                if (!AVInterface.CheckClickedListViewItem(e))
+                {
+                    return;
+                }
 
                 //Check which mouse button is pressed
-                if (e.ClickCount == 1)
+                if (vMousePressDownXButton1)
                 {
-                    if (vMousePressDownXButton1)
-                    {
-                        await FilePicker_GoFolderUp();
-                    }
-                    else if (vMousePressDownLeft)
-                    {
-                        await Listbox_FilePicker_LeftClick();
-                    }
-                    else if (vMousePressDownRight)
-                    {
-                        await Listbox_FilePicker_RightClick();
-                    }
-                    else if (vMousePressDownMiddle)
-                    {
-                        FilePicker_CheckItem();
-                    }
+                    await FilePicker_GoFolderUp();
+                }
+                else if (vMousePressDownLeft)
+                {
+                    await Listbox_FilePicker_LeftClick();
+                }
+                else if (vMousePressDownRight)
+                {
+                    await Listbox_FilePicker_RightClick();
+                }
+                else if (vMousePressDownMiddle)
+                {
+                    FilePicker_CheckItem();
                 }
             }
             catch { }
         }
 
         //Handle file picker keyboard/controller tapped
-        async void ListBox_FilePicker_KeyPressUp(object sender, KeyEventArgs e)
+        async void ListView_FilePicker_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Space)
+                if (e.Key == VirtualKey.Space)
                 {
                     await Listbox_FilePicker_LeftClick();
                 }
-                else if (e.Key == Key.Back)
+                else if (e.Key == VirtualKey.Back)
                 {
                     await FilePicker_GoFolderUp();
                 }
-                else if (e.Key == Key.Delete)
+                else if (e.Key == VirtualKey.Delete)
                 {
                     await FilePicker_Actions();
                 }
-                else if (e.Key == Key.LeftCtrl)
+                else if (e.Key == VirtualKey.LeftControl)
                 {
                     FilePicker_CheckItem();
                 }
-                else if (e.Key == Key.F2)
+                else if (e.Key == VirtualKey.F2)
                 {
-                    DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
+                    DataBindFile selectedItem = (DataBindFile)listView_FilePicker.SelectedItem;
                     await FilePicker_FileRename(selectedItem);
                 }
             }
@@ -423,9 +499,9 @@ namespace CtrlUI
         {
             try
             {
-                if (lb_FilePicker.SelectedItems.Count > 0 && lb_FilePicker.SelectedIndex != -1)
+                if (listView_FilePicker.SelectedItems.Count > 0 && listView_FilePicker.SelectedIndex != -1)
                 {
-                    DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
+                    DataBindFile selectedItem = (DataBindFile)listView_FilePicker.SelectedItem;
                     if (selectedItem.FileType == FileType.Folder || selectedItem.FileType == FileType.FolderDisc || selectedItem.FileType == FileType.FolderPre)
                     {
                         await Popup_Show_FilePicker(selectedItem.PathFile, -1, true, null);
@@ -447,7 +523,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            Notification_Show_Status("Close", "Link target does not exist");
+                            await Notification_Show_Status("Close", "Link target does not exist");
                             Debug.WriteLine("Link target does not exist");
                         }
                     }
@@ -465,7 +541,7 @@ namespace CtrlUI
         {
             try
             {
-                if (lb_FilePicker.SelectedItems.Count > 0 && lb_FilePicker.SelectedIndex != -1)
+                if (listView_FilePicker.SelectedItems.Count > 0 && listView_FilePicker.SelectedIndex != -1)
                 {
                     await FilePicker_Actions();
                 }

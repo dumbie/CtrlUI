@@ -64,11 +64,21 @@ namespace CtrlUI
                 DataBindString AnswerHide = new DataBindString();
                 if (processMulti.WindowHandleMain != IntPtr.Zero)
                 {
-                    AnswerShow.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    AnswerShow.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppMiniMaxi.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     AnswerShow.Name = "Show application";
                     Answers.Add(AnswerShow);
 
-                    AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMinimize.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    AnswerHide.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppMinimize.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     AnswerHide.Name = "Hide application";
                     Answers.Add(AnswerHide);
                 }
@@ -76,13 +86,23 @@ namespace CtrlUI
                 DataBindString AnswerClose = new DataBindString();
                 if (!processIsExplorer)
                 {
-                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    AnswerClose.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppClose.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     AnswerClose.Name = "Close application";
                     Answers.Add(AnswerClose);
                 }
 
                 DataBindString AnswerLaunch = new DataBindString();
-                AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerLaunch.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/AppLaunch.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerLaunch.Name = "Launch new instance";
                 Answers.Add(AnswerLaunch);
 
@@ -93,7 +113,12 @@ namespace CtrlUI
                 DataBindString AnswerRestartDefault = new DataBindString();
                 if (defaultArgument && !processIsExplorer)
                 {
-                    AnswerRestartDefault.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    AnswerRestartDefault.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppRestart.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     AnswerRestartDefault.Name = "Restart application";
                     AnswerRestartDefault.NameSub = "(Default argument)";
                     Answers.Add(AnswerRestartDefault);
@@ -104,7 +129,12 @@ namespace CtrlUI
                 DataBindString AnswerRestartCurrent = new DataBindString();
                 if (currentArgument && !currentMatchesDefaultArgument && !processIsExplorer)
                 {
-                    AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    AnswerRestartCurrent.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppRestart.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     AnswerRestartCurrent.Name = "Restart application";
                     AnswerRestartCurrent.NameSub = "(Current argument)";
                     Answers.Add(AnswerRestartCurrent);
@@ -113,7 +143,12 @@ namespace CtrlUI
                 DataBindString AnswerRestartWithout = new DataBindString();
                 if (!processIsExplorer)
                 {
-                    AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    AnswerRestartWithout.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppRestart.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     AnswerRestartWithout.Name = "Restart application";
                     AnswerRestartWithout.NameSub = "(Without argument)";
                     Answers.Add(AnswerRestartWithout);
@@ -123,7 +158,12 @@ namespace CtrlUI
                 bool applicationAutoHDR = false;
                 if (!processIsExplorer && dataBindApp.Type == ProcessType.Win32)
                 {
-                    AnswerAutoHDR.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorHDR.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    AnswerAutoHDR.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/MonitorHDR.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     applicationAutoHDR = CheckApplicationAutoHDR(dataBindApp);
                     if (applicationAutoHDR)
                     {
@@ -243,15 +283,15 @@ namespace CtrlUI
                     {
                         if (applicationAutoHDR)
                         {
-                            DisableApplicationAutoHDR(dataBindApp);
+                            await DisableApplicationAutoHDR(dataBindApp);
                         }
                         else
                         {
                             //Enable Windows auto HDR feature
-                            EnableWindowsAutoHDRFeature();
+                            await EnableWindowsAutoHDRFeature();
 
                             //Allow auto HDR for application
-                            EnableApplicationAutoHDR(dataBindApp);
+                            await EnableApplicationAutoHDR(dataBindApp);
                         }
                     }
                 }

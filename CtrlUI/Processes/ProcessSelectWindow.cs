@@ -49,7 +49,7 @@ namespace CtrlUI
                             }
 
                             //Check window style
-                            WindowStylesEx windowStyle = (WindowStylesEx)GetWindowLongAuto(windowHandle, (int)WindowLongFlags.GWL_EXSTYLE).ToInt64();
+                            WindowStylesEx windowStyle = (WindowStylesEx)GetWindowLongAuto(windowHandle, WindowLongFlags.GWL_EXSTYLE).ToInt64();
                             if (windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW))
                             {
                                 windowSubString += " (Tool)";
@@ -69,14 +69,19 @@ namespace CtrlUI
 
                             //Check window placement
                             GetWindowPlacement(windowHandle, out WindowPlacement windowPlacement);
-                            if (windowPlacement.windowShowCommand == WindowShowCommand.Minimized)
+                            if (windowPlacement.windowShowCommand == ShowWindowFlags.SW_MINIMIZE)
                             {
                                 windowSubString += " (Minimized)";
                             }
 
                             //Add window to selection
                             DataBindString AnswerWindow = new DataBindString();
-                            AnswerWindow.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                            AnswerWindow.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                            {
+                                FilePaths = ["Assets/Default/Icons/AppMiniMaxi.png"],
+                                BackupPath = vImageBackupSource,
+                                Dispatcher = this.Dispatcher
+                            });
                             AnswerWindow.Name = windowTitleString;
                             AnswerWindow.NameSub = windowSubString;
                             AnswerWindow.Data1 = windowHandle;
@@ -112,7 +117,12 @@ namespace CtrlUI
                     DataBindString AnswerHideAll = new DataBindString();
                     if (addHideAll)
                     {
-                        AnswerHideAll.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMinimize.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        AnswerHideAll.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/AppMinimize.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         AnswerHideAll.Name = "Hide all the windows";
                         Answers.Add(AnswerHideAll);
                     }

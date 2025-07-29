@@ -1,5 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using Windows.Devices.Input;
+using Windows.UI.Input;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -42,29 +44,27 @@ namespace CtrlUI
         {
             try
             {
-                await AppExit.Exit_Prompt();
+                await Exit_Prompt();
             }
             catch { }
         }
 
         //Monitor application mouse down
-        void WindowMain_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        void WindowMain_PreviewMouseDown(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                //Reset previous mouse click states
-                vMousePressDownLeft = false;
-                vMousePressDownRight = false;
-                vMousePressDownMiddle = false;
-                vMousePressDownXButton1 = false;
-
-                //Check which mouse button is pressed
-                if (e.ClickCount == 1)
+                if (e.Pointer.PointerDeviceType == PointerDeviceType.Mouse)
                 {
-                    if (e.LeftButton == MouseButtonState.Pressed) { vMousePressDownLeft = true; }
-                    else if (e.RightButton == MouseButtonState.Pressed) { vMousePressDownRight = true; }
-                    else if (e.MiddleButton == MouseButtonState.Pressed) { vMousePressDownMiddle = true; }
-                    else if (e.XButton1 == MouseButtonState.Pressed) { vMousePressDownXButton1 = true; }
+                    //Get pointer properties
+                    PointerPointProperties pointerProps = e.GetCurrentPoint(null).Properties;
+
+                    //Check which mouse button is pressed
+                    vMousePressDownLeft = pointerProps.IsLeftButtonPressed;
+                    vMousePressDownRight = pointerProps.IsRightButtonPressed;
+                    vMousePressDownMiddle = pointerProps.IsMiddleButtonPressed;
+                    vMousePressDownXButton1 = pointerProps.IsXButton1Pressed;
+                    vMousePressDownXButton2 = pointerProps.IsXButton2Pressed;
                 }
             }
             catch { }

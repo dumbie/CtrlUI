@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkStyles.AVSortObservableCollection;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -12,12 +12,12 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Show the application move popup
-        async Task Popup_Show_AppMove(ListBox listBox, DataBindApp dataBindApp)
+        async Task Popup_Show_AppMove(ListView listBox, DataBindApp dataBindApp)
         {
             try
             {
                 //Set move application variables
-                vMoveAppListBox = listBox;
+                vMoveAppListView = listBox;
                 vMoveAppDataBind = dataBindApp;
 
                 //Set the application image
@@ -29,14 +29,14 @@ namespace CtrlUI
             catch { }
         }
 
-        void MoveApplicationList_Left()
+        async Task MoveApplicationList_Left()
         {
             try
             {
                 //Sort list by number
                 SortFunction<DataBindApp> sortFunction = new SortFunction<DataBindApp>();
                 sortFunction.Function = x => x.Number;
-                SortObservableCollection(vMoveAppListBox, sortFunction, null);
+                SortObservableCollection(vMoveAppListView, sortFunction, null);
 
                 //Get the target application
                 IEnumerable<DataBindApp> combinedApps = CombineAppLists(true, true, true, false, false, false, false).Where(x => x.Category == vMoveAppDataBind.Category);
@@ -50,10 +50,10 @@ namespace CtrlUI
                 targetAppDataBind.Number = selectedNumber;
 
                 //Sort list by number
-                SortObservableCollection(vMoveAppListBox, sortFunction, null);
+                SortObservableCollection(vMoveAppListView, sortFunction, null);
 
                 //Show moving notification
-                Notification_Show_Status("Sorting", "Moving app left");
+                await Notification_Show_Status("Sorting", "Moving app left");
 
                 //Save json applist
                 JsonSaveList_Applications();
@@ -61,14 +61,14 @@ namespace CtrlUI
             catch { }
         }
 
-        void MoveApplicationList_Right()
+        async Task MoveApplicationList_Right()
         {
             try
             {
                 //Sort list by number
                 SortFunction<DataBindApp> sortFunction = new SortFunction<DataBindApp>();
                 sortFunction.Function = x => x.Number;
-                SortObservableCollection(vMoveAppListBox, sortFunction, null);
+                SortObservableCollection(vMoveAppListView, sortFunction, null);
 
                 //Get the target application
                 IEnumerable<DataBindApp> combinedApps = CombineAppLists(true, true, true, false, false, false, false).Where(x => x.Category == vMoveAppDataBind.Category);
@@ -82,10 +82,10 @@ namespace CtrlUI
                 targetAppDataBind.Number = selectedNumber;
 
                 //Sort list by number
-                SortObservableCollection(vMoveAppListBox, sortFunction, null);
+                SortObservableCollection(vMoveAppListView, sortFunction, null);
 
                 //Show moving notification
-                Notification_Show_Status("Sorting", "Moving app right");
+                await Notification_Show_Status("Sorting", "Moving app right");
 
                 //Save json applist
                 JsonSaveList_Applications();

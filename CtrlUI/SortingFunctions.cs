@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkStyles.AVFocus;
 using static ArnoldVinkStyles.AVSortObservableCollection;
@@ -36,37 +36,37 @@ namespace CtrlUI
                 }
 
                 //Get focused listbox
-                ListBox sortListBox = GetFocusedListBox();
+                ListView sortListView = GetFocusedListView();
 
                 //Check focused listbox
-                if (sortListBox == null)
+                if (sortListView == null)
                 {
                     Debug.WriteLine("No focused listbox, returning.");
-                    Notification_Show_Status("SortFilter", "Nothing to sort");
+                    await Notification_Show_Status("SortFilter", "Nothing to sort");
                     return;
                 }
 
                 //Check sort listbox
-                if (!vSelectNearCharacterLists.Contains(sortListBox.Name))
+                if (!vSelectNearCharacterLists.Contains(sortListView.Name))
                 {
                     Debug.WriteLine("No sorting listbox, returning.");
-                    Notification_Show_Status("SortFilter", "Nothing to sort");
+                    await Notification_Show_Status("SortFilter", "Nothing to sort");
                     return;
                 }
 
                 //Check file picker path
-                if (sortListBox == lb_FilePicker)
+                if (sortListView == listView_FilePicker)
                 {
                     if (vFilePickerCurrentPath == "PC" || vFilePickerCurrentPath == "UWP")
                     {
                         Debug.WriteLine("Invalid sorting path, returning.");
-                        Notification_Show_Status("SortFilter", "Nothing to sort");
+                        await Notification_Show_Status("SortFilter", "Nothing to sort");
                         return;
                     }
                 }
 
                 //Clear current sorting items
-                lb_Sorting.Items.Clear();
+                listView_Sorting.Items.Clear();
 
                 //Reset popup variables
                 vSortingOpen = true;
@@ -76,7 +76,7 @@ namespace CtrlUI
                 Popup_Show_Element(grid_Popup_Sorting);
 
                 //Add sorting listbox items
-                if (sortListBox == lb_FilePicker)
+                if (sortListView == listView_FilePicker)
                 {
                     //Function
                     SortFunction<DataBindFile> sortFuncFileType = new SortFunction<DataBindFile>()
@@ -106,38 +106,38 @@ namespace CtrlUI
                     };
 
                     //Item
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by name",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncName]
                     });
 
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by date modified",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncDateModified]
                     });
 
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by date created",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncDateCreated]
                     });
 
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by file type",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncFileExtension]
                     });
 
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by file size",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncFileSize]
                     });
                 }
@@ -151,21 +151,21 @@ namespace CtrlUI
 
                     //Check name title
                     string sortNameTitle = "Sort by name";
-                    if (sortListBox == lb_Emulators)
+                    if (sortListView == listView_Emulators)
                     {
                         sortNameTitle = "Sort by platform name";
                     }
 
                     //Item
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = sortNameTitle,
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = sortFuncName
                     });
                 }
 
-                if (sortListBox == lb_Apps || sortListBox == lb_Games || sortListBox == lb_Emulators)
+                if (sortListView == listView_Apps || sortListView == listView_Games || sortListView == listView_Emulators)
                 {
                     //Function
                     SortFunction<DataBindApp> sortFuncNumber = new SortFunction<DataBindApp>()
@@ -182,29 +182,29 @@ namespace CtrlUI
                     };
 
                     //Item
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by position",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = sortFuncNumber
                     });
 
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by last launch time",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = sortFuncLastLaunch
                     });
 
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by total running time",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = sortFuncRunTime
                     });
                 }
 
-                if (sortListBox == lb_Emulators)
+                if (sortListView == listView_Emulators)
                 {
                     //Function
                     SortFunction<DataBindApp> sortFuncName = new SortFunction<DataBindApp>()
@@ -218,21 +218,21 @@ namespace CtrlUI
                     };
 
                     //Item
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by emulator name",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = sortFuncName
                     });
 
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by emulator category",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = sortFuncCategory
                     });
                 }
-                else if (sortListBox == lb_Launchers)
+                else if (sortListView == listView_Launchers)
                 {
                     //Function
                     SortFunction<DataBindApp> sortFuncLauncher = new SortFunction<DataBindApp>()
@@ -241,14 +241,14 @@ namespace CtrlUI
                     };
 
                     //Item
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by launcher",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = sortFuncLauncher
                     });
                 }
-                else if (sortListBox == lb_Shortcuts)
+                else if (sortListView == listView_Shortcuts)
                 {
                     //Function
                     SortFunction<DataBindApp> sortFuncDate = new SortFunction<DataBindApp>()
@@ -257,14 +257,14 @@ namespace CtrlUI
                     };
 
                     //Item
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by date",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = sortFuncDate
                     });
                 }
-                else if (sortListBox == lb_Processes)
+                else if (sortListView == listView_Processes)
                 {
                     //Function
                     SortFunction<DataBindApp> sortFuncRunTime = new SortFunction<DataBindApp>()
@@ -273,14 +273,14 @@ namespace CtrlUI
                     };
 
                     //Item
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by running time",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = sortFuncRunTime
                     });
                 }
-                else if (sortListBox == lb_Gallery)
+                else if (sortListView == listView_Gallery)
                 {
                     //Function
                     SortFunction<DataBindApp> sortFuncDate = new SortFunction<DataBindApp>()
@@ -289,14 +289,14 @@ namespace CtrlUI
                     };
 
                     //Item
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by date",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = sortFuncDate
                     });
                 }
-                else if (sortListBox == lb_Search)
+                else if (sortListView == listView_Search)
                 {
                     //Function
                     SortFunction<DataBindApp> sortFuncCategory = new SortFunction<DataBindApp>()
@@ -305,16 +305,16 @@ namespace CtrlUI
                     };
 
                     //Item
-                    lb_Sorting.Items.Add(new ProfileShared()
+                    listView_Sorting.Items.Add(new ProfileShared()
                     {
                         String1 = "Sort by category",
-                        Object1 = sortListBox,
+                        Object1 = sortListView,
                         Object2 = sortFuncCategory
                     });
                 }
 
                 //Focus on first listbox answer
-                await ListBoxFocusIndex(lb_Sorting, false, 0, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_Sorting, false, 0, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {

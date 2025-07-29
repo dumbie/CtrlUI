@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
-using System.Windows;
+using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVUwpAppx;
 using static LibraryShared.Classes;
@@ -11,7 +12,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Check if databind paths are available
-        bool CheckDatabindPathAuto(DataBindApp dataBindApp)
+        async Task<bool> CheckDatabindPathAuto(DataBindApp dataBindApp)
         {
             try
             {
@@ -20,7 +21,7 @@ namespace CtrlUI
                     //Check if the rom folder exists
                     if (!Directory.Exists(dataBindApp.PathRoms))
                     {
-                        Notification_Show_Status("Close", "Rom folder not found");
+                        await Notification_Show_Status("Close", "Rom folder not found");
                         Debug.WriteLine("Rom folder not found.");
                         dataBindApp.StatusAvailable = Visibility.Visible;
                         return false;
@@ -32,7 +33,7 @@ namespace CtrlUI
                     //Check if the application exists
                     if (GetUwpAppPackageByAppUserModelId(dataBindApp.AppUserModelId) == null)
                     {
-                        Notification_Show_Status("Close", "Application not found");
+                        await Notification_Show_Status("Close", "Application not found");
                         Debug.WriteLine("Launch application not found.");
                         dataBindApp.StatusAvailable = Visibility.Visible;
                         return false;
@@ -43,7 +44,7 @@ namespace CtrlUI
                     //Check if application executable exists
                     if (!File.Exists(dataBindApp.PathExe))
                     {
-                        Notification_Show_Status("Close", "Executable not found");
+                        await Notification_Show_Status("Close", "Executable not found");
                         Debug.WriteLine("Launch executable not found.");
                         dataBindApp.StatusAvailable = Visibility.Visible;
                         return false;

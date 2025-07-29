@@ -1,9 +1,9 @@
 ﻿using ArnoldVinkStyles;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+using Windows.System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -13,30 +13,28 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle main menu keyboard/controller tapped
-        async void ListBox_Menu_KeyPressUp(object sender, KeyEventArgs e)
+        async void ListView_Menu_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Space) { await Listbox_Menu_SingleTap(); }
+                if (e.Key == VirtualKey.Space) { await Listbox_Menu_SingleTap(); }
             }
             catch { }
         }
 
         //Handle main menu mouse/touch tapped
-        async void ListBox_Menu_MousePressUp(object sender, MouseButtonEventArgs e)
+        async void ListView_Menu_MousePressUp(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                //Check if an actual ListBoxItem is clicked
-                if (!AVInterface.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+                //Check if an actual ListViewItem is clicked
+                if (!AVInterface.CheckClickedListViewItem(e))
+                {
+                    return;
+                }
 
                 //Check which mouse button is pressed
-                if (e.ClickCount == 1)
-                {
-                    vSingleTappedEvent = true;
-                    await Task.Delay(500);
-                    if (vSingleTappedEvent) { await Listbox_Menu_SingleTap(); }
-                }
+                await Listbox_Menu_SingleTap();
             }
             catch { }
         }
@@ -46,9 +44,9 @@ namespace CtrlUI
         {
             try
             {
-                if (listbox_MainMenu.SelectedIndex >= 0)
+                if (listView_MainMenu.SelectedIndex >= 0)
                 {
-                    DataBindString selectedItem = (DataBindString)listbox_MainMenu.SelectedItem;
+                    DataBindString selectedItem = (DataBindString)listView_MainMenu.SelectedItem;
                     string selectedItemString = selectedItem.Data1.ToString();
                     if (selectedItemString == "menuButtonUpdateRestart") { UpdateRestart(); }
                     else if (selectedItemString == "menuButtonMonitor") { await Popup_Show(grid_Popup_Monitor, btn_Monitor_Switch_Primary); }
@@ -61,7 +59,7 @@ namespace CtrlUI
                     else if (selectedItemString == "menuButtonHelp") { await Popup_Show(grid_Popup_Help, btn_Help_Focus); }
                     else if (selectedItemString == "menuButtonCloseLaunchers") { await CloseLaunchers(); }
                     else if (selectedItemString == "menuButtonDisconnect") { await CloseStreamers(); }
-                    else if (selectedItemString == "menuButtonShutdown") { await AppExit.Exit_Prompt(); }
+                    else if (selectedItemString == "menuButtonShutdown") { await Exit_Prompt(); }
                     else if (selectedItemString == "menuButtonShowFileManager") { await ShowFileManager(); }
                     else if (selectedItemString == "menuButtonProfileManager") { await Popup_Show_ProfileManager(); }
                     else if (selectedItemString == "menuButtonRecycleBin") { await ShowRecycleBinManager(); }
@@ -71,13 +69,18 @@ namespace CtrlUI
         }
 
         //Add main menu items
-        void MainMenuAddItems()
+        async Task MainMenuAddItems()
         {
             try
             {
                 DataBindString menuButtonMonitor = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Monitor.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Monitor.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Change display monitor settings",
                     Data1 = "menuButtonMonitor"
                 };
@@ -85,7 +88,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonAudioDevice = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeUp.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/VolumeUp.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Switch audio playback device",
                     Data1 = "menuButtonAudioDevice"
                 };
@@ -93,7 +101,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonRunExe = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRunExe.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppRunExe.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Launch an executable file from disk",
                     Data1 = "menuButtonRunExe"
                 };
@@ -101,7 +114,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonRunStore = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRunStore.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppRunStore.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Launch Windows store application",
                     Data1 = "menuButtonRunStore"
                 };
@@ -109,7 +127,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonAddExe = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddExe.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppAddExe.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Add new executable application to the list",
                     Data1 = "menuButtonAddExe"
                 };
@@ -117,7 +140,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonAddStore = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddStore.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppAddStore.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Add Windows store application to the list",
                     Data1 = "menuButtonAddStore"
                 };
@@ -125,7 +153,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonDisconnect = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Stream.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Stream.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Disconnect active remote streams",
                     Data1 = "menuButtonDisconnect"
                 };
@@ -133,7 +166,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonCloseLaunchers = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/AppClose.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Close other running app launchers",
                     Data1 = "menuButtonCloseLaunchers"
                 };
@@ -141,7 +179,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonShutdown = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shutdown.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Shutdown.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Close CtrlUI or shutdown the PC",
                     Data1 = "menuButtonShutdown"
                 };
@@ -149,7 +192,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonShowFileManager = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Folder.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Show file browser and manager",
                     Data1 = "menuButtonShowFileManager"
                 };
@@ -157,7 +205,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonRecycleBin = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Remove.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Manage Windows recycle bin",
                     Data1 = "menuButtonRecycleBin"
                 };
@@ -165,7 +218,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonProfileManager = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Profile.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Profile.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Open the profile manager",
                     Data1 = "menuButtonProfileManager"
                 };
@@ -173,7 +231,12 @@ namespace CtrlUI
 
                 DataBindString menuButtonSettings = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Settings.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Settings.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Open application settings",
                     Data1 = "menuButtonSettings"
                 };
@@ -181,20 +244,25 @@ namespace CtrlUI
 
                 DataBindString menuButtonHelp = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Help.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Help.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
                     Name = "Show application help",
                     Data1 = "menuButtonHelp"
                 };
                 List_MainMenu.Add(menuButtonHelp);
 
                 //Bind the list to main menu
-                listbox_MainMenu.ItemsSource = List_MainMenu;
+                listView_MainMenu.ItemsSource = List_MainMenu;
             }
             catch { }
         }
 
         //Insert update to main menu
-        void MainMenuInsertUpdate()
+        async Task MainMenuInsertUpdate()
         {
             try
             {
@@ -202,7 +270,12 @@ namespace CtrlUI
                 {
                     DataBindString menuButtonUpdateRestart = new DataBindString
                     {
-                        ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0),
+                        ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Refresh.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        }),
                         Name = "Update and restart CtrlUI",
                         Data1 = "menuButtonUpdateRestart"
                     };

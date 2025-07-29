@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFiles;
@@ -51,9 +51,9 @@ namespace CtrlUI
                 vBusyRefreshingGallery = true;
 
                 //Show the loading gif
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
-                    gif_List_Loading.Show();
+                    gif_List_Loading.Visibility = Visibility.Visible;
                 });
 
                 //Check if loading first time
@@ -62,7 +62,7 @@ namespace CtrlUI
                 //Show refresh status message
                 if (showStatus)
                 {
-                    Notification_Show_Status("Refresh", "Refreshing gallery");
+                    await Notification_Show_Status("Refresh", "Refreshing gallery");
                 }
 
                 //Get gallery load days setting
@@ -79,7 +79,7 @@ namespace CtrlUI
                         if (Directory.Exists(editedGalleryFolder))
                         {
                             DirectoryInfo directoryInfo = new DirectoryInfo(editedGalleryFolder);
-                            IEnumerable<FileInfo> filterGallery = directoryInfo.GetFiles("*", SearchOption.AllDirectories).Where(x => x.Name.ToLower().EndsWith(".jpg") || x.Name.ToLower().EndsWith(".jxr") || x.Name.ToLower().EndsWith(".png") || x.Name.ToLower().EndsWith(".gif") || x.Name.ToLower().EndsWith(".mp4")).Where(x => x.LastWriteTime >= galleryLoadDaysDateTime);
+                            IEnumerable<FileInfo> filterGallery = directoryInfo.GetFiles("*", SearchOption.AllDirectories).Where(x => x.Name.ToLower().EndsWith(".jpg") || x.Name.ToLower().EndsWith(".jxr") || x.Name.ToLower().EndsWith(".png") || x.Name.ToLower().EndsWith(".gif") || x.Name.ToLower().EndsWith(".mkv") || x.Name.ToLower().EndsWith(".mp4")).Where(x => x.LastWriteTime >= galleryLoadDaysDateTime);
                             directoryGallery = directoryGallery.Concat(filterGallery);
                         }
                     }
@@ -91,8 +91,8 @@ namespace CtrlUI
 
                 //Remove media that is no longer available from the list
                 Func<DataBindApp, bool> filterGalleryApp = x => x.Category == AppCategory.Gallery && !directoryGallery.Any(y => y.FullName == x.PathGallery);
-                await ListBoxRemoveAll(lb_Gallery, List_Gallery, filterGalleryApp);
-                await ListBoxRemoveAll(lb_Search, List_Search, filterGalleryApp);
+                await ListViewRemoveAll(listView_Gallery, List_Gallery, filterGalleryApp);
+                await ListViewRemoveAll(listView_Search, List_Search, filterGalleryApp);
 
                 //Get media information and add it to the list
                 foreach (FileInfo file in directoryGallery)
@@ -116,12 +116,12 @@ namespace CtrlUI
                         }
 
                         //Check if media is video
-                        bool mediaVideo = mediaExtension == ".mp4" || mediaExtension == ".gif";
+                        bool mediaVideo = mediaExtension == ".mkv" || mediaExtension == ".mp4" || mediaExtension == ".gif";
                         Visibility statusVideo = mediaVideo ? Visibility.Visible : Visibility.Collapsed;
 
                         //Add media to gallery list
                         DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Unknown, Category = AppCategory.Gallery, Name = mediaName, PathGallery = mediaPath, StatusVideo = statusVideo, DateModified = file.LastWriteTime };
-                        await ListBoxAddItem(lb_Gallery, List_Gallery, dataBindApp, true, false);
+                        await ListViewAddItem(listView_Gallery, List_Gallery, dataBindApp, true, false);
                     }
                     catch { }
                 }
@@ -129,18 +129,18 @@ namespace CtrlUI
                 //First load functions
                 if (firstLoad)
                 {
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
-                        lb_Gallery.SelectedIndex = 0;
+                        listView_Gallery.SelectedIndex = 0;
                     });
                 }
 
                 //Hide the loading gif
                 if (vBusyRefreshingCount() == 1)
                 {
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
-                        gif_List_Loading.Hide();
+                        gif_List_Loading.Visibility = Visibility.Collapsed;
                     });
                 }
             }

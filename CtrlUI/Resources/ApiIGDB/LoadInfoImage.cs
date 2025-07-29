@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -56,7 +56,10 @@ namespace CtrlUI
                         vContentInformationImageBytes = imageBytes;
 
                         //Convert bytes to BitmapImage
-                        return BytesToBitmapImage(imageBytes, 0, 0);
+                        return await FileToBitmapImage(new AVImageFile()
+                        {
+                            ImageBytes = imageBytes
+                        });
                     }
                     catch { }
                 }

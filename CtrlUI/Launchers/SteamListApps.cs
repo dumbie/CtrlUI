@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVSearch;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -173,7 +173,14 @@ namespace CtrlUI
                 string searchImage = Search_Files(["library_600x900", "logo"], searchSources, false).FirstOrDefault();
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage([appName, searchImage, "Steam"], vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                BitmapImage bitmapImageApplication = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [appName, searchImage, "Steam"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeApplication,
+                    Dispatcher = this.Dispatcher
+                });
 
                 //Add application to the list
                 DataBindApp dataBindApp = new DataBindApp()
@@ -181,12 +188,12 @@ namespace CtrlUI
                     Category = AppCategory.Launcher,
                     Launcher = AppLauncher.Steam,
                     Name = appName,
-                    ImageBitmap = iconBitmapImage,
+                    ImageBitmap = bitmapImageApplication,
                     PathExe = runCommand,
-                    StatusLauncherImage = vImagePreloadSteam
+                    StatusLauncherImage = await LoadLauncherImage(AppLauncher.Steam, vImageLoadSizeApplication, 0)
                 };
 
-                await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
+                await ListViewAddItem(listView_Launchers, List_Launchers, dataBindApp, false, false);
                 //Debug.WriteLine("Added steam app: " + appId + "/" + appName);
             }
             catch

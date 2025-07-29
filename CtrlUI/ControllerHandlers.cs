@@ -2,13 +2,13 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.ControllerTimings;
@@ -49,9 +49,9 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: APressed");
 
-                        await DispatcherInvoke(async delegate
+                        await DispatcherInvoke(this.Dispatcher, async delegate
                         {
-                            FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
+                            FrameworkElement frameworkElement = GetFocusedFrameworkElement();
                             if (frameworkElement != null && frameworkElement.GetType() == typeof(TextBox))
                             {
                                 //Launch the keyboard controller
@@ -80,7 +80,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            await DispatcherInvoke(async delegate
+                            await DispatcherInvoke(this.Dispatcher, async delegate
                             {
                                 await Popup_Show_Sorting();
                             });
@@ -95,7 +95,7 @@ namespace CtrlUI
 
                         if (vSortingOpen)
                         {
-                            DispatcherInvoke(delegate
+                            DispatcherInvoke(this.Dispatcher, delegate
                             {
                                 SortingSwitchDirection();
                             });
@@ -103,11 +103,11 @@ namespace CtrlUI
                         else if (vTextInputOpen)
                         {
                             Debug.WriteLine("Resetting the text input popup.");
-                            await DispatcherInvoke(async delegate { await Popup_Reset_TextInput(true, string.Empty); });
+                            await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Reset_TextInput(true, string.Empty); });
                         }
                         else if (vContentInformationOpen)
                         {
-                            ContentInformationSave();
+                            await ContentInformationSave();
                         }
                         else if (vFilePickerOpen)
                         {
@@ -115,7 +115,7 @@ namespace CtrlUI
                         }
                         else if (vCurrentListCategory == ListCategory.Search)
                         {
-                            await DispatcherInvoke(async delegate { await Search_Reset(true); });
+                            await DispatcherInvoke(this.Dispatcher, async delegate { await Search_Reset(true); });
                         }
                         else
                         {
@@ -123,7 +123,7 @@ namespace CtrlUI
                             {
                                 try
                                 {
-                                    await DispatcherInvoke(async delegate
+                                    await DispatcherInvoke(this.Dispatcher, async delegate
                                     {
                                         await QuickLaunchPrompt();
                                     });
@@ -148,7 +148,7 @@ namespace CtrlUI
                     else if (controllerInput.Buttons[(byte)ControllerButtons.ShoulderLeft].PressedRaw)
                     {
                         Debug.WriteLine("Button: ShoulderLeftPressed");
-                        await DispatcherInvoke(async delegate
+                        await DispatcherInvoke(this.Dispatcher, async delegate
                         {
                             if (grid_Popup_Settings.Visibility == Visibility.Visible)
                             {
@@ -169,7 +169,7 @@ namespace CtrlUI
                     else if (controllerInput.Buttons[(byte)ControllerButtons.ShoulderRight].PressedRaw)
                     {
                         Debug.WriteLine("Button: ShoulderRightPressed");
-                        await DispatcherInvoke(async delegate
+                        await DispatcherInvoke(this.Dispatcher, async delegate
                         {
                             if (grid_Popup_Settings.Visibility == Visibility.Visible)
                             {
@@ -192,7 +192,7 @@ namespace CtrlUI
                         Debug.WriteLine("Button: StartPressed / Show hide menu");
                         if (vFilePickerOpen)
                         {
-                            await DispatcherInvoke(async delegate
+                            await DispatcherInvoke(this.Dispatcher, async delegate
                             {
                                 if (vFilePickerFolderSelectMode)
                                 {
@@ -206,21 +206,21 @@ namespace CtrlUI
                         }
                         else if (vTextInputOpen)
                         {
-                            DispatcherInvoke(delegate
+                            await DispatcherInvoke(this.Dispatcher, async delegate
                             {
-                                ValidateSetTextInput();
+                                await ValidateSetTextInput();
                             });
                         }
                         else if (Popup_Open_Check(grid_Popup_Manage))
                         {
-                            await DispatcherInvoke(async delegate
+                            await DispatcherInvoke(this.Dispatcher, async delegate
                             {
                                 await SaveEditManageApplication();
                             });
                         }
                         else
                         {
-                            await DispatcherInvoke(async delegate
+                            await DispatcherInvoke(this.Dispatcher, async delegate
                             {
                                 await Popup_ShowHide_MainMenu(false);
                             });
@@ -234,14 +234,14 @@ namespace CtrlUI
                         Debug.WriteLine("Button: BackPressed / Showing search");
                         if (vFilePickerOpen)
                         {
-                            await DispatcherInvoke(async delegate
+                            await DispatcherInvoke(this.Dispatcher, async delegate
                             {
                                 await Popup_Show_Sorting();
                             });
                         }
                         else if (!Popup_Open_Any())
                         {
-                            await DispatcherInvoke(async delegate
+                            await DispatcherInvoke(this.Dispatcher, async delegate
                             {
                                 await CategoryListChange(ListCategory.Search);
                             });
@@ -399,14 +399,14 @@ namespace CtrlUI
                 {
                     if (ControllerInput.TriggerLeft > 0)
                     {
-                        await ListBoxSelectNearCharacter(false);
+                        await ListViewSelectNearCharacter(false);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
                     }
                     else if (ControllerInput.TriggerRight > 0)
                     {
-                        await ListBoxSelectNearCharacter(true);
+                        await ListViewSelectNearCharacter(true);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;

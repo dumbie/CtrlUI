@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Xaml;
 using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -39,11 +39,11 @@ namespace CtrlUI
                 }
 
                 //Clear current search results
-                lb_HowLongToBeat.Items.Clear();
+                listView_HowLongToBeat.Items.Clear();
 
                 //Show loading progress
                 textblock_HowLongToBeat_Unknown.Text = "Downloading gameplay time for " + searchTerm;
-                gif_HowLongToBeat_Loading.Show();
+                gif_HowLongToBeat_Loading.Visibility = Visibility.Visible;
                 grid_HowLongToBeat.Visibility = Visibility.Collapsed;
                 stackpanel_HowLongToBeat_Status.Visibility = Visibility.Visible;
 
@@ -119,7 +119,7 @@ namespace CtrlUI
                                 }
 
                                 //Add result to the list
-                                lb_HowLongToBeat.Items.Add(dataBindString);
+                                listView_HowLongToBeat.Items.Add(dataBindString);
                             }
                         }
                         catch { }
@@ -127,8 +127,8 @@ namespace CtrlUI
                 }
 
                 //Check if there are any results
-                gif_HowLongToBeat_Loading.Hide();
-                if (lb_HowLongToBeat.Items.Count > 0)
+                gif_HowLongToBeat_Loading.Visibility = Visibility.Collapsed;
+                if (listView_HowLongToBeat.Items.Count > 0)
                 {
                     grid_HowLongToBeat.Visibility = Visibility.Visible;
                     stackpanel_HowLongToBeat_Status.Visibility = Visibility.Collapsed;
@@ -141,7 +141,7 @@ namespace CtrlUI
                 }
 
                 //Focus on first listbox answer
-                await ListBoxFocusIndex(lb_HowLongToBeat, false, 0, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_HowLongToBeat, false, 0, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {

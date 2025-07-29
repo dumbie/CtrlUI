@@ -1,5 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using Windows.System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 
 namespace CtrlUI
 {
@@ -16,24 +17,24 @@ namespace CtrlUI
         }
 
         //Check text input key presses
-        void Grid_Popup_TextInput_textbox_PreviewKeyUp(object sender, KeyEventArgs e)
+        async void Grid_Popup_TextInput_textbox_PreviewKeyUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Enter)
+                if (e.Key == VirtualKey.Enter)
                 {
-                    ValidateSetTextInput();
+                    await ValidateSetTextInput();
                 }
             }
             catch { }
         }
 
         //Close the popup and store text
-        void Button_TextInputConfirmText_Click(object sender, RoutedEventArgs e)
+        async void Button_TextInputConfirmText_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                ValidateSetTextInput();
+                await ValidateSetTextInput();
             }
             catch { }
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVProcess;
@@ -15,7 +15,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task RightClickLauncher(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
+        async Task RightClickLauncher(ListView listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
         {
             try
             {
@@ -24,17 +24,32 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerShowGameInfo = new DataBindString();
-                AnswerShowGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Information.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerShowGameInfo.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Information.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerShowGameInfo.Name = "Show game information";
                 Answers.Add(AnswerShowGameInfo);
 
                 DataBindString AnswerHowLongToBeat = new DataBindString();
-                AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerHowLongToBeat.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Timer.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerHowLongToBeat.Name = "How long to beat information";
                 Answers.Add(AnswerHowLongToBeat);
 
                 DataBindString AnswerHide = new DataBindString();
-                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Hide.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerHide.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Hide.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerHide.Name = "Hide application from list";
                 Answers.Add(AnswerHide);
 
@@ -76,11 +91,11 @@ namespace CtrlUI
         }
 
         //Hide launcher app
-        async Task HideLauncherApp(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
+        async Task HideLauncherApp(ListView listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
         {
             try
             {
-                Notification_Show_Status("Hide", "Hiding launcher " + dataBindApp.Name);
+                await Notification_Show_Status("Hide", "Hiding launcher " + dataBindApp.Name);
                 Debug.WriteLine("Hiding launcher by name: " + dataBindApp.Name);
 
                 //Create new profile shared
@@ -95,11 +110,11 @@ namespace CtrlUI
                 await RemoveAppFromList(dataBindApp, false, false, true);
 
                 //Select the previous index
-                await ListBoxFocusIndex(listboxSender, false, listboxSelectedIndex, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listboxSender, false, listboxSelectedIndex, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {
-                Notification_Show_Status("Hide", "Failed hiding");
+                await Notification_Show_Status("Hide", "Failed hiding");
                 Debug.WriteLine("Failed hiding launcher: " + ex.Message);
             }
         }

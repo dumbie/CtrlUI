@@ -1,6 +1,6 @@
 ﻿using ArnoldVinkCode;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
@@ -15,7 +15,7 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     //Check if there is any controller connected
                     if (!vControllerAnyConnected())

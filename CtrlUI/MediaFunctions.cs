@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static CtrlUI.AppVariables;
@@ -21,7 +21,7 @@ namespace CtrlUI
                 //Check if volume is currently muted
                 bool currentOutputVolumeMuted = AudioMuteGetStatus(false);
                 bool currentInputVolumeMuted = AudioMuteGetStatus(true);
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     img_Main_VolumeMute.Visibility = currentOutputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;
                     img_Main_MicrophoneMute.Visibility = currentInputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;

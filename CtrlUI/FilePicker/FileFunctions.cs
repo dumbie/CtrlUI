@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Xaml;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -60,7 +60,7 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     if (vClipboardFiles.Count == 1)
                     {

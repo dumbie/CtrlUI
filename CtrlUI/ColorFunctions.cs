@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
+using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
@@ -62,7 +63,7 @@ namespace CtrlUI
                 vColorPickerOpen = true;
 
                 //Focus on the file picker listbox
-                await ListBoxFocusIndex(lb_ColorPicker, false, 0, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_ColorPicker, false, 0, vProcessCurrent.WindowHandleMain);
             }
             catch { }
         }

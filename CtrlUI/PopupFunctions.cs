@@ -1,6 +1,6 @@
 ﻿using ArnoldVinkStyles;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Xaml;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
@@ -15,62 +15,52 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     //Show the popup
                     elementTarget.Visibility = Visibility.Visible;
-                    elementTarget.IsEnabled = true;
+                    elementTarget.AvSetEnabled(true, null);
 
-                    //Hide the background
-                    grid_Main.Opacity = mainOpacity;
-                    grid_Main.IsEnabled = false;
-                    grid_ControllerHelp_Content.Opacity = mainOpacity;
+                    //Hide and disable main
+                    grid_Main.AvSetEnabled(false, mainOpacity);
+                    grid_ControllerHelp_Content.AvSetEnabled(false, mainOpacity);
 
-                    //Hide other popups
+                    //Hide and disable popups
                     if (elementTarget != grid_Popup_TextInput && vTextInputOpen)
                     {
-                        grid_Popup_TextInput.Opacity = 0.02;
-                        grid_Popup_TextInput.IsEnabled = false;
+                        grid_Popup_TextInput.AvSetEnabled(false, 0.02);
                     }
                     if (elementTarget != grid_Popup_MessageBox && vMessageBoxOpen)
                     {
-                        grid_Popup_MessageBox.Opacity = 0.02;
-                        grid_Popup_MessageBox.IsEnabled = false;
+                        grid_Popup_MessageBox.AvSetEnabled(false, 0.02);
                     }
                     if (elementTarget != grid_Popup_Sorting && vSortingOpen)
                     {
-                        grid_Popup_Sorting.Opacity = 0.02;
-                        grid_Popup_Sorting.IsEnabled = false;
+                        grid_Popup_Sorting.AvSetEnabled(false, 0.02);
                     }
                     if (elementTarget != grid_Popup_HowLongToBeat && vHowLongToBeatOpen)
                     {
-                        grid_Popup_HowLongToBeat.Opacity = 0.02;
-                        grid_Popup_HowLongToBeat.IsEnabled = false;
+                        grid_Popup_HowLongToBeat.AvSetEnabled(false, 0.02);
                     }
                     if (elementTarget != grid_Popup_ContentInformation && vContentInformationOpen)
                     {
-                        grid_Popup_ContentInformation.Opacity = 0.02;
-                        grid_Popup_ContentInformation.IsEnabled = false;
+                        grid_Popup_ContentInformation.AvSetEnabled(false, 0.02);
                     }
                     if (elementTarget != grid_Popup_FilePicker && vFilePickerOpen)
                     {
-                        grid_Popup_FilePicker.Opacity = 0.02;
-                        grid_Popup_FilePicker.IsEnabled = false;
+                        grid_Popup_FilePicker.AvSetEnabled(false, 0.02);
                     }
                     if (elementTarget != vPopupElementTarget && vPopupOpen)
                     {
-                        vPopupElementTarget.Opacity = 0.02;
-                        vPopupElementTarget.IsEnabled = false;
+                        vPopupElementTarget.AvSetEnabled(false, 0.02);
                     }
                     if (elementTarget != grid_Popup_ColorPicker && vColorPickerOpen)
                     {
-                        grid_Popup_ColorPicker.Opacity = 0.02;
-                        grid_Popup_ColorPicker.IsEnabled = false;
+                        grid_Popup_ColorPicker.AvSetEnabled(false, 0.02);
                     }
                     if (elementTarget != grid_Popup_MainMenu && vMainMenuOpen)
                     {
-                        grid_Popup_MainMenu.Opacity = 0.02;
-                        grid_Popup_MainMenu.IsEnabled = false;
+                        grid_Popup_MainMenu.AvSetEnabled(false, 0.02);
                     }
                 });
             }
@@ -82,66 +72,56 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     //Hide the popup
                     elementTarget.Visibility = Visibility.Collapsed;
-                    elementTarget.IsEnabled = false;
+                    elementTarget.AvSetEnabled(false, null);
 
-                    //Show the background
+                    //Show and enable main
                     if (!Popup_Open_Any())
                     {
-                        grid_Main.Opacity = 1.00;
-                        grid_Main.IsEnabled = true;
-                        grid_ControllerHelp_Content.Opacity = 1.00;
+                        grid_Main.AvSetEnabled(true, 1.00);
+                        grid_ControllerHelp_Content.AvSetEnabled(true, 1.00);
                         return;
                     }
 
-                    //Show other popups
+                    //Show and enable popups
                     if (vTextInputOpen)
                     {
-                        grid_Popup_TextInput.Opacity = 1.00;
-                        grid_Popup_TextInput.IsEnabled = true;
+                        grid_Popup_TextInput.AvSetEnabled(true, 1.00);
                     }
                     else if (vSortingOpen)
                     {
-                        grid_Popup_Sorting.Opacity = 1.00;
-                        grid_Popup_Sorting.IsEnabled = true;
+                        grid_Popup_Sorting.AvSetEnabled(true, 1.00);
                     }
                     else if (vHowLongToBeatOpen)
                     {
-                        grid_Popup_HowLongToBeat.Opacity = 1.00;
-                        grid_Popup_HowLongToBeat.IsEnabled = true;
+                        grid_Popup_HowLongToBeat.AvSetEnabled(true, 1.00);
                     }
                     else if (vContentInformationOpen)
                     {
-                        grid_Popup_ContentInformation.Opacity = 1.00;
-                        grid_Popup_ContentInformation.IsEnabled = true;
+                        grid_Popup_ContentInformation.AvSetEnabled(true, 1.00);
                     }
                     else if (vMessageBoxOpen)
                     {
-                        grid_Popup_MessageBox.Opacity = 1.00;
-                        grid_Popup_MessageBox.IsEnabled = true;
+                        grid_Popup_MessageBox.AvSetEnabled(true, 1.00);
                     }
                     else if (vFilePickerOpen)
                     {
-                        grid_Popup_FilePicker.Opacity = 1.00;
-                        grid_Popup_FilePicker.IsEnabled = true;
+                        grid_Popup_FilePicker.AvSetEnabled(true, 1.00);
                     }
                     else if (vPopupOpen)
                     {
-                        vPopupElementTarget.Opacity = 1.00;
-                        vPopupElementTarget.IsEnabled = true;
+                        vPopupElementTarget.AvSetEnabled(true, 1.00);
                     }
                     else if (vColorPickerOpen)
                     {
-                        grid_Popup_ColorPicker.Opacity = 1.00;
-                        grid_Popup_ColorPicker.IsEnabled = true;
+                        grid_Popup_ColorPicker.AvSetEnabled(true, 1.00);
                     }
                     else if (vMainMenuOpen)
                     {
-                        grid_Popup_MainMenu.Opacity = 1.00;
-                        grid_Popup_MainMenu.IsEnabled = true;
+                        grid_Popup_MainMenu.AvSetEnabled(true, 1.00);
                     }
                 });
             }
@@ -180,7 +160,7 @@ namespace CtrlUI
                 vMainMenuOpen = true;
 
                 //Focus on the menu listbox
-                await ListBoxFocusIndex(listbox_MainMenu, false, -1, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_MainMenu, false, -1, vProcessCurrent.WindowHandleMain);
 
                 //Update the clock with date
                 UpdateClockTime();
@@ -278,15 +258,15 @@ namespace CtrlUI
             try
             {
                 //Close open top popup
-                if (vTextInputOpen) { await DispatcherInvoke(async delegate { await Popup_Close_TextInput(); }); }
-                else if (vMessageBoxOpen) { await DispatcherInvoke(async delegate { await Popup_Close_MessageBox(); }); }
-                else if (vHowLongToBeatOpen) { await DispatcherInvoke(async delegate { await Popup_Close_HowLongToBeat(); }); }
-                else if (vSortingOpen) { await DispatcherInvoke(async delegate { await Popup_Close_Sorting(); }); }
-                else if (vContentInformationOpen) { await DispatcherInvoke(async delegate { await Popup_Close_ContentInformation(); }); }
-                else if (vFilePickerOpen) { await DispatcherInvoke(async delegate { await Popup_Close_FilePicker(false, false); }); }
-                else if (vColorPickerOpen) { await DispatcherInvoke(async delegate { await Popup_Close_ColorPicker(); }); }
-                else if (vPopupOpen) { await DispatcherInvoke(async delegate { await Popup_Close(); }); }
-                else if (vMainMenuOpen) { await DispatcherInvoke(async delegate { await Popup_Close_MainMenu(); }); }
+                if (vTextInputOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_TextInput(); }); }
+                else if (vMessageBoxOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_MessageBox(); }); }
+                else if (vHowLongToBeatOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_HowLongToBeat(); }); }
+                else if (vSortingOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_Sorting(); }); }
+                else if (vContentInformationOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_ContentInformation(); }); }
+                else if (vFilePickerOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_FilePicker(false, false); }); }
+                else if (vColorPickerOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_ColorPicker(); }); }
+                else if (vPopupOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close(); }); }
+                else if (vMainMenuOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_MainMenu(); }); }
 
                 //Wait for popups to have closed
                 if (waitClose)
@@ -308,15 +288,15 @@ namespace CtrlUI
         {
             try
             {
-                if (vTextInputOpen) { await DispatcherInvoke(async delegate { await Popup_Close_TextInput(); }); }
-                if (vMessageBoxOpen) { await DispatcherInvoke(async delegate { await Popup_Close_MessageBox(); }); }
-                if (vHowLongToBeatOpen) { await DispatcherInvoke(async delegate { await Popup_Close_HowLongToBeat(); }); }
-                if (vSortingOpen) { await DispatcherInvoke(async delegate { await Popup_Close_Sorting(); }); }
-                if (vContentInformationOpen) { await DispatcherInvoke(async delegate { await Popup_Close_ContentInformation(); }); }
-                if (vFilePickerOpen) { await DispatcherInvoke(async delegate { await Popup_Close_FilePicker(false, false); }); }
-                if (vColorPickerOpen) { await DispatcherInvoke(async delegate { await Popup_Close_ColorPicker(); }); }
-                if (vPopupOpen) { await DispatcherInvoke(async delegate { await Popup_Close(); }); }
-                if (vMainMenuOpen) { await DispatcherInvoke(async delegate { await Popup_Close_MainMenu(); }); }
+                if (vTextInputOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_TextInput(); }); }
+                if (vMessageBoxOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_MessageBox(); }); }
+                if (vHowLongToBeatOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_HowLongToBeat(); }); }
+                if (vSortingOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_Sorting(); }); }
+                if (vContentInformationOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_ContentInformation(); }); }
+                if (vFilePickerOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_FilePicker(false, false); }); }
+                if (vColorPickerOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_ColorPicker(); }); }
+                if (vPopupOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close(); }); }
+                if (vMainMenuOpen) { await DispatcherInvoke(this.Dispatcher, async delegate { await Popup_Close_MainMenu(); }); }
             }
             catch { }
         }
@@ -341,7 +321,7 @@ namespace CtrlUI
             bool popupOpen = false;
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     popupOpen = vPopupOpen && vPopupElementTarget == popupGrid;
                 });

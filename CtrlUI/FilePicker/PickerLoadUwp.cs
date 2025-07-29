@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using Windows.Management.Deployment;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVImage;
@@ -24,7 +24,7 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     //File Picker change select mode
                     FilePicker_ChangeSelectMode(false);
@@ -98,20 +98,29 @@ namespace CtrlUI
                             continue;
                         }
 
-                        //Load the application image
-                        BitmapImage uwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, null, vImageBackupSource, 50, 0, IntPtr.Zero, 0);
+                        //Load application image
+                        BitmapImage uwpListImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = [appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath],
+                            BackupPath = vImageBackupSource,
+                            Width = vImageLoadSizeFilePicker,
+                            Dispatcher = this.Dispatcher
+                        });
 
                         //Add the application to the list
                         DataBindFile dataBindFile = new DataBindFile() { FileType = FileType.UwpApp, Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableAliasName, PathFile = appxDetails.AppUserModelId, PathFull = appxDetails.FullPackageName, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
+                        await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFile, false, false);
                     }
                     catch { }
                 }
 
                 //Sort list by name
-                SortFunction<DataBindFile> sortFuncName = new SortFunction<DataBindFile>();
-                sortFuncName.Function = x => x.Name;
-                SortObservableCollection(lb_FilePicker, List_FilePicker, sortFuncName, null);
+                DispatcherInvoke(this.Dispatcher, delegate
+                {
+                    SortFunction<DataBindFile> sortFuncName = new SortFunction<DataBindFile>();
+                    sortFuncName.Function = x => x.Name;
+                    SortObservableCollection(listView_FilePicker, List_FilePicker, sortFuncName, null);
+                });
             }
             catch { }
         }

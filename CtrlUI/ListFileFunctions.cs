@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkStyles.AVFocus;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -13,7 +12,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task List_FileRemove_Prompt(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
+        async Task List_FileRemove_Prompt(ListView listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
         {
             try
             {
@@ -35,12 +34,22 @@ namespace CtrlUI
                 //Confirm file remove prompt
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerRecycle = new DataBindString();
-                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                answerRecycle.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Remove.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 answerRecycle.Name = "Move " + fileCategory + " to recycle bin*";
                 messageAnswers.Add(answerRecycle);
 
                 DataBindString answerPerma = new DataBindString();
-                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                answerPerma.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/RemoveCross.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 answerPerma.Name = "Remove " + fileCategory + " permanently";
                 messageAnswers.Add(answerPerma);
 
@@ -60,17 +69,17 @@ namespace CtrlUI
                     return;
                 }
 
-                Notification_Show_Status("Remove", "Removing " + fileCategory);
+                await Notification_Show_Status("Remove", "Removing " + fileCategory);
                 Debug.WriteLine("Removing file or folder: " + fileName + " path: " + filePath);
 
                 //Remove file or folder
-                if (FileRemove(fileName, filePath, fileCategory, useRecycleBin))
+                if (await FileRemove(fileName, filePath, fileCategory, useRecycleBin))
                 {
                     //Remove item from list
                     await RemoveAppFromList(dataBindApp, false, false, true);
 
                     //Select previous index
-                    await ListBoxFocusIndex(listboxSender, false, listboxSelectedIndex, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusIndex(listboxSender, false, listboxSelectedIndex, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }

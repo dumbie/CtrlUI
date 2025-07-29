@@ -34,7 +34,12 @@ namespace CtrlUI
                                 }
 
                                 DataBindString AnswerApp = new DataBindString();
-                                AnswerApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Process.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                                AnswerApp.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                                {
+                                    FilePaths = ["Assets/Default/Icons/Process.png"],
+                                    BackupPath = vImageBackupSource,
+                                    Dispatcher = this.Dispatcher
+                                });
                                 AnswerApp.Name = processTitle;
                                 AnswerApp.NameSub = multiProcess.Identifier.ToString();
                                 AnswerApp.Data1 = multiProcess;
@@ -44,12 +49,22 @@ namespace CtrlUI
                         }
 
                         DataBindString AnswerLaunchNew = new DataBindString();
-                        AnswerLaunchNew.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        AnswerLaunchNew.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/AppLaunch.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         AnswerLaunchNew.Name = "Launch new instance";
                         multiAnswers.Add(AnswerLaunchNew);
 
                         DataBindString AnswerCloseAll = new DataBindString();
-                        AnswerCloseAll.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        AnswerCloseAll.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/AppClose.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         AnswerCloseAll.Name = "Close all the instances";
                         multiAnswers.Add(AnswerCloseAll);
 

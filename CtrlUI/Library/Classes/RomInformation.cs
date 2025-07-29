@@ -1,4 +1,4 @@
-﻿using System.Windows.Media.Imaging;
+﻿using Windows.UI.Xaml.Media.Imaging;
 
 namespace LibraryShared
 {

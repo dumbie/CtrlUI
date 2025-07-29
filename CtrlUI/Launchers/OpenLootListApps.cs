@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -93,8 +93,15 @@ namespace CtrlUI
                     return;
                 }
 
-                //Load application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appImage, "Open Loot" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                //Get application image
+                BitmapImage bitmapImageApplication = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [appName, appImage, "Open Loot"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeApplication,
+                    Dispatcher = this.Dispatcher
+                });
 
                 //Add application to the list
                 DataBindApp dataBindApp = new DataBindApp()
@@ -102,13 +109,13 @@ namespace CtrlUI
                     Category = AppCategory.Launcher,
                     Launcher = AppLauncher.OpenLoot,
                     Name = appName,
-                    ImageBitmap = iconBitmapImage,
+                    ImageBitmap = bitmapImageApplication,
                     PathExe = executablePath,
                     Argument = executableArgument,
-                    StatusLauncherImage = vImagePreloadOpenLoot
+                    StatusLauncherImage = await LoadLauncherImage(AppLauncher.OpenLoot, vImageLoadSizeApplication, 0)
                 };
 
-                await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
+                await ListViewAddItem(listView_Launchers, List_Launchers, dataBindApp, false, false);
                 //Debug.WriteLine("Added OpenLoot game: " + appName);
             }
             catch

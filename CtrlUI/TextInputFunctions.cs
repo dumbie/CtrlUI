@@ -1,6 +1,5 @@
-﻿using ArnoldVinkStyles;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
@@ -40,12 +39,12 @@ namespace CtrlUI
                 if (!string.IsNullOrWhiteSpace(buttonTitle))
                 {
                     grid_Popup_TextInput_button_ConfirmText.Content = buttonTitle;
-                    grid_Popup_TextInput_button_Set.ToolTip = new ToolTip() { Content = buttonTitle };
+                    ToolTipService.SetToolTip(grid_Popup_TextInput_button_Set, buttonTitle);
                 }
                 else
                 {
                     grid_Popup_TextInput_button_ConfirmText.Content = "Return and use the entered text";
-                    grid_Popup_TextInput_button_Set.ToolTip = new ToolTip() { Content = "Return and use the entered text" };
+                    ToolTipService.SetToolTip(grid_Popup_TextInput_button_Set, "Return and use the entered text");
                 }
 
                 //Reset the popup to defaults
@@ -114,8 +113,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    string placeholderString = (string)grid_Popup_TextInput_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
-                    grid_Popup_TextInput_textbox.Text = placeholderString;
+                    grid_Popup_TextInput_textbox.Text = grid_Popup_TextInput_textbox.PlaceholderText;
                 }
             }
             catch { }
@@ -146,15 +144,15 @@ namespace CtrlUI
         }
 
         //Validate and set the text input result
-        void ValidateSetTextInput()
+        async Task ValidateSetTextInput()
         {
             try
             {
                 string textboxString = grid_Popup_TextInput_textbox.Text;
-                string placeholderString = (string)grid_Popup_TextInput_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                string placeholderString = grid_Popup_TextInput_textbox.PlaceholderText;
                 if (textboxString == placeholderString)
                 {
-                    Notification_Show_Status("Rename", "Invalid text");
+                    await Notification_Show_Status("Rename", "Invalid text");
                     vTextInputResult = string.Empty;
                 }
                 else

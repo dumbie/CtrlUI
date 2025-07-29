@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkStyles.AVFocus;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -12,7 +13,7 @@ using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
 {
-    partial class WindowMain
+    public partial class WindowMain
     {
         //Show and close information popup
         public async Task Popup_Show_GameInformation(string searchTerm, object dataBindObject)
@@ -50,7 +51,7 @@ namespace CtrlUI
                 BitmapImage topImage = await GenerateIgdbImage(igdbGames);
                 if (topImage != null)
                 {
-                    image_ContentInfo_Top.Source = topImage;
+                    image_ContentInfo_Top.ImageSource = topImage;
                     image_ContentInfo_Top.Visibility = Visibility.Visible;
                 }
                 else
@@ -88,17 +89,21 @@ namespace CtrlUI
                 //Set gallery images
                 if (igdbGames.screenshots != null)
                 {
-                    listbox_ContentInfo_Gallery.Items.Clear();
-                    listbox_ContentInfo_Gallery.Visibility = Visibility.Visible;
+                    listView_ContentInfo_Gallery.Items.Clear();
+                    listView_ContentInfo_Gallery.Visibility = Visibility.Visible;
                     foreach (ApiIGDBImages infoImages in igdbGames.screenshots)
                     {
-                        BitmapImage screenshotImage = FileToBitmapImage(["https://images.igdb.com/igdb/image/upload/t_720p/" + infoImages.image_id + ".png"], null, null, vImageLoadSize, 0, IntPtr.Zero, 0);
-                        listbox_ContentInfo_Gallery.Items.Add(screenshotImage);
+                        BitmapImage screenshotImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["https://images.igdb.com/igdb/image/upload/t_720p/" + infoImages.image_id + ".png"],
+                            Dispatcher = this.Dispatcher
+                        });
+                        listView_ContentInfo_Gallery.Items.Add(screenshotImage);
                     }
                 }
                 else
                 {
-                    listbox_ContentInfo_Gallery.Visibility = Visibility.Collapsed;
+                    listView_ContentInfo_Gallery.Visibility = Visibility.Collapsed;
                 }
 
                 //Set description

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -20,15 +20,20 @@ namespace CtrlUI
             try
             {
                 //Check the selected categories
-                AppCategory selectedAppCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
-                EmulatorCategory selectedEmulatorCategory = (EmulatorCategory)lb_Manage_AddEmulatorCategory.SelectedIndex;
+                AppCategory selectedAppCategory = (AppCategory)listView_Manage_AddAppCategory.SelectedIndex;
+                EmulatorCategory selectedEmulatorCategory = (EmulatorCategory)listView_Manage_AddEmulatorCategory.SelectedIndex;
 
                 //Check if there is an application name set
                 if (string.IsNullOrWhiteSpace(tb_AddAppName.Text))
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Check.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -49,7 +54,12 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Check.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -76,8 +86,8 @@ namespace CtrlUI
                     //Copy the new application image
                     File_Copy(vFilePickerResult.PathFile, saveFilePath, true);
 
-                    //Load the new application image
-                    BitmapImage applicationImage = Image_Application_Load(vEditAppDataBind, vImageLoadSize, 0);
+                    //Load new application image
+                    BitmapImage applicationImage = await Image_Application_Load(vEditAppDataBind, vImageLoadSizeApplication, 0);
 
                     //Set the new application image
                     img_AddAppLogo.Source = applicationImage;
@@ -91,8 +101,14 @@ namespace CtrlUI
                     //Copy the new application image
                     File_Copy(vFilePickerResult.PathFile, saveFilePath, true);
 
-                    //Load the new application image
-                    BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                    //Load new application image
+                    BitmapImage applicationImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = [vFilePickerResult.PathFile],
+                        BackupPath = vImageBackupSource,
+                        Width = vImageLoadSizeApplication,
+                        Dispatcher = this.Dispatcher
+                    });
 
                     //Set the new application image
                     img_AddAppLogo.Source = applicationImage;
@@ -106,8 +122,8 @@ namespace CtrlUI
             try
             {
                 //Check the selected categories
-                AppCategory selectedAppCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
-                EmulatorCategory selectedEmulatorCategory = (EmulatorCategory)lb_Manage_AddEmulatorCategory.SelectedIndex;
+                AppCategory selectedAppCategory = (AppCategory)listView_Manage_AddAppCategory.SelectedIndex;
+                EmulatorCategory selectedEmulatorCategory = (EmulatorCategory)listView_Manage_AddEmulatorCategory.SelectedIndex;
 
                 vFilePickerSettings = new FilePickerSettings();
                 vFilePickerSettings.FilterIn = new List<string> { "exe" };
@@ -129,7 +145,14 @@ namespace CtrlUI
                     tb_AddAppEmulatorName.Text = vFilePickerResult.Name.Replace(".exe", "");
 
                     //Set application image to image preview
-                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppEmulatorName.Text, vFilePickerResult.PathFile }, vImageSourceFoldersEmulatorsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                    img_AddAppLogo.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = [tb_AddAppEmulatorName.Text, vFilePickerResult.PathFile],
+                        SearchPaths = vImageSourceFoldersEmulatorsCombined,
+                        BackupPath = vImageBackupSource,
+                        Width = vImageLoadSizeApplication,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
                 else
                 {
@@ -138,7 +161,14 @@ namespace CtrlUI
                     tb_AddAppEmulatorName.Text = string.Empty;
 
                     //Set application image to image preview
-                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppName.Text, vFilePickerResult.PathFile }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                    img_AddAppLogo.Source = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = [tb_AddAppName.Text, vFilePickerResult.PathFile],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Width = vImageLoadSizeApplication,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
 
                 //Enable manage interface
@@ -184,11 +214,11 @@ namespace CtrlUI
         }
 
         //Update manage interface according to category
-        void Lb_Manage_AddAppCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void ListView_Manage_AddAppCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
-                ManageInterface_UpdateCategory((AppCategory)lb_Manage_AddAppCategory.SelectedIndex, false);
+                ManageInterface_UpdateCategory((AppCategory)listView_Manage_AddAppCategory.SelectedIndex, false);
             }
             catch (Exception ex)
             {
@@ -197,11 +227,11 @@ namespace CtrlUI
         }
 
         //Reset the application image
-        void Button_Manage_ResetAppLogo_Click(object sender, RoutedEventArgs e)
+        async void Button_Manage_ResetAppLogo_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                Image_Application_Reset(vEditAppDataBind);
+                await Image_Application_Reset(vEditAppDataBind);
             }
             catch { }
         }

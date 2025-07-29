@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkStyles.AVFocus;
@@ -84,33 +84,105 @@ namespace CtrlUI
                 //Load and set application image
                 if (loadAppImage)
                 {
-                    dataBindApp.ImageBitmap = Image_Application_Load(dataBindApp, vImageLoadSize, 0);
+                    dataBindApp.ImageBitmap = await Image_Application_Load(dataBindApp, vImageLoadSizeApplication, 0);
                 }
 
                 //Add application to the list
                 if (dataBindApp.Category == AppCategory.Game)
                 {
-                    await ListBoxAddItem(lb_Games, List_Games, dataBindApp, false, false);
+                    await ListViewAddItem(listView_Games, List_Games, dataBindApp, false, false);
                 }
                 else if (dataBindApp.Category == AppCategory.App)
                 {
-                    await ListBoxAddItem(lb_Apps, List_Apps, dataBindApp, false, false);
+                    await ListViewAddItem(listView_Apps, List_Apps, dataBindApp, false, false);
                 }
                 else if (dataBindApp.Category == AppCategory.Emulator)
                 {
                     //Set emulator category image
-                    if (dataBindApp.EmulatorCategory == EmulatorCategory.Console) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadConsole; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Handheld) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadHandheld; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Computer) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadComputer; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Arcade) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadArcade; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Pinball) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadPinball; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Pong) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadPong; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Chess) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadChess; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.VirtualReality) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadVirtualReality; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.OperatingSystem) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadOperatingSystem; }
+                    if (dataBindApp.EmulatorCategory == EmulatorCategory.Console)
+                    {
+                        dataBindApp.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Console.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Handheld)
+                    {
+                        dataBindApp.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Handheld.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Computer)
+                    {
+                        dataBindApp.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Computer.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Arcade)
+                    {
+                        dataBindApp.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Arcade.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Pinball)
+                    {
+                        dataBindApp.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Pinball.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Pong)
+                    {
+                        dataBindApp.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Pong.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Chess)
+                    {
+                        dataBindApp.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Chess.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.VirtualReality)
+                    {
+                        dataBindApp.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/VirtualReality.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.OperatingSystem)
+                    {
+                        dataBindApp.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/OperatingSystem.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
                     else if (dataBindApp.EmulatorCategory == EmulatorCategory.Other) { dataBindApp.StatusEmulatorCategoryImage = null; }
 
-                    await ListBoxAddItem(lb_Emulators, List_Emulators, dataBindApp, false, false);
+                    await ListViewAddItem(listView_Emulators, List_Emulators, dataBindApp, false, false);
                 }
 
                 //Save changes to Json file
@@ -132,7 +204,12 @@ namespace CtrlUI
                 {
                     List<DataBindString> messageAnswers = new List<DataBindString>();
                     DataBindString answerYes = new DataBindString();
-                    answerYes.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    answerYes.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Remove.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     answerYes.Name = "Remove application from list";
                     messageAnswers.Add(answerYes);
 
@@ -148,35 +225,35 @@ namespace CtrlUI
                 //Remove application from listboxes
                 if (dataBindApp.Category == AppCategory.Game)
                 {
-                    await ListBoxRemoveItem(lb_Games, List_Games, dataBindApp, true);
+                    await ListViewRemoveItem(listView_Games, List_Games, dataBindApp, true);
                 }
                 else if (dataBindApp.Category == AppCategory.App)
                 {
-                    await ListBoxRemoveItem(lb_Apps, List_Apps, dataBindApp, true);
+                    await ListViewRemoveItem(listView_Apps, List_Apps, dataBindApp, true);
                 }
                 else if (dataBindApp.Category == AppCategory.Emulator)
                 {
-                    await ListBoxRemoveItem(lb_Emulators, List_Emulators, dataBindApp, true);
+                    await ListViewRemoveItem(listView_Emulators, List_Emulators, dataBindApp, true);
                 }
                 else if (dataBindApp.Category == AppCategory.Process)
                 {
-                    await ListBoxRemoveItem(lb_Processes, List_Processes, dataBindApp, true);
+                    await ListViewRemoveItem(listView_Processes, List_Processes, dataBindApp, true);
                 }
                 else if (dataBindApp.Category == AppCategory.Shortcut)
                 {
-                    await ListBoxRemoveItem(lb_Shortcuts, List_Shortcuts, dataBindApp, true);
+                    await ListViewRemoveItem(listView_Shortcuts, List_Shortcuts, dataBindApp, true);
                 }
                 else if (dataBindApp.Category == AppCategory.Launcher)
                 {
-                    await ListBoxRemoveItem(lb_Launchers, List_Launchers, dataBindApp, true);
+                    await ListViewRemoveItem(listView_Launchers, List_Launchers, dataBindApp, true);
                 }
                 else if (dataBindApp.Category == AppCategory.Gallery)
                 {
-                    await ListBoxRemoveItem(lb_Gallery, List_Gallery, dataBindApp, true);
+                    await ListViewRemoveItem(listView_Gallery, List_Gallery, dataBindApp, true);
                 }
 
                 //Remove application from search listbox
-                await ListBoxRemoveItem(lb_Search, List_Search, dataBindApp, true);
+                await ListViewRemoveItem(listView_Search, List_Search, dataBindApp, true);
 
                 //Save changes to Json file
                 if (saveJson)
@@ -193,7 +270,7 @@ namespace CtrlUI
                 //Show removed notification
                 if (!silent)
                 {
-                    Notification_Show_Status("Minus", "Removed " + dataBindApp.Name);
+                    await Notification_Show_Status("Minus", "Removed " + dataBindApp.Name);
                     Debug.WriteLine("Removed application: " + dataBindApp.Name);
                 }
             }
@@ -206,8 +283,8 @@ namespace CtrlUI
             try
             {
                 //Check the selected categories
-                AppCategory selectedAppCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
-                EmulatorCategory selectedEmulatorCategory = (EmulatorCategory)lb_Manage_AddEmulatorCategory.SelectedIndex;
+                AppCategory selectedAppCategory = (AppCategory)listView_Manage_AddAppCategory.SelectedIndex;
+                EmulatorCategory selectedEmulatorCategory = (EmulatorCategory)listView_Manage_AddEmulatorCategory.SelectedIndex;
 
                 //Check if adding or editing application
                 bool addApplication = vEditAppDataBind == null;
@@ -227,7 +304,12 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Check.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -248,7 +330,12 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Check.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -261,7 +348,12 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Check.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -274,7 +366,12 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Check.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -287,7 +384,12 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Check.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -300,7 +402,12 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                    Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Check.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
@@ -315,7 +422,12 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Check.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
@@ -326,7 +438,12 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Check.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
@@ -343,7 +460,12 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Check.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
@@ -351,7 +473,7 @@ namespace CtrlUI
                         return;
                     }
 
-                    Notification_Show_Status("Plus", "Added " + tb_AddAppName.Text);
+                    await Notification_Show_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding Win32 app: " + tb_AddAppName.Text + " to the list.");
                     DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = selectedAppCategory, EmulatorCategory = selectedEmulatorCategory, Name = tb_AddAppName.Text, EmulatorName = tb_AddAppEmulatorName.Text, PathExe = tb_AddAppPathExe.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, NameExe = tb_AddAppNameExe.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchSkipRom = (bool)checkbox_AddLaunchSkipRom.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableDisplayHDR = (bool)checkbox_AddLaunchEnableDisplayHDR.IsChecked, LaunchEnableAutoHDR = (bool)checkbox_AddLaunchEnableAutoHDR.IsChecked, LaunchAsAdmin = (bool)checkbox_AddLaunchAsAdmin.IsChecked };
                     await AddAppToList(dataBindApp, true, true);
@@ -362,15 +484,15 @@ namespace CtrlUI
                     //Focus on the application list
                     if (selectedAppCategory == AppCategory.Game)
                     {
-                        await ListBoxFocusIndex(lb_Games, true, 0, vProcessCurrent.WindowHandleMain);
+                        await ListViewFocusIndex(listView_Games, true, 0, vProcessCurrent.WindowHandleMain);
                     }
                     else if (selectedAppCategory == AppCategory.App)
                     {
-                        await ListBoxFocusIndex(lb_Apps, true, 0, vProcessCurrent.WindowHandleMain);
+                        await ListViewFocusIndex(listView_Apps, true, 0, vProcessCurrent.WindowHandleMain);
                     }
                     else if (selectedAppCategory == AppCategory.Emulator)
                     {
-                        await ListBoxFocusIndex(lb_Emulators, true, 0, vProcessCurrent.WindowHandleMain);
+                        await ListViewFocusIndex(listView_Emulators, true, 0, vProcessCurrent.WindowHandleMain);
                     }
                 }
                 else
@@ -384,7 +506,12 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Check.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
@@ -414,24 +541,96 @@ namespace CtrlUI
                     vEditAppDataBind.LightImageBackground = (bool)checkbox_LightImageBackground.IsChecked;
 
                     //Edit application image in the list
-                    vEditAppDataBind.ImageBitmap = Image_Application_Load(vEditAppDataBind, vImageLoadSize, 0);
+                    vEditAppDataBind.ImageBitmap = await Image_Application_Load(vEditAppDataBind, vImageLoadSizeApplication, 0);
 
                     //Edit emulator image in the list
-                    if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Console) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadConsole; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Handheld) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadHandheld; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Computer) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadComputer; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Arcade) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadArcade; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Pinball) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadPinball; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Pong) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadPong; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Chess) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadChess; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.VirtualReality) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadVirtualReality; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.OperatingSystem) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadOperatingSystem; }
+                    if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Console)
+                    {
+                        vEditAppDataBind.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Console.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Handheld)
+                    {
+                        vEditAppDataBind.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Handheld.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Computer)
+                    {
+                        vEditAppDataBind.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Computer.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Arcade)
+                    {
+                        vEditAppDataBind.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Arcade.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Pinball)
+                    {
+                        vEditAppDataBind.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Pinball.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Pong)
+                    {
+                        vEditAppDataBind.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Pong.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Chess)
+                    {
+                        vEditAppDataBind.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Chess.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.VirtualReality)
+                    {
+                        vEditAppDataBind.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/VirtualReality.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.OperatingSystem)
+                    {
+                        vEditAppDataBind.StatusEmulatorCategoryImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/OperatingSystem.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
+                    }
                     else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Other) { vEditAppDataBind.StatusEmulatorCategoryImage = null; }
 
                     //Reset application status
                     vEditAppDataBind.ResetStatus(true);
 
-                    Notification_Show_Status("Edit", "Edited " + vEditAppDataBind.Name);
+                    await Notification_Show_Status("Edit", "Edited " + vEditAppDataBind.Name);
                     Debug.WriteLine("Editing application: " + vEditAppDataBind.Name + " in the list.");
 
                     //Save changes to Json file
@@ -448,35 +647,35 @@ namespace CtrlUI
                         //Remove app from previous category
                         if (vEditAppDataBindCategory == AppCategory.Game)
                         {
-                            await ListBoxRemoveItem(lb_Games, List_Games, vEditAppDataBind, false);
+                            await ListViewRemoveItem(listView_Games, List_Games, vEditAppDataBind, false);
                         }
                         else if (vEditAppDataBindCategory == AppCategory.App)
                         {
-                            await ListBoxRemoveItem(lb_Apps, List_Apps, vEditAppDataBind, false);
+                            await ListViewRemoveItem(listView_Apps, List_Apps, vEditAppDataBind, false);
                         }
                         else if (vEditAppDataBindCategory == AppCategory.Emulator)
                         {
-                            await ListBoxRemoveItem(lb_Emulators, List_Emulators, vEditAppDataBind, false);
+                            await ListViewRemoveItem(listView_Emulators, List_Emulators, vEditAppDataBind, false);
                         }
 
                         //Add application to new category
                         if (vEditAppDataBind.Category == AppCategory.Game)
                         {
-                            await ListBoxAddItem(lb_Games, List_Games, vEditAppDataBind, false, false);
+                            await ListViewAddItem(listView_Games, List_Games, vEditAppDataBind, false, false);
                         }
                         else if (vEditAppDataBind.Category == AppCategory.App)
                         {
-                            await ListBoxAddItem(lb_Apps, List_Apps, vEditAppDataBind, false, false);
+                            await ListViewAddItem(listView_Apps, List_Apps, vEditAppDataBind, false, false);
                         }
                         else if (vEditAppDataBind.Category == AppCategory.Emulator)
                         {
-                            await ListBoxAddItem(lb_Emulators, List_Emulators, vEditAppDataBind, false, false);
+                            await ListViewAddItem(listView_Emulators, List_Emulators, vEditAppDataBind, false, false);
                         }
 
                         //Edit search image in the list
                         if (vCurrentListCategory == ListCategory.Search)
                         {
-                            SearchAppSetCategoryImage(vEditAppDataBind);
+                            await SearchAppSetCategoryImage(vEditAppDataBind);
                         }
                     }
 
@@ -497,26 +696,26 @@ namespace CtrlUI
             {
                 if (vCurrentListCategory == ListCategory.Search)
                 {
-                    await ListBoxFocusItem(lb_Search, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusItem(listView_Search, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
                 }
                 else if (vEditAppDataBind.Category == AppCategory.Game)
                 {
-                    await ListBoxFocusItem(lb_Games, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusItem(listView_Games, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
                 }
                 else if (vEditAppDataBind.Category == AppCategory.App)
                 {
-                    await ListBoxFocusItem(lb_Apps, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusItem(listView_Apps, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
                 }
                 else if (vEditAppDataBind.Category == AppCategory.Emulator)
                 {
-                    await ListBoxFocusItem(lb_Emulators, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusItem(listView_Emulators, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }
         }
 
         //Add categories to manage interface
-        void ManageInterface_AddCategories()
+        async Task ManageInterface_AddCategories()
         {
             try
             {
@@ -524,17 +723,32 @@ namespace CtrlUI
                 List<DataBindString> listAppCategories = new List<DataBindString>();
 
                 DataBindString categoryApp = new DataBindString();
-                categoryApp.ImageBitmap = vImagePreloadApp;
+                categoryApp.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/App.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryApp.Name = "App";
                 listAppCategories.Add(categoryApp);
 
                 DataBindString categoryGame = new DataBindString();
-                categoryGame.ImageBitmap = vImagePreloadGame;
+                categoryGame.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Game.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryGame.Name = "Game";
                 listAppCategories.Add(categoryGame);
 
                 DataBindString categoryEmulator = new DataBindString();
-                categoryEmulator.ImageBitmap = vImagePreloadEmulator;
+                categoryEmulator.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Emulator.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryEmulator.Name = "Emulator";
                 listAppCategories.Add(categoryEmulator);
 
@@ -542,58 +756,108 @@ namespace CtrlUI
                 List<DataBindString> listEmulatorCategories = new List<DataBindString>();
 
                 DataBindString categoryOther = new DataBindString();
-                categoryOther.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Other.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                categoryOther.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Other.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryOther.Name = "Other";
                 listEmulatorCategories.Add(categoryOther);
 
                 DataBindString categoryConsole = new DataBindString();
-                categoryConsole.ImageBitmap = vImagePreloadConsole;
+                categoryConsole.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Console.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryConsole.Name = "Console";
                 listEmulatorCategories.Add(categoryConsole);
 
                 DataBindString categoryHandheld = new DataBindString();
-                categoryHandheld.ImageBitmap = vImagePreloadHandheld;
+                categoryHandheld.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Handheld.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryHandheld.Name = "Handheld";
                 listEmulatorCategories.Add(categoryHandheld);
 
                 DataBindString categoryComputer = new DataBindString();
-                categoryComputer.ImageBitmap = vImagePreloadComputer;
+                categoryComputer.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Computer.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryComputer.Name = "Computer";
                 listEmulatorCategories.Add(categoryComputer);
 
                 DataBindString categoryArcade = new DataBindString();
-                categoryArcade.ImageBitmap = vImagePreloadArcade;
+                categoryArcade.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Arcade.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryArcade.Name = "Arcade";
                 listEmulatorCategories.Add(categoryArcade);
 
                 DataBindString categoryPinball = new DataBindString();
-                categoryPinball.ImageBitmap = vImagePreloadPinball;
+                categoryPinball.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Pinball.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryPinball.Name = "Pinball";
                 listEmulatorCategories.Add(categoryPinball);
 
                 DataBindString categoryPong = new DataBindString();
-                categoryPong.ImageBitmap = vImagePreloadPong;
+                categoryPong.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Pong.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryPong.Name = "Pong";
                 listEmulatorCategories.Add(categoryPong);
 
                 DataBindString categoryChess = new DataBindString();
-                categoryChess.ImageBitmap = vImagePreloadChess;
+                categoryChess.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Chess.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryChess.Name = "Chess";
                 listEmulatorCategories.Add(categoryChess);
 
                 DataBindString categoryVirtualReality = new DataBindString();
-                categoryVirtualReality.ImageBitmap = vImagePreloadVirtualReality;
+                categoryVirtualReality.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/VirtualReality.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryVirtualReality.Name = "VR";
                 listEmulatorCategories.Add(categoryVirtualReality);
 
                 DataBindString categoryOperatingSystem = new DataBindString();
-                categoryOperatingSystem.ImageBitmap = vImagePreloadOperatingSystem;
+                categoryOperatingSystem.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/OperatingSystem.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 categoryOperatingSystem.Name = "OS";
                 listEmulatorCategories.Add(categoryOperatingSystem);
 
                 //Set lists itemsource
-                lb_Manage_AddAppCategory.ItemsSource = listAppCategories;
-                lb_Manage_AddEmulatorCategory.ItemsSource = listEmulatorCategories;
+                listView_Manage_AddAppCategory.ItemsSource = listAppCategories;
+                listView_Manage_AddEmulatorCategory.ItemsSource = listEmulatorCategories;
             }
             catch (Exception ex)
             {
@@ -623,13 +887,13 @@ namespace CtrlUI
                 if (editApplication)
                 {
                     grid_Popup_Manage_txt_Title.Text = "Edit application";
-                    grid_Popup_Manage_button_Save.ToolTip = new ToolTip() { Content = "Edit the application" };
+                    ToolTipService.SetToolTip(grid_Popup_Manage_button_Save, "Edit the application");
                     ManageInterface_Enable();
                 }
                 else
                 {
                     grid_Popup_Manage_txt_Title.Text = "Add application";
-                    grid_Popup_Manage_button_Save.ToolTip = new ToolTip() { Content = "Save the application" };
+                    ToolTipService.SetToolTip(grid_Popup_Manage_button_Save, "Save the application");
                     if (disableInterface)
                     {
                         ManageInterface_Disable();
@@ -733,14 +997,14 @@ namespace CtrlUI
                 vEditAppDataBindCategory = dataBindApp.Category;
 
                 //Select current categories
-                lb_Manage_AddAppCategory.SelectedIndex = (int)dataBindApp.Category;
-                lb_Manage_AddEmulatorCategory.SelectedIndex = (int)dataBindApp.EmulatorCategory;
+                listView_Manage_AddAppCategory.SelectedIndex = (int)dataBindApp.Category;
+                listView_Manage_AddEmulatorCategory.SelectedIndex = (int)dataBindApp.EmulatorCategory;
 
                 //Update application manage interface
                 ManageInterface_UpdateCategory(dataBindApp.Category, true);
 
                 //Load application image
-                img_AddAppLogo.Source = Image_Application_Load(dataBindApp, vImageLoadSize, 0);
+                img_AddAppLogo.Source = await Image_Application_Load(dataBindApp, vImageLoadSizeApplication, 0);
 
                 //Fill the text boxes with application details
                 tb_AddAppName.Text = dataBindApp.Name;
@@ -777,14 +1041,19 @@ namespace CtrlUI
                 vEditAppDataBind = null;
 
                 //Reset current categories
-                lb_Manage_AddAppCategory.SelectedIndex = (int)AppCategory.Game;
-                lb_Manage_AddEmulatorCategory.SelectedIndex = (int)EmulatorCategory.Other;
+                listView_Manage_AddAppCategory.SelectedIndex = (int)AppCategory.Game;
+                listView_Manage_AddEmulatorCategory.SelectedIndex = (int)EmulatorCategory.Other;
 
                 //Update application manage interface
                 ManageInterface_UpdateCategory(AppCategory.Game, true);
 
                 //Load application image
-                img_AddAppLogo.Source = vImagePreloadUnknownApp;
+                img_AddAppLogo.Source = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Apps/Unknown.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
 
                 //Fill the text boxes with application details
                 tb_AddAppName.Text = "Select application executable file first";
@@ -816,15 +1085,30 @@ namespace CtrlUI
                 //Add application type categories
                 List<DataBindString> answersCategory = new List<DataBindString>();
 
-                BitmapImage imageApp = vImagePreloadApp;
+                BitmapImage imageApp = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/App.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 DataBindString stringApp = new DataBindString() { Name = "App", Data1 = "App", ImageBitmap = imageApp };
                 answersCategory.Add(stringApp);
 
-                BitmapImage imageGame = vImagePreloadGame;
+                BitmapImage imageGame = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Game.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 DataBindString stringGame = new DataBindString() { Name = "Game", Data1 = "Game", ImageBitmap = imageGame };
                 answersCategory.Add(stringGame);
 
-                BitmapImage imageEmulator = vImagePreloadEmulator;
+                BitmapImage imageEmulator = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Emulator.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 DataBindString stringEmulator = new DataBindString() { Name = "Emulator", Data1 = "Emulator", ImageBitmap = imageEmulator };
                 answersCategory.Add(stringEmulator);
 
@@ -849,7 +1133,12 @@ namespace CtrlUI
                     {
                         List<DataBindString> answersConfirm = new List<DataBindString>();
                         DataBindString answerAlright = new DataBindString();
-                        answerAlright.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        answerAlright.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Check.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         answerAlright.Name = "Ok";
                         answersConfirm.Add(answerAlright);
 
@@ -857,7 +1146,7 @@ namespace CtrlUI
                         return;
                     }
 
-                    Notification_Show_Status("Plus", "Added " + vFilePickerResult.Name);
+                    await Notification_Show_Status("Plus", "Added " + vFilePickerResult.Name);
                     Debug.WriteLine("Adding UWP app: " + tb_AddAppName.Text + " to the list.");
                     DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, AppUserModelId = vFilePickerResult.PathFile, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked, LaunchEnableDisplayHDR = (bool)checkbox_AddLaunchEnableDisplayHDR.IsChecked, LaunchEnableAutoHDR = (bool)checkbox_AddLaunchEnableAutoHDR.IsChecked, LaunchAsAdmin = (bool)checkbox_AddLaunchAsAdmin.IsChecked };
                     await AddAppToList(dataBindApp, true, true);

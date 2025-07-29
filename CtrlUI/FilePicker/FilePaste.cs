@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVShell;
 using static ArnoldVinkStyles.AVFocus;
@@ -32,13 +32,13 @@ namespace CtrlUI
                     //Move or copy the file or folder
                     if (clipboardFile.ClipboardType == ClipboardType.Cut)
                     {
-                        Notification_Show_Status("Cut", "Moving file or folder");
+                        await Notification_Show_Status("Cut", "Moving file or folder");
                         Debug.WriteLine("Moving file or folder: " + oldFilePath + " to " + newFilePath);
 
                         //Check if moving to same directory
                         if (oldFilePath == newFilePath)
                         {
-                            Notification_Show_Status("Cut", "Invalid move folder");
+                            await Notification_Show_Status("Cut", "Invalid move folder");
                             Debug.WriteLine("Moving file or folder to the same directory.");
                             return;
                         }
@@ -46,7 +46,7 @@ namespace CtrlUI
                         //Check if moving in the directory
                         if (newFilePath.Contains(oldFilePath))
                         {
-                            Notification_Show_Status("Cut", "Invalid move folder");
+                            await Notification_Show_Status("Cut", "Invalid move folder");
                             Debug.WriteLine("Moving file or folder to the sub directory.");
                             return;
                         }
@@ -88,10 +88,10 @@ namespace CtrlUI
                         updatedClipboard.Checked = Visibility.Collapsed;
 
                         //Remove the moved listbox item
-                        await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, clipboardFile, false);
+                        await ListViewRemoveItem(listView_FilePicker, List_FilePicker, clipboardFile, false);
 
                         //Add the new listbox item
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
+                        await ListViewAddItem(listView_FilePicker, List_FilePicker, updatedClipboard, false, false);
 
                         resetClipboard = true;
 
@@ -105,23 +105,23 @@ namespace CtrlUI
                         //Check file operation status
                         if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                         {
-                            Notification_Show_Status("Cut", "File or folder moved");
+                            await Notification_Show_Status("Cut", "File or folder moved");
                             Debug.WriteLine("File or folder moved: " + oldFilePath + " to " + newFilePath);
                         }
                         else if (shFileOpstruct.fAnyOperationsAborted)
                         {
-                            Notification_Show_Status("Cut", "File or folder move aborted");
+                            await Notification_Show_Status("Cut", "File or folder move aborted");
                             Debug.WriteLine("File or folder move aborted: " + oldFilePath + " to " + newFilePath);
                         }
                         else
                         {
-                            Notification_Show_Status("Cut", "File or folder move failed");
+                            await Notification_Show_Status("Cut", "File or folder move failed");
                             Debug.WriteLine("File or folder move failed: " + oldFilePath + " to " + newFilePath);
                         }
                     }
                     else
                     {
-                        Notification_Show_Status("Copy", "Copying file or folder");
+                        await Notification_Show_Status("Copy", "Copying file or folder");
                         Debug.WriteLine("Copying file or folder: " + oldFilePath + " to " + newFilePath);
 
                         //Check file or folder
@@ -161,7 +161,7 @@ namespace CtrlUI
                         updatedClipboard.Checked = Visibility.Collapsed;
 
                         //Add the new listbox item
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
+                        await ListViewAddItem(listView_FilePicker, List_FilePicker, updatedClipboard, false, false);
 
                         //Copy file or folder
                         SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
@@ -173,24 +173,24 @@ namespace CtrlUI
                         //Check file operation status
                         if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                         {
-                            Notification_Show_Status("Copy", "File or folder copied");
+                            await Notification_Show_Status("Copy", "File or folder copied");
                             Debug.WriteLine("File or folder copied: " + oldFilePath + " to " + newFilePath);
                         }
                         else if (shFileOpstruct.fAnyOperationsAborted)
                         {
-                            Notification_Show_Status("Copy", "File or folder copy aborted");
+                            await Notification_Show_Status("Copy", "File or folder copy aborted");
                             Debug.WriteLine("File or folder copy aborted: " + oldFilePath + " to " + newFilePath);
                         }
                         else
                         {
-                            Notification_Show_Status("Copy", "File or folder copy failed");
+                            await Notification_Show_Status("Copy", "File or folder copy failed");
                             Debug.WriteLine("File or folder copy failed: " + oldFilePath + " to " + newFilePath);
                         }
                     }
                 }
 
                 //Focus on the listbox item
-                await ListBoxFocusIndex(lb_FilePicker, true, 0, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_FilePicker, true, 0, vProcessCurrent.WindowHandleMain);
 
                 if (resetClipboard)
                 {
@@ -203,7 +203,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                Notification_Show_Status("Paste", "Failed pasting");
+                await Notification_Show_Status("Paste", "Failed pasting");
                 Debug.WriteLine("Failed pasting file or folder: " + ex.Message);
             }
         }

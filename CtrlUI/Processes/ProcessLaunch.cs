@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
@@ -25,7 +25,7 @@ namespace CtrlUI
                 //Check if the shortcut is available
                 if (dataBindApp.Category == AppCategory.Shortcut && dataBindApp.StatusAvailable == Visibility.Visible)
                 {
-                    await List_FileRemove_Prompt(lb_Shortcuts, lb_Shortcuts.SelectedIndex, dataBindApp);
+                    await List_FileRemove_Prompt(listView_Shortcuts, listView_Shortcuts.SelectedIndex, dataBindApp);
                     return;
                 }
 
@@ -66,7 +66,7 @@ namespace CtrlUI
                     //Wait for processes to have refreshed
                     if (vBusyRefreshingProcesses)
                     {
-                        Notification_Show_Status("AppLaunch", "Preparing application launch");
+                        await Notification_Show_Status("AppLaunch", "Preparing application launch");
                         Debug.WriteLine("Processes are refreshing, wait for it to complete.");
                         while (vBusyRefreshingProcesses)
                         {
@@ -95,7 +95,7 @@ namespace CtrlUI
                 bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
                 //Check if databind paths are available
-                if (!CheckDatabindPathAuto(dataBindApp))
+                if (!await CheckDatabindPathAuto(dataBindApp))
                 {
                     return;
                 }

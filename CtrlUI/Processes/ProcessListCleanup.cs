@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkStyles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,14 +34,17 @@ namespace CtrlUI
                         int processCount = dataBindApp.ProcessMulti.Count();
 
                         //Update the running count text
-                        if (processCount > 1)
+                        AVDispatcherInvoke.DispatcherInvoke(this.Dispatcher, delegate
                         {
-                            dataBindApp.StatusProcessCount = Convert.ToString(processCount);
-                        }
-                        else
-                        {
-                            dataBindApp.StatusProcessCount = string.Empty;
-                        }
+                            if (processCount > 1)
+                            {
+                                dataBindApp.StatusProcessCount = Convert.ToString(processCount);
+                            }
+                            else
+                            {
+                                dataBindApp.StatusProcessCount = string.Empty;
+                            }
+                        });
 
                         //Update the running status
                         if (processCount == 0)
@@ -70,8 +74,8 @@ namespace CtrlUI
                         //Check process running count
                         if (!dataBindApp.ProcessMulti.Any())
                         {
-                            await ListBoxRemoveItem(lb_Processes, List_Processes, dataBindApp, true);
-                            await ListBoxRemoveItem(lb_Search, List_Search, dataBindApp, true);
+                            await ListViewRemoveItem(listView_Processes, List_Processes, dataBindApp, true);
+                            await ListViewRemoveItem(listView_Search, List_Search, dataBindApp, true);
                         }
                     }
                     catch { }

@@ -65,7 +65,7 @@ namespace CtrlUI
                     else if (objectType == typeof(List<ControllerStatusDetails>))
                     {
                         List<ControllerStatusDetails> controllerStatusSummaryList = deserializedBytes.GetObjectAsType<List<ControllerStatusDetails>>();
-                        UpdateControllerStatus(controllerStatusSummaryList);
+                        await UpdateControllerStatus(controllerStatusSummaryList);
                     }
                     else if (objectType == typeof(string))
                     {
@@ -73,7 +73,7 @@ namespace CtrlUI
                         Debug.WriteLine("Received socket string: " + receivedString);
                         if (receivedString == "AppWindowHideShow")
                         {
-                            await DispatcherInvoke(async delegate { await AppWindow_HideShow(); });
+                            await DispatcherInvoke(this.Dispatcher, async delegate { await AppWindow_HideShow(); });
                         }
                     }
                 }

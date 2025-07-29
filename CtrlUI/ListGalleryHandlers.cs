@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -11,7 +10,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task RightClickGallery(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
+        async Task RightClickGallery(ListView listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
         {
             try
             {
@@ -20,7 +19,12 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerRemove.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Remove.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerRemove.Name = "Remove the media file";
                 Answers.Add(AnswerRemove);
 

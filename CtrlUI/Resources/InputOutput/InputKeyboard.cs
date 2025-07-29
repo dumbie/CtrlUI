@@ -1,11 +1,14 @@
 ﻿using ArnoldVinkStyles;
+using System;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Interop;
+using Windows.System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkStyles.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
@@ -15,7 +18,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle keyboard down
-        void HandleKeyboardDown(MSG windowMessage, ref bool messageHandled)
+        void HandleKeyboardDown(WindowMessage windowMessage, ref bool messageHandled)
         {
             try
             {
@@ -31,7 +34,7 @@ namespace CtrlUI
 
                 //Check if a textbox is focused
                 bool focusedTextBox = false;
-                FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
+                FrameworkElement frameworkElement = GetFocusedFrameworkElement();
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(TextBox))
                 {
                     focusedTextBox = true;
@@ -103,7 +106,7 @@ namespace CtrlUI
         }
 
         //Handle keyboard up
-        void HandleKeyboardUp(MSG windowMessage, ref bool messageHandled)
+        void HandleKeyboardUp(WindowMessage windowMessage, ref bool messageHandled)
         {
             try
             {
@@ -121,10 +124,10 @@ namespace CtrlUI
         {
             try
             {
-                FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
+                FrameworkElement frameworkElement = GetFocusedFrameworkElement();
+                if (frameworkElement != null && frameworkElement.GetType() == typeof(ListViewItem))
                 {
-                    ListBox parentListbox = AVVisualTree.FindVisualParent<ListBox>(frameworkElement);
+                    ListView parentListbox = AVVisualTree.FindVisualParent<ListView>(frameworkElement);
                     if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
                     {
                         KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
@@ -142,7 +145,7 @@ namespace CtrlUI
                     }
                     else if (vTabTargetListsFirstLastColumn.Contains(parentListbox.Name))
                     {
-                        if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, false))
+                        if (ListViewItemColumnPosition(parentListbox, (ListViewItem)frameworkElement, false))
                         {
                             KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
                             Handled = true;
@@ -165,10 +168,10 @@ namespace CtrlUI
         {
             try
             {
-                FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
+                FrameworkElement frameworkElement = GetFocusedFrameworkElement();
+                if (frameworkElement != null && frameworkElement.GetType() == typeof(ListViewItem))
                 {
-                    ListBox parentListbox = AVVisualTree.FindVisualParent<ListBox>(frameworkElement);
+                    ListView parentListbox = AVVisualTree.FindVisualParent<ListView>(frameworkElement);
                     if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
                     {
                         KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);
@@ -186,7 +189,7 @@ namespace CtrlUI
                     }
                     else if (vTabTargetListsFirstLastColumn.Contains(parentListbox.Name))
                     {
-                        if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, true))
+                        if (ListViewItemColumnPosition(parentListbox, (ListViewItem)frameworkElement, true))
                         {
                             KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);
                             Handled = true;
@@ -205,34 +208,34 @@ namespace CtrlUI
         }
 
         //Handle app list keyboard/controller tapped
-        async void ListBox_Apps_KeyPressUp(object sender, KeyEventArgs e)
+        private async void ListView_Apps_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Space) { await ListBox_Apps_LeftClick(sender); }
-                else if (e.Key == Key.Delete || e.Key == Key.Back) { await ListBox_Apps_RightClick(sender); }
-                else if (e.Key == Key.Insert) { await Popup_Show_AddExe(); }
+                if (e.Key == VirtualKey.Space) { await ListView_Apps_LeftClick(sender); }
+                else if (e.Key == VirtualKey.Delete || e.Key == VirtualKey.Back) { await ListView_Apps_RightClick(sender); }
+                else if (e.Key == VirtualKey.Insert) { await Popup_Show_AddExe(); }
             }
             catch { }
         }
 
         //Handle application keyboard presses
-        async void WindowMain_KeyPressUp(object sender, KeyEventArgs e)
+        async void WindowMain_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
                 //Handle Alt + Key press
-                if (e.KeyboardDevice.Modifiers == ModifierKeys.Alt)
+                if (e.Key == VirtualKey.LeftMenu)
                 {
                 }
                 //Handle Ctrl + Key press
-                else if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
+                else if (e.Key == VirtualKey.LeftControl)
                 {
                 }
                 else
                 {
                     //Debug.WriteLine("Key pressed: " + e.Key);
-                    if (e.Key == Key.Escape)
+                    if (e.Key == VirtualKey.Escape)
                     {
                         if (Popup_Open_Check(grid_Popup_Manage))
                         {
@@ -243,18 +246,21 @@ namespace CtrlUI
                             await Popup_Close_Top(false);
                         }
                     }
-                    else if (e.Key == Key.F1) { await Popup_Show(grid_Popup_Help, grid_Popup_Help_button_Close); }
-                    else if (e.Key == Key.F2)
+                    else if (e.Key == VirtualKey.F1)
+                    {
+                        await Popup_Show(grid_Popup_Help, grid_Popup_Help_button_Close);
+                    }
+                    else if (e.Key == VirtualKey.F2)
                     {
                         if (!vFilePickerOpen)
                         {
                             await QuickLaunchPrompt();
                         }
                     }
-                    else if (e.Key == Key.F3) { await CategoryListChange(ListCategory.Search); }
-                    else if (e.Key == Key.F4) { await Popup_Show_Sorting(); }
-                    else if (e.Key == Key.F6) { await Popup_ShowHide_MainMenu(false); }
-                    else if (e.Key == Key.F7) { await ShowFileManager(); }
+                    else if (e.Key == VirtualKey.F3) { await CategoryListChange(ListCategory.Search); }
+                    else if (e.Key == VirtualKey.F4) { await Popup_Show_Sorting(); }
+                    else if (e.Key == VirtualKey.F6) { await Popup_ShowHide_MainMenu(false); }
+                    else if (e.Key == VirtualKey.F7) { await ShowFileManager(); }
                 }
             }
             catch { }

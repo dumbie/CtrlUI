@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
@@ -26,16 +26,16 @@ namespace CtrlUI
                 await Task.Delay(2000);
 
                 //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
+                WindowUpdateStyle(vWindowMain.GetHandle(), true, false, false, false);
 
                 //Update window position
-                UpdateWindowPosition(true);
+                await UpdateWindowPosition(true);
             }
             catch { }
         }
 
         //Update window position
-        void UpdateWindowPosition(bool skipNotification)
+        async Task UpdateWindowPosition(bool skipNotification)
         {
             try
             {
@@ -47,17 +47,17 @@ namespace CtrlUI
                 double appWindowSize = SettingLoad(vConfigurationCtrlUI, "AppWindowSize", typeof(double)) / 100;
                 int windowWidth = Convert.ToInt32(displayMonitorSettings.WidthNative * appWindowSize);
                 int windowHeight = Convert.ToInt32(displayMonitorSettings.HeightNative * appWindowSize);
-                WindowResize(vInteropWindowHandle, windowWidth, windowHeight);
+                WindowResize(vWindowMain.GetHandle(), windowWidth, windowHeight);
 
                 //Center the window on target screen
                 int horizontalLeft = (int)(displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthNative - windowWidth) / 2);
                 int verticalTop = (int)(displayMonitorSettings.BoundsTop + (displayMonitorSettings.HeightNative - windowHeight) / 2);
-                WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
+                WindowMove(vWindowMain.GetHandle(), horizontalLeft, verticalTop);
 
                 //Show monitor change notification
                 if (!skipNotification)
                 {
-                    Notification_Show_Status("MonitorNext", "Moved to monitor " + monitorNumber);
+                    await Notification_Show_Status("MonitorNext", "Moved to monitor " + monitorNumber);
                 }
 
                 Debug.WriteLine("Moved the application to monitor: " + monitorNumber);
@@ -66,21 +66,21 @@ namespace CtrlUI
         }
 
         //Update the window status
-        void UpdateWindowStatus()
+        async Task UpdateWindowStatus()
         {
             try
             {
                 vProcessDirectXInput = Get_ProcessesMultiByName("DirectXInput", true).FirstOrDefault();
                 int focusedProcessId = Detail_ProcessIdByWindowHandle(GetForegroundWindow());
 
-                DispatcherInvoke(delegate
+                await DispatcherInvoke(this.Dispatcher, async delegate
                 {
                     try
                     {
-                        if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
+                        if (vWindowMain.IsMinimized) { vAppMinimized = true; } else { vAppMinimized = false; }
                         if (vProcessCurrent.Identifier == focusedProcessId)
                         {
-                            AppWindowActivated();
+                            await AppWindowActivated();
                         }
                         else
                         {
@@ -94,7 +94,7 @@ namespace CtrlUI
         }
 
         //Application window activated event
-        void AppWindowActivated()
+        async Task AppWindowActivated()
         {
             try
             {
@@ -107,7 +107,7 @@ namespace CtrlUI
                     AppWindowEnable();
 
                     //Update window position
-                    UpdateWindowPosition(true);
+                    await UpdateWindowPosition(true);
 
                     //Resume ScrollViewerLoops
                     PauseResumeScrollviewerLoops(false);
@@ -116,7 +116,7 @@ namespace CtrlUI
                     UpdateMonitorSleepAuto();
 
                     //Check keyboard focus
-                    FocusCheckKeyboard(this, vProcessCurrent.WindowHandleMain);
+                    await FocusCheckKeyboard(this, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }
@@ -150,7 +150,7 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     //Update window status message
                     textblock_DisableMain.Text = string.Empty;
@@ -171,7 +171,7 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     //Update window status message
                     textblock_DisableMain.Text = windowText;
@@ -206,7 +206,7 @@ namespace CtrlUI
             }
             catch
             {
-                Notification_Show_Status("Close", "Failed to minimize or show CtrlUI");
+                await Notification_Show_Status("Close", "Failed to minimize or show CtrlUI");
                 Debug.WriteLine("Failed to minimize or show CtrlUI.");
             }
         }
@@ -231,10 +231,10 @@ namespace CtrlUI
                 await ShowProcessWindow("CtrlUI", vProcessCurrent.WindowHandleMain, false, skipNotification, false);
 
                 //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
+                WindowUpdateStyle(vWindowMain.GetHandle(), true, false, false, false);
 
                 //Update window position
-                UpdateWindowPosition(true);
+                await UpdateWindowPosition(true);
 
                 //Move mouse cursor to target
                 MoveMousePosition();
@@ -247,13 +247,13 @@ namespace CtrlUI
         {
             try
             {
-                Debug.WriteLine("Minimizing the CtrlUI window.");
+                Debug.WriteLine("Minimizing CtrlUI window.");
 
-                //Save the CtrlUI window state
+                //Save window state
                 vAppMinimized = true;
 
-                //Minimize the CtrlUI application
-                WindowState = WindowState.Minimized;
+                //Minimize application
+                vWindowMain.Minimize();
 
                 //Play minimize sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
@@ -261,7 +261,7 @@ namespace CtrlUI
                 //Show minimize notification
                 if (!skipNotification)
                 {
-                    Notification_Show_Status("AppMinimize", "Hiding CtrlUI");
+                    await Notification_Show_Status("AppMinimize", "Hiding CtrlUI");
                 }
 
                 //Wait for application to minimize

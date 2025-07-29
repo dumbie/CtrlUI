@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkCode.AVProcess;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -45,7 +45,7 @@ namespace CtrlUI
                 BitmapImage topImage = await GenerateIgdbImage(igdbPlatforms);
                 if (topImage != null)
                 {
-                    image_ContentInfo_Top.Source = topImage;
+                    image_ContentInfo_Top.ImageSource = topImage;
                     image_ContentInfo_Top.Visibility = Visibility.Visible;
                 }
                 else
@@ -58,7 +58,7 @@ namespace CtrlUI
                 border_ContentInfo_Rating_Critics.Visibility = Visibility.Collapsed;
 
                 //Set gallery images
-                listbox_ContentInfo_Gallery.Visibility = Visibility.Collapsed;
+                listView_ContentInfo_Gallery.Visibility = Visibility.Collapsed;
 
                 //Set description
                 textblock_ContentInfo_Description.Text = ApiIGDB_PlatformSummaryString(igdbPlatforms);

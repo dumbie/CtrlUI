@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,7 +22,12 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerLaunch = new DataBindString();
-                AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                AnswerLaunch.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/AppLaunch.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 AnswerLaunch.Name = "Launch application";
                 Answers.Add(AnswerLaunch);
 
@@ -38,7 +42,7 @@ namespace CtrlUI
             }
             catch
             {
-                Notification_Show_Status("AppLaunch", "Please set a quick launch app");
+                await Notification_Show_Status("AppLaunch", "Please set a quick launch app");
                 Debug.WriteLine("Please set a quick launch app");
             }
         }
@@ -59,13 +63,13 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Notification_Show_Status("AppLaunch", "Please set a quick launch app");
+                    await Notification_Show_Status("AppLaunch", "Please set a quick launch app");
                     Debug.WriteLine("Please set a quick launch app");
                 }
             }
             catch
             {
-                Notification_Show_Status("AppLaunch", "Please set a quick launch app");
+                await Notification_Show_Status("AppLaunch", "Please set a quick launch app");
                 Debug.WriteLine("Please set a quick launch app");
             }
         }

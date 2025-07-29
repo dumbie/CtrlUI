@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+using Windows.System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkStyles.AVSortObservableCollection;
@@ -15,42 +16,42 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle sorting mouse/touch tapped
-        private async void ListBox_Sorting_MousePressUp(object sender, MouseButtonEventArgs e)
+        private async void ListView_Sorting_MousePressUp(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                //Check if an actual ListBoxItem is clicked
-                if (!AVInterface.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+                //Check if an actual ListViewItem is clicked
+                if (!AVInterface.CheckClickedListViewItem(e))
+                {
+                    return;
+                }
 
                 //Check which mouse button is pressed
-                if (e.ClickCount == 1)
-                {
-                    await ListBox_Sorting_Handle();
-                }
+                await ListView_Sorting_Handle();
             }
             catch { }
         }
 
         //Handle sorting keyboard/controller tapped
-        private async void ListBox_Sorting_KeyPressUp(object sender, KeyEventArgs e)
+        private async void ListView_Sorting_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Space)
+                if (e.Key == VirtualKey.Space)
                 {
-                    await ListBox_Sorting_Handle();
+                    await ListView_Sorting_Handle();
                 }
             }
             catch { }
         }
 
-        private async Task ListBox_Sorting_Handle()
+        private async Task ListView_Sorting_Handle()
         {
             try
             {
                 //Sort functions
-                ProfileShared selectedItem = lb_Sorting.SelectedItem as ProfileShared;
-                dynamic sortListBox = selectedItem.Object1;
+                ProfileShared selectedItem = listView_Sorting.SelectedItem as ProfileShared;
+                dynamic sortListView = selectedItem.Object1;
                 dynamic sortOrderBy = selectedItem.Object2;
                 dynamic sortWhere = selectedItem.Object3;
                 Type orderType = GetDynamicType(sortOrderBy);
@@ -77,14 +78,14 @@ namespace CtrlUI
                 }
 
                 //Sort observable list
-                SortObservableCollection(sortListBox, sortOrderBy, sortWhere);
+                SortObservableCollection(sortListView, sortOrderBy, sortWhere);
 
                 //Close sorting popup
                 await Popup_Close_Sorting();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("ListBox sort handle failed: " + ex.Message);
+                Debug.WriteLine("ListView sort handle failed: " + ex.Message);
             }
         }
 

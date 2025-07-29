@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
@@ -58,7 +58,7 @@ namespace CtrlUI
             {
                 if (CategoryListCount(vCurrentListCategory) <= 0 && vCurrentListCategory != ListCategory.Search)
                 {
-                    await DispatcherInvoke(async delegate
+                    await DispatcherInvoke(this.Dispatcher, async delegate
                     {
                         ListCategory? listCategorySwitch = CategoryListPreviousWithItems(vCurrentListCategory, false);
                         if (listCategorySwitch == null)
@@ -166,7 +166,7 @@ namespace CtrlUI
                     listCountString = string.Empty;
                 }
 
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     textblock_Category_Count.Text = listCountString;
                 });
@@ -184,64 +184,64 @@ namespace CtrlUI
                 //Check if category has items
                 if (listCategory != ListCategory.Search && CategoryListCount(listCategory) <= 0)
                 {
-                    //Notification_Show_Status("Close", "Selected category has no items.");
+                    //await Notification_Show_Status("Close", "Selected category has no items.");
                     Debug.WriteLine("Category " + listCategory + " has no items, falling back to first with items.");
                     listCategory = (ListCategory)CategoryListFirstWithItems();
                 }
 
                 //Set target listbox and textblock
-                ListBox targetListbox = null;
+                ListView targetListbox = null;
                 TextBlock targetTextblock = null;
                 if (listCategory == ListCategory.App)
                 {
-                    targetListbox = lb_Apps;
+                    targetListbox = listView_Apps;
                     targetTextblock = textblock_Category_Menu_Apps;
                 }
                 else if (listCategory == ListCategory.Game)
                 {
-                    targetListbox = lb_Games;
+                    targetListbox = listView_Games;
                     targetTextblock = textblock_Category_Menu_Games;
                 }
                 else if (listCategory == ListCategory.Emulator)
                 {
-                    targetListbox = lb_Emulators;
+                    targetListbox = listView_Emulators;
                     targetTextblock = textblock_Category_Menu_Emulators;
                 }
                 else if (listCategory == ListCategory.Launcher)
                 {
-                    targetListbox = lb_Launchers;
+                    targetListbox = listView_Launchers;
                     targetTextblock = textblock_Category_Menu_Launchers;
                 }
                 else if (listCategory == ListCategory.Shortcut)
                 {
-                    targetListbox = lb_Shortcuts;
+                    targetListbox = listView_Shortcuts;
                     targetTextblock = textblock_Category_Menu_Shortcuts;
                 }
                 else if (listCategory == ListCategory.Process)
                 {
-                    targetListbox = lb_Processes;
+                    targetListbox = listView_Processes;
                     targetTextblock = textblock_Category_Menu_Processes;
                 }
                 else if (listCategory == ListCategory.Gallery)
                 {
-                    targetListbox = lb_Gallery;
+                    targetListbox = listView_Gallery;
                     targetTextblock = textblock_Category_Menu_Gallery;
                 }
                 else if (listCategory == ListCategory.Search)
                 {
-                    targetListbox = lb_Search;
+                    targetListbox = listView_Search;
                     targetTextblock = textblock_Category_Menu_Search;
                 }
 
                 //Show target listbox
-                lb_Apps.Visibility = Visibility.Collapsed;
-                lb_Games.Visibility = Visibility.Collapsed;
-                lb_Emulators.Visibility = Visibility.Collapsed;
-                lb_Launchers.Visibility = Visibility.Collapsed;
-                lb_Shortcuts.Visibility = Visibility.Collapsed;
-                lb_Processes.Visibility = Visibility.Collapsed;
-                lb_Gallery.Visibility = Visibility.Collapsed;
-                lb_Search.Visibility = Visibility.Collapsed;
+                listView_Apps.Visibility = Visibility.Collapsed;
+                listView_Games.Visibility = Visibility.Collapsed;
+                listView_Emulators.Visibility = Visibility.Collapsed;
+                listView_Launchers.Visibility = Visibility.Collapsed;
+                listView_Shortcuts.Visibility = Visibility.Collapsed;
+                listView_Processes.Visibility = Visibility.Collapsed;
+                listView_Gallery.Visibility = Visibility.Collapsed;
+                listView_Search.Visibility = Visibility.Collapsed;
                 targetListbox.Visibility = Visibility.Visible;
 
                 //Update button foreground
@@ -268,14 +268,17 @@ namespace CtrlUI
                     stackpanel_Search_Interface.Visibility = Visibility.Visible;
 
                     //Focus on the interface
-                    if (lb_Search.Items.Count > 0)
+                    if (listView_Search.Items.Count > 0)
                     {
-                        await ListBoxFocusIndex(lb_Search, false, -1, vProcessCurrent.WindowHandleMain);
+                        await ListViewFocusIndex(listView_Search, false, -1, vProcessCurrent.WindowHandleMain);
                     }
                     else
                     {
                         await FocusElement(grid_Search_textbox, vProcessCurrent.WindowHandleMain);
                     }
+
+                    //Update gallery images
+                    UpdateGalleryMediaImages(true);
                 }
                 else
                 {
@@ -283,7 +286,13 @@ namespace CtrlUI
                     stackpanel_Search_Interface.Visibility = Visibility.Collapsed;
 
                     //Focus on the listbox
-                    await ListBoxFocusIndex(targetListbox, false, -1, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusIndex(targetListbox, false, -1, vProcessCurrent.WindowHandleMain);
+                }
+
+                //Update gallery images
+                if (listCategory == ListCategory.Gallery)
+                {
+                    UpdateGalleryMediaImages(false);
                 }
             }
             catch { }

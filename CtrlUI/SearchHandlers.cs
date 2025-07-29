@@ -1,9 +1,8 @@
-﻿using ArnoldVinkStyles;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -25,7 +24,7 @@ namespace CtrlUI
         {
             try
             {
-                await ListBox_Apps_RightClick(lb_Search);
+                await ListView_Apps_RightClick(listView_Search);
             }
             catch { }
         }
@@ -35,7 +34,7 @@ namespace CtrlUI
             try
             {
                 string searchString = grid_Search_textbox.Text;
-                string placeholderString = (string)grid_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                string placeholderString = grid_Search_textbox.PlaceholderText;
                 if (!string.IsNullOrWhiteSpace(searchString) && searchString != placeholderString)
                 {
                     //Clear the current popup list
@@ -48,10 +47,10 @@ namespace CtrlUI
                         try
                         {
                             //Set search category image to databind app
-                            SearchAppSetCategoryImage(dataBindApp);
+                            await SearchAppSetCategoryImage(dataBindApp);
 
                             //Add search result to listbox
-                            await ListBoxAddItem(lb_Search, List_Search, dataBindApp, false, false);
+                            await ListViewAddItem(listView_Search, List_Search, dataBindApp, false, false);
                         }
                         catch { }
                     }
@@ -63,7 +62,7 @@ namespace CtrlUI
                     UpdateSearchResults();
 
                     //Select first search index
-                    lb_Search.SelectedIndex = 0;
+                    listView_Search.SelectedIndex = 0;
 
                     Debug.WriteLine("Added search application: " + searchString);
                 }

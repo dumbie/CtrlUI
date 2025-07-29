@@ -73,20 +73,20 @@ namespace CtrlUI
                     AdjustApplicationImageSize();
                 };
 
-                slider_SettingsAppWindowSize.ValueChanged += (sender, e) =>
+                slider_SettingsAppWindowSize.ValueChanged += async (sender, e) =>
                 {
                     textblock_SettingsAppWindowSize.Text = textblock_SettingsAppWindowSize.Tag + ": " + slider_SettingsAppWindowSize.Value.ToString() + "%";
                     SettingSave(vConfigurationCtrlUI, "AppWindowSize", slider_SettingsAppWindowSize.Value);
-                    WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
-                    UpdateWindowPosition(true);
+                    WindowUpdateStyle(vWindowMain.GetHandle(), true, false, false, false);
+                    await UpdateWindowPosition(true);
                 };
 
-                slider_SettingsDisplayMonitor.ValueChanged += (sender, e) =>
+                slider_SettingsDisplayMonitor.ValueChanged += async (sender, e) =>
                 {
                     textblock_SettingsDisplayMonitor.Text = textblock_SettingsDisplayMonitor.Tag + ": " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
                     SettingSave(vConfigurationCtrlUI, "DisplayMonitor", slider_SettingsDisplayMonitor.Value);
-                    WindowUpdateStyle(vInteropWindowHandle, true, false, false, false);
-                    UpdateWindowPosition(false);
+                    WindowUpdateStyle(vWindowMain.GetHandle(), true, false, false, false);
+                    await UpdateWindowPosition(false);
                 };
 
                 cb_SettingsMonitorPreventSleep.Click += (sender, e) =>

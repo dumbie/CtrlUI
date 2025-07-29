@@ -1,10 +1,11 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkStyles;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
+using static ArnoldVinkStyles.AVWindow;
 using static CtrlUI.AppBackup;
 using static CtrlUI.AppVariables;
 
@@ -12,33 +13,53 @@ namespace CtrlUI
 {
     public partial class AppStartup
     {
-        public static async Task Startup(StartupEventArgs e)
+        public static async Task Startup(string[] startupArguments)
         {
             try
             {
                 Debug.WriteLine("Welcome to application.");
 
                 //Application restart delay
-                await RestartDelay(e);
+                await RestartDelay(startupArguments);
 
                 //Setup application defaults
-                AVStartup.SetupDefaults(ProcessPriority.High, true);
+                AVStartup.SetupDefaults(ProcessPriorityClasses.HIGH_PRIORITY_CLASS, true);
 
                 //Backup Json profiles
                 BackupJsonProfiles();
 
-                //Open the application window
-                vWindowMain.Show();
+                //Set window title
+                string windowTitle = "CtrlUI";
+
+                //Check if application has launched as admin
+                if (vAdministratorPermission)
+                {
+                    windowTitle += " (Admin)";
+                }
+
+                //Open application window
+                AVWindowDetails windowDetails = new AVWindowDetails()
+                {
+                    Type = typeof(WindowMain),
+                    Title = windowTitle,
+                    IconPath = "CtrlUI.Assets.AppIcon.ico",
+                    Width = 1280,
+                    Height = 720,
+                    TopMost = true,
+                    NoBorder = true,
+                    Transparency = true
+                };
+                AppVariables.vWindowMain = new AVWindow(windowDetails);
             }
             catch { }
         }
 
         //Application restart delay
-        private static async Task RestartDelay(StartupEventArgs e)
+        private static async Task RestartDelay(string[] startupArguments)
         {
             try
             {
-                if (e.Args != null && e.Args.Contains("-restart"))
+                if (startupArguments != null && startupArguments.Contains("-restart"))
                 {
                     //Get current process information
                     ProcessMulti currentProcess = Get_ProcessMultiCurrent();

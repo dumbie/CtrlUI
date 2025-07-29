@@ -1,24 +1,16 @@
 ﻿<Application x:Class="CtrlUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CtrlUI">
+             xmlns:local="using:CtrlUI">
     <!--Application Resources-->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/MainColors.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/MainFocus.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/MainFonts.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/ControlTemplates/Button.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/ControlTemplates/CheckBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/ControlTemplates/ComboBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/ControlTemplates/ListBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/ControlTemplates/ProgressBar.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/ControlTemplates/Scrollbar.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/ControlTemplates/Thumb.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/ControlTemplates/Slider.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/ControlTemplates/TextBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/MainStyles.xaml"/>
+                <ResourceDictionary Source="ms-appx:///ArnoldVinkStyles/Styles/MainColors.xaml"/>
+                <ResourceDictionary Source="ms-appx:///ArnoldVinkStyles/Styles/MainFonts.xaml"/>
+                <ResourceDictionary Source="ms-appx:///ArnoldVinkStyles/Styles/ControlTemplates/ListView.xaml"/>
+                <ResourceDictionary Source="ms-appx:///ArnoldVinkStyles/Styles/ControlTemplates/TextBox.xaml"/>
+                <ResourceDictionary Source="ms-appx:///ArnoldVinkStyles/Styles/MainStyles.xaml"/>
                 <ResourceDictionary Source="Styles/DataTemplates/DataTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

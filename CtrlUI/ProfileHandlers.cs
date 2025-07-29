@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkStyles;
-using System.Windows;
-using System.Windows.Input;
+using Windows.System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -18,11 +19,11 @@ namespace CtrlUI
         }
 
         //Add new profile value
-        async void grid_Popup_ProfileManager_textbox_ProfileString_KeyDown(object sender, KeyEventArgs e)
+        async void grid_Popup_ProfileManager_textbox_ProfileString_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Enter)
+                if (e.Key == VirtualKey.Enter)
                 {
                     await AddSaveNewProfileValue();
                 }
@@ -41,11 +42,11 @@ namespace CtrlUI
         }
 
         //Handle profile manager keyboard/controller tapped
-        async void ListBox_ProfileManager_KeyPressUp(object sender, KeyEventArgs e)
+        async void ListView_ProfileManager_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Space)
+                if (e.Key == VirtualKey.Space)
                 {
                     await ProfileManager_DeleteProfile();
                 }
@@ -54,20 +55,20 @@ namespace CtrlUI
         }
 
         //Handle profile manager mouse/touch tapped
-        async void ListBox_ProfileManager_MousePressUp(object sender, MouseButtonEventArgs e)
+        async void ListView_ProfileManager_MousePressUp(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                //Check if an actual ListBoxItem is clicked
-                if (!AVInterface.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+                //Check if an actual ListViewItem is clicked
+                if (!AVInterface.CheckClickedListViewItem(e))
+                {
+                    return;
+                }
 
                 //Check which mouse button is pressed
-                if (e.ClickCount == 1)
+                if (vMousePressDownLeft)
                 {
-                    if (vMousePressDownLeft)
-                    {
-                        await ProfileManager_DeleteProfile();
-                    }
+                    await ProfileManager_DeleteProfile();
                 }
             }
             catch { }

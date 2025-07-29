@@ -3,8 +3,8 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
@@ -63,10 +63,10 @@ namespace CtrlUI
                 }
                 vFilePickerLoadBusy = true;
 
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     //Show file picker loading animation
-                    gif_FilePicker_Loading.Show();
+                    gif_FilePicker_Loading.Visibility = Visibility.Visible;
 
                     //Set file picker header texts
                     grid_Popup_FilePicker_txt_Title.Text = vFilePickerSettings.Title;
@@ -76,20 +76,20 @@ namespace CtrlUI
                     if (vFilePickerSettings.ShowEmulatorInterface)
                     {
                         //Change list picker style
-                        lb_FilePicker.Style = Application.Current.Resources["ListBoxWrapPanelVertical"] as Style;
-                        lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemRom"] as DataTemplate;
+                        listView_FilePicker.Style = Application.Current.Resources["ListViewVerticalWrap"] as Style;
+                        listView_FilePicker.ItemTemplate = Application.Current.Resources["ListViewItemRom"] as DataTemplate;
                     }
                     else
                     {
                         //Change list picker style
-                        lb_FilePicker.Style = Application.Current.Resources["ListBoxVertical"] as Style;
-                        lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemFile"] as DataTemplate;
+                        listView_FilePicker.Style = Application.Current.Resources["ListViewVertical"] as Style;
+                        listView_FilePicker.ItemTemplate = Application.Current.Resources["ListViewItemFile"] as DataTemplate;
                     }
 
                     //Update the navigation history index
                     if (storeIndex)
                     {
-                        FilePicker_NavigationHistoryAddUpdate(vFilePickerCurrentPath, lb_FilePicker.SelectedIndex);
+                        FilePicker_NavigationHistoryAddUpdate(vFilePickerCurrentPath, listView_FilePicker.SelectedIndex);
                     }
 
                     //Clear the current file picker list
@@ -133,15 +133,15 @@ namespace CtrlUI
                 }
 
                 //Hide file picker loading animation
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
-                    gif_FilePicker_Loading.Hide();
+                    gif_FilePicker_Loading.Visibility = Visibility.Collapsed;
                 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed loading filepicker: " + ex.Message);
-                Notification_Show_Status("Close", "Picker loading failed");
+                await Notification_Show_Status("Close", "Picker loading failed");
                 await FilePicker_GoFolderUp();
             }
             finally
@@ -172,13 +172,13 @@ namespace CtrlUI
                         Debug.WriteLine("Source file path found: " + vFilePickerSourcePath);
 
                         //Focus on the file picker listbox item
-                        await ListBoxFocusItem(lb_FilePicker, sourceFileItem, vProcessCurrent.WindowHandleMain);
+                        await ListViewFocusItem(listView_FilePicker, sourceFileItem, vProcessCurrent.WindowHandleMain);
                         return true;
                     }
                 }
 
                 //Focus on the file picker listbox index
-                await ListBoxFocusIndex(lb_FilePicker, false, targetIndex, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_FilePicker, false, targetIndex, vProcessCurrent.WindowHandleMain);
                 return true;
             }
             catch { }
@@ -193,19 +193,19 @@ namespace CtrlUI
                 if (folderMode)
                 {
                     vFilePickerFolderSelectMode = true;
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
                         grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Visible;
-                        grid_Popup_FilePicker_button_ControllerStart.ToolTip = new ToolTip() { Content = "Use the currently opened folder" };
+                        ToolTipService.SetToolTip(grid_Popup_FilePicker_button_ControllerStart, "Use the currently opened folder");
                     });
                 }
                 else
                 {
                     vFilePickerFolderSelectMode = false;
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
                         grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Collapsed;
-                        grid_Popup_FilePicker_button_ControllerStart.ToolTip = new ToolTip() { Content = "Select file or folder" };
+                        ToolTipService.SetToolTip(grid_Popup_FilePicker_button_ControllerStart, "Select file or folder");
                     });
                 }
             }
@@ -217,7 +217,7 @@ namespace CtrlUI
         {
             try
             {
-                DataBindFile dataBindFile = (DataBindFile)lb_FilePicker.SelectedItem;
+                DataBindFile dataBindFile = (DataBindFile)listView_FilePicker.SelectedItem;
 
                 //Check the file or folder
                 if (vFilePickerCurrentPath == "PC" || vFilePickerCurrentPath == "UWP" || dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUpPre)
@@ -301,7 +301,7 @@ namespace CtrlUI
                 if (totalFileCount > 0)
                 {
                     //Enable or disable file and folder availability
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
                         grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;
                         grid_Popup_FilePicker_textblock_CurrentPath.Text = "Current path: " + vFilePickerCurrentPath + " (" + totalFileCount + " items)";
@@ -311,7 +311,7 @@ namespace CtrlUI
                 else
                 {
                     //Enable or disable file and folder availability
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
                         grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Visible;
                     });
@@ -348,7 +348,7 @@ namespace CtrlUI
                     }
                     else
                     {
-                        vFilePickerResult = (DataBindFile)lb_FilePicker.SelectedItem;
+                        vFilePickerResult = (DataBindFile)listView_FilePicker.SelectedItem;
                     }
                 }
                 else
@@ -357,7 +357,7 @@ namespace CtrlUI
                 }
 
                 //Update the navigation history index
-                FilePicker_NavigationHistoryAddUpdate(vFilePickerCurrentPath, lb_FilePicker.SelectedIndex);
+                FilePicker_NavigationHistoryAddUpdate(vFilePickerCurrentPath, listView_FilePicker.SelectedIndex);
 
                 //Update the previous picker path
                 if (vFilePickerCurrentPath[1] == ':')

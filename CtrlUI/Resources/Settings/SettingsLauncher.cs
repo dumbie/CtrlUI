@@ -1,8 +1,8 @@
 ﻿using ArnoldVinkStyles;
 using System;
 using System.Diagnostics;
-using System.Windows;
-using System.Windows.Input;
+using Windows.System;
+using Windows.UI.Xaml.Input;
 using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -17,7 +17,7 @@ namespace CtrlUI
             try
             {
                 //Get launcher setting
-                LauncherSetting launcherSet = listbox_LauncherSetting.SelectedItem as LauncherSetting;
+                LauncherSetting launcherSet = listView_LauncherSetting.SelectedItem as LauncherSetting;
 
                 //Switch enabled setting
                 launcherSet.Enabled = !launcherSet.Enabled;
@@ -29,8 +29,8 @@ namespace CtrlUI
                 if (!launcherSet.Enabled)
                 {
                     Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == launcherSet.AppLauncher;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                    await ListBoxRemoveAll(lb_Search, List_Search, filterLauncherApp);
+                    await ListViewRemoveAll(listView_Launchers, List_Launchers, filterLauncherApp);
+                    await ListViewRemoveAll(listView_Search, List_Search, filterLauncherApp);
                 }
 
                 Debug.WriteLine("Set launcher setting: " + launcherSet.Name + "/" + launcherSet.Enabled);
@@ -42,11 +42,11 @@ namespace CtrlUI
         }
 
         //Handle launcher setting keyboard/controller tapped
-        void ListBox_LauncherSetting_KeyPressUp(object sender, KeyEventArgs e)
+        void ListView_LauncherSetting_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Space)
+                if (e.Key == VirtualKey.Space)
                 {
                     LauncherSettingSave();
                 }
@@ -55,20 +55,20 @@ namespace CtrlUI
         }
 
         //Handle launcher setting mouse/touch tapped
-        void ListBox_LauncherSetting_MousePressUp(object sender, MouseButtonEventArgs e)
+        void ListView_LauncherSetting_MousePressUp(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                //Check if an actual ListBoxItem is clicked
-                if (!AVInterface.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+                //Check if an actual ListViewItem is clicked
+                if (!AVInterface.CheckClickedListViewItem(e))
+                {
+                    return;
+                }
 
                 //Check which mouse button is pressed
-                if (e.ClickCount == 1)
+                if (vMousePressDownLeft)
                 {
-                    if (vMousePressDownLeft)
-                    {
-                        LauncherSettingSave();
-                    }
+                    LauncherSettingSave();
                 }
             }
             catch { }

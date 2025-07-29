@@ -18,7 +18,7 @@ namespace CtrlUI
                 //Check the file or folder
                 if (dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUpPre)
                 {
-                    Notification_Show_Status("Close", "Invalid rename file or folder");
+                    await Notification_Show_Status("Close", "Invalid rename file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
                     return;
                 }
@@ -31,7 +31,7 @@ namespace CtrlUI
                 //Check if file name changed
                 if (textInputString == dataBindFile.Name)
                 {
-                    Notification_Show_Status("Rename", "File name not changed");
+                    await Notification_Show_Status("Rename", "File name not changed");
                     Debug.WriteLine("The file name did not change.");
                     return;
                 }
@@ -81,18 +81,18 @@ namespace CtrlUI
                     dataBindFile.PathFile = newFilePath;
 
                     //Update file details in listbox
-                    FilePicker_LoadDetails(dataBindFile);
+                    await FilePicker_LoadDetails(dataBindFile);
 
                     //Update clipboard status text
                     Clipboard_UpdateStatusText();
 
-                    Notification_Show_Status("Rename", "Renamed file or folder");
+                    await Notification_Show_Status("Rename", "Renamed file or folder");
                     Debug.WriteLine("Renamed file or folder to: " + newFileName + newFileExtension);
                 }
             }
             catch (Exception ex)
             {
-                Notification_Show_Status("Rename", "Failed renaming");
+                await Notification_Show_Status("Rename", "Failed renaming");
                 Debug.WriteLine("Failed renaming file or folder: " + ex.Message);
             }
         }

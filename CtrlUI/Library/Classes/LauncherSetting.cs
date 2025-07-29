@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml.Media.Imaging;
 using static LibraryShared.Enums;
 
 namespace LibraryShared

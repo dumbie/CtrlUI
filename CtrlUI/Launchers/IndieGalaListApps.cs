@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -165,7 +165,14 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, executablePath, "IndieGala" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                BitmapImage bitmapImageApplication = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [appName, executablePath, "IndieGala"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeApplication,
+                    Dispatcher = this.Dispatcher
+                });
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
@@ -173,9 +180,9 @@ namespace CtrlUI
                     Category = AppCategory.Launcher,
                     Launcher = AppLauncher.IndieGala,
                     Name = appName,
-                    ImageBitmap = iconBitmapImage,
+                    ImageBitmap = bitmapImageApplication,
                     PathExe = executablePath,
-                    StatusLauncherImage = vImagePreloadIndieGala
+                    StatusLauncherImage = await LoadLauncherImage(AppLauncher.IndieGala, vImageLoadSizeApplication, 0)
                 };
 
                 //Check launch arguments
@@ -190,7 +197,7 @@ namespace CtrlUI
                 //    dataBindApp.PathLaunch = igInstalledApp.target.game_data.cwd;
                 //}
 
-                await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
+                await ListViewAddItem(listView_Launchers, List_Launchers, dataBindApp, false, false);
                 //Debug.WriteLine("Added IndieGala app: " + appName);
             }
             catch (Exception ex)

@@ -1,10 +1,8 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Interop;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.MainColors;
@@ -12,29 +10,28 @@ using static CtrlUI.AppVariables;
 
 namespace CtrlUI
 {
-    public partial class WindowMain : Window
+    public partial class WindowMain : Page
     {
         //Window Initialize
-        public WindowMain() { InitializeComponent(); }
-
-        //Window Variables
-        private IntPtr vInteropWindowHandle = IntPtr.Zero;
+        public WindowMain()
+        {
+            InitializeComponent();
+            Loaded += async delegate { await WindowMain_Loaded(); };
+        }
 
         //Window Initialized
-        protected override async void OnSourceInitialized(EventArgs e)
+        private async Task WindowMain_Loaded()
         {
             try
             {
-                //Get interop window handle
-                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
-
                 //Register filter message
-                ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
+                vWindowMain.ForwardMessage += ReceivedFilterMessage;
+                vWindowMain.CloseRequested += WindowMain_CloseRequested;
 
                 //Check application settings
                 Folders_Check();
                 Settings_Check();
-                Settings_Items();
+                await Settings_Items();
                 await Settings_Load();
                 Settings_Save();
 
@@ -46,10 +43,10 @@ namespace CtrlUI
                 ChangeApplicationAccentColor(colorLightHex);
 
                 //Set the application clock style
-                UpdateClockStyle();
+                await UpdateClockStyle();
 
                 //Set content and resource images with Cache OnLoad
-                SetContentResourceXamlImages();
+                await SetContentResourceXamlImages();
 
                 //Adjust the application font family
                 AdjustApplicationFontStyle();
@@ -59,12 +56,6 @@ namespace CtrlUI
 
                 //Adjust the application image size
                 AdjustApplicationImageSize();
-
-                //Check if application has launched as admin
-                if (vAdministratorPermission)
-                {
-                    this.Title += " (Admin)";
-                }
 
                 //Check settings if need to minimize or focus window
                 if (SettingLoad(vConfigurationCtrlUI, "LaunchMinimized", typeof(bool)))
@@ -87,31 +78,31 @@ namespace CtrlUI
                 //Registry enable linked connections
                 RegistryEnableLinkedConnections();
 
-                //Update the clock time
+                //Update clock time
                 UpdateClockTime();
 
-                //Load the help text
+                //Load help text
                 LoadHelp();
 
                 //Add main menu items
-                MainMenuAddItems();
+                await MainMenuAddItems();
 
                 //Add categories to edit interface
-                ManageInterface_AddCategories();
+                await ManageInterface_AddCategories();
 
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
 
-                //Bind all the lists to ListBox
-                ListBoxBindLists();
+                //Bind all lists to ListView
+                ListViewBindLists();
 
-                //Select the first ListBox item
-                ListBoxResetIndexes();
+                //Select the first ListView item
+                ListViewResetIndexes();
 
                 //Load Json stored apps
                 await JsonLoadList_Applications();
 
-                //Start the background tasks
+                //Start background tasks
                 TasksBackgroundStart();
 
                 //Check settings if DirectXInput launches on start
@@ -174,12 +165,11 @@ namespace CtrlUI
         }
 
         //Application Close Handler
-        protected async override void OnClosing(CancelEventArgs e)
+        private async void WindowMain_CloseRequested()
         {
             try
             {
-                e.Cancel = true;
-                await AppExit.Exit_Prompt();
+                await Exit_Prompt();
             }
             catch { }
         }

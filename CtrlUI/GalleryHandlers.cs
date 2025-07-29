@@ -1,8 +1,8 @@
 ﻿using ArnoldVinkCode;
-using System.Windows.Controls;
+using ArnoldVinkStyles;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVImage;
-using static ArnoldVinkStyles.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -11,64 +11,70 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        private void ListBox_GalleryScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        private void ListView_GalleryScrollViewer_ScrollChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             try
             {
                 //Start delay timer
-                vAVTimerDelay.Interval = 50;
-                vAVTimerDelay.Tick = delegate
+                vAVTimerDelayGallery.Interval = 50;
+                vAVTimerDelayGallery.Tick = delegate
                 {
-                    try
-                    {
-                        DispatcherInvoke(delegate
-                        {
-                            //Stop delay timer
-                            vAVTimerDelay.Stop();
+                    //Stop delay timer
+                    vAVTimerDelayGallery.Stop();
 
-                            //Update gallery images
-                            UpdateGalleryMediaImages(false);
-                        });
-                    }
-                    catch { }
+                    //Update gallery images
+                    UpdateGalleryMediaImages(false);
                 };
-                vAVTimerDelay.Start();
+                vAVTimerDelayGallery.Start();
             }
             catch { }
         }
 
-        private void UpdateGalleryMediaImages(bool searchListBox)
+        private void UpdateGalleryMediaImages(bool searchListView)
         {
             try
             {
-                ListBox targetListBox = searchListBox ? lb_Search : lb_Gallery;
-                foreach (DataBindApp dataBindApp in targetListBox.Items)
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
-                    try
+                    ListView targetListView = searchListView ? listView_Search : listView_Gallery;
+                    foreach (DataBindApp dataBindApp in targetListView.Items)
                     {
-                        if (dataBindApp.Category != AppCategory.Gallery) { continue; }
-                        ListBoxItem listBoxItem = (ListBoxItem)targetListBox.ItemContainerGenerator.ContainerFromItem(dataBindApp);
-                        if (FrameworkElementVisibleUser(listBoxItem, this))
+                        try
                         {
-                            if (dataBindApp.ImageBitmap == null)
+                            if (dataBindApp.Category != AppCategory.Gallery) { continue; }
+                            ListViewItem listBoxItem = targetListView.AVGetListViewItem(dataBindApp);
+                            if (listBoxItem.AVVisibleUser(this))
                             {
-                                void TaskAction()
+                                if (dataBindApp.ImageBitmap == null)
                                 {
-                                    dataBindApp.ImageBitmap = FileCacheToBitmapImage(dataBindApp.PathGallery, vImageBackupSource, 384, 0, false);
+                                    async void TaskAction()
+                                    {
+                                        await DispatcherInvoke(this.Dispatcher, async delegate
+                                        {
+                                            dataBindApp.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                                            {
+                                                FilePaths = [dataBindApp.PathGallery],
+                                                BackupPath = vImageBackupSource,
+                                                Width = vImageLoadSizeGallery,
+                                                UseThumbnail = true,
+                                                Dispatcher = this.Dispatcher
+                                            });
+                                        });
+                                    }
+                                    AVActions.TaskStartBackground(TaskAction);
                                 }
-                                AVActions.TaskStartBackground(TaskAction);
                             }
-                        }
-                        else
-                        {
-                            if (dataBindApp.ImageBitmap != null)
+                            else
                             {
-                                dataBindApp.ImageBitmap = null;
+                                if (dataBindApp.ImageBitmap != null)
+                                {
+                                    dataBindApp.ImageBitmap = null;
+                                }
                             }
                         }
+                        catch { }
                     }
-                    catch { }
-                }
+                });
             }
             catch { }
         }

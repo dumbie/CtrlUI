@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
+using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
@@ -37,7 +37,7 @@ namespace CtrlUI
         {
             try
             {
-                Notification_Show_Status("MonitorSwitch", "Extending display monitor");
+                await Notification_Show_Status("MonitorSwitch", "Extending display monitor");
 
                 //Enable monitor extend mode
                 EnableMonitorExtendMode();
@@ -52,7 +52,7 @@ namespace CtrlUI
         {
             try
             {
-                Notification_Show_Status("MonitorSwitch", "Duplicating display monitor");
+                await Notification_Show_Status("MonitorSwitch", "Duplicating display monitor");
 
                 //Enable monitor clone mode
                 EnableMonitorCloneMode();
@@ -67,7 +67,7 @@ namespace CtrlUI
         {
             try
             {
-                Notification_Show_Status("MonitorSwitch", "Switching secondary monitor");
+                await Notification_Show_Status("MonitorSwitch", "Switching secondary monitor");
 
                 //Switch secondary monitor
                 EnableMonitorSecond();
@@ -82,7 +82,7 @@ namespace CtrlUI
         {
             try
             {
-                Notification_Show_Status("MonitorSwitch", "Switching primary monitor");
+                await Notification_Show_Status("MonitorSwitch", "Switching primary monitor");
 
                 //Switch primary monitor
                 EnableMonitorFirst();
@@ -107,10 +107,10 @@ namespace CtrlUI
                 if (dataBindApp.LaunchEnableAutoHDR)
                 {
                     //Enable Windows auto HDR feature
-                    EnableWindowsAutoHDRFeature();
+                    await EnableWindowsAutoHDRFeature();
 
                     //Allow auto HDR for application
-                    EnableApplicationAutoHDR(dataBindApp);
+                    await EnableApplicationAutoHDR(dataBindApp);
                 }
 
                 //Wait for HDR initialization
@@ -129,12 +129,12 @@ namespace CtrlUI
             {
                 if (enableHDR)
                 {
-                    Notification_Show_Status("MonitorHDR", "Enabling monitor HDR");
+                    await Notification_Show_Status("MonitorHDR", "Enabling monitor HDR");
                     Debug.WriteLine("Enabling monitor HDR.");
                 }
                 else
                 {
-                    Notification_Show_Status("MonitorHDR", "Disabling monitor HDR");
+                    await Notification_Show_Status("MonitorHDR", "Disabling monitor HDR");
                     Debug.WriteLine("Disabling monitor HDR.");
                 }
 
@@ -154,7 +154,7 @@ namespace CtrlUI
             catch
             {
                 Debug.WriteLine("Failed to switch monitor HDR.");
-                Notification_Show_Status("MonitorHDR", "Failed switching HDR");
+                await Notification_Show_Status("MonitorHDR", "Failed switching HDR");
             }
         }
 
@@ -163,7 +163,7 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     if (SettingLoad(vConfigurationCtrlUI, "MonitorPreventSleep", typeof(bool)))
                     {
@@ -185,7 +185,7 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     Debug.WriteLine("Allowing monitor to sleep.");
                     SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);

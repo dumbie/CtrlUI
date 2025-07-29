@@ -57,18 +57,23 @@ namespace CtrlUI
                 if (!string.IsNullOrWhiteSpace(onlineVersion) && onlineVersion != currentVersion)
                 {
                     //Insert main menu item
-                    MainMenuInsertUpdate();
+                    await MainMenuInsertUpdate();
 
                     //Notification or interaction
                     if (onlyNotification)
                     {
-                        Notification_Show_Status("Refresh", "CtrlUI update available");
+                        await Notification_Show_Status("Refresh", "CtrlUI update available");
                     }
                     else
                     {
                         List<DataBindString> messageBoxAnswers = new List<DataBindString>();
                         DataBindString AnswerUpdateRestart = new DataBindString();
-                        AnswerUpdateRestart.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        AnswerUpdateRestart.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Refresh.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         AnswerUpdateRestart.Name = "Update and restart CtrlUI";
                         messageBoxAnswers.Add(AnswerUpdateRestart);
 
@@ -90,7 +95,12 @@ namespace CtrlUI
                     {
                         List<DataBindString> messageBoxAnswers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                        Answer1.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Assets/Default/Icons/Check.png"],
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                         Answer1.Name = "Ok";
                         messageBoxAnswers.Add(Answer1);
 

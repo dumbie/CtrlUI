@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkStyles;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,10 +7,9 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Security.Principal;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVJsonFunctions;
@@ -17,7 +17,6 @@ using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSearch;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVFocus;
-using static ArnoldVinkStyles.AVImage;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 
@@ -26,7 +25,8 @@ namespace CtrlUI
     public class AppVariables
     {
         //Application Windows
-        public static WindowMain vWindowMain = new WindowMain();
+        public static App vApp = null;
+        public static AVWindow vWindowMain = null;
 
         //Application Variables
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
@@ -43,19 +43,20 @@ namespace CtrlUI
         public static DateTime? vApiIGDBTokenExpire = null;
 
         //Interaction Variables
-        public static bool vSingleTappedEvent = true;
         public static bool vMousePressDownLeft = false;
         public static bool vMousePressDownRight = false;
         public static bool vMousePressDownMiddle = false;
         public static bool vMousePressDownXButton1 = false;
-        public static string[] vSelectNearCharacterLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Gallery", "lb_Search", "lb_FilePicker" };
-        public static string[] vTabTargetListsSingleColumn = { "lb_Manage_AddAppCategory", "lb_Manage_AddEmulatorCategory" };
-        public static string[] vTabTargetListsFirstLastColumn = { "lb_Sorting" };
+        public static bool vMousePressDownXButton2 = false;
+        public static string[] vSelectNearCharacterLists = { "listView_Games", "listView_Apps", "listView_Emulators", "listView_Launchers", "listView_Shortcuts", "listView_Processes", "listView_Gallery", "listView_Search", "listView_FilePicker" };
+        public static string[] vTabTargetListsSingleColumn = { "listView_Manage_AddAppCategory", "listView_Manage_AddEmulatorCategory" };
+        public static string[] vTabTargetListsFirstLastColumn = { "listView_Sorting" };
         public static string[] vTabTargetListsFirstLastItem = { };
 
-        //Dispatcher Timers
-        public static AVHighResTimer vAVTimerOverlay = new AVHighResTimer();
-        public static AVHighResTimer vAVTimerDelay = new AVHighResTimer();
+        //Timers
+        public static AVHighResTimer vAVTimerOverlayCharacter = new AVHighResTimer();
+        public static AVHighResTimer vAVTimerOverlayNotification = new AVHighResTimer();
+        public static AVHighResTimer vAVTimerDelayGallery = new AVHighResTimer();
 
         //Search Variables
         public static SearchSource[] vImageSourceFoldersEmulatorsCombined =
@@ -78,78 +79,10 @@ namespace CtrlUI
         };
 
         //Image Variables
-        public static int vImageLoadSize = 180;
-        public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
-
-        //Image cache launchers
-        public static BitmapImage vImagePreloadSteam = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadUbisoft = FileToBitmapImage(new string[] { "Ubisoft" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadEADesktop = FileToBitmapImage(new string[] { "EA Desktop" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadGoG = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadEpic = FileToBitmapImage(new string[] { "Epic" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadBigFish = FileToBitmapImage(new string[] { "Big Fish" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreload4Game = FileToBitmapImage(new string[] { "4Game" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadArc = FileToBitmapImage(new string[] { "Arc" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadBattleNet = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadRockstar = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadDiscord = FileToBitmapImage(new string[] { "Discord" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadMicrosoft = FileToBitmapImage(new string[] { "Microsoft" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadAmazon = FileToBitmapImage(new string[] { "Amazon" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadIndieGala = FileToBitmapImage(new string[] { "IndieGala" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadItchIO = FileToBitmapImage(new string[] { "ItchIO" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadHumble = FileToBitmapImage(new string[] { "Humble" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadGooglePlay = FileToBitmapImage(new string[] { "Google Play" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadStove = FileToBitmapImage(new string[] { "Stove" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadNetmarble = FileToBitmapImage(new string[] { "Netmarble" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadRobotCache = FileToBitmapImage(new string[] { "RobotCache" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadVive = FileToBitmapImage(new string[] { "Vive" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadOculus = FileToBitmapImage(new string[] { "Oculus" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadFawkes = FileToBitmapImage(new string[] { "Fawkes" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadWargaming = FileToBitmapImage(new string[] { "Wargaming" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadMyGames = FileToBitmapImage(new string[] { "MyGames" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadNCSoft = FileToBitmapImage(new string[] { "NCSoft" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadNexon = FileToBitmapImage(new string[] { "Nexon" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadElixir = FileToBitmapImage(new string[] { "Elixir" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadGameforge = FileToBitmapImage(new string[] { "Gameforge" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadRiot = FileToBitmapImage(new string[] { "Riot" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadGlyph = FileToBitmapImage(new string[] { "GlyphClient" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadAsobimo = FileToBitmapImage(new string[] { "Asobimo" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadAnkama = FileToBitmapImage(new string[] { "Ankama" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadGameJolt = FileToBitmapImage(new string[] { "Game Jolt" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadHoYoPlay = FileToBitmapImage(new string[] { "HoYoPlay" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadVKPlay = FileToBitmapImage(new string[] { "VK Play" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadHikariField = FileToBitmapImage(new string[] { "Hikari Field" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadLoadingBay = FileToBitmapImage(new string[] { "Loading Bay" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadJagex = FileToBitmapImage(new string[] { "Jagex" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadParadox = FileToBitmapImage(new string[] { "Paradox" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadDLsite = FileToBitmapImage(new string[] { "DLsite" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadWildTangent = FileToBitmapImage(new string[] { "WildTangent" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadLegacyGames = FileToBitmapImage(new string[] { "Legacy Games" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadPlarium = FileToBitmapImage(new string[] { "Plarium" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadHyperPlay = FileToBitmapImage(new string[] { "HyperPlay" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadOpenLoot = FileToBitmapImage(new string[] { "Open Loot" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-
-        //Image cache consoles
-        public static BitmapImage vImagePreloadConsole = FileToBitmapImage(new string[] { "Assets/Default/Icons/Console.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadHandheld = FileToBitmapImage(new string[] { "Assets/Default/Icons/Handheld.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadComputer = FileToBitmapImage(new string[] { "Assets/Default/Icons/Computer.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadPong = FileToBitmapImage(new string[] { "Assets/Default/Icons/Pong.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadVirtualReality = FileToBitmapImage(new string[] { "Assets/Default/Icons/VirtualReality.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadOperatingSystem = FileToBitmapImage(new string[] { "Assets/Default/Icons/OperatingSystem.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadArcade = FileToBitmapImage(new string[] { "Assets/Default/Icons/Arcade.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadPinball = FileToBitmapImage(new string[] { "Assets/Default/Icons/Pinball.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadChess = FileToBitmapImage(new string[] { "Assets/Default/Icons/Chess.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-
-        //Image cache icons
-        public static BitmapImage vImagePreloadUnknownApp = FileToBitmapImage(new string[] { "Assets/Default/Apps/Unknown.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadApp = FileToBitmapImage(new string[] { "Assets/Default/Icons/App.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadGame = FileToBitmapImage(new string[] { "Assets/Default/Icons/Game.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadEmulator = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadLauncher = FileToBitmapImage(new string[] { "Assets/Default/Icons/Launcher.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadProcess = FileToBitmapImage(new string[] { "Assets/Default/Icons/Process.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadShortcut = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shortcut.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadGallery = FileToBitmapImage(new string[] { "Assets/Default/Icons/Image.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
-        public static BitmapImage vImagePreloadHelp = FileToBitmapImage(new string[] { "Assets/Default/Icons/Help.png" }, null, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+        public static int vImageLoadSizeGallery = 384;
+        public static int vImageLoadSizeFilePicker = 128;
+        public static int vImageLoadSizeApplication = 192;
+        public static string vImageBackupSource = "Assets/Default/Icons/Unknown.png";
 
         //Update Variables
         public static long vLastUpdateGallery = 0;
@@ -250,7 +183,7 @@ namespace CtrlUI
         public static AppCategory vEditAppDataBindCategory = AppCategory.App;
         public static DataBindApp vEditAppDataBind = null;
         public static DataBindApp vMoveAppDataBind = null;
-        public static ListBox vMoveAppListBox = null;
+        public static ListView vMoveAppListView = null;
 
         //Controller Variables
         public static bool vControllerBusy = false;

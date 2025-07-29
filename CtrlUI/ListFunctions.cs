@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static CtrlUI.AppVariables;
@@ -146,7 +146,7 @@ namespace CtrlUI
                 Visibility visibilityProcesses = List_Processes.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityGallery = List_Gallery.Any() ? Visibility.Visible : Visibility.Collapsed;
 
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     button_Category_Menu_Apps.Visibility = visibilityApps;
                     button_Category_Menu_Games.Visibility = visibilityGames;
@@ -171,16 +171,19 @@ namespace CtrlUI
                 {
                     try
                     {
-                        applicationUpdated = true;
-                        if (dataBindApp.RunningTime < 0)
+                        DispatcherInvoke(this.Dispatcher, delegate
                         {
-                            dataBindApp.RunningTime = 1;
-                        }
-                        else
-                        {
-                            dataBindApp.RunningTime++;
-                        }
-                        //Debug.WriteLine(dataBindApp.Name + " has been running for one minute, total: " + dataBindApp.RunningTime);
+                            applicationUpdated = true;
+                            if (dataBindApp.RunningTime < 0)
+                            {
+                                dataBindApp.RunningTime = 1;
+                            }
+                            else
+                            {
+                                dataBindApp.RunningTime++;
+                            }
+                            //Debug.WriteLine(dataBindApp.Name + " has been running for one minute, total: " + dataBindApp.RunningTime);
+                        });
                     }
                     catch { }
                 }

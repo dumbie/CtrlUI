@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVShell;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -25,17 +25,22 @@ namespace CtrlUI
 
                 //Add empty the recycle bin
                 DataBindString answerEmpty = new DataBindString();
-                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                answerEmpty.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Remove.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 answerEmpty.Name = "Empty the Windows recycle bin";
                 Answers.Add(answerEmpty);
 
                 //Add files and folders from recycle bin
-                ListLoadAllRecycleBinFiles(Answers);
+                await ListLoadAllRecycleBinFiles(Answers);
 
                 //Check if there are any items
                 if (Answers.Count <= 1)
                 {
-                    Notification_Show_Status("Remove", "No files in recycle bin");
+                    await Notification_Show_Status("Remove", "No files in recycle bin");
                     Debug.WriteLine("Recycle bin does not have any files or folders.");
                     return;
                 }
@@ -58,7 +63,7 @@ namespace CtrlUI
         }
 
         //Add files and folders from recycle bin
-        void ListLoadAllRecycleBinFiles(List<DataBindString> targetList)
+        async Task ListLoadAllRecycleBinFiles(List<DataBindString> targetList)
         {
             try
             {
@@ -66,8 +71,18 @@ namespace CtrlUI
                 Folder folderShell = shell.NameSpace(10);
 
                 //Load file and folder images
-                BitmapImage listImageFolder = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
-                BitmapImage listImageFile = FileToBitmapImage(new string[] { "Assets/Default/Icons/File.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                BitmapImage listImageFolder = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Folder.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
+                BitmapImage listImageFile = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/File.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
 
                 //Add recycle bin items to the list
                 foreach (FolderItem folderItem in folderShell.Items())
@@ -100,7 +115,12 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString answerRestore = new DataBindString();
-                answerRestore.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Restart.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                answerRestore.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Restart.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 if (folderItem.IsFolder)
                 {
                     answerRestore.Name = "Restore the folder to disk";
@@ -112,7 +132,12 @@ namespace CtrlUI
                 Answers.Add(answerRestore);
 
                 DataBindString answerDelete = new DataBindString();
-                answerDelete.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                answerDelete.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Remove.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 if (folderItem.IsFolder)
                 {
                     answerDelete.Name = "Permanently delete folder";
@@ -141,7 +166,7 @@ namespace CtrlUI
                         //Check file operation status
                         if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                         {
-                            Notification_Show_Status("Restart", "File or folder restored");
+                            await Notification_Show_Status("Restart", "File or folder restored");
                         }
                     }
                     else if (messageResult == answerDelete)
@@ -156,7 +181,7 @@ namespace CtrlUI
                         //Check file operation status
                         if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                         {
-                            Notification_Show_Status("Remove", "File or folder permanently deleted");
+                            await Notification_Show_Status("Remove", "File or folder permanently deleted");
                         }
                     }
                 }
@@ -171,7 +196,12 @@ namespace CtrlUI
             {
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerEmpty = new DataBindString();
-                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                answerEmpty.ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Remove.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
                 answerEmpty.Name = "Empty the recycle bin";
                 messageAnswers.Add(answerEmpty);
 
@@ -180,7 +210,7 @@ namespace CtrlUI
                 {
                     if (messageResult == answerEmpty)
                     {
-                        Notification_Show_Status("Remove", "Emptying recycle bin");
+                        await Notification_Show_Status("Remove", "Emptying recycle bin");
                         Debug.WriteLine("Emptying the Windows recycle bin.");
 
                         //Play recycle bin empty sound

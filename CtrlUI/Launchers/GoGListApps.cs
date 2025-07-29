@@ -7,8 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVSearch;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -150,7 +150,14 @@ namespace CtrlUI
                             appImage = Path.Combine(gogGamePath, playtaskIcon.icon);
                             //Debug.WriteLine("Set GoG image to: " + appImage);
                         }
-                        BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appImage, imageFilePath, icoFilePath, "GoG" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                        BitmapImage bitmapImageApplication = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = [appName, appImage, imageFilePath, icoFilePath, "GoG"],
+                            SearchPaths = vImageSourceFoldersAppsCombined,
+                            BackupPath = vImageBackupSource,
+                            Width = vImageLoadSizeApplication,
+                            Dispatcher = this.Dispatcher
+                        });
 
                         //Check the application category
                         Visibility categoryLauncher = gameTask.category == GoGAppCategory.launcher ? Visibility.Visible : Visibility.Collapsed;
@@ -161,14 +168,14 @@ namespace CtrlUI
                             Category = AppCategory.Launcher,
                             Launcher = AppLauncher.GoG,
                             Name = appName,
-                            ImageBitmap = iconBitmapImage,
+                            ImageBitmap = bitmapImageApplication,
                             PathExe = runCommand,
                             Argument = launchArgument,
-                            StatusLauncherImage = vImagePreloadGoG,
+                            StatusLauncherImage = await LoadLauncherImage(AppLauncher.GoG, vImageLoadSizeApplication, 0),
                             StatusUrlProtocol = categoryLauncher
                         };
 
-                        await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
+                        await ListViewAddItem(listView_Launchers, List_Launchers, dataBindApp, false, false);
                         //Debug.WriteLine("Added GoG game: " + appName + "/" + gameTask.category);
                     }
                     catch { }

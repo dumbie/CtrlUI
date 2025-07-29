@@ -6,13 +6,14 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Windows.Foundation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVFocus;
+using static ArnoldVinkStyles.AVInterface;
 using static ArnoldVinkStyles.AVSortObservableCollection;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -24,126 +25,127 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Bind the lists to the listbox elements
-        void ListBoxBindLists()
+        void ListViewBindLists()
         {
             try
             {
-                lb_Games.IsTextSearchEnabled = true;
-                lb_Games.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Games, "Name");
-                lb_Games.ItemsSource = List_Games;
+                //FixStyle
+                //listView_Games.IsTextSearchEnabled = true;
+                //listView_Games.IsTextSearchCaseSensitive = false;
+                //TextSearch.SetTextPath(listView_Games, "Name");
+                listView_Games.ItemsSource = List_Games;
 
-                lb_Apps.IsTextSearchEnabled = true;
-                lb_Apps.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Apps, "Name");
-                lb_Apps.ItemsSource = List_Apps;
+                //lb_Apps.IsTextSearchEnabled = true;
+                //lb_Apps.IsTextSearchCaseSensitive = false;
+                //TextSearch.SetTextPath(lb_Apps, "Name");
+                listView_Apps.ItemsSource = List_Apps;
 
-                lb_Emulators.IsTextSearchEnabled = true;
-                lb_Emulators.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Emulators, "Name");
-                lb_Emulators.ItemsSource = List_Emulators;
+                //lb_Emulators.IsTextSearchEnabled = true;
+                //lb_Emulators.IsTextSearchCaseSensitive = false;
+                //TextSearch.SetTextPath(lb_Emulators, "Name");
+                listView_Emulators.ItemsSource = List_Emulators;
 
-                lb_Launchers.IsTextSearchEnabled = true;
-                lb_Launchers.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Launchers, "Name");
-                lb_Launchers.ItemsSource = List_Launchers;
+                //lb_Launchers.IsTextSearchEnabled = true;
+                //lb_Launchers.IsTextSearchCaseSensitive = false;
+                //TextSearch.SetTextPath(lb_Launchers, "Name");
+                listView_Launchers.ItemsSource = List_Launchers;
 
-                lb_Shortcuts.IsTextSearchEnabled = true;
-                lb_Shortcuts.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Shortcuts, "Name");
-                lb_Shortcuts.ItemsSource = List_Shortcuts;
+                //lb_Shortcuts.IsTextSearchEnabled = true;
+                //lb_Shortcuts.IsTextSearchCaseSensitive = false;
+                //TextSearch.SetTextPath(lb_Shortcuts, "Name");
+                listView_Shortcuts.ItemsSource = List_Shortcuts;
 
-                lb_Processes.IsTextSearchEnabled = true;
-                lb_Processes.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Processes, "Name");
-                lb_Processes.ItemsSource = List_Processes;
+                //lb_Processes.IsTextSearchEnabled = true;
+                //lb_Processes.IsTextSearchCaseSensitive = false;
+                //TextSearch.SetTextPath(lb_Processes, "Name");
+                listView_Processes.ItemsSource = List_Processes;
 
-                lb_Gallery.IsTextSearchEnabled = true;
-                lb_Gallery.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Gallery, "Name");
-                lb_Gallery.ItemsSource = List_Gallery;
+                //lb_Gallery.IsTextSearchEnabled = true;
+                //lb_Gallery.IsTextSearchCaseSensitive = false;
+                //TextSearch.SetTextPath(lb_Gallery, "Name");
+                listView_Gallery.ItemsSource = List_Gallery;
 
-                lb_ColorPicker.ItemsSource = List_ColorPicker;
+                listView_ColorPicker.ItemsSource = List_ColorPicker;
 
-                lb_Search.IsTextSearchEnabled = true;
-                lb_Search.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Search, "Name");
-                lb_Search.ItemsSource = List_Search;
+                //lb_Search.IsTextSearchEnabled = true;
+                //lb_Search.IsTextSearchCaseSensitive = false;
+                //TextSearch.SetTextPath(lb_Search, "Name");
+                listView_Search.ItemsSource = List_Search;
 
-                lb_FilePicker.IsTextSearchEnabled = true;
-                lb_FilePicker.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_FilePicker, "Name");
-                lb_FilePicker.ItemsSource = List_FilePicker;
+                //lb_FilePicker.IsTextSearchEnabled = true;
+                //lb_FilePicker.IsTextSearchCaseSensitive = false;
+                //TextSearch.SetTextPath(lb_FilePicker, "Name");
+                listView_FilePicker.ItemsSource = List_FilePicker;
 
-                lb_ProfileManager.IsTextSearchEnabled = true;
-                lb_ProfileManager.IsTextSearchCaseSensitive = false;
+                //lb_ProfileManager.IsTextSearchEnabled = true;
+                //lb_ProfileManager.IsTextSearchCaseSensitive = false;
             }
             catch { }
         }
 
         //Select the first listbox item
-        void ListBoxResetIndexes()
+        void ListViewResetIndexes()
         {
             try
             {
-                lb_Games.SelectedIndex = 0;
-                lb_Apps.SelectedIndex = 0;
-                lb_Emulators.SelectedIndex = 0;
-                lb_Launchers.SelectedIndex = 0;
-                lb_Shortcuts.SelectedIndex = 0;
-                lb_Processes.SelectedIndex = 0;
-                lb_Gallery.SelectedIndex = 0;
-                lb_FilePicker.SelectedIndex = 0;
-                lb_ColorPicker.SelectedIndex = 0;
-                lb_MessageBox.SelectedIndex = 0;
-                lb_Search.SelectedIndex = 0;
+                listView_Games.SelectedIndex = 0;
+                listView_Apps.SelectedIndex = 0;
+                listView_Emulators.SelectedIndex = 0;
+                listView_Launchers.SelectedIndex = 0;
+                listView_Shortcuts.SelectedIndex = 0;
+                listView_Processes.SelectedIndex = 0;
+                listView_Gallery.SelectedIndex = 0;
+                listView_FilePicker.SelectedIndex = 0;
+                listView_ColorPicker.SelectedIndex = 0;
+                listView_MessageBox.SelectedIndex = 0;
+                listView_Search.SelectedIndex = 0;
             }
             catch { }
         }
 
         //Get and return focused listbox
-        public ListBox GetFocusedListBox()
+        public ListView GetFocusedListView()
         {
-            ListBox focusedListBox = null;
+            ListView focusedListView = null;
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
-                    FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                    if (frameworkElement != null && (frameworkElement.GetType() == typeof(ListBox) || frameworkElement.GetType() == typeof(ListBoxItem)))
+                    FrameworkElement frameworkElement = GetFocusedFrameworkElement();
+                    if (frameworkElement != null && (frameworkElement.GetType() == typeof(ListView) || frameworkElement.GetType() == typeof(ListViewItem)))
                     {
-                        if (frameworkElement.GetType() == typeof(ListBoxItem))
+                        if (frameworkElement.GetType() == typeof(ListViewItem))
                         {
-                            focusedListBox = AVVisualTree.FindVisualParent<ListBox>(frameworkElement);
+                            focusedListView = AVVisualTree.FindVisualParent<ListView>(frameworkElement);
                         }
                         else
                         {
-                            focusedListBox = (ListBox)frameworkElement;
+                            focusedListView = (ListView)frameworkElement;
                         }
                     }
                 });
             }
             catch { }
-            return focusedListBox;
+            return focusedListView;
         }
 
         //Listbox move to near character
-        async Task ListBoxSelectNearCharacter(bool selectNextCharacter)
+        async Task ListViewSelectNearCharacter(bool selectNextCharacter)
         {
             try
             {
-                await DispatcherInvoke(async delegate
+                await DispatcherInvoke(this.Dispatcher, async delegate
                 {
-                    ListBox focusedListBox = GetFocusedListBox();
-                    if (focusedListBox != null && vSelectNearCharacterLists.Contains(focusedListBox.Name))
+                    ListView focusedListView = GetFocusedListView();
+                    if (focusedListView != null && vSelectNearCharacterLists.Contains(focusedListView.Name))
                     {
-                        if (focusedListBox.Name == "lb_FilePicker")
+                        if (focusedListView.Name == "lb_FilePicker")
                         {
-                            await SelectNearCharacterFiles(selectNextCharacter, focusedListBox);
+                            await SelectNearCharacterFiles(selectNextCharacter, focusedListView);
                         }
                         else
                         {
-                            await SelectNearCharacterApps(selectNextCharacter, focusedListBox);
+                            await SelectNearCharacterApps(selectNextCharacter, focusedListView);
                         }
                     }
                     else
@@ -162,7 +164,7 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task SelectNearCharacterFiles(bool selectNextCharacter, ListBox targetListBox)
+        async Task SelectNearCharacterFiles(bool selectNextCharacter, ListView targetListView)
         {
             try
             {
@@ -183,11 +185,11 @@ namespace CtrlUI
                     Function = x => x.Name
                 };
                 var sortFunction = (List<SortFunction<DataBindFile>>)[sortFuncFileType, sortFuncName];
-                SortObservableCollection(targetListBox, sortFunction, null);
+                SortObservableCollection(targetListView, sortFunction, null);
 
                 //Get the current character
-                DataBindFile dataBindApp = (DataBindFile)targetListBox.SelectedItem;
-                ObservableCollection<DataBindFile> dataBindApplist = (ObservableCollection<DataBindFile>)targetListBox.ItemsSource;
+                DataBindFile dataBindApp = (DataBindFile)targetListView.SelectedItem;
+                ObservableCollection<DataBindFile> dataBindApplist = (ObservableCollection<DataBindFile>)targetListView.ItemsSource;
                 char currentCharacter = dataBindApp.Name.ToUpper()[0];
 
                 //Set the character filter
@@ -198,12 +200,12 @@ namespace CtrlUI
                 DataBindFile selectAppCurrent = null;
                 if (selectNextCharacter)
                 {
-                    int currentIndex = targetListBox.SelectedIndex;
+                    int currentIndex = targetListView.SelectedIndex;
                     selectAppCurrent = dataBindApplist.Skip(currentIndex).FirstOrDefault(filterCharacterNoMatch);
                 }
                 else
                 {
-                    int currentIndex = dataBindApplist.Count() - targetListBox.SelectedIndex;
+                    int currentIndex = dataBindApplist.Count() - targetListView.SelectedIndex;
                     selectAppCurrent = dataBindApplist.Reverse().Skip(currentIndex).FirstOrDefault(filterCharacterNoMatch);
                     if (selectAppCurrent != null)
                     {
@@ -230,7 +232,7 @@ namespace CtrlUI
                     ShowCharacterOverlay(selectStringCurrent, selectStringNext, selectStringPrev);
 
                     //Listbox focus and select the item
-                    await ListBoxFocusItem(targetListBox, selectAppCurrent, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusItem(targetListView, selectAppCurrent, vProcessCurrent.WindowHandleMain);
 
                     Debug.WriteLine("Selected list character: " + selectCharacterCurrent + "/" + selectAppCurrent.Name);
                 }
@@ -241,18 +243,18 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task SelectNearCharacterApps(bool selectNextCharacter, ListBox targetListBox)
+        async Task SelectNearCharacterApps(bool selectNextCharacter, ListView targetListView)
         {
             try
             {
                 //Sort list by name
                 SortFunction<DataBindApp> sortFuncName = new SortFunction<DataBindApp>();
                 sortFuncName.Function = x => x.Name;
-                SortObservableCollection(targetListBox, sortFuncName, null);
+                SortObservableCollection(targetListView, sortFuncName, null);
 
                 //Get the current character
-                DataBindApp dataBindApp = (DataBindApp)targetListBox.SelectedItem;
-                ObservableCollection<DataBindApp> dataBindApplist = (ObservableCollection<DataBindApp>)targetListBox.ItemsSource;
+                DataBindApp dataBindApp = (DataBindApp)targetListView.SelectedItem;
+                ObservableCollection<DataBindApp> dataBindApplist = (ObservableCollection<DataBindApp>)targetListView.ItemsSource;
                 char currentCharacter = dataBindApp.Name.ToUpper()[0];
 
                 //Set the character filter
@@ -263,12 +265,12 @@ namespace CtrlUI
                 DataBindApp selectAppCurrent = null;
                 if (selectNextCharacter)
                 {
-                    int currentIndex = targetListBox.SelectedIndex;
+                    int currentIndex = targetListView.SelectedIndex;
                     selectAppCurrent = dataBindApplist.Skip(currentIndex).FirstOrDefault(filterCharacterNoMatch);
                 }
                 else
                 {
-                    int currentIndex = dataBindApplist.Count() - targetListBox.SelectedIndex;
+                    int currentIndex = dataBindApplist.Count() - targetListView.SelectedIndex;
                     selectAppCurrent = dataBindApplist.Reverse().Skip(currentIndex).FirstOrDefault(filterCharacterNoMatch);
                     if (selectAppCurrent != null)
                     {
@@ -295,7 +297,7 @@ namespace CtrlUI
                     ShowCharacterOverlay(selectStringCurrent, selectStringNext, selectStringPrev);
 
                     //Listbox focus and select the item
-                    await ListBoxFocusItem(targetListBox, selectAppCurrent, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusItem(targetListView, selectAppCurrent, vProcessCurrent.WindowHandleMain);
 
                     Debug.WriteLine("Selected list character: " + selectCharacterCurrent + "/" + selectAppCurrent.Name);
                 }
@@ -312,7 +314,7 @@ namespace CtrlUI
             try
             {
                 //Show the overlay
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     try
                     {
@@ -325,15 +327,15 @@ namespace CtrlUI
                 });
 
                 //Start overlay timer
-                vAVTimerOverlay.Interval = 2000;
-                vAVTimerOverlay.Tick = delegate
+                vAVTimerOverlayCharacter.Interval = 2000;
+                vAVTimerOverlayCharacter.Tick = delegate
                 {
                     try
                     {
-                        DispatcherInvoke(delegate
+                        DispatcherInvoke(this.Dispatcher, delegate
                         {
                             //Stop overlay timer
-                            vAVTimerOverlay.Stop();
+                            vAVTimerOverlayCharacter.Stop();
 
                             //Hide overlay
                             grid_Popup_SelectCharacter.Visibility = Visibility.Collapsed;
@@ -341,17 +343,17 @@ namespace CtrlUI
                     }
                     catch { }
                 };
-                vAVTimerOverlay.Start();
+                vAVTimerOverlayCharacter.Start();
             }
             catch { }
         }
 
         //Add listbox item to a list
-        async Task ListBoxAddItem<T>(ListBox listBox, Collection<T> listCollection, T addItem, bool insertItem, bool selectItem)
+        async Task ListViewAddItem<T>(ListView listBox, Collection<T> listCollection, T addItem, bool insertItem, bool selectItem)
         {
             try
             {
-                await DispatcherInvoke(async delegate
+                await DispatcherInvoke(this.Dispatcher, async delegate
                 {
                     //Debug.WriteLine("Adding item to list collection: " + listCollection);
 
@@ -372,11 +374,11 @@ namespace CtrlUI
                     {
                         if (insertItem)
                         {
-                            await ListBoxFocusOrSelectIndex(listBox, false, 0, vProcessCurrent.WindowHandleMain);
+                            await ListViewFocusOrSelectIndex(listBox, false, 0, vProcessCurrent.WindowHandleMain);
                         }
                         else
                         {
-                            await ListBoxFocusOrSelectIndex(listBox, true, 0, vProcessCurrent.WindowHandleMain);
+                            await ListViewFocusOrSelectIndex(listBox, true, 0, vProcessCurrent.WindowHandleMain);
                         }
                     }
                 });
@@ -388,11 +390,11 @@ namespace CtrlUI
         }
 
         //Remove listbox item from a listbox
-        async Task ListBoxRemoveItem<T>(ListBox listBox, Collection<T> listCollection, T removeItem, bool selectItem)
+        async Task ListViewRemoveItem<T>(ListView listBox, Collection<T> listCollection, T removeItem, bool selectItem)
         {
             try
             {
-                await DispatcherInvoke(async delegate
+                await DispatcherInvoke(this.Dispatcher, async delegate
                 {
                     //Store the current listbox items count
                     int listBoxItemCount = listBox.Items.Count;
@@ -409,7 +411,7 @@ namespace CtrlUI
                         Debug.WriteLine(listBox.Name + " listbox item has been removed.");
                         if (selectItem)
                         {
-                            await ListBoxFocusOrSelectIndex(listBox, false, listBoxSelectedIndex, vProcessCurrent.WindowHandleMain);
+                            await ListViewFocusOrSelectIndex(listBox, false, listBoxSelectedIndex, vProcessCurrent.WindowHandleMain);
                         }
                     }
                 });
@@ -421,11 +423,11 @@ namespace CtrlUI
         }
 
         //Remove all matching items from a listbox
-        async Task ListBoxRemoveAll<T>(ListBox listBox, Collection<T> listCollection, Func<T, bool> removeCondition)
+        async Task ListViewRemoveAll<T>(ListView listBox, Collection<T> listCollection, Func<T, bool> removeCondition)
         {
             try
             {
-                await DispatcherInvoke(async delegate
+                await DispatcherInvoke(this.Dispatcher, async delegate
                 {
                     //Store the current listbox items count
                     int listBoxItemCount = listBox.Items.Count;
@@ -440,7 +442,7 @@ namespace CtrlUI
                     if (listBoxItemCount != listBox.Items.Count)
                     {
                         Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed.");
-                        await ListBoxFocusOrSelectIndex(listBox, false, listBoxSelectedIndex, vProcessCurrent.WindowHandleMain);
+                        await ListViewFocusOrSelectIndex(listBox, false, listBoxSelectedIndex, vProcessCurrent.WindowHandleMain);
                     }
                 });
             }
@@ -450,18 +452,18 @@ namespace CtrlUI
             }
         }
 
-        //Check listbox item column position
-        bool ListBoxItemColumnPosition(ListBox targetListBox, ListBoxItem targetListBoxItem, bool firstColumn)
+        //Check ListView item column position
+        bool ListViewItemColumnPosition(ListView targetListView, ListViewItem targetListViewItem, bool firstColumn)
         {
             try
             {
-                ListBoxCountColumns(targetListBox, out int totalCount, out List<double> offsetPoints);
-                double translatePoint = targetListBoxItem.TranslatePoint(new Point(), targetListBox).Y;
+                ListViewCountColumns(targetListView, out int totalCount, out List<double> offsetPoints);
+                double translatePoint = targetListViewItem.TransformToVisual(targetListView).TransformPoint(new Point(0, 0)).Y;
                 if (firstColumn)
                 {
                     if (translatePoint == offsetPoints.FirstOrDefault())
                     {
-                        //Debug.WriteLine("ListBoxItem is in first column.");
+                        //Debug.WriteLine("ListViewItem is in first column.");
                         return true;
                     }
                 }
@@ -469,7 +471,7 @@ namespace CtrlUI
                 {
                     if (translatePoint == offsetPoints.LastOrDefault())
                     {
-                        //Debug.WriteLine("ListBoxItem is in last column.");
+                        //Debug.WriteLine("ListViewItem is in last column.");
                         return true;
                     }
                 }
@@ -478,18 +480,18 @@ namespace CtrlUI
             return false;
         }
 
-        //Check listbox item row position
-        bool ListBoxItemRowPosition(ListBox targetListBox, ListBoxItem targetListBoxItem, bool firstRow)
+        //Check ListView item row position
+        bool ListViewItemRowPosition(ListView targetListView, ListViewItem targetListViewItem, bool firstRow)
         {
             try
             {
-                ListBoxCountRows(targetListBox, out int totalCount, out List<double> offsetPoints);
-                double translatePoint = targetListBoxItem.TranslatePoint(new Point(), targetListBox).X;
+                ListViewCountRows(targetListView, out int totalCount, out List<double> offsetPoints);
+                double translatePoint = targetListViewItem.TransformToVisual(targetListView).TransformPoint(new Point(0, 0)).X;
                 if (firstRow)
                 {
                     if (translatePoint == offsetPoints.FirstOrDefault())
                     {
-                        //Debug.WriteLine("ListBoxItem is in first row.");
+                        //Debug.WriteLine("ListViewItem is in first row.");
                         return true;
                     }
                 }
@@ -497,7 +499,7 @@ namespace CtrlUI
                 {
                     if (translatePoint == offsetPoints.LastOrDefault())
                     {
-                        //Debug.WriteLine("ListBoxItem is in last row.");
+                        //Debug.WriteLine("ListViewItem is in last row.");
                         return true;
                     }
                 }
@@ -506,53 +508,53 @@ namespace CtrlUI
             return false;
         }
 
-        //Count columns in listbox
-        void ListBoxCountColumns(ListBox targetListBox, out int totalCount, out List<double> offsetPoints)
+        //Count columns in ListView
+        void ListViewCountColumns(ListView targetListView, out int totalCount, out List<double> offsetPoints)
         {
             totalCount = 0;
             offsetPoints = new List<double>();
             try
             {
-                foreach (object listItem in targetListBox.Items)
+                foreach (object listItem in targetListView.Items)
                 {
-                    FrameworkElement containerItem = (FrameworkElement)targetListBox.ItemContainerGenerator.ContainerFromItem(listItem);
-                    double translatePoint = containerItem.TranslatePoint(new Point(), targetListBox).Y;
+                    ListViewItem containerItem = targetListView.AVGetListViewItem(listItem);
+                    double translatePoint = containerItem.TransformToVisual(targetListView).TransformPoint(new Point(0, 0)).Y;
                     if (!offsetPoints.Any(x => x == translatePoint))
                     {
                         totalCount++;
                         offsetPoints.Add(translatePoint);
                     }
                 }
-                //Debug.WriteLine("Columns: " + totalCount);
+                //Debug.WriteLine("ListViewCountColumns: " + totalCount);
             }
             catch
             {
-                Debug.WriteLine("Failed to count columns from the listbox.");
+                Debug.WriteLine("Failed to count columns from the ListView.");
             }
         }
 
-        //Count rows in listbox
-        void ListBoxCountRows(ListBox targetListBox, out int totalCount, out List<double> offsetPoints)
+        //Count rows in ListView
+        void ListViewCountRows(ListView targetListView, out int totalCount, out List<double> offsetPoints)
         {
             totalCount = 0;
             offsetPoints = new List<double>();
             try
             {
-                foreach (object listItem in targetListBox.Items)
+                foreach (object listItem in targetListView.Items)
                 {
-                    FrameworkElement containerItem = (FrameworkElement)targetListBox.ItemContainerGenerator.ContainerFromItem(listItem);
-                    double translatePoint = containerItem.TranslatePoint(new Point(), targetListBox).X;
+                    ListViewItem containerItem = targetListView.AVGetListViewItem(listItem);
+                    double translatePoint = containerItem.TransformToVisual(targetListView).TransformPoint(new Point(0, 0)).X;
                     if (!offsetPoints.Any(x => x == translatePoint))
                     {
                         totalCount++;
                         offsetPoints.Add(translatePoint);
                     }
                 }
-                //Debug.WriteLine("Rows: " + totalCount);
+                //Debug.WriteLine("ListViewCountRows: " + totalCount);
             }
             catch
             {
-                Debug.WriteLine("Failed to count rows from the listbox.");
+                Debug.WriteLine("Failed to count rows from the ListView.");
             }
         }
     }

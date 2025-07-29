@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -81,7 +81,14 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { displayName, displayIcon, "Wargaming" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                BitmapImage bitmapImageApplication = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [displayName, displayIcon, "Wargaming"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeApplication,
+                    Dispatcher = this.Dispatcher
+                });
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
@@ -89,13 +96,13 @@ namespace CtrlUI
                     Category = AppCategory.Launcher,
                     Launcher = AppLauncher.Wargaming,
                     Name = displayName,
-                    ImageBitmap = iconBitmapImage,
+                    ImageBitmap = bitmapImageApplication,
                     PathExe = executablePath,
                     Argument = executableArguments,
-                    StatusLauncherImage = vImagePreloadWargaming
+                    StatusLauncherImage = await LoadLauncherImage(AppLauncher.Wargaming, vImageLoadSizeApplication, 0)
                 };
 
-                await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
+                await ListViewAddItem(listView_Launchers, List_Launchers, dataBindApp, false, false);
                 //Debug.WriteLine("Added Wargaming app: " + displayName);
             }
             catch

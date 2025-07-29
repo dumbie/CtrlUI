@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -67,7 +67,14 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, "Google Play" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                BitmapImage bitmapImageApplication = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [shortcutDetails.Title, shortcutDetails.IconPath, "Google Play"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeApplication,
+                    Dispatcher = this.Dispatcher
+                });
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
@@ -75,12 +82,12 @@ namespace CtrlUI
                     Category = AppCategory.Launcher,
                     Launcher = AppLauncher.GooglePlay,
                     Name = shortcutDetails.Title,
-                    ImageBitmap = iconBitmapImage,
+                    ImageBitmap = bitmapImageApplication,
                     PathExe = shortcutDetails.TargetPath,
-                    StatusLauncherImage = vImagePreloadGooglePlay
+                    StatusLauncherImage = await LoadLauncherImage(AppLauncher.GooglePlay, vImageLoadSizeApplication, 0)
                 };
 
-                await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
+                await ListViewAddItem(listView_Launchers, List_Launchers, dataBindApp, false, false);
                 //Debug.WriteLine("Added google play app: " + shortcutDetails.Title);
             }
             catch

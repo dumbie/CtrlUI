@@ -1,12 +1,11 @@
-﻿using System.Windows.Interop;
-using static ArnoldVinkCode.AVInteropDll;
+﻿using static ArnoldVinkCode.AVInteropDll;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
         //Handle received filter messages
-        void ReceivedFilterMessage(ref MSG windowMessage, ref bool messageHandled)
+        void ReceivedFilterMessage(ref WindowMessage windowMessage, ref bool messageHandled)
         {
             try
             {

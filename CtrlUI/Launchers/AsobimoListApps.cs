@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static CtrlUI.Classes;
@@ -101,7 +101,14 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, executablePath, "Asobimo" }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, 0);
+                BitmapImage bitmapImageApplication = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = [appName, executablePath, "Asobimo"],
+                    SearchPaths = vImageSourceFoldersAppsCombined,
+                    BackupPath = vImageBackupSource,
+                    Width = vImageLoadSizeApplication,
+                    Dispatcher = this.Dispatcher
+                });
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
@@ -109,13 +116,13 @@ namespace CtrlUI
                     Category = AppCategory.Launcher,
                     Launcher = AppLauncher.Asobimo,
                     Name = appName,
-                    ImageBitmap = iconBitmapImage,
+                    ImageBitmap = bitmapImageApplication,
                     PathExe = executablePath,
                     Argument = executableArguments,
-                    StatusLauncherImage = vImagePreloadAsobimo
+                    StatusLauncherImage = await LoadLauncherImage(AppLauncher.Asobimo, vImageLoadSizeApplication, 0)
                 };
 
-                await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
+                await ListViewAddItem(listView_Launchers, List_Launchers, dataBindApp, false, false);
                 //Debug.WriteLine("Added Asobimo app: " + appName);
             }
             catch

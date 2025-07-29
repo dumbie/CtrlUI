@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkStyles.AVFocus;
@@ -38,7 +38,7 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Changing edit profile to: " + vProfileManagerName);
 
-                //Load the requested profile values
+                //Load requested profile values
                 if (vProfileManagerName == "CtrlLocationsShortcut")
                 {
                     grid_Popup_ProfileManager_txt_Description.Text = "Shortcut locations";
@@ -46,7 +46,7 @@ namespace CtrlUI
                     grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
 
                     vProfileManagerListShared = vCtrlLocationsShortcut;
-                    lb_ProfileManager.ItemsSource = vCtrlLocationsShortcut;
+                    listView_ProfileManager.ItemsSource = vCtrlLocationsShortcut;
                 }
                 else if (vProfileManagerName == "CtrlLocationsFile")
                 {
@@ -56,7 +56,7 @@ namespace CtrlUI
                     grid_Popup_ProfileManager_textblock_ProfileString2.Text = "Path";
 
                     vProfileManagerListShared = vCtrlLocationsFile;
-                    lb_ProfileManager.ItemsSource = vCtrlLocationsFile;
+                    listView_ProfileManager.ItemsSource = vCtrlLocationsFile;
                 }
                 else if (vProfileManagerName == "CtrlIgnoreLauncherName")
                 {
@@ -65,7 +65,7 @@ namespace CtrlUI
                     grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
 
                     vProfileManagerListShared = vCtrlIgnoreLauncherName;
-                    lb_ProfileManager.ItemsSource = vCtrlIgnoreLauncherName;
+                    listView_ProfileManager.ItemsSource = vCtrlIgnoreLauncherName;
                 }
                 else if (vProfileManagerName == "CtrlIgnoreShortcutName")
                 {
@@ -74,7 +74,7 @@ namespace CtrlUI
                     grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
 
                     vProfileManagerListShared = vCtrlIgnoreShortcutName;
-                    lb_ProfileManager.ItemsSource = vCtrlIgnoreShortcutName;
+                    listView_ProfileManager.ItemsSource = vCtrlIgnoreShortcutName;
                 }
                 else if (vProfileManagerName == "CtrlKeyboardExtensionName")
                 {
@@ -83,7 +83,7 @@ namespace CtrlUI
                     grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
 
                     vProfileManagerListShared = vCtrlKeyboardExtensionName;
-                    lb_ProfileManager.ItemsSource = vCtrlKeyboardExtensionName;
+                    listView_ProfileManager.ItemsSource = vCtrlKeyboardExtensionName;
                 }
                 else if (vProfileManagerName == "CtrlKeyboardProcessName")
                 {
@@ -92,11 +92,11 @@ namespace CtrlUI
                     grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
 
                     vProfileManagerListShared = vCtrlKeyboardProcessName;
-                    lb_ProfileManager.ItemsSource = vCtrlKeyboardProcessName;
+                    listView_ProfileManager.ItemsSource = vCtrlKeyboardProcessName;
                 }
 
                 //Select the first listbox item
-                await ListBoxFocusOrSelectIndex(lb_ProfileManager, false, 0, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusOrSelectIndex(listView_ProfileManager, false, 0, vProcessCurrent.WindowHandleMain);
             }
             catch { }
         }
@@ -106,16 +106,16 @@ namespace CtrlUI
         {
             try
             {
-                ProfileShared selectedProfile = (ProfileShared)lb_ProfileManager.SelectedItem;
+                ProfileShared selectedProfile = (ProfileShared)listView_ProfileManager.SelectedItem;
                 Debug.WriteLine("Removing profile value: " + selectedProfile);
 
                 //Remove the selected profile value
-                await ListBoxRemoveItem(lb_ProfileManager, vProfileManagerListShared, selectedProfile, true);
+                await ListViewRemoveItem(listView_ProfileManager, vProfileManagerListShared, selectedProfile, true);
 
                 //Save the updated json values
                 JsonSaveObject(vProfileManagerListShared, @"Profiles\User\" + vProfileManagerName + ".json");
 
-                Notification_Show_Status("Profile", "Removed profile value");
+                await Notification_Show_Status("Profile", "Removed profile value");
             }
             catch { }
         }
@@ -130,15 +130,17 @@ namespace CtrlUI
                 Debug.WriteLine("Adding new profile value: " + profileString1 + " / " + profileString2);
 
                 //Color brushes
-                BrushConverter BrushConvert = new BrushConverter();
-                Brush BrushInvalid = BrushConvert.ConvertFromString("#CD1A2B") as Brush;
-                Brush BrushValid = BrushConvert.ConvertFromString("#1DB954") as Brush;
+                //FixStyleBrushConverter BrushConvert = new BrushConverter();
+                //Brush BrushInvalid = BrushConvert.ConvertFromString("#CD1A2B") as Brush;
+                //FixStyle Brush BrushValid = BrushConvert.ConvertFromString("#1DB954") as Brush;
+                Brush BrushInvalid = null;
+                Brush BrushValid = null;
 
                 //Check if the string1 is empty
                 if (string.IsNullOrWhiteSpace(profileString1))
                 {
                     grid_Popup_ProfileManager_textbox_ProfileString1.BorderBrush = BrushInvalid;
-                    Notification_Show_Status("Profile", "Empty profile value");
+                    await Notification_Show_Status("Profile", "Empty profile value");
                     Debug.WriteLine("Please enter a profile value.");
                     return;
                 }
@@ -147,7 +149,7 @@ namespace CtrlUI
                 if (grid_Popup_ProfileManager_Value2.Visibility == Visibility.Visible && string.IsNullOrWhiteSpace(profileString2))
                 {
                     grid_Popup_ProfileManager_textbox_ProfileString2.BorderBrush = BrushInvalid;
-                    Notification_Show_Status("Profile", "Empty profile value");
+                    await Notification_Show_Status("Profile", "Empty profile value");
                     Debug.WriteLine("Please enter a profile value.");
                     return;
                 }
@@ -175,7 +177,7 @@ namespace CtrlUI
                 {
                     grid_Popup_ProfileManager_textbox_ProfileString1.BorderBrush = BrushInvalid;
                     grid_Popup_ProfileManager_textbox_ProfileString2.BorderBrush = BrushInvalid;
-                    Notification_Show_Status("Profile", "Profile already exists");
+                    await Notification_Show_Status("Profile", "Profile already exists");
                     Debug.WriteLine("Profile value already exists.");
                     return;
                 }
@@ -185,13 +187,13 @@ namespace CtrlUI
                 grid_Popup_ProfileManager_textbox_ProfileString2.Text = string.Empty;
 
                 //Add the new profile value
-                await ListBoxAddItem(lb_ProfileManager, vProfileManagerListShared, profileShared, false, false);
+                await ListViewAddItem(listView_ProfileManager, vProfileManagerListShared, profileShared, false, false);
 
                 //Save the updated json values
                 JsonSaveObject(vProfileManagerListShared, @"Profiles\User\" + vProfileManagerName + ".json");
 
                 //Show profile added notification
-                Notification_Show_Status("Profile", "New value added");
+                await Notification_Show_Status("Profile", "New value added");
                 grid_Popup_ProfileManager_textbox_ProfileString1.BorderBrush = BrushValid;
                 grid_Popup_ProfileManager_textbox_ProfileString2.BorderBrush = BrushValid;
             }
@@ -206,7 +208,12 @@ namespace CtrlUI
                 //Add profile categories
                 List<DataBindString> Answers = new List<DataBindString>();
 
-                BitmapImage imageProfile = FileToBitmapImage(new string[] { "Assets/Default/Icons/Profile.png" }, null, vImageBackupSource, -1, -1, IntPtr.Zero, 0);
+                BitmapImage imageProfile = await FileToBitmapImage(new AVImageFile()
+                {
+                    FilePaths = ["Assets/Default/Icons/Profile.png"],
+                    BackupPath = vImageBackupSource,
+                    Dispatcher = this.Dispatcher
+                });
 
                 DataBindString stringCtrlLocationsShortcut = new DataBindString() { Name = "Shortcut locations", Data1 = "CtrlLocationsShortcut", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlLocationsShortcut);

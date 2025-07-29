@@ -2,9 +2,8 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -14,35 +13,35 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle app list mouse/touch tapped
-        async void ListBox_Apps_MousePressUp(object sender, MouseButtonEventArgs e)
+        async void ListView_Apps_MousePressUp(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                //Check if an actual ListBoxItem is clicked
-                if (!AVInterface.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+                //Check if an actual ListViewItem is clicked
+                if (!AVInterface.CheckClickedListViewItem(e))
+                {
+                    return;
+                }
 
                 //Check which mouse button is pressed
-                if (e.ClickCount == 1)
+                if (vMousePressDownRight)
                 {
-                    if (vMousePressDownRight)
-                    {
-                        await ListBox_Apps_RightClick(sender);
-                    }
-                    else if (vMousePressDownLeft)
-                    {
-                        await ListBox_Apps_LeftClick(sender);
-                    }
+                    await ListView_Apps_RightClick(sender);
+                }
+                else if (vMousePressDownLeft)
+                {
+                    await ListView_Apps_LeftClick(sender);
                 }
             }
             catch { }
         }
 
         //Handle app list left click
-        async Task ListBox_Apps_LeftClick(object sender)
+        async Task ListView_Apps_LeftClick(object sender)
         {
             try
             {
-                ListBox ListboxSender = (ListBox)sender;
+                ListView ListboxSender = (ListView)sender;
                 if (ListboxSender.SelectedItems.Count > 0 && ListboxSender.SelectedIndex != -1)
                 {
                     //Check which launch mode needs to be used
@@ -52,17 +51,17 @@ namespace CtrlUI
             }
             catch
             {
-                Notification_Show_Status("Close", "Failed to launch or show app");
+                await Notification_Show_Status("Close", "Failed to launch or show app");
                 Debug.WriteLine("Failed launching or showing the application.");
             }
         }
 
         //Handle app list right click
-        async Task ListBox_Apps_RightClick(object sender)
+        async Task ListView_Apps_RightClick(object sender)
         {
             try
             {
-                ListBox listboxSender = (ListBox)sender;
+                ListView listboxSender = (ListView)sender;
                 int listboxSelectedIndex = listboxSender.SelectedIndex;
                 if (listboxSender.SelectedItems.Count > 0 && listboxSelectedIndex != -1)
                 {

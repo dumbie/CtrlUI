@@ -7,9 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFiles;
@@ -178,15 +178,15 @@ namespace CtrlUI
                 vBusyRefreshingShortcuts = true;
 
                 //Show the loading gif
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
-                    gif_List_Loading.Show();
+                    gif_List_Loading.Visibility = Visibility.Visible;
                 });
 
                 //Show refresh status message
                 if (showStatus)
                 {
-                    Notification_Show_Status("Refresh", "Refreshing shortcuts");
+                    await Notification_Show_Status("Refresh", "Refreshing shortcuts");
                 }
 
                 //Get all files from the shortcut directories
@@ -211,8 +211,8 @@ namespace CtrlUI
 
                 //Remove shortcuts that are no longer available from the list
                 Func<DataBindApp, bool> filterShortcutApp = x => x.Category == AppCategory.Shortcut && !directoryShortcuts.Any(y => StripShortcutFilename(y.Name) == x.Name);
-                await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, filterShortcutApp);
-                await ListBoxRemoveAll(lb_Search, List_Search, filterShortcutApp);
+                await ListViewRemoveAll(listView_Shortcuts, List_Shortcuts, filterShortcutApp);
+                await ListViewRemoveAll(listView_Search, List_Search, filterShortcutApp);
 
                 //Get shortcut information and add it to the list
                 foreach (FileInfo file in directoryShortcuts)
@@ -234,8 +234,8 @@ namespace CtrlUI
                         if (CombineAppLists(true, true, true, true, false, false, false).Any(combineCheckShortcut))
                         {
                             //Debug.WriteLine("Shortcut is in the combined list skipping: " + targetPathLower);
-                            await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
-                            await ListBoxRemoveAll(lb_Search, List_Search, x => x.PathExe.ToLower() == targetPathLower);
+                            await ListViewRemoveAll(listView_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
+                            await ListViewRemoveAll(listView_Search, List_Search, x => x.PathExe.ToLower() == targetPathLower);
                             continue;
                         }
 
@@ -243,8 +243,8 @@ namespace CtrlUI
                         if (vCtrlIgnoreShortcutName.Any(blacklistCheckShortcut))
                         {
                             //Debug.WriteLine("Shortcut is on the blacklist skipping: " + targetTitleLower);
-                            await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
-                            await ListBoxRemoveAll(lb_Search, List_Search, x => x.PathExe.ToLower() == targetPathLower);
+                            await ListViewRemoveAll(listView_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
+                            await ListViewRemoveAll(listView_Search, List_Search, x => x.PathExe.ToLower() == targetPathLower);
                             continue;
                         }
 
@@ -267,9 +267,9 @@ namespace CtrlUI
                 //Hide the loading gif
                 if (vBusyRefreshingCount() == 1)
                 {
-                    DispatcherInvoke(delegate
+                    DispatcherInvoke(this.Dispatcher, delegate
                     {
-                        gif_List_Loading.Hide();
+                        gif_List_Loading.Visibility = Visibility.Collapsed;
                     });
                 }
             }
@@ -345,35 +345,83 @@ namespace CtrlUI
                     //Check if url protocol is launcher and set icon
                     if (targetPathLower.Contains("steam:"))
                     {
-                        launcherImage = vImagePreloadSteam;
+                        launcherImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Steam"],
+                            SearchPaths = vImageSourceFoldersAppsCombined,
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     }
                     else if (targetPathLower.Contains("com.epicgames.launcher:"))
                     {
-                        launcherImage = vImagePreloadEpic;
+                        launcherImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Epic"],
+                            SearchPaths = vImageSourceFoldersAppsCombined,
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     }
                     else if (targetPathLower.Contains("uplay:"))
                     {
-                        launcherImage = vImagePreloadUbisoft;
+                        launcherImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Ubisoft"],
+                            SearchPaths = vImageSourceFoldersAppsCombined,
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     }
                     else if (targetPathLower.Contains("battlenet:"))
                     {
-                        launcherImage = vImagePreloadBattleNet;
+                        launcherImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Battle.net"],
+                            SearchPaths = vImageSourceFoldersAppsCombined,
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     }
                     else if (targetPathLower.Contains("origin:"))
                     {
-                        launcherImage = vImagePreloadEADesktop;
+                        launcherImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["EA Desktop"],
+                            SearchPaths = vImageSourceFoldersAppsCombined,
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     }
                     else if (targetPathLower.Contains("link2ea:"))
                     {
-                        launcherImage = vImagePreloadEADesktop;
+                        launcherImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["EA Desktop"],
+                            SearchPaths = vImageSourceFoldersAppsCombined,
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     }
                     else if (targetPathLower.Contains("amazon-games:"))
                     {
-                        launcherImage = vImagePreloadAmazon;
+                        launcherImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Amazon"],
+                            SearchPaths = vImageSourceFoldersAppsCombined,
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     }
                     else if (targetPathLower.Contains("humble:"))
                     {
-                        launcherImage = vImagePreloadHumble;
+                        launcherImage = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = ["Humble"],
+                            SearchPaths = vImageSourceFoldersAppsCombined,
+                            BackupPath = vImageBackupSource,
+                            Dispatcher = this.Dispatcher
+                        });
                     }
                 }
                 else if (shortcutDetails.Type == ShortcutType.UWP)
@@ -412,11 +460,25 @@ namespace CtrlUI
                 BitmapImage iconBitmapImage = null;
                 if (shortcutAvailable == Visibility.Visible)
                 {
-                    iconBitmapImage = vImagePreloadUnknownApp;
+                    iconBitmapImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Apps/Unknown.png"],
+                        BackupPath = vImageBackupSource,
+                        Width = vImageLoadSizeApplication,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
                 else
                 {
-                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, targetPathLower, shortcutDetails.ShortcutPath }, vImageSourceFoldersAppsCombined, vImageBackupSource, vImageLoadSize, 0, IntPtr.Zero, shortcutDetails.IconIndex);
+                    iconBitmapImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = [shortcutDetails.Title, shortcutDetails.IconPath, targetPathLower, shortcutDetails.ShortcutPath],
+                        SearchPaths = vImageSourceFoldersAppsCombined,
+                        BackupPath = vImageBackupSource,
+                        Width = vImageLoadSizeApplication,
+                        IconIndex = shortcutDetails.IconIndex,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
 
                 //Add the shortcut to the list
@@ -430,7 +492,7 @@ namespace CtrlUI
                     dataBindApp.PathExe = shortcutDetails.TargetPath;
                 }
 
-                await ListBoxAddItem(lb_Shortcuts, List_Shortcuts, dataBindApp, false, false);
+                await ListViewAddItem(listView_Shortcuts, List_Shortcuts, dataBindApp, false, false);
             }
             catch
             {

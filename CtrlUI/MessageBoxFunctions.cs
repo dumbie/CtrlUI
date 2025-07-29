@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Xaml;
 using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -71,13 +71,13 @@ namespace CtrlUI
                 }
 
                 //Set the messagebox answers
-                lb_MessageBox.ItemsSource = Answers;
+                listView_MessageBox.ItemsSource = Answers;
 
                 //Show the popup
                 Popup_Show_Element(grid_Popup_MessageBox);
 
                 //Focus on first listbox answer
-                await ListBoxFocusIndex(lb_MessageBox, false, 0, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_MessageBox, false, 0, vProcessCurrent.WindowHandleMain);
 
                 //Wait for user messagebox input
                 while (vMessageBoxResult == null && !vMessageBoxCancelled) { await Task.Delay(500); }

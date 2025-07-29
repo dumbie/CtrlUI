@@ -1,9 +1,9 @@
-﻿using ArnoldVinkStyles;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Xaml;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVFocus;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -33,8 +33,7 @@ namespace CtrlUI
                 else
                 {
                     //Set placeholder text
-                    string placeholderString = (string)grid_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
-                    grid_Search_textbox.Text = placeholderString;
+                    grid_Search_textbox.Text = grid_Search_textbox.PlaceholderText;
                 }
 
                 grid_Search_textblock_Result.Text = "Please enter a search term.";
@@ -48,17 +47,17 @@ namespace CtrlUI
         {
             try
             {
-                await DispatcherInvoke(async delegate
+                await DispatcherInvoke(this.Dispatcher, async delegate
                 {
                     string searchString = grid_Search_textbox.Text;
-                    string placeholderString = (string)grid_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                    string placeholderString = grid_Search_textbox.PlaceholderText;
                     if (!string.IsNullOrWhiteSpace(searchString) && searchString != placeholderString && dataBindApp.Name.ToLower().Contains(searchString.ToLower()))
                     {
                         //Set search category image to databind app
-                        SearchAppSetCategoryImage(dataBindApp);
+                        await SearchAppSetCategoryImage(dataBindApp);
 
                         //Add search result to listbox
-                        await ListBoxAddItem(lb_Search, List_Search, dataBindApp, false, false);
+                        await ListViewAddItem(listView_Search, List_Search, dataBindApp, false, false);
 
                         //Update the search results count
                         UpdateSearchResults();
@@ -71,37 +70,72 @@ namespace CtrlUI
         }
 
         //Set search category image to databind app
-        private static void SearchAppSetCategoryImage(DataBindApp dataBindApp)
+        private async Task SearchAppSetCategoryImage(DataBindApp dataBindApp)
         {
             try
             {
                 if (dataBindApp.Category == AppCategory.App)
                 {
-                    dataBindApp.StatusSearchCategoryImage = vImagePreloadApp;
+                    dataBindApp.StatusSearchCategoryImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/App.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
                 else if (dataBindApp.Category == AppCategory.Game)
                 {
-                    dataBindApp.StatusSearchCategoryImage = vImagePreloadGame;
+                    dataBindApp.StatusSearchCategoryImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Game.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
                 else if (dataBindApp.Category == AppCategory.Emulator)
                 {
-                    dataBindApp.StatusSearchCategoryImage = vImagePreloadEmulator;
+                    dataBindApp.StatusSearchCategoryImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Emulator.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
                 else if (dataBindApp.Category == AppCategory.Launcher)
                 {
-                    dataBindApp.StatusSearchCategoryImage = vImagePreloadLauncher;
+                    dataBindApp.StatusSearchCategoryImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Launcher.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
                 else if (dataBindApp.Category == AppCategory.Process)
                 {
-                    dataBindApp.StatusSearchCategoryImage = vImagePreloadProcess;
+                    dataBindApp.StatusSearchCategoryImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Process.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
                 else if (dataBindApp.Category == AppCategory.Shortcut)
                 {
-                    dataBindApp.StatusSearchCategoryImage = vImagePreloadShortcut;
+                    dataBindApp.StatusSearchCategoryImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Shortcut.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
                 else if (dataBindApp.Category == AppCategory.Gallery)
                 {
-                    dataBindApp.StatusSearchCategoryImage = vImagePreloadGallery;
+                    dataBindApp.StatusSearchCategoryImage = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Image.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    });
                 }
             }
             catch { }
@@ -112,10 +146,10 @@ namespace CtrlUI
         {
             try
             {
-                DispatcherInvoke(delegate
+                DispatcherInvoke(this.Dispatcher, delegate
                 {
                     string searchString = grid_Search_textbox.Text;
-                    string placeholderString = (string)grid_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                    string placeholderString = grid_Search_textbox.PlaceholderText;
                     if (string.IsNullOrWhiteSpace(searchString) || searchString == placeholderString)
                     {
                         grid_Search_textblock_Result.Text = "Please enter a search term.";

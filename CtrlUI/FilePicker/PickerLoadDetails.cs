@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ArnoldVinkStyles;
+using System;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Media.Imaging;
+using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -12,7 +14,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Load file details
-        void FilePicker_LoadDetails()
+        async Task FilePicker_LoadDetails()
         {
             try
             {
@@ -28,7 +30,7 @@ namespace CtrlUI
                         }
 
                         //Update image and description
-                        FilePicker_LoadDetails(dataBindFile);
+                        await FilePicker_LoadDetails(dataBindFile);
                     }
                     catch { }
                 }
@@ -40,7 +42,7 @@ namespace CtrlUI
         }
 
         //Load file details
-        void FilePicker_LoadDetails(DataBindFile dataBindFile)
+        async Task FilePicker_LoadDetails(DataBindFile dataBindFile)
         {
             try
             {
@@ -55,17 +57,35 @@ namespace CtrlUI
                         string fileNameNoExt = Path.GetFileNameWithoutExtension(dataBindFile.Name);
                         string imageSearchPng = GetAssetsImageFilePath(dataBindFile, ".png", false);
                         string imageSearchJpg = GetAssetsImageFilePath(dataBindFile, ".jpg", false);
-                        listImageBitmap = FileToBitmapImage([imageSearchPng, imageSearchJpg, fileNameFull, fileNameNoExt, "_Rom"], vImageSourceFoldersEmulatorsCombined, vImageBackupSource, 210, 0, IntPtr.Zero, 0);
+                        listImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = [imageSearchPng, imageSearchJpg, fileNameFull, fileNameNoExt, "_Rom"],
+                            SearchPaths = vImageSourceFoldersEmulatorsCombined,
+                            BackupPath = vImageBackupSource,
+                            Width = vImageLoadSizeFilePicker,
+                            UseThumbnail = true,
+                            Dispatcher = this.Dispatcher
+                        });
                     }
                     else
                     {
-                        listImageBitmap = FileCacheToBitmapImage(dataBindFile.PathFile, vImageBackupSource, 50, 0, false);
+                        listImageBitmap = await FileToBitmapImage(new AVImageFile()
+                        {
+                            FilePaths = [dataBindFile.PathFile],
+                            BackupPath = vImageBackupSource,
+                            Width = vImageLoadSizeFilePicker,
+                            UseThumbnail = true,
+                            Dispatcher = this.Dispatcher
+                        });
                     }
 
                     //Update databind file
                     if (listImageBitmap != null)
                     {
-                        dataBindFile.ImageBitmap = listImageBitmap;
+                        AVDispatcherInvoke.DispatcherInvoke(this.Dispatcher, delegate
+                        {
+                            dataBindFile.ImageBitmap = listImageBitmap;
+                        });
                     }
                 }
 
