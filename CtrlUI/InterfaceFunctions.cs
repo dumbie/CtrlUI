@@ -28,7 +28,6 @@ namespace CtrlUI
             {
                 //Main menu functions
                 grid_Popup_MainMenu_button_Close.Click += Button_Popup_Close_Click;
-                listView_MainMenu.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_MainMenu.PreviewKeyUp += ListView_Menu_KeyPressUp;
                 listView_MainMenu.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Menu_MousePressUp), true);
 
@@ -49,28 +48,20 @@ namespace CtrlUI
                 button_Category_Menu_Search.Click += Button_Category_Menu_Click;
 
                 //App list functions
-                listView_Games.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_Games.PreviewKeyUp += ListView_Apps_KeyPressUp;
                 listView_Games.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
-                listView_Apps.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_Apps.PreviewKeyUp += ListView_Apps_KeyPressUp;
                 listView_Apps.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
-                listView_Emulators.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_Emulators.PreviewKeyUp += ListView_Apps_KeyPressUp;
                 listView_Emulators.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
-                listView_Launchers.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_Launchers.PreviewKeyUp += ListView_Apps_KeyPressUp;
                 listView_Launchers.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
-                listView_Shortcuts.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_Shortcuts.PreviewKeyUp += ListView_Apps_KeyPressUp;
                 listView_Shortcuts.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
-                listView_Processes.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_Processes.PreviewKeyUp += ListView_Apps_KeyPressUp;
                 listView_Processes.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
-                listView_Gallery.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_Gallery.PreviewKeyUp += ListView_Apps_KeyPressUp;
                 listView_Gallery.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
-                listView_Search.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_Search.PreviewKeyUp += ListView_Apps_KeyPressUp;
                 listView_Search.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Apps_MousePressUp), true);
 
@@ -82,12 +73,10 @@ namespace CtrlUI
                 }
 
                 //MessageBox list functions
-                listView_MessageBox.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_MessageBox.PreviewKeyUp += ListView_MessageBox_KeyPressUp;
                 listView_MessageBox.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_MessageBox_MousePressUp), true);
 
                 //Manage functions
-                listView_Manage_AddAppCategory.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_Manage_AddAppCategory.SelectionChanged += ListView_Manage_AddAppCategory_SelectionChanged;
                 btn_Manage_ResetAppLogo.Click += Button_Manage_ResetAppLogo_Click;
                 btn_Manage_AddAppLogo.Click += Button_AddAppLogo_Click;
@@ -119,7 +108,6 @@ namespace CtrlUI
                 //Sorting functions
                 grid_Popup_Sorting_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Sorting_button_Direction.Click += Grid_Popup_Sorting_button_Direction_Click;
-                listView_Sorting.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_Sorting.PreviewKeyUp += ListView_Sorting_KeyPressUp;
                 listView_Sorting.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Sorting_MousePressUp), true);
 
@@ -135,7 +123,6 @@ namespace CtrlUI
                 grid_Popup_TextInput_button_ConfirmText.Click += Button_TextInputConfirmText_Click;
 
                 //File Picker functions
-                listView_FilePicker.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_FilePicker.PreviewKeyUp += ListView_FilePicker_KeyPressUp;
                 listView_FilePicker.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_FilePicker_MousePressUp), true);
                 grid_Popup_FilePicker_button_SelectFolder.Click += Grid_Popup_FilePicker_button_SelectFolder_Click;
@@ -146,13 +133,11 @@ namespace CtrlUI
                 grid_Popup_ProfileManager_button_ProfileAdd.Click += Grid_Popup_ProfileManager_button_ProfileAdd_Click;
                 grid_Popup_ProfileManager_textbox_ProfileString1.KeyDown += grid_Popup_ProfileManager_textbox_ProfileString_KeyDown;
                 grid_Popup_ProfileManager_textbox_ProfileString2.KeyDown += grid_Popup_ProfileManager_textbox_ProfileString_KeyDown;
-                listView_ProfileManager.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_ProfileManager.PreviewKeyUp += ListView_ProfileManager_KeyPressUp;
                 listView_ProfileManager.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_ProfileManager_MousePressUp), true);
 
                 //Color Picker functions
                 grid_Popup_ColorPicker_button_ControllerRight.Click += Button_Popup_Close_Click;
-                listView_ColorPicker.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_ColorPicker.PreviewKeyUp += ListView_ColorPicker_KeyPressUp;
                 listView_ColorPicker.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_ColorPicker_MousePressUp), true);
 
@@ -172,7 +157,6 @@ namespace CtrlUI
 
                 //Settings functions
                 grid_Popup_Settings_button_Close.Click += Button_Popup_Close_Click;
-                listView_SettingsMenu.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_SettingsMenu.PreviewKeyUp += ListView_Settings_KeyPressUp;
                 listView_SettingsMenu.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_Settings_MousePressUp), true);
                 btn_Settings_AppQuickLaunch.Click += Button_Settings_AppQuickLaunch;
@@ -184,7 +168,6 @@ namespace CtrlUI
                 btn_Settings_InterfaceSoundPackName.Click += Button_Settings_InterfaceSoundPackName;
                 btn_Settings_InterfaceClockStyleName.Click += Button_Settings_InterfaceClockStyleName;
                 btn_Settings_InterfaceFontStyleName.Click += Button_Settings_InterfaceFontStyleName;
-                listView_LauncherSetting.PreviewKeyDown += ListView_ArrowScrollBlock;
                 listView_LauncherSetting.PreviewKeyUp += ListView_LauncherSetting_KeyPressUp;
                 listView_LauncherSetting.AddHandler(PointerReleasedEvent, new PointerEventHandler(ListView_LauncherSetting_MousePressUp), true);
 

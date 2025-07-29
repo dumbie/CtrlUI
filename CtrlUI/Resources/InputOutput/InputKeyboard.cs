@@ -1,12 +1,8 @@
-﻿using ArnoldVinkStyles;
-using System;
-using System.Linq;
-using Windows.System;
+﻿using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkStyles.AVInterface;
 using static CtrlUI.AppVariables;
@@ -71,21 +67,27 @@ namespace CtrlUI
                 }
                 else if (usedVirtualKey == KeysVirtual.ArrowLeft)
                 {
+                    messageHandled = true;
+                    NavigateArrowLeft();
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                 }
                 else if (usedVirtualKey == KeysVirtual.ArrowUp)
                 {
+                    messageHandled = true;
+                    NavigateArrowUp();
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                    NavigateArrowUp(ref messageHandled);
                 }
                 else if (usedVirtualKey == KeysVirtual.ArrowRight)
                 {
+                    messageHandled = true;
+                    NavigateArrowRight();
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                 }
                 else if (usedVirtualKey == KeysVirtual.ArrowDown)
                 {
+                    messageHandled = true;
+                    NavigateArrowDown();
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                    NavigateArrowDown(ref messageHandled);
                 }
                 else if (usedVirtualKey == KeysVirtual.Space)
                 {
@@ -112,97 +114,10 @@ namespace CtrlUI
             {
                 //Check the pressed keys
                 KeysVirtual usedVirtualKey = (KeysVirtual)windowMessage.wParam;
-
-                if (usedVirtualKey == KeysVirtual.ArrowUp) { messageHandled = true; }
+                if (usedVirtualKey == KeysVirtual.ArrowLeft) { messageHandled = true; }
+                else if (usedVirtualKey == KeysVirtual.ArrowUp) { messageHandled = true; }
+                else if (usedVirtualKey == KeysVirtual.ArrowRight) { messageHandled = true; }
                 else if (usedVirtualKey == KeysVirtual.ArrowDown) { messageHandled = true; }
-            }
-            catch { }
-        }
-
-        //Navigate arrow down
-        void NavigateArrowDown(ref bool Handled)
-        {
-            try
-            {
-                FrameworkElement frameworkElement = GetFocusedFrameworkElement();
-                if (frameworkElement != null && frameworkElement.GetType() == typeof(ListViewItem))
-                {
-                    ListView parentListbox = AVVisualTree.FindVisualParent<ListView>(frameworkElement);
-                    if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
-                    {
-                        KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
-                        Handled = true;
-                        return;
-                    }
-                    else if (vTabTargetListsFirstLastItem.Contains(parentListbox.Name))
-                    {
-                        if ((parentListbox.SelectedIndex + 1) == parentListbox.Items.Count)
-                        {
-                            KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
-                            Handled = true;
-                            return;
-                        }
-                    }
-                    else if (vTabTargetListsFirstLastColumn.Contains(parentListbox.Name))
-                    {
-                        if (ListViewItemColumnPosition(parentListbox, (ListViewItem)frameworkElement, false))
-                        {
-                            KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
-                            Handled = true;
-                            return;
-                        }
-                    }
-                }
-                else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button) || (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider) || frameworkElement.GetType() == typeof(SliderDelay)))
-                {
-                    KeySendSingle(KeysVirtual.Tab, vProcessCurrent.WindowHandleMain);
-                    Handled = true;
-                    return;
-                }
-            }
-            catch { }
-        }
-
-        //Navigate arrow up
-        void NavigateArrowUp(ref bool Handled)
-        {
-            try
-            {
-                FrameworkElement frameworkElement = GetFocusedFrameworkElement();
-                if (frameworkElement != null && frameworkElement.GetType() == typeof(ListViewItem))
-                {
-                    ListView parentListbox = AVVisualTree.FindVisualParent<ListView>(frameworkElement);
-                    if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
-                    {
-                        KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);
-                        Handled = true;
-                        return;
-                    }
-                    else if (vTabTargetListsFirstLastItem.Contains(parentListbox.Name))
-                    {
-                        if (parentListbox.SelectedIndex == 0)
-                        {
-                            KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);
-                            Handled = true;
-                            return;
-                        }
-                    }
-                    else if (vTabTargetListsFirstLastColumn.Contains(parentListbox.Name))
-                    {
-                        if (ListViewItemColumnPosition(parentListbox, (ListViewItem)frameworkElement, true))
-                        {
-                            KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);
-                            Handled = true;
-                            return;
-                        }
-                    }
-                }
-                else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button) || (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider) || frameworkElement.GetType() == typeof(SliderDelay)))
-                {
-                    KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);
-                    Handled = true;
-                    return;
-                }
             }
             catch { }
         }
