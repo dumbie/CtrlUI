@@ -50,8 +50,8 @@ namespace CtrlUI
         public static bool vMousePressDownXButton2 = false;
         public static string[] vSelectNearCharacterLists = { "listView_Games", "listView_Apps", "listView_Emulators", "listView_Launchers", "listView_Shortcuts", "listView_Processes", "listView_Gallery", "listView_Search", "listView_FilePicker" };
         public static string[] vTabTargetListsSingleColumn = { "listView_Manage_AddAppCategory", "listView_Manage_AddEmulatorCategory" };
-        public static string[] vTabTargetListsFirstLastColumn = { "listView_Sorting" };
-        public static string[] vTabTargetListsFirstLastItem = { };
+        public static string[] vTabTargetListsFirstLastColumn = { };
+        public static string[] vTabTargetListsFirstLastItem = { "listView_FilePicker", "listView_ProfileManager", "listView_Sorting" };
 
         //Timers
         public static AVHighResTimer vAVTimerOverlayCharacter = new AVHighResTimer();
