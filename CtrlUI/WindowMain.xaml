@@ -463,39 +463,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Image Grid.Column="0" Name="image_Settings_LB" Source="/Assets/Default/Icons/Buttons/LbOff.png" Height="30" Margin="0,0,10,0"/>
-
-                            <ListView Grid.Column="1" Name="listView_SettingsMenu" HorizontalAlignment="Center" SelectionMode="Single" ItemContainerStyle="{StaticResource ListViewItemWhite}" Style="{StaticResource ListViewHorizontal}">
-                                <!--FixStyle IsTabStop False not working-->
-                                <StackPanel Name="settingsButtonStartup" Style="{StaticResource ListViewMenuStackPanel}">
-                                    <Image Source="/Assets/Default/Icons/AppRunExe.png" Width="55" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Startup" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Name="settingsButtonDisplay" Style="{StaticResource ListViewMenuStackPanel}">
-                                    <Image Source="/Assets/Default/Icons/Monitor.png" Width="55" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Display" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Name="settingsButtonLaunchers" Style="{StaticResource ListViewMenuStackPanel}">
-                                    <Image Source="/Assets/Default/Icons/Launcher.png" Width="55" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Launchers" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Name="settingsButtonInterface" Style="{StaticResource ListViewMenuStackPanel}">
-                                    <Image Source="/Assets/Default/Icons/Interface.png" Width="55" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Interface" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Name="settingsButtonSound" Style="{StaticResource ListViewMenuStackPanel}">
-                                    <Image Source="/Assets/Default/Icons/VolumeUp.png" Width="55" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Sound" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Name="settingsButtonBrowser" Style="{StaticResource ListViewMenuStackPanel}">
-                                    <Image Source="/Assets/Default/Icons/Folder.png" Width="55" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="File Browser" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Name="settingsButtonOther" Style="{StaticResource ListViewMenuStackPanel}">
-                                    <Image Source="/Assets/Default/Icons/Hamburger.png" Width="55" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Other" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </ListView>
-
+                            <ListView Grid.Column="1" Name="listView_SettingsMenu" HorizontalAlignment="Center" SelectionMode="Single" ItemContainerStyle="{StaticResource ListViewItemWhiteNoTab}" ItemTemplate="{StaticResource ListViewItemSettings}" Style="{StaticResource ListViewHorizontal}"/>
                             <Image Grid.Column="2" Name="image_Settings_RB" Source="/Assets/Default/Icons/Buttons/RbOff.png" Height="30" Margin="10,0,0,0"/>
                         </Grid>
 
@@ -555,7 +523,7 @@
                                 </StackPanel>
 
                                 <StackPanel Name="settingsStackpanelDisplay" Visibility="Collapsed">
-                                    <CheckBox Name="cb_SettingsMonitorPreventSleep" Content="Prevent monitor from sleeping" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
+                                    <CheckBox Name="cb_SettingsMonitorPreventSleep" Content="Prevent monitor from sleeping" Style="{StaticResource CheckBoxWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will prevent your monitor from sleeping when CtrlUI is active." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
 
                                     <TextBlock Name="textblock_SettingsAdjustChromiumDpi" Text="Adjust Chromium browsers DPI" Tag="Adjust Chromium browsers DPI" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{ThemeResource TextSizeLarge}"/>

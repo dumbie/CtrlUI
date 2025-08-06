@@ -10,9 +10,21 @@
     <x:Double x:Key="ApplicationImageMaxWidth">80</x:Double>
     <x:Double x:Key="MediaImageHeight">200</x:Double>
 
+    <!-- ListViewItemSettings -->
+    <DataTemplate x:Key="ListViewItemSettings">
+        <Grid Margin="5" Height="80">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="{Binding ImageBitmap}" Width="50" Height="50"/>
+            <TextBlock Grid.Row="1" Text="{Binding Name}" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" TextAlignment="Center"/>
+        </Grid>
+    </DataTemplate>
+
     <!-- ListViewItemAppCategory -->
     <DataTemplate x:Key="ListViewItemAppCategory">
-        <Grid Margin="5" Width="130">
+        <Grid Margin="5" Width="120">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>

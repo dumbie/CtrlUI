@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVSettings;
@@ -29,7 +28,7 @@ namespace CtrlUI
                 if (e.Key == VirtualKey.Space || e.Key == VirtualKey.Down)
                 {
                     //Get clicked item
-                    StackPanel clickedObject = AVListView.GetRoutedListViewItemObject<StackPanel>(e);
+                    DataBindString clickedObject = AVListView.GetRoutedListViewItemObject<DataBindString>(e);
 
                     await Listbox_Settings_Click(clickedObject);
                 }
@@ -46,7 +45,7 @@ namespace CtrlUI
                 if (vMousePressDownLeft)
                 {
                     //Get clicked item
-                    StackPanel clickedObject = AVListView.GetRoutedListViewItemObject<StackPanel>(e);
+                    DataBindString clickedObject = AVListView.GetRoutedListViewItemObject<DataBindString>(e);
 
                     await Listbox_Settings_Click(clickedObject);
                 }
@@ -55,12 +54,12 @@ namespace CtrlUI
         }
 
         //Handle settings menu click
-        async Task Listbox_Settings_Click(StackPanel listViewItem)
+        async Task Listbox_Settings_Click(DataBindString dataBindString)
         {
             try
             {
                 //Check clicked object
-                if (listViewItem == null)
+                if (dataBindString == null)
                 {
                     Debug.WriteLine("Clicked ListView object is null.");
                     return;
@@ -76,38 +75,38 @@ namespace CtrlUI
                 settingsStackpanelOther.Visibility = Visibility.Collapsed;
 
                 //Show the requested setting tab
-                if (listViewItem.Name == "settingsButtonStartup")
+                if (dataBindString.Name == "Startup")
                 {
                     settingsStackpanelLaunch.Visibility = Visibility.Visible;
                     await FocusFrameworkElement(cb_SettingsWindowsStartup, vProcessCurrent.WindowHandleMain);
                 }
-                else if (listViewItem.Name == "settingsButtonDisplay")
+                else if (dataBindString.Name == "Display")
                 {
                     settingsStackpanelDisplay.Visibility = Visibility.Visible;
                     await FocusFrameworkElement(cb_SettingsMonitorPreventSleep, vProcessCurrent.WindowHandleMain);
                 }
-                else if (listViewItem.Name == "settingsButtonLaunchers")
+                else if (dataBindString.Name == "Launchers")
                 {
                     settingsStackpanelApps.Visibility = Visibility.Visible;
                     int selectedIndex = listView_LauncherSetting.SelectedIndex;
                     await ListViewFocusIndex(listView_LauncherSetting, false, selectedIndex, vProcessCurrent.WindowHandleMain);
                 }
-                else if (listViewItem.Name == "settingsButtonInterface")
+                else if (dataBindString.Name == "Interface")
                 {
                     settingsStackpanelInterface.Visibility = Visibility.Visible;
                     await FocusFrameworkElement(cb_SettingsHideBatteryLevel, vProcessCurrent.WindowHandleMain);
                 }
-                else if (listViewItem.Name == "settingsButtonSound")
+                else if (dataBindString.Name == "Sound")
                 {
                     settingsStackpanelSound.Visibility = Visibility.Visible;
                     await FocusFrameworkElement(cb_SettingsInterfaceSound, vProcessCurrent.WindowHandleMain);
                 }
-                else if (listViewItem.Name == "settingsButtonBrowser")
+                else if (dataBindString.Name == "File Browser")
                 {
                     settingsStackpanelBrowser.Visibility = Visibility.Visible;
                     await FocusFrameworkElement(cb_SettingsShowHiddenFilesFolders, vProcessCurrent.WindowHandleMain);
                 }
-                else if (listViewItem.Name == "settingsButtonOther")
+                else if (dataBindString.Name == "Other")
                 {
                     settingsStackpanelOther.Visibility = Visibility.Visible;
                     await FocusFrameworkElement(slider_SettingsGalleryLoadDays, vProcessCurrent.WindowHandleMain);

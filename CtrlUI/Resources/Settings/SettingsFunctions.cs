@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -27,7 +26,7 @@ namespace CtrlUI
                 await Popup_Show(grid_Popup_Settings, null);
 
                 //Get clicked item
-                StackPanel clickedObject = (StackPanel)listView_SettingsMenu.SelectedItem;
+                DataBindString clickedObject = (DataBindString)listView_SettingsMenu.SelectedItem;
 
                 //Focus on settings tab
                 await Listbox_Settings_Click(clickedObject);
@@ -49,7 +48,7 @@ namespace CtrlUI
                         listView_SettingsMenu.SelectedIndex = listView_SettingsMenu.SelectedIndex - 1;
 
                         //Get selected item
-                        StackPanel selectedItem = (StackPanel)listView_SettingsMenu.SelectedItem;
+                        DataBindString selectedItem = (DataBindString)listView_SettingsMenu.SelectedItem;
 
                         //Focus on settings tab
                         await Listbox_Settings_Click(selectedItem);
@@ -61,7 +60,7 @@ namespace CtrlUI
                     listView_SettingsMenu.SelectedIndex = listView_SettingsMenu.SelectedIndex + 1;
 
                     //Get selected item
-                    StackPanel selectedItem = (StackPanel)listView_SettingsMenu.SelectedItem;
+                    DataBindString selectedItem = (DataBindString)listView_SettingsMenu.SelectedItem;
 
                     //Focus on settings tab
                     await Listbox_Settings_Click(selectedItem);
