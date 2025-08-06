@@ -223,7 +223,7 @@ namespace CtrlUI
                     //Force focus on element
                     if (FocusElement != null)
                     {
-                        await AVFocus.FocusElement(FocusElement, vProcessCurrent.WindowHandleMain);
+                        await AVFocus.FocusFrameworkElement(FocusElement, vProcessCurrent.WindowHandleMain);
                     }
                 }
             }

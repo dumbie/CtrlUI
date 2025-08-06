@@ -116,7 +116,7 @@ namespace CtrlUI
                     UpdateMonitorSleepAuto();
 
                     //Check keyboard focus
-                    await FocusCheckKeyboard(this, vProcessCurrent.WindowHandleMain);
+                    CheckFocusFrameworkElement(vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }

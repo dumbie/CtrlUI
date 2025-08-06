@@ -65,7 +65,10 @@ namespace CtrlUI
                 }
                 else
                 {
-                    FilePicker_CheckItem();
+                    //Get clicked item
+                    DataBindFile clickedObject = (DataBindFile)listView_FilePicker.SelectedItem;
+
+                    FilePicker_CheckItem(clickedObject);
                 }
             }
             catch { }
@@ -75,21 +78,178 @@ namespace CtrlUI
         {
             try
             {
-                await FilePicker_Actions();
+                //Get clicked item
+                DataBindFile clickedObject = (DataBindFile)listView_FilePicker.SelectedItem;
+
+                await FilePicker_RightClick(clickedObject);
+            }
+            catch { }
+        }
+
+        //Go up a folder in the file picker
+        async Task FilePicker_GoFolderUp()
+        {
+            try
+            {
+                if (grid_Popup_FilePicker_button_ControllerUp.Visibility == Visibility.Visible)
+                {
+                    //Read the root path
+                    DataBindFile dataBindFile = List_FilePicker.FirstOrDefault(x => x.FileType == FileType.GoUpPre);
+                    if (dataBindFile != null)
+                    {
+                        Debug.WriteLine("Folder up: " + dataBindFile.PathFile);
+                        await Popup_Show_FilePicker(dataBindFile.PathFile, -1, true, null);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("No folder to navigate go up / no up.");
+                        await Notification_Show_Status("Up", "No folder to go up");
+                    }
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("No folder to navigate go up / catch.");
+                await Notification_Show_Status("Up", "No folder to go up");
+            }
+        }
+
+        //Handle file picker mouse/touch tapped
+        async void ListView_FilePicker_MousePressUp(object sender, PointerRoutedEventArgs e)
+        {
+            try
+            {
+                //Check which mouse button is pressed
+                if (vMousePressDownXButton1)
+                {
+                    await FilePicker_GoFolderUp();
+                }
+                else if (vMousePressDownLeft)
+                {
+                    //Get clicked item
+                    DataBindFile clickedObject = AVListView.GetRoutedListViewItemObject<DataBindFile>(e);
+
+                    await FilePicker_LeftClick(clickedObject);
+                }
+                else if (vMousePressDownRight)
+                {
+                    //Get clicked item
+                    DataBindFile clickedObject = AVListView.GetRoutedListViewItemObject<DataBindFile>(e);
+
+                    await FilePicker_RightClick(clickedObject);
+                }
+                else if (vMousePressDownMiddle)
+                {
+                    //Get clicked item
+                    DataBindFile clickedObject = AVListView.GetRoutedListViewItemObject<DataBindFile>(e);
+
+                    FilePicker_CheckItem(clickedObject);
+                }
+            }
+            catch { }
+        }
+
+        //Handle file picker keyboard/controller tapped
+        async void ListView_FilePicker_KeyPressUp(object sender, KeyRoutedEventArgs e)
+        {
+            try
+            {
+                //Check which key is pressed
+                if (e.Key == VirtualKey.Back)
+                {
+                    await FilePicker_GoFolderUp();
+                }
+                else if (e.Key == VirtualKey.Space)
+                {
+                    //Get clicked item
+                    DataBindFile clickedObject = AVListView.GetRoutedListViewItemObject<DataBindFile>(e);
+
+                    await FilePicker_LeftClick(clickedObject);
+                }
+                else if (e.Key == VirtualKey.Delete)
+                {
+                    //Get clicked item
+                    DataBindFile clickedObject = AVListView.GetRoutedListViewItemObject<DataBindFile>(e);
+
+                    await FilePicker_RightClick(clickedObject);
+                }
+                else if (e.Key == VirtualKey.LeftControl)
+                {
+                    //Get clicked item
+                    DataBindFile clickedObject = AVListView.GetRoutedListViewItemObject<DataBindFile>(e);
+
+                    FilePicker_CheckItem(clickedObject);
+                }
+                else if (e.Key == VirtualKey.F2)
+                {
+                    //Get clicked item
+                    DataBindFile clickedObject = AVListView.GetRoutedListViewItemObject<DataBindFile>(e);
+
+                    await FilePicker_FileRename(clickedObject);
+                }
+            }
+            catch { }
+        }
+
+        //Handle file picker left click
+        async Task FilePicker_LeftClick(DataBindFile dataBindFile)
+        {
+            try
+            {
+                //Check clicked object
+                if (dataBindFile == null)
+                {
+                    Debug.WriteLine("Clicked ListView object is null.");
+                    return;
+                }
+
+                if (dataBindFile.FileType == FileType.Folder || dataBindFile.FileType == FileType.FolderDisc || dataBindFile.FileType == FileType.FolderPre)
+                {
+                    await Popup_Show_FilePicker(dataBindFile.PathFile, -1, true, null);
+                }
+                else if (dataBindFile.FileType == FileType.GoUpPre)
+                {
+                    await FilePicker_GoFolderUp();
+                }
+                else if (dataBindFile.IsShortcut)
+                {
+                    ShortcutDetails shortcutDetails = ReadShortcutFile(dataBindFile.PathFile);
+                    if (Directory.Exists(shortcutDetails.TargetPath))
+                    {
+                        await Popup_Show_FilePicker(shortcutDetails.TargetPath, -1, true, null);
+                    }
+                    else if (File.Exists(shortcutDetails.TargetPath))
+                    {
+                        await Popup_Close_FilePicker(true, false);
+                    }
+                    else
+                    {
+                        await Notification_Show_Status("Close", "Link target does not exist");
+                        Debug.WriteLine("Link target does not exist");
+                    }
+                }
+                else
+                {
+                    await Popup_Close_FilePicker(true, false);
+                }
             }
             catch { }
         }
 
         //File and folder actions
-        private async Task FilePicker_Actions()
+        private async Task FilePicker_RightClick(DataBindFile dataBindFile)
         {
             try
             {
-                //Get the selected list item
-                DataBindFile selectedItem = (DataBindFile)listView_FilePicker.SelectedItem;
+                //Check clicked object
+                if (dataBindFile == null)
+                {
+                    Debug.WriteLine("Clicked ListView object is null.");
+                    return;
+                }
 
                 //Check if actions are available
-                if (vFilePickerCurrentPath == "PC" && selectedItem.FileType != FileType.FolderDisc)
+                if (vFilePickerCurrentPath == "PC" && dataBindFile.FileType != FileType.FolderDisc)
                 {
                     Debug.WriteLine("File and folders action cancelled, no actions available.");
                     await Notification_Show_Status("Close", "No actions available");
@@ -97,7 +257,7 @@ namespace CtrlUI
                 }
 
                 //Check the selected file type
-                if (selectedItem.FileType == FileType.UwpApp)
+                if (dataBindFile.FileType == FileType.UwpApp)
                 {
                     //Add answers for messagebox
                     List<DataBindString> Answers = new List<DataBindString>();
@@ -113,16 +273,16 @@ namespace CtrlUI
                     Answers.Add(answerUninstall);
 
                     //Show the messagebox prompt
-                    DataBindString messageResult = await Popup_Show_MessageBox("Application actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
+                    DataBindString messageResult = await Popup_Show_MessageBox("Application actions", "", "Please select an action that you want to use on: " + dataBindFile.Name, Answers);
                     if (messageResult != null)
                     {
                         if (messageResult == answerUninstall)
                         {
-                            await UwpListUninstallApplication(selectedItem);
+                            await UwpListUninstallApplication(dataBindFile);
                         }
                     }
                 }
-                else if (selectedItem.FileType == FileType.FolderDisc)
+                else if (dataBindFile.FileType == FileType.FolderDisc)
                 {
                     //Add answers for messagebox
                     List<DataBindString> Answers = new List<DataBindString>();
@@ -138,12 +298,12 @@ namespace CtrlUI
                     Answers.Add(answerEjectDisc);
 
                     //Show the messagebox prompt
-                    DataBindString messageResult = await Popup_Show_MessageBox("Application actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
+                    DataBindString messageResult = await Popup_Show_MessageBox("Application actions", "", "Please select an action that you want to use on: " + dataBindFile.Name, Answers);
                     if (messageResult != null)
                     {
                         if (messageResult == answerEjectDisc)
                         {
-                            await FilePicker_EjectDrive(selectedItem, selectedItem.PathFile);
+                            await FilePicker_EjectDrive(dataBindFile, dataBindFile.PathFile);
                         }
                     }
                 }
@@ -153,7 +313,7 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
 
                     //Check the file type
-                    bool preFile = selectedItem.FileType == FileType.FolderPre || selectedItem.FileType == FileType.FilePre || selectedItem.FileType == FileType.GoUpPre;
+                    bool preFile = dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUpPre;
 
                     //Count checked items
                     int checkedItems = List_FilePicker.Count(x => x.Checked == Visibility.Visible);
@@ -330,13 +490,13 @@ namespace CtrlUI
                     Answers.Add(answerCreateTextFile);
 
                     //Show the messagebox prompt
-                    DataBindString messageResult = await Popup_Show_MessageBox("File and folder actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
+                    DataBindString messageResult = await Popup_Show_MessageBox("File and folder actions", "", "Please select an action that you want to use on: " + dataBindFile.Name, Answers);
                     if (messageResult != null)
                     {
                         //Copy file or folder
                         if (messageResult == answerCopySingle)
                         {
-                            await FilePicker_FileCopy_Single(selectedItem);
+                            await FilePicker_FileCopy_Single(dataBindFile);
                         }
                         else if (messageResult == answerCopyChecked)
                         {
@@ -345,7 +505,7 @@ namespace CtrlUI
                         //Cut file or folder
                         else if (messageResult == answerCutSingle)
                         {
-                            await FilePicker_FileCut_Single(selectedItem);
+                            await FilePicker_FileCut_Single(dataBindFile);
                         }
                         else if (messageResult == answerCutChecked)
                         {
@@ -367,7 +527,7 @@ namespace CtrlUI
                         //Rename file or folder
                         else if (messageResult == answerRename)
                         {
-                            await FilePicker_FileRename(selectedItem);
+                            await FilePicker_FileRename(dataBindFile);
                         }
                         //Create new folder
                         else if (messageResult == answerCreateFolder)
@@ -382,7 +542,7 @@ namespace CtrlUI
                         //Remove file or folder
                         else if (messageResult == answerRemoveSingle)
                         {
-                            await FilePicker_FileRemove_Single(selectedItem);
+                            await FilePicker_FileRemove_Single(dataBindFile);
                         }
                         else if (messageResult == answerRemoveChecked)
                         {
@@ -391,159 +551,14 @@ namespace CtrlUI
                         //How long to beat information
                         else if (messageResult == answerHowLongToBeat)
                         {
-                            await Popup_Show_HowLongToBeat(selectedItem.Name);
+                            await Popup_Show_HowLongToBeat(dataBindFile.Name);
                         }
                         //Show game information
                         else if (messageResult == answerShowGameInfo)
                         {
-                            await Popup_Show_GameInformation(selectedItem.Name, selectedItem);
+                            await Popup_Show_GameInformation(dataBindFile.Name, dataBindFile);
                         }
                     }
-                }
-            }
-            catch { }
-        }
-
-        //Go up a folder in the file picker
-        async Task FilePicker_GoFolderUp()
-        {
-            try
-            {
-                if (grid_Popup_FilePicker_button_ControllerUp.Visibility == Visibility.Visible)
-                {
-                    //Read the root path
-                    DataBindFile dataBindFile = List_FilePicker.FirstOrDefault(x => x.FileType == FileType.GoUpPre);
-                    if (dataBindFile != null)
-                    {
-                        Debug.WriteLine("Folder up: " + dataBindFile.PathFile);
-                        await Popup_Show_FilePicker(dataBindFile.PathFile, -1, true, null);
-                    }
-                    else
-                    {
-                        Debug.WriteLine("No folder to navigate go up / no up.");
-                        await Notification_Show_Status("Up", "No folder to go up");
-                    }
-                }
-            }
-            catch
-            {
-                Debug.WriteLine("No folder to navigate go up / catch.");
-                await Notification_Show_Status("Up", "No folder to go up");
-            }
-        }
-
-        //Handle file picker mouse/touch tapped
-        async void ListView_FilePicker_MousePressUp(object sender, PointerRoutedEventArgs e)
-        {
-            try
-            {
-                //Check if an actual ListViewItem is clicked
-                if (!AVInterface.CheckClickedListViewItem(e))
-                {
-                    return;
-                }
-
-                //Check which mouse button is pressed
-                if (vMousePressDownXButton1)
-                {
-                    await FilePicker_GoFolderUp();
-                }
-                else if (vMousePressDownLeft)
-                {
-                    await Listbox_FilePicker_LeftClick();
-                }
-                else if (vMousePressDownRight)
-                {
-                    await Listbox_FilePicker_RightClick();
-                }
-                else if (vMousePressDownMiddle)
-                {
-                    FilePicker_CheckItem();
-                }
-            }
-            catch { }
-        }
-
-        //Handle file picker keyboard/controller tapped
-        async void ListView_FilePicker_KeyPressUp(object sender, KeyRoutedEventArgs e)
-        {
-            try
-            {
-                if (e.Key == VirtualKey.Space)
-                {
-                    await Listbox_FilePicker_LeftClick();
-                }
-                else if (e.Key == VirtualKey.Back)
-                {
-                    await FilePicker_GoFolderUp();
-                }
-                else if (e.Key == VirtualKey.Delete)
-                {
-                    await FilePicker_Actions();
-                }
-                else if (e.Key == VirtualKey.LeftControl)
-                {
-                    FilePicker_CheckItem();
-                }
-                else if (e.Key == VirtualKey.F2)
-                {
-                    DataBindFile selectedItem = (DataBindFile)listView_FilePicker.SelectedItem;
-                    await FilePicker_FileRename(selectedItem);
-                }
-            }
-            catch { }
-        }
-
-        //Handle file picker left click
-        async Task Listbox_FilePicker_LeftClick()
-        {
-            try
-            {
-                if (listView_FilePicker.SelectedItems.Count > 0 && listView_FilePicker.SelectedIndex != -1)
-                {
-                    DataBindFile selectedItem = (DataBindFile)listView_FilePicker.SelectedItem;
-                    if (selectedItem.FileType == FileType.Folder || selectedItem.FileType == FileType.FolderDisc || selectedItem.FileType == FileType.FolderPre)
-                    {
-                        await Popup_Show_FilePicker(selectedItem.PathFile, -1, true, null);
-                    }
-                    else if (selectedItem.FileType == FileType.GoUpPre)
-                    {
-                        await FilePicker_GoFolderUp();
-                    }
-                    else if (selectedItem.IsShortcut)
-                    {
-                        ShortcutDetails shortcutDetails = ReadShortcutFile(selectedItem.PathFile);
-                        if (Directory.Exists(shortcutDetails.TargetPath))
-                        {
-                            await Popup_Show_FilePicker(shortcutDetails.TargetPath, -1, true, null);
-                        }
-                        else if (File.Exists(shortcutDetails.TargetPath))
-                        {
-                            await Popup_Close_FilePicker(true, false);
-                        }
-                        else
-                        {
-                            await Notification_Show_Status("Close", "Link target does not exist");
-                            Debug.WriteLine("Link target does not exist");
-                        }
-                    }
-                    else
-                    {
-                        await Popup_Close_FilePicker(true, false);
-                    }
-                }
-            }
-            catch { }
-        }
-
-        //Handle file picker right click
-        async Task Listbox_FilePicker_RightClick()
-        {
-            try
-            {
-                if (listView_FilePicker.SelectedItems.Count > 0 && listView_FilePicker.SelectedIndex != -1)
-                {
-                    await FilePicker_Actions();
                 }
             }
             catch { }

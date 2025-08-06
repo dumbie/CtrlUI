@@ -1,19 +1,16 @@
 ﻿using ArnoldVinkCode;
-using ArnoldVinkStyles;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVFocus;
-using static ArnoldVinkStyles.AVInterface;
 using static ArnoldVinkStyles.AVSortObservableCollection;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -30,15 +27,15 @@ namespace CtrlUI
             try
             {
                 //FixStyle
-                //listView_Games.IsTextSearchEnabled = true;
-                //listView_Games.IsTextSearchCaseSensitive = false;
-                //TextSearch.SetTextPath(listView_Games, "Name");
-                listView_Games.ItemsSource = List_Games;
-
                 //lb_Apps.IsTextSearchEnabled = true;
                 //lb_Apps.IsTextSearchCaseSensitive = false;
                 //TextSearch.SetTextPath(lb_Apps, "Name");
                 listView_Apps.ItemsSource = List_Apps;
+
+                //listView_Games.IsTextSearchEnabled = true;
+                //listView_Games.IsTextSearchCaseSensitive = false;
+                //TextSearch.SetTextPath(listView_Games, "Name");
+                listView_Games.ItemsSource = List_Games;
 
                 //lb_Emulators.IsTextSearchEnabled = true;
                 //lb_Emulators.IsTextSearchCaseSensitive = false;
@@ -83,50 +80,35 @@ namespace CtrlUI
             catch { }
         }
 
-        //Select the first listbox item
+        //Select first ListView items
         void ListViewResetIndexes()
         {
             try
             {
-                listView_Games.SelectedIndex = 0;
                 listView_Apps.SelectedIndex = 0;
+                listView_Games.SelectedIndex = 0;
                 listView_Emulators.SelectedIndex = 0;
                 listView_Launchers.SelectedIndex = 0;
                 listView_Shortcuts.SelectedIndex = 0;
                 listView_Processes.SelectedIndex = 0;
                 listView_Gallery.SelectedIndex = 0;
-                listView_FilePicker.SelectedIndex = 0;
-                listView_ColorPicker.SelectedIndex = 0;
-                listView_MessageBox.SelectedIndex = 0;
                 listView_Search.SelectedIndex = 0;
-            }
-            catch { }
-        }
+                listView_Manage_AddAppCategory.SelectedIndex = 0;
+                listView_Manage_AddEmulatorCategory.SelectedIndex = 0;
+                listView_LauncherSetting.SelectedIndex = 0;
+                listView_ColorPicker.SelectedIndex = 0;
+                listView_FilePicker.SelectedIndex = 0;
+                listView_ProfileManager.SelectedIndex = 0;
+                listView_ContentInfo_Gallery.SelectedIndex = 0;
+                listView_HowLongToBeat.SelectedIndex = 0;
+                listView_MessageBox.SelectedIndex = 0;
+                listView_SettingsMenu.SelectedIndex = 0;
+                listView_MainMenu.SelectedIndex = 0;
+                listView_Sorting.SelectedIndex = 0;
 
-        //Get and return focused listbox
-        public ListView GetFocusedListView()
-        {
-            ListView focusedListView = null;
-            try
-            {
-                DispatcherInvoke(this.Dispatcher, delegate
-                {
-                    FrameworkElement frameworkElement = GetFocusedFrameworkElement();
-                    if (frameworkElement != null && (frameworkElement.GetType() == typeof(ListView) || frameworkElement.GetType() == typeof(ListViewItem)))
-                    {
-                        if (frameworkElement.GetType() == typeof(ListViewItem))
-                        {
-                            focusedListView = AVVisualTree.FindVisualParent<ListView>(frameworkElement);
-                        }
-                        else
-                        {
-                            focusedListView = (ListView)frameworkElement;
-                        }
-                    }
-                });
+                Debug.WriteLine("Selected first ListView items.");
             }
             catch { }
-            return focusedListView;
         }
 
         //Listbox move to near character
@@ -139,7 +121,7 @@ namespace CtrlUI
                     ListView focusedListView = GetFocusedListView();
                     if (focusedListView != null && vSelectNearCharacterLists.Contains(focusedListView.Name))
                     {
-                        if (focusedListView.Name == "lb_FilePicker")
+                        if (focusedListView.Name == "listView_FilePicker")
                         {
                             await SelectNearCharacterFiles(selectNextCharacter, focusedListView);
                         }
@@ -328,7 +310,7 @@ namespace CtrlUI
 
                 //Start overlay timer
                 vAVTimerOverlayCharacter.Interval = 2000;
-                vAVTimerOverlayCharacter.Tick = delegate
+                vAVTimerOverlayCharacter.TickSet = delegate
                 {
                     try
                     {
@@ -374,11 +356,11 @@ namespace CtrlUI
                     {
                         if (insertItem)
                         {
-                            await ListViewFocusOrSelectIndex(listBox, false, 0, vProcessCurrent.WindowHandleMain);
+                            await ListViewFocusIndex(listBox, false, 0, vProcessCurrent.WindowHandleMain);
                         }
                         else
                         {
-                            await ListViewFocusOrSelectIndex(listBox, true, 0, vProcessCurrent.WindowHandleMain);
+                            await ListViewFocusIndex(listBox, true, 0, vProcessCurrent.WindowHandleMain);
                         }
                     }
                 });
@@ -411,7 +393,7 @@ namespace CtrlUI
                         Debug.WriteLine(listBox.Name + " listbox item has been removed.");
                         if (selectItem)
                         {
-                            await ListViewFocusOrSelectIndex(listBox, false, listBoxSelectedIndex, vProcessCurrent.WindowHandleMain);
+                            await ListViewFocusIndex(listBox, false, listBoxSelectedIndex, vProcessCurrent.WindowHandleMain);
                         }
                     }
                 });
@@ -442,119 +424,13 @@ namespace CtrlUI
                     if (listBoxItemCount != listBox.Items.Count)
                     {
                         Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed.");
-                        await ListViewFocusOrSelectIndex(listBox, false, listBoxSelectedIndex, vProcessCurrent.WindowHandleMain);
+                        await ListViewFocusIndex(listBox, false, listBoxSelectedIndex, vProcessCurrent.WindowHandleMain);
                     }
                 });
             }
             catch
             {
                 Debug.WriteLine("Failed removing all from the listbox.");
-            }
-        }
-
-        //Check ListView item column position
-        bool ListViewItemColumnPosition(ListView targetListView, ListViewItem targetListViewItem, bool firstColumn)
-        {
-            try
-            {
-                ListViewCountColumns(targetListView, out int totalCount, out List<double> offsetPoints);
-                double translatePoint = targetListViewItem.TransformToVisual(targetListView).TransformPoint(new Point(0, 0)).Y;
-                if (firstColumn)
-                {
-                    if (translatePoint == offsetPoints.FirstOrDefault())
-                    {
-                        //Debug.WriteLine("ListViewItem is in first column.");
-                        return true;
-                    }
-                }
-                else
-                {
-                    if (translatePoint == offsetPoints.LastOrDefault())
-                    {
-                        //Debug.WriteLine("ListViewItem is in last column.");
-                        return true;
-                    }
-                }
-            }
-            catch { }
-            return false;
-        }
-
-        //Check ListView item row position
-        bool ListViewItemRowPosition(ListView targetListView, ListViewItem targetListViewItem, bool firstRow)
-        {
-            try
-            {
-                ListViewCountRows(targetListView, out int totalCount, out List<double> offsetPoints);
-                double translatePoint = targetListViewItem.TransformToVisual(targetListView).TransformPoint(new Point(0, 0)).X;
-                if (firstRow)
-                {
-                    if (translatePoint == offsetPoints.FirstOrDefault())
-                    {
-                        //Debug.WriteLine("ListViewItem is in first row.");
-                        return true;
-                    }
-                }
-                else
-                {
-                    if (translatePoint == offsetPoints.LastOrDefault())
-                    {
-                        //Debug.WriteLine("ListViewItem is in last row.");
-                        return true;
-                    }
-                }
-            }
-            catch { }
-            return false;
-        }
-
-        //Count columns in ListView
-        void ListViewCountColumns(ListView targetListView, out int totalCount, out List<double> offsetPoints)
-        {
-            totalCount = 0;
-            offsetPoints = new List<double>();
-            try
-            {
-                foreach (object listItem in targetListView.Items)
-                {
-                    ListViewItem containerItem = targetListView.AVGetListViewItem(listItem);
-                    double translatePoint = containerItem.TransformToVisual(targetListView).TransformPoint(new Point(0, 0)).Y;
-                    if (!offsetPoints.Any(x => x == translatePoint))
-                    {
-                        totalCount++;
-                        offsetPoints.Add(translatePoint);
-                    }
-                }
-                //Debug.WriteLine("ListViewCountColumns: " + totalCount);
-            }
-            catch
-            {
-                Debug.WriteLine("Failed to count columns from the ListView.");
-            }
-        }
-
-        //Count rows in ListView
-        void ListViewCountRows(ListView targetListView, out int totalCount, out List<double> offsetPoints)
-        {
-            totalCount = 0;
-            offsetPoints = new List<double>();
-            try
-            {
-                foreach (object listItem in targetListView.Items)
-                {
-                    ListViewItem containerItem = targetListView.AVGetListViewItem(listItem);
-                    double translatePoint = containerItem.TransformToVisual(targetListView).TransformPoint(new Point(0, 0)).X;
-                    if (!offsetPoints.Any(x => x == translatePoint))
-                    {
-                        totalCount++;
-                        offsetPoints.Add(translatePoint);
-                    }
-                }
-                //Debug.WriteLine("ListViewCountRows: " + totalCount);
-            }
-            catch
-            {
-                Debug.WriteLine("Failed to count rows from the ListView.");
             }
         }
     }

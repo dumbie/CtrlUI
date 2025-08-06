@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkStyles;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,9 +25,13 @@ namespace CtrlUI
         {
             try
             {
+                //Check which key is pressed
                 if (e.Key == VirtualKey.Space || e.Key == VirtualKey.Down)
                 {
-                    await Listbox_Settings_SingleTap();
+                    //Get clicked item
+                    StackPanel clickedObject = AVListView.GetRoutedListViewItemObject<StackPanel>(e);
+
+                    await Listbox_Settings_Click(clickedObject);
                 }
             }
             catch { }
@@ -37,72 +42,75 @@ namespace CtrlUI
         {
             try
             {
-                //Check if an actual ListViewItem is clicked
-                if (!AVInterface.CheckClickedListViewItem(e))
-                {
-                    return;
-                }
-
                 //Check which mouse button is pressed
-                await Listbox_Settings_SingleTap();
+                if (vMousePressDownLeft)
+                {
+                    //Get clicked item
+                    StackPanel clickedObject = AVListView.GetRoutedListViewItemObject<StackPanel>(e);
+
+                    await Listbox_Settings_Click(clickedObject);
+                }
             }
             catch { }
         }
 
-        //Handle main menu single tap
-        async Task Listbox_Settings_SingleTap()
+        //Handle settings menu click
+        async Task Listbox_Settings_Click(StackPanel listViewItem)
         {
             try
             {
-                if (listView_SettingsMenu.SelectedIndex >= 0)
+                //Check clicked object
+                if (listViewItem == null)
                 {
-                    //Hide all the setting tabs
-                    settingsStackpanelLaunch.Visibility = Visibility.Collapsed;
-                    settingsStackpanelDisplay.Visibility = Visibility.Collapsed;
-                    settingsStackpanelApps.Visibility = Visibility.Collapsed;
-                    settingsStackpanelInterface.Visibility = Visibility.Collapsed;
-                    settingsStackpanelSound.Visibility = Visibility.Collapsed;
-                    settingsStackpanelBrowser.Visibility = Visibility.Collapsed;
-                    settingsStackpanelOther.Visibility = Visibility.Collapsed;
+                    Debug.WriteLine("Clicked ListView object is null.");
+                    return;
+                }
 
-                    //Show the requested setting tab
-                    StackPanel SelStackPanel = (StackPanel)listView_SettingsMenu.SelectedItem;
-                    if (SelStackPanel.Name == "settingsButtonStartup")
-                    {
-                        settingsStackpanelLaunch.Visibility = Visibility.Visible;
-                        await FocusElement(cb_SettingsWindowsStartup, vProcessCurrent.WindowHandleMain);
-                    }
-                    else if (SelStackPanel.Name == "settingsButtonDisplay")
-                    {
-                        settingsStackpanelDisplay.Visibility = Visibility.Visible;
-                        await FocusElement(cb_SettingsLaunchMinimized, vProcessCurrent.WindowHandleMain);
-                    }
-                    else if (SelStackPanel.Name == "settingsButtonLaunchers")
-                    {
-                        settingsStackpanelApps.Visibility = Visibility.Visible;
-                        int selectedIndex = listView_LauncherSetting.SelectedIndex;
-                        await ListViewFocusIndex(listView_LauncherSetting, false, selectedIndex, vProcessCurrent.WindowHandleMain);
-                    }
-                    else if (SelStackPanel.Name == "settingsButtonInterface")
-                    {
-                        settingsStackpanelInterface.Visibility = Visibility.Visible;
-                        await FocusElement(cb_SettingsHideBatteryLevel, vProcessCurrent.WindowHandleMain);
-                    }
-                    else if (SelStackPanel.Name == "settingsButtonSound")
-                    {
-                        settingsStackpanelSound.Visibility = Visibility.Visible;
-                        await FocusElement(cb_SettingsInterfaceSound, vProcessCurrent.WindowHandleMain);
-                    }
-                    else if (SelStackPanel.Name == "settingsButtonBrowser")
-                    {
-                        settingsStackpanelBrowser.Visibility = Visibility.Visible;
-                        await FocusElement(cb_SettingsShowHiddenFilesFolders, vProcessCurrent.WindowHandleMain);
-                    }
-                    else if (SelStackPanel.Name == "settingsButtonOther")
-                    {
-                        settingsStackpanelOther.Visibility = Visibility.Visible;
-                        await FocusElement(slider_SettingsGalleryLoadDays, vProcessCurrent.WindowHandleMain);
-                    }
+                //Hide all the setting tabs
+                settingsStackpanelLaunch.Visibility = Visibility.Collapsed;
+                settingsStackpanelDisplay.Visibility = Visibility.Collapsed;
+                settingsStackpanelApps.Visibility = Visibility.Collapsed;
+                settingsStackpanelInterface.Visibility = Visibility.Collapsed;
+                settingsStackpanelSound.Visibility = Visibility.Collapsed;
+                settingsStackpanelBrowser.Visibility = Visibility.Collapsed;
+                settingsStackpanelOther.Visibility = Visibility.Collapsed;
+
+                //Show the requested setting tab
+                if (listViewItem.Name == "settingsButtonStartup")
+                {
+                    settingsStackpanelLaunch.Visibility = Visibility.Visible;
+                    await FocusFrameworkElement(cb_SettingsWindowsStartup, vProcessCurrent.WindowHandleMain);
+                }
+                else if (listViewItem.Name == "settingsButtonDisplay")
+                {
+                    settingsStackpanelDisplay.Visibility = Visibility.Visible;
+                    await FocusFrameworkElement(cb_SettingsMonitorPreventSleep, vProcessCurrent.WindowHandleMain);
+                }
+                else if (listViewItem.Name == "settingsButtonLaunchers")
+                {
+                    settingsStackpanelApps.Visibility = Visibility.Visible;
+                    int selectedIndex = listView_LauncherSetting.SelectedIndex;
+                    await ListViewFocusIndex(listView_LauncherSetting, false, selectedIndex, vProcessCurrent.WindowHandleMain);
+                }
+                else if (listViewItem.Name == "settingsButtonInterface")
+                {
+                    settingsStackpanelInterface.Visibility = Visibility.Visible;
+                    await FocusFrameworkElement(cb_SettingsHideBatteryLevel, vProcessCurrent.WindowHandleMain);
+                }
+                else if (listViewItem.Name == "settingsButtonSound")
+                {
+                    settingsStackpanelSound.Visibility = Visibility.Visible;
+                    await FocusFrameworkElement(cb_SettingsInterfaceSound, vProcessCurrent.WindowHandleMain);
+                }
+                else if (listViewItem.Name == "settingsButtonBrowser")
+                {
+                    settingsStackpanelBrowser.Visibility = Visibility.Visible;
+                    await FocusFrameworkElement(cb_SettingsShowHiddenFilesFolders, vProcessCurrent.WindowHandleMain);
+                }
+                else if (listViewItem.Name == "settingsButtonOther")
+                {
+                    settingsStackpanelOther.Visibility = Visibility.Visible;
+                    await FocusFrameworkElement(slider_SettingsGalleryLoadDays, vProcessCurrent.WindowHandleMain);
                 }
             }
             catch { }

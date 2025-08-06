@@ -20,15 +20,6 @@ namespace CtrlUI
             catch { }
         }
 
-        async void Button_SearchInteractItem_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await ListView_Apps_RightClick(listView_Search);
-            }
-            catch { }
-        }
-
         async void grid_Search_textbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try

@@ -2,6 +2,7 @@
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
+using static ArnoldVinkCode.AVClasses;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -46,9 +47,13 @@ namespace CtrlUI
         {
             try
             {
+                //Check which key is pressed
                 if (e.Key == VirtualKey.Space)
                 {
-                    await ProfileManager_DeleteProfile();
+                    //Get clicked item
+                    ProfileShared clickedObject = AVListView.GetRoutedListViewItemObject<ProfileShared>(e);
+
+                    await ProfileManager_DeleteProfile(clickedObject);
                 }
             }
             catch { }
@@ -59,16 +64,13 @@ namespace CtrlUI
         {
             try
             {
-                //Check if an actual ListViewItem is clicked
-                if (!AVInterface.CheckClickedListViewItem(e))
-                {
-                    return;
-                }
-
                 //Check which mouse button is pressed
                 if (vMousePressDownLeft)
                 {
-                    await ProfileManager_DeleteProfile();
+                    //Get clicked item
+                    ProfileShared clickedObject = AVListView.GetRoutedListViewItemObject<ProfileShared>(e);
+
+                    await ProfileManager_DeleteProfile(clickedObject);
                 }
             }
             catch { }

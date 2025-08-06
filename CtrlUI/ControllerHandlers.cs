@@ -8,7 +8,7 @@ using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
-using static ArnoldVinkStyles.AVInterface;
+using static ArnoldVinkStyles.AVFocus;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.ControllerTimings;
@@ -52,7 +52,7 @@ namespace CtrlUI
                         await DispatcherInvoke(this.Dispatcher, async delegate
                         {
                             FrameworkElement frameworkElement = GetFocusedFrameworkElement();
-                            if (frameworkElement != null && frameworkElement.GetType() == typeof(TextBox))
+                            if (frameworkElement != null && frameworkElement is TextBox)
                             {
                                 //Launch the keyboard controller
                                 if (vAppActivated && vControllerAnyConnected())
@@ -200,7 +200,10 @@ namespace CtrlUI
                                 }
                                 else
                                 {
-                                    FilePicker_CheckItem();
+                                    //Get clicked item
+                                    DataBindFile clickedObject = (DataBindFile)listView_FilePicker.SelectedItem;
+
+                                    FilePicker_CheckItem(clickedObject);
                                 }
                             });
                         }

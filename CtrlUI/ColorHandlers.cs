@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkStyles;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Xaml.Input;
@@ -16,16 +17,13 @@ namespace CtrlUI
         {
             try
             {
-                //Check if an actual ListViewItem is clicked
-                if (!AVInterface.CheckClickedListViewItem(e))
-                {
-                    return;
-                }
-
                 //Check which mouse button is pressed
                 if (vMousePressDownLeft)
                 {
-                    await lb_ColorPicker_LeftClick();
+                    //Get clicked item
+                    SolidColorBrush clickedObject = AVListView.GetRoutedListViewItemObject<SolidColorBrush>(e);
+
+                    await ListView_ColorPicker_Click(clickedObject);
                 }
             }
             catch { }
@@ -36,32 +34,39 @@ namespace CtrlUI
         {
             try
             {
+                //Check which key is pressed
                 if (e.Key == VirtualKey.Space)
                 {
-                    await lb_ColorPicker_LeftClick();
+                    //Get clicked item
+                    SolidColorBrush clickedObject = AVListView.GetRoutedListViewItemObject<SolidColorBrush>(e);
+
+                    await ListView_ColorPicker_Click(clickedObject);
                 }
             }
             catch { }
         }
 
-        //Handle color picker left click
-        async Task lb_ColorPicker_LeftClick()
+        //Handle color picker click
+        async Task ListView_ColorPicker_Click(SolidColorBrush solidColorBrush)
         {
             try
             {
-                if (listView_ColorPicker.SelectedItems.Count > 0 && listView_ColorPicker.SelectedIndex != -1)
+                //Check clicked object
+                if (solidColorBrush == null)
                 {
-                    //Save the new accent color
-                    SolidColorBrush selectedSolidColorBrush = (SolidColorBrush)listView_ColorPicker.SelectedItem;
-                    string colorLightHex = selectedSolidColorBrush.ToString();
-                    SettingSave(vConfigurationCtrlUI, "ColorAccentLight", colorLightHex);
-
-                    //Change application accent color
-                    ChangeApplicationAccentColor(colorLightHex);
-
-                    //Close the color picker
-                    await Popup_Close_ColorPicker();
+                    Debug.WriteLine("Clicked ListView object is null.");
+                    return;
                 }
+
+                //Save clicked color
+                string colorLightHex = solidColorBrush.ToString();
+                SettingSave(vConfigurationCtrlUI, "ColorAccentLight", colorLightHex);
+
+                //Change application accent color
+                ChangeApplicationAccentColor(colorLightHex);
+
+                //Close the color picker
+                await Popup_Close_ColorPicker();
             }
             catch { }
         }

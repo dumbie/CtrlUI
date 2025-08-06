@@ -11,11 +11,11 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Set the messagebox result when clicked on listbox
-        void MessageBoxSetResult()
+        void MessageBoxSetResult(DataBindString dataBindString)
         {
             try
             {
-                vMessageBoxResult = listView_MessageBox.SelectedItem as DataBindString;
+                vMessageBoxResult = dataBindString;
                 Debug.WriteLine("Set messagebox result to: " + vMessageBoxResult.Name);
             }
             catch (Exception ex)
@@ -29,9 +29,13 @@ namespace CtrlUI
         {
             try
             {
+                //Check which key is pressed
                 if (e.Key == VirtualKey.Space)
                 {
-                    MessageBoxSetResult();
+                    //Get clicked item
+                    DataBindString clickedObject = AVListView.GetRoutedListViewItemObject<DataBindString>(e);
+
+                    MessageBoxSetResult(clickedObject);
                 }
             }
             catch { }
@@ -42,16 +46,13 @@ namespace CtrlUI
         {
             try
             {
-                //Check if an actual ListViewItem is clicked
-                if (!AVInterface.CheckClickedListViewItem(e))
-                {
-                    return;
-                }
-
                 //Check which mouse button is pressed
                 if (vMousePressDownLeft)
                 {
-                    MessageBoxSetResult();
+                    //Get clicked item
+                    DataBindString clickedObject = AVListView.GetRoutedListViewItemObject<DataBindString>(e);
+
+                    MessageBoxSetResult(clickedObject);
                 }
             }
             catch { }

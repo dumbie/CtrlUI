@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -25,8 +26,11 @@ namespace CtrlUI
                 //Show the settings popup
                 await Popup_Show(grid_Popup_Settings, null);
 
+                //Get clicked item
+                StackPanel clickedObject = (StackPanel)listView_SettingsMenu.SelectedItem;
+
                 //Focus on settings tab
-                await Listbox_Settings_SingleTap();
+                await Listbox_Settings_Click(clickedObject);
             }
             catch { }
         }
@@ -41,14 +45,26 @@ namespace CtrlUI
                     int selectedIndex = listView_SettingsMenu.SelectedIndex;
                     if (selectedIndex > 0)
                     {
+                        //Set selected index
                         listView_SettingsMenu.SelectedIndex = listView_SettingsMenu.SelectedIndex - 1;
-                        await Listbox_Settings_SingleTap();
+
+                        //Get selected item
+                        StackPanel selectedItem = (StackPanel)listView_SettingsMenu.SelectedItem;
+
+                        //Focus on settings tab
+                        await Listbox_Settings_Click(selectedItem);
                     }
                 }
                 else
                 {
+                    //Set selected index
                     listView_SettingsMenu.SelectedIndex = listView_SettingsMenu.SelectedIndex + 1;
-                    await Listbox_Settings_SingleTap();
+
+                    //Get selected item
+                    StackPanel selectedItem = (StackPanel)listView_SettingsMenu.SelectedItem;
+
+                    //Focus on settings tab
+                    await Listbox_Settings_Click(selectedItem);
                 }
             }
             catch { }

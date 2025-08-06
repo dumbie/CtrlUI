@@ -29,7 +29,7 @@ namespace CtrlUI
             catch { }
         }
 
-        //Close the popup and store text
+        //Close popup and store text
         async void Button_TextInputConfirmText_Click(object sender, RoutedEventArgs e)
         {
             try

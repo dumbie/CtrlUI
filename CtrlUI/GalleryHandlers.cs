@@ -17,7 +17,7 @@ namespace CtrlUI
             {
                 //Start delay timer
                 vAVTimerDelayGallery.Interval = 50;
-                vAVTimerDelayGallery.Tick = delegate
+                vAVTimerDelayGallery.TickSet = delegate
                 {
                     //Stop delay timer
                     vAVTimerDelayGallery.Stop();
@@ -42,8 +42,8 @@ namespace CtrlUI
                         try
                         {
                             if (dataBindApp.Category != AppCategory.Gallery) { continue; }
-                            ListViewItem listBoxItem = targetListView.AVGetListViewItem(dataBindApp);
-                            if (listBoxItem.AVVisibleUser(this))
+                            ListViewItem listViewItem = AVListView.GetListViewItemContainerFromObject(targetListView, dataBindApp);
+                            if (listViewItem.AVVisibleUser(this))
                             {
                                 if (dataBindApp.ImageBitmap == null)
                                 {

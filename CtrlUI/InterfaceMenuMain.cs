@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkStyles;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.System;
@@ -13,57 +14,68 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle main menu keyboard/controller tapped
-        async void ListView_Menu_KeyPressUp(object sender, KeyRoutedEventArgs e)
+        async void ListView_MainMenu_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                if (e.Key == VirtualKey.Space) { await Listbox_Menu_SingleTap(); }
+                //Check which key is pressed
+                if (e.Key == VirtualKey.Space)
+                {
+                    //Get clicked item
+                    DataBindString clickedObject = AVListView.GetRoutedListViewItemObject<DataBindString>(e);
+
+                    await Listbox_MainMenu_Click(clickedObject);
+                }
             }
             catch { }
         }
 
         //Handle main menu mouse/touch tapped
-        async void ListView_Menu_MousePressUp(object sender, PointerRoutedEventArgs e)
+        async void ListView_MainMenu_MousePressUp(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                //Check if an actual ListViewItem is clicked
-                if (!AVInterface.CheckClickedListViewItem(e))
-                {
-                    return;
-                }
-
                 //Check which mouse button is pressed
-                await Listbox_Menu_SingleTap();
+                if (vMousePressDownLeft)
+                {
+                    //Get clicked item
+                    DataBindString clickedObject = AVListView.GetRoutedListViewItemObject<DataBindString>(e);
+
+                    await Listbox_MainMenu_Click(clickedObject);
+                }
             }
             catch { }
         }
 
-        //Handle main menu single tap
-        async Task Listbox_Menu_SingleTap()
+        //Handle main menu click
+        async Task Listbox_MainMenu_Click(DataBindString dataBindString)
         {
             try
             {
-                if (listView_MainMenu.SelectedIndex >= 0)
+                //Check clicked object
+                if (dataBindString == null)
                 {
-                    DataBindString selectedItem = (DataBindString)listView_MainMenu.SelectedItem;
-                    string selectedItemString = selectedItem.Data1.ToString();
-                    if (selectedItemString == "menuButtonUpdateRestart") { UpdateRestart(); }
-                    else if (selectedItemString == "menuButtonMonitor") { await Popup_Show(grid_Popup_Monitor, btn_Monitor_Switch_Primary); }
-                    else if (selectedItemString == "menuButtonAudioDevice") { await SwitchAudioDevice(); }
-                    else if (selectedItemString == "menuButtonRunExe") { await LaunchExecutableFile(); }
-                    else if (selectedItemString == "menuButtonRunStore") { await LaunchStoreApplication(); }
-                    else if (selectedItemString == "menuButtonAddExe") { await Popup_Show_AddExe(); }
-                    else if (selectedItemString == "menuButtonAddStore") { await Popup_Show_AddStore(); }
-                    else if (selectedItemString == "menuButtonSettings") { await ShowLoadSettingsPopup(); }
-                    else if (selectedItemString == "menuButtonHelp") { await Popup_Show(grid_Popup_Help, btn_Help_Focus); }
-                    else if (selectedItemString == "menuButtonCloseLaunchers") { await CloseLaunchers(); }
-                    else if (selectedItemString == "menuButtonDisconnect") { await CloseStreamers(); }
-                    else if (selectedItemString == "menuButtonShutdown") { await Exit_Prompt(); }
-                    else if (selectedItemString == "menuButtonShowFileManager") { await ShowFileManager(); }
-                    else if (selectedItemString == "menuButtonProfileManager") { await Popup_Show_ProfileManager(); }
-                    else if (selectedItemString == "menuButtonRecycleBin") { await ShowRecycleBinManager(); }
+                    Debug.WriteLine("Clicked ListView object is null.");
+                    return;
                 }
+
+                //Check clicked button
+                string selectedItemString = dataBindString.Data1.ToString();
+                if (selectedItemString == "menuButtonUpdateRestart") { UpdateRestart(); }
+                else if (selectedItemString == "menuButtonMonitor") { await Popup_Show(grid_Popup_Monitor, btn_Monitor_Switch_Primary); }
+                else if (selectedItemString == "menuButtonAudioDevice") { await SwitchAudioDevice(); }
+                else if (selectedItemString == "menuButtonRunExe") { await LaunchExecutableFile(); }
+                else if (selectedItemString == "menuButtonRunStore") { await LaunchStoreApplication(); }
+                else if (selectedItemString == "menuButtonAddExe") { await Popup_Show_AddExe(); }
+                else if (selectedItemString == "menuButtonAddStore") { await Popup_Show_AddStore(); }
+                else if (selectedItemString == "menuButtonSettings") { await ShowLoadSettingsPopup(); }
+                else if (selectedItemString == "menuButtonHelp") { await Popup_Show(grid_Popup_Help, btn_Help_Focus); }
+                else if (selectedItemString == "menuButtonCloseLaunchers") { await CloseLaunchers(); }
+                else if (selectedItemString == "menuButtonDisconnect") { await CloseStreamers(); }
+                else if (selectedItemString == "menuButtonShutdown") { await Exit_Prompt(); }
+                else if (selectedItemString == "menuButtonShowFileManager") { await ShowFileManager(); }
+                else if (selectedItemString == "menuButtonProfileManager") { await Popup_Show_ProfileManager(); }
+                else if (selectedItemString == "menuButtonRecycleBin") { await ShowRecycleBinManager(); }
             }
             catch { }
         }

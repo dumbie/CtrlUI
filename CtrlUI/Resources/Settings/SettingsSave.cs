@@ -59,21 +59,21 @@ namespace CtrlUI
                     AVSettings.StartupShortcutManage("Launcher.exe", false);
                 };
 
-                slider_SettingsAppFontSize.ValueChanged += (sender, e) =>
+                slider_SettingsAppFontSize.ValueChangedDelay += (sender, e) =>
                 {
                     textblock_SettingsAppFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(slider_SettingsAppFontSize.Value);
                     SettingSave(vConfigurationCtrlUI, "AppFontSize", slider_SettingsAppFontSize.Value);
                     AdjustApplicationFontSize();
                 };
 
-                slider_SettingsAppImageSize.ValueChanged += (sender, e) =>
+                slider_SettingsAppImageSize.ValueChangedDelay += (sender, e) =>
                 {
                     textblock_SettingsAppImageSize.Text = "Adjust the application image size: " + Convert.ToInt32(slider_SettingsAppImageSize.Value);
                     SettingSave(vConfigurationCtrlUI, "AppImageSize", slider_SettingsAppImageSize.Value);
                     AdjustApplicationImageSize();
                 };
 
-                slider_SettingsAppWindowSize.ValueChanged += async (sender, e) =>
+                slider_SettingsAppWindowSize.ValueChangedDelay += async (sender, e) =>
                 {
                     textblock_SettingsAppWindowSize.Text = textblock_SettingsAppWindowSize.Tag + ": " + slider_SettingsAppWindowSize.Value.ToString() + "%";
                     SettingSave(vConfigurationCtrlUI, "AppWindowSize", slider_SettingsAppWindowSize.Value);
@@ -81,7 +81,7 @@ namespace CtrlUI
                     await UpdateWindowPosition(true);
                 };
 
-                slider_SettingsDisplayMonitor.ValueChanged += async (sender, e) =>
+                slider_SettingsDisplayMonitor.ValueChangedDelay += async (sender, e) =>
                 {
                     textblock_SettingsDisplayMonitor.Text = textblock_SettingsDisplayMonitor.Tag + ": " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
                     SettingSave(vConfigurationCtrlUI, "DisplayMonitor", slider_SettingsDisplayMonitor.Value);
@@ -96,19 +96,19 @@ namespace CtrlUI
                     UpdateMonitorSleepAuto();
                 };
 
-                slider_SettingsAdjustChromiumDpi.ValueChanged += (sender, e) =>
+                slider_SettingsAdjustChromiumDpi.ValueChangedDelay += (sender, e) =>
                 {
                     textblock_SettingsAdjustChromiumDpi.Text = textblock_SettingsAdjustChromiumDpi.Tag + ": +" + slider_SettingsAdjustChromiumDpi.Value.ToString("0.00") + "%";
                     SettingSave(vConfigurationCtrlUI, "AdjustChromiumDpi", slider_SettingsAdjustChromiumDpi.Value);
                 };
 
-                slider_SettingsSoundVolume.ValueChanged += (sender, e) =>
+                slider_SettingsSoundVolume.ValueChangedDelay += (sender, e) =>
                 {
                     textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(slider_SettingsSoundVolume.Value) + "%";
                     SettingSave(vConfigurationCtrlUI, "InterfaceSoundVolume", slider_SettingsSoundVolume.Value);
                 };
 
-                slider_SettingsGalleryLoadDays.ValueChanged += (sender, e) =>
+                slider_SettingsGalleryLoadDays.ValueChangedDelay += (sender, e) =>
                 {
                     textblock_SettingsGalleryLoadDays.Text = "Limit gallery loading days: " + Convert.ToInt32(slider_SettingsGalleryLoadDays.Value);
                     SettingSave(vConfigurationCtrlUI, "GalleryLoadDays", slider_SettingsGalleryLoadDays.Value);

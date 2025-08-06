@@ -80,7 +80,8 @@ namespace CtrlUI
             }
             catch
             {
-                Debug.WriteLine("Failed launch process selector.");
+                await Notification_Show_Status("Close", "Failed to launch or show app");
+                Debug.WriteLine("Failed launching or showing the application.");
             }
         }
 

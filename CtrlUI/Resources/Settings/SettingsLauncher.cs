@@ -12,32 +12,36 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        public async void LauncherSettingSave()
+        public async void Launcher_Setting_Save(LauncherSetting launcherSetting)
         {
             try
             {
-                //Get launcher setting
-                LauncherSetting launcherSet = listView_LauncherSetting.SelectedItem as LauncherSetting;
+                //Check clicked object
+                if (launcherSetting == null)
+                {
+                    Debug.WriteLine("Clicked ListView object is null.");
+                    return;
+                }
 
                 //Switch enabled setting
-                launcherSet.Enabled = !launcherSet.Enabled;
+                launcherSetting.Enabled = !launcherSetting.Enabled;
 
                 //Save launcher setting
-                SettingSave(vConfigurationCtrlUI, launcherSet.Name, launcherSet.Enabled);
+                SettingSave(vConfigurationCtrlUI, launcherSetting.Name, launcherSetting.Enabled);
 
                 //Remove launcher apps
-                if (!launcherSet.Enabled)
+                if (!launcherSetting.Enabled)
                 {
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == launcherSet.AppLauncher;
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == launcherSetting.AppLauncher;
                     await ListViewRemoveAll(listView_Launchers, List_Launchers, filterLauncherApp);
                     await ListViewRemoveAll(listView_Search, List_Search, filterLauncherApp);
                 }
 
-                Debug.WriteLine("Set launcher setting: " + launcherSet.Name + "/" + launcherSet.Enabled);
+                Debug.WriteLine("Set launcher setting: " + launcherSetting.Name + "/" + launcherSetting.Enabled);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("LauncherSettingSave error: " + ex.Message);
+                Debug.WriteLine("Launcher setting save error: " + ex.Message);
             }
         }
 
@@ -46,9 +50,13 @@ namespace CtrlUI
         {
             try
             {
+                //Check which key is pressed
                 if (e.Key == VirtualKey.Space)
                 {
-                    LauncherSettingSave();
+                    //Get clicked item
+                    LauncherSetting clickedObject = AVListView.GetRoutedListViewItemObject<LauncherSetting>(e);
+
+                    Launcher_Setting_Save(clickedObject);
                 }
             }
             catch { }
@@ -59,16 +67,13 @@ namespace CtrlUI
         {
             try
             {
-                //Check if an actual ListViewItem is clicked
-                if (!AVInterface.CheckClickedListViewItem(e))
-                {
-                    return;
-                }
-
                 //Check which mouse button is pressed
                 if (vMousePressDownLeft)
                 {
-                    LauncherSettingSave();
+                    //Get clicked item
+                    LauncherSetting clickedObject = AVListView.GetRoutedListViewItemObject<LauncherSetting>(e);
+
+                    Launcher_Setting_Save(clickedObject);
                 }
             }
             catch { }

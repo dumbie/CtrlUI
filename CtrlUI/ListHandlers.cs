@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using static CtrlUI.AppVariables;
@@ -12,86 +13,114 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Handle app list mouse/touch tapped
-        async void ListView_Apps_MousePressUp(object sender, PointerRoutedEventArgs e)
+        //Handle app list keyboard/controller tapped
+        private async void ListView_Apps_KeyPressUp(object sender, KeyRoutedEventArgs e)
         {
             try
             {
-                //Check if an actual ListViewItem is clicked
-                if (!AVInterface.CheckClickedListViewItem(e))
+                //Check which key is pressed
+                if (e.Key == VirtualKey.Space)
                 {
-                    return;
-                }
+                    //Get clicked item
+                    DataBindApp clickedObject = AVListView.GetRoutedListViewItemObject<DataBindApp>(e);
 
+                    await ListView_Apps_LeftClick(clickedObject);
+                }
+                else if (e.Key == VirtualKey.Delete || e.Key == VirtualKey.Back)
+                {
+                    //Get clicked item
+                    DataBindApp clickedObject = AVListView.GetRoutedListViewItemObject<DataBindApp>(e);
+                    int clickedIndex = AVListView.GetListViewItemObjectIndex((ListView)sender, clickedObject);
+
+                    await ListView_Apps_RightClick((ListView)sender, clickedIndex, clickedObject);
+                }
+                else if (e.Key == VirtualKey.Insert)
+                {
+                    await Popup_Show_AddExe();
+                }
+            }
+            catch { }
+        }
+
+        //Handle app list mouse/touch tapped
+        private async void ListView_Apps_MousePressUp(object sender, PointerRoutedEventArgs e)
+        {
+            try
+            {
                 //Check which mouse button is pressed
                 if (vMousePressDownRight)
                 {
-                    await ListView_Apps_RightClick(sender);
+                    //Get clicked item
+                    DataBindApp clickedObject = AVListView.GetRoutedListViewItemObject<DataBindApp>(e);
+                    int clickedIndex = AVListView.GetListViewItemObjectIndex((ListView)sender, clickedObject);
+
+                    await ListView_Apps_RightClick((ListView)sender, clickedIndex, clickedObject);
                 }
                 else if (vMousePressDownLeft)
                 {
-                    await ListView_Apps_LeftClick(sender);
+                    //Get clicked item
+                    DataBindApp clickedObject = AVListView.GetRoutedListViewItemObject<DataBindApp>(e);
+
+                    await ListView_Apps_LeftClick(clickedObject);
                 }
             }
             catch { }
         }
 
         //Handle app list left click
-        async Task ListView_Apps_LeftClick(object sender)
+        private async Task ListView_Apps_LeftClick(DataBindApp dataBindApp)
         {
             try
             {
-                ListView ListboxSender = (ListView)sender;
-                if (ListboxSender.SelectedItems.Count > 0 && ListboxSender.SelectedIndex != -1)
+                //Check clicked object
+                if (dataBindApp == null)
                 {
-                    //Check which launch mode needs to be used
-                    DataBindApp SelectedItem = (DataBindApp)ListboxSender.SelectedItem;
-                    await CheckApplicationLaunchMode(SelectedItem);
+                    Debug.WriteLine("Clicked ListView object is null.");
+                    return;
                 }
+
+                await CheckApplicationLaunchMode(dataBindApp);
             }
-            catch
-            {
-                await Notification_Show_Status("Close", "Failed to launch or show app");
-                Debug.WriteLine("Failed launching or showing the application.");
-            }
+            catch { }
         }
 
         //Handle app list right click
-        async Task ListView_Apps_RightClick(object sender)
+        private async Task ListView_Apps_RightClick(ListView listView, int listViewSelectedIndex, DataBindApp dataBindApp)
         {
             try
             {
-                ListView listboxSender = (ListView)sender;
-                int listboxSelectedIndex = listboxSender.SelectedIndex;
-                if (listboxSender.SelectedItems.Count > 0 && listboxSelectedIndex != -1)
+                //Check clicked object
+                if (dataBindApp == null)
                 {
-                    DataBindApp selectedItem = (DataBindApp)listboxSender.SelectedItem;
-                    if (selectedItem.Category == AppCategory.Process)
-                    {
-                        await SelectProcessAction(selectedItem, null);
-                    }
-                    else if (selectedItem.Category == AppCategory.Shortcut)
-                    {
-                        await RightClickShortcut(listboxSender, listboxSelectedIndex, selectedItem);
-                    }
-                    else if (selectedItem.Category == AppCategory.Launcher)
-                    {
-                        await RightClickLauncher(listboxSender, listboxSelectedIndex, selectedItem);
-                    }
-                    else if (selectedItem.Category == AppCategory.Gallery)
-                    {
-                        await RightClickGallery(listboxSender, listboxSelectedIndex, selectedItem);
-                    }
-                    else
-                    {
-                        await RightClickApplication(listboxSender, listboxSelectedIndex, selectedItem);
-                    }
+                    Debug.WriteLine("Clicked ListView object is null.");
+                    return;
+                }
+
+                if (dataBindApp.Category == AppCategory.Process)
+                {
+                    await SelectProcessAction(dataBindApp, null);
+                }
+                else if (dataBindApp.Category == AppCategory.Shortcut)
+                {
+                    await RightClickShortcut(listView, listViewSelectedIndex, dataBindApp);
+                }
+                else if (dataBindApp.Category == AppCategory.Launcher)
+                {
+                    await RightClickLauncher(listView, listViewSelectedIndex, dataBindApp);
+                }
+                else if (dataBindApp.Category == AppCategory.Gallery)
+                {
+                    await RightClickGallery(listView, listViewSelectedIndex, dataBindApp);
+                }
+                else
+                {
+                    await RightClickApplication(listView, listViewSelectedIndex, dataBindApp);
                 }
             }
             catch { }
         }
 
-        string ApplicationRunningTimeString(int runningTime, string appCategory)
+        private string ApplicationRunningTimeString(int runningTime, string appCategory)
         {
             try
             {
@@ -116,7 +145,7 @@ namespace CtrlUI
             }
         }
 
-        string ApplicationLastLaunchTimeString(string lastLaunch, string appCategory)
+        private string ApplicationLastLaunchTimeString(string lastLaunch, string appCategory)
         {
             try
             {

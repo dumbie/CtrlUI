@@ -70,7 +70,7 @@ namespace CtrlUI
                 Popup_Show_Element(grid_Popup_ContentInformation);
 
                 //Focus on button
-                await FocusElement(btn_ContentInfo_Focus, vProcessCurrent.WindowHandleMain);
+                await FocusFrameworkElement(btn_ContentInfo_Focus, vProcessCurrent.WindowHandleMain);
             }
             catch (Exception ex)
             {

@@ -96,21 +96,27 @@ namespace CtrlUI
                 }
 
                 //Select the first listbox item
-                await ListViewFocusOrSelectIndex(listView_ProfileManager, false, 0, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_ProfileManager, false, 0, vProcessCurrent.WindowHandleMain);
             }
             catch { }
         }
 
         //Delete the edit profile
-        async Task ProfileManager_DeleteProfile()
+        async Task ProfileManager_DeleteProfile(ProfileShared profileShared)
         {
             try
             {
-                ProfileShared selectedProfile = (ProfileShared)listView_ProfileManager.SelectedItem;
-                Debug.WriteLine("Removing profile value: " + selectedProfile);
+                //Check clicked object
+                if (profileShared == null)
+                {
+                    Debug.WriteLine("Clicked ListView object is null.");
+                    return;
+                }
+
+                Debug.WriteLine("Removing profile value: " + profileShared);
 
                 //Remove the selected profile value
-                await ListViewRemoveItem(listView_ProfileManager, vProfileManagerListShared, selectedProfile, true);
+                await ListViewRemoveItem(listView_ProfileManager, vProfileManagerListShared, profileShared, true);
 
                 //Save the updated json values
                 JsonSaveObject(vProfileManagerListShared, @"Profiles\User\" + vProfileManagerName + ".json");
@@ -130,11 +136,8 @@ namespace CtrlUI
                 Debug.WriteLine("Adding new profile value: " + profileString1 + " / " + profileString2);
 
                 //Color brushes
-                //FixStyleBrushConverter BrushConvert = new BrushConverter();
-                //Brush BrushInvalid = BrushConvert.ConvertFromString("#CD1A2B") as Brush;
-                //FixStyle Brush BrushValid = BrushConvert.ConvertFromString("#1DB954") as Brush;
-                Brush BrushInvalid = null;
-                Brush BrushValid = null;
+                SolidColorBrush BrushInvalid = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
+                SolidColorBrush BrushValid = (SolidColorBrush)Application.Current.Resources["ApplicationValidBrush"];
 
                 //Check if the string1 is empty
                 if (string.IsNullOrWhiteSpace(profileString1))

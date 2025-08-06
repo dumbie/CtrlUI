@@ -46,7 +46,10 @@ namespace CtrlUI
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                     //Save the previous focus element
-                    AVFocusDetailsSave(vFilePickerElementFocus, previousFocus);
+                    DispatcherInvoke(this.Dispatcher, delegate
+                    {
+                        AVFocusDetailsSave(vFilePickerElementFocus, previousFocus);
+                    });
                 }
 
                 //Reset file picker variables
@@ -76,7 +79,7 @@ namespace CtrlUI
                     if (vFilePickerSettings.ShowEmulatorInterface)
                     {
                         //Change list picker style
-                        listView_FilePicker.Style = Application.Current.Resources["ListViewVerticalWrap"] as Style;
+                        listView_FilePicker.Style = Application.Current.Resources["ListViewHorizontalWrap"] as Style;
                         listView_FilePicker.ItemTemplate = Application.Current.Resources["ListViewItemRom"] as DataTemplate;
                     }
                     else
@@ -153,7 +156,7 @@ namespace CtrlUI
         }
 
         //File Picker focus on item
-        async Task<bool> FilePicker_Focus(int targetIndex, string targetPath)
+        async Task FilePicker_Focus(int targetIndex, string targetPath)
         {
             try
             {
@@ -163,7 +166,7 @@ namespace CtrlUI
                     targetIndex = FilePicker_NavigationHistoryGetIndex(targetPath);
                 }
 
-                //Check the navigation index
+                //Check navigation index
                 if (targetIndex == -1 && !string.IsNullOrWhiteSpace(vFilePickerSourcePath))
                 {
                     DataBindFile sourceFileItem = List_FilePicker.FirstOrDefault(x => x.PathFile == vFilePickerSourcePath);
@@ -171,18 +174,22 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Source file path found: " + vFilePickerSourcePath);
 
-                        //Focus on the file picker listbox item
-                        await ListViewFocusItem(listView_FilePicker, sourceFileItem, vProcessCurrent.WindowHandleMain);
-                        return true;
+                        //Focus on file picker listbox item
+                        await DispatcherInvoke(this.Dispatcher, async delegate
+                        {
+                            await ListViewFocusItem(listView_FilePicker, sourceFileItem, vProcessCurrent.WindowHandleMain);
+                        });
+                        return;
                     }
                 }
 
-                //Focus on the file picker listbox index
-                await ListViewFocusIndex(listView_FilePicker, false, targetIndex, vProcessCurrent.WindowHandleMain);
-                return true;
+                //Focus on file picker listbox index
+                await DispatcherInvoke(this.Dispatcher, async delegate
+                {
+                    await ListViewFocusIndex(listView_FilePicker, false, targetIndex, vProcessCurrent.WindowHandleMain);
+                });
             }
             catch { }
-            return false;
         }
 
         //File Picker change select mode
@@ -213,11 +220,16 @@ namespace CtrlUI
         }
 
         //File Picker check item
-        void FilePicker_CheckItem()
+        void FilePicker_CheckItem(DataBindFile dataBindFile)
         {
             try
             {
-                DataBindFile dataBindFile = (DataBindFile)listView_FilePicker.SelectedItem;
+                //Check clicked object
+                if (dataBindFile == null)
+                {
+                    Debug.WriteLine("Clicked ListView object is null.");
+                    return;
+                }
 
                 //Check the file or folder
                 if (vFilePickerCurrentPath == "PC" || vFilePickerCurrentPath == "UWP" || dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUpPre)

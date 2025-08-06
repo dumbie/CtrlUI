@@ -274,7 +274,7 @@ namespace CtrlUI
                     }
                     else
                     {
-                        await FocusElement(grid_Search_textbox, vProcessCurrent.WindowHandleMain);
+                        await FocusFrameworkElement(grid_Search_textbox, vProcessCurrent.WindowHandleMain);
                     }
 
                     //Update gallery images

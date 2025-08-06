@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Input;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkStyles.AVSortObservableCollection;
+using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -20,14 +21,14 @@ namespace CtrlUI
         {
             try
             {
-                //Check if an actual ListViewItem is clicked
-                if (!AVInterface.CheckClickedListViewItem(e))
-                {
-                    return;
-                }
-
                 //Check which mouse button is pressed
-                await ListView_Sorting_Handle();
+                if (vMousePressDownLeft)
+                {
+                    //Get clicked item
+                    ProfileShared clickedObject = AVListView.GetRoutedListViewItemObject<ProfileShared>(e);
+
+                    await ListView_Sorting_Click(clickedObject);
+                }
             }
             catch { }
         }
@@ -37,23 +38,34 @@ namespace CtrlUI
         {
             try
             {
+                //Check which key is pressed
                 if (e.Key == VirtualKey.Space)
                 {
-                    await ListView_Sorting_Handle();
+                    //Get clicked item
+                    ProfileShared clickedObject = AVListView.GetRoutedListViewItemObject<ProfileShared>(e);
+
+                    await ListView_Sorting_Click(clickedObject);
                 }
             }
             catch { }
         }
 
-        private async Task ListView_Sorting_Handle()
+        //Handle sorting click
+        private async Task ListView_Sorting_Click(ProfileShared profileShared)
         {
             try
             {
+                //Check clicked object
+                if (profileShared == null)
+                {
+                    Debug.WriteLine("Clicked ListView object is null.");
+                    return;
+                }
+
                 //Sort functions
-                ProfileShared selectedItem = listView_Sorting.SelectedItem as ProfileShared;
-                dynamic sortListView = selectedItem.Object1;
-                dynamic sortOrderBy = selectedItem.Object2;
-                dynamic sortWhere = selectedItem.Object3;
+                dynamic sortListView = profileShared.Object1;
+                dynamic sortOrderBy = profileShared.Object2;
+                dynamic sortWhere = profileShared.Object3;
                 Type orderType = GetDynamicType(sortOrderBy);
 
                 //Get sorting direction
