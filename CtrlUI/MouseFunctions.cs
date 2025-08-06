@@ -1,4 +1,10 @@
-﻿namespace CtrlUI
+﻿using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVInputOutputInterop;
+using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVSettings;
+using static CtrlUI.AppVariables;
+
+namespace CtrlUI
 {
     partial class WindowMain
     {
@@ -7,35 +13,33 @@
         {
             try
             {
-                //FixStyle
-                ////Get the current active screen
-                //int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
-                //DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
+                //Get current active screen
+                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
+                DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
-                ////Calculate target mouse position
-                //int windowTop = (int)(this.Top * displayMonitorSettings.DpiScaleVertical);
-                //int windowLeft = (int)(this.Left * displayMonitorSettings.DpiScaleHorizontal);
-                //int windowWidth = (int)(this.ActualWidth * displayMonitorSettings.DpiScaleHorizontal);
-                //int windowHeight = (int)(this.ActualHeight * displayMonitorSettings.DpiScaleVertical);
-                //int targetWidth = windowLeft + (windowWidth / 2);
-                //int targetHeight = windowTop - 30;
+                //Get current window location and size
+                WindowRectangle windowLocation = vWindowMain.GetWindowLocationSize();
 
-                ////Check if target is outside screen
-                //if (targetHeight < 0)
-                //{
-                //    targetHeight = windowTop + windowHeight + 30;
-                //}
-                //if (targetWidth < 0)
-                //{
-                //    targetWidth = 30;
-                //}
-                //else if (targetWidth > displayMonitorSettings.WidthNative)
-                //{
-                //    targetWidth = displayMonitorSettings.WidthNative - 30;
-                //}
+                //Calculate target mouse position
+                int targetWidth = windowLocation.Left + (windowLocation.Width / 2);
+                int targetHeight = windowLocation.Top - 30;
 
-                ////Move mouse cursor to target
-                //SetCursorPos(targetWidth, targetHeight);
+                //Check if target is outside screen
+                if (targetHeight < 0)
+                {
+                    targetHeight = windowLocation.Top + windowLocation.Height + 30;
+                }
+                if (targetWidth < 0)
+                {
+                    targetWidth = 30;
+                }
+                else if (targetWidth > displayMonitorSettings.WidthNative)
+                {
+                    targetWidth = displayMonitorSettings.WidthNative - 30;
+                }
+
+                //Move mouse cursor to target
+                SetCursorPos(targetWidth, targetHeight);
             }
             catch { }
         }
