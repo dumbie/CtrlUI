@@ -45,16 +45,16 @@
                 <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="/Assets/Default/Apps/Microsoft.png" Opacity="0.90" Visibility="{Binding StatusStore}"/>
                 <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="/Assets/Default/Icons/Browser.png" Opacity="0.90" Visibility="{Binding StatusUrlBrowser}"/>
                 <Polygon VerticalAlignment="Center" Margin="2,0,2,0" Fill="#1EB955" Points="0,0 12,6, 0,12" Opacity="0.90" Visibility="{Binding StatusUrlProtocol}"/>
-                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncherImage}" Opacity="0.90" Visibility="{Binding StatusLauncherImage, TargetNullValue='Collapsed'}"/>
-                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusEmulatorCategoryImage}" Opacity="0.90" Visibility="{Binding StatusEmulatorCategoryImage, TargetNullValue='Collapsed'}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncherImage}" Opacity="0.90" Visibility="{Binding StatusLauncherImage, Converter={AVStyles:NullToVisibilityConverter}}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusEmulatorCategoryImage}" Opacity="0.90" Visibility="{Binding StatusEmulatorCategoryImage, Converter={AVStyles:NullToVisibilityConverter}}"/>
                 <TextBlock VerticalAlignment="Center" Margin="2,0,2,0" Text="{Binding StatusProcessCount}" FontSize="{ThemeResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
             </StackPanel>
 
-            <ScrollViewer AVStyles:ScrollViewerLoop.Loop="True" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ScrollViewerHidden}">
+            <ScrollViewer Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ScrollViewerHiddenLoop}">
                 <TextBlock Text="{Binding Name}" Style="{StaticResource TextBlockWhite}"/>
             </ScrollViewer>
 
-            <ScrollViewer AVStyles:ScrollViewerLoop.Loop="True" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ScrollViewerHidden}">
+            <ScrollViewer Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ScrollViewerHiddenLoop}">
                 <TextBlock Text="{Binding EmulatorName}" Style="{StaticResource TextBlockGray}"/>
             </ScrollViewer>
         </Grid>
@@ -83,17 +83,17 @@
                 <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="/Assets/Default/Apps/Microsoft.png" Opacity="0.90" Visibility="{Binding StatusStore}"/>
                 <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="/Assets/Default/Icons/Browser.png" Opacity="0.90" Visibility="{Binding StatusUrlBrowser}"/>
                 <Polygon VerticalAlignment="Center" Margin="2,0,2,0" Fill="#1EB955" Points="0,0 12,6, 0,12" Opacity="0.90" Visibility="{Binding StatusUrlProtocol}"/>
-                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncherImage}" Opacity="0.90" Visibility="{Binding StatusLauncherImage, TargetNullValue='Collapsed'}"/>
-                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusEmulatorCategoryImage}" Opacity="0.90" Visibility="{Binding StatusEmulatorCategoryImage, TargetNullValue='Collapsed'}"/>
-                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusSearchCategoryImage}" Opacity="0.90" Visibility="{Binding StatusSearchCategoryImage, TargetNullValue='Collapsed'}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncherImage}" Opacity="0.90" Visibility="{Binding StatusLauncherImage, Converter={AVStyles:NullToVisibilityConverter}}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusEmulatorCategoryImage}" Opacity="0.90" Visibility="{Binding StatusEmulatorCategoryImage, Converter={AVStyles:NullToVisibilityConverter}}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusSearchCategoryImage}" Opacity="0.90" Visibility="{Binding StatusSearchCategoryImage, Converter={AVStyles:NullToVisibilityConverter}}"/>
                 <TextBlock VerticalAlignment="Center" Margin="2,0,2,0" Text="{Binding StatusProcessCount}" FontSize="{ThemeResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
             </StackPanel>
 
-            <ScrollViewer AVStyles:ScrollViewerLoop.Loop="True" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ScrollViewerHidden}">
+            <ScrollViewer Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ScrollViewerHiddenLoop}">
                 <TextBlock Text="{Binding Name}" Style="{StaticResource TextBlockWhite}"/>
             </ScrollViewer>
 
-            <ScrollViewer AVStyles:ScrollViewerLoop.Loop="True" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ScrollViewerHidden}">
+            <ScrollViewer Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource ScrollViewerHiddenLoop}">
                 <TextBlock Text="{Binding EmulatorName}" Style="{StaticResource TextBlockGray}"/>
             </ScrollViewer>
         </Grid>
@@ -137,40 +137,15 @@
 
             <StackPanel Orientation="Horizontal" Grid.Column="0">
                 <Image Source="{Binding ImageBitmap}" Height="50" Width="50"/>
-                <Image Source="/Assets/Default/Icons/Copy.png" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="30" Opacity="0.90">
-                    <Image.Style>
-                        <Style TargetType="Image">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <!--FixStyle-->
-                            <!--<Style.Triggers>
-                                <DataTrigger Binding="{Binding ClipboardType}" Value="Copy">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>-->
-                        </Style>
-                    </Image.Style>
-                </Image>
-                <Image Source="/Assets/Default/Icons/Cut.png" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="30" Opacity="0.90">
-                    <Image.Style>
-                        <Style TargetType="Image">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <!--FixStyle-->
-                            <!--<Style.Triggers>
-                                <DataTrigger Binding="{Binding ClipboardType}" Value="Cut">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>-->
-                        </Style>
-                    </Image.Style>
-                </Image>
+                <Image Source="/Assets/Default/Icons/Copy.png" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="30" Opacity="0.90" Visibility="{Binding ClipboardType, ConverterParameter='Copy', Converter={AVStyles:MatchToVisibilityConverter}}"/>
+                <Image Source="/Assets/Default/Icons/Cut.png" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="30" Opacity="0.90" Visibility="{Binding ClipboardType, ConverterParameter='Cut', Converter={AVStyles:MatchToVisibilityConverter}}"/>
                 <Image Source="/Assets/Default/Icons/Check.png" Visibility="{Binding Checked}" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="30" Opacity="0.90"/>
             </StackPanel>
 
-            <ScrollViewer AVStyles:ScrollViewerLoop.Loop="True" Grid.Column="1" Style="{StaticResource ScrollViewerHidden}" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <ScrollViewer Grid.Column="1" Style="{StaticResource ScrollViewerHiddenLoop}" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <TextBlock>
-                    <!--FixStyle Style="{StaticResource RunWhiteLight}"-->
-                    <Run Text="{Binding Name}" FontSize="{StaticResource TextSizeHuge}"/>
-                    <Run Text="{Binding NameSub}" FontSize="{StaticResource TextSizeHuge}"/>
+                    <Run Text="{Binding Name}" Foreground="{ThemeResource ApplicationWhiteBrush}" FontWeight="Light" FontSize="{StaticResource TextSizeHuge}"/>
+                    <Run Text="{Binding NameSub}" Foreground="{ThemeResource ApplicationDimGrayBrush}" FontWeight="Light" FontSize="{StaticResource TextSizeHuge}"/>
                 </TextBlock>
             </ScrollViewer>
 
@@ -193,11 +168,10 @@
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0" Source="{Binding ImageBitmap}" Height="50" Width="50" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-            <ScrollViewer AVStyles:ScrollViewerLoop.Loop="True" Grid.Column="1" Style="{StaticResource ScrollViewerHidden}" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <ScrollViewer Grid.Column="1" Style="{StaticResource ScrollViewerHiddenLoop}" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <TextBlock>
-                       <!--FixStyle Style="{StaticResource RunWhiteLight}"-->
-                    <Run Text="{Binding Name}" FontSize="{StaticResource TextSizeHuge}"/>
-                    <Run Text="{Binding NameSub}" FontSize="{StaticResource TextSizeHuge}"/>
+                    <Run Text="{Binding Name}" Foreground="{ThemeResource ApplicationWhiteBrush}" FontWeight="Light" FontSize="{StaticResource TextSizeHuge}"/>
+                    <Run Text="{Binding NameSub}" Foreground="{ThemeResource ApplicationDimGrayBrush}" FontWeight="Light" FontSize="{StaticResource TextSizeHuge}"/>
                 </TextBlock>
             </ScrollViewer>
 
@@ -227,7 +201,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ScrollViewer AVStyles:ScrollViewerLoop.Loop="True" Grid.Column="0" Margin="0,0,20,0" MinWidth="350" MaxWidth="650" Style="{StaticResource ScrollViewerHidden}">
+            <ScrollViewer Grid.Column="0" Margin="0,0,20,0" MinWidth="350" MaxWidth="650" Style="{StaticResource ScrollViewerHiddenLoop}">
                 <TextBlock Text="{Binding Data1}" Style="{StaticResource TextBlockWhiteLight}" FontSize="{ThemeResource TextSizeLarge}"/>
             </ScrollViewer>
             <TextBlock Grid.Column="1" Margin="0,0,20,0" Text="{Binding Data2}" Style="{StaticResource TextBlockAccentLight}" FontSize="{ThemeResource TextSizeLarge}"/>
@@ -267,67 +241,18 @@
             <Grid Grid.Row="0">
                 <Image Source="{Binding ImageBitmap}" Width="170" Height="115"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                    <Image Source="/Assets/Default/Icons/Folder.png" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.90">
-                        <Image.Style>
-                            <Style TargetType="Image">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <!--FixStyle-->
-                                <!--<Style.Triggers>
-                                    <DataTrigger Binding="{Binding FileType}" Value="Folder">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>-->
-                            </Style>
-                        </Image.Style>
-                    </Image>
-                    <Image Source="/Assets/Default/Icons/Link.png" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.90">
-                        <Image.Style>
-                            <Style TargetType="Image">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <!--FixStyle-->
-                                <!--<Style.Triggers>
-                                    <DataTrigger Binding="{Binding FileType}" Value="Link">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>-->
-                            </Style>
-                        </Image.Style>
-                    </Image>
-                    <Image Source="/Assets/Default/Icons/Copy.png" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.90">
-                        <Image.Style>
-                            <Style TargetType="Image">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <!--FixStyle-->
-                                <!--<Style.Triggers>
-                                    <DataTrigger Binding="{Binding ClipboardType}" Value="Copy">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>-->
-                            </Style>
-                        </Image.Style>
-                    </Image>
-                    <Image Source="/Assets/Default/Icons/Cut.png" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.90">
-                        <Image.Style>
-                            <Style TargetType="Image">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <!--FixStyle-->
-                                <!--<Style.Triggers>
-                                    <DataTrigger Binding="{Binding ClipboardType}" Value="Cut">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>-->
-                            </Style>
-                        </Image.Style>
-                    </Image>
+                    <Image Source="/Assets/Default/Icons/Folder.png" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.90" Visibility="{Binding FileType, ConverterParameter='Folder', Converter={AVStyles:MatchToVisibilityConverter}}"/>
+                    <Image Source="/Assets/Default/Icons/Link.png" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.90" Visibility="{Binding IsShortcut, Converter={AVStyles:BoolToVisibilityConverter}}"/>
+                    <Image Source="/Assets/Default/Icons/Copy.png" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.90" Visibility="{Binding ClipboardType, ConverterParameter='Copy', Converter={AVStyles:MatchToVisibilityConverter}}"/>
+                    <Image Source="/Assets/Default/Icons/Cut.png" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.90" Visibility="{Binding ClipboardType, ConverterParameter='Cut', Converter={AVStyles:MatchToVisibilityConverter}}"/>
                     <Image Source="/Assets/Default/Icons/Check.png" Visibility="{Binding Checked}" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.90"/>
                 </StackPanel>
             </Grid>
 
-            <ScrollViewer AVStyles:ScrollViewerLoop.Loop="True" Grid.Row="1" Width="170" Height="55" ScrollViewer.VerticalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerVertical}">
+            <ScrollViewer Grid.Row="1" Width="170" Height="55" ScrollViewer.VerticalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerVerticalLoop}">
                 <TextBlock TextAlignment="Center" TextWrapping="Wrap">
-                    <!--FixStyle Style="{StaticResource RunWhite}"-->
-                    <Run Text="{Binding Name}" FontSize="{StaticResource TextSizeMedium}"/>
-                    <Run Text="{Binding NameSub}" FontSize="{StaticResource TextSizeMedium}"/>
+                    <Run Text="{Binding Name}" Foreground="{ThemeResource ApplicationWhiteBrush}" FontSize="{StaticResource TextSizeMedium}"/>
+                    <Run Text="{Binding NameSub}" Foreground="{ThemeResource ApplicationDimGrayBrush}" FontSize="{StaticResource TextSizeMedium}"/>
                 </TextBlock>
             </ScrollViewer>
         </Grid>

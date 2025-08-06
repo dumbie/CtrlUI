@@ -79,16 +79,16 @@
 
                     <!-- Header - Buttons -->
                     <StackPanel Grid.Column="0" Name="stackpanel_TopButtons" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0">
-                        <Button Name="button_MenuHamburger" Margin="0,0,0,0" IsTabStop="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Open main menu">
+                        <Button Name="button_MenuHamburger" Margin="0,0,0,0" IsTabStop="False" Height="40" Style="{StaticResource ButtonImageTransparentNoBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Open main menu">
                             <Image Source="/Assets/Default/Icons/Hamburger.png"/>
                         </Button>
-                        <Button Name="button_MenuSorting" Margin="10,0,0,0" IsTabStop="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Sorting">
+                        <Button Name="button_MenuSorting" Margin="10,0,0,0" IsTabStop="False" Height="40" Style="{StaticResource ButtonImageTransparentNoBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Sorting">
                             <Image Source="/Assets/Default/Icons/SortFilter.png"/>
                         </Button>
-                        <Button Name="button_MenuMinimize" Margin="10,0,0,0" IsTabStop="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Minimize application">
+                        <Button Name="button_MenuMinimize" Margin="10,0,0,0" IsTabStop="False" Height="40" Style="{StaticResource ButtonImageTransparentNoBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Minimize application">
                             <Image Source="/Assets/Default/Icons/AppMinimize.png"/>
                         </Button>
-                        <Button Name="button_MenuClose" Margin="10,0,0,0" IsTabStop="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Exit application">
+                        <Button Name="button_MenuClose" Margin="10,0,0,0" IsTabStop="False" Height="40" Style="{StaticResource ButtonImageTransparentNoBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Exit application">
                             <Image Source="/Assets/Default/Icons/AppClose.png"/>
                         </Button>
                     </StackPanel>
@@ -217,8 +217,8 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" Name="grid_Search_textbox" Margin="0,0,5,0" FontSize="{ThemeResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}" PlaceholderText="Search application..."/>
-                                <Button Grid.Column="1" Name="grid_Search_button_Reset" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the search term">
+                                <AVStyles:TextBoxDelay Grid.Column="0" Name="grid_Search_textbox" Margin="0,0,5,0" FontSize="{ThemeResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}" PlaceholderText="Search application..."/>
+                                <Button Grid.Column="1" Name="grid_Search_button_Reset" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Reset search term">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Name="image_Search_Reset" Source="/Assets/Default/Icons/Buttons/ButtonUp.png" Height="30" Width="30" Margin="0,0,10,0"/>
                                         <Image Source="/Assets/Default/Icons/TextClear.png" Height="35" Width="35"/>
@@ -255,12 +255,12 @@
                             <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                         </StackPanel>
 
-                        <ListView Grid.Row="1" Name="listView_MainMenu" SelectedIndex="0" SelectionMode="Single" ItemContainerStyle="{StaticResource ListViewItemWhite}" ItemTemplate="{StaticResource ListViewItemIconString}" Style="{StaticResource ListViewVertical}"/>
+                        <ListView Grid.Row="1" Name="listView_MainMenu" SelectionMode="Single" ItemContainerStyle="{StaticResource ListViewItemWhite}" ItemTemplate="{StaticResource ListViewItemIconString}" Style="{StaticResource ListViewVertical}"/>
                     </Grid>
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_MainMenu_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_MainMenu_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_MainMenu_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -426,7 +426,7 @@
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_Manage_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_Manage_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_Manage_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -464,7 +464,8 @@
 
                             <Image Grid.Column="0" Name="image_Settings_LB" Source="/Assets/Default/Icons/Buttons/LbOff.png" Height="30" Margin="0,0,10,0"/>
 
-                            <ListView Grid.Column="1" Name="listView_SettingsMenu" SelectedIndex="0" HorizontalAlignment="Center" SelectionMode="Single" ItemContainerStyle="{StaticResource ListViewItemWhite}" Style="{StaticResource ListViewHorizontal}">
+                            <ListView Grid.Column="1" Name="listView_SettingsMenu" HorizontalAlignment="Center" SelectionMode="Single" ItemContainerStyle="{StaticResource ListViewItemWhite}" Style="{StaticResource ListViewHorizontal}">
+                                <!--FixStyle IsTabStop False not working-->
                                 <StackPanel Name="settingsButtonStartup" Style="{StaticResource ListViewMenuStackPanel}">
                                     <Image Source="/Assets/Default/Icons/AppRunExe.png" Width="55" HorizontalAlignment="Center"/>
                                     <TextBlock Text="Startup" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -504,6 +505,9 @@
                                     <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Style="{StaticResource CheckBoxWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will launch CtrlUI when Windows starts automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
 
+                                    <CheckBox Name="cb_SettingsLaunchMinimized" Content="Launch application minimized" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
+                                    <TextBlock Text="Enabling this will minimize CtrlUI automatically when launched." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
+
                                     <CheckBox Name="cb_SettingsLaunchDirectXInput" Content="Launch DirectXInput on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will launch DirectXInput when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
 
@@ -513,7 +517,7 @@
                                     <CheckBox Name="cb_SettingsLaunchScreenCaptureTool" Content="Launch Screen Capture Tool on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will launch Screen Capture Tool when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
 
-                                    <Button Name="btn_Settings_AppQuickLaunch" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Button Name="btn_Settings_AppQuickLaunch" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="/Assets/Default/Icons/AppLaunch.png" Width="50" HorizontalAlignment="Center"/>
@@ -522,7 +526,7 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <Button Name="btn_Settings_LaunchDirectXInput" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Button Name="btn_Settings_LaunchDirectXInput" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="/Assets/Default/Icons/DirectXInput.png" Width="50" HorizontalAlignment="Center"/>
@@ -531,7 +535,7 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <Button Name="btn_Settings_LaunchFpsOverlayer" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Button Name="btn_Settings_LaunchFpsOverlayer" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="/Assets/Default/Icons/Fps.png" Width="50" HorizontalAlignment="Center"/>
@@ -540,7 +544,7 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <Button Name="btn_Settings_LaunchScreenCaptureTool" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                    <Button Name="btn_Settings_LaunchScreenCaptureTool" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="/Assets/Default/Icons/Screenshot.png" Width="50" HorizontalAlignment="Center"/>
@@ -551,19 +555,16 @@
                                 </StackPanel>
 
                                 <StackPanel Name="settingsStackpanelDisplay" Visibility="Collapsed">
-                                    <CheckBox Name="cb_SettingsLaunchMinimized" Content="Launch the application minimized" Style="{StaticResource CheckBoxWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will minimize the application automatically when launched." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
-
                                     <CheckBox Name="cb_SettingsMonitorPreventSleep" Content="Prevent monitor from sleeping" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will prevent your monitor from sleeping when CtrlUI is active." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
 
                                     <TextBlock Name="textblock_SettingsAdjustChromiumDpi" Text="Adjust Chromium browsers DPI" Tag="Adjust Chromium browsers DPI" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
                                     <TextBlock Text="Adjust the DPI of Chromium based browsers like Edge and Chrome on launch." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
-                                    <Slider Name="slider_SettingsAdjustChromiumDpi" Width="400" Minimum="0" Maximum="3.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
+                                    <AVStyles:SliderDelay Name="slider_SettingsAdjustChromiumDpi" Width="400" Minimum="0" Maximum="3.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
 
                                     <TextBlock Name="textblock_SettingsDisplayMonitor" Text="Monitor to display window on" Tag="Monitor to display window on" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
                                     <TextBlock Text="Monitor that the CtrlUI window appears on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
-                                    <Slider Name="slider_SettingsDisplayMonitor" Width="400" Minimum="1" Maximum="20" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
+                                    <AVStyles:SliderDelay Name="slider_SettingsDisplayMonitor" Width="400" Minimum="1" Maximum="20" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
                                 </StackPanel>
 
                                 <Grid Name="settingsStackpanelApps" Visibility="Collapsed">
@@ -589,11 +590,11 @@
 
                                     <TextBlock Name="textblock_SettingsAppFontSize" Text="Adjust the application font size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
                                     <TextBlock Text="Select the font size that you want to use in this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
-                                    <Slider Name="slider_SettingsAppFontSize" Width="400" Maximum="6" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
+                                    <AVStyles:SliderDelay Name="slider_SettingsAppFontSize" Width="400" Maximum="6" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
 
                                     <TextBlock Name="textblock_SettingsAppImageSize" Text="Adjust the application image size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
                                     <TextBlock Text="Select the image size that you want to use for applications in the lists." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
-                                    <Slider Name="slider_SettingsAppImageSize" Width="400" Minimum="-20" Maximum="80" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
+                                    <AVStyles:SliderDelay Name="slider_SettingsAppImageSize" Width="400" Minimum="-20" Maximum="80" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
 
                                     <Button Name="btn_Settings_ColorPickerAccent" Margin="0,15,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                         <Button.Content>
@@ -629,7 +630,7 @@
 
                                     <TextBlock Name="textblock_SettingsSoundVolume" Text="User interface sound volume" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
                                     <TextBlock Text="Change the used user interface sound volume level." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
-                                    <Slider Name="slider_SettingsSoundVolume" Width="400" Minimum="5" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
+                                    <AVStyles:SliderDelay Name="slider_SettingsSoundVolume" Width="400" Minimum="5" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
 
                                     <Button Name="btn_Settings_InterfaceSoundPackName" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                         <Button.Content>
@@ -655,7 +656,7 @@
                                 <StackPanel Name="settingsStackpanelOther" Visibility="Collapsed">
                                     <TextBlock Name="textblock_SettingsGalleryLoadDays" Text="Limit gallery loading days" Style="{StaticResource TextBlockWhite}" FontSize="{ThemeResource TextSizeLarge}"/>
                                     <TextBlock Text="Select for how much days ago you want the gallery to show media." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{ThemeResource TextSizeMedium}"/>
-                                    <Slider Name="slider_SettingsGalleryLoadDays" Width="400" Minimum="1" Maximum="365" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
+                                    <AVStyles:SliderDelay Name="slider_SettingsGalleryLoadDays" Width="400" Minimum="1" Maximum="365" HorizontalAlignment="Left" Style="{StaticResource SliderAccent}"/>
 
                                     <Button Name="btn_Settings_CheckForUpdate" Margin="0,15,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                         <Button.Content>
@@ -672,7 +673,7 @@
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_Settings_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_Settings_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_Settings_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -755,7 +756,7 @@
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_Monitor_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_Monitor_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_Monitor_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -789,7 +790,7 @@
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_Help_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_Help_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_Help_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -817,7 +818,7 @@
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_ColorPicker_button_ControllerRight" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_ColorPicker_button_ControllerRight" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_ColorPicker_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -857,7 +858,7 @@
 
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
                         <!-- Shortcuts -->
-                        <Button Name="grid_Popup_FilePicker_button_ControllerRight" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_FilePicker_button_ControllerRight" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_FilePicker_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -869,16 +870,16 @@
                                 <Image Source="/Assets/Default/Icons/Up.png" Height="35" Width="35"/>
                             </StackPanel>
                         </Button>
-                        <Button Name="grid_Popup_FilePicker_button_ControllerLeft" Margin="0,10,0,0" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Interact with file or folder" Visibility="Collapsed">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Name="image_FilePicker_Left" Source="/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="30" Width="30" Margin="0,0,5,0"/>
-                                <Image Source="/Assets/Default/Icons/Hamburger.png" Height="35" Width="35"/>
-                            </StackPanel>
-                        </Button>
                         <Button Name="grid_Popup_FilePicker_button_ControllerBack" Margin="0,10,0,0" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Sort files and folders" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_FilePicker_Back" Source="/Assets/Default/Icons/Buttons/BackOff.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/SortFilter.png" Height="35" Width="35"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="grid_Popup_FilePicker_button_ControllerLeft" Margin="0,10,0,0" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Interact with file or folder" Visibility="Collapsed">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="image_FilePicker_Left" Source="/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                                <Image Source="/Assets/Default/Icons/Hamburger.png" Height="35" Width="35"/>
                             </StackPanel>
                         </Button>
                         <Button Name="grid_Popup_FilePicker_button_ControllerStart" Margin="0,10,0,0" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Select file or folder" Visibility="Collapsed">
@@ -936,7 +937,7 @@
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_ProfileManager_button_ControllerRight" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_ProfileManager_button_ControllerRight" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_ProfileManager_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -994,7 +995,7 @@
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_ContentInformation_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_ContentInformation_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_ContentInformation_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -1055,7 +1056,7 @@
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_HowLongToBeat_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_HowLongToBeat_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_HowLongToBeat_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -1085,7 +1086,7 @@
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_MessageBox_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_MessageBox_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_MessageBox_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -1120,7 +1121,7 @@
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_Sorting_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_Sorting_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_Sorting_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -1152,7 +1153,7 @@
 
                     <!-- Shortcuts -->
                     <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_TextInput_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_TextInput_button_Close" IsTabStop="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_TextInput_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
@@ -1191,7 +1192,7 @@
                         </StackPanel>
 
                         <!-- Shortcuts -->
-                        <Button Name="grid_Popup_MoveApplication_button_Close" Margin="0,10,0,0" IsTabStop="False" HorizontalAlignment="Center" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                        <Button Name="grid_Popup_MoveApplication_button_Close" Margin="0,10,0,0" IsTabStop="False" HorizontalAlignment="Center" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close popup">
                             <StackPanel Orientation="Horizontal">
                                 <Image Name="image_MoveApplication_Close" Source="/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                                 <Image Source="/Assets/Default/Icons/Close.png" Height="35" Width="35"/>

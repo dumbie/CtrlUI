@@ -9,7 +9,6 @@
                 <ResourceDictionary Source="ms-appx:///ArnoldVinkStyles/Styles/MainColors.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ArnoldVinkStyles/Styles/MainFonts.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ArnoldVinkStyles/Styles/ControlTemplates/ListView.xaml"/>
-                <ResourceDictionary Source="ms-appx:///ArnoldVinkStyles/Styles/ControlTemplates/TextBox.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ArnoldVinkStyles/Styles/MainStyles.xaml"/>
                 <ResourceDictionary Source="Styles/DataTemplates/DataTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
