@@ -25,7 +25,6 @@ namespace CtrlUI
                         image_Manage_Close.Visibility = Visibility.Collapsed;
                         image_Manage_Save.Visibility = Visibility.Collapsed;
                         image_Settings_Close.Visibility = Visibility.Collapsed;
-                        image_Monitor_Close.Visibility = Visibility.Collapsed;
                         image_Help_Close.Visibility = Visibility.Collapsed;
                         image_ColorPicker_Close.Visibility = Visibility.Collapsed;
                         image_FilePicker_Close.Visibility = Visibility.Collapsed;
@@ -57,7 +56,6 @@ namespace CtrlUI
                         image_Manage_Close.Visibility = Visibility.Visible;
                         image_Manage_Save.Visibility = Visibility.Visible;
                         image_Settings_Close.Visibility = Visibility.Visible;
-                        image_Monitor_Close.Visibility = Visibility.Visible;
                         image_Help_Close.Visibility = Visibility.Visible;
                         image_ColorPicker_Close.Visibility = Visibility.Visible;
                         image_FilePicker_Close.Visibility = Visibility.Visible;

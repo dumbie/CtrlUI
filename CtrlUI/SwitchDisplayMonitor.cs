@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
+using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -15,25 +16,121 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        private async void Btn_Monitor_HDR_Disable_Click(object sender, RoutedEventArgs e)
+        public async Task SwitchDisplayMonitor()
         {
             try
             {
-                await AllMonitorSwitchHDR(false, false);
+                Debug.WriteLine("Loading display monitor options.");
+
+                //Add all options to answers list
+                List<DataBindString> answersList = new List<DataBindString>();
+
+                DataBindString answerSwitchPrimary = new DataBindString()
+                {
+                    Name = "Switch to primary monitor",
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/MonitorPrimary.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    })
+                };
+                answersList.Add(answerSwitchPrimary);
+
+                DataBindString answerSwitchSecondary = new DataBindString()
+                {
+                    Name = "Switch to secondary monitor",
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/MonitorSecondary.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    })
+                };
+                answersList.Add(answerSwitchSecondary);
+
+                DataBindString answerSwitchDuplicate = new DataBindString()
+                {
+                    Name = "Switch to duplicate mode",
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/MonitorDuplicate.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    })
+                };
+                answersList.Add(answerSwitchDuplicate);
+
+                DataBindString answerSwitchExtend = new DataBindString()
+                {
+                    Name = "Switch to extend mode",
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/MonitorExtend.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    })
+                };
+                answersList.Add(answerSwitchExtend);
+
+                DataBindString answerHdrEnable = new DataBindString()
+                {
+                    Name = "Enable monitor HDR mode",
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/MonitorHDR.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    })
+                };
+                answersList.Add(answerHdrEnable);
+
+                DataBindString answerHdrDisable = new DataBindString()
+                {
+                    Name = "Disable monitor HDR mode",
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/MonitorHDR.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    })
+                };
+                answersList.Add(answerHdrDisable);
+
+                //Show messagebox prompt
+                DataBindString messageResult = await Popup_Show_MessageBox("Monitor Settings", string.Empty, string.Empty, answersList);
+                if (messageResult != null)
+                {
+                    if (messageResult == answerSwitchPrimary)
+                    {
+                        await Monitor_Switch_Primary();
+                    }
+                    else if (messageResult == answerSwitchSecondary)
+                    {
+                        await Monitor_Switch_Secondary();
+                    }
+                    else if (messageResult == answerSwitchDuplicate)
+                    {
+                        await Monitor_Switch_Duplicate();
+                    }
+                    else if (messageResult == answerSwitchExtend)
+                    {
+                        await Monitor_Switch_Extend();
+                    }
+                    else if (messageResult == answerHdrEnable)
+                    {
+                        await AllMonitorSwitchHDR(true, false);
+                    }
+                    else if (messageResult == answerHdrDisable)
+                    {
+                        await AllMonitorSwitchHDR(false, false);
+                    }
+                }
             }
             catch { }
         }
 
-        private async void Btn_Monitor_HDR_Enable_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await AllMonitorSwitchHDR(true, false);
-            }
-            catch { }
-        }
-
-        private async void Btn_Monitor_Switch_Extend_Click(object sender, RoutedEventArgs e)
+        async Task Monitor_Switch_Extend()
         {
             try
             {
@@ -48,7 +145,7 @@ namespace CtrlUI
             catch { }
         }
 
-        private async void Btn_Monitor_Switch_Duplicate_Click(object sender, RoutedEventArgs e)
+        async Task Monitor_Switch_Duplicate()
         {
             try
             {
@@ -63,7 +160,7 @@ namespace CtrlUI
             catch { }
         }
 
-        private async void Btn_Monitor_Switch_Secondary_Click(object sender, RoutedEventArgs e)
+        async Task Monitor_Switch_Secondary()
         {
             try
             {
@@ -78,7 +175,7 @@ namespace CtrlUI
             catch { }
         }
 
-        private async void Btn_Monitor_Switch_Primary_Click(object sender, RoutedEventArgs e)
+        async Task Monitor_Switch_Primary()
         {
             try
             {
@@ -93,7 +190,7 @@ namespace CtrlUI
             catch { }
         }
 
-        //Enable monitor HDR
+        //Enable monitor HDR and Windows Auto HDR
         async Task EnableHDRDatabindAuto(DataBindApp dataBindApp)
         {
             try
@@ -145,7 +242,7 @@ namespace CtrlUI
                     SetMonitorHDR(i, enableHDR);
                 }
 
-                //Wait for hdr to have enabled
+                //Wait for HDR initialization
                 if (waitHDR)
                 {
                     await Task.Delay(500);

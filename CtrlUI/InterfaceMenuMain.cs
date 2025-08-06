@@ -62,7 +62,7 @@ namespace CtrlUI
                 //Check clicked button
                 string selectedItemString = dataBindString.Data1.ToString();
                 if (selectedItemString == "menuButtonUpdateRestart") { UpdateRestart(); }
-                else if (selectedItemString == "menuButtonMonitor") { await Popup_Show(grid_Popup_Monitor, btn_Monitor_Switch_Primary); }
+                else if (selectedItemString == "menuButtonMonitor") { await SwitchDisplayMonitor(); }
                 else if (selectedItemString == "menuButtonAudioDevice") { await SwitchAudioDevice(); }
                 else if (selectedItemString == "menuButtonRunExe") { await LaunchExecutableFile(); }
                 else if (selectedItemString == "menuButtonRunStore") { await LaunchStoreApplication(); }
@@ -85,32 +85,6 @@ namespace CtrlUI
         {
             try
             {
-                DataBindString menuButtonMonitor = new DataBindString
-                {
-                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
-                    {
-                        FilePaths = ["Assets/Default/Icons/Monitor.png"],
-                        BackupPath = vImageBackupSource,
-                        Dispatcher = this.Dispatcher
-                    }),
-                    Name = "Change display monitor settings",
-                    Data1 = "menuButtonMonitor"
-                };
-                List_MainMenu.Add(menuButtonMonitor);
-
-                DataBindString menuButtonAudioDevice = new DataBindString
-                {
-                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
-                    {
-                        FilePaths = ["Assets/Default/Icons/VolumeUp.png"],
-                        BackupPath = vImageBackupSource,
-                        Dispatcher = this.Dispatcher
-                    }),
-                    Name = "Switch audio playback device",
-                    Data1 = "menuButtonAudioDevice"
-                };
-                List_MainMenu.Add(menuButtonAudioDevice);
-
                 DataBindString menuButtonRunExe = new DataBindString
                 {
                     ImageBitmap = await FileToBitmapImage(new AVImageFile()
@@ -228,6 +202,32 @@ namespace CtrlUI
                 };
                 List_MainMenu.Add(menuButtonRecycleBin);
 
+                DataBindString menuButtonMonitor = new DataBindString
+                {
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/Monitor.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
+                    Name = "Change display monitor settings",
+                    Data1 = "menuButtonMonitor"
+                };
+                List_MainMenu.Add(menuButtonMonitor);
+
+                DataBindString menuButtonAudioDevice = new DataBindString
+                {
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/VolumeUp.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    }),
+                    Name = "Switch audio playback device",
+                    Data1 = "menuButtonAudioDevice"
+                };
+                List_MainMenu.Add(menuButtonAudioDevice);
+
                 DataBindString menuButtonProfileManager = new DataBindString
                 {
                     ImageBitmap = await FileToBitmapImage(new AVImageFile()
@@ -236,7 +236,7 @@ namespace CtrlUI
                         BackupPath = vImageBackupSource,
                         Dispatcher = this.Dispatcher
                     }),
-                    Name = "Open the profile manager",
+                    Name = "Open application profile manager",
                     Data1 = "menuButtonProfileManager"
                 };
                 List_MainMenu.Add(menuButtonProfileManager);
