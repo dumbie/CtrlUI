@@ -813,8 +813,7 @@
                                 <TextBox Grid.Column="1" Name="grid_Popup_ProfileManager_textbox_ProfileString2" Style="{StaticResource TextBoxWhite}"/>
                             </Grid>
 
-                            <Button Name="grid_Popup_ProfileManager_button_ProfileAdd" Margin="0,10,0,0" Content="Add value to profile" Style="{StaticResource ButtonAccentWhite}"/>
-                            <Button Name="grid_Popup_ProfileManager_button_ChangeProfile" Margin="0,10,0,0" Content="Change manage profile" Style="{StaticResource ButtonAccentWhite}"/>
+                            <Button Name="grid_Popup_ProfileManager_button_ProfileAdd" Margin="0,10,0,0" Content="Add value to profile" Style="{StaticResource ButtonAccentWhite}" HorizontalAlignment="Stretch"/>
                         </StackPanel>
 
                         <ListView Grid.Row="2" Margin="0,10,0,0" Name="listView_ProfileManager" SelectionMode="Single" ItemContainerStyle="{StaticResource ListViewItemWhite}" ItemTemplate="{StaticResource ListViewItemProfile}" Style="{StaticResource ListViewVertical}"/>

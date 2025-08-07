@@ -9,16 +9,6 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Change the edit profile category
-        async void Grid_Popup_ProfileManager_button_ChangeProfile_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await ChangeProfileCategory();
-            }
-            catch { }
-        }
-
         //Add new profile value
         async void grid_Popup_ProfileManager_textbox_ProfileString_KeyDown(object sender, KeyRoutedEventArgs e)
         {

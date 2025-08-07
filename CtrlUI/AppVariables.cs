@@ -173,7 +173,7 @@ namespace CtrlUI
         public static string vFilePickerPreviousPath = string.Empty;
 
         //Profile Manager Variables
-        public static string vProfileManagerName = "CtrlLocationsShortcut";
+        public static string vProfileManagerName = string.Empty;
         public static ObservableCollection<ProfileShared> vProfileManagerListShared = null;
 
         //Clipboard Variables

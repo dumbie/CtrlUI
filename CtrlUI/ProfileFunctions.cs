@@ -22,8 +22,18 @@ namespace CtrlUI
         {
             try
             {
-                //Show the manage popup
-                await Popup_Show(grid_Popup_ProfileManager, grid_Popup_ProfileManager_button_ChangeProfile);
+                //Select manage profile
+                await SelectProfileCategory();
+
+                //Check manage profile
+                if (string.IsNullOrWhiteSpace(vProfileManagerName))
+                {
+                    Debug.WriteLine("No manage profile is set.");
+                    return;
+                }
+
+                //Show manage popup
+                await Popup_Show(grid_Popup_ProfileManager, grid_Popup_ProfileManager_button_ProfileAdd);
 
                 //Load profile in manager
                 await ProfileManager_LoadProfile();
@@ -203,8 +213,8 @@ namespace CtrlUI
             catch { }
         }
 
-        //Change the edit profile category
-        private async Task ChangeProfileCategory()
+        //Select edit profile category
+        private async Task SelectProfileCategory()
         {
             try
             {
@@ -218,7 +228,7 @@ namespace CtrlUI
                     Dispatcher = this.Dispatcher
                 });
 
-                DataBindString stringCtrlLocationsShortcut = new DataBindString() { Name = "Shortcut locations", Data1 = "CtrlLocationsShortcut", ImageBitmap = imageProfile };
+                DataBindString stringCtrlLocationsShortcut = new DataBindString() { Name = "Shortcut load locations", Data1 = "CtrlLocationsShortcut", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlLocationsShortcut);
 
                 DataBindString stringCtrlLocationsFile = new DataBindString() { Name = "File browser locations", Data1 = "CtrlLocationsFile", ImageBitmap = imageProfile };
@@ -236,19 +246,20 @@ namespace CtrlUI
                 DataBindString stringCtrlKeyboardProcessName = new DataBindString() { Name = "Keyboard open process names", Data1 = "CtrlKeyboardProcessName", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlKeyboardProcessName);
 
-                //Show the messagebox
-                DataBindString messageResult = await Popup_Show_MessageBox("Profile Category", "", "Please select the profile to manage:", Answers);
+                //Show messagebox
+                DataBindString messageResult = await Popup_Show_MessageBox("Profile Category", string.Empty, "Please select profile category to manage:", Answers);
                 if (messageResult != null)
                 {
                     if (messageResult.Data1 != null)
                     {
-                        //Set the selected profile category
+                        //Set selected profile category
                         vProfileManagerName = messageResult.Data1.ToString();
-
-                        //Load profile in manager
-                        await ProfileManager_LoadProfile();
+                        return;
                     }
                 }
+
+                //Reset selected profile category
+                vProfileManagerName = string.Empty;
             }
             catch { }
         }

@@ -225,7 +225,7 @@
 
     <!-- ListViewItemProfile -->
     <DataTemplate x:Key="ListViewItemProfile">
-        <Grid Margin="5" ToolTipService.ToolTip="Remove the profile value">
+        <Grid Margin="5" ToolTipService.ToolTip="Remove profile value">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
