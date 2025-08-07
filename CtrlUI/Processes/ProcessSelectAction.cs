@@ -164,7 +164,7 @@ namespace CtrlUI
                         BackupPath = vImageBackupSource,
                         Dispatcher = this.Dispatcher
                     });
-                    applicationAutoHDR = CheckApplicationAutoHDR(dataBindApp);
+                    applicationAutoHDR = ApplicationForceAutoHDRCheck(dataBindApp);
                     if (applicationAutoHDR)
                     {
                         AnswerAutoHDR.Name = "Disable Windows Auto HDR support";
@@ -283,15 +283,15 @@ namespace CtrlUI
                     {
                         if (applicationAutoHDR)
                         {
-                            await DisableApplicationAutoHDR(dataBindApp);
+                            await ApplicationForceAutoHDRDisable(dataBindApp);
                         }
                         else
                         {
                             //Enable Windows auto HDR feature
-                            await EnableWindowsAutoHDRFeature();
+                            await WindowsAutoHDREnable();
 
-                            //Allow auto HDR for application
-                            await EnableApplicationAutoHDR(dataBindApp);
+                            //Force auto HDR for application
+                            await ApplicationForceAutoHDREnable(dataBindApp);
                         }
                     }
                 }

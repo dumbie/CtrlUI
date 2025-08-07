@@ -10,7 +10,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Enable Windows Auto HDR feature
-        async Task EnableWindowsAutoHDRFeature()
+        async Task WindowsAutoHDREnable()
         {
             try
             {
@@ -52,17 +52,54 @@ namespace CtrlUI
                     }
                 }
 
-                Debug.WriteLine("Enabled Windows Auto HDR feature.");
+                Debug.WriteLine("Enabled Windows Auto HDR.");
+                await Notification_Show_Status("MonitorHDR", "Enabled Windows Auto HDR");
             }
             catch
             {
-                Debug.WriteLine("Failed to enable Windows Auto HDR feature.");
-                await Notification_Show_Status("MonitorHDR", "Failed enabling Windows Auto HDR feature");
+                Debug.WriteLine("Failed to enable Windows Auto HDR.");
+                await Notification_Show_Status("MonitorHDR", "Failed enabling Windows Auto HDR");
+            }
+        }
+
+        //Disable Windows Auto HDR feature
+        async Task WindowsAutoHDRDisable()
+        {
+            try
+            {
+                //Open the Windows registry
+                using (RegistryKey regKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
+                {
+                    //Open Microsoft subkey
+                    using (RegistryKey microsoftSubKey = regKeyCurrentUser.CreateSubKey("Software\\Microsoft\\DirectX\\UserGpuPreferences", true))
+                    {
+                        //Get global settings value
+                        string globalSettingsString = microsoftSubKey.GetValue("DirectXUserGlobalSettings")?.ToString();
+
+                        //Set global settings value
+                        if (!string.IsNullOrWhiteSpace(globalSettingsString))
+                        {
+                            if (globalSettingsString.Contains("AutoHDREnable=1"))
+                            {
+                                globalSettingsString = globalSettingsString.Replace("AutoHDREnable=1", "AutoHDREnable=0");
+                            }
+                            microsoftSubKey.SetValue("DirectXUserGlobalSettings", globalSettingsString);
+                        }
+                    }
+                }
+
+                Debug.WriteLine("Disabled Windows Auto HDR.");
+                await Notification_Show_Status("MonitorHDR", "Disabled Windows Auto HDR");
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to disabling Windows Auto HDR.");
+                await Notification_Show_Status("MonitorHDR", "Failed disabling Windows Auto HDR");
             }
         }
 
         //Check Auto HDR for application
-        bool CheckApplicationAutoHDR(DataBindApp dataBindApp)
+        bool ApplicationForceAutoHDRCheck(DataBindApp dataBindApp)
         {
             try
             {
@@ -103,7 +140,7 @@ namespace CtrlUI
         }
 
         //Enable Auto HDR for unsupported application
-        async Task EnableApplicationAutoHDR(DataBindApp dataBindApp)
+        async Task ApplicationForceAutoHDREnable(DataBindApp dataBindApp)
         {
             try
             {
@@ -143,7 +180,7 @@ namespace CtrlUI
         }
 
         //Disable Auto HDR for unsupported application
-        async Task DisableApplicationAutoHDR(DataBindApp dataBindApp)
+        async Task ApplicationForceAutoHDRDisable(DataBindApp dataBindApp)
         {
             try
             {

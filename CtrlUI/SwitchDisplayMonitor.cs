@@ -75,7 +75,7 @@ namespace CtrlUI
 
                 DataBindString answerHdrEnable = new DataBindString()
                 {
-                    Name = "Enable monitor HDR mode",
+                    Name = "Enable HDR for all monitors",
                     ImageBitmap = await FileToBitmapImage(new AVImageFile()
                     {
                         FilePaths = ["Assets/Default/Icons/MonitorHDR.png"],
@@ -87,7 +87,7 @@ namespace CtrlUI
 
                 DataBindString answerHdrDisable = new DataBindString()
                 {
-                    Name = "Disable monitor HDR mode",
+                    Name = "Disable HDR for all monitors",
                     ImageBitmap = await FileToBitmapImage(new AVImageFile()
                     {
                         FilePaths = ["Assets/Default/Icons/MonitorHDR.png"],
@@ -96,6 +96,30 @@ namespace CtrlUI
                     })
                 };
                 answersList.Add(answerHdrDisable);
+
+                DataBindString answerAutoHdrEnable = new DataBindString()
+                {
+                    Name = "Enable Windows Auto HDR",
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/MonitorHDR.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    })
+                };
+                answersList.Add(answerAutoHdrEnable);
+
+                DataBindString answerAutoHdrDisable = new DataBindString()
+                {
+                    Name = "Disable Windows Auto HDR",
+                    ImageBitmap = await FileToBitmapImage(new AVImageFile()
+                    {
+                        FilePaths = ["Assets/Default/Icons/MonitorHDR.png"],
+                        BackupPath = vImageBackupSource,
+                        Dispatcher = this.Dispatcher
+                    })
+                };
+                answersList.Add(answerAutoHdrDisable);
 
                 //Show messagebox prompt
                 DataBindString messageResult = await Popup_Show_MessageBox("Monitor Settings", string.Empty, string.Empty, answersList);
@@ -124,6 +148,14 @@ namespace CtrlUI
                     else if (messageResult == answerHdrDisable)
                     {
                         await AllMonitorSwitchHDR(false, false);
+                    }
+                    else if (messageResult == answerAutoHdrEnable)
+                    {
+                        await WindowsAutoHDREnable();
+                    }
+                    else if (messageResult == answerAutoHdrDisable)
+                    {
+                        await WindowsAutoHDRDisable();
                     }
                 }
             }
@@ -204,10 +236,10 @@ namespace CtrlUI
                 if (dataBindApp.LaunchEnableAutoHDR)
                 {
                     //Enable Windows auto HDR feature
-                    await EnableWindowsAutoHDRFeature();
+                    await WindowsAutoHDREnable();
 
-                    //Allow auto HDR for application
-                    await EnableApplicationAutoHDR(dataBindApp);
+                    //Force auto HDR for application
+                    await ApplicationForceAutoHDREnable(dataBindApp);
                 }
 
                 //Wait for HDR initialization
