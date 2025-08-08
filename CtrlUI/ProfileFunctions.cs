@@ -51,12 +51,21 @@ namespace CtrlUI
                 //Load requested profile values
                 if (vProfileManagerName == "CtrlLocationsShortcut")
                 {
-                    grid_Popup_ProfileManager_txt_Description.Text = "Shortcut locations";
+                    grid_Popup_ProfileManager_txt_Description.Text = "Shortcut load locations";
                     grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Path";
                     grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
 
                     vProfileManagerListShared = vCtrlLocationsShortcut;
                     listView_ProfileManager.ItemsSource = vCtrlLocationsShortcut;
+                }
+                else if (vProfileManagerName == "CtrlLocationsGallery")
+                {
+                    grid_Popup_ProfileManager_txt_Description.Text = "Gallery load locations";
+                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Path";
+                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
+
+                    vProfileManagerListShared = vCtrlLocationsGallery;
+                    listView_ProfileManager.ItemsSource = vCtrlLocationsGallery;
                 }
                 else if (vProfileManagerName == "CtrlLocationsFile")
                 {
@@ -230,6 +239,9 @@ namespace CtrlUI
 
                 DataBindString stringCtrlLocationsShortcut = new DataBindString() { Name = "Shortcut load locations", Data1 = "CtrlLocationsShortcut", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlLocationsShortcut);
+
+                DataBindString stringCtrlLocationsGallery = new DataBindString() { Name = "Gallery load locations", Data1 = "CtrlLocationsGallery", ImageBitmap = imageProfile };
+                Answers.Add(stringCtrlLocationsGallery);
 
                 DataBindString stringCtrlLocationsFile = new DataBindString() { Name = "File browser locations", Data1 = "CtrlLocationsFile", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlLocationsFile);
