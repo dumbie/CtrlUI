@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkStyles;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
@@ -55,16 +56,16 @@ namespace CtrlUI
             {
                 DispatcherInvoke(delegate
                 {
-                    SolidColorBrush ControllerColor0Brush = new BrushConverter().ConvertFrom(vController0.Color.ToString()) as SolidColorBrush;
+                    SolidColorBrush ControllerColor0Brush = AVColorConverters.HexToSolidColorBrush(vController0.Color);
                     border_Menu_Controller0.Background = ControllerColor0Brush;
 
-                    SolidColorBrush ControllerColor1Brush = new BrushConverter().ConvertFrom(vController1.Color.ToString()) as SolidColorBrush;
+                    SolidColorBrush ControllerColor1Brush = AVColorConverters.HexToSolidColorBrush(vController1.Color);
                     border_Menu_Controller1.Background = ControllerColor1Brush;
 
-                    SolidColorBrush ControllerColor2Brush = new BrushConverter().ConvertFrom(vController2.Color.ToString()) as SolidColorBrush;
+                    SolidColorBrush ControllerColor2Brush = AVColorConverters.HexToSolidColorBrush(vController2.Color);
                     border_Menu_Controller2.Background = ControllerColor2Brush;
 
-                    SolidColorBrush ControllerColor3Brush = new BrushConverter().ConvertFrom(vController3.Color.ToString()) as SolidColorBrush;
+                    SolidColorBrush ControllerColor3Brush = AVColorConverters.HexToSolidColorBrush(vController3.Color);
                     border_Menu_Controller3.Background = ControllerColor3Brush;
                 });
             }

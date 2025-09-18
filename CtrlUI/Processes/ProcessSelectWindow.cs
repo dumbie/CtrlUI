@@ -49,7 +49,7 @@ namespace CtrlUI
                             }
 
                             //Check window style
-                            WindowStylesEx windowStyle = (WindowStylesEx)GetWindowLongAuto(windowHandle, (int)WindowLongFlags.GWL_EXSTYLE).ToInt64();
+                            WindowStylesEx windowStyle = (WindowStylesEx)GetWindowLongAuto(windowHandle, WindowLongFlags.GWL_EXSTYLE).ToInt64();
                             if (windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW))
                             {
                                 windowSubString += " (Tool)";
@@ -69,7 +69,7 @@ namespace CtrlUI
 
                             //Check window placement
                             GetWindowPlacement(windowHandle, out WindowPlacement windowPlacement);
-                            if (windowPlacement.windowShowCommand == WindowShowCommand.Minimized)
+                            if (windowPlacement.windowShowCommand == ShowWindowFlags.SW_MINIMIZE)
                             {
                                 windowSubString += " (Minimized)";
                             }

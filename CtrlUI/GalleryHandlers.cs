@@ -17,7 +17,7 @@ namespace CtrlUI
             {
                 //Start delay timer
                 vAVTimerDelay.Interval = 50;
-                vAVTimerDelay.Tick = delegate
+                vAVTimerDelay.TickSet = delegate
                 {
                     try
                     {

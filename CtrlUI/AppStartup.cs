@@ -22,7 +22,7 @@ namespace CtrlUI
                 await RestartDelay(e);
 
                 //Setup application defaults
-                AVStartup.SetupDefaults(ProcessPriority.High, true);
+                AVStartup.SetupDefaults(ProcessPriorityClasses.HIGH_PRIORITY_CLASS, true);
 
                 //Backup Json profiles
                 BackupJsonProfiles();

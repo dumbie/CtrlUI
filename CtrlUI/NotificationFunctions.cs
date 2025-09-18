@@ -1,9 +1,4 @@
-﻿using ArnoldVinkCode;
-using ArnoldVinkStyles;
-using System;
-using System.ComponentModel;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVImage;
@@ -35,7 +30,7 @@ namespace CtrlUI
 
                 //Start notification timer
                 vAVTimerOverlay.Interval = 3000;
-                vAVTimerOverlay.Tick = delegate
+                vAVTimerOverlay.TickSet = delegate
                 {
                     try
                     {

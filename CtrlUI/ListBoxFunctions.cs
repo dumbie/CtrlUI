@@ -326,7 +326,7 @@ namespace CtrlUI
 
                 //Start overlay timer
                 vAVTimerOverlay.Interval = 2000;
-                vAVTimerOverlay.Tick = delegate
+                vAVTimerOverlay.TickSet = delegate
                 {
                     try
                     {
