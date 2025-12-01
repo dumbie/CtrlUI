@@ -58,7 +58,7 @@ namespace CtrlUI
                     await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileFile, false, false);
 
                     //Focus on the listbox item
-                    await ListViewFocusIndex(listView_FilePicker, true, 0, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusIndex(listView_FilePicker, true, 0);
 
                     //Check if there are files or folders
                     FilePicker_CheckFilesAndFoldersCount();

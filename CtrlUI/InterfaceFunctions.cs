@@ -12,7 +12,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using static ArnoldVinkCode.AVProcess;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -157,7 +156,7 @@ namespace CtrlUI
                 grid_Popup_Settings_button_Close.Click += Button_Popup_Close_Click;
                 btn_Settings_AppQuickLaunch.Click += Button_Settings_AppQuickLaunch;
                 btn_Settings_LaunchDirectXInput.Click += Button_LaunchDirectXInput_Click;
-                btn_Settings_LaunchScreenCaptureTool.Click += Button_LaunchScreenCaptureTool_Click;
+                btn_Settings_LaunchScreenCapy.Click += Button_LaunchScreenCapy_Click;
                 btn_Settings_LaunchFpsOverlayer.Click += Button_LaunchFpsOverlayer_Click;
                 btn_Settings_CheckForUpdate.Click += Button_Settings_CheckForUpdate_Click;
                 btn_Settings_ColorPickerAccent.Click += Button_Settings_ColorPickerAccent;
@@ -188,7 +187,7 @@ namespace CtrlUI
         {
             try
             {
-                string interfaceFontStyleName = SettingLoad(vConfigurationCtrlUI, "InterfaceFontStyleName", typeof(string));
+                string interfaceFontStyleName = vSettings.Load("InterfaceFontStyleName", typeof(string));
                 if (interfaceFontStyleName == "Segoe UI" || interfaceFontStyleName == "Verdana" || interfaceFontStyleName == "Consolas" || interfaceFontStyleName == "Arial")
                 {
                     this.FontFamily = new FontFamily(interfaceFontStyleName);
@@ -222,7 +221,7 @@ namespace CtrlUI
         {
             try
             {
-                string clockStyle = SettingLoad(vConfigurationCtrlUI, "InterfaceClockStyleName", typeof(string));
+                string clockStyle = vSettings.Load("InterfaceClockStyleName", typeof(string));
                 string clockPath = "Assets/Default/Clocks/" + clockStyle;
                 if (Directory.Exists("Assets/User/Clocks/" + clockStyle))
                 {
@@ -342,7 +341,7 @@ namespace CtrlUI
                 bool runningBattleNet = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "battle.net");
                 bool runningDiscord = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "discord");
                 bool runningDirectXInput = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "directxinput");
-                bool runningScreenCaptureTool = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "screencapturetool");
+                bool runningScreenCapy = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "ScreenCapy");
                 bool runningFpsOverlayer = processMultiList.Any(x => x.ExeNameNoExt.ToLower() == "fpsoverlayer");
 
                 DispatcherInvoke(this.Dispatcher, delegate
@@ -355,7 +354,7 @@ namespace CtrlUI
                     img_Menu_BattleNetStatus.Opacity = runningBattleNet ? 1.00 : 0.40;
                     img_Menu_DiscordStatus.Opacity = runningDiscord ? 1.00 : 0.40;
                     img_Menu_DirectXInputStatus.Opacity = runningDirectXInput ? 1.00 : 0.40;
-                    img_Menu_ScreenCaptureToolStatus.Opacity = runningScreenCaptureTool ? 1.00 : 0.40;
+                    img_Menu_ScreenCapyStatus.Opacity = runningScreenCapy ? 1.00 : 0.40;
                     img_Menu_FpsOverlayerStatus.Opacity = runningFpsOverlayer ? 1.00 : 0.40;
                 });
             }
@@ -367,7 +366,7 @@ namespace CtrlUI
         {
             try
             {
-                int targetFontSize = SettingLoad(vConfigurationCtrlUI, "AppFontSize", typeof(int));
+                int targetFontSize = vSettings.Load("AppFontSize", typeof(int));
                 Debug.WriteLine("Adjusting the font size to: " + targetFontSize);
 
                 double TextSizeTiny = 10;
@@ -398,7 +397,7 @@ namespace CtrlUI
         {
             try
             {
-                int targetSize = SettingLoad(vConfigurationCtrlUI, "AppImageSize", typeof(int));
+                int targetSize = vSettings.Load("AppImageSize", typeof(int));
                 Debug.WriteLine("Adjusting the image size to: " + targetSize);
 
                 double ApplicationPanelSize = 110;
@@ -480,16 +479,16 @@ namespace CtrlUI
                     BackupPath = vImageBackupSource,
                     Dispatcher = this.Dispatcher
                 });
-                img_Menu_ScreenCaptureToolStatus.Source = await FileToBitmapImage(new AVImageFile()
+                img_Menu_ScreenCapyStatus.Source = await FileToBitmapImage(new AVImageFile()
                 {
-                    FilePaths = ["ScreenCaptureTool"],
+                    FilePaths = ["ScreenCapy"],
                     SearchPaths = vImageSourceFoldersAppsCombined,
                     BackupPath = vImageBackupSource,
                     Dispatcher = this.Dispatcher
                 });
 
                 //Check if the first launch logo's need to be loaded
-                if (SettingLoad(vConfigurationCtrlUI, "AppFirstLaunch", typeof(bool)))
+                if (vSettings.Load("AppFirstLaunch", typeof(bool)))
                 {
                     grid_Popup_Welcome_img_Edge.Source = await FileToBitmapImage(new AVImageFile()
                     {

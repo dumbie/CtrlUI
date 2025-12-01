@@ -9,7 +9,6 @@ using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVProcess;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -66,7 +65,7 @@ namespace CtrlUI
                 }
 
                 //Get gallery load days setting
-                int galleryLoadDaysInt = SettingLoad(vConfigurationCtrlUI, "GalleryLoadDays", typeof(int));
+                int galleryLoadDaysInt = vSettings.Load("GalleryLoadDays", typeof(int));
                 DateTime galleryLoadDaysDateTime = DateTime.Now.AddDays(-galleryLoadDaysInt);
 
                 //Get all files from gallery directories

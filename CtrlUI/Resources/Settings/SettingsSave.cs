@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static CtrlUI.AppVariables;
 
@@ -16,27 +15,27 @@ namespace CtrlUI
             {
                 cb_SettingsLaunchMinimized.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationCtrlUI, "LaunchMinimized", cb_SettingsLaunchMinimized.IsChecked.ToString());
+                    vSettings.Set("LaunchMinimized", cb_SettingsLaunchMinimized.IsChecked.ToString());
                 };
 
                 cb_SettingsLaunchFpsOverlayer.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationCtrlUI, "LaunchFpsOverlayer", cb_SettingsLaunchFpsOverlayer.IsChecked.ToString());
+                    vSettings.Set("LaunchFpsOverlayer", cb_SettingsLaunchFpsOverlayer.IsChecked.ToString());
                 };
 
                 cb_SettingsLaunchDirectXInput.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationCtrlUI, "LaunchDirectXInput", cb_SettingsLaunchDirectXInput.IsChecked.ToString());
+                    vSettings.Set("LaunchDirectXInput", cb_SettingsLaunchDirectXInput.IsChecked.ToString());
                 };
 
-                cb_SettingsLaunchScreenCaptureTool.Click += (sender, e) =>
+                cb_SettingsLaunchScreenCapy.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationCtrlUI, "LaunchScreenCaptureTool", cb_SettingsLaunchScreenCaptureTool.IsChecked.ToString());
+                    vSettings.Set("LaunchScreenCapy", cb_SettingsLaunchScreenCapy.IsChecked.ToString());
                 };
 
                 cb_SettingsHideBatteryLevel.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationCtrlUI, "HideBatteryLevel", cb_SettingsHideBatteryLevel.IsChecked.ToString());
+                    vSettings.Set("HideBatteryLevel", cb_SettingsHideBatteryLevel.IsChecked.ToString());
                     if ((bool)cb_SettingsHideBatteryLevel.IsChecked)
                     {
                         HideBatteryStatus(true);
@@ -45,14 +44,14 @@ namespace CtrlUI
 
                 cb_SettingsHideControllerHelp.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationCtrlUI, "HideControllerHelp", cb_SettingsHideControllerHelp.IsChecked.ToString());
+                    vSettings.Set("HideControllerHelp", cb_SettingsHideControllerHelp.IsChecked.ToString());
                     UpdateControllerHelp();
                 };
 
-                cb_SettingsShowHiddenFilesFolders.Click += (sender, e) => { SettingSave(vConfigurationCtrlUI, "ShowHiddenFilesFolders", cb_SettingsShowHiddenFilesFolders.IsChecked.ToString()); };
-                cb_SettingsHideNetworkDrives.Click += (sender, e) => { SettingSave(vConfigurationCtrlUI, "HideNetworkDrives", cb_SettingsHideNetworkDrives.IsChecked.ToString()); };
+                cb_SettingsShowHiddenFilesFolders.Click += (sender, e) => { vSettings.Set("ShowHiddenFilesFolders", cb_SettingsShowHiddenFilesFolders.IsChecked.ToString()); };
+                cb_SettingsHideNetworkDrives.Click += (sender, e) => { vSettings.Set("HideNetworkDrives", cb_SettingsHideNetworkDrives.IsChecked.ToString()); };
 
-                cb_SettingsInterfaceSound.Click += (sender, e) => { SettingSave(vConfigurationCtrlUI, "InterfaceSound", cb_SettingsInterfaceSound.IsChecked.ToString()); };
+                cb_SettingsInterfaceSound.Click += (sender, e) => { vSettings.Set("InterfaceSound", cb_SettingsInterfaceSound.IsChecked.ToString()); };
 
                 cb_SettingsWindowsStartup.Click += (sender, e) =>
                 {
@@ -62,21 +61,21 @@ namespace CtrlUI
                 slider_SettingsAppFontSize.ValueChangedDelay += (sender, e) =>
                 {
                     textblock_SettingsAppFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(slider_SettingsAppFontSize.Value);
-                    SettingSave(vConfigurationCtrlUI, "AppFontSize", slider_SettingsAppFontSize.Value);
+                    vSettings.Set("AppFontSize", slider_SettingsAppFontSize.Value);
                     AdjustApplicationFontSize();
                 };
 
                 slider_SettingsAppImageSize.ValueChangedDelay += (sender, e) =>
                 {
                     textblock_SettingsAppImageSize.Text = "Adjust the application image size: " + Convert.ToInt32(slider_SettingsAppImageSize.Value);
-                    SettingSave(vConfigurationCtrlUI, "AppImageSize", slider_SettingsAppImageSize.Value);
+                    vSettings.Set("AppImageSize", slider_SettingsAppImageSize.Value);
                     AdjustApplicationImageSize();
                 };
 
                 slider_SettingsAppWindowSize.ValueChangedDelay += async (sender, e) =>
                 {
                     textblock_SettingsAppWindowSize.Text = textblock_SettingsAppWindowSize.Tag + ": " + slider_SettingsAppWindowSize.Value.ToString() + "%";
-                    SettingSave(vConfigurationCtrlUI, "AppWindowSize", slider_SettingsAppWindowSize.Value);
+                    vSettings.Set("AppWindowSize", slider_SettingsAppWindowSize.Value);
                     WindowUpdateStyle(vWindowMain.GetHandle(), true, false, false, false);
                     await UpdateWindowPosition(true);
                 };
@@ -84,14 +83,14 @@ namespace CtrlUI
                 slider_SettingsDisplayMonitor.ValueChangedDelay += async (sender, e) =>
                 {
                     textblock_SettingsDisplayMonitor.Text = textblock_SettingsDisplayMonitor.Tag + ": " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
-                    SettingSave(vConfigurationCtrlUI, "DisplayMonitor", slider_SettingsDisplayMonitor.Value);
+                    vSettings.Set("DisplayMonitor", slider_SettingsDisplayMonitor.Value);
                     WindowUpdateStyle(vWindowMain.GetHandle(), true, false, false, false);
                     await UpdateWindowPosition(false);
                 };
 
                 cb_SettingsMonitorPreventSleep.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationCtrlUI, "MonitorPreventSleep", cb_SettingsMonitorPreventSleep.IsChecked.ToString());
+                    vSettings.Set("MonitorPreventSleep", cb_SettingsMonitorPreventSleep.IsChecked.ToString());
                     //Prevent or allow monitor sleep
                     UpdateMonitorSleepAuto();
                 };
@@ -99,19 +98,19 @@ namespace CtrlUI
                 slider_SettingsAdjustChromiumDpi.ValueChangedDelay += (sender, e) =>
                 {
                     textblock_SettingsAdjustChromiumDpi.Text = textblock_SettingsAdjustChromiumDpi.Tag + ": +" + slider_SettingsAdjustChromiumDpi.Value.ToString("0.00") + "%";
-                    SettingSave(vConfigurationCtrlUI, "AdjustChromiumDpi", slider_SettingsAdjustChromiumDpi.Value);
+                    vSettings.Set("AdjustChromiumDpi", slider_SettingsAdjustChromiumDpi.Value);
                 };
 
                 slider_SettingsSoundVolume.ValueChangedDelay += (sender, e) =>
                 {
                     textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(slider_SettingsSoundVolume.Value) + "%";
-                    SettingSave(vConfigurationCtrlUI, "InterfaceSoundVolume", slider_SettingsSoundVolume.Value);
+                    vSettings.Set("InterfaceSoundVolume", slider_SettingsSoundVolume.Value);
                 };
 
                 slider_SettingsGalleryLoadDays.ValueChangedDelay += (sender, e) =>
                 {
                     textblock_SettingsGalleryLoadDays.Text = "Limit gallery loading days: " + Convert.ToInt32(slider_SettingsGalleryLoadDays.Value);
-                    SettingSave(vConfigurationCtrlUI, "GalleryLoadDays", slider_SettingsGalleryLoadDays.Value);
+                    vSettings.Set("GalleryLoadDays", slider_SettingsGalleryLoadDays.Value);
                 };
             }
             catch (Exception ex)

@@ -9,7 +9,6 @@ using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVFocus;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -78,38 +77,38 @@ namespace CtrlUI
                 if (dataBindString.Name == "Startup")
                 {
                     settingsStackpanelLaunch.Visibility = Visibility.Visible;
-                    await FocusFrameworkElement(cb_SettingsWindowsStartup, vProcessCurrent.WindowHandleMain);
+                    await FocusFrameworkElement(cb_SettingsWindowsStartup);
                 }
                 else if (dataBindString.Name == "Display")
                 {
                     settingsStackpanelDisplay.Visibility = Visibility.Visible;
-                    await FocusFrameworkElement(cb_SettingsMonitorPreventSleep, vProcessCurrent.WindowHandleMain);
+                    await FocusFrameworkElement(cb_SettingsMonitorPreventSleep);
                 }
                 else if (dataBindString.Name == "Launchers")
                 {
                     settingsStackpanelApps.Visibility = Visibility.Visible;
                     int selectedIndex = listView_LauncherSetting.SelectedIndex;
-                    await ListViewFocusIndex(listView_LauncherSetting, false, selectedIndex, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusIndex(listView_LauncherSetting, false, selectedIndex);
                 }
                 else if (dataBindString.Name == "Interface")
                 {
                     settingsStackpanelInterface.Visibility = Visibility.Visible;
-                    await FocusFrameworkElement(cb_SettingsHideBatteryLevel, vProcessCurrent.WindowHandleMain);
+                    await FocusFrameworkElement(cb_SettingsHideBatteryLevel);
                 }
                 else if (dataBindString.Name == "Sound")
                 {
                     settingsStackpanelSound.Visibility = Visibility.Visible;
-                    await FocusFrameworkElement(cb_SettingsInterfaceSound, vProcessCurrent.WindowHandleMain);
+                    await FocusFrameworkElement(cb_SettingsInterfaceSound);
                 }
                 else if (dataBindString.Name == "File Browser")
                 {
                     settingsStackpanelBrowser.Visibility = Visibility.Visible;
-                    await FocusFrameworkElement(cb_SettingsShowHiddenFilesFolders, vProcessCurrent.WindowHandleMain);
+                    await FocusFrameworkElement(cb_SettingsShowHiddenFilesFolders);
                 }
                 else if (dataBindString.Name == "Other")
                 {
                     settingsStackpanelOther.Visibility = Visibility.Visible;
-                    await FocusFrameworkElement(slider_SettingsGalleryLoadDays, vProcessCurrent.WindowHandleMain);
+                    await FocusFrameworkElement(slider_SettingsGalleryLoadDays);
                 }
             }
             catch { }
@@ -214,7 +213,7 @@ namespace CtrlUI
                     await Notification_Show_Status("Font", "Font style changed");
 
                     //Update the setting
-                    SettingSave(vConfigurationCtrlUI, "InterfaceFontStyleName", messageResult.Name);
+                    vSettings.Set("InterfaceFontStyleName", messageResult.Name);
 
                     //Adjust the application font family
                     AdjustApplicationFontStyle();
@@ -264,7 +263,7 @@ namespace CtrlUI
                     await Notification_Show_Status("Clock", "Clock style changed");
 
                     //Update the setting
-                    SettingSave(vConfigurationCtrlUI, "InterfaceClockStyleName", messageResult.Name);
+                    vSettings.Set("InterfaceClockStyleName", messageResult.Name);
 
                     //Update the clock style
                     await UpdateClockStyle();
@@ -313,7 +312,7 @@ namespace CtrlUI
                     await Notification_Show_Status("VolumeUp", "Sound pack changed");
 
                     //Update the setting
-                    SettingSave(vConfigurationCtrlUI, "InterfaceSoundPackName", messageResult.Name);
+                    vSettings.Set("InterfaceSoundPackName", messageResult.Name);
                 }
             }
             catch { }
@@ -329,7 +328,7 @@ namespace CtrlUI
             catch { }
         }
 
-        //Launch Fps Overlayer application
+        //Launch FpsOverlayer application
         void Button_LaunchFpsOverlayer_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -339,12 +338,12 @@ namespace CtrlUI
             catch { }
         }
 
-        //Launch Screen Capture Tool application
-        void Button_LaunchScreenCaptureTool_Click(object sender, RoutedEventArgs e)
+        //Launch ScreenCapy application
+        void Button_LaunchScreenCapy_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                LaunchScreenCaptureTool(false);
+                LaunchScreenCapy(false);
             }
             catch { }
         }

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVArrayFunctions;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVSortObservableCollection;
 using static CtrlUI.AppVariables;
@@ -65,7 +64,7 @@ namespace CtrlUI
                     try
                     {
                         string settingName = "ShowLibrary" + appLauncher.ToString();
-                        if (SettingLoad(vConfigurationCtrlUI, settingName, typeof(bool)))
+                        if (vSettings.Load(settingName, typeof(bool)))
                         {
                             if (appLauncher == AppLauncher.FourGame)
                             {

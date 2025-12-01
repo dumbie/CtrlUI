@@ -226,7 +226,7 @@ namespace CtrlUI
             catch { }
         }
 
-        //Close Fps Overlayer
+        //Close FpsOverlayer
         async Task CloseFpsOverlayer()
         {
             try
@@ -238,10 +238,10 @@ namespace CtrlUI
                     return;
                 }
 
-                Debug.WriteLine("Hiding Fps Overlayer");
+                Debug.WriteLine("Hiding FpsOverlayer");
 
                 //Show notification
-                await Notification_Show_Status("Fps", "Hiding Fps Overlayer");
+                await Notification_Show_Status("Fps", "Hiding FpsOverlayer");
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();

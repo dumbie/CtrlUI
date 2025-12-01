@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVArrayFunctions;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -106,7 +105,7 @@ namespace CtrlUI
                     {
                         BitmapImage imageBitmap = await LoadLauncherImage(appLauncher, vImageLoadSizeApplication, 0);
                         string settingName = "ShowLibrary" + appLauncher.ToString();
-                        bool settingEnabled = SettingLoad(vConfigurationCtrlUI, settingName, typeof(bool));
+                        bool settingEnabled = vSettings.Load(settingName, typeof(bool));
                         listView_LauncherSetting.Items.Add(new LauncherSetting()
                         {
                             AppLauncher = appLauncher,

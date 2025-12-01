@@ -4,7 +4,6 @@ using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.MainColors;
 using static CtrlUI.AppVariables;
 
@@ -39,7 +38,7 @@ namespace CtrlUI
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
                 //Change application accent color
-                string colorLightHex = SettingLoad(vConfigurationCtrlUI, "ColorAccentLight", typeof(string));
+                string colorLightHex = vSettings.Load("ColorAccentLight", typeof(string));
                 ChangeApplicationAccentColor(colorLightHex);
 
                 //Set the application clock style
@@ -58,7 +57,7 @@ namespace CtrlUI
                 AdjustApplicationImageSize();
 
                 //Check settings if need to minimize or focus window
-                if (SettingLoad(vConfigurationCtrlUI, "LaunchMinimized", typeof(bool)))
+                if (vSettings.Load("LaunchMinimized", typeof(bool)))
                 {
                     //Minimize CtrlUI window
                     await AppWindowMinimize(false, true);
@@ -106,25 +105,25 @@ namespace CtrlUI
                 TasksBackgroundStart();
 
                 //Check settings if DirectXInput launches on start
-                if (SettingLoad(vConfigurationCtrlUI, "LaunchDirectXInput", typeof(bool)))
+                if (vSettings.Load("LaunchDirectXInput", typeof(bool)))
                 {
                     LaunchDirectXInput(true);
                 }
 
-                //Check settings if Fps Overlayer launches on start
-                if (SettingLoad(vConfigurationCtrlUI, "LaunchFpsOverlayer", typeof(bool)))
+                //Check settings if FpsOverlayer launches on start
+                if (vSettings.Load("LaunchFpsOverlayer", typeof(bool)))
                 {
                     LaunchFpsOverlayer(true);
                 }
 
-                //Check settings if Screen Capture Tool launches on start
-                if (SettingLoad(vConfigurationCtrlUI, "LaunchScreenCaptureTool", typeof(bool)))
+                //Check settings if ScreenCapy launches on start
+                if (vSettings.Load("LaunchScreenCapy", typeof(bool)))
                 {
-                    LaunchScreenCaptureTool(true);
+                    LaunchScreenCapy(true);
                 }
 
                 //Check settings if this is the first application launch
-                if (SettingLoad(vConfigurationCtrlUI, "AppFirstLaunch", typeof(bool)))
+                if (vSettings.Load("AppFirstLaunch", typeof(bool)))
                 {
                     await FirstLaunchAddApps();
                 }
@@ -155,7 +154,7 @@ namespace CtrlUI
         {
             try
             {
-                int socketServerPort = SettingLoad(vConfigurationCtrlUI, "ServerPort", typeof(int));
+                int socketServerPort = vSettings.Load("ServerPort", typeof(int));
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", socketServerPort, false, true);
                 vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;

@@ -24,7 +24,7 @@ namespace CtrlUI
                 if (!vSortingOpen)
                 {
                     //Play the opening sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PromptOpen", false, false);
+                    PlayInterfaceSound(vSettings, "PromptOpen", false, false);
 
                     //Save the previous focus element
                     AVFocusDetailsSave(vSortingElementFocus, null);
@@ -314,7 +314,7 @@ namespace CtrlUI
                 }
 
                 //Focus on first listbox answer
-                await ListViewFocusIndex(listView_Sorting, false, 0, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_Sorting, false, 0);
             }
             catch (Exception ex)
             {
@@ -328,7 +328,7 @@ namespace CtrlUI
             try
             {
                 //Play the closing sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PromptClose", false, false);
+                PlayInterfaceSound(vSettings, "PromptClose", false, false);
 
                 //Reset the popup variables
                 vSortingOpen = false;
@@ -337,7 +337,7 @@ namespace CtrlUI
                 Popup_Hide_Element(grid_Popup_Sorting);
 
                 //Focus on the previous focus element
-                await AVFocusDetailsFocus(vSortingElementFocus, vProcessCurrent.WindowHandleMain);
+                await AVFocusDetailsFocus(vSortingElementFocus);
             }
             catch (Exception ex)
             {

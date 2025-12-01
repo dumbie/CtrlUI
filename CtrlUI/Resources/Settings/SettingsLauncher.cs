@@ -3,7 +3,6 @@ using System;
 using System.Diagnostics;
 using Windows.System;
 using Windows.UI.Xaml.Input;
-using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -27,7 +26,7 @@ namespace CtrlUI
                 launcherSetting.Enabled = !launcherSetting.Enabled;
 
                 //Save launcher setting
-                SettingSave(vConfigurationCtrlUI, launcherSetting.Name, launcherSetting.Enabled);
+                vSettings.Set(launcherSetting.Name, launcherSetting.Enabled);
 
                 //Remove launcher apps
                 if (!launcherSetting.Enabled)

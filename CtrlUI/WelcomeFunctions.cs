@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVProcess;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVUwpAppx;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -19,7 +18,7 @@ namespace CtrlUI
             try
             {
                 //Set application first launch to false
-                SettingSave(vConfigurationCtrlUI, "AppFirstLaunch", "False");
+                vSettings.Set("AppFirstLaunch", "False");
 
                 //Disable main menu buttons
                 MainMenuButtonsDisable();

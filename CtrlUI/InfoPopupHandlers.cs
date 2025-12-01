@@ -20,7 +20,7 @@ namespace CtrlUI
             try
             {
                 //Play the closing sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PromptClose", false, false);
+                PlayInterfaceSound(vSettings, "PromptClose", false, false);
 
                 //Reset popup variables
                 vContentInformationOpen = false;
@@ -31,7 +31,7 @@ namespace CtrlUI
                 Popup_Hide_Element(grid_Popup_ContentInformation);
 
                 //Focus on the previous focus element
-                await AVFocusDetailsFocus(vContentInformationElementFocus, vProcessCurrent.WindowHandleMain);
+                await AVFocusDetailsFocus(vContentInformationElementFocus);
             }
             catch (Exception ex)
             {

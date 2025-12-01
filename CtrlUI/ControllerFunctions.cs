@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkStyles;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
@@ -8,7 +9,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -55,16 +55,16 @@ namespace CtrlUI
             {
                 DispatcherInvoke(this.Dispatcher, delegate
                 {
-                    SolidColorBrush ControllerColor0Brush = new SolidColorBrush(vController0.Color);
+                    SolidColorBrush ControllerColor0Brush = AVColorConverters.HexToSolidColorBrush(vController0.Color);
                     border_Menu_Controller0.Background = ControllerColor0Brush;
 
-                    SolidColorBrush ControllerColor1Brush = new SolidColorBrush(vController1.Color);
+                    SolidColorBrush ControllerColor1Brush = AVColorConverters.HexToSolidColorBrush(vController1.Color);
                     border_Menu_Controller1.Background = ControllerColor1Brush;
 
-                    SolidColorBrush ControllerColor2Brush = new SolidColorBrush(vController2.Color);
+                    SolidColorBrush ControllerColor2Brush = AVColorConverters.HexToSolidColorBrush(vController2.Color);
                     border_Menu_Controller2.Background = ControllerColor2Brush;
 
-                    SolidColorBrush ControllerColor3Brush = new SolidColorBrush(vController3.Color);
+                    SolidColorBrush ControllerColor3Brush = AVColorConverters.HexToSolidColorBrush(vController3.Color);
                     border_Menu_Controller3.Background = ControllerColor3Brush;
                 });
             }
@@ -202,7 +202,7 @@ namespace CtrlUI
         {
             try
             {
-                if (ForceHide || SettingLoad(vConfigurationCtrlUI, "HideBatteryLevel", typeof(bool)))
+                if (ForceHide || vSettings.Load("HideBatteryLevel", typeof(bool)))
                 {
                     DispatcherInvoke(this.Dispatcher, delegate
                     {

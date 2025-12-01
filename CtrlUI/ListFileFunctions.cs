@@ -79,7 +79,7 @@ namespace CtrlUI
                     await RemoveAppFromList(dataBindApp, false, false, true);
 
                     //Select previous index
-                    await ListViewFocusIndex(listboxSender, false, listboxSelectedIndex, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusIndex(listboxSender, false, listboxSelectedIndex);
                 }
             }
             catch { }

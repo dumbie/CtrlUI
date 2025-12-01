@@ -3,7 +3,6 @@ using ArnoldVinkStyles;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Security.Principal;
@@ -15,7 +14,6 @@ using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSearch;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVFocus;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -31,7 +29,7 @@ namespace CtrlUI
         //Application Variables
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static CultureInfo vAppCultureInfo = CultureInfo.InvariantCulture;
-        public static Configuration vConfigurationCtrlUI = SettingLoadConfig("CtrlUI.exe.csettings");
+        public static AVSettingsConfig vSettings = new AVSettingsConfig("CtrlUI.exe.csettings");
 
         //Api Variables
         public static string vApiHltbAuthKey = string.Empty;

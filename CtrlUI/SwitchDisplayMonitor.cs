@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -294,7 +293,7 @@ namespace CtrlUI
             {
                 DispatcherInvoke(this.Dispatcher, delegate
                 {
-                    if (SettingLoad(vConfigurationCtrlUI, "MonitorPreventSleep", typeof(bool)))
+                    if (vSettings.Load("MonitorPreventSleep", typeof(bool)))
                     {
                         Debug.WriteLine("Preventing monitor to sleep.");
                         SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_DISPLAY_REQUIRED);

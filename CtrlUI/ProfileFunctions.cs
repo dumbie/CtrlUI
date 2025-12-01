@@ -115,7 +115,7 @@ namespace CtrlUI
                 }
 
                 //Select the first listbox item
-                await ListViewFocusIndex(listView_ProfileManager, false, 0, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_ProfileManager, false, 0);
             }
             catch { }
         }

@@ -32,7 +32,7 @@ namespace CtrlUI
                 if (!vContentInformationOpen)
                 {
                     //Play the opening sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PromptOpen", false, false);
+                    PlayInterfaceSound(vSettings, "PromptOpen", false, false);
 
                     //Save the previous focus element
                     AVFocusDetailsSave(vContentInformationElementFocus, null);
@@ -70,7 +70,7 @@ namespace CtrlUI
                 Popup_Show_Element(grid_Popup_ContentInformation);
 
                 //Focus on button
-                await FocusFrameworkElement(btn_ContentInfo_Focus, vProcessCurrent.WindowHandleMain);
+                await FocusFrameworkElement(btn_ContentInfo_Focus);
             }
             catch (Exception ex)
             {

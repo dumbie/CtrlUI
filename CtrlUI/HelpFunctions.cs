@@ -2,7 +2,6 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using static ArnoldVinkCode.AVFunctions;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static CtrlUI.AppVariables;
 
@@ -82,7 +81,7 @@ namespace CtrlUI
                     }
 
                     //Check if help setting is enabled or disabled
-                    if (SettingLoad(vConfigurationCtrlUI, "HideControllerHelp", typeof(bool)))
+                    if (vSettings.Load("HideControllerHelp", typeof(bool)))
                     {
                         grid_ControllerHelp.Visibility = Visibility.Collapsed;
                     }

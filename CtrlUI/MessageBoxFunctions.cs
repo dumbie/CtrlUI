@@ -21,7 +21,7 @@ namespace CtrlUI
                 if (!vMessageBoxOpen)
                 {
                     //Play the opening sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PromptOpen", false, false);
+                    PlayInterfaceSound(vSettings, "PromptOpen", false, false);
 
                     //Save the previous focus element
                     AVFocusDetailsSave(vMessageBoxElementFocus, null);
@@ -77,7 +77,7 @@ namespace CtrlUI
                 Popup_Show_Element(grid_Popup_MessageBox);
 
                 //Focus on first listbox answer
-                await ListViewFocusIndex(listView_MessageBox, false, 0, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_MessageBox, false, 0);
 
                 //Wait for user messagebox input
                 while (vMessageBoxResult == null && !vMessageBoxCancelled) { await Task.Delay(500); }
@@ -99,7 +99,7 @@ namespace CtrlUI
             try
             {
                 //Play the closing sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PromptClose", false, false);
+                PlayInterfaceSound(vSettings, "PromptClose", false, false);
 
                 //Reset the popup variables
                 vMessageBoxCancelled = true;
@@ -110,7 +110,7 @@ namespace CtrlUI
                 Popup_Hide_Element(grid_Popup_MessageBox);
 
                 //Focus on the previous focus element
-                await AVFocusDetailsFocus(vMessageBoxElementFocus, vProcessCurrent.WindowHandleMain);
+                await AVFocusDetailsFocus(vMessageBoxElementFocus);
             }
             catch (Exception ex)
             {

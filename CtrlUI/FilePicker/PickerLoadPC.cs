@@ -7,7 +7,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 using static ArnoldVinkCode.AVClasses;
 using static ArnoldVinkCode.AVDiskInfo;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVShellInfo;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVImage;
@@ -182,7 +181,7 @@ namespace CtrlUI
                 }
 
                 //Load file browser settings
-                bool hideNetworkDrives = SettingLoad(vConfigurationCtrlUI, "HideNetworkDrives", typeof(bool));
+                bool hideNetworkDrives = vSettings.Load("HideNetworkDrives", typeof(bool));
 
                 //Add disk drives
                 foreach (string diskDrive in Directory.GetLogicalDrives())

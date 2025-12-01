@@ -6,7 +6,6 @@ using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVProcess;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVFocus;
@@ -40,11 +39,11 @@ namespace CtrlUI
             try
             {
                 //Get the current active screen
-                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
+                int monitorNumber = vSettings.Load("DisplayMonitor", typeof(int));
                 DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                 //Resize the window size
-                double appWindowSize = SettingLoad(vConfigurationCtrlUI, "AppWindowSize", typeof(double)) / 100;
+                double appWindowSize = vSettings.Load("AppWindowSize", typeof(double)) / 100;
                 int windowWidth = Convert.ToInt32(displayMonitorSettings.WidthNative * appWindowSize);
                 int windowHeight = Convert.ToInt32(displayMonitorSettings.HeightNative * appWindowSize);
                 WindowResize(vWindowMain.GetHandle(), windowWidth, windowHeight);
@@ -116,7 +115,7 @@ namespace CtrlUI
                     UpdateMonitorSleepAuto();
 
                     //Check keyboard focus
-                    CheckFocusFrameworkElement(vProcessCurrent.WindowHandleMain);
+                    await CheckFocusFrameworkElement();
                 }
             }
             catch { }
@@ -221,7 +220,7 @@ namespace CtrlUI
                 //Play maximize sound
                 if (!skipSound)
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
+                    PlayInterfaceSound(vSettings, "PopupOpen", false, false);
                 }
 
                 //Hide foreground window
@@ -238,6 +237,9 @@ namespace CtrlUI
 
                 //Move mouse cursor to target
                 MoveMousePosition();
+
+                //Check keyboard focus
+                await CheckFocusFrameworkElement();
             }
             catch { }
         }
@@ -256,7 +258,7 @@ namespace CtrlUI
                 vWindowMain.Minimize();
 
                 //Play minimize sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
+                PlayInterfaceSound(vSettings, "PopupClose", false, false);
 
                 //Show minimize notification
                 if (!skipNotification)

@@ -149,7 +149,7 @@ namespace CtrlUI
                     return;
                 }
 
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
+                PlayInterfaceSound(vSettings, "PopupOpen", false, false);
 
                 //Save the previous focus element
                 AVFocusDetailsSave(vMainMenuElementFocus, null);
@@ -160,7 +160,7 @@ namespace CtrlUI
                 vMainMenuOpen = true;
 
                 //Focus on the menu listbox
-                await ListViewFocusIndex(listView_MainMenu, false, -1, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_MainMenu, false, -1);
 
                 //Update the clock with date
                 UpdateClockTime();
@@ -181,7 +181,7 @@ namespace CtrlUI
             {
                 if (vMainMenuOpen)
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
+                    PlayInterfaceSound(vSettings, "PopupClose", false, false);
 
                     //Reset popup variables
                     vMainMenuOpen = false;
@@ -193,7 +193,7 @@ namespace CtrlUI
                     UpdateClockTime();
 
                     //Focus on the previous focus element
-                    await AVFocusDetailsFocus(vMainMenuElementFocus, vProcessCurrent.WindowHandleMain);
+                    await AVFocusDetailsFocus(vMainMenuElementFocus);
                 }
             }
             catch { }
@@ -206,7 +206,7 @@ namespace CtrlUI
             {
                 if (!vPopupOpen)
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
+                    PlayInterfaceSound(vSettings, "PopupOpen", false, false);
 
                     //Update popup variables
                     vPopupElementTarget = ShowPopup;
@@ -223,7 +223,7 @@ namespace CtrlUI
                     //Force focus on element
                     if (FocusElement != null)
                     {
-                        await AVFocus.FocusFrameworkElement(FocusElement, vProcessCurrent.WindowHandleMain);
+                        await AVFocus.FocusFrameworkElement(FocusElement);
                     }
                 }
             }
@@ -237,7 +237,7 @@ namespace CtrlUI
             {
                 if (vPopupOpen)
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
+                    PlayInterfaceSound(vSettings, "PopupClose", false, false);
 
                     //Reset popup variables
                     vPopupOpen = false;
@@ -246,7 +246,7 @@ namespace CtrlUI
                     Popup_Hide_Element(vPopupElementTarget);
 
                     //Focus on the previous focus element
-                    await AVFocusDetailsFocus(vPopupElementFocus, vProcessCurrent.WindowHandleMain);
+                    await AVFocusDetailsFocus(vPopupElementFocus);
                 }
             }
             catch { }

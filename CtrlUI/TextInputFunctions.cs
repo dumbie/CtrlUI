@@ -51,7 +51,7 @@ namespace CtrlUI
                 await Popup_Reset_TextInput(false, textDefault);
 
                 //Play the opening sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
+                PlayInterfaceSound(vSettings, "PopupOpen", false, false);
 
                 //Save the previous focus element
                 AVFocusDetailsSave(vTextInputElementFocus, null);
@@ -63,12 +63,12 @@ namespace CtrlUI
                 if (focusButton && !string.IsNullOrWhiteSpace(textDefault))
                 {
                     //Focus on the confirm button
-                    await FocusFrameworkElement(grid_Popup_TextInput_button_ConfirmText, vProcessCurrent.WindowHandleMain);
+                    await FocusFrameworkElement(grid_Popup_TextInput_button_ConfirmText);
                 }
                 else
                 {
                     //Focus on the text input box
-                    await FocusFrameworkElement(grid_Popup_TextInput_textbox, vProcessCurrent.WindowHandleMain);
+                    await FocusFrameworkElement(grid_Popup_TextInput_textbox);
 
                     //Launch the keyboard controller
                     if (vAppActivated && vControllerAnyConnected())
@@ -101,7 +101,7 @@ namespace CtrlUI
                     grid_Popup_TextInput_textbox.SelectionStart = grid_Popup_TextInput_textbox.Text.Length;
 
                     //Force focus on element
-                    await FocusFrameworkElement(grid_Popup_TextInput_textbox, vProcessCurrent.WindowHandleMain);
+                    await FocusFrameworkElement(grid_Popup_TextInput_textbox);
                 }
                 else if (focusTextbox)
                 {
@@ -109,7 +109,7 @@ namespace CtrlUI
                     grid_Popup_TextInput_textbox.Text = string.Empty;
 
                     //Force focus on element
-                    await FocusFrameworkElement(grid_Popup_TextInput_textbox, vProcessCurrent.WindowHandleMain);
+                    await FocusFrameworkElement(grid_Popup_TextInput_textbox);
                 }
                 else
                 {
@@ -126,7 +126,7 @@ namespace CtrlUI
                 if (vTextInputOpen)
                 {
                     //Play the closing sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
+                    PlayInterfaceSound(vSettings, "PopupClose", false, false);
 
                     //Reset the popup variables
                     vTextInputCancelled = true;
@@ -137,7 +137,7 @@ namespace CtrlUI
                     Popup_Hide_Element(grid_Popup_TextInput);
 
                     //Focus on the previous focus element
-                    await AVFocusDetailsFocus(vTextInputElementFocus, vProcessCurrent.WindowHandleMain);
+                    await AVFocusDetailsFocus(vTextInputElementFocus);
                 }
             }
             catch { }

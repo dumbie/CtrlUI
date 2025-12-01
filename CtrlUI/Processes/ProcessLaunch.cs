@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVProcess;
-using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -150,12 +149,12 @@ namespace CtrlUI
                 if (vCtrlChromiumBrowsers.Any(x => x.String1.ToLower() == exeNameLower || x.String1.ToLower() == appUserModelIdLower))
                 {
                     //Get the current active screen
-                    int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
+                    int monitorNumber = vSettings.Load("DisplayMonitor", typeof(int));
                     DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                     //Get the current screen dpi
                     double screenDPI = displayMonitorSettings.DpiScaleHorizontal;
-                    double chromiumDPI = SettingLoad(vConfigurationCtrlUI, "AdjustChromiumDpi", typeof(double));
+                    double chromiumDPI = vSettings.Load("AdjustChromiumDpi", typeof(double));
 
                     //Update the launch argument
                     string stringDPI = (screenDPI + chromiumDPI).ToString(vAppCultureInfo);
@@ -226,22 +225,22 @@ namespace CtrlUI
             catch { }
         }
 
-        //Launch Fps Overlayer application
+        //Launch FpsOverlayer application
         void LaunchFpsOverlayer(bool silentLaunch)
         {
             try
             {
-                AVTaskScheduler.TaskRun("ArnoldVink_FpsOverlayer", "Fps Overlayer", silentLaunch);
+                AVTaskScheduler.TaskRun("ArnoldVink_FpsOverlayer", "FpsOverlayer", silentLaunch);
             }
             catch { }
         }
 
-        //Launch Screen Capture Tool application
-        void LaunchScreenCaptureTool(bool silentLaunch)
+        //Launch ScreenCapy application
+        void LaunchScreenCapy(bool silentLaunch)
         {
             try
             {
-                AVTaskScheduler.TaskRun("ArnoldVink_ScreenCaptureTool", "Screen Capture Tool", silentLaunch);
+                AVTaskScheduler.TaskRun("ArnoldVink_ScreenCapy", "ScreenCapy", silentLaunch);
             }
             catch { }
         }

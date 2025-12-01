@@ -1,7 +1,6 @@
 ﻿using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInputOutputInterop;
 using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.AVSettings;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -14,7 +13,7 @@ namespace CtrlUI
             try
             {
                 //Get current active screen
-                int monitorNumber = SettingLoad(vConfigurationCtrlUI, "DisplayMonitor", typeof(int));
+                int monitorNumber = vSettings.Load("DisplayMonitor", typeof(int));
                 DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                 //Get current window location and size

@@ -43,7 +43,7 @@ namespace CtrlUI
                 if (!vFilePickerOpen)
                 {
                     //Play the popup opening sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
+                    PlayInterfaceSound(vSettings, "PopupOpen", false, false);
 
                     //Save the previous focus element
                     DispatcherInvoke(this.Dispatcher, delegate
@@ -177,7 +177,7 @@ namespace CtrlUI
                         //Focus on file picker listbox item
                         await DispatcherInvoke(this.Dispatcher, async delegate
                         {
-                            await ListViewFocusItem(listView_FilePicker, sourceFileItem, vProcessCurrent.WindowHandleMain);
+                            await ListViewFocusItem(listView_FilePicker, sourceFileItem);
                         });
                         return;
                     }
@@ -186,7 +186,7 @@ namespace CtrlUI
                 //Focus on file picker listbox index
                 await DispatcherInvoke(this.Dispatcher, async delegate
                 {
-                    await ListViewFocusIndex(listView_FilePicker, false, targetIndex, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusIndex(listView_FilePicker, false, targetIndex);
                 });
             }
             catch { }
@@ -338,7 +338,7 @@ namespace CtrlUI
         {
             try
             {
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
+                PlayInterfaceSound(vSettings, "PopupClose", false, false);
 
                 //Cancel file picker load
                 while (vFilePickerLoadBusy)
@@ -384,7 +384,7 @@ namespace CtrlUI
                 Popup_Hide_Element(grid_Popup_FilePicker);
 
                 //Focus on the previous focus element
-                await AVFocusDetailsFocus(vFilePickerElementFocus, vProcessCurrent.WindowHandleMain);
+                await AVFocusDetailsFocus(vFilePickerElementFocus);
             }
             catch { }
         }

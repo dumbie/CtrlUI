@@ -484,15 +484,15 @@ namespace CtrlUI
                     //Focus on the application list
                     if (selectedAppCategory == AppCategory.Game)
                     {
-                        await ListViewFocusIndex(listView_Games, true, 0, vProcessCurrent.WindowHandleMain);
+                        await ListViewFocusIndex(listView_Games, true, 0);
                     }
                     else if (selectedAppCategory == AppCategory.App)
                     {
-                        await ListViewFocusIndex(listView_Apps, true, 0, vProcessCurrent.WindowHandleMain);
+                        await ListViewFocusIndex(listView_Apps, true, 0);
                     }
                     else if (selectedAppCategory == AppCategory.Emulator)
                     {
-                        await ListViewFocusIndex(listView_Emulators, true, 0, vProcessCurrent.WindowHandleMain);
+                        await ListViewFocusIndex(listView_Emulators, true, 0);
                     }
                 }
                 else
@@ -696,19 +696,19 @@ namespace CtrlUI
             {
                 if (vCurrentListCategory == ListCategory.Search)
                 {
-                    await ListViewFocusItem(listView_Search, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusItem(listView_Search, vEditAppDataBind);
                 }
                 else if (vEditAppDataBind.Category == AppCategory.Game)
                 {
-                    await ListViewFocusItem(listView_Games, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusItem(listView_Games, vEditAppDataBind);
                 }
                 else if (vEditAppDataBind.Category == AppCategory.App)
                 {
-                    await ListViewFocusItem(listView_Apps, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusItem(listView_Apps, vEditAppDataBind);
                 }
                 else if (vEditAppDataBind.Category == AppCategory.Emulator)
                 {
-                    await ListViewFocusItem(listView_Emulators, vEditAppDataBind, vProcessCurrent.WindowHandleMain);
+                    await ListViewFocusItem(listView_Emulators, vEditAppDataBind);
                 }
             }
             catch { }

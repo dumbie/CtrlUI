@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
-using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkStyles.AVDispatcherInvoke;
 using static ArnoldVinkStyles.AVImage;
 using static CtrlUI.AppVariables;
@@ -143,7 +142,7 @@ namespace CtrlUI
                                 //Add folder to the list
                                 bool systemFileFolder = listFolder.Attributes.HasFlag(FileAttributes.System);
                                 bool hiddenFileFolder = listFolder.Attributes.HasFlag(FileAttributes.Hidden);
-                                if (!systemFileFolder && (!hiddenFileFolder || SettingLoad(vConfigurationCtrlUI, "ShowHiddenFilesFolders", typeof(bool))))
+                                if (!systemFileFolder && (!hiddenFileFolder || vSettings.Load("ShowHiddenFilesFolders", typeof(bool))))
                                 {
                                     DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, ClipboardType = clipboardType, Name = listFolder.Name, NameDetail = folderDetailed, DateCreated = listFolder.CreationTime, DateModified = listFolder.LastWriteTime, PathFile = listFolder.FullName, PathRoot = targetPath };
                                     await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
@@ -224,7 +223,7 @@ namespace CtrlUI
                                 //Add file to the list
                                 bool systemFileFolder = listFile.Attributes.HasFlag(FileAttributes.System);
                                 bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
-                                if (!systemFileFolder && (!hiddenFileFolder || SettingLoad(vConfigurationCtrlUI, "ShowHiddenFilesFolders", typeof(bool))))
+                                if (!systemFileFolder && (!hiddenFileFolder || vSettings.Load("ShowHiddenFilesFolders", typeof(bool))))
                                 {
                                     DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, ClipboardType = clipboardType, IsShortcut = fileIsShortcut, Size = fileSizeLong, Extension = fileExtension, Name = listFile.Name, NameDetail = fileDetailed, DateCreated = listFile.CreationTime, DateModified = listFile.LastWriteTime, PathFile = listFile.FullName, PathRoot = targetPath };
                                     await ListViewAddItem(listView_FilePicker, List_FilePicker, dataBindFileFile, false, false);

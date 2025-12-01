@@ -52,7 +52,7 @@ namespace CtrlUI
                 Popup_Reset_ColorPicker();
 
                 //Show the search popup
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
+                PlayInterfaceSound(vSettings, "PopupOpen", false, false);
 
                 //Save the previous focus element
                 AVFocusDetailsSave(vColorPickerElementFocus, null);
@@ -63,7 +63,7 @@ namespace CtrlUI
                 vColorPickerOpen = true;
 
                 //Focus on the file picker listbox
-                await ListViewFocusIndex(listView_ColorPicker, false, 0, vProcessCurrent.WindowHandleMain);
+                await ListViewFocusIndex(listView_ColorPicker, false, 0);
             }
             catch { }
         }
@@ -95,7 +95,7 @@ namespace CtrlUI
             {
                 if (vColorPickerOpen)
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
+                    PlayInterfaceSound(vSettings, "PopupClose", false, false);
 
                     //Reset popup variables
                     vColorPickerOpen = false;
@@ -107,7 +107,7 @@ namespace CtrlUI
                     Popup_Hide_Element(grid_Popup_ColorPicker);
 
                     //Focus on the previous focus element
-                    await AVFocusDetailsFocus(vColorPickerElementFocus, vProcessCurrent.WindowHandleMain);
+                    await AVFocusDetailsFocus(vColorPickerElementFocus);
                 }
             }
             catch { }
